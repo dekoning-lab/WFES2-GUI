@@ -42,14 +42,20 @@ Item {
             }
             Button {
                 text: "time_dist"
-                onClicked: console.warn("WARNING: time_dist clicked - Not implemented yet.")
+                onClicked: {
+                    menu.push("qrc:/views/timeDistButtons.qml");
+                    back.visible = true;
+                }
                 Layout.leftMargin: 30
                 Layout.alignment: Qt.AlignHCenter
                 Layout.preferredWidth: 100
             }
             Button {
-                text: "phase_dist"
-                onClicked: console.warn("WARNING: phase_dist clicked - Not implemented yet.")
+                text: "phase_type"
+                onClicked: {
+                    menu.push("qrc:/views/phaseTypeButtons.qml");
+                    back.visible = true;
+                }
                 Layout.rightMargin: 30
                 Layout.alignment: Qt.AlignHCenter
                 Layout.preferredWidth: 100

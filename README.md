@@ -24,3 +24,5 @@ In development.
 * [Intel MKL](https://software.intel.com/content/www/us/en/develop/tools/math-kernel-library.html) ([ISSL License](https://software.intel.com/content/www/us/en/develop/articles/end-user-license-agreement.html))
 * [Eigen](http://eigen.tuxfamily.org/) ([MPL2 License](https://www.mozilla.org/en-US/MPL/2.0/))
 * [ViennaCL](https://github.com/viennacl/viennacl-dev) ([Custom License](https://github.com/viennacl/viennacl-dev/blob/master/LICENSE))
+* [Font Awesome](https://fontawesome.com/) ([[MIT License](https://opensource.org/licenses/mit-license.html), [SIL OFL 1.1 License](https://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL)](https://fontawesome.com/v4.7.0/license/))
+* [Tenderness Font](https://fontlibrary.org/en/font/tenderness) ([CC-0](https://creativecommons.org/share-your-work/public-domain/cc0/))

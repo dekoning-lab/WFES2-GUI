@@ -3,5 +3,7 @@
         <file alias="MainView.qml">views/MainView.qml</file>
         <file alias="MainButtons.qml">views/MainButtons.qml</file>
         <file alias="wfesButtons.qml">views/wfesButtons.qml</file>
+        <file alias="timeDistButtons.qml">views/timeDistButtons.qml</file>
+        <file alias="phaseTypeButtons.qml">views/phaseTypeButtons.qml</file>
     </qresource>
 </RCC>
