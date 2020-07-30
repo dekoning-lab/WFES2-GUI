@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
 
     engine.rootContext()->setContextProperty("masterController", &masterController);
 
-    const QUrl url(QStringLiteral("qrc:/views/MainView.qml"));
+    const QUrl url(QStringLiteral("qrc:/views/mainview/MainView.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {
         if (!obj && url == objUrl)

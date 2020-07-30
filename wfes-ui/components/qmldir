@@ -1,0 +1,4 @@
+module components
+ChangeStackViewButton 1.0 ChangeStackViewButton.qml
+LaunchViewButton 1.0 LaunchViewButton.qml
+BackButton 1.0 BackButton.qml

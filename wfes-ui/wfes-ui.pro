@@ -36,7 +36,8 @@ SOURCES += \
         source/main.cpp
 
 RESOURCES += views.qrc \
-    assets.qrc
+    assets.qrc \
+    components.qrc
 
 LIBS += -L$$PWD/../binaries/$$DESTINATION_PATH -lwfes-lib
 
