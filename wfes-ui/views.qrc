@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/views">
+        <file alias="MainView.qml">views/MainView.qml</file>
+        <file alias="MainButtons.qml">views/MainButtons.qml</file>
+        <file alias="wfesButtons.qml">views/wfesButtons.qml</file>
+    </qresource>
+</RCC>
