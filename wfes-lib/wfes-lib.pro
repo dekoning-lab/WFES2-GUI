@@ -12,8 +12,7 @@ DEFINES += WFESLIB_LIBRARY
 
 INCLUDEPATH += source \
     ../dependencies \
-    ../dependencies/intel/mkl/include \
-    ../dependencies/args
+    ../dependencies/intel/mkl/include
 
 QMAKE_CXXFLAGS += -DMKL_ILP64 -m64
 

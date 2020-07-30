@@ -1,4 +1,4 @@
-# Delete required libraries such as eigen:
+# Don't delete required libraries such as eigen:
 dependencies/
 
 # C++ objects and libs
