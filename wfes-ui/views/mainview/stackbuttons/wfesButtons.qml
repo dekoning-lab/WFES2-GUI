@@ -14,7 +14,11 @@ Item {
             width: parent.width
             Button {
                 text: "wfes_single"
-                onClicked: masterController.ui_execute
+                onClicked: {//masterController.ui_execute
+                    var component = Qt.createComponent("qrc:/views/executionviews/wfesSingleView.qml")
+                    var window    = component.createObject()
+                    window.show()
+                }
                 Layout.alignment: Qt.AlignHCenter
                 Layout.preferredWidth: 150
             }

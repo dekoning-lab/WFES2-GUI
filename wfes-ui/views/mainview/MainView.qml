@@ -8,7 +8,9 @@ import assets 1.0
 import components 1.0
 
 ApplicationWindow {
+    id: root
     title: qsTr("WFES - Wright-Fisher Exact Solver")
+
     visible: true
 
     width: 600
@@ -19,6 +21,7 @@ ApplicationWindow {
     // Select theme for the application.
     Universal.theme: Universal.Light
 
+    color: Universal.chromeLowColor
 
     // Center window in screen.
     Component.onCompleted: {
