@@ -4,5 +4,8 @@
         <file alias="ChangeStackViewButton.qml">components/ChangeStackViewButton.qml</file>
         <file alias="LaunchViewButton.qml">components/LaunchViewButton.qml</file>
         <file alias="BackButton.qml">components/BackButton.qml</file>
+        <file alias="LabeledTextField.qml">components/LabeledTextField.qml</file>
+        <file alias="LabeledCheckBox.qml">components/LabeledCheckBox.qml</file>
+        <file alias="LabeledComboBox.qml">components/LabeledComboBox.qml</file>
     </qresource>
 </RCC>

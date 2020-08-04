@@ -4,6 +4,8 @@ import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.5
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Controls.Universal 2.3
+import components 1.0
+
 
 ApplicationWindow {
     id: root
@@ -33,110 +35,8 @@ ApplicationWindow {
         anchors.fill: parent
         color: "transparent"
 
-        Rectangle {
+        UpperMenu {
             id: upperMenu
-            width:parent.width
-            height: childrenRect.height
-            color: "lightgrey"
-
-            RowLayout {
-                height: childrenRect.height
-                spacing: 0
-
-                Button {
-                    id: fileButton
-                    text: "File"
-                    onClicked: menu.open()
-
-                    Menu {
-                        id: menu
-                        y: fileButton.height
-
-                        MenuItem {
-                            text: "New..."
-                            onClicked: {
-                                console.warn("WARNING: File->New... clicked - Not implemented yet.")
-                            }
-                        }
-                        MenuItem {
-                            text: "Open..."
-                            onClicked: {
-                                console.warn("WARNING: File->Open... clicked - Not implemented yet.")
-                            }
-                        }
-                        MenuItem {
-                            text: "Save..."
-                            onClicked: {
-                                console.warn("WARNING: File->Save... clicked - Not implemented yet.")
-                            }
-                        }
-                    }
-                }
-
-
-                Button {
-                    id: settingsButton
-                    text: "Settings"
-                    onClicked: menu2.open()
-
-                    Menu {
-                        id: menu2
-                        y: settingsButton.height
-
-                        MenuItem {
-                            text: "New..."
-                            onClicked: {
-                                console.warn("WARNING: Settings->New... clicked - Not implemented yet.")
-                            }
-                        }
-                        MenuItem {
-                            text: "Open..."
-                            onClicked: {
-                                console.warn("WARNING: Help->Open... clicked - Not implemented yet.")
-                            }
-                        }
-                        MenuItem {
-                            text: "Save"
-                            onClicked: {
-                                console.warn("WARNING: Settings->Save... clicked - Not implemented yet.")
-                            }
-                        }
-                    }
-                }
-
-
-
-                Button {
-                    id: helpButton
-                    text: "Help"
-                    onClicked: menu3.open()
-
-                    Menu {
-                        id: menu3
-                        y: helpButton.height
-
-                        MenuItem {
-                            text: "New..."
-                            onClicked: {
-                                console.warn("WARNING: Help->New... clicked - Not implemented yet.")
-                            }
-                        }
-                        MenuItem {
-                            text: "Open..."
-                            onClicked: {
-                                console.warn("WARNING: Help->Open... clicked - Not implemented yet.")
-                            }
-                        }
-                        MenuItem {
-                            text: "Save"
-                            onClicked: {
-                                console.warn("WARNING: Help->Save... clicked - Not implemented yet.")
-                            }
-                        }
-                    }
-                }
-            }
-
         }
 
 
@@ -231,94 +131,31 @@ ApplicationWindow {
                                 margins: 10
                             }
 
-                            Rectangle {
-                                width: childrenRect.width
-                                height: childrenRect.height
-                                color: "transparent"
-                                RowLayout {
-                                    Label {
-                                        Layout.preferredWidth: 20
-                                        id: labelN
-                                        text: "N:"
-                                    }
-                                    TextField {
-                                        Layout.preferredWidth: 100
-                                        validator: DoubleValidator {bottom: 2; top: 50000;}
-                                        focus: true
-                                    }
-                                }
+                            LabeledTextField {
+                                text: "N: "
+                                validator: DoubleValidator {bottom: 2; top: 50000;}
                             }
 
-                            Rectangle {
-                                width: childrenRect.width
-                                height: childrenRect.height
-                                color: "transparent"
-                                RowLayout {
-                                    Label {
-                                        Layout.preferredWidth: 20
-                                        text: "a:"
-                                    }
-                                    TextField {
-                                        Layout.preferredWidth: 100
-                                        validator: DoubleValidator {bottom: 0; top: 2e-10;}
-                                        focus: true
-                                    }
-                                }
+                            LabeledTextField {
+                                text: "a: "
+                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
                             }
 
-                            Rectangle {
-                                width: childrenRect.width
-                                height: childrenRect.height
-                                color: "transparent"
-                                RowLayout {
-                                    Label {
-                                        Layout.preferredWidth: 20
-                                        text: "p:"
-                                    }
-                                    TextField {
-                                        Layout.preferredWidth: 100
-                                        //TODO Top is N
-                                        validator: DoubleValidator {bottom: 1; top: 50000;}
-                                        focus: true
-                                    }
-                                }
+                            LabeledTextField {
+                                text: "p: "
+                                //TODO Top is N
+                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
                             }
 
-
-                            Rectangle {
-                                width: childrenRect.width
-                                height: childrenRect.height
-                                color: "transparent"
-                                RowLayout {
-                                    Label {
-                                        Layout.preferredWidth: 20
-                                        text: "c:"
-                                    }
-                                    TextField {
-                                        Layout.preferredWidth: 100
-                                        validator: DoubleValidator {bottom: 0; top: 1e-3;}
-                                        focus: true
-                                    }
-                                }
+                            LabeledTextField {
+                                text: "c: "
+                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
                             }
 
-
-                            Rectangle {
-                                width: childrenRect.width
-                                height: childrenRect.height
-                                color: "transparent"
-                                RowLayout {
-                                    Label {
-                                        Layout.preferredWidth: 20
-                                        text: "x:"
-                                    }
-                                    TextField {
-                                        Layout.preferredWidth: 100
-                                        //TODO Top is N
-                                        validator: DoubleValidator {bottom: 1; top: 50000;}
-                                        focus: true
-                                    }
-                                }
+                            LabeledTextField {
+                                text: "x: "
+                                //TODO Top is N
+                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
                             }
                         }
 
@@ -351,55 +188,20 @@ ApplicationWindow {
                                 margins: 10
                             }
 
-                            Rectangle {
-                                width: childrenRect.width
-                                height: childrenRect.height
-                                color: "transparent"
-                                RowLayout {
-                                    Label {
-                                        Layout.preferredWidth: 20
-                                        id: labelu
-                                        text: "u:"
-                                    }
-                                    TextField {
-                                        Layout.preferredWidth: 100
-                                        validator: DoubleValidator {bottom: 2; top: 50000;}
-                                        focus: true
-                                    }
-                                }
+
+                            LabeledTextField {
+                                text: "u: "
+                                validator: DoubleValidator {bottom: 2; top: 50000;}
                             }
 
-                            Rectangle {
-                                width: childrenRect.width
-                                height: childrenRect.height
-                                color: "transparent"
-                                RowLayout {
-                                    Label {
-                                        Layout.preferredWidth: 20
-                                        text: "v:"
-                                    }
-                                    TextField {
-                                        Layout.preferredWidth: 100
-                                        validator: DoubleValidator {bottom: 0; top: 2e-10;}
-                                        focus: true
-                                    }
-                                }
+                            LabeledTextField {
+                                text: "v: "
+                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
                             }
 
-
-                            Rectangle {
-                                width: childrenRect.width
-                                height: childrenRect.height
-                                color: "transparent"
-                                RowLayout {
-                                    Label {
-                                        Layout.preferredWidth: 20
-                                        text: "m:"
-                                    }
-                                    CheckBox {
-                                        checked: true
-                                    }
-                                }
+                            LabeledCheckBox {
+                                text: "m: "
+                                checked: true
                             }
                         }
                     }
@@ -424,46 +226,21 @@ ApplicationWindow {
 
                         GridLayout {
                             id: selectionSectionGrid
-                            columns: 2
+                            columns: 4
                             anchors {
                                 top: labelSelection.bottom
                                 left: parent.left
                                 margins: 10
                             }
 
-                            Rectangle {
-                                width: childrenRect.width
-                                height: childrenRect.height
-                                color: "transparent"
-                                RowLayout {
-                                    Label {
-                                        Layout.preferredWidth: 20
-                                        id: labels
-                                        text: "s:"
-                                    }
-                                    TextField {
-                                        Layout.preferredWidth: 100
-                                        validator: DoubleValidator {bottom: 2; top: 50000;}
-                                        focus: true
-                                    }
-                                }
+                            LabeledTextField {
+                                text: "s: "
+                                validator: DoubleValidator {bottom: 2; top: 50000;}
                             }
 
-                            Rectangle {
-                                width: childrenRect.width
-                                height: childrenRect.height
-                                color: "transparent"
-                                RowLayout {
-                                    Label {
-                                        Layout.preferredWidth: 20
-                                        text: "h:"
-                                    }
-                                    TextField {
-                                        Layout.preferredWidth: 100
-                                        validator: DoubleValidator {bottom: 0; top: 2e-10;}
-                                        focus: true
-                                    }
-                                }
+                            LabeledTextField {
+                                text: "h: "
+                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
                             }
 
                         }
@@ -508,142 +285,52 @@ ApplicationWindow {
                                     margins: 10
                                 }
 
-                                Rectangle {
-                                    width: childrenRect.width
-                                    height: childrenRect.height
-                                    color: "transparent"
-                                    RowLayout {
-                                        Label {
-                                            Layout.preferredWidth: 40
-                                            text: "Q:"
-                                        }
-                                        CheckBox {
-                                            checked: true
-                                        }
-                                    }
+                                LabeledCheckBox {
+                                    text: "Q: "
+                                    checked: true
                                 }
 
-                                Rectangle {
-                                    width: childrenRect.width
-                                    height: childrenRect.height
-                                    color: "transparent"
-                                    RowLayout {
-                                        Label {
-                                            Layout.preferredWidth: 40
-                                            text: "R:"
-                                        }
-                                        CheckBox {
-                                            checked: true
-                                        }
-                                    }
+                                LabeledCheckBox {
+                                    text: "R: "
+                                    checked: true
                                 }
 
-                                Rectangle {
-                                    width: childrenRect.width
-                                    height: childrenRect.height
-                                    color: "transparent"
-                                    RowLayout {
-                                        Label {
-                                            Layout.preferredWidth: 40
-                                            text: "N:"
-                                        }
-                                        CheckBox {
-                                            checked: true
-                                        }
-                                    }
+                                LabeledCheckBox {
+                                    text: "N: "
+                                    checked: true
+                                }
+
+                                LabeledCheckBox {
+                                    text: "B: "
+                                    checked: true
+                                }
+
+                                LabeledCheckBox {
+                                    text: "I: "
+                                    checked: true
+                                }
+
+                                LabeledCheckBox {
+                                    text: "E: "
+                                    checked: true
+                                }
+
+                                LabeledCheckBox {
+                                    text: "V: "
+                                    checked: true
                                 }
 
 
-                                Rectangle {
-                                    width: childrenRect.width
-                                    height: childrenRect.height
-                                    color: "transparent"
-                                    RowLayout {
-                                        Label {
-                                            Layout.preferredWidth: 40
-                                            text: "B:"
-                                        }
-                                        CheckBox {
-                                            checked: true
-                                        }
-                                    }
+                                LabeledCheckBox {
+                                    text: "Res: "
+                                    checked: true
                                 }
 
-                                Rectangle {
-                                    width: childrenRect.width
-                                    height: childrenRect.height
-                                    color: "transparent"
-                                    RowLayout {
-                                        Label {
-                                            Layout.preferredWidth: 40
-                                            text: "I:"
-                                        }
-                                        CheckBox {
-                                            checked: true
-                                        }
-                                    }
-                                }
-
-                                Rectangle {
-                                    width: childrenRect.width
-                                    height: childrenRect.height
-                                    color: "transparent"
-                                    RowLayout {
-                                        Label {
-                                            Layout.preferredWidth: 40
-                                            text: "E:"
-                                        }
-                                        CheckBox {
-                                            checked: true
-                                        }
-                                    }
-                                }
-
-                                Rectangle {
-                                    width: childrenRect.width
-                                    height: childrenRect.height
-                                    color: "transparent"
-                                    RowLayout {
-                                        Label {
-                                            Layout.preferredWidth: 40
-                                            text: "V:"
-                                        }
-                                        CheckBox {
-                                            checked: true
-                                        }
-                                    }
-                                }
-
-                                Rectangle {
-                                    width: childrenRect.width
-                                    height: childrenRect.height
-                                    color: "transparent"
-                                    RowLayout {
-                                        Label {
-                                            Layout.preferredWidth: 40
-                                            text: "Res:"
-                                        }
-                                        CheckBox {
-                                            checked: true
-                                        }
-                                    }
-                                }
-
-                                Rectangle {
-                                    width: childrenRect.width
-                                    height: childrenRect.height
-                                    color: "transparent"
+                                LabeledCheckBox {
                                     Layout.row: 4
                                     Layout.column: 1
-                                    RowLayout {
-                                        Label {
-                                            Layout.preferredWidth: 40
-                                            text: "CSV:"
-                                        }
-                                        CheckBox {
-                                            checked: true
-                                        }
-                                    }
+                                    text: "CSV: "
+                                    checked: true
                                 }
 
                             }
@@ -652,7 +339,7 @@ ApplicationWindow {
 
                         Rectangle {
                             height: 1
-                            width: outputSectionGrid.width
+                            width: Math.max(executionSection.width, outputSection.width)
                             color: Universal.baseHighColor
                         }
 
@@ -679,59 +366,27 @@ ApplicationWindow {
                                 RowLayout {
                                     width: childrenRect.width
 
-                                    Rectangle {
-                                        width: childrenRect.width
-                                        height: childrenRect.height
-                                        color: "transparent"
-                                        RowLayout {
-                                            Label {
-                                                Layout.preferredWidth: 40
-                                                text: "Force:"
-                                            }
-                                            CheckBox {
-                                                checked: true
-                                            }
-                                        }
+                                    LabeledCheckBox {
+                                        text: "Force: "
+                                        checked: true
                                     }
 
-                                    Rectangle {
-                                        width: childrenRect.width
-                                        height: childrenRect.height
-                                        color: "transparent"
-                                        RowLayout {
-                                            Label {
-                                                Layout.preferredWidth: 20
-                                                id: labelt
-                                                text: "t:"
-                                            }
-                                            TextField {
-                                                Layout.preferredWidth: 100
-                                                validator: DoubleValidator {bottom: 2; top: 50000;}
-                                                focus: true
-                                            }
-                                        }
+                                    LabeledTextField {
+                                        text: "t: "
+                                        validator: DoubleValidator {bottom: 2; top: 50000;}
                                     }
                                 }
-                                GridLayout {
-                                    width: childrenRect.width
-                                    columns: 2
 
-                                    Label {
-                                        id: labelSolver
+                                ColumnLayout {
+                                    width: childrenRect.width
+
+                                    LabeledComboBox {
                                         text: "Solver:"
-                                    }
-                                    ComboBox {
-                                        Layout.fillWidth: true
                                         model: [ "ViennaCL", "Pardiso" ]
                                     }
 
-                                    Label {
-                                        id: labelBackend
+                                    LabeledComboBox {
                                         text: "Backend:"
-                                    }
-
-                                    ComboBox {
-                                        Layout.fillWidth: true
                                         model: [ "1 Threaded", "OpenMP", "OpenCL", "CUDA" ]
                                     }
                                 }
@@ -776,118 +431,70 @@ ApplicationWindow {
                             text: "Output:"
                         }
 
-                        GridLayout {
-                            width: childrenRect.width
-                            columns: 2
+                        ColumnLayout {
 
                             anchors {
                                 top: labelFinalOutput.bottom
                                 left: parent.left
                                 margins: 10
                             }
-                            Label {
-                                id: labelPext
-                                text: "P. ext. :"
-                            }
 
-                            TextField {
-                                Layout.preferredWidth: 100
+                            LabeledTextField {
+                                labelPreferredWidth: 75
+                                text: "P. ext. : "
                                 validator: DoubleValidator {bottom: 2; top: 50000;}
-                                focus: true
                             }
 
-                            Label {
-                                id: labelPfix
-                                text: "P. fix. :"
-                            }
-
-                            TextField {
-                                Layout.preferredWidth: 100
+                            LabeledTextField {
+                                labelPreferredWidth: 75
+                                text: "P. fix. : "
                                 validator: DoubleValidator {bottom: 2; top: 50000;}
-                                focus: true
                             }
 
-                            Label {
-                                id: labelPabs
-                                text: "P. abs. :"
-                            }
-
-                            TextField {
-                                Layout.preferredWidth: 100
+                            LabeledTextField {
+                                labelPreferredWidth: 75
+                                text: "P. abs. : "
                                 validator: DoubleValidator {bottom: 2; top: 50000;}
-                                focus: true
                             }
 
-                            Label {
-                                id: labelPAbsStd
-                                text: "P. abs. std. :"
-                            }
-
-                            TextField {
-                                Layout.preferredWidth: 100
+                            LabeledTextField {
+                                labelPreferredWidth: 75
+                                text: "P. abs. std.: "
                                 validator: DoubleValidator {bottom: 2; top: 50000;}
-                                focus: true
                             }
 
-                            Label {
-                                id: labelText
-                                text: "T. ext."
-                            }
-
-                            TextField {
-                                Layout.preferredWidth: 100
+                            LabeledTextField {
+                                labelPreferredWidth: 75
+                                text: "T. ext.: "
                                 validator: DoubleValidator {bottom: 2; top: 50000;}
-                                focus: true
                             }
 
-                            Label {
-                                id: labelTextstd
-                                text: "T. ext. std."
-                            }
-
-                            TextField {
-                                Layout.preferredWidth: 100
+                            LabeledTextField {
+                                labelPreferredWidth: 75
+                                text: "T. ext. std.: "
                                 validator: DoubleValidator {bottom: 2; top: 50000;}
-                                focus: true
                             }
 
-                            Label {
-                                id: labelNext
-                                text: "N. ext."
-                            }
-
-                            TextField {
-                                Layout.preferredWidth: 100
+                            LabeledTextField {
+                                labelPreferredWidth: 75
+                                text: "N. ext.: "
                                 validator: DoubleValidator {bottom: 2; top: 50000;}
-                                focus: true
                             }
 
-                            Label {
-                                id: labelTfix
-                                text: "T. fix."
-                            }
-
-                            TextField {
-                                Layout.preferredWidth: 100
+                            LabeledTextField {
+                                labelPreferredWidth: 75
+                                text: "T. fix.: "
                                 validator: DoubleValidator {bottom: 2; top: 50000;}
-                                focus: true
                             }
 
-                            Label {
-                                id: labelTfixstd
-                                text: "T. fix. std."
-                            }
-
-                            TextField {
-                                Layout.preferredWidth: 100
+                            LabeledTextField {
+                                labelPreferredWidth: 75
+                                text: "T. fix. std.: "
                                 validator: DoubleValidator {bottom: 2; top: 50000;}
-                                focus: true
                             }
                         }
                     }
                 }
-
-
             }
         }
     }

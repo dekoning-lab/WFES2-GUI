@@ -8,5 +8,7 @@
         <file alias="mainview/stackbuttons/phaseTypeButtons.qml">views/mainview/stackbuttons/phaseTypeButtons.qml</file>
         <file alias="mainview/bottommenu/BottomMenu.qml">views/mainview/bottommenu/BottomMenu.qml</file>
         <file alias="executionviews/wfesSingleView.qml">views/executionviews/wfesSingleView.qml</file>
+        <file alias="executionviews/menus/UpperMenu.qml">views/executionviews/menus/UpperMenu.qml</file>
+        <file alias="executionviews/qmldir">views/executionviews/qmldir</file>
     </qresource>
 </RCC>
