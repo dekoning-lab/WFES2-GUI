@@ -24,7 +24,7 @@ Rectangle {
         }
         ComboBox {
             id: comboBox
-            Layout.preferredWidth: 175
+            Layout.preferredWidth: 185
             model: [ "ViennaCL", "Pardiso" ]
         }
     }

@@ -24,6 +24,7 @@
 
 // Format for printing double numbers.
 #define DPF "%.10e"
+#define DPFS "%.5e"
 // Format for printing llong (long long int) numbers.
 #define LPF "%lld"
 // Format for printing integer numbers.

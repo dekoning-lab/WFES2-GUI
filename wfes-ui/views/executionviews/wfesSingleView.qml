@@ -15,11 +15,11 @@ ApplicationWindow {
 
     visible: true
 
-    width: 880
-    minimumWidth: 880
+    width: 900
+    minimumWidth: 900
     height: 500
     minimumHeight: 500
-    maximumWidth: 880
+    maximumWidth: 900
     maximumHeight: 500
 
     // Select theme for the application.
@@ -139,23 +139,31 @@ ApplicationWindow {
                             LabeledTextField {
                                 text: "a: "
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
+                                textFieldText: inputController.ui_a
+                                fun: function(){inputController.ui_a = textFieldText;}
                             }
 
                             LabeledTextField {
                                 text: "p: "
                                 //TODO Top is N
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
+                                textFieldText: inputController.ui_p
+                                fun: function(){inputController.ui_p = textFieldText;}
                             }
 
                             LabeledTextField {
                                 text: "c: "
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
+                                textFieldText: inputController.ui_c
+                                fun: function(){inputController.ui_c = textFieldText;}
                             }
 
                             LabeledTextField {
                                 text: "x: "
                                 //TODO Top is N
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
+                                textFieldText: inputController.ui_x
+                                fun: function(){inputController.ui_x = textFieldText;}
                             }
                         }
 
@@ -192,11 +200,15 @@ ApplicationWindow {
                             LabeledTextField {
                                 text: "u: "
                                 validator: DoubleValidator {bottom: 2; top: 50000;}
+                                textFieldText: inputController.ui_u
+                                fun: function(){inputController.ui_u = textFieldText;}
                             }
 
                             LabeledTextField {
                                 text: "v: "
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
+                                textFieldText: inputController.ui_v
+                                fun: function(){inputController.ui_v = textFieldText;}
                             }
 
                             LabeledCheckBox {
@@ -236,11 +248,15 @@ ApplicationWindow {
                             LabeledTextField {
                                 text: "s: "
                                 validator: DoubleValidator {bottom: 2; top: 50000;}
+                                textFieldText: inputController.ui_s
+                                fun: function(){inputController.ui_s = textFieldText;}
                             }
 
                             LabeledTextField {
                                 text: "h: "
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
+                                textFieldText: inputController.ui_h
+                                fun: function(){inputController.ui_h = textFieldText;}
                             }
 
                         }
@@ -374,6 +390,8 @@ ApplicationWindow {
                                     LabeledTextField {
                                         text: "t: "
                                         validator: DoubleValidator {bottom: 2; top: 50000;}
+                                        textFieldText: inputController.ui_t
+                                        fun: function(){inputController.ui_t = textFieldText;}
                                     }
                                 }
 

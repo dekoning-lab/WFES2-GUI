@@ -12,7 +12,7 @@ Rectangle {
     property alias validator: textField.validator
     property int labelPreferredWidth: 20
     property alias textFieldText: textField.text
-    property int textFieldPreferredWidth: 100
+    property int textFieldPreferredWidth: 110
 
     property var fun: function(){}
 
