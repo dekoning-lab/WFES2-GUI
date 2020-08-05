@@ -10,6 +10,7 @@
 
 #include <QString>
 #include "math.h"
+#include <boost/format.hpp>
 
 namespace wfes {
     namespace controllers {

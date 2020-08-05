@@ -15,11 +15,11 @@ ApplicationWindow {
 
     visible: true
 
-    width: 800
-    minimumWidth: 800
+    width: 880
+    minimumWidth: 880
     height: 500
     minimumHeight: 500
-    maximumWidth: 800
+    maximumWidth: 880
     maximumHeight: 500
 
     // Select theme for the application.
@@ -440,6 +440,7 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 labelPreferredWidth: 75
+                                textFieldPreferredWidth: 180
                                 text: "P. ext. : "
                                 textFieldText: masterController.ui_results
                                 validator: DoubleValidator {bottom: 2; top: 50000;}
@@ -447,48 +448,56 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 labelPreferredWidth: 75
+                                textFieldPreferredWidth: 180
                                 text: "P. fix. : "
                                 validator: DoubleValidator {bottom: 2; top: 50000;}
                             }
 
                             LabeledTextField {
                                 labelPreferredWidth: 75
+                                textFieldPreferredWidth: 180
                                 text: "P. abs. : "
                                 validator: DoubleValidator {bottom: 2; top: 50000;}
                             }
 
                             LabeledTextField {
                                 labelPreferredWidth: 75
+                                textFieldPreferredWidth: 180
                                 text: "P. abs. std.: "
                                 validator: DoubleValidator {bottom: 2; top: 50000;}
                             }
 
                             LabeledTextField {
                                 labelPreferredWidth: 75
+                                textFieldPreferredWidth: 180
                                 text: "T. ext.: "
                                 validator: DoubleValidator {bottom: 2; top: 50000;}
                             }
 
                             LabeledTextField {
                                 labelPreferredWidth: 75
+                                textFieldPreferredWidth: 180
                                 text: "T. ext. std.: "
                                 validator: DoubleValidator {bottom: 2; top: 50000;}
                             }
 
                             LabeledTextField {
                                 labelPreferredWidth: 75
+                                textFieldPreferredWidth: 180
                                 text: "N. ext.: "
                                 validator: DoubleValidator {bottom: 2; top: 50000;}
                             }
 
                             LabeledTextField {
                                 labelPreferredWidth: 75
+                                textFieldPreferredWidth: 180
                                 text: "T. fix.: "
                                 validator: DoubleValidator {bottom: 2; top: 50000;}
                             }
 
                             LabeledTextField {
                                 labelPreferredWidth: 75
+                                textFieldPreferredWidth: 180
                                 text: "T. fix. std.: "
                                 validator: DoubleValidator {bottom: 2; top: 50000;}
                             }

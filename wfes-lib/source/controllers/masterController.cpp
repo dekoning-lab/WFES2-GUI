@@ -6,10 +6,12 @@ namespace controllers {
 QString MasterController::getResults() const
 {
     qDebug() << this->results->pExt;
+    boost::format fmt = boost::format(DPF) % (this->results->pExt);
+
     if(isnan(this->results->pExt))
         return "";
     else
-        return QString::fromStdString(std::to_string(this->results->pExt));
+        return QString::fromStdString(fmt.str());
 }
 
 MasterController::MasterController(QObject* parent)
