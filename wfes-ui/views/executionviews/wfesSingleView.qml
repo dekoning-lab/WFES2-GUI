@@ -132,6 +132,8 @@ ApplicationWindow {
                             LabeledTextField {
                                 text: "N: "
                                 validator: DoubleValidator {bottom: 2; top: 50000;}
+                                textFieldText: inputController.ui_n
+                                fun: function(){inputController.ui_n = textFieldText;}
                             }
 
                             LabeledTextField {

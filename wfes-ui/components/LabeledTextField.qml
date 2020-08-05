@@ -14,6 +14,8 @@ Rectangle {
     property alias textFieldText: textField.text
     property int textFieldPreferredWidth: 100
 
+    property var fun: function(){}
+
     color: "transparent"
     width: childrenRect.width
     height: childrenRect.height
@@ -31,6 +33,7 @@ Rectangle {
             validator: DoubleValidator {bottom: 0; top: 2e-10;}
             focus: false
             selectByMouse: true
+            onTextChanged: fun()
         }
     }
 }

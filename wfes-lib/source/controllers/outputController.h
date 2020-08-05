@@ -1,5 +1,5 @@
-#ifndef MASTERCONTROLLER_H
-#define MASTERCONTROLLER_H
+#ifndef OUTPUTCONTROLLER_H
+#define OUTPUTCONTROLLER_H
 
 #include <QObject>
 #include <QDebug>
@@ -53,4 +53,4 @@ namespace wfes {
     }
 }
 
-#endif //MASTERCONTROLLER_H
+#endif //OUTPUTCONTROLLER_H
