@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.5
 import QtQuick.Layouts 1.15
+
 import components 1.0
 
 Item {
@@ -15,17 +16,18 @@ Item {
             height: childrenRect.height
             width: parent.width
             ChangeStackViewButton {
-                text: "wfes"
+                text: "WFES"
                 view: "qrc:/views/mainview/stackbuttons/wfesButtons.qml"
             }
             LaunchViewButton {
-                text: "wfas"
-                view: "WARNING: wfas clicked - Not implemented yet."
+                text: "WFAS"
+                view: "wfas has not been implemented yet."
             }
             LaunchViewButton {
-                text: "wfafle"
-                view: "WARNING: wfafle clicked - Not implemented yet."
+                text: "WFAFLE"
+                view: "wfafle has not been implemented yet."
             }
+
         }
 
         RowLayout {
@@ -37,11 +39,11 @@ Item {
                 topMargin: 30
             }
             ChangeStackViewButton {
-                text: "time_dist"
+                text: "Time Dist."
                 view: "qrc:/views/mainview/stackbuttons/timeDistButtons.qml"
             }
             ChangeStackViewButton {
-                text: "phase_type"
+                text: "Phase Type"
                 view: "qrc:/views/mainview/stackbuttons/phaseTypeButtons.qml"
             }
         }

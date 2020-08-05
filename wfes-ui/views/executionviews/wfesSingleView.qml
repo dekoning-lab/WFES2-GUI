@@ -463,6 +463,7 @@ ApplicationWindow {
                                 textFieldPreferredWidth: 180
                                 text: "P. ext. : "
                                 textFieldText: outputController.ui_get_p_ext
+                                readOnly: true
                             }
 
                             LabeledTextField {
@@ -470,6 +471,7 @@ ApplicationWindow {
                                 textFieldPreferredWidth: 180
                                 text: "P. fix. : "
                                 textFieldText: outputController.ui_get_p_fix
+                                readOnly: true
                             }
 
                             LabeledTextField {
@@ -477,6 +479,7 @@ ApplicationWindow {
                                 textFieldPreferredWidth: 180
                                 text: "T. abs. : "
                                 textFieldText: outputController.ui_get_t_abs
+                                readOnly: true
                             }
 
                             LabeledTextField {
@@ -484,6 +487,7 @@ ApplicationWindow {
                                 textFieldPreferredWidth: 180
                                 text: "T. abs. std.: "
                                 textFieldText: outputController.ui_get_t_abs_std
+                                readOnly: true
                             }
 
                             LabeledTextField {
@@ -491,6 +495,7 @@ ApplicationWindow {
                                 textFieldPreferredWidth: 180
                                 text: "T. ext.: "
                                 textFieldText: outputController.ui_get_t_ext
+                                readOnly: true
                             }
 
                             LabeledTextField {
@@ -498,6 +503,7 @@ ApplicationWindow {
                                 textFieldPreferredWidth: 180
                                 text: "T. ext. std.: "
                                 textFieldText: outputController.ui_get_t_ext_std
+                                readOnly: true
                             }
 
                             LabeledTextField {
@@ -505,6 +511,7 @@ ApplicationWindow {
                                 textFieldPreferredWidth: 180
                                 text: "N. ext.: "
                                 textFieldText: outputController.ui_get_n_ext
+                                readOnly: true
                             }
 
                             LabeledTextField {
@@ -512,6 +519,7 @@ ApplicationWindow {
                                 textFieldPreferredWidth: 180
                                 text: "T. fix.: "
                                 textFieldText: outputController.ui_get_t_fix
+                                readOnly: true
                             }
 
                             LabeledTextField {
@@ -519,6 +527,7 @@ ApplicationWindow {
                                 textFieldPreferredWidth: 180
                                 text: "T. fix. std.: "
                                 textFieldText: outputController.ui_get_t_fix_std
+                                readOnly: true
                             }
                         }
                     }

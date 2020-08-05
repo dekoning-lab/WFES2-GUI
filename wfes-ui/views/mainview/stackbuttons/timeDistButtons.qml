@@ -15,12 +15,12 @@ Item {
             height: childrenRect.height
             width: parent.width
             LaunchViewButton {
-                text: "time_dist"
-                view: "WARNING: time_dist clicked - Not implemented yet."
+                text: "Time Dist."
+                view: "Time Dist. has not been implemented yet."
             }
             LaunchViewButton {
-                text: "time_dist_dual"
-                view: "WARNING: time_dist_dual clicked - Not implemented yet."
+                text: "Time Dist. Dual"
+                view: "Time Dist. Dual has not been implemented yet."
             }
         }
 
@@ -33,12 +33,12 @@ Item {
                 topMargin: 30
             }
             LaunchViewButton {
-                text: "time_dist_sgv"
-                view: "WARNING: time_dist_sgv clicked - Not implemented yet."
+                text: "Time Dist. SGV"
+                view: "Time Dist. SGV has not been implemented yet."
             }
             LaunchViewButton {
-                text: "time_dist_skip"
-                view: "WARNING: time_dist_skip clicked - Not implemented yet."
+                text: "Time Dist. Skip"
+                view: "Time Dist. Skip has not been implemented yet."
             }
         }
 

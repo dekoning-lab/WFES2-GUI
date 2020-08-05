@@ -15,12 +15,12 @@ Item {
             height: childrenRect.height
             width: parent.width
             LaunchViewButton {
-                text: "phase_type_dist"
-                view: "WARNING: phase_type_dist clicked - Not implemented yet."
+                text: "Phase Type Dist."
+                view: "Phase Type Dist. has not been implemented yet."
             }
             LaunchViewButton {
-                text: "phase_type_moment"
-                view: "WARNING: phase_type_moment clicked - Not implemented yet."
+                text: "Phase Type Moment"
+                view: "Phase Type Moment has not been implemented yet."
             }
         }
 

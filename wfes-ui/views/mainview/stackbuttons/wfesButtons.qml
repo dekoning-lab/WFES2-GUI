@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.5
 import QtQuick.Layouts 1.15
+import components 1.0
 
 Item {
 
@@ -13,20 +14,18 @@ Item {
             id: row1
             width: parent.width
             Button {
-                text: "wfes_single"
-                onClicked: {//masterController.ui_execute
+                text: "WFES Single"
+                onClicked: {
                     var component = Qt.createComponent("qrc:/views/executionviews/wfesSingleView.qml")
                     var window    = component.createObject()
                     window.show()
                 }
                 Layout.alignment: Qt.AlignHCenter
-                Layout.preferredWidth: 150
+                Layout.preferredWidth: 160
             }
-            Button {
-                text: "wfes_sweep"
-                onClicked: console.warn("WARNING: wfes_single clicked - Not implemented yet.")
-                Layout.alignment: Qt.AlignHCenter
-                Layout.preferredWidth: 150
+            LaunchViewButton {
+                text: "WFES Sweep"
+                view: "WFES Sweep has not been implemented yet."
             }
         }
 
@@ -38,17 +37,13 @@ Item {
                 top: row1.bottom
                 topMargin: 30
             }
-            Button {
-                text: "wfes_sequential"
-                onClicked: console.warn("WARNING: wfes_sequential clicked - Not implemented yet.")
-                Layout.alignment: Qt.AlignHCenter
-                Layout.preferredWidth: 150
+            LaunchViewButton {
+                text: "WFES Sequential"
+                view: "WFES Sequential has not been implemented yet."
             }
-            Button {
-                text: "wfes_switching"
-                onClicked: console.warn("WARNING: wfes_switching clicked - Not implemented yet.")
-                Layout.alignment: Qt.AlignHCenter
-                Layout.preferredWidth: 150
+            LaunchViewButton {
+                text: "WFES Switching"
+                view: "WFES Switching has not been implemented yet."
             }
         }
 
