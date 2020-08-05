@@ -3,7 +3,7 @@
 #include <QQmlContext>
 #include <QQuickStyle>
 
-#include <controllers/masterController.h>
+#include <controllers/outputController.h>
 #include <results/results.h>
 
 int main(int argc, char *argv[])
@@ -14,13 +14,13 @@ int main(int argc, char *argv[])
 
     QGuiApplication app(argc, argv);
 
-    qmlRegisterType<wfes::controllers::MasterController>("WFES", 1, 0, "MainController");
+    qmlRegisterType<wfes::controllers::OutputController>("WFES", 1, 0, "OutputController");
 
-    wfes::controllers::MasterController masterController;
+    wfes::controllers::OutputController outputController;
     QQmlApplicationEngine engine;
     engine.addImportPath("qrc:/");
 
-    engine.rootContext()->setContextProperty("masterController", &masterController);
+    engine.rootContext()->setContextProperty("outputController", &outputController);
 
     const QUrl url(QStringLiteral("qrc:/views/mainview/MainView.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,

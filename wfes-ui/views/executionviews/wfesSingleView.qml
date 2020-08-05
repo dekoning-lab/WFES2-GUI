@@ -398,7 +398,7 @@ ApplicationWindow {
                         Layout.margins: 10
                         Layout.alignment: Qt.AlignRight
                         text: "Execute"
-                        onClicked: masterController.ui_execute
+                        onClicked: outputController.ui_execute
                     }
                 }
 
@@ -442,64 +442,63 @@ ApplicationWindow {
                                 labelPreferredWidth: 75
                                 textFieldPreferredWidth: 180
                                 text: "P. ext. : "
-                                textFieldText: masterController.ui_results
-                                validator: DoubleValidator {bottom: 2; top: 50000;}
+                                textFieldText: outputController.ui_get_p_ext
                             }
 
                             LabeledTextField {
                                 labelPreferredWidth: 75
                                 textFieldPreferredWidth: 180
                                 text: "P. fix. : "
-                                validator: DoubleValidator {bottom: 2; top: 50000;}
+                                textFieldText: outputController.ui_get_p_fix
                             }
 
                             LabeledTextField {
                                 labelPreferredWidth: 75
                                 textFieldPreferredWidth: 180
-                                text: "P. abs. : "
-                                validator: DoubleValidator {bottom: 2; top: 50000;}
+                                text: "T. abs. : "
+                                textFieldText: outputController.ui_get_t_abs
                             }
 
                             LabeledTextField {
                                 labelPreferredWidth: 75
                                 textFieldPreferredWidth: 180
-                                text: "P. abs. std.: "
-                                validator: DoubleValidator {bottom: 2; top: 50000;}
+                                text: "T. abs. std.: "
+                                textFieldText: outputController.ui_get_t_abs_std
                             }
 
                             LabeledTextField {
                                 labelPreferredWidth: 75
                                 textFieldPreferredWidth: 180
                                 text: "T. ext.: "
-                                validator: DoubleValidator {bottom: 2; top: 50000;}
+                                textFieldText: outputController.ui_get_t_ext
                             }
 
                             LabeledTextField {
                                 labelPreferredWidth: 75
                                 textFieldPreferredWidth: 180
                                 text: "T. ext. std.: "
-                                validator: DoubleValidator {bottom: 2; top: 50000;}
+                                textFieldText: outputController.ui_get_t_ext_std
                             }
 
                             LabeledTextField {
                                 labelPreferredWidth: 75
                                 textFieldPreferredWidth: 180
                                 text: "N. ext.: "
-                                validator: DoubleValidator {bottom: 2; top: 50000;}
+                                textFieldText: outputController.ui_get_n_ext
                             }
 
                             LabeledTextField {
                                 labelPreferredWidth: 75
                                 textFieldPreferredWidth: 180
                                 text: "T. fix.: "
-                                validator: DoubleValidator {bottom: 2; top: 50000;}
+                                textFieldText: outputController.ui_get_t_fix
                             }
 
                             LabeledTextField {
                                 labelPreferredWidth: 75
                                 textFieldPreferredWidth: 180
                                 text: "T. fix. std.: "
-                                validator: DoubleValidator {bottom: 2; top: 50000;}
+                                textFieldText: outputController.ui_get_t_fix_std
                             }
                         }
                     }
