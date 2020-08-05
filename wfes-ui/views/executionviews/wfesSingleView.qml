@@ -9,7 +9,7 @@ import components 1.0
 
 ApplicationWindow {
     id: root
-    title: qsTr("WFES - Wright-Fisher Exact Solver")
+    title: qsTr("WFES - Wright-Fisher Exact Solver (wfes_single)")
 
     color: Universal.chromeLowColor
 
@@ -38,8 +38,6 @@ ApplicationWindow {
         UpperMenu {
             id: upperMenu
         }
-
-
 
         Rectangle {
             height: parent.height
