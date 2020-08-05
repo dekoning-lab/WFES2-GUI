@@ -19,9 +19,11 @@
 #include "model/pardiso/solverPardiso.h"
 #include "model/pardiso/sparseMatrixPardiso.h"
 
+#include "results/results.h"
+
 class wfes_single{
     public:
-        void execute();
+        Results* execute();
 };
 
 #endif // WFES_SINGLE_H

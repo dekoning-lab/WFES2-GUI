@@ -11,6 +11,7 @@ Rectangle {
     property alias text: label.text
     property alias validator: textField.validator
     property int labelPreferredWidth: 20
+    property alias textFieldText: textField.text
     property int textFieldPreferredWidth: 100
 
     color: "transparent"
@@ -25,6 +26,7 @@ Rectangle {
         }
         TextField {
             id: textField
+            text: ""
             Layout.preferredWidth: textFieldPreferredWidth
             validator: DoubleValidator {bottom: 0; top: 2e-10;}
             focus: false

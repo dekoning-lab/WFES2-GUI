@@ -4,6 +4,7 @@
 #include <QQuickStyle>
 
 #include <controllers/masterController.h>
+#include <results/results.h>
 
 int main(int argc, char *argv[])
 {

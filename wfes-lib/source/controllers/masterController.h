@@ -6,20 +6,27 @@
 #include <wfes-lib_global.h>
 #include "model/wfes_single.h"
 
+#include "results/results.h"
+
 #include <QString>
+#include "math.h"
 
 namespace wfes {
     namespace controllers {
         class WFESLIBSHARED_EXPORT MasterController : public QObject
         {
             Q_OBJECT
-            Q_PROPERTY(QString ui_welcomeMessage MEMBER welcomeMessage CONSTANT)
             Q_PROPERTY(QString ui_execute READ execute CONSTANT)
+            Q_PROPERTY(QString ui_results READ getResults NOTIFY resultsChanged)
 
             public:
-                QString welcomeMessage = "This is MasterController.";
+                Results* results = new Results();
+                QString getResults() const;
                 explicit MasterController(QObject* parent = nullptr);
                 QString execute();
+
+            signals:
+                void resultsChanged();
         };
     }
 }

@@ -398,6 +398,7 @@ ApplicationWindow {
                         Layout.margins: 10
                         Layout.alignment: Qt.AlignRight
                         text: "Execute"
+                        onClicked: masterController.ui_execute
                     }
                 }
 
@@ -440,6 +441,7 @@ ApplicationWindow {
                             LabeledTextField {
                                 labelPreferredWidth: 75
                                 text: "P. ext. : "
+                                textFieldText: masterController.ui_results
                                 validator: DoubleValidator {bottom: 2; top: 50000;}
                             }
 

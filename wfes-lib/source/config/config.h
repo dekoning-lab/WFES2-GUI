@@ -7,9 +7,9 @@
 namespace wfes {
     namespace config {
 
-    enum ModelType{
-        NONE, ABSORTION, FIXATION, ESTABLISHMENT, FUNDAMENTAL, EQUILIBRIUM, NON_ABSORBING, ALLELE_AGE
-    };
+        enum ModelType{
+            NONE, ABSORTION, FIXATION, ESTABLISHMENT, FUNDAMENTAL, EQUILIBRIUM, NON_ABSORBING, ALLELE_AGE
+        };
 
         class Config {
             public:

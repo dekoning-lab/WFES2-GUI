@@ -46,6 +46,7 @@ HEADERS += \
     source/model/wfes_single.h \
     source/model/wright-fisher/rdist.h \
     source/model/wright-fisher/wrightFisher.h \
+    source/results/results.h \
     source/utils/exceptions.h \
     source/utils/parsing.h \
     source/utils/types.h \
@@ -65,6 +66,7 @@ SOURCES += \
     source/model/wfes_single.cpp \
     source/model/wright-fisher/rdist.cpp \
     source/model/wright-fisher/wrightFisher.cpp \
+    source/results/results.cpp \
     source/utils/parsing.cpp \
     source/utils/utils.cpp \
     source/wfesLib.cpp

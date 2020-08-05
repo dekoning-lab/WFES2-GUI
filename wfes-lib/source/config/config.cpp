@@ -34,7 +34,7 @@ std::string Config::output_V = "";
 
 bool Config::csv = false;
 bool Config::force = false;
-bool Config::verbose = true;
+bool Config::verbose = false;
 bool Config::help = false;
 
 Config::Config() {

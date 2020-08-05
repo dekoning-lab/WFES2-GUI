@@ -1,5 +1,6 @@
 #include "wfes_single.h"
 
+
 using namespace wfes::wrightfisher;
 using namespace wfes::solver;
 using namespace wfes::sparsematrix;
@@ -7,7 +8,7 @@ using namespace wfes::pardiso;
 using namespace wfes::config;
 using namespace wfes;
 
-void wfes_single::execute()
+Results* wfes_single::execute()
 {
 
     time_point t_start, t_end;
@@ -131,6 +132,11 @@ void wfes_single::execute()
         }
 
         delete solver;
+
+        //TODO Review
+        //Results res = Results(Config::modelType, std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""));
+        //return res;
+
     } // END SINGLE FIXATION
 
     if (Config::modelType == ModelType::ABSORTION) // BEGIN SINGLE ABSORPTION
@@ -280,6 +286,9 @@ void wfes_single::execute()
         }
 
         delete solver;
+        //TODO Review
+        Results* res = new Results(Config::modelType, P_ext, P_fix, T_abs, T_abs_std, T_ext, T_ext_std, N_ext, T_fix, T_fix_std);
+        return res;
     } // END SINGLE ABSORPTION
 
     if (Config::modelType == ModelType::FUNDAMENTAL) {
@@ -314,6 +323,9 @@ void wfes_single::execute()
             utils::writeMatrixToFile(V, Config::output_V);
         }
         delete solver;
+        //TODO Review
+        Results* res = new Results(Config::modelType, std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""));
+        return res;
     }
 
     if (Config::modelType == ModelType::EQUILIBRIUM) {
@@ -352,6 +364,9 @@ void wfes_single::execute()
         }
 
         delete solver;
+        //TODO Review
+        Results* res = new Results(Config::modelType, std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""));
+        return res;
     }
 
     if (Config::modelType == ModelType::ESTABLISHMENT) {
@@ -610,6 +625,9 @@ void wfes_single::execute()
             printf("S(A) = " DPF "\n", S_allele_age);
         }
         delete solver;
+        //TODO Review
+        Results* res = new Results(Config::modelType, std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""));
+        return res;
     } // END SINGLE ALLELE AGE
 
     if (Config::modelType == ModelType::NON_ABSORBING) {
@@ -618,6 +636,9 @@ void wfes_single::execute()
 
         if (Config::output_Q.compare("") != 0)
             W.Q->saveMarket(Config::output_Q);
+        //TODO Review
+        Results* res = new Results(Config::modelType, std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""));
+        return res;
     }
 
     if (Config::verbose) {
@@ -627,4 +648,7 @@ void wfes_single::execute()
     }
 
     //return EXIT_SUCCESS;
+    //TODO Review
+    Results* res = new Results(Config::modelType, std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""));
+    return res;
 }
