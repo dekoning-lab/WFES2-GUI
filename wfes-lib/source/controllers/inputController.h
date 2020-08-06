@@ -29,6 +29,13 @@ namespace wfes {
             Q_PROPERTY(QString ui_s READ get_s WRITE set_s NOTIFY input_changed)
             Q_PROPERTY(QString ui_h READ get_h WRITE set_h NOTIFY input_changed)
             Q_PROPERTY(QString ui_t READ get_t WRITE set_t NOTIFY input_changed)
+            Q_PROPERTY(bool ui_output_Q READ get_output_Q WRITE set_output_Q NOTIFY input_changed)
+            Q_PROPERTY(bool ui_output_R READ get_output_R WRITE set_output_R NOTIFY input_changed)
+            Q_PROPERTY(bool ui_output_N READ get_output_N WRITE set_output_N NOTIFY input_changed)
+            Q_PROPERTY(bool ui_output_B READ get_output_B WRITE set_output_B NOTIFY input_changed)
+            Q_PROPERTY(bool ui_output_I READ get_output_I WRITE set_output_I NOTIFY input_changed)
+            Q_PROPERTY(bool ui_output_E READ get_output_E WRITE set_output_E NOTIFY input_changed)
+            Q_PROPERTY(bool ui_output_V READ get_output_V WRITE set_output_V NOTIFY input_changed)
 
             public:
                 explicit InputController(QObject* parent = nullptr);
@@ -63,6 +70,27 @@ namespace wfes {
 
                 QString get_t() const;
                 void set_t(QString h) const;
+
+                bool get_output_Q() const;
+                void set_output_Q(bool output_Q) const;
+
+                bool get_output_R() const;
+                void set_output_R(bool output_R) const;
+
+                bool get_output_N() const;
+                void set_output_N(bool output_N) const;
+
+                bool get_output_B() const;
+                void set_output_B(bool output_B) const;
+
+                bool get_output_I() const;
+                void set_output_I(bool output_I) const;
+
+                bool get_output_E() const;
+                void set_output_E(bool output_E) const;
+
+                bool get_output_V() const;
+                void set_output_V(bool output_V) const;
 
             signals:
                 void input_changed();

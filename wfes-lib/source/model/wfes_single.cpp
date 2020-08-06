@@ -59,8 +59,8 @@ Results* wfes_single::execute()
         starting_copies_p /= 1 - first_row(0);
     }
 
-    if (Config::output_I.compare("") != 0)
-        utils::writeVectorToFile(starting_copies_p, Config::output_I);
+    if (Config::output_I)
+        utils::writeVectorToFile(starting_copies_p, Config::path_output_I);
 
     llong z = 0;
 
@@ -82,10 +82,10 @@ Results* wfes_single::execute()
         wrightfisher::Matrix W = wrightfisher::Single(Config::population_size, Config::population_size, wrightfisher::FIXATION_ONLY, Config::s, Config::h, Config::u, Config::v,
                                   Config::rem, Config::a, Config::verbose, Config::b);
 
-        if (Config::output_Q.compare("") != 0)
-            W.Q->saveMarket(Config::output_Q);
-        if (Config::output_R.compare("") != 0)
-            utils::writeMatrixToFile(W.R, Config::output_R);
+        if (Config::output_Q)
+            W.Q->saveMarket(Config::path_output_Q);
+        if (Config::output_R)
+            utils::writeMatrixToFile(W.R, Config::path_output_R);
 
         W.Q->subtractIdentity();
 
@@ -109,33 +109,21 @@ Results* wfes_single::execute()
         double rate = 1.0 / T_fix;
         double T_std = sqrt(T_var);
 
-        if (Config::output_N.compare("") != 0)
-            utils::writeMatrixToFile(N_mat, Config::output_N);
-        if (Config::output_B.compare("") != 0) {
+        if (Config::output_N)
+            utils::writeMatrixToFile(N_mat, Config::path_output_N);
+        if (Config::output_B) {
             dvec B = dvec::Ones(size);
-            utils::writeVectorToFile(B, Config::output_B);
+            utils::writeVectorToFile(B, Config::path_output_B);
         }
 
-        if (Config::csv) {
-            printf("%lld, " DPF ", " DPF ", " DPF ", " DPF ", " DPF ", " DPF ", " DPF ", " DPF "\n",
-                   Config::population_size, Config::s, Config::h, Config::u, Config::v, Config::a, T_fix, T_std, rate);
-        } else {
-            printf("N = " LPF "\n", Config::population_size);
-            printf("s = " DPF "\n", Config::s);
-            printf("h = " DPF "\n", Config::h);
-            printf("u = " DPF "\n", Config::u);
-            printf("v = " DPF "\n", Config::v);
-            printf("a = " DPF "\n", Config::a);
-            printf("T_fix = " DPF "\n", T_fix);
-            printf("T_std = " DPF "\n", T_std);
-            printf("Rate = " DPF "\n", rate);
-        }
+        Results* res = new Results(Config::modelType, T_fix, T_std, rate);
+
+        if(Config::output_Res)
+           utils::writeResultsToFile(res, Config::path_output_Res);
 
         delete solver;
 
-        //TODO Review
-        //Results res = Results(Config::modelType, std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""));
-        //return res;
+        return res;
 
     } // END SINGLE FIXATION
 
@@ -144,10 +132,10 @@ Results* wfes_single::execute()
         wrightfisher::Matrix W = wrightfisher::Single(Config::population_size, Config::population_size, wrightfisher::BOTH_ABSORBING, Config::s, Config::h, Config::u, Config::v,
                                   Config::rem, Config::a, Config::verbose, Config::b);
 
-        if (Config::output_Q.compare("") != 0)
-            W.Q->saveMarket(Config::output_Q);
-        if (Config::output_R.compare("") != 0)
-            utils::writeMatrixToFile(W.R, Config::output_Q);
+        if (Config::output_Q)
+            W.Q->saveMarket(Config::path_output_Q);
+        if (Config::output_R)
+            utils::writeMatrixToFile(W.R, Config::path_output_R);
 
         W.Q->subtractIdentity();
 
@@ -247,47 +235,27 @@ Results* wfes_single::execute()
 
         N_ext /= (1 / (2 * Config::population_size * Config::v)) + T_ext;
 
-        if (Config::output_N.compare("") != 0)
-            utils::writeMatrixToFile(N_mat, Config::output_N);
-        if (Config::output_N_ext.compare("") != 0)
-            utils::writeMatrixToFile(E_ext_mat, Config::output_N_ext);
-        if (Config::output_N_fix.compare("") != 0)
-            utils::writeMatrixToFile(E_fix_mat, Config::output_N_fix);
-        if (Config::output_B.compare("") != 0) {
+        if (Config::output_N)
+            utils::writeMatrixToFile(N_mat, Config::path_output_N);
+        if (Config::output_N_ext)
+            utils::writeMatrixToFile(E_ext_mat, Config::path_output_N_ext);
+        if (Config::output_N_fix)
+            utils::writeMatrixToFile(E_fix_mat, Config::path_output_N_fix);
+        if (Config::output_B) {
             dmat B(size, 2);
             B.col(0) = B_ext;
             B.col(1) = B_fix;
-            utils::writeMatrixToFile(B, Config::output_B);
+            utils::writeMatrixToFile(B, Config::path_output_B);
         }
 
-        if (Config::csv) {
-            printf("%lld, " DPF ", " DPF ", " DPF ", " DPF ", " DPF ", " DPF ", " DPF ", " DPF
-                   ", " DPF ", " DPF ", " DPF ", " DPF ", " DPF ", " DPF "\n",
-                   Config::population_size, Config::s, Config::h, Config::u, Config::v, Config::a, P_ext, P_fix, T_abs, T_abs_std, T_ext, T_ext_std, N_ext,
-                   T_fix, T_fix_std);
 
-        } else {
-            printf("N = " LPF "\n", Config::population_size);
-            printf("s = " DPF "\n", Config::s);
-            printf("h = " DPF "\n", Config::h);
-            printf("u = " DPF "\n", Config::u);
-            printf("v = " DPF "\n", Config::v);
-            printf("a = " DPF "\n", Config::a);
-            printf("P_ext = " DPF "\n", P_ext);
-            printf("P_fix = " DPF "\n", P_fix);
-            printf("T_abs = " DPF "\n", T_abs);
-            printf("T_abs_std = " DPF "\n", T_abs_std);
-            printf("T_ext = " DPF "\n", T_ext);
-            printf("T_ext_std = " DPF "\n", T_ext_std);
-            printf("N_ext = " DPF "\n", N_ext);
-            printf("T_fix = " DPF "\n", T_fix);
-            printf("T_fix_std = " DPF "\n", T_fix_std);
-            // printf("N_ext = " DPF "\n", N_ext);
-        }
+        Results* res = new Results(Config::modelType, P_ext, P_fix, T_abs, T_abs_std, T_ext, T_ext_std, N_ext, T_fix, T_fix_std);
+
+        if(Config::output_Res)
+           utils::writeResultsToFile(res, Config::path_output_Res);
 
         delete solver;
-        //TODO Review
-        Results* res = new Results(Config::modelType, P_ext, P_fix, T_abs, T_abs_std, T_ext, T_ext_std, N_ext, T_fix, T_fix_std);
+
         return res;
     } // END SINGLE ABSORPTION
 
@@ -295,10 +263,10 @@ Results* wfes_single::execute()
         llong size = (2 * Config::population_size) - 1;
         wrightfisher::Matrix W = wrightfisher::Single(Config::population_size, Config::population_size, wrightfisher::BOTH_ABSORBING, Config::s, Config::h, Config::u, Config::v,
                                   Config::rem, Config::a, Config::verbose, Config::b);
-        if (Config::output_Q.compare("") != 0)
-            W.Q->saveMarket(Config::output_Q);
-        if (Config::output_R.compare("") != 0)
-            utils::writeMatrixToFile(W.R, Config::output_R);
+        if (Config::output_Q)
+            W.Q->saveMarket(Config::path_output_Q);
+        if (Config::output_R)
+            utils::writeMatrixToFile(W.R, Config::path_output_R);
 
         W.Q->subtractIdentity();
 
@@ -312,20 +280,20 @@ Results* wfes_single::execute()
             id(i) = 1;
             N.row(i) = solver->solve(id, true);
         }
-        if (Config::output_N.compare("") != 0)
-            utils::writeMatrixToFile(N, Config::output_N);
+        if (Config::output_N)
+            utils::writeMatrixToFile(N, Config::path_output_N);
 
-        if (Config::output_V.compare("") != 0) {
+        if (Config::output_V) {
             dvec Ndg = (2 * N.diagonal().array()) - 1;
             dmat Nsq = N.array().square();
             dmat V = (N * diagmat(Ndg)) - Nsq;
 
-            utils::writeMatrixToFile(V, Config::output_V);
+            utils::writeMatrixToFile(V, Config::path_output_V);
         }
         delete solver;
-        //TODO Review
-        Results* res = new Results(Config::modelType, std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""));
-        return res;
+
+        //TODO Return empty
+        return new Results();
     }
 
     if (Config::modelType == ModelType::EQUILIBRIUM) {
@@ -339,7 +307,7 @@ Results* wfes_single::execute()
         O(size - 1) = 1;
 
         dvec pi = solver->solve(O, true);
-        utils::writeVectorToFile(pi, Config::output_E);
+        utils::writeVectorToFile(pi, Config::path_output_E);
 
         // Calculate expected frequency
         double e_freq = 0.0;
@@ -348,24 +316,14 @@ Results* wfes_single::execute()
         }
         e_freq /= (size - 1);
 
-        if (Config::csv) {
-            printf("%lld, " DPF ", " DPF ", " DPF ", " DPF ", " DPF ", " DPF ", " DPF "\n",
-                   Config::population_size, Config::s, Config::h, Config::u, Config::v, Config::a, e_freq, 1 - e_freq);
 
-        } else {
-            printf("N = " LPF "\n", Config::population_size);
-            printf("s = " DPF "\n", Config::s);
-            printf("h = " DPF "\n", Config::h);
-            printf("u = " DPF "\n", Config::u);
-            printf("v = " DPF "\n", Config::v);
-            printf("a = " DPF "\n", Config::a);
-            printf("E[freq mut] = " DPF "\n", e_freq);
-            printf("E[freq  wt] = " DPF "\n", (1.0 - e_freq));
-        }
+        Results* res = new Results(Config::modelType, e_freq, (1.0 - e_freq));
+
+        if(Config::output_Res)
+           utils::writeResultsToFile(res, Config::path_output_Res);
 
         delete solver;
-        //TODO Review
-        Results* res = new Results(Config::modelType, std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""));
+
         return res;
     }
 
@@ -435,10 +393,10 @@ Results* wfes_single::execute()
         // Truncated model
         wrightfisher::Matrix W_tr = wrightfisher::Truncated(Config::population_size, Config::population_size, est_idx, Config::s, Config::h, Config::u, Config::v, Config::rem,
                                         Config::a, Config::verbose, Config::b);
-        if (Config::output_Q.compare("") != 0)
-            W_tr.Q->saveMarket(Config::output_Q);
-        if (Config::output_R.compare("") != 0)
-            utils::writeMatrixToFile(W_tr.R, Config::output_R);
+        if (Config::output_Q)
+            W_tr.Q->saveMarket(Config::path_output_Q);
+        if (Config::output_R)
+            utils::writeMatrixToFile(W_tr.R, Config::path_output_R);
 
         // To test
         // cout << W_tr.R.col(0) + W_tr.Q.dense().rowwise().sum() + W_tr.R.col(1) << endl;
@@ -520,34 +478,16 @@ Results* wfes_single::execute()
         }
         double T_est_std = sqrt(T_est_var);
 
-        if (Config::csv) {
-            printf("%lld, " DPF ", " DPF ", " DPF ", " DPF ", " DPF ", " DPF ", " DPF ", " DPF
-                   "," DPF ", " DPF ", " DPF ", " DPF ", " DPF ", " DPF ", " DPF ", " DPF "\n",
-                   Config::population_size, Config::s, Config::h, Config::u, Config::v, Config::odds_ratio, Config::a, est_freq, P_est, T_seg, T_seg_std,
-                   T_seg_ext, T_seg_ext_std, T_seg_fix, T_seg_fix_std, T_est, T_est_std);
+        Results* res = new Results(Config::modelType, est_freq, P_est, T_seg, T_seg_std,
+                                   T_seg_ext, T_seg_ext_std, T_seg_fix, T_seg_fix_std, T_est, T_est_std);
 
-        } else {
-            printf("N = " LPF "\n", Config::population_size);
-            printf("s = " DPF "\n", Config::s);
-            printf("h = " DPF "\n", Config::h);
-            printf("u = " DPF "\n", Config::u);
-            printf("v = " DPF "\n", Config::v);
-            printf("odds_ratio = " DPF "\n", Config::odds_ratio);
-            printf("a = " DPF "\n", Config::a);
-            printf("F_est = " DPF "\n", est_freq);
-            printf("P_est = " DPF "\n", P_est);
-            printf("T_seg = " DPF "\n", T_seg);
-            printf("T_seg_std = " DPF "\n", T_seg_std);
-            printf("T_seg_ext = " DPF "\n", T_seg_ext);
-            printf("T_seg_ext_std = " DPF "\n", T_seg_ext_std);
-            printf("T_seg_fix = " DPF "\n", T_seg_fix);
-            printf("T_seg_fix_std = " DPF "\n", T_seg_fix_std);
-            printf("T_est = " DPF "\n", T_est);
-            printf("T_est_std = " DPF "\n", T_est_std);
-        }
+        if(Config::output_Res)
+           utils::writeResultsToFile(res, Config::path_output_Res);
 
         delete solver_full;
         delete solver_tr;
+
+        return res;
     }
 
     if (Config::modelType == ModelType::ALLELE_AGE) // BEGIN SINGLE ALLELE AGE
@@ -560,10 +500,10 @@ Results* wfes_single::execute()
         llong size = (2 * Config::population_size) - 1;
         wrightfisher::Matrix W = wrightfisher::Single(Config::population_size, Config::population_size, wrightfisher::BOTH_ABSORBING, Config::s, Config::h, Config::u, Config::v,
                                   Config::rem, Config::a, Config::verbose, Config::b);
-        if (Config::output_Q.compare("") != 0)
-            W.Q->saveMarket(Config::output_Q);
-        if (Config::output_R.compare("") != 0)
-            utils::writeMatrixToFile(W.R, Config::output_R);
+        if (Config::output_Q)
+            W.Q->saveMarket(Config::path_output_Q);
+        if (Config::output_R)
+            utils::writeMatrixToFile(W.R, Config::path_output_R);
         dvec Q_x = W.Q-> getColCopy(x);
         W.Q->subtractIdentity();
 
@@ -610,23 +550,14 @@ Results* wfes_single::execute()
             S_allele_age = sqrt((M3.dot(A_x) / M1(x)) - pow(E_allele_age, 2));
         }
 
-        if (Config::csv) {
-            printf("%lld, " DPF ", " DPF ", " DPF ", " DPF ", " DPF ", " DPF ", " DPF "\n",
-                   Config::population_size, Config::s, Config::h, Config::u, Config::v, Config::a, E_allele_age, S_allele_age);
 
-        } else {
-            printf("N = " LPF "\n", Config::population_size);
-            printf("s = " DPF "\n", Config::s);
-            printf("h = " DPF "\n", Config::h);
-            printf("u = " DPF "\n", Config::u);
-            printf("v = " DPF "\n", Config::v);
-            printf("a = " DPF "\n", Config::a);
-            printf("E(A) = " DPF "\n", E_allele_age);
-            printf("S(A) = " DPF "\n", S_allele_age);
-        }
+        Results* res = new Results(Config::modelType, E_allele_age, S_allele_age, true);
+
+        if(Config::output_Res)
+           utils::writeResultsToFile(res, Config::path_output_Res);
+
         delete solver;
-        //TODO Review
-        Results* res = new Results(Config::modelType, std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""));
+
         return res;
     } // END SINGLE ALLELE AGE
 
@@ -634,11 +565,10 @@ Results* wfes_single::execute()
         wrightfisher::Matrix W = wrightfisher::Single(Config::population_size, Config::population_size, wrightfisher::NON_ABSORBING, Config::s, Config::h, Config::u, Config::v,
                                   Config::rem, Config::a, Config::verbose, Config::b);
 
-        if (Config::output_Q.compare("") != 0)
-            W.Q->saveMarket(Config::output_Q);
-        //TODO Review
-        Results* res = new Results(Config::modelType, std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""));
-        return res;
+        if (Config::output_Q)
+            W.Q->saveMarket(Config::path_output_Q);
+
+        return new Results();
     }
 
     if (Config::verbose) {
@@ -648,7 +578,7 @@ Results* wfes_single::execute()
     }
 
     //return EXIT_SUCCESS;
+
     //TODO Review
-    Results* res = new Results(Config::modelType, std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""));
-    return res;
+    return new Results();
 }

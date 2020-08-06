@@ -11,6 +11,8 @@ Rectangle {
     property alias text: label.text
     property alias checked: checkBox.checked
 
+    property var fun: function(){}
+
     color: "transparent"
     width: childrenRect.width
     height: childrenRect.height
@@ -25,6 +27,7 @@ Rectangle {
             Layout.preferredWidth: 100
             id: checkBox
             checked: true
+            onCheckedChanged: fun()
         }
     }
 

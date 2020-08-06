@@ -179,4 +179,77 @@ void InputController::set_t(QString t) const
     wfes::config::Config::n_threads = t_d;
 }
 
+bool InputController::get_output_Q() const
+{
+    return wfes::config::Config::output_Q;
+}
+
+void InputController::set_output_Q(bool output_Q) const
+{
+    wfes::config::Config::output_Q = output_Q;
+}
+
+bool InputController::get_output_R() const
+{
+    return wfes::config::Config::output_R;
+}
+
+void InputController::set_output_R(bool output_R) const
+{
+    wfes::config::Config::output_R = output_R;
+}
+
+bool InputController::get_output_N() const
+{
+    return wfes::config::Config::output_N;
+}
+
+void InputController::set_output_N(bool output_N) const
+{
+    wfes::config::Config::output_N = output_N;
+}
+
+bool InputController::get_output_B() const
+{
+    return wfes::config::Config::output_B;
+}
+
+void InputController::set_output_B(bool output_B) const
+{
+    wfes::config::Config::output_B = output_B;
+}
+
+bool InputController::get_output_I() const
+{
+    return wfes::config::Config::output_I;
+}
+
+void InputController::set_output_I(bool output_I) const
+{
+    wfes::config::Config::output_I = output_I;
+}
+
+bool InputController::get_output_E() const
+{
+    return wfes::config::Config::output_E;
+}
+
+void InputController::set_output_E(bool output_E) const
+{
+    wfes::config::Config::output_E = output_E;
+}
+
+bool InputController::get_output_V() const
+{
+    return wfes::config::Config::output_V;
+}
+
+void InputController::set_output_V(bool output_V) const
+{
+    wfes::config::Config::output_V = output_V;
+}
+
+
+
+
 

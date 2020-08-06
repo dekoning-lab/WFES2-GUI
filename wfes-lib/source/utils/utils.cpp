@@ -125,3 +125,85 @@ lvec wfes::utils::closedRange(llong start, llong stop)
     for(llong i = start; i <= stop; i++) r(i - start) = i;
     return r;
 }
+
+void wfes::utils::writeResultsToFile(Results *results, std::string path)
+{
+    std::ofstream myfile;
+    myfile.open (path);
+    myfile << "Result, Value" << "\n";
+
+    if(!std::isnan(results->pExt))
+        myfile << "P_ext, " << results->pExt << "\n";
+
+    if(!std::isnan(results->pFix))
+        myfile << "P_fix, " << results->pFix << "\n";
+
+    if(!std::isnan(results->tAbs))
+        myfile << "T_abs, " << results->tAbs << "\n";
+
+    if(!std::isnan(results->tAbsStd))
+        myfile << "T_abs_std, " << results->tAbsStd << "\n";
+
+    if(!std::isnan(results->tExt))
+        myfile << "T_ext, " << results->tExt << "\n";
+
+    if(!std::isnan(results->tExtStd))
+        myfile << "T_ext_std, " << results->tExtStd << "\n";
+
+    if(!std::isnan(results->nExt))
+        myfile << "N_ext, " << results->nExt << "\n";
+
+    if(!std::isnan(results->tFix))
+        myfile << "T_fix, " << results->tFix << "\n";
+
+    if(!std::isnan(results->tFixStd))
+        myfile << "T_fix_std, " << results->tFixStd << "\n";
+
+    if(!std::isnan(results->rate))
+        myfile << "Rate, " << results->rate << "\n";
+
+    if(!std::isnan(results->freqMut))
+        myfile << "E[freq mut], " << results->freqMut << "\n";
+
+    if(!std::isnan(results->freqWt))
+        myfile << "E[freq  wt], " << results->freqWt << "\n";
+
+    if(!std::isnan(results->fEst))
+        myfile << "F_est, " << results->fEst << "\n";
+
+    if(!std::isnan(results->pEst))
+        myfile << "P_est, " << results->fEst << "\n";
+
+    if(!std::isnan(results->tSeg))
+        myfile << "T_seg, " << results->tSeg << "\n";
+
+    if(!std::isnan(results->tSegStd))
+        myfile << "T_seg_std, " << results->tSegStd << "\n";
+
+    if(!std::isnan(results->tSegExt))
+        myfile << "T_seg_ext, " << results->tSegExt << "\n";
+
+    if(!std::isnan(results->tSegExtStd))
+        myfile << "T_seg_ext_std, " << results->tSegExtStd << "\n";
+
+    if(!std::isnan(results->tSegFix))
+        myfile << "T_seg_fix, " << results->tSegFix << "\n";
+
+    if(!std::isnan(results->tSegFixStd))
+        myfile << "T_seg_fix_std, " << results->tSegFixStd << "\n";
+
+    if(!std::isnan(results->tEst))
+        myfile << "T_est, " << results->tEst << "\n";
+
+    if(!std::isnan(results->tEstStd))
+        myfile << "T_est_std, " << results->tEstStd << "\n";
+
+    if(!std::isnan(results->eAlleleAge))
+        myfile << "E(A), " << results->eAlleleAge << "\n";
+
+    if(!std::isnan(results->sAlleleAge))
+        myfile << "S(A), " << results->sAlleleAge << "\n";
+
+
+    myfile.close();
+}

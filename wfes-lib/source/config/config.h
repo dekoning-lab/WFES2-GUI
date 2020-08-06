@@ -52,20 +52,31 @@ namespace wfes {
 
                 static double odds_ratio;
 
-                static std::string output_Q;
-                static std::string output_R;
-                static std::string output_N;
+                static std::string path_output_Q;
+                static std::string path_output_R;
+                static std::string path_output_N;
 
-                static std::string output_N_ext;
+                static std::string path_output_N_ext;
 
-                static std::string output_N_fix;
+                static std::string path_output_N_fix;
 
-                static std::string output_B;
-                static std::string output_I;
-                static std::string output_E;
-                static std::string output_V;
+                static std::string path_output_B;
+                static std::string path_output_I;
+                static std::string path_output_E;
+                static std::string path_output_V;
+                static std::string path_output_Res;
 
-                static bool csv;
+                static bool output_Q;
+                static bool output_R;
+                static bool output_N;
+                static bool output_N_ext;
+                static bool output_N_fix;
+                static bool output_B;
+                static bool output_I;
+                static bool output_E;
+                static bool output_V;
+                static bool output_Res;
+
                 static bool force;
                 static bool verbose;
                 static bool help;

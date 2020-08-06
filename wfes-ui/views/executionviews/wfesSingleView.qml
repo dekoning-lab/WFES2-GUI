@@ -303,49 +303,50 @@ ApplicationWindow {
 
                                 LabeledCheckBox {
                                     text: "Q: "
-                                    checked: true
+                                    checked: inputController.ui_output_Q
+                                    fun: function(){inputController.ui_output_Q = checked}
+
                                 }
 
                                 LabeledCheckBox {
                                     text: "R: "
-                                    checked: true
+                                    checked: inputController.ui_output_R
+                                    fun: function(){inputController.ui_output_R = checked}
                                 }
 
                                 LabeledCheckBox {
                                     text: "N: "
-                                    checked: true
+                                    checked: inputController.ui_output_N
+                                    fun: function(){inputController.ui_output_N = checked}
                                 }
 
                                 LabeledCheckBox {
                                     text: "B: "
-                                    checked: true
+                                    checked: inputController.ui_output_B
+                                    fun: function(){inputController.ui_output_B = checked}
                                 }
 
                                 LabeledCheckBox {
                                     text: "I: "
-                                    checked: true
+                                    checked: inputController.ui_output_I
+                                    fun: function(){inputController.ui_output_I = checked}
                                 }
 
                                 LabeledCheckBox {
                                     text: "E: "
-                                    checked: true
+                                    checked: inputController.ui_output_E
+                                    fun: function(){inputController.ui_output_E = checked}
                                 }
 
                                 LabeledCheckBox {
                                     text: "V: "
-                                    checked: true
+                                    checked: inputController.ui_output_V
+                                    fun: function(){inputController.ui_output_V = checked}
                                 }
 
 
                                 LabeledCheckBox {
                                     text: "Res: "
-                                    checked: true
-                                }
-
-                                LabeledCheckBox {
-                                    Layout.row: 4
-                                    Layout.column: 1
-                                    text: "CSV: "
                                     checked: true
                                 }
 

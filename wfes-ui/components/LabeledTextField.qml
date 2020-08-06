@@ -14,6 +14,7 @@ Rectangle {
     property alias textFieldText: textField.text
     property int textFieldPreferredWidth: 110
     property alias readOnly: textField.readOnly
+
     property var fun: function(){}
 
     color: "transparent"

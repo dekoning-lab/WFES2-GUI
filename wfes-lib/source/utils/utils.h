@@ -2,6 +2,7 @@
 #define UTILS_H
 
 #include "utils/types.h"
+#include "results/results.h"
 
 #include <Eigen/Core>
 
@@ -119,6 +120,12 @@ namespace wfes{
          */
         lvec closedRange(llong start, llong stop);
 
+        /**
+         * @brief Write results in a CSV file.
+         * @param results results to be printed in a CSV file.
+         * @param path Path of the file.
+         */
+        void writeResultsToFile(Results* results, std::string path);
     }
 }
 
