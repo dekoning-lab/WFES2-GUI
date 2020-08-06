@@ -36,6 +36,9 @@ namespace wfes {
             Q_PROPERTY(bool ui_output_I READ get_output_I WRITE set_output_I NOTIFY input_changed)
             Q_PROPERTY(bool ui_output_E READ get_output_E WRITE set_output_E NOTIFY input_changed)
             Q_PROPERTY(bool ui_output_V READ get_output_V WRITE set_output_V NOTIFY input_changed)
+            Q_PROPERTY(bool ui_output_Res READ get_output_Res WRITE set_output_Res NOTIFY input_changed)
+            Q_PROPERTY(bool ui_m READ get_m WRITE set_m NOTIFY input_changed)
+            Q_PROPERTY(bool ui_force READ get_force WRITE set_force NOTIFY input_changed)
 
             public:
                 explicit InputController(QObject* parent = nullptr);
@@ -91,6 +94,15 @@ namespace wfes {
 
                 bool get_output_V() const;
                 void set_output_V(bool output_V) const;
+
+                bool get_output_Res() const;
+                void set_output_Res(bool output_Res) const;
+
+                bool get_m() const;
+                void set_m(bool m) const;
+
+                bool get_force() const;
+                void set_force(bool force) const;
 
             signals:
                 void input_changed();

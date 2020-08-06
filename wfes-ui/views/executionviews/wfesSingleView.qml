@@ -213,7 +213,8 @@ ApplicationWindow {
 
                             LabeledCheckBox {
                                 text: "m: "
-                                checked: true
+                                checked: inputController.ui_m
+                                fun: function(){inputController.ui_m = checked}
                             }
                         }
                     }
@@ -347,7 +348,8 @@ ApplicationWindow {
 
                                 LabeledCheckBox {
                                     text: "Res: "
-                                    checked: true
+                                    checked: inputController.ui_output_Res
+                                    fun: function(){inputController.ui_output_Res = checked}
                                 }
 
                             }
@@ -385,7 +387,8 @@ ApplicationWindow {
 
                                     LabeledCheckBox {
                                         text: "Force: "
-                                        checked: true
+                                        checked: inputController.ui_force
+                                        fun: function(){inputController.ui_force = checked}
                                     }
 
                                     LabeledTextField {

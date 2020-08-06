@@ -249,6 +249,37 @@ void InputController::set_output_V(bool output_V) const
     wfes::config::Config::output_V = output_V;
 }
 
+bool InputController::get_output_Res() const
+{
+    return wfes::config::Config::output_Res;
+}
+
+void InputController::set_output_Res(bool output_Res) const
+{
+    wfes::config::Config::output_Res = output_Res;
+}
+
+bool InputController::get_m() const
+{
+    return wfes::config::Config::no_rem;
+}
+
+void InputController::set_m(bool m) const
+{
+    wfes::config::Config::no_rem = m;
+}
+
+bool InputController::get_force() const
+{
+    return wfes::config::Config::force;
+
+}
+
+void InputController::set_force(bool force) const
+{
+    wfes::config::Config::force = force;
+}
+
 
 
 
