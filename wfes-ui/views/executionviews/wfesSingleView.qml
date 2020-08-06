@@ -752,7 +752,7 @@ ApplicationWindow {
                                 textFieldPreferredWidth: 180
                                 text: "Rate: "
                                 //TODO
-                                textFieldText: outputController.ui_get_t_fix_std
+                                textFieldText: outputController.ui_get_rate
                                 readOnly: true
                                 visible: radioButtonFixation.checked
                             }
@@ -763,7 +763,7 @@ ApplicationWindow {
                                 textFieldPreferredWidth: 180
                                 text: "E[freq mut]: "
                                 //TODO
-                                textFieldText: outputController.ui_get_t_fix_std
+                                textFieldText: outputController.ui_get_e_freq_mut
                                 readOnly: true
                                 visible: radioButtonEquilibrium.checked
                             }
@@ -774,7 +774,7 @@ ApplicationWindow {
                                 textFieldPreferredWidth: 180
                                 text: "E[freq  wt]: "
                                 //TODO
-                                textFieldText: outputController.ui_get_t_fix_std
+                                textFieldText: outputController.ui_get_e_freq_wt
                                 readOnly: true
                                 visible: radioButtonEquilibrium.checked
                             }
@@ -785,7 +785,7 @@ ApplicationWindow {
                                 textFieldPreferredWidth: 180
                                 text: "F. est.: "
                                 //TODO
-                                textFieldText: outputController.ui_get_t_fix_std
+                                textFieldText: outputController.ui_get_f_est
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
                             }
@@ -796,7 +796,7 @@ ApplicationWindow {
                                 textFieldPreferredWidth: 180
                                 text: "P. est.: "
                                 //TODO
-                                textFieldText: outputController.ui_get_t_fix_std
+                                textFieldText: outputController.ui_get_p_est
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
                             }
@@ -807,7 +807,7 @@ ApplicationWindow {
                                 textFieldPreferredWidth: 180
                                 text: "T. seg.: "
                                 //TODO
-                                textFieldText: outputController.ui_get_t_fix_std
+                                textFieldText: outputController.ui_get_t_seg
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
                             }
@@ -818,7 +818,7 @@ ApplicationWindow {
                                 textFieldPreferredWidth: 180
                                 text: "T. seg. std.: "
                                 //TODO
-                                textFieldText: outputController.ui_get_t_fix_std
+                                textFieldText: outputController.ui_get_t_seg_std
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
                             }
@@ -829,7 +829,7 @@ ApplicationWindow {
                                 textFieldPreferredWidth: 180
                                 text: "T. seg. ext.: "
                                 //TODO
-                                textFieldText: outputController.ui_get_t_fix_std
+                                textFieldText: outputController.ui_get_t_seg_est
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
                             }
@@ -840,7 +840,7 @@ ApplicationWindow {
                                 textFieldPreferredWidth: 180
                                 text: "T. seg. ext. std.: "
                                 //TODO
-                                textFieldText: outputController.ui_get_t_fix_std
+                                textFieldText: outputController.ui_get_t_seg_est_std
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
                             }
@@ -851,7 +851,7 @@ ApplicationWindow {
                                 textFieldPreferredWidth: 180
                                 text: "T. seg. fix.: "
                                 //TODO
-                                textFieldText: outputController.ui_get_t_fix_std
+                                textFieldText: outputController.ui_get_t_seg_fix
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
                             }
@@ -862,7 +862,7 @@ ApplicationWindow {
                                 textFieldPreferredWidth: 180
                                 text: "T. seg. fix. std.: "
                                 //TODO
-                                textFieldText: outputController.ui_get_t_fix_std
+                                textFieldText: outputController.ui_get_t_seg_fix_std
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
                             }
@@ -873,7 +873,7 @@ ApplicationWindow {
                                 textFieldPreferredWidth: 180
                                 text: "T. est.: "
                                 //TODO
-                                textFieldText: outputController.ui_get_t_fix_std
+                                textFieldText: outputController.ui_get_t_est
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
                             }
@@ -884,7 +884,7 @@ ApplicationWindow {
                                 textFieldPreferredWidth: 180
                                 text: "T. est. std.: "
                                 //TODO
-                                textFieldText: outputController.ui_get_t_fix_std
+                                textFieldText: outputController.ui_get_t_est_std
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
                             }
@@ -895,7 +895,7 @@ ApplicationWindow {
                                 textFieldPreferredWidth: 180
                                 text: "E(A): "
                                 //TODO
-                                textFieldText: outputController.ui_get_t_fix_std
+                                textFieldText: outputController.ui_get_e_a
                                 readOnly: true
                                 visible: radioButtonAlleleAge.checked
                             }
@@ -906,7 +906,7 @@ ApplicationWindow {
                                 textFieldPreferredWidth: 180
                                 text: "S(A): "
                                 //TODO
-                                textFieldText: outputController.ui_get_t_fix_std
+                                textFieldText: outputController.ui_get_s_a
                                 readOnly: true
                                 visible: radioButtonAlleleAge.checked
                             }
