@@ -15,12 +15,12 @@ ApplicationWindow {
 
     visible: true
 
-    width: 900
-    minimumWidth: 900
-    height: 500
-    minimumHeight: 500
-    maximumWidth: 900
-    maximumHeight: 500
+    width: 920
+    minimumWidth: 920
+    height: 540
+    minimumHeight: 540
+    maximumWidth: 920
+    maximumHeight: 540
 
     // Select theme for the application.
     Universal.theme: Universal.Light
@@ -82,20 +82,217 @@ ApplicationWindow {
                             }
 
                             RadioButton {
+                                id: radioButtonAbsorption
                                 checked: true
                                 text: qsTr("Absorption")
+                                onCheckedChanged: {
+                                    outputPExt.visible = checked
+                                    outputPFix.visible = checked;
+                                    outputTAbs.visible = checked;
+                                    outputTAbsStd.visible = checked;
+                                    outputText.visible = checked;
+                                    outputTextStd.visible = checked;
+                                    outputNext.visible = checked;
+                                    outputTFix.visible = checked;
+                                    outputTFixStd.visible = checked;
+                                    outputRate.visible = !checked;
+                                    outputEFreqMut.visible = !checked;
+                                    outputEFreqWt.visible = !checked;
+                                    outputFEst.visible = !checked;
+                                    outputPEst.visible = !checked;
+                                    outputTSeg.visible = !checked;
+                                    outputTSegStd.visible = !checked;
+                                    outputTSegEst.visible = !checked;
+                                    outputTSegEstStd.visible = !checked;
+                                    outputTSegFix.visible = !checked;
+                                    outputTSegFixStd.visible = !checked;
+                                    outputTEst.visible = !checked;
+                                    outputTEstStd.visible = !checked;
+                                    outputEA.visible = !checked;
+                                    outputSA.visible = !checked;
+                                }
                             }
                             RadioButton {
+                                id: radioButtonFixation
                                 text: qsTr("Fixation")
+                                onCheckedChanged: {
+                                    outputPExt.visible = !checked
+                                    outputPFix.visible = !checked;
+                                    outputTAbs.visible = !checked;
+                                    outputTAbsStd.visible = !checked;
+                                    outputText.visible = !checked;
+                                    outputTextStd.visible = !checked;
+                                    outputNext.visible = !checked;
+                                    outputTFix.visible = checked;
+                                    outputTFixStd.visible = checked;
+                                    outputRate.visible = checked;
+                                    outputEFreqMut.visible = !checked;
+                                    outputEFreqWt.visible = !checked;
+                                    outputFEst.visible = !checked;
+                                    outputPEst.visible = !checked;
+                                    outputTSeg.visible = !checked;
+                                    outputTSegStd.visible = !checked;
+                                    outputTSegEst.visible = !checked;
+                                    outputTSegEstStd.visible = !checked;
+                                    outputTSegFix.visible = !checked;
+                                    outputTSegFixStd.visible = !checked;
+                                    outputTEst.visible = !checked;
+                                    outputTEstStd.visible = !checked;
+                                    outputEA.visible = !checked;
+                                    outputSA.visible = !checked;
+                                }
+                            }
+
+                            RadioButton {
+                                id: radioButtonEstablishment
+                                text: qsTr("Establishment")
+                                onCheckedChanged: {
+                                    outputPExt.visible = !checked
+                                    outputPFix.visible = !checked;
+                                    outputTAbs.visible = !checked;
+                                    outputTAbsStd.visible = !checked;
+                                    outputText.visible = !checked;
+                                    outputTextStd.visible = !checked;
+                                    outputNext.visible = !checked;
+                                    outputTFix.visible = !checked;
+                                    outputTFixStd.visible = !checked;
+                                    outputRate.visible = !checked;
+                                    outputEFreqMut.visible = !checked;
+                                    outputEFreqWt.visible = !checked;
+                                    outputFEst.visible = checked;
+                                    outputPEst.visible = checked;
+                                    outputTSeg.visible = checked;
+                                    outputTSegStd.visible = checked;
+                                    outputTSegEst.visible = checked;
+                                    outputTSegEstStd.visible = checked;
+                                    outputTSegFix.visible = checked;
+                                    outputTSegFixStd.visible = checked;
+                                    outputTEst.visible = checked;
+                                    outputTEstStd.visible = checked;
+                                    outputEA.visible = !checked;
+                                    outputSA.visible = !checked;
+                                }
                             }
                             RadioButton {
+                                id: radioButtonFundamental
                                 text: qsTr("Fundamental")
+                                onCheckedChanged: {
+                                    outputPExt.visible = !checked
+                                    outputPFix.visible = !checked;
+                                    outputTAbs.visible = !checked;
+                                    outputTAbsStd.visible = !checked;
+                                    outputText.visible = !checked;
+                                    outputTextStd.visible = !checked;
+                                    outputNext.visible = !checked;
+                                    outputTFix.visible = !checked;
+                                    outputTFixStd.visible = !checked;
+                                    outputRate.visible = !checked;
+                                    outputEFreqMut.visible = !checked;
+                                    outputEFreqWt.visible = !checked;
+                                    outputFEst.visible = !checked;
+                                    outputPEst.visible = !checked;
+                                    outputTSeg.visible = !checked;
+                                    outputTSegStd.visible = !checked;
+                                    outputTSegEst.visible = !checked;
+                                    outputTSegEstStd.visible = !checked;
+                                    outputTSegFix.visible = !checked;
+                                    outputTSegFixStd.visible = !checked;
+                                    outputTEst.visible = !checked;
+                                    outputTEstStd.visible = !checked;
+                                    outputEA.visible = !checked;
+                                    outputSA.visible = !checked;
+                                }
                             }
                             RadioButton {
+                                id: radioButtonNonAbsorbing
+                                text: qsTr("Non Absorbing")
+                                onCheckedChanged: {
+                                    outputPExt.visible = !checked
+                                    outputPFix.visible = !checked;
+                                    outputTAbs.visible = !checked;
+                                    outputTAbsStd.visible = !checked;
+                                    outputText.visible = !checked;
+                                    outputTextStd.visible = !checked;
+                                    outputNext.visible = !checked;
+                                    outputTFix.visible = !checked;
+                                    outputTFixStd.visible = !checked;
+                                    outputRate.visible = !checked;
+                                    outputEFreqMut.visible = !checked;
+                                    outputEFreqWt.visible = !checked;
+                                    outputFEst.visible = !checked;
+                                    outputPEst.visible = !checked;
+                                    outputTSeg.visible = !checked;
+                                    outputTSegStd.visible = !checked;
+                                    outputTSegEst.visible = !checked;
+                                    outputTSegEstStd.visible = !checked;
+                                    outputTSegFix.visible = !checked;
+                                    outputTSegFixStd.visible = !checked;
+                                    outputTEst.visible = !checked;
+                                    outputTEstStd.visible = !checked;
+                                    outputEA.visible = !checked;
+                                    outputSA.visible = !checked;
+                                }
+                            }
+
+                            RadioButton {
+                                id: radioButtonEquilibrium
                                 text: qsTr("Equilibrium")
+                                onCheckedChanged: {
+                                    outputPExt.visible = !checked
+                                    outputPFix.visible = !checked;
+                                    outputTAbs.visible = !checked;
+                                    outputTAbsStd.visible = !checked;
+                                    outputText.visible = !checked;
+                                    outputTextStd.visible = !checked;
+                                    outputNext.visible = !checked;
+                                    outputRate.visible = !checked;
+                                    outputTFix.visible = !checked;
+                                    outputTFixStd.visible = !checked;
+                                    outputEFreqMut.visible = checked;
+                                    outputEFreqWt.visible = checked;
+                                    outputFEst.visible = !checked;
+                                    outputPEst.visible = !checked;
+                                    outputTSeg.visible = !checked;
+                                    outputTSegStd.visible = !checked;
+                                    outputTSegEst.visible = !checked;
+                                    outputTSegEstStd.visible = !checked;
+                                    outputTSegFix.visible = !checked;
+                                    outputTSegFixStd.visible = !checked;
+                                    outputTEst.visible = !checked;
+                                    outputTEstStd.visible = !checked;
+                                    outputEA.visible = !checked;
+                                    outputSA.visible = !checked;
+                                }
                             }
                             RadioButton {
+                                id: radioButtonAlleleAge
                                 text: qsTr("Allele Age")
+                                onCheckedChanged: {
+                                    outputPExt.visible = !checked
+                                    outputPFix.visible = !checked;
+                                    outputTAbs.visible = !checked;
+                                    outputTAbsStd.visible = !checked;
+                                    outputText.visible = !checked;
+                                    outputTextStd.visible = !checked;
+                                    outputNext.visible = !checked;
+                                    outputTFix.visible = !checked;
+                                    outputTFixStd.visible = !checked;
+                                    outputRate.visible = !checked;
+                                    outputEFreqMut.visible = !checked;
+                                    outputEFreqWt.visible = !checked;
+                                    outputFEst.visible = !checked;
+                                    outputPEst.visible = !checked;
+                                    outputTSeg.visible = !checked;
+                                    outputTSegStd.visible = !checked;
+                                    outputTSegEst.visible = !checked;
+                                    outputTSegEstStd.visible = !checked;
+                                    outputTSegFix.visible = !checked;
+                                    outputTSegFixStd.visible = !checked;
+                                    outputTEst.visible = !checked;
+                                    outputTEstStd.visible = !checked;
+                                    outputEA.visible = checked;
+                                    outputSA.visible = checked;
+                                }
                             }
 
                         }
@@ -437,9 +634,6 @@ ApplicationWindow {
 
                 ColumnLayout {
                     id: column3
-                    width: childrenRect.width
-                    height: childrenRect.height
-
                     Layout.margins: 10
                     Layout.alignment: Qt.AlignTop
 
@@ -463,75 +657,258 @@ ApplicationWindow {
                             }
 
                             LabeledTextField {
+                                id: outputPExt
                                 labelPreferredWidth: 75
                                 textFieldPreferredWidth: 180
                                 text: "P. ext. : "
                                 textFieldText: outputController.ui_get_p_ext
                                 readOnly: true
+                                visible: radioButtonAbsorption.checked
                             }
 
                             LabeledTextField {
+                                id: outputPFix
                                 labelPreferredWidth: 75
                                 textFieldPreferredWidth: 180
                                 text: "P. fix. : "
                                 textFieldText: outputController.ui_get_p_fix
                                 readOnly: true
+                                visible: radioButtonAbsorption.checked
                             }
 
                             LabeledTextField {
+                                id: outputTAbs
                                 labelPreferredWidth: 75
                                 textFieldPreferredWidth: 180
                                 text: "T. abs. : "
                                 textFieldText: outputController.ui_get_t_abs
                                 readOnly: true
+                                visible: radioButtonAbsorption.checked
                             }
 
                             LabeledTextField {
+                                id: outputTAbsStd
                                 labelPreferredWidth: 75
                                 textFieldPreferredWidth: 180
                                 text: "T. abs. std.: "
                                 textFieldText: outputController.ui_get_t_abs_std
                                 readOnly: true
+                                visible: radioButtonAbsorption.checked
                             }
 
                             LabeledTextField {
+                                id: outputText
                                 labelPreferredWidth: 75
                                 textFieldPreferredWidth: 180
                                 text: "T. ext.: "
                                 textFieldText: outputController.ui_get_t_ext
                                 readOnly: true
+                                visible: radioButtonAbsorption.checked
                             }
 
                             LabeledTextField {
+                                id: outputTextStd
                                 labelPreferredWidth: 75
                                 textFieldPreferredWidth: 180
                                 text: "T. ext. std.: "
                                 textFieldText: outputController.ui_get_t_ext_std
                                 readOnly: true
+                                visible: radioButtonAbsorption.checked
                             }
 
                             LabeledTextField {
+                                id: outputNext
                                 labelPreferredWidth: 75
                                 textFieldPreferredWidth: 180
                                 text: "N. ext.: "
                                 textFieldText: outputController.ui_get_n_ext
                                 readOnly: true
+                                visible: radioButtonAbsorption.checked
                             }
 
                             LabeledTextField {
+                                id: outputTFix
                                 labelPreferredWidth: 75
                                 textFieldPreferredWidth: 180
                                 text: "T. fix.: "
                                 textFieldText: outputController.ui_get_t_fix
                                 readOnly: true
+                                visible: radioButtonFixation.checked || radioButtonAbsorption.checked
                             }
 
                             LabeledTextField {
+                                id: outputTFixStd
                                 labelPreferredWidth: 75
                                 textFieldPreferredWidth: 180
                                 text: "T. fix. std.: "
                                 textFieldText: outputController.ui_get_t_fix_std
                                 readOnly: true
+                                visible: radioButtonFixation.checked || radioButtonAbsorption.checked
+                            }
+
+                            LabeledTextField {
+                                id: outputRate
+                                labelPreferredWidth: 75
+                                textFieldPreferredWidth: 180
+                                text: "Rate: "
+                                //TODO
+                                textFieldText: outputController.ui_get_t_fix_std
+                                readOnly: true
+                                visible: radioButtonFixation.checked
+                            }
+
+                            LabeledTextField {
+                                id: outputEFreqMut
+                                labelPreferredWidth: 75
+                                textFieldPreferredWidth: 180
+                                text: "E[freq mut]: "
+                                //TODO
+                                textFieldText: outputController.ui_get_t_fix_std
+                                readOnly: true
+                                visible: radioButtonEquilibrium.checked
+                            }
+
+                            LabeledTextField {
+                                id: outputEFreqWt
+                                labelPreferredWidth: 75
+                                textFieldPreferredWidth: 180
+                                text: "E[freq  wt]: "
+                                //TODO
+                                textFieldText: outputController.ui_get_t_fix_std
+                                readOnly: true
+                                visible: radioButtonEquilibrium.checked
+                            }
+
+                            LabeledTextField {
+                                id: outputFEst
+                                labelPreferredWidth: 75
+                                textFieldPreferredWidth: 180
+                                text: "F. est.: "
+                                //TODO
+                                textFieldText: outputController.ui_get_t_fix_std
+                                readOnly: true
+                                visible: radioButtonEstablishment.checked
+                            }
+
+                            LabeledTextField {
+                                id: outputPEst
+                                labelPreferredWidth: 75
+                                textFieldPreferredWidth: 180
+                                text: "P. est.: "
+                                //TODO
+                                textFieldText: outputController.ui_get_t_fix_std
+                                readOnly: true
+                                visible: radioButtonEstablishment.checked
+                            }
+
+                            LabeledTextField {
+                                id: outputTSeg
+                                labelPreferredWidth: 75
+                                textFieldPreferredWidth: 180
+                                text: "T. seg.: "
+                                //TODO
+                                textFieldText: outputController.ui_get_t_fix_std
+                                readOnly: true
+                                visible: radioButtonEstablishment.checked
+                            }
+
+                            LabeledTextField {
+                                id: outputTSegStd
+                                labelPreferredWidth: 75
+                                textFieldPreferredWidth: 180
+                                text: "T. seg. std.: "
+                                //TODO
+                                textFieldText: outputController.ui_get_t_fix_std
+                                readOnly: true
+                                visible: radioButtonEstablishment.checked
+                            }
+
+                            LabeledTextField {
+                                id: outputTSegEst
+                                labelPreferredWidth: 75
+                                textFieldPreferredWidth: 180
+                                text: "T. seg. ext.: "
+                                //TODO
+                                textFieldText: outputController.ui_get_t_fix_std
+                                readOnly: true
+                                visible: radioButtonEstablishment.checked
+                            }
+
+                            LabeledTextField {
+                                id: outputTSegEstStd
+                                labelPreferredWidth: 75
+                                textFieldPreferredWidth: 180
+                                text: "T. seg. ext. std.: "
+                                //TODO
+                                textFieldText: outputController.ui_get_t_fix_std
+                                readOnly: true
+                                visible: radioButtonEstablishment.checked
+                            }
+
+                            LabeledTextField {
+                                id: outputTSegFix
+                                labelPreferredWidth: 75
+                                textFieldPreferredWidth: 180
+                                text: "T. seg. fix.: "
+                                //TODO
+                                textFieldText: outputController.ui_get_t_fix_std
+                                readOnly: true
+                                visible: radioButtonEstablishment.checked
+                            }
+
+                            LabeledTextField {
+                                id: outputTSegFixStd
+                                labelPreferredWidth: 75
+                                textFieldPreferredWidth: 180
+                                text: "T. seg. fix. std.: "
+                                //TODO
+                                textFieldText: outputController.ui_get_t_fix_std
+                                readOnly: true
+                                visible: radioButtonEstablishment.checked
+                            }
+
+                            LabeledTextField {
+                                id: outputTEst
+                                labelPreferredWidth: 75
+                                textFieldPreferredWidth: 180
+                                text: "T. est.: "
+                                //TODO
+                                textFieldText: outputController.ui_get_t_fix_std
+                                readOnly: true
+                                visible: radioButtonEstablishment.checked
+                            }
+
+                            LabeledTextField {
+                                id: outputTEstStd
+                                labelPreferredWidth: 75
+                                textFieldPreferredWidth: 180
+                                text: "T. est. std.: "
+                                //TODO
+                                textFieldText: outputController.ui_get_t_fix_std
+                                readOnly: true
+                                visible: radioButtonEstablishment.checked
+                            }
+
+                            LabeledTextField {
+                                id: outputEA
+                                labelPreferredWidth: 75
+                                textFieldPreferredWidth: 180
+                                text: "E(A): "
+                                //TODO
+                                textFieldText: outputController.ui_get_t_fix_std
+                                readOnly: true
+                                visible: radioButtonAlleleAge.checked
+                            }
+
+                            LabeledTextField {
+                                id: outputSA
+                                labelPreferredWidth: 75
+                                textFieldPreferredWidth: 180
+                                text: "S(A): "
+                                //TODO
+                                textFieldText: outputController.ui_get_t_fix_std
+                                readOnly: true
+                                visible: radioButtonAlleleAge.checked
                             }
                         }
                     }
