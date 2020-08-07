@@ -3,7 +3,7 @@
 using namespace wfes::config;
 
 std::string Config::library = "Pardiso";
-ModelType Config::modelType = ModelType::ABSORTION;
+ModelType Config::modelType = ModelType::ABSORPTION;
 llong Config::population_size = 10000;
 double Config::s = 0.005;
 double Config::h = 0.5;
@@ -18,7 +18,7 @@ llong Config::n_threads = 1;
 double Config::integration_cutoff = 1e-10;
 llong Config::starting_copies = 0;
 
-llong Config::observed_copies = 0;
+llong Config::observed_copies = 1;
 bool Config::observed_copies_b = false;
 
 std::string Config::initial_distribution_csv = "";

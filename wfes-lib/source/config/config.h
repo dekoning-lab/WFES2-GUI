@@ -8,8 +8,9 @@ namespace wfes {
     namespace config {
 
         enum ModelType{
-            NONE, ABSORTION, FIXATION, ESTABLISHMENT, FUNDAMENTAL, EQUILIBRIUM, NON_ABSORBING, ALLELE_AGE
+            NONE, ABSORPTION, FIXATION, ESTABLISHMENT, FUNDAMENTAL, EQUILIBRIUM, NON_ABSORBING, ALLELE_AGE
         };
+        static const char* ModelTypeNames[] = { "None", "Absorption", "Fixation", "Establishment", "Fundamental", "Equilibrium", "Non Absorbing", "Allele Age"};
 
         class Config {
             public:

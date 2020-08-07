@@ -10,6 +10,9 @@ import components 1.0
 Rectangle {
     property alias text: label.text
     property alias model: comboBox.model
+    property alias currentText: comboBox.currentText
+
+    property var fun: function(){}
 
     color: "transparent"
     width: childrenRect.width
@@ -26,6 +29,7 @@ Rectangle {
             id: comboBox
             Layout.preferredWidth: 185
             model: [ "ViennaCL", "Pardiso" ]
+            onCurrentTextChanged: fun()
         }
     }
 }

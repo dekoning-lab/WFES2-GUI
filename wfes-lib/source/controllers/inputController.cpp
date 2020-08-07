@@ -280,6 +280,32 @@ void InputController::set_force(bool force) const
     wfes::config::Config::force = force;
 }
 
+QString InputController::get_model_type() const
+{
+    return wfes::config::ModelTypeNames[wfes::config::Config::modelType];
+}
+
+void InputController::set_model_type(QString model_type) const
+{
+    if(model_type.compare(wfes::config::ModelTypeNames[wfes::config::ModelType::NONE]) == 0)
+        wfes::config::Config::modelType = wfes::config::ModelType::NONE;
+    else if (model_type.compare(wfes::config::ModelTypeNames[wfes::config::ModelType::FIXATION]) == 0)
+        wfes::config::Config::modelType = wfes::config::ModelType::FIXATION;
+    else if (model_type.compare(wfes::config::ModelTypeNames[wfes::config::ModelType::ABSORPTION]) == 0)
+        wfes::config::Config::modelType = wfes::config::ModelType::ABSORPTION;
+    else if (model_type.compare(wfes::config::ModelTypeNames[wfes::config::ModelType::ESTABLISHMENT]) == 0)
+        wfes::config::Config::modelType = wfes::config::ModelType::ESTABLISHMENT;
+    else if (model_type.compare(wfes::config::ModelTypeNames[wfes::config::ModelType::FUNDAMENTAL]) == 0)
+        wfes::config::Config::modelType = wfes::config::ModelType::FUNDAMENTAL;
+    else if (model_type.compare(wfes::config::ModelTypeNames[wfes::config::ModelType::EQUILIBRIUM]) == 0)
+        wfes::config::Config::modelType = wfes::config::ModelType::EQUILIBRIUM;
+    else if (model_type.compare(wfes::config::ModelTypeNames[wfes::config::ModelType::NON_ABSORBING]) == 0)
+        wfes::config::Config::modelType = wfes::config::ModelType::NON_ABSORBING;
+    else if (model_type.compare(wfes::config::ModelTypeNames[wfes::config::ModelType::ALLELE_AGE]) == 0)
+        wfes::config::Config::modelType = wfes::config::ModelType::ALLELE_AGE;
+
+}
+
 
 
 

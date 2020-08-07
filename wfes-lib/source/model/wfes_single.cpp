@@ -127,7 +127,7 @@ Results* wfes_single::execute()
 
     } // END SINGLE FIXATION
 
-    if (Config::modelType == ModelType::ABSORTION) // BEGIN SINGLE ABSORPTION
+    if (Config::modelType == ModelType::ABSORPTION) // BEGIN SINGLE ABSORPTION
     {
         wrightfisher::Matrix W = wrightfisher::Single(Config::population_size, Config::population_size, wrightfisher::BOTH_ABSORBING, Config::s, Config::h, Config::u, Config::v,
                                   Config::rem, Config::a, Config::verbose, Config::b);
@@ -404,7 +404,7 @@ Results* wfes_single::execute()
 
         W_tr.Q->subtractIdentity();
 
-        Solver* solver_tr = SolverFactory::createSolver(Config::library, *(W_full.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level);
+        Solver* solver_tr = SolverFactory::createSolver(Config::library, *(W_tr.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level);
 
         solver_tr->preprocess();
 
@@ -492,8 +492,8 @@ Results* wfes_single::execute()
 
     if (Config::modelType == ModelType::ALLELE_AGE) // BEGIN SINGLE ALLELE AGE
     {
-        if (!Config::observed_copies_b) {
-            throw wfes::exception::Error("-x | --observed-copies required for allele are calculation");
+        if (Config::observed_copies < 1 || Config::observed_copies > Config::population_size) {
+            throw wfes::exception::Error("x (observed copies) must be between 1 and N");
         }
         llong x = Config::observed_copies - 1;
 

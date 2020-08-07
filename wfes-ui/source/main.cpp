@@ -6,6 +6,7 @@
 #include <controllers/outputController.h>
 #include <controllers/inputController.h>
 #include <results/results.h>
+#include <config/config.h>
 
 int main(int argc, char *argv[])
 {

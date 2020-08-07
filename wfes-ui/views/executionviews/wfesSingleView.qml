@@ -110,6 +110,10 @@ ApplicationWindow {
                                     outputTEstStd.visible = !checked;
                                     outputEA.visible = !checked;
                                     outputSA.visible = !checked;
+
+                                    inputX.enabled = !checked;
+
+                                    inputController.ui_modelType = "Absorption"
                                 }
                             }
                             RadioButton {
@@ -140,6 +144,10 @@ ApplicationWindow {
                                     outputTEstStd.visible = !checked;
                                     outputEA.visible = !checked;
                                     outputSA.visible = !checked;
+
+                                    inputX.enabled = !checked;
+
+                                    inputController.ui_modelType = "Fixation"
                                 }
                             }
 
@@ -171,6 +179,10 @@ ApplicationWindow {
                                     outputTEstStd.visible = checked;
                                     outputEA.visible = !checked;
                                     outputSA.visible = !checked;
+
+                                    inputX.enabled = !checked;
+
+                                    inputController.ui_modelType = "Establishment"
                                 }
                             }
                             RadioButton {
@@ -201,6 +213,10 @@ ApplicationWindow {
                                     outputTEstStd.visible = !checked;
                                     outputEA.visible = !checked;
                                     outputSA.visible = !checked;
+
+                                    inputX.enabled = !checked;
+
+                                    inputController.ui_modelType = "Fundamental"
                                 }
                             }
                             RadioButton {
@@ -231,6 +247,10 @@ ApplicationWindow {
                                     outputTEstStd.visible = !checked;
                                     outputEA.visible = !checked;
                                     outputSA.visible = !checked;
+
+                                    inputX.enabled = !checked;
+
+                                    inputController.ui_modelType = "Non Absorbing"
                                 }
                             }
 
@@ -262,6 +282,10 @@ ApplicationWindow {
                                     outputTEstStd.visible = !checked;
                                     outputEA.visible = !checked;
                                     outputSA.visible = !checked;
+
+                                    inputX.enabled = !checked;
+
+                                    inputController.ui_modelType = "Equilibrium"
                                 }
                             }
                             RadioButton {
@@ -292,6 +316,10 @@ ApplicationWindow {
                                     outputTEstStd.visible = !checked;
                                     outputEA.visible = checked;
                                     outputSA.visible = checked;
+
+                                    inputX.enabled = checked;
+
+                                    inputController.ui_modelType = "Allele Age"
                                 }
                             }
 
@@ -356,11 +384,13 @@ ApplicationWindow {
                             }
 
                             LabeledTextField {
+                                id: inputX
                                 text: "x: "
                                 //TODO Top is N
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
                                 textFieldText: inputController.ui_x
                                 fun: function(){inputController.ui_x = textFieldText;}
+                                enabled: (inputController.ui_modelType == "Allele Age")
                             }
                         }
 
@@ -600,13 +630,23 @@ ApplicationWindow {
                                     width: childrenRect.width
 
                                     LabeledComboBox {
+                                        id: comboBoxSolver
                                         text: "Solver:"
-                                        model: [ "ViennaCL", "Pardiso" ]
+                                        model: ["Pardiso", "ViennaCL"]
+                                        fun: function(){
+                                            if(comboBoxSolver.currentText === "Pardiso")
+                                                comboBoxBackend.enabled = false
+                                            else if (comboBoxSolver.currentText === "ViennaCL")
+                                                comboBoxBackend.enabled = true
+                                            console.log(comboBoxSolver.currentText)
+                                        }
                                     }
 
                                     LabeledComboBox {
+                                        id: comboBoxBackend
                                         text: "Backend:"
                                         model: [ "1 Threaded", "OpenMP", "OpenCL", "CUDA" ]
+                                        enabled: (comboBoxSolver.currentText === "ViennaCL")
                                     }
                                 }
 

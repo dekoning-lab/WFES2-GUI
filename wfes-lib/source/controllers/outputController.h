@@ -43,8 +43,8 @@ namespace wfes {
             Q_PROPERTY(QString ui_get_t_seg_fix_std READ get_t_seg_fix_std NOTIFY results_changed)
             Q_PROPERTY(QString ui_get_t_est READ get_t_est NOTIFY results_changed)
             Q_PROPERTY(QString ui_get_t_est_std READ get_t_est_std NOTIFY results_changed)
-            Q_PROPERTY(QString ui_get_e_a READ get_t_est_std NOTIFY results_changed)
-            Q_PROPERTY(QString ui_get_s_a READ get_t_est_std NOTIFY results_changed)
+            Q_PROPERTY(QString ui_get_e_a READ get_e_a NOTIFY results_changed)
+            Q_PROPERTY(QString ui_get_s_a READ get_s_a NOTIFY results_changed)
 
             public:
                 // Store results of an execution.
