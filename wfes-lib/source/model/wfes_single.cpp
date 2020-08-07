@@ -307,6 +307,7 @@ Results* wfes_single::execute()
         O(size - 1) = 1;
 
         dvec pi = solver->solve(O, true);
+        //TODO, Non testing if user wants E.
         utils::writeVectorToFile(pi, Config::path_output_E);
 
         // Calculate expected frequency

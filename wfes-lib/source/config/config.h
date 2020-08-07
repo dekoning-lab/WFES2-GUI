@@ -49,8 +49,6 @@ namespace wfes {
 
                 static llong observed_copies;
 
-                static bool observed_copies_b;
-
                 static double odds_ratio;
 
                 static std::string path_output_Q;

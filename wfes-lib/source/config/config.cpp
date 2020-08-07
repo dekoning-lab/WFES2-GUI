@@ -19,7 +19,6 @@ double Config::integration_cutoff = 1e-10;
 llong Config::starting_copies = 0;
 
 llong Config::observed_copies = 1;
-bool Config::observed_copies_b = false;
 
 std::string Config::initial_distribution_csv = "";
 std::string Config::path_output_Q = "output_Q.csv";

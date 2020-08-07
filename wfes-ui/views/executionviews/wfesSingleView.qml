@@ -112,6 +112,17 @@ ApplicationWindow {
                                     outputSA.visible = !checked;
 
                                     inputX.enabled = !checked;
+                                    inputM.enabled = checked;
+                                    inputp.enabled = checked;
+                                    inputX.enabled = !checked;
+                                    inputWriteE.enabled = !checked;
+                                    inputWriteV.enabled = !checked;
+                                    inputWriteQ.enabled = checked;
+                                    inputWriteR.enabled = checked;
+                                    inputWriteN.enabled = checked;
+                                    inputWriteE.enabled = !checked;
+                                    inputWriteB.enabled = checked;
+                                    inputWriteRes.enabled = checked;
 
                                     inputController.ui_modelType = "Absorption"
                                 }
@@ -146,6 +157,17 @@ ApplicationWindow {
                                     outputSA.visible = !checked;
 
                                     inputX.enabled = !checked;
+                                    inputM.enabled = checked;
+                                    inputp.enabled = checked;
+                                    inputX.enabled = !checked;
+                                    inputWriteE.enabled = !checked;
+                                    inputWriteV.enabled = !checked;
+                                    inputWriteQ.enabled = checked;
+                                    inputWriteR.enabled = checked;
+                                    inputWriteN.enabled = checked;
+                                    inputWriteE.enabled = !checked;
+                                    inputWriteB.enabled = checked;
+                                    inputWriteRes.enabled = checked;
 
                                     inputController.ui_modelType = "Fixation"
                                 }
@@ -181,6 +203,17 @@ ApplicationWindow {
                                     outputSA.visible = !checked;
 
                                     inputX.enabled = !checked;
+                                    inputM.enabled = checked;
+                                    inputp.enabled = checked;
+                                    inputX.enabled = !checked;
+                                    inputWriteE.enabled = !checked;
+                                    inputWriteV.enabled = !checked;
+                                    inputWriteQ.enabled = checked;
+                                    inputWriteR.enabled = checked;
+                                    inputWriteN.enabled = !checked;
+                                    inputWriteE.enabled = !checked;
+                                    inputWriteB.enabled = !checked;
+                                    inputWriteRes.enabled = checked;
 
                                     inputController.ui_modelType = "Establishment"
                                 }
@@ -215,6 +248,17 @@ ApplicationWindow {
                                     outputSA.visible = !checked;
 
                                     inputX.enabled = !checked;
+                                    inputM.enabled = checked;
+                                    inputp.enabled = !checked;
+                                    inputX.enabled = !checked;
+                                    inputWriteE.enabled = !checked;
+                                    inputWriteV.enabled = checked;
+                                    inputWriteQ.enabled = checked;
+                                    inputWriteR.enabled = checked;
+                                    inputWriteN.enabled = checked;
+                                    inputWriteE.enabled = !checked;
+                                    inputWriteB.enabled = !checked;
+                                    inputWriteRes.enabled = !checked;
 
                                     inputController.ui_modelType = "Fundamental"
                                 }
@@ -249,6 +293,17 @@ ApplicationWindow {
                                     outputSA.visible = !checked;
 
                                     inputX.enabled = !checked;
+                                    inputM.enabled = checked;
+                                    inputp.enabled = !checked;
+                                    inputX.enabled = !checked;
+                                    inputWriteE.enabled = !checked;
+                                    inputWriteV.enabled = !checked;
+                                    inputWriteQ.enabled = checked;
+                                    inputWriteR.enabled = !checked;
+                                    inputWriteN.enabled = !checked;
+                                    inputWriteE.enabled = !checked;
+                                    inputWriteB.enabled = !checked;
+                                    inputWriteRes.enabled = !checked;
 
                                     inputController.ui_modelType = "Non Absorbing"
                                 }
@@ -284,6 +339,17 @@ ApplicationWindow {
                                     outputSA.visible = !checked;
 
                                     inputX.enabled = !checked;
+                                    inputM.enabled = !checked;
+                                    inputp.enabled = !checked;
+                                    inputX.enabled = !checked;
+                                    inputWriteE.enabled = checked;
+                                    inputWriteV.enabled = !checked;
+                                    inputWriteQ.enabled = !checked;
+                                    inputWriteR.enabled = !checked;
+                                    inputWriteN.enabled = !checked;
+                                    inputWriteE.enabled = checked;
+                                    inputWriteB.enabled = !checked;
+                                    inputWriteRes.enabled = checked;
 
                                     inputController.ui_modelType = "Equilibrium"
                                 }
@@ -318,6 +384,17 @@ ApplicationWindow {
                                     outputSA.visible = checked;
 
                                     inputX.enabled = checked;
+                                    inputM.enabled = checked;
+                                    inputp.enabled = checked;
+                                    inputX.enabled = checked;
+                                    inputWriteE.enabled = !checked;
+                                    inputWriteV.enabled = !checked;
+                                    inputWriteQ.enabled = checked;
+                                    inputWriteR.enabled = checked;
+                                    inputWriteN.enabled = !checked;
+                                    inputWriteE.enabled = !checked;
+                                    inputWriteB.enabled = !checked;
+                                    inputWriteRes.enabled = checked;
 
                                     inputController.ui_modelType = "Allele Age"
                                 }
@@ -355,6 +432,7 @@ ApplicationWindow {
                             }
 
                             LabeledTextField {
+                                id: inputN
                                 text: "N: "
                                 validator: DoubleValidator {bottom: 2; top: 50000;}
                                 textFieldText: inputController.ui_n
@@ -362,6 +440,7 @@ ApplicationWindow {
                             }
 
                             LabeledTextField {
+                                id: inputA
                                 text: "a: "
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
                                 textFieldText: inputController.ui_a
@@ -369,14 +448,20 @@ ApplicationWindow {
                             }
 
                             LabeledTextField {
+                                id: inputp
                                 text: "p: "
                                 //TODO Top is N
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
                                 textFieldText: inputController.ui_p
                                 fun: function(){inputController.ui_p = textFieldText;}
+                                enabled: (inputController.ui_modelType == "Fixation" ||
+                                          inputController.ui_modelType == "Absorption" ||
+                                          inputController.ui_modelType == "Establishment" ||
+                                          inputController.ui_modelType == "Allele Age")
                             }
 
                             LabeledTextField {
+                                id: inputc
                                 text: "c: "
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
                                 textFieldText: inputController.ui_c
@@ -425,6 +510,7 @@ ApplicationWindow {
 
 
                             LabeledTextField {
+                                id: inputU
                                 text: "u: "
                                 validator: DoubleValidator {bottom: 2; top: 50000;}
                                 textFieldText: inputController.ui_u
@@ -432,6 +518,7 @@ ApplicationWindow {
                             }
 
                             LabeledTextField {
+                                id: inputV
                                 text: "v: "
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
                                 textFieldText: inputController.ui_v
@@ -439,9 +526,16 @@ ApplicationWindow {
                             }
 
                             LabeledCheckBox {
+                                id: inputM
                                 text: "m: "
                                 checked: inputController.ui_m
                                 fun: function(){inputController.ui_m = checked}
+                                enabled: (inputController.ui_modelType == "Fixation" ||
+                                          inputController.ui_modelType == "Absorption" ||
+                                          inputController.ui_modelType == "Fundamental" ||
+                                          inputController.ui_modelType == "Establishment" ||
+                                          inputController.ui_modelType == "Allele Age" ||
+                                          inputController.ui_modelType == "Non Absorbing")
                             }
                         }
                     }
@@ -474,6 +568,7 @@ ApplicationWindow {
                             }
 
                             LabeledTextField {
+                                id: inputS
                                 text: "s: "
                                 validator: DoubleValidator {bottom: 2; top: 50000;}
                                 textFieldText: inputController.ui_s
@@ -481,6 +576,7 @@ ApplicationWindow {
                             }
 
                             LabeledTextField {
+                                id: inputH
                                 text: "h: "
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
                                 textFieldText: inputController.ui_h
@@ -530,53 +626,84 @@ ApplicationWindow {
                                 }
 
                                 LabeledCheckBox {
+                                    id: inputWriteQ
                                     text: "Q: "
                                     checked: inputController.ui_output_Q
                                     fun: function(){inputController.ui_output_Q = checked}
+                                    enabled: (inputController.ui_modelType == "Fixation" ||
+                                              inputController.ui_modelType == "Absorption" ||
+                                              inputController.ui_modelType == "Fundamental" ||
+                                              inputController.ui_modelType == "Establishment" ||
+                                              inputController.ui_modelType == "Allele Age" ||
+                                              inputController.ui_modelType == "Non Absorbing")
 
                                 }
 
                                 LabeledCheckBox {
+                                    id: inputWriteR
                                     text: "R: "
                                     checked: inputController.ui_output_R
                                     fun: function(){inputController.ui_output_R = checked}
+                                    enabled: (inputController.ui_modelType == "Fixation" ||
+                                              inputController.ui_modelType == "Absorption" ||
+                                              inputController.ui_modelType == "Fundamental" ||
+                                              inputController.ui_modelType == "Establishment" ||
+                                              inputController.ui_modelType == "Allele Age")
                                 }
 
                                 LabeledCheckBox {
+                                    id: inputWriteN
                                     text: "N: "
                                     checked: inputController.ui_output_N
                                     fun: function(){inputController.ui_output_N = checked}
+                                    enabled: (inputController.ui_modelType == "Fixation" ||
+                                              inputController.ui_modelType == "Absorption" ||
+                                              inputController.ui_modelType == "Fundamental")
                                 }
 
                                 LabeledCheckBox {
+                                    id: inputWriteB
                                     text: "B: "
                                     checked: inputController.ui_output_B
                                     fun: function(){inputController.ui_output_B = checked}
+                                    enabled: (inputController.ui_modelType == "Fixation" ||
+                                              inputController.ui_modelType == "Absorption")
                                 }
 
                                 LabeledCheckBox {
+                                    id: inputWriteI
                                     text: "I: "
                                     checked: inputController.ui_output_I
                                     fun: function(){inputController.ui_output_I = checked}
                                 }
 
                                 LabeledCheckBox {
+                                    id: inputWriteE
                                     text: "E: "
                                     checked: inputController.ui_output_E
                                     fun: function(){inputController.ui_output_E = checked}
+                                    enabled: (inputController.ui_modelType == "Equilibrium")
                                 }
 
                                 LabeledCheckBox {
+                                    id: inputWriteV
                                     text: "V: "
                                     checked: inputController.ui_output_V
                                     fun: function(){inputController.ui_output_V = checked}
+                                    enabled: (inputController.ui_modelType == "Fundamental")
                                 }
 
 
                                 LabeledCheckBox {
+                                    id: inputWriteRes
                                     text: "Res: "
                                     checked: inputController.ui_output_Res
                                     fun: function(){inputController.ui_output_Res = checked}
+                                    enabled: (inputController.ui_modelType == "Fixation" ||
+                                              inputController.ui_modelType == "Absorption" ||
+                                              inputController.ui_modelType == "Equilibrium" ||
+                                              inputController.ui_modelType == "Establishment" ||
+                                              inputController.ui_modelType == "Allele Age")
                                 }
 
                             }
@@ -638,7 +765,6 @@ ApplicationWindow {
                                                 comboBoxBackend.enabled = false
                                             else if (comboBoxSolver.currentText === "ViennaCL")
                                                 comboBoxBackend.enabled = true
-                                            console.log(comboBoxSolver.currentText)
                                         }
                                     }
 
