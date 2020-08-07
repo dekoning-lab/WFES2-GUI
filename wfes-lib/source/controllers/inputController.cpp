@@ -93,6 +93,23 @@ void InputController::set_x(QString x) const
     wfes::config::Config::observed_copies = x_d;
 }
 
+QString InputController::get_k() const
+{
+    boost::format fmt = boost::format(DPFS) % (wfes::config::Config::odds_ratio);
+
+    if(isnan(wfes::config::Config::odds_ratio))
+        return "Error";
+    else
+        return QString::fromStdString(fmt.str());
+}
+
+void InputController::set_k(QString k) const
+{
+    std::string k_str = k.toStdString();
+    double k_d = boost::lexical_cast<double>(k_str);
+    wfes::config::Config::odds_ratio = k_d;
+}
+
 QString InputController::get_u() const
 {
     boost::format fmt = boost::format(DPFS) % (wfes::config::Config::u);
@@ -207,6 +224,26 @@ bool InputController::get_output_N() const
 void InputController::set_output_N(bool output_N) const
 {
     wfes::config::Config::output_N = output_N;
+}
+
+bool InputController::get_output_NExt() const
+{
+    return wfes::config::Config::output_N_ext;
+}
+
+void InputController::set_output_NExt(bool output_NExt) const
+{
+    wfes::config::Config::output_N_ext = output_NExt;
+}
+
+bool InputController::get_output_NFix() const
+{
+    return wfes::config::Config::output_N_fix;
+}
+
+void InputController::set_output_NFix(bool output_NFix) const
+{
+    wfes::config::Config::output_N_fix = output_NFix;
 }
 
 bool InputController::get_output_B() const

@@ -24,6 +24,7 @@ namespace wfes {
             Q_PROPERTY(QString ui_p READ get_p WRITE set_p NOTIFY input_changed)
             Q_PROPERTY(QString ui_c READ get_c WRITE set_c NOTIFY input_changed)
             Q_PROPERTY(QString ui_x READ get_x WRITE set_x NOTIFY input_changed)
+            Q_PROPERTY(QString ui_k READ get_k WRITE set_k NOTIFY input_changed)
             Q_PROPERTY(QString ui_u READ get_u WRITE set_u NOTIFY input_changed)
             Q_PROPERTY(QString ui_v READ get_v WRITE set_v NOTIFY input_changed)
             Q_PROPERTY(QString ui_s READ get_s WRITE set_s NOTIFY input_changed)
@@ -32,6 +33,8 @@ namespace wfes {
             Q_PROPERTY(bool ui_output_Q READ get_output_Q WRITE set_output_Q NOTIFY input_changed)
             Q_PROPERTY(bool ui_output_R READ get_output_R WRITE set_output_R NOTIFY input_changed)
             Q_PROPERTY(bool ui_output_N READ get_output_N WRITE set_output_N NOTIFY input_changed)
+            Q_PROPERTY(bool ui_output_NExt READ get_output_NExt WRITE set_output_NExt NOTIFY input_changed)
+            Q_PROPERTY(bool ui_output_NFix READ get_output_NFix WRITE set_output_NFix NOTIFY input_changed)
             Q_PROPERTY(bool ui_output_B READ get_output_B WRITE set_output_B NOTIFY input_changed)
             Q_PROPERTY(bool ui_output_I READ get_output_I WRITE set_output_I NOTIFY input_changed)
             Q_PROPERTY(bool ui_output_E READ get_output_E WRITE set_output_E NOTIFY input_changed)
@@ -61,6 +64,9 @@ namespace wfes {
                 QString get_x() const;
                 void set_x(QString x) const;
 
+                QString get_k() const;
+                void set_k(QString k) const;
+
                 QString get_u() const;
                 void set_u(QString u) const;
 
@@ -84,6 +90,12 @@ namespace wfes {
 
                 bool get_output_N() const;
                 void set_output_N(bool output_N) const;
+
+                bool get_output_NExt() const;
+                void set_output_NExt(bool output_NExt) const;
+
+                bool get_output_NFix() const;
+                void set_output_NFix(bool output_NFix) const;
 
                 bool get_output_B() const;
                 void set_output_B(bool output_B) const;

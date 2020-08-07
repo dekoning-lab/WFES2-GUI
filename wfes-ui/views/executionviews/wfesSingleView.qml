@@ -115,11 +115,14 @@ ApplicationWindow {
                                     inputM.enabled = checked;
                                     inputp.enabled = checked;
                                     inputX.enabled = !checked;
+                                    inputK.enabled = !checked;
                                     inputWriteE.enabled = !checked;
                                     inputWriteV.enabled = !checked;
                                     inputWriteQ.enabled = checked;
                                     inputWriteR.enabled = checked;
                                     inputWriteN.enabled = checked;
+                                    inputWriteNExt.enabled = checked;
+                                    inputWriteNFix.enabled = checked;
                                     inputWriteE.enabled = !checked;
                                     inputWriteB.enabled = checked;
                                     inputWriteRes.enabled = checked;
@@ -160,11 +163,14 @@ ApplicationWindow {
                                     inputM.enabled = checked;
                                     inputp.enabled = checked;
                                     inputX.enabled = !checked;
+                                    inputK.enabled = !checked;
                                     inputWriteE.enabled = !checked;
                                     inputWriteV.enabled = !checked;
                                     inputWriteQ.enabled = checked;
                                     inputWriteR.enabled = checked;
                                     inputWriteN.enabled = checked;
+                                    inputWriteNExt.enabled = !checked;
+                                    inputWriteNFix.enabled = !checked;
                                     inputWriteE.enabled = !checked;
                                     inputWriteB.enabled = checked;
                                     inputWriteRes.enabled = checked;
@@ -206,11 +212,14 @@ ApplicationWindow {
                                     inputM.enabled = checked;
                                     inputp.enabled = checked;
                                     inputX.enabled = !checked;
+                                    inputK.enabled = checked;
                                     inputWriteE.enabled = !checked;
                                     inputWriteV.enabled = !checked;
                                     inputWriteQ.enabled = checked;
                                     inputWriteR.enabled = checked;
                                     inputWriteN.enabled = !checked;
+                                    inputWriteNExt.enabled = !checked;
+                                    inputWriteNFix.enabled = !checked;
                                     inputWriteE.enabled = !checked;
                                     inputWriteB.enabled = !checked;
                                     inputWriteRes.enabled = checked;
@@ -251,11 +260,14 @@ ApplicationWindow {
                                     inputM.enabled = checked;
                                     inputp.enabled = !checked;
                                     inputX.enabled = !checked;
+                                    inputK.enabled = !checked;
                                     inputWriteE.enabled = !checked;
                                     inputWriteV.enabled = checked;
                                     inputWriteQ.enabled = checked;
                                     inputWriteR.enabled = checked;
                                     inputWriteN.enabled = checked;
+                                    inputWriteNExt.enabled = !checked;
+                                    inputWriteNFix.enabled = !checked;
                                     inputWriteE.enabled = !checked;
                                     inputWriteB.enabled = !checked;
                                     inputWriteRes.enabled = !checked;
@@ -296,11 +308,14 @@ ApplicationWindow {
                                     inputM.enabled = checked;
                                     inputp.enabled = !checked;
                                     inputX.enabled = !checked;
+                                    inputK.enabled = !checked;
                                     inputWriteE.enabled = !checked;
                                     inputWriteV.enabled = !checked;
                                     inputWriteQ.enabled = checked;
                                     inputWriteR.enabled = !checked;
                                     inputWriteN.enabled = !checked;
+                                    inputWriteNExt.enabled = !checked;
+                                    inputWriteNFix.enabled = !checked;
                                     inputWriteE.enabled = !checked;
                                     inputWriteB.enabled = !checked;
                                     inputWriteRes.enabled = !checked;
@@ -342,11 +357,14 @@ ApplicationWindow {
                                     inputM.enabled = !checked;
                                     inputp.enabled = !checked;
                                     inputX.enabled = !checked;
+                                    inputK.enabled = !checked;
                                     inputWriteE.enabled = checked;
                                     inputWriteV.enabled = !checked;
                                     inputWriteQ.enabled = !checked;
                                     inputWriteR.enabled = !checked;
                                     inputWriteN.enabled = !checked;
+                                    inputWriteNExt.enabled = !checked;
+                                    inputWriteNFix.enabled = !checked;
                                     inputWriteE.enabled = checked;
                                     inputWriteB.enabled = !checked;
                                     inputWriteRes.enabled = checked;
@@ -387,11 +405,14 @@ ApplicationWindow {
                                     inputM.enabled = checked;
                                     inputp.enabled = checked;
                                     inputX.enabled = checked;
+                                    inputK.enabled = !checked;
                                     inputWriteE.enabled = !checked;
                                     inputWriteV.enabled = !checked;
                                     inputWriteQ.enabled = checked;
                                     inputWriteR.enabled = checked;
                                     inputWriteN.enabled = !checked;
+                                    inputWriteNExt.enabled = !checked;
+                                    inputWriteNFix.enabled = !checked;
                                     inputWriteE.enabled = !checked;
                                     inputWriteB.enabled = !checked;
                                     inputWriteRes.enabled = checked;
@@ -476,6 +497,15 @@ ApplicationWindow {
                                 textFieldText: inputController.ui_x
                                 fun: function(){inputController.ui_x = textFieldText;}
                                 enabled: (inputController.ui_modelType == "Allele Age")
+                            }
+
+                            LabeledTextField {
+                                id: inputK
+                                text: "k: "
+                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
+                                textFieldText: inputController.ui_k
+                                fun: function(){inputController.ui_k = textFieldText;}
+                                enabled: (inputController.ui_modelType == "Establishment")
                             }
                         }
 
@@ -652,6 +682,15 @@ ApplicationWindow {
                                 }
 
                                 LabeledCheckBox {
+                                    id: inputWriteB
+                                    text: "B: "
+                                    checked: inputController.ui_output_B
+                                    fun: function(){inputController.ui_output_B = checked}
+                                    enabled: (inputController.ui_modelType == "Fixation" ||
+                                              inputController.ui_modelType == "Absorption")
+                                }
+
+                                LabeledCheckBox {
                                     id: inputWriteN
                                     text: "N: "
                                     checked: inputController.ui_output_N
@@ -662,12 +701,19 @@ ApplicationWindow {
                                 }
 
                                 LabeledCheckBox {
-                                    id: inputWriteB
-                                    text: "B: "
-                                    checked: inputController.ui_output_B
-                                    fun: function(){inputController.ui_output_B = checked}
-                                    enabled: (inputController.ui_modelType == "Fixation" ||
-                                              inputController.ui_modelType == "Absorption")
+                                    id: inputWriteNExt
+                                    text: "N. ext.: "
+                                    checked: inputController.ui_output_NExt
+                                    fun: function(){inputController.ui_output_NExt = checked}
+                                    enabled: (inputController.ui_modelType == "Absorption")
+                                }
+
+                                LabeledCheckBox {
+                                    id: inputWriteNFix
+                                    text: "N. fix.: "
+                                    checked: inputController.ui_output_NFix
+                                    fun: function(){inputController.ui_output_NFix = checked}
+                                    enabled: (inputController.ui_modelType == "Absorption")
                                 }
 
                                 LabeledCheckBox {
