@@ -1,5 +1,6 @@
 import QtQuick 2.12
 import QtQuick.Window 2.12
+import QtQuick.Dialogs 1.2
 import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.5
 import QtQuick.Controls.Styles 1.4
@@ -820,6 +821,34 @@ ApplicationWindow {
                                         model: [ "1 Threaded", "OpenMP", "OpenCL", "CUDA" ]
                                         enabled: (comboBoxSolver.currentText === "ViennaCL")
                                     }
+
+                                    LabeledTextField {
+                                        id: inputI
+                                        text: "I. Dist.: "
+                                        labelPreferredWidth: 75
+                                        textFieldPreferredWidth: 185
+                                        textFieldText: inputController.ui_initial_distribution
+                                        fun: function(){inputController.ui_initial_distribution = textFieldText;}
+                                    }
+
+                                    Button{
+                                        text: "Search"
+                                        onClicked: fileDialog.open()
+                                    }
+
+
+                                    FileDialog {
+                                        id: fileDialog
+                                        title: "Please choose a csv file"
+                                        folder: shortcuts.home
+                                        nameFilters: [ "csv files (*.csv *.png)" ]
+                                        onAccepted: {
+                                            var path = fileDialog.fileUrl.toString()
+                                            path = path.replace(/^(file:\/{2})/,"");
+                                            inputI.textFieldText = path
+                                        }
+                                    }
+
                                 }
 
                             }

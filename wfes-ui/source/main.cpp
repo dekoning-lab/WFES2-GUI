@@ -16,6 +16,9 @@ int main(int argc, char *argv[])
 
     QGuiApplication app(argc, argv);
 
+    app.setOrganizationName("University of Calgary");
+    app.setOrganizationDomain("www.ucalgary.ca");
+
     qmlRegisterType<wfes::controllers::OutputController>("WFES", 1, 0, "OutputController");
     qmlRegisterType<wfes::controllers::InputController>("WFES", 1, 0, "InputController");
 

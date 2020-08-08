@@ -343,6 +343,16 @@ void InputController::set_model_type(QString model_type) const
 
 }
 
+QString InputController::get_initial_distribution_path() const
+{
+    return QString::fromStdString(wfes::config::Config::initial_distribution_csv);
+}
+
+void InputController::set_initial_distribution_path(QString initial_distribution_path) const
+{
+    wfes::config::Config::initial_distribution_csv = initial_distribution_path.toStdString();
+}
+
 
 
 

@@ -43,7 +43,7 @@ namespace wfes {
             Q_PROPERTY(bool ui_m READ get_m WRITE set_m NOTIFY input_changed)
             Q_PROPERTY(bool ui_force READ get_force WRITE set_force NOTIFY input_changed)
             Q_PROPERTY(QString ui_modelType READ get_model_type WRITE set_model_type NOTIFY input_changed)
-
+            Q_PROPERTY(QString ui_initial_distribution READ get_initial_distribution_path WRITE set_initial_distribution_path NOTIFY input_changed)
 
             public:
                 explicit InputController(QObject* parent = nullptr);
@@ -120,6 +120,9 @@ namespace wfes {
 
                 QString get_model_type() const;
                 void set_model_type(QString model_type) const;
+
+                QString get_initial_distribution_path() const;
+                void set_initial_distribution_path(QString initial_distribution_path) const;
 
             signals:
                 void input_changed();
