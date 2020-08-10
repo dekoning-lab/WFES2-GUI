@@ -128,7 +128,6 @@ ApplicationWindow {
                                     inputWriteB.enabled = checked;
                                     inputWriteRes.enabled = checked;
 
-                                    inputController.ui_modelType = "Absorption"
                                 }
                             }
                             RadioButton {
@@ -175,8 +174,6 @@ ApplicationWindow {
                                     inputWriteE.enabled = !checked;
                                     inputWriteB.enabled = checked;
                                     inputWriteRes.enabled = checked;
-
-                                    inputController.ui_modelType = "Fixation"
                                 }
                             }
 
@@ -224,8 +221,6 @@ ApplicationWindow {
                                     inputWriteE.enabled = !checked;
                                     inputWriteB.enabled = !checked;
                                     inputWriteRes.enabled = checked;
-
-                                    inputController.ui_modelType = "Establishment"
                                 }
                             }
                             RadioButton {
@@ -272,8 +267,6 @@ ApplicationWindow {
                                     inputWriteE.enabled = !checked;
                                     inputWriteB.enabled = !checked;
                                     inputWriteRes.enabled = !checked;
-
-                                    inputController.ui_modelType = "Fundamental"
                                 }
                             }
                             RadioButton {
@@ -320,8 +313,6 @@ ApplicationWindow {
                                     inputWriteE.enabled = !checked;
                                     inputWriteB.enabled = !checked;
                                     inputWriteRes.enabled = !checked;
-
-                                    inputController.ui_modelType = "Non Absorbing"
                                 }
                             }
 
@@ -369,8 +360,6 @@ ApplicationWindow {
                                     inputWriteE.enabled = checked;
                                     inputWriteB.enabled = !checked;
                                     inputWriteRes.enabled = checked;
-
-                                    inputController.ui_modelType = "Equilibrium"
                                 }
                             }
                             RadioButton {
@@ -417,8 +406,6 @@ ApplicationWindow {
                                     inputWriteE.enabled = !checked;
                                     inputWriteB.enabled = !checked;
                                     inputWriteRes.enabled = checked;
-
-                                    inputController.ui_modelType = "Allele Age"
                                 }
                             }
 
@@ -458,7 +445,6 @@ ApplicationWindow {
                                 text: "N: "
                                 validator: DoubleValidator {bottom: 2; top: 50000;}
                                 textFieldText: inputController.ui_n
-                                fun: function(){inputController.ui_n = textFieldText;}
                             }
 
                             LabeledTextField {
@@ -466,7 +452,6 @@ ApplicationWindow {
                                 text: "a: "
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
                                 textFieldText: inputController.ui_a
-                                fun: function(){inputController.ui_a = textFieldText;}
                             }
 
                             LabeledTextField {
@@ -475,7 +460,6 @@ ApplicationWindow {
                                 //TODO Top is N
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
                                 textFieldText: inputController.ui_p
-                                fun: function(){inputController.ui_p = textFieldText;}
                                 enabled: (inputController.ui_modelType == "Fixation" ||
                                           inputController.ui_modelType == "Absorption" ||
                                           inputController.ui_modelType == "Establishment" ||
@@ -487,7 +471,6 @@ ApplicationWindow {
                                 text: "c: "
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
                                 textFieldText: inputController.ui_c
-                                fun: function(){inputController.ui_c = textFieldText;}
                             }
 
                             LabeledTextField {
@@ -496,7 +479,6 @@ ApplicationWindow {
                                 //TODO Top is N
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
                                 textFieldText: inputController.ui_x
-                                fun: function(){inputController.ui_x = textFieldText;}
                                 enabled: (inputController.ui_modelType == "Allele Age")
                             }
 
@@ -505,7 +487,6 @@ ApplicationWindow {
                                 text: "k: "
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
                                 textFieldText: inputController.ui_k
-                                fun: function(){inputController.ui_k = textFieldText;}
                                 enabled: (inputController.ui_modelType == "Establishment")
                             }
                         }
@@ -545,7 +526,6 @@ ApplicationWindow {
                                 text: "u: "
                                 validator: DoubleValidator {bottom: 2; top: 50000;}
                                 textFieldText: inputController.ui_u
-                                fun: function(){inputController.ui_u = textFieldText;}
                             }
 
                             LabeledTextField {
@@ -553,14 +533,12 @@ ApplicationWindow {
                                 text: "v: "
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
                                 textFieldText: inputController.ui_v
-                                fun: function(){inputController.ui_v = textFieldText;}
                             }
 
                             LabeledCheckBox {
                                 id: inputM
                                 text: "m: "
                                 checked: inputController.ui_m
-                                fun: function(){inputController.ui_m = checked}
                                 enabled: (inputController.ui_modelType == "Fixation" ||
                                           inputController.ui_modelType == "Absorption" ||
                                           inputController.ui_modelType == "Fundamental" ||
@@ -603,7 +581,6 @@ ApplicationWindow {
                                 text: "s: "
                                 validator: DoubleValidator {bottom: 2; top: 50000;}
                                 textFieldText: inputController.ui_s
-                                fun: function(){inputController.ui_s = textFieldText;}
                             }
 
                             LabeledTextField {
@@ -611,7 +588,6 @@ ApplicationWindow {
                                 text: "h: "
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
                                 textFieldText: inputController.ui_h
-                                fun: function(){inputController.ui_h = textFieldText;}
                             }
 
                         }
@@ -660,7 +636,6 @@ ApplicationWindow {
                                     id: inputWriteQ
                                     text: "Q: "
                                     checked: inputController.ui_output_Q
-                                    fun: function(){inputController.ui_output_Q = checked}
                                     enabled: (inputController.ui_modelType == "Fixation" ||
                                               inputController.ui_modelType == "Absorption" ||
                                               inputController.ui_modelType == "Fundamental" ||
@@ -674,7 +649,6 @@ ApplicationWindow {
                                     id: inputWriteR
                                     text: "R: "
                                     checked: inputController.ui_output_R
-                                    fun: function(){inputController.ui_output_R = checked}
                                     enabled: (inputController.ui_modelType == "Fixation" ||
                                               inputController.ui_modelType == "Absorption" ||
                                               inputController.ui_modelType == "Fundamental" ||
@@ -686,7 +660,6 @@ ApplicationWindow {
                                     id: inputWriteB
                                     text: "B: "
                                     checked: inputController.ui_output_B
-                                    fun: function(){inputController.ui_output_B = checked}
                                     enabled: (inputController.ui_modelType == "Fixation" ||
                                               inputController.ui_modelType == "Absorption")
                                 }
@@ -695,7 +668,6 @@ ApplicationWindow {
                                     id: inputWriteN
                                     text: "N: "
                                     checked: inputController.ui_output_N
-                                    fun: function(){inputController.ui_output_N = checked}
                                     enabled: (inputController.ui_modelType == "Fixation" ||
                                               inputController.ui_modelType == "Absorption" ||
                                               inputController.ui_modelType == "Fundamental")
@@ -705,7 +677,6 @@ ApplicationWindow {
                                     id: inputWriteNExt
                                     text: "N. ext.: "
                                     checked: inputController.ui_output_NExt
-                                    fun: function(){inputController.ui_output_NExt = checked}
                                     enabled: (inputController.ui_modelType == "Absorption")
                                 }
 
@@ -713,7 +684,6 @@ ApplicationWindow {
                                     id: inputWriteNFix
                                     text: "N. fix.: "
                                     checked: inputController.ui_output_NFix
-                                    fun: function(){inputController.ui_output_NFix = checked}
                                     enabled: (inputController.ui_modelType == "Absorption")
                                 }
 
@@ -721,14 +691,12 @@ ApplicationWindow {
                                     id: inputWriteI
                                     text: "I: "
                                     checked: inputController.ui_output_I
-                                    fun: function(){inputController.ui_output_I = checked}
                                 }
 
                                 LabeledCheckBox {
                                     id: inputWriteE
                                     text: "E: "
                                     checked: inputController.ui_output_E
-                                    fun: function(){inputController.ui_output_E = checked}
                                     enabled: (inputController.ui_modelType == "Equilibrium")
                                 }
 
@@ -736,7 +704,6 @@ ApplicationWindow {
                                     id: inputWriteV
                                     text: "V: "
                                     checked: inputController.ui_output_V
-                                    fun: function(){inputController.ui_output_V = checked}
                                     enabled: (inputController.ui_modelType == "Fundamental")
                                 }
 
@@ -745,7 +712,6 @@ ApplicationWindow {
                                     id: inputWriteRes
                                     text: "Res: "
                                     checked: inputController.ui_output_Res
-                                    fun: function(){inputController.ui_output_Res = checked}
                                     enabled: (inputController.ui_modelType == "Fixation" ||
                                               inputController.ui_modelType == "Absorption" ||
                                               inputController.ui_modelType == "Equilibrium" ||
@@ -787,16 +753,16 @@ ApplicationWindow {
                                     width: childrenRect.width
 
                                     LabeledCheckBox {
+                                        id: inputForce
                                         text: "Force: "
                                         checked: inputController.ui_force
-                                        fun: function(){inputController.ui_force = checked}
                                     }
 
                                     LabeledTextField {
+                                        id: inputT
                                         text: "t: "
                                         validator: DoubleValidator {bottom: 2; top: 50000;}
                                         textFieldText: inputController.ui_t
-                                        fun: function(){inputController.ui_t = textFieldText;}
                                     }
                                 }
 
@@ -807,12 +773,6 @@ ApplicationWindow {
                                         id: comboBoxSolver
                                         text: "Solver:"
                                         model: ["Pardiso", "ViennaCL"]
-                                        fun: function(){
-                                            if(comboBoxSolver.currentText === "Pardiso")
-                                                comboBoxBackend.enabled = false
-                                            else if (comboBoxSolver.currentText === "ViennaCL")
-                                                comboBoxBackend.enabled = true
-                                        }
                                     }
 
                                     LabeledComboBox {
@@ -828,7 +788,6 @@ ApplicationWindow {
                                         labelPreferredWidth: 75
                                         textFieldPreferredWidth: 185
                                         textFieldText: inputController.ui_initial_distribution
-                                        fun: function(){inputController.ui_initial_distribution = textFieldText;}
                                     }
 
                                     Button{
@@ -860,7 +819,59 @@ ApplicationWindow {
                         Layout.margins: 10
                         Layout.alignment: Qt.AlignRight
                         text: "Execute"
-                        onClicked: outputController.ui_execute
+                        // All changes made in backend from GUI are done here.
+                        onClicked: {
+                            // Set mode in backend.
+                            if(radioButtonAbsorption.checked)
+                                inputController.ui_modelType = "Absorption"
+                            else if (radioButtonFixation.checked)
+                                inputController.ui_modelType = "Fixation"
+                            else if (radioButtonEstablishment.checked)
+                                inputController.ui_modelType = "Establishment"
+                            else if (radioButtonFundamental.checked)
+                                inputController.ui_modelType = "Fundamental"
+                            else if (radioButtonNonAbsorbing.checked)
+                                inputController.ui_modelType = "Non Absorbing"
+                            else if (radioButtonEquilibrium.checked)
+                                inputController.ui_modelType = "Equilibrium"
+                            else if (radioButtonAlleleAge.checked)
+                                inputController.ui_modelType = "Allele Age"
+
+                            inputController.ui_n = inputN.textFieldText
+                            inputController.ui_a = inputA.textFieldText
+                            inputController.ui_p = inputp.textFieldText
+                            inputController.ui_c = inputc.textFieldText
+                            inputController.ui_x = inputX.textFieldText
+                            inputController.ui_k = inputK.textFieldText
+                            inputController.ui_u = inputU.textFieldText
+                            inputController.ui_v = inputV.textFieldText
+                            inputController.ui_m = inputM.checked
+                            inputController.ui_s = inputS.textFieldText
+                            inputController.ui_h = inputH.textFieldText
+
+                            inputController.ui_output_Q = inputWriteQ.checked
+                            inputController.ui_output_R = inputWriteR.checked
+                            inputController.ui_output_B = inputWriteB.checked
+                            inputController.ui_output_N = inputWriteN.checked
+                            inputController.ui_output_NExt = inputWriteNExt.checked
+                            inputController.ui_output_NFix = inputWriteNFix.checked
+                            inputController.ui_output_I = inputWriteI.checked
+                            inputController.ui_output_E = inputWriteE.checked
+                            inputController.ui_output_V = inputWriteV.checked
+                            inputController.ui_output_Res = inputWriteRes.checked
+
+                            inputController.ui_force = inputForce.checked
+                            inputController.ui_t = inputT.textFieldText
+
+                            if(comboBoxSolver.currentText === "Pardiso")
+                                comboBoxBackend.enabled = false
+                            else if (comboBoxSolver.currentText === "ViennaCL")
+                                comboBoxBackend.enabled = true
+
+                            inputController.ui_initial_distribution = inputI.textFieldText
+
+                            outputController.ui_execute
+                        }
                     }
                 }
 
