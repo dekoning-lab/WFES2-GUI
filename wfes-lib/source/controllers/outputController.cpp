@@ -260,3 +260,14 @@ QString OutputController::get_s_a() const
         return QString::fromStdString(fmt.str());
 }
 
+QString OutputController::get_error_message() const
+{
+    return QString::fromStdString(wfes::config::Config::error);
+}
+
+QString OutputController::reset_error() const
+{
+    wfes::config::Config::error = "";
+    return QString();
+}
+

@@ -12,6 +12,8 @@
 #include "math.h"
 #include <boost/format.hpp>
 
+#include "config/config.h"
+
 namespace wfes {
     namespace controllers {
         class WFESLIBSHARED_EXPORT OutputController : public QObject
@@ -45,6 +47,8 @@ namespace wfes {
             Q_PROPERTY(QString ui_get_t_est_std READ get_t_est_std NOTIFY results_changed)
             Q_PROPERTY(QString ui_get_e_a READ get_e_a NOTIFY results_changed)
             Q_PROPERTY(QString ui_get_s_a READ get_s_a NOTIFY results_changed)
+            Q_PROPERTY(QString ui_get_error_message READ get_error_message NOTIFY results_changed)
+            Q_PROPERTY(QString ui_reset_error READ reset_error NOTIFY results_changed)
 
             public:
                 // Store results of an execution.
@@ -79,6 +83,8 @@ namespace wfes {
                 QString get_t_est_std() const;
                 QString get_e_a() const;
                 QString get_s_a() const;
+                QString get_error_message() const;
+                QString reset_error() const;
 
             signals:
                 void results_changed();

@@ -47,6 +47,8 @@ bool Config::force = false;
 bool Config::verbose = false;
 bool Config::help = false;
 
+std::string Config::error = "";
+
 Config::Config() {
 }
 

@@ -79,6 +79,8 @@ namespace wfes {
                 static bool force;
                 static bool verbose;
                 static bool help;
+
+                static std::string error;
         };
     }
 }

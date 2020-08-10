@@ -773,6 +773,12 @@ ApplicationWindow {
                                         id: comboBoxSolver
                                         text: "Solver:"
                                         model: ["Pardiso", "ViennaCL"]
+                                        onTextChanged: {
+                                            if(comboBoxSolver.currentText === "Pardiso")
+                                                comboBoxBackend.enabled = false
+                                            else if (comboBoxSolver.currentText === "ViennaCL")
+                                                comboBoxBackend.enabled = true
+                                        }
                                     }
 
                                     LabeledComboBox {
@@ -821,58 +827,69 @@ ApplicationWindow {
                         text: "Execute"
                         // All changes made in backend from GUI are done here.
                         onClicked: {
-                            // Set mode in backend.
-                            if(radioButtonAbsorption.checked)
-                                inputController.ui_modelType = "Absorption"
-                            else if (radioButtonFixation.checked)
-                                inputController.ui_modelType = "Fixation"
-                            else if (radioButtonEstablishment.checked)
-                                inputController.ui_modelType = "Establishment"
-                            else if (radioButtonFundamental.checked)
-                                inputController.ui_modelType = "Fundamental"
-                            else if (radioButtonNonAbsorbing.checked)
-                                inputController.ui_modelType = "Non Absorbing"
-                            else if (radioButtonEquilibrium.checked)
-                                inputController.ui_modelType = "Equilibrium"
-                            else if (radioButtonAlleleAge.checked)
-                                inputController.ui_modelType = "Allele Age"
+                                // Set mode in backend.
+                                if(radioButtonAbsorption.checked)
+                                    inputController.ui_modelType = "Absorption"
+                                else if (radioButtonFixation.checked)
+                                    inputController.ui_modelType = "Fixation"
+                                else if (radioButtonEstablishment.checked)
+                                    inputController.ui_modelType = "Establishment"
+                                else if (radioButtonFundamental.checked)
+                                    inputController.ui_modelType = "Fundamental"
+                                else if (radioButtonNonAbsorbing.checked)
+                                    inputController.ui_modelType = "Non Absorbing"
+                                else if (radioButtonEquilibrium.checked)
+                                    inputController.ui_modelType = "Equilibrium"
+                                else if (radioButtonAlleleAge.checked)
+                                    inputController.ui_modelType = "Allele Age"
 
-                            inputController.ui_n = inputN.textFieldText
-                            inputController.ui_a = inputA.textFieldText
-                            inputController.ui_p = inputp.textFieldText
-                            inputController.ui_c = inputc.textFieldText
-                            inputController.ui_x = inputX.textFieldText
-                            inputController.ui_k = inputK.textFieldText
-                            inputController.ui_u = inputU.textFieldText
-                            inputController.ui_v = inputV.textFieldText
-                            inputController.ui_m = inputM.checked
-                            inputController.ui_s = inputS.textFieldText
-                            inputController.ui_h = inputH.textFieldText
+                                inputController.ui_n = inputN.textFieldText
+                                inputController.ui_a = inputA.textFieldText
+                                if(inputController.ui_modelType == "Fixation" || inputController.ui_modelType == "Absorption" || inputController.ui_modelType == "Establishment" || inputController.ui_modelType == "Allele Age")
+                                    inputController.ui_p = inputp.textFieldText
+                                inputController.ui_c = inputc.textFieldText
+                                if(inputController.ui_modelType == "Allele Age")
+                                    inputController.ui_x = inputX.textFieldText
+                                if(inputController.ui_modelType == "Establishment")
+                                    inputController.ui_k = inputK.textFieldText
+                                inputController.ui_u = inputU.textFieldText
+                                inputController.ui_v = inputV.textFieldText
+                                inputController.ui_m = inputM.checked
+                                inputController.ui_s = inputS.textFieldText
+                                inputController.ui_h = inputH.textFieldText
 
-                            inputController.ui_output_Q = inputWriteQ.checked
-                            inputController.ui_output_R = inputWriteR.checked
-                            inputController.ui_output_B = inputWriteB.checked
-                            inputController.ui_output_N = inputWriteN.checked
-                            inputController.ui_output_NExt = inputWriteNExt.checked
-                            inputController.ui_output_NFix = inputWriteNFix.checked
-                            inputController.ui_output_I = inputWriteI.checked
-                            inputController.ui_output_E = inputWriteE.checked
-                            inputController.ui_output_V = inputWriteV.checked
-                            inputController.ui_output_Res = inputWriteRes.checked
+                                inputController.ui_output_Q = inputWriteQ.checked
+                                inputController.ui_output_R = inputWriteR.checked
+                                inputController.ui_output_B = inputWriteB.checked
+                                inputController.ui_output_N = inputWriteN.checked
+                                inputController.ui_output_NExt = inputWriteNExt.checked
+                                inputController.ui_output_NFix = inputWriteNFix.checked
+                                inputController.ui_output_I = inputWriteI.checked
+                                inputController.ui_output_E = inputWriteE.checked
+                                inputController.ui_output_V = inputWriteV.checked
+                                inputController.ui_output_Res = inputWriteRes.checked
 
-                            inputController.ui_force = inputForce.checked
-                            inputController.ui_t = inputT.textFieldText
+                                inputController.ui_force = inputForce.checked
+                                inputController.ui_t = inputT.textFieldText
 
-                            if(comboBoxSolver.currentText === "Pardiso")
-                                comboBoxBackend.enabled = false
-                            else if (comboBoxSolver.currentText === "ViennaCL")
-                                comboBoxBackend.enabled = true
+                                inputController.ui_initial_distribution = inputI.textFieldText
 
-                            inputController.ui_initial_distribution = inputI.textFieldText
-
-                            outputController.ui_execute
+                            if(outputController.ui_get_error_message == "") {
+                                outputController.ui_execute
+                            } else {
+                                messageDialog.text = outputController.ui_get_error_message
+                                messageDialog.open()
+                            }
+                            outputController.ui_reset_error
                         }
                     }
+                }
+
+                MessageDialog {
+                    id: messageDialog
+                    title: "Warning"
+                    text: ""
+                    icon: StandardIcon.Warning
                 }
 
                 Rectangle {

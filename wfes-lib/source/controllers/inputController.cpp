@@ -21,8 +21,18 @@ QString InputController::get_n() const
 void InputController::set_n(QString n) const
 {
     std::string n_str = n.toStdString();
-    double n_d = boost::lexical_cast<double>(n_str);
-    wfes::config::Config::population_size = n_d;
+    try {
+        double n_d = boost::lexical_cast<double>(n_str);
+        wfes::config::Config::population_size = n_d;
+    } catch(boost::exception const&  ex) {
+        std::string errorMessage = "";
+        if(n_str.compare("") == 0) {
+            errorMessage = "The field 'Population' (N) is empty." + n_str + "\n";
+        } else {
+            errorMessage = "Wrong value for 'Population' (N): " + n_str + "\n";
+        }
+        wfes::config::Config::error += errorMessage;
+    }
 }
 
 QString InputController::get_a() const
@@ -38,8 +48,18 @@ QString InputController::get_a() const
 void InputController::set_a(QString a) const
 {
     std::string a_str = a.toStdString();
-    double a_d = boost::lexical_cast<double>(a_str);
-    wfes::config::Config::a = a_d;
+    try {
+        double a_d = boost::lexical_cast<double>(a_str);
+        wfes::config::Config::a = a_d;
+    } catch(boost::exception const&  ex) {
+        std::string errorMessage = "";
+        if(a_str.compare("") == 0) {
+            errorMessage = "The field 'Tail Truncation Weight' (a) is empty." + a_str + "\n";
+        } else {
+            errorMessage = "Wrong value for 'Tail Truncation Weight' (a): " + a_str + "\n";
+        }
+        wfes::config::Config::error += errorMessage;
+    }
 }
 
 QString InputController::get_p() const
@@ -55,8 +75,18 @@ QString InputController::get_p() const
 void InputController::set_p(QString p) const
 {
     std::string p_str = p.toStdString();
-    double p_d = boost::lexical_cast<double>(p_str);
-    wfes::config::Config::starting_copies = p_d;
+    try {
+        double p_d = boost::lexical_cast<double>(p_str);
+        wfes::config::Config::starting_copies = p_d;
+    } catch(boost::exception const&  ex) {
+        std::string errorMessage = "";
+        if(p_str.compare("") == 0) {
+            errorMessage = "The field 'Starting Copies' (p) is empty." + p_str + "\n";
+        } else {
+            errorMessage = "Wrong value for 'Starting Copies' (p): " + p_str + "\n";
+        }
+        wfes::config::Config::error += errorMessage;
+    }
 }
 
 QString InputController::get_c() const
@@ -72,8 +102,18 @@ QString InputController::get_c() const
 void InputController::set_c(QString c) const
 {
     std::string c_str = c.toStdString();
-    double c_d = boost::lexical_cast<double>(c_str);
-    wfes::config::Config::integration_cutoff = c_d;
+    try {
+        double c_d = boost::lexical_cast<double>(c_str);
+        wfes::config::Config::integration_cutoff = c_d;
+    } catch(boost::exception const&  ex) {
+        std::string errorMessage = "";
+        if(c_str.compare("") == 0) {
+            errorMessage = "The field 'Integration Cutoff' (c) is empty." + c_str + "\n";
+        } else {
+            errorMessage = "Wrong value for 'Integration Cutoff' (c): " + c_str + "\n";
+        }
+        wfes::config::Config::error += errorMessage;
+    }
 }
 
 QString InputController::get_x() const
@@ -89,8 +129,18 @@ QString InputController::get_x() const
 void InputController::set_x(QString x) const
 {
     std::string x_str = x.toStdString();
-    double x_d = boost::lexical_cast<double>(x_str);
-    wfes::config::Config::observed_copies = x_d;
+    try {
+        double x_d = boost::lexical_cast<double>(x_str);
+        wfes::config::Config::observed_copies = x_d;
+    } catch(boost::exception const&  ex) {
+        std::string errorMessage = "";
+        if(x_str.compare("") == 0) {
+            errorMessage = "The field 'Observed Copies' (x) is empty." + x_str + "\n";
+        } else {
+            errorMessage = "Wrong value for 'Observed Copies' (x): " + x_str + "\n";
+        }
+        wfes::config::Config::error += errorMessage;
+    }
 }
 
 QString InputController::get_k() const
@@ -106,8 +156,18 @@ QString InputController::get_k() const
 void InputController::set_k(QString k) const
 {
     std::string k_str = k.toStdString();
-    double k_d = boost::lexical_cast<double>(k_str);
-    wfes::config::Config::odds_ratio = k_d;
+    try {
+        double k_d = boost::lexical_cast<double>(k_str);
+        wfes::config::Config::odds_ratio = k_d;
+    } catch(boost::exception const&  ex) {
+        std::string errorMessage = "";
+        if(k_str.compare("") == 0) {
+            errorMessage = "The field 'Odds Ratio' (k) is empty." + k_str + "\n";
+        } else {
+            errorMessage = "Wrong value for 'Odds Ratio' (k): " + k_str + "\n";
+        }
+        wfes::config::Config::error += errorMessage;
+    }
 }
 
 QString InputController::get_u() const
@@ -124,8 +184,18 @@ QString InputController::get_u() const
 void InputController::set_u(QString u) const
 {
     std::string u_str = u.toStdString();
-    double u_d = boost::lexical_cast<double>(u_str);
-    wfes::config::Config::u = u_d;
+    try {
+        double u_d = boost::lexical_cast<double>(u_str);
+        wfes::config::Config::u = u_d;
+    } catch(boost::exception const&  ex) {
+        std::string errorMessage = "";
+        if(u_str.compare("") == 0) {
+            errorMessage = "The field 'Backward Mutation Rate' (u) is empty." + u_str + "\n";
+        } else {
+            errorMessage = "Wrong value for 'Backward Mutation Rate' (u): " + u_str + "\n";
+        }
+        wfes::config::Config::error += errorMessage;
+    }
 }
 
 QString InputController::get_v() const
@@ -141,8 +211,18 @@ QString InputController::get_v() const
 void InputController::set_v(QString v) const
 {
     std::string v_str = v.toStdString();
-    double v_d = boost::lexical_cast<double>(v_str);
-    wfes::config::Config::v = v_d;
+    try {
+        double v_d = boost::lexical_cast<double>(v_str);
+        wfes::config::Config::v = v_d;
+    } catch(boost::exception const&  ex) {
+        std::string errorMessage = "";
+        if(v_str.compare("") == 0) {
+            errorMessage = "The field 'Forward Mutation Rate' (v) is empty." + v_str + "\n";
+        } else {
+            errorMessage = "Wrong value for 'Forward Mutation Rate' (v): " + v_str + "\n";
+        }
+        wfes::config::Config::error += errorMessage;
+    }
 }
 
 QString InputController::get_s() const
@@ -158,8 +238,18 @@ QString InputController::get_s() const
 void InputController::set_s(QString s) const
 {
     std::string s_str = s.toStdString();
-    double s_d = boost::lexical_cast<double>(s_str);
-    wfes::config::Config::s = s_d;
+    try {
+        double s_d = boost::lexical_cast<double>(s_str);
+        wfes::config::Config::s = s_d;
+    } catch(boost::exception const&  ex) {
+        std::string errorMessage = "";
+        if(s_str.compare("") == 0) {
+            errorMessage = "The field 'Selection Coefficient' (s) is empty." + s_str + "\n";
+        } else {
+            errorMessage = "Wrong value for 'Selection Coefficient' (s): " + s_str + "\n";
+        }
+        wfes::config::Config::error += errorMessage;
+    }
 }
 
 QString InputController::get_h() const
@@ -175,8 +265,18 @@ QString InputController::get_h() const
 void InputController::set_h(QString h) const
 {
     std::string h_str = h.toStdString();
-    double h_d = boost::lexical_cast<double>(h_str);
-    wfes::config::Config::h = h_d;
+    try {
+        double h_d = boost::lexical_cast<double>(h_str);
+        wfes::config::Config::h = h_d;
+    } catch(boost::exception const&  ex) {
+        std::string errorMessage = "";
+        if(h_str.compare("") == 0) {
+            errorMessage = "The field 'Dominance Coefficient' (h) is empty." + h_str + "\n";
+        } else {
+            errorMessage = "Wrong value for 'Dominance Coefficient' (h): " + h_str + "\n";
+        }
+        wfes::config::Config::error += errorMessage;
+    }
 }
 
 QString InputController::get_t() const
@@ -192,8 +292,18 @@ QString InputController::get_t() const
 void InputController::set_t(QString t) const
 {
     std::string t_str = t.toStdString();
-    double t_d = boost::lexical_cast<double>(t_str);
-    wfes::config::Config::n_threads = t_d;
+    try {
+        double t_d = boost::lexical_cast<double>(t_str);
+        wfes::config::Config::n_threads = t_d;
+    } catch(boost::exception const&  ex) {
+        std::string errorMessage = "";
+        if(t_str.compare("") == 0) {
+            errorMessage = "The field 'Number of Threads' (t) is empty." + t_str + "\n";
+        } else {
+            errorMessage = "Wrong value for 'Number of Threads' (t): " + t_str + "\n";
+        }
+        wfes::config::Config::error += errorMessage;
+    }
 }
 
 bool InputController::get_output_Q() const
@@ -309,7 +419,6 @@ void InputController::set_m(bool m) const
 bool InputController::get_force() const
 {
     return wfes::config::Config::force;
-
 }
 
 void InputController::set_force(bool force) const

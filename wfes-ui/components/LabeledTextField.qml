@@ -31,7 +31,6 @@ Rectangle {
             id: textField
             text: ""
             Layout.preferredWidth: textFieldPreferredWidth
-            validator: DoubleValidator {bottom: 0; top: 2e-10;}
             focus: false
             selectByMouse: true
             onTextChanged: fun()
