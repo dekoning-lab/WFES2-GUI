@@ -32,8 +32,10 @@ UI_DIR = $$PWD/build/$$DESTINATION_PATH/.ui
 SOURCES +=  \
     source/main.cpp \
     source/model/pardiso/testSparseMatrixPardiso.cpp \
+    source/model/viennacl/testSparseMatrixViennaCL.cpp \
     source/testsuite.cpp
 
 HEADERS += \
     source/model/pardiso/testSparseMatrixPardiso.h \
+    source/model/viennacl/testSparseMatrixViennaCL.h \
     source/testsuite.h

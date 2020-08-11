@@ -44,6 +44,8 @@ HEADERS += \
     source/model/sparse-matrix/sparseMatrix.h \
     source/model/sparse-matrix/sparseMatrixFactory.h \
     source/model/pardiso/sparseMatrixPardiso.h \
+    source/model/viennacl/solverViennaCL.h \
+    source/model/viennacl/sparseMatrixViennacl.h \
     source/model/wfes_single.h \
     source/model/wright-fisher/rdist.h \
     source/model/wright-fisher/wrightFisher.h \
@@ -65,6 +67,8 @@ SOURCES += \
     source/model/sparse-matrix/sparseMatrix.cpp \
     source/model/sparse-matrix/sparseMatrixFactory.cpp \
     source/model/pardiso/sparseMatrixPardiso.cpp \
+    source/model/viennacl/solverViennaCL.cpp \
+    source/model/viennacl/sparseMatrixViennacl.cpp \
     source/model/wfes_single.cpp \
     source/model/wright-fisher/rdist.cpp \
     source/model/wright-fisher/wrightFisher.cpp \

@@ -1,54 +1,33 @@
-#ifndef SPARSEMATRIXPARDISO_H
-#define SPARSEMATRIXPARDISO_H
+#ifndef SPARSEMATRIXVIENNACL_H
+#define SPARSEMATRIXVIENNACL_H
 
-#include <iostream>
-
-#include <mkl.h>
 #include "model/sparse-matrix/sparseMatrix.h"
-#include "utils/utils.h"
+#include <viennacl/compressed_matrix.hpp>
 
 using namespace wfes::sparsematrix;
 
-namespace wfes{
-    namespace pardiso{
-
-        class SparseMatrixPardiso : public SparseMatrix
+namespace wfes {
+    namespace vienna {
+        class SparseMatrixViennaCL : public SparseMatrix
         {
-            protected:
-                // Current row that is being processed.
-                llong current_row;
-                // Matrix is full or not.
-                bool full;
-                // Index where the current row starts.
-                llong row_index_start;
-
             public:
-            // Non-zero values of the matrix, ordered by row/column.
-                double* data;
-                // Column index of each element in the array data.
-                llong* cols;
-                // Indicate which elements of data start a new row.
-                llong* row_index;
-                // Handler for the matrix data in Pardiso.
-                sparse_matrix_t handler;
+                // ViennaCL compressed matrix.
+                viennacl::compressed_matrix<double> vcl_matrix;
 
-            public:
-                /**
-                 * @brief Default constructor of a Sparse Matrix.
-                 */
-                SparseMatrixPardiso();
+                SparseMatrixViennaCL();
+
                 /**
                  * @brief Empty constructor of a Sparse Matrix.
                  * @param numRows Number of rows in the matrix.
                  * @param numCols Number of columns in the matrix.
                  */
-                SparseMatrixPardiso(llong num_rows, llong num_cols);
+                SparseMatrixViennaCL(llong num_rows, llong num_cols);
 
                 /**
                  * @brief Copy constructor of a Sparse Matrix using an Eigen Dense Matrix.
                  * @param eigenDenseMatrix An Eigen Dense Matrix.
                  */
-                SparseMatrixPardiso(dmat& eigenDenseMatrix);
+                SparseMatrixViennaCL(dmat& eigenDenseMatrix);
 
                 /**
                  * @brief Create a Sparse Matrix containing only a padded diagonal.
@@ -62,9 +41,10 @@ namespace wfes{
                 /**
                  * @brief Destructor of a Sparse Matrix.
                  */
-                ~SparseMatrixPardiso();
+                ~SparseMatrixViennaCL();
 
-        public: // Append functions.
+            public: // Append functions.
+
 
                 /**
                  * @brief Append a row to a matrix from a vector specifying where a row starts in the vector and the size of the row.
@@ -192,7 +172,8 @@ namespace wfes{
                  */
                 void saveMarket(std::string path) override;
         };
-
     }
 }
+
+
 #endif // SPARSEMATRIXVIENNACL_H
