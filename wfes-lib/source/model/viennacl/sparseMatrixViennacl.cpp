@@ -8,7 +8,7 @@ SparseMatrixViennaCL::SparseMatrixViennaCL() :
     this->vcl_matrix = viennacl::compressed_matrix<double>(0, 0);
 }
 
-SparseMatrixViennaCL::SparseMatrixViennaCL(llong num_rows, llong num_cols) :
+SparseMatrixViennaCL::SparseMatrixViennaCL(int num_rows, int num_cols) :
     SparseMatrix(num_rows, num_cols)
 {
     this->vcl_matrix = viennacl::compressed_matrix<double>(num_rows, num_cols);
@@ -20,7 +20,7 @@ SparseMatrixViennaCL::SparseMatrixViennaCL(dmat &eigenDenseMatrix) :
     //TODO
 }
 
-SparseMatrix *SparseMatrixViennaCL::LeftPaddedDiagonal(llong dim, double x, llong padLeft)
+SparseMatrix *SparseMatrixViennaCL::LeftPaddedDiagonal(int dim, double x, int padLeft)
 {
     SparseMatrixViennaCL* I = new SparseMatrixViennaCL(dim, padLeft + dim);
     I->num_non_zeros = dim;
@@ -38,17 +38,17 @@ SparseMatrixViennaCL::~SparseMatrixViennaCL()
 
 }
 
-void SparseMatrixViennaCL::appendRow(dvec &row, llong col_start, llong size)
+void SparseMatrixViennaCL::appendRow(dvec &row, int col_start, int size)
 {
 
 }
 
-void SparseMatrixViennaCL::appendChunk(dvec &row, llong m0, llong r0, llong size)
+void SparseMatrixViennaCL::appendChunk(dvec &row, int m0, int r0, int size)
 {
 
 }
 
-void SparseMatrixViennaCL::appendValue(double value, llong j)
+void SparseMatrixViennaCL::appendValue(double value, int j)
 {
 
 }
@@ -86,13 +86,13 @@ dvec SparseMatrixViennaCL::getDiagCopy()
     return dvec();
 }
 
-dvec SparseMatrixViennaCL::getColCopy(llong j)
+dvec SparseMatrixViennaCL::getColCopy(int j)
 {
 
     return dvec();
 }
 
-dvec SparseMatrixViennaCL::getRowCopy(llong i)
+dvec SparseMatrixViennaCL::getRowCopy(int i)
 {
 
     return dvec();
@@ -104,7 +104,7 @@ dvec SparseMatrixViennaCL::multiply(dvec &x, bool transpose)
     return dvec();
 }
 
-void SparseMatrixViennaCL::multiplyInPlaceRep(dvec &x, llong times, bool transpose)
+void SparseMatrixViennaCL::multiplyInPlaceRep(dvec &x, int times, bool transpose)
 {
 
 }
@@ -120,13 +120,13 @@ void SparseMatrixViennaCL::subtractIdentity()
 
 }
 
-double SparseMatrixViennaCL::search(llong i, llong j)
+double SparseMatrixViennaCL::search(int i, int j)
 {
 
     return 0.0;
 }
 
-void SparseMatrixViennaCL::setValue(double x, llong i, llong j)
+void SparseMatrixViennaCL::setValue(double x, int i, int j)
 {
 
 }

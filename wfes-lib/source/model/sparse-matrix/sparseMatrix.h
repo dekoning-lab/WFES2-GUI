@@ -14,11 +14,11 @@ namespace wfes {
         class SparseMatrix {
             public: // Parammeters
                 // Number of non-zero elements in the matrix.
-                llong num_non_zeros;
+                int num_non_zeros;
                 // Number of rows in the matrix.
-                llong num_rows;
+                int num_rows;
                 // Number of columns in the matrix.
-                llong num_cols;
+                int num_cols;
 
             public: // Constructors and destructors.
                 /**
@@ -26,7 +26,7 @@ namespace wfes {
                  * @param numRows Number of rows in the matrix.
                  * @param numCols Number of columns in the matrix.
                  */
-                SparseMatrix(llong num_rows, llong num_cols);
+                SparseMatrix(int num_rows, int num_cols);
 
                 /**
                  * @brief Create a Sparse Matrix containing only a padded diagonal.
@@ -35,7 +35,7 @@ namespace wfes {
                  * @param padLeft Number of positions padded in the left.
                  * @return
                  */
-                virtual SparseMatrix* LeftPaddedDiagonal(llong dim, double x, llong padLeft) = 0;
+                virtual SparseMatrix* LeftPaddedDiagonal(int dim, double x, int padLeft) = 0;
 
                 /**
                  * @brief Destructor of a Sparse Matrix. Even when it is not used, it has to be defined.
@@ -50,7 +50,7 @@ namespace wfes {
                  * @param col_start Position in the vector where the row starts.
                  * @param size Number of elements in the row.
                  */
-                virtual void appendRow(dvec& row, llong col_start, llong size) = 0;
+                virtual void appendRow(dvec& row, int col_start, int size) = 0;
 
                 /**
                  * @brief Append a chunk of a row to a matrix from a vector specifying where the row starts in the vector and where it has to be copied in the matrix.
@@ -59,14 +59,14 @@ namespace wfes {
                  * @param r0 Position in the vector where the chunk starts.
                  * @param size Number of elements in the chunk.
                  */
-                virtual void appendChunk(dvec& row, llong m0, llong r0, llong size) = 0;
+                virtual void appendChunk(dvec& row, int m0, int r0, int size) = 0;
 
                 /**
                  * @brief Append a value to the matrix in the position (i, j).
                  * @param value Value appended to the matrix.
                  * @param j Column of the appended element.
                  */
-                virtual void appendValue(double value, llong j) = 0;
+                virtual void appendValue(double value, int j) = 0;
 
             public: // Auxiliary functions.
 
@@ -108,14 +108,14 @@ namespace wfes {
                  * @param j Column that we want to copy.
                  * @return Copy of the column j.
                  */
-                virtual dvec getColCopy(llong j) = 0;
+                virtual dvec getColCopy(int j) = 0;
 
                 /**
                  * @brief Get a copy of a row of the matrix inside a vector.
                  * @param i Row that we want to copy.
                  * @return Copy of the row i.
                  */
-                virtual dvec getRowCopy(llong i) = 0;
+                virtual dvec getRowCopy(int i) = 0;
 
             public: //Operators
 
@@ -133,7 +133,7 @@ namespace wfes {
                  * @param times Number of times that the multiplication is done.
                  * @param transpose Convert the matrix to transpose.
                  */
-                virtual void multiplyInPlaceRep(dvec& x, llong times, bool transpose = false) = 0;
+                virtual void multiplyInPlaceRep(dvec& x, int times, bool transpose = false) = 0;
 
                 /**
                  * @brief Multiply matrix by another matrix.
@@ -153,7 +153,7 @@ namespace wfes {
                  * @param i Row in which the element is.
                  * @param j Column in which the element is.
                  */
-                virtual double search(llong i, llong j) = 0;
+                virtual double search(int i, int j) = 0;
 
                 /**
                  * @brief Set a value in the position (i, j).
@@ -161,7 +161,7 @@ namespace wfes {
                  * @param i Position i of the matrix.
                  * @param j Position j of the matrix.
                  */
-                virtual void setValue(double x, llong i, llong j) = 0;
+                virtual void setValue(double x, int i, int j) = 0;
             public: // I/O operators.
 
                 /**

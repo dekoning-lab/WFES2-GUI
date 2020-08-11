@@ -21,7 +21,7 @@ namespace wfes {
                  * @param numRows Number of rows in the matrix.
                  * @param numCols Number of columns in the matrix.
                  */
-                SparseMatrixViennaCL(llong num_rows, llong num_cols);
+                SparseMatrixViennaCL(int num_rows, int num_cols);
 
                 /**
                  * @brief Copy constructor of a Sparse Matrix using an Eigen Dense Matrix.
@@ -36,7 +36,7 @@ namespace wfes {
                  * @param padLeft Number of positions padded in the left.
                  * @return
                  */
-                SparseMatrix* LeftPaddedDiagonal(llong dim, double x, llong padLeft) override;
+                SparseMatrix* LeftPaddedDiagonal(int dim, double x, int padLeft) override;
 
                 /**
                  * @brief Destructor of a Sparse Matrix.
@@ -52,7 +52,7 @@ namespace wfes {
                  * @param col_start Position in the vector where the row starts.
                  * @param size Number of elements in the row.
                  */
-                void appendRow(dvec& row, llong col_start, llong size) override;
+                void appendRow(dvec& row, int col_start, int size) override;
 
                 /**
                  * @brief Append a chunk of a row to a matrix from a vector specifying where the row starts in the vector and where it has to be copied in the matrix.
@@ -61,14 +61,14 @@ namespace wfes {
                  * @param r0 Position in the vector where the chunk starts.
                  * @param size Number of elements in the chunk.
                  */
-                void appendChunk(dvec& row, llong m0, llong r0, llong size) override;
+                void appendChunk(dvec& row, int m0, int r0, int size) override;
 
                 /**
                  * @brief Append a value to the matrix in the column j.
                  * @param value Value appended to the matrix.
                  * @param j Column of the appended element.
                  */
-                void appendValue(double value, llong j) override;
+                void appendValue(double value, int j) override;
 
             public: // Auxiliary functions.
 
@@ -110,14 +110,14 @@ namespace wfes {
                  * @param j Column that we want to copy.
                  * @return Copy of the column j.
                  */
-                dvec getColCopy(llong j) override;
+                dvec getColCopy(int j) override;
 
                 /**
                  * @brief Get a copy of a row of the matrix inside a vector.
                  * @param i Row that we want to copy.
                  * @return Copy of the row i.
                  */
-                dvec getRowCopy(llong i) override;
+                dvec getRowCopy(int i) override;
 
             public: //Operators
 
@@ -135,7 +135,7 @@ namespace wfes {
                  * @param times Number of times that the multiplication is done.
                  * @param transpose Convert the matrix to transpose.
                  */
-                void multiplyInPlaceRep(dvec& x, llong times, bool transpose = false) override;
+                void multiplyInPlaceRep(dvec& x, int times, bool transpose = false) override;
 
                 /**
                  * @brief Multiply matrix by another matrix.
@@ -155,7 +155,7 @@ namespace wfes {
                  * @param i Row in which the element is.
                  * @param j Column in which the element is.
                  */
-                double search(llong i, llong j) override;
+                double search(int i, int j) override;
 
                 /**
                  * @brief Set a value in the position (i, j).
@@ -163,7 +163,7 @@ namespace wfes {
                  * @param i Position i of the matrix.
                  * @param j Position j of the matrix.
                  */
-                void setValue(double x, llong i, llong j) override;
+                void setValue(double x, int i, int j) override;
             public: // I/O operators.
 
                 /**
