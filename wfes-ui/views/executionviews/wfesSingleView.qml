@@ -1179,6 +1179,17 @@ ApplicationWindow {
                                 readOnly: true
                                 visible: radioButtonAlleleAge.checked
                             }
+
+
+                            LabeledTextField {
+                                id: outputTime
+                                labelPreferredWidth: 75
+                                textFieldPreferredWidth: 180
+                                text: "Time (s): "
+                                //TODO
+                                textFieldText: outputController.ui_get_time
+                                readOnly: true
+                            }
                         }
                     }
                 }

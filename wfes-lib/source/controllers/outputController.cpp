@@ -271,3 +271,13 @@ QString OutputController::reset_error() const
     return QString();
 }
 
+QString OutputController::get_time() const
+{
+    boost::format fmt = boost::format("%1$.2f") % (this->results->time);
+
+    if(isnan(this->results->time))
+        return "";
+    else
+        return QString::fromStdString(fmt.str());
+}
+
