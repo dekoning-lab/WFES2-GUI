@@ -30,10 +30,7 @@ namespace wfes {
 
             private slots:
                 void createMatrix_createDiagMatrix();
-                void testmatrix();
             private:
-                SparseMatrixPardiso* sparseMatrix;
-                WfesLib lib;
 
         };
 

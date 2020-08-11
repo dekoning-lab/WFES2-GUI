@@ -3,9 +3,16 @@
 
 #include "model/solver/solver.h"
 #include "sparseMatrixViennacl.h"
+#include "model/pardiso/sparseMatrixPardiso.h"
 #include <viennacl/compressed_matrix.hpp>
 #include "utils/types.h"
 
+#include "viennacl/linalg/amg.hpp"
+#include "viennacl/linalg/cg.hpp"
+#include <viennacl/linalg/bicgstab.hpp>
+#include <viennacl/linalg/gmres.hpp>
+
+#include "QDebug"
 namespace wfes{
     namespace vienna {
 
@@ -19,7 +26,7 @@ namespace wfes{
                  * Instantiate the solver and converts from SparseMatrix to viennacl::compressed_matrix.
                  * @param A Sparse matrix for analysis.
                  */
-                SolverViennaCL(SparseMatrixViennaCL &A);
+                SolverViennaCL(wfes::pardiso::SparseMatrixPardiso &A);
 
                 /**
                  * Destructor of ViennaCL solver.

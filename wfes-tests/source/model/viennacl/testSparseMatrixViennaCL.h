@@ -8,6 +8,8 @@
 #include "testsuite.h"
 #include "wfesLib.h"
 
+#include <utils/types.h>
+
 namespace wfes {
     namespace vienna {
 
@@ -30,10 +32,8 @@ namespace wfes {
 
             private slots:
                 void createMatrix_createDiagMatrix();
-                void testmatrix();
+                void createViennaCL_createFromEigenDense();
             private:
-                SparseMatrixViennaCL* sparseMatrix;
-                WfesLib lib;
 
         };
 

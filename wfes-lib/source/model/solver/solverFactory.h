@@ -3,6 +3,7 @@
 
 #include "solver.h"
 #include "model/pardiso/solverPardiso.h"
+#include "model/viennacl/solverViennaCL.h"
 
 namespace wfes {
     namespace solver {

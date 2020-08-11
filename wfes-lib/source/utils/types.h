@@ -21,6 +21,7 @@
 #include <mkl.h>
 
 #include <Eigen/Core>
+#include <Eigen/Sparse>
 
 // Format for printing double numbers.
 #define DPF "%.10e"

@@ -1,8 +1,11 @@
 #ifndef SPARSEMATRIXVIENNACL_H
 #define SPARSEMATRIXVIENNACL_H
 
+#define VIENNACL_HAVE_EIGEN 1
+
 #include "model/sparse-matrix/sparseMatrix.h"
 #include <viennacl/compressed_matrix.hpp>
+#include <utils/utils.h>
 
 using namespace wfes::sparsematrix;
 
@@ -10,6 +13,22 @@ namespace wfes {
     namespace vienna {
         class SparseMatrixViennaCL : public SparseMatrix
         {
+        protected:
+                // Current row that is being processed.
+                int current_row;
+                // Matrix is full or not.
+                bool full;
+                // Index where the current row starts.
+                int row_index_start;
+
+            public:
+            // Non-zero values of the matrix, ordered by row/column.
+                double* data;
+                // Column index of each element in the array data.
+                int* cols;
+                // Indicate which elements of data start a new row.
+                int* row_index;
+
             public:
                 // ViennaCL compressed matrix.
                 viennacl::compressed_matrix<double> vcl_matrix;
