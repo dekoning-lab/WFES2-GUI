@@ -20,7 +20,7 @@ namespace wfes {
 
                 static ModelType modelType;
 
-                static llong population_size;
+                static int population_size;
 
                 // Selection coefficients.
                 static double s;
@@ -37,17 +37,17 @@ namespace wfes {
 
                 static double a;
 
-                static llong b;
+                static int b;
 
-                static llong n_threads;
+                static int n_threads;
 
                 static double integration_cutoff;
 
                 static std::string initial_distribution_csv;
 
-                static llong starting_copies;
+                static int starting_copies;
 
-                static llong observed_copies;
+                static int observed_copies;
 
                 static double odds_ratio;
 
