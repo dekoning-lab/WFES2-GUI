@@ -236,7 +236,7 @@ dvec SparseMatrixPardiso::getColCopy(int c)
 
 dvec SparseMatrixPardiso::getRowCopy(int i)
 {
-    //TODO
+    //TODO Implementation (Not used).
     return dvec();
 }
 
@@ -305,7 +305,7 @@ double SparseMatrixPardiso::search(int i, int j)
 
 void SparseMatrixPardiso::setValue(double x, int i, int j)
 {
-    //TODO
+    //TODO Implementation (Not used).
 }
 
 void SparseMatrixPardiso::saveMarket(std::string path)
