@@ -6,6 +6,10 @@
 #include "model/sparse-matrix/sparseMatrix.h"
 #include <viennacl/compressed_matrix.hpp>
 #include <utils/utils.h>
+#include <viennacl/linalg/prod.hpp>
+#include "viennacl/linalg/amg.hpp"
+
+#include <Eigen/Core>
 
 using namespace wfes::sparsematrix;
 
@@ -14,13 +18,14 @@ namespace wfes {
         class SparseMatrixViennaCL : public SparseMatrix
         {
         protected:
-                // Current row that is being processed.
-                int current_row;
-                // Matrix is full or not.
-                bool full;
-                // Index where the current row starts.
-                int row_index_start;
+            // Current row that is being processed.
+            llong current_row;
+            // Matrix is full or not.
+            bool full;
+            // Index where the current row starts.
+            llong row_index_start;
 
+        protected:
             public:
             // Non-zero values of the matrix, ordered by row/column.
                 double* data;
@@ -110,6 +115,11 @@ namespace wfes {
                  */
                 bool approxEquals(const SparseMatrix& rhs, double tol = 1e-10, bool verbose = false) override;
 
+                /**
+                 * @brief Get reference to ViennaCL matrix.
+                 * @return ViennaCL matrix.
+                 */
+                viennacl::compressed_matrix<double> get_viennacl_matrix();
             public: // Convert data
 
                 /**

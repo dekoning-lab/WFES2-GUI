@@ -303,7 +303,6 @@ Results* wfes_single::execute()
         t_end = std::chrono::system_clock::now();
         time_diff dt = t_end - t_start;
 
-        //TODO Return empty
         return new Results(dt.count());
     }
 
@@ -318,8 +317,10 @@ Results* wfes_single::execute()
         O(size - 1) = 1;
 
         dvec pi = solver->solve(O, true);
-        //TODO, Non testing if user wants E.
-        utils::writeVectorToFile(pi, Config::path_output_E);
+
+        if (Config::output_E) {
+            utils::writeVectorToFile(pi, Config::path_output_E);
+        }
 
         // Calculate expected frequency
         double e_freq = 0.0;
@@ -597,6 +598,7 @@ Results* wfes_single::execute()
         return new Results(dt.count());
     }
 
-    //TODO Review
+    // If for some reason none of the model types was selected, return nan values for all outputs,
+    // so the GUI does not show anything.
     return new Results();
 }
