@@ -114,11 +114,6 @@ namespace wfes {
                  */
                 bool approxEquals(const SparseMatrix& rhs, double tol = 1e-10, bool verbose = false) override;
 
-                /**
-                 * @brief Get reference to ViennaCL matrix.
-                 * @return ViennaCL matrix.
-                 */
-                viennacl::compressed_matrix<double> get_viennacl_matrix();
             public: // Convert data
 
                 /**

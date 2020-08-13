@@ -106,6 +106,7 @@ void TestSparseMatrixViennaCL::createViennaCL_createFromEigenDense()
     if(viennaSparse.num_non_zeros != 81)
         test = false;
 
+
     QVERIFY(test);
 }
 
@@ -428,6 +429,105 @@ void TestSparseMatrixViennaCL::auxiliary_nextRow()
         test = false;
 
     QVERIFY(test);
+}
+
+void TestSparseMatrixViennaCL::auxiliary_approxEquals()
+{
+    // Create a matrix with space for one empty row.
+    SparseMatrixViennaCL sparseMatrix = SparseMatrixViennaCL(2,9);
+    SparseMatrixViennaCL sparseMatrix2 = SparseMatrixViennaCL(2,9);
+
+    // Create a row to append.
+    dvec eigenVec = dvec(9);
+    for(int i = 0; i < 9; i++){
+        eigenVec(i) = 9-i;
+    }
+
+    // Create a second row to append.
+    dvec eigenVec2 = dvec(9);
+    for(int i = 0; i < 9; i++){
+        eigenVec2(i) = i;
+    }
+
+    sparseMatrix.appendRow(eigenVec, 0, 9);
+    sparseMatrix.appendRow(eigenVec2, 0, 9);
+    sparseMatrix2.appendRow(eigenVec, 0, 9);
+    sparseMatrix2.appendRow(eigenVec2, 0, 9);
+
+    bool test = true;
+    test = sparseMatrix.approxEquals(sparseMatrix2);
+
+    QVERIFY(true);
+
+    sparseMatrix2.data[7] = sparseMatrix.data[7] + 0.1;
+
+    test = !sparseMatrix.approxEquals(sparseMatrix2);
+
+    // The tolerance is compared using < instead of <=, so if the difference is exactly 0.1 it will be marked as not equal, the difference has to be less than 0.1.
+    test = !sparseMatrix.approxEquals(sparseMatrix2, 0.1);
+
+    // In this case the tolerance is 0.1 and the difference 0.9, so it is accepted as equal.
+    sparseMatrix2.data[7] = sparseMatrix.data[7] + 0.09;
+    test = sparseMatrix.approxEquals(sparseMatrix2, 0.1);
+
+    QVERIFY(test);
+
+}
+
+void TestSparseMatrixViennaCL::conversion_dense()
+{
+    // Create and fill Eigen dense matrix.
+    dmat eigenDense = dmat(9, 9);
+    int cont = 0;
+    for(int i = 0; i < 9; i++){
+        for(int j = 0; j < 9; j++) {
+            eigenDense(i, j) = cont+1;
+            cont++;
+        }
+    }
+
+    // Create ViennaCL sparse matrix from Eigen dense matrix.
+    SparseMatrixViennaCL viennaSparse = SparseMatrixViennaCL(eigenDense);
+
+    // Compare viennacl matrix with generated dense.
+    bool test = true;
+    for(int i = 0; i < 9; i++){
+        for(int j = 0; j < 9; j++) {
+            if(viennaSparse.vcl_matrix(i, j) != viennaSparse.dense()(i, j))
+                test = false;
+        }
+    }
+
+    QVERIFY(test);
+}
+
+void TestSparseMatrixViennaCL::conversion_getDiagCopy()
+{
+
+    // Create and fill Eigen dense matrix.
+    dmat eigenDense = dmat(9, 9);
+    int cont = 0;
+    for(int i = 0; i < 9; i++){
+        for(int j = 0; j < 9; j++) {
+            eigenDense(i, j) = cont+1;
+            cont++;
+        }
+    }
+
+    // Create ViennaCL sparse matrix from Eigen dense matrix.
+    SparseMatrixViennaCL viennaSparse = SparseMatrixViennaCL(eigenDense);
+
+
+    dvec diag = viennaSparse.getDiagCopy();
+
+    bool test = true;
+    for(int i = 0; i < diag.size(); i++){
+        if(diag(i) != viennaSparse.vcl_matrix(i, i))
+            test = false;
+    }
+
+    QVERIFY(test);
+
 }
 
 

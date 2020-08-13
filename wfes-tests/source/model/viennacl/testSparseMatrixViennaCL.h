@@ -42,6 +42,11 @@ namespace wfes {
                 void appendValues_appendValue();
 
                 void auxiliary_nextRow();
+                void auxiliary_approxEquals();
+
+                void conversion_dense();
+                void conversion_getDiagCopy();
+
             private:
 
         };

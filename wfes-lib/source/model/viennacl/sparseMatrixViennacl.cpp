@@ -31,28 +31,32 @@ SparseMatrixViennaCL::SparseMatrixViennaCL(dmat& eigenDenseMatrix) :
     SparseMatrix(eigenDenseMatrix.rows(), eigenDenseMatrix.cols()),
     current_row(0), full(true),
     row_index_start(-1),
-    data(new double()), cols(new int()), row_index(new int())
+    data(nullptr), cols(nullptr), row_index(nullptr)
 {
     Eigen::SparseMatrix<double, Eigen::RowMajor> eigenSparse = eigenDenseMatrix.sparseView();
 
     eigenSparse.makeCompressed();
+
     num_non_zeros = eigenSparse.nonZeros();
     num_cols = eigenSparse.cols();
     num_rows = eigenSparse.rows();
 
-    if(eigenSparse.valuePtr() != nullptr)
-        memcpy ( data, eigenSparse.valuePtr(), sizeof(double) );
-    else
+    if(eigenSparse.valuePtr() != nullptr) {
+        data = (double*) malloc (num_non_zeros * sizeof(double));
+        memcpy ( data, (eigenSparse.valuePtr()), num_non_zeros * sizeof(double) );
+    }else
         data = nullptr;
 
-    if(eigenSparse.innerIndexPtr() != nullptr)
-        memcpy ( cols, eigenSparse.innerIndexPtr(), sizeof(double) );
-    else
+    if(eigenSparse.innerIndexPtr() != nullptr) {
+        cols = (int*) malloc (num_non_zeros * sizeof(int));
+        memcpy ( (void*)cols, (void*)eigenSparse.innerIndexPtr(), num_non_zeros * sizeof(int) );
+    }else
         cols = nullptr;
 
-    if(eigenSparse.outerIndexPtr() != nullptr)
-        memcpy ( row_index, eigenSparse.outerIndexPtr(), sizeof(double) );
-    else
+    if(eigenSparse.outerIndexPtr() != nullptr){
+        row_index = (int*) malloc ((num_rows+1) * sizeof(int));
+        memcpy ( (void*)row_index, (void*)eigenSparse.outerIndexPtr(),(num_rows+1) *  sizeof(int) );
+    }else
         row_index = nullptr;
 
     copy(eigenSparse, vcl_matrix);
@@ -164,12 +168,15 @@ void SparseMatrixViennaCL::nextRow()
 
 void SparseMatrixViennaCL::debugPrint()
 {
-    std::cout << "data:    " << std::endl;
-    printBuffer(data, (size_t)num_non_zeros);
-    std::cout << "cols:   " << std::endl;
-    printBuffer(cols, (size_t)num_non_zeros);
-    std::cout << "row_index:  " << std::endl;
-    printBuffer(row_index, (size_t)(num_rows + 1));
+    qDebug() << "data:    ";
+    for(int i = 0; i < num_non_zeros; i++)
+        qDebug() << data[i];
+    qDebug() << "cols:    ";
+    for(int i = 0; i < num_non_zeros; i++)
+        qDebug() << cols[i];
+    qDebug() << "row_index:    ";
+    for(int i = 0; i < num_rows+1; i++)
+        qDebug() << row_index[i];
 }
 
 bool SparseMatrixViennaCL::approxEquals(const SparseMatrix &rhs, double tol, bool verbose)
@@ -190,11 +197,6 @@ bool SparseMatrixViennaCL::approxEquals(const SparseMatrix &rhs, double tol, boo
         }
     }
     return true;
-}
-
-viennacl::compressed_matrix<double> SparseMatrixViennaCL::get_viennacl_matrix()
-{
-    return vcl_matrix;
 }
 
 dmat SparseMatrixViennaCL::dense()
@@ -310,10 +312,10 @@ SparseMatrix* SparseMatrixViennaCL::multiply(SparseMatrix &B, bool transpose)
        viennacl::compressed_matrix<double> vcl_transposed(vcl_matrix.size1(), vcl_matrix.size2());
        viennacl::linalg::detail::amg::amg_transpose(vcl_matrix, vcl_transposed);
        // Multiply transposed.
-       res->vcl_matrix = viennacl::linalg::prod(vcl_transposed, static_cast<SparseMatrixViennaCL&>(B).get_viennacl_matrix());
+       res->vcl_matrix = viennacl::linalg::prod(vcl_transposed, static_cast<SparseMatrixViennaCL&>(B).vcl_matrix);
     } else {
         // Multiply non transposed.
-        res->vcl_matrix = viennacl::linalg::prod(vcl_matrix, static_cast<SparseMatrixViennaCL&>(B).get_viennacl_matrix());
+        res->vcl_matrix = viennacl::linalg::prod(vcl_matrix, static_cast<SparseMatrixViennaCL&>(B).vcl_matrix);
     }
 
     // TODO IMPORTANT! Copy result to buffers. See how to access ViennaCL buffers.
