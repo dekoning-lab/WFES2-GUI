@@ -36,6 +36,12 @@ namespace wfes {
                 void createViennaCL_createFromEigenDense();
                 void createMatrix_createDiagMatrix();
                 void destructMatrix_destructor();
+
+                void appendValues_appendRow();
+                void appendValues_appendChunk();
+                void appendValues_appendValue();
+
+                void auxiliary_nextRow();
             private:
 
         };

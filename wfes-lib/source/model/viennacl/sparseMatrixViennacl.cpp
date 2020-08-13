@@ -119,8 +119,8 @@ void SparseMatrixViennaCL::appendChunk(dvec &row, int m0, int r0, int size)
     // Insert Columns
     int* cols_new = (int*) realloc(cols, new_size * sizeof(int));
     assert(cols_new != nullptr); cols = cols_new;
-    lvec col_idx = closedRange(m0, m0 + size);
-    memcpy(&cols[num_non_zeros], col_idx.data(), size * sizeof(llong));
+    ivec col_idx = closedRangeInt(m0, m0 + size);
+    memcpy(&cols[num_non_zeros], col_idx.data(), size * sizeof(int));
 
     // Insert Data
     double* data_new = (double*) realloc(data, new_size * sizeof(double));

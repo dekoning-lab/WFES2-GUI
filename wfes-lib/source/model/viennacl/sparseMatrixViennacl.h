@@ -17,15 +17,14 @@ namespace wfes {
     namespace vienna {
         class SparseMatrixViennaCL : public SparseMatrix
         {
-        protected:
-            // Current row that is being processed.
-            llong current_row;
-            // Matrix is full or not.
-            bool full;
-            // Index where the current row starts.
-            llong row_index_start;
+            protected:
+                // Current row that is being processed.
+                llong current_row;
+                // Matrix is full or not.
+                bool full;
+                // Index where the current row starts.
+                llong row_index_start;
 
-        protected:
             public:
             // Non-zero values of the matrix, ordered by row/column.
                 double* data;

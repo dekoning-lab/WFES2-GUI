@@ -58,6 +58,8 @@ void printBuffer(T* buffer, size_t size, std::ostream& os = std::cout, bool newl
 typedef Eigen::VectorXd dvec;
 // Eigen vector of long long ints.
 typedef Eigen::Matrix<llong, Eigen::Dynamic, 1> lvec;
+// Eigen vector of long long ints.
+typedef Eigen::VectorXi ivec;
 // Eigen matrix of doubles.
 typedef Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic, Eigen::RowMajor> dmat;
 // Eigen diagonal matrix of doubles.

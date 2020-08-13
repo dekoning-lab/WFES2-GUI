@@ -126,6 +126,13 @@ lvec wfes::utils::closedRange(llong start, llong stop)
     return r;
 }
 
+ivec wfes::utils::closedRangeInt(int start, int stop)
+{
+    ivec r(stop - start + 1);
+    for(int i = start; i <= stop; i++) r(i - start) = i;
+    return r;
+}
+
 void wfes::utils::writeResultsToFile(Results *results, std::string path)
 {
     std::ofstream myfile;
