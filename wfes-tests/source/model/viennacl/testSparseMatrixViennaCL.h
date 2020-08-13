@@ -31,8 +31,11 @@ namespace wfes {
                 void cleanup();
 
             private slots:
-                void createMatrix_createDiagMatrix();
+                void createViennaCL_createEmpty();
+                void createViennaCL_createWithSize();
                 void createViennaCL_createFromEigenDense();
+                void createMatrix_createDiagMatrix();
+                void destructMatrix_destructor();
             private:
 
         };

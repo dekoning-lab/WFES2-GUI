@@ -10,7 +10,7 @@
 #include "viennacl/linalg/amg.hpp"
 
 #include <Eigen/Core>
-
+#include <QDebug>
 using namespace wfes::sparsematrix;
 
 namespace wfes {

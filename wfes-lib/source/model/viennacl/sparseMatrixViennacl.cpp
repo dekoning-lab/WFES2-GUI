@@ -31,7 +31,7 @@ SparseMatrixViennaCL::SparseMatrixViennaCL(dmat& eigenDenseMatrix) :
     SparseMatrix(eigenDenseMatrix.rows(), eigenDenseMatrix.cols()),
     current_row(0), full(true),
     row_index_start(-1),
-    data(), cols(nullptr), row_index(nullptr)
+    data(new double()), cols(new int()), row_index(new int())
 {
     Eigen::SparseMatrix<double, Eigen::RowMajor> eigenSparse = eigenDenseMatrix.sparseView();
 
@@ -40,11 +40,22 @@ SparseMatrixViennaCL::SparseMatrixViennaCL(dmat& eigenDenseMatrix) :
     num_cols = eigenSparse.cols();
     num_rows = eigenSparse.rows();
 
-    data = eigenDenseMatrix.data();
-    cols = eigenSparse.innerIndexPtr();
-    row_index = eigenSparse.outerIndexPtr();
+    if(eigenSparse.valuePtr() != nullptr)
+        memcpy ( data, eigenSparse.valuePtr(), sizeof(double) );
+    else
+        data = nullptr;
 
-    copy(eigenDenseMatrix, vcl_matrix);
+    if(eigenSparse.innerIndexPtr() != nullptr)
+        memcpy ( cols, eigenSparse.innerIndexPtr(), sizeof(double) );
+    else
+        cols = nullptr;
+
+    if(eigenSparse.outerIndexPtr() != nullptr)
+        memcpy ( row_index, eigenSparse.outerIndexPtr(), sizeof(double) );
+    else
+        row_index = nullptr;
+
+    copy(eigenSparse, vcl_matrix);
 
 }
 
@@ -57,10 +68,10 @@ SparseMatrix* SparseMatrixViennaCL::LeftPaddedDiagonal(int dim, double x, int pa
 
     // could probably use a private constructor here
     double* data_new = (double*)realloc(I->data, I->num_non_zeros* sizeof(double));
-    assert(data_new != NULL); I->data = data_new;
+    assert(data_new != nullptr); I->data = data_new;
 
     int* cols_new = (int*)realloc(I->cols, I->num_cols * sizeof(int));
-    assert(cols_new != NULL); I->cols = cols_new;
+    assert(cols_new != nullptr); I->cols = cols_new;
 
     for(int i = 0; i < I->num_non_zeros; i++) {
         I->data[i] = x;
@@ -69,15 +80,24 @@ SparseMatrix* SparseMatrixViennaCL::LeftPaddedDiagonal(int dim, double x, int pa
     }
     I->row_index[dim] = I->num_non_zeros;
 
-    vcl_matrix.set(I->row_index, I->cols, I->data, I->num_rows, I->num_cols, I->num_non_zeros);
+    I->vcl_matrix.set(I->row_index, I->cols, I->data, I->num_rows, I->num_cols, I->num_non_zeros);
 
     return I;
 }
 
 SparseMatrixViennaCL::~SparseMatrixViennaCL(){
-    free(data);
-    free(cols);
-    free(row_index);
+    if(data != nullptr) {
+        free(data);
+        data = nullptr;
+    }
+    if(cols != nullptr) {
+        free(cols);
+        cols = nullptr;
+    }
+    if(row_index != nullptr) {
+        free(row_index);
+        row_index = nullptr;
+    }
 }
 
 void SparseMatrixViennaCL::appendRow(dvec &row, int col_start, int size)
@@ -98,13 +118,13 @@ void SparseMatrixViennaCL::appendChunk(dvec &row, int m0, int r0, int size)
 
     // Insert Columns
     int* cols_new = (int*) realloc(cols, new_size * sizeof(int));
-    assert(cols_new != NULL); cols = cols_new;
+    assert(cols_new != nullptr); cols = cols_new;
     lvec col_idx = closedRange(m0, m0 + size);
     memcpy(&cols[num_non_zeros], col_idx.data(), size * sizeof(llong));
 
     // Insert Data
     double* data_new = (double*) realloc(data, new_size * sizeof(double));
-    assert(data_new != NULL); data = data_new;
+    assert(data_new != nullptr); data = data_new;
     memcpy(&(data[num_non_zeros]), &(row.data()[r0]), size * sizeof(double));
 
     num_non_zeros += size;
@@ -118,12 +138,12 @@ void SparseMatrixViennaCL::appendValue(double value, int j)
 
     // Columns
     int* cols_new = (int*) realloc(cols, new_size * sizeof(int));
-    assert(cols_new != NULL); cols = cols_new;
+    assert(cols_new != nullptr); cols = cols_new;
     cols[new_size - 1] = j;
 
     // Data
     double* data_new = (double*) realloc(data, new_size * sizeof(double));
-    assert(data_new != NULL); data = data_new;
+    assert(data_new != nullptr); data = data_new;
     data[new_size - 1] = value;
 
     num_non_zeros += 1;
@@ -300,6 +320,14 @@ SparseMatrix* SparseMatrixViennaCL::multiply(SparseMatrix &B, bool transpose)
     res->num_rows = res->vcl_matrix.size1();
     res->num_cols = res->vcl_matrix.size2();
     res->num_non_zeros = res->vcl_matrix.nnz();
+
+    Eigen::SparseMatrix<double, Eigen::RowMajor> eigenSparse;
+    copy(res->vcl_matrix, eigenSparse);
+    eigenSparse.makeCompressed();
+
+    data = eigenSparse.valuePtr();
+    cols = eigenSparse.innerIndexPtr();
+    row_index = eigenSparse.outerIndexPtr();
 
     return res;
 }
