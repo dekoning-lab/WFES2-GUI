@@ -46,6 +46,7 @@ namespace wfes {
 
                 void conversion_dense();
                 void conversion_getDiagCopy();
+                void conversion_getColCopy();
 
             private:
 

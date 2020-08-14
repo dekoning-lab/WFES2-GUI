@@ -85,10 +85,18 @@ void TestSparseMatrixViennaCL::createViennaCL_createFromEigenDense()
 
     // Compare matrixes.
     bool test = true;
+    cont = 0;
     for(int i = 0; i < 9; i++){
         for(int j = 0; j < 9; j++) {
             if(eigenDense(i, j) != viennaSparse.vcl_matrix(i, j))
                 test = false;
+            if(eigenDense(i, j) != viennaSparse.data[cont])
+                test = false;
+            if(viennaSparse.cols[cont] != j)
+                test = false;
+            if(j == 8 && viennaSparse.row_index[i+1] != viennaSparse.data[cont])
+                test = false;
+            cont++;
         }
     }
 
@@ -118,11 +126,16 @@ void TestSparseMatrixViennaCL::createMatrix_createDiagMatrix()
 
     // Test if created properly.
     bool equals = true;
+    int cont = 0;
     for(int i = 0; i < sparseMatrix->num_rows; i++){
         for(int j = 0; j < sparseMatrix->num_cols; j++){
             if(i == j){
                 if(sparseMatrix->vcl_matrix(i, j) != 3)
                     equals = false;
+                if(sparseMatrix->data[cont] != 3 && sparseMatrix->cols[cont] != cont && sparseMatrix->row_index[cont] != cont) {
+                    equals = false;
+                }
+                cont++;
             } else {
                 if(sparseMatrix->vcl_matrix(i, j) != 0)
                     equals = false;
@@ -528,6 +541,33 @@ void TestSparseMatrixViennaCL::conversion_getDiagCopy()
 
     QVERIFY(test);
 
+}
+
+void TestSparseMatrixViennaCL::conversion_getColCopy()
+{
+
+    // Create and fill Eigen dense matrix.
+    dmat eigenDense = dmat(9, 9);
+    int cont = 0;
+    for(int i = 0; i < 9; i++){
+        for(int j = 0; j < 9; j++) {
+            eigenDense(i, j) = cont+1;
+            cont++;
+        }
+    }
+
+    // Create ViennaCL sparse matrix from Eigen dense matrix.
+    SparseMatrixViennaCL viennaSparse = SparseMatrixViennaCL(eigenDense);
+
+    dvec column = viennaSparse.getColCopy(0);
+
+    bool test = true;
+    for(int i = 0; i < viennaSparse.num_rows; i++) {
+        if(viennaSparse.cols[i] == 0 && (viennaSparse.data[i] != column[i] || viennaSparse.vcl_matrix(i, 0) != column[i]))
+            test = false;
+    }
+
+    QVERIFY(test);
 }
 
 
