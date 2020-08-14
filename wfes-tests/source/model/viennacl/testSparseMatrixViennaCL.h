@@ -47,7 +47,11 @@ namespace wfes {
                 void conversion_dense();
                 void conversion_getDiagCopy();
                 void conversion_getColCopy();
+                void conversion_getRowCopy();
 
+                void operator_multiplyVector();
+                void operator_multiplyVectorInPlace();
+                void operator_multiplyMatrix();
             private:
 
         };

@@ -255,7 +255,7 @@ dvec SparseMatrixViennaCL::multiply(dvec &x, bool transpose)
     viennacl::vector<double> vcl_vec(x.size());
     copy(x, vcl_vec);
 
-    viennacl::vector<double> vcl_res;
+    viennacl::vector<double> vcl_res = viennacl::vector<double>(x.size());
 
     //Transpose if necessary.
     if(transpose) {
@@ -265,12 +265,12 @@ dvec SparseMatrixViennaCL::multiply(dvec &x, bool transpose)
        vcl_res = viennacl::linalg::prod(vcl_transposed, vcl_vec);
     } else {
         // Multiply non transposed.
-        vcl_res = viennacl::linalg::prod(vcl_matrix, vcl_vec);
+         vcl_res = viennacl::linalg::prod(vcl_matrix, vcl_vec);
     }
 
     // Copy result to eigen vector.
-    Eigen::VectorXd res;
-    copy(res, vcl_res);
+    Eigen::VectorXd res = Eigen::VectorXd(vcl_res.size());
+    copy(vcl_res, res);
 
     return res;
 }
@@ -323,13 +323,31 @@ SparseMatrix* SparseMatrixViennaCL::multiply(SparseMatrix &B, bool transpose)
     res->num_cols = res->vcl_matrix.size2();
     res->num_non_zeros = res->vcl_matrix.nnz();
 
-    Eigen::SparseMatrix<double, Eigen::RowMajor> eigenSparse;
+    Eigen::SparseMatrix<double, Eigen::RowMajor> eigenSparse = Eigen::SparseMatrix<double, Eigen::RowMajor>(res->vcl_matrix.size1(), res->vcl_matrix.size2());
     copy(res->vcl_matrix, eigenSparse);
     eigenSparse.makeCompressed();
 
-    data = eigenSparse.valuePtr();
-    cols = eigenSparse.innerIndexPtr();
-    row_index = eigenSparse.outerIndexPtr();
+    res->num_non_zeros = eigenSparse.nonZeros();
+    res->num_cols = eigenSparse.cols();
+    res->num_rows = eigenSparse.rows();
+
+    if(eigenSparse.valuePtr() != nullptr) {
+        res->data = (double*) malloc (res->num_non_zeros * sizeof(double));
+        memcpy ( res->data, (eigenSparse.valuePtr()), res->num_non_zeros * sizeof(double) );
+    }else
+        res->data = nullptr;
+
+    if(eigenSparse.innerIndexPtr() != nullptr) {
+        res->cols = (int*) malloc (res->num_non_zeros * sizeof(int));
+        memcpy (res->cols, eigenSparse.innerIndexPtr(), res->num_non_zeros * sizeof(int) );
+    }else
+        res->cols = nullptr;
+
+    if(eigenSparse.outerIndexPtr() != nullptr){
+        res->row_index = (int*) malloc ((res->num_rows+1) * sizeof(int));
+        memcpy (res->row_index, eigenSparse.outerIndexPtr(),(res->num_rows+1) *  sizeof(int) );
+    }else
+        res->row_index = nullptr;
 
     return res;
 }

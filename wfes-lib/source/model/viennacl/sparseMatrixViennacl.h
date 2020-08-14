@@ -6,7 +6,7 @@
 #include "model/sparse-matrix/sparseMatrix.h"
 #include <viennacl/compressed_matrix.hpp>
 #include <utils/utils.h>
-#include <viennacl/linalg/prod.hpp>
+#include <viennacl/linalg/sparse_matrix_operations.hpp>
 #include "viennacl/linalg/amg.hpp"
 
 #include <Eigen/Core>

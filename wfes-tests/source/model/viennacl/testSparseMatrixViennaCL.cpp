@@ -570,4 +570,430 @@ void TestSparseMatrixViennaCL::conversion_getColCopy()
     QVERIFY(test);
 }
 
+void TestSparseMatrixViennaCL::conversion_getRowCopy()
+{
+    //TODO Not implemented in wfes-lib.
+    QVERIFY(true);
+}
+
+void TestSparseMatrixViennaCL::operator_multiplyVector()
+{
+    bool test = true;
+
+    // Create and fill Eigen dense matrix.
+    dmat eigenDense = dmat(4, 4);
+    int cont = 0;
+    for(int i = 0; i < 4; i++){
+        for(int j = 0; j < 4; j++) {
+            eigenDense(i, j) = cont+1;
+            cont++;
+        }
+    }
+
+    // Create ViennaCL sparse matrix from Eigen dense matrix.
+    SparseMatrixViennaCL *viennaSparse = new SparseMatrixViennaCL(eigenDense);
+
+    dvec column = viennaSparse->getColCopy(0);
+    dvec res = dvec(column.size());
+
+    // Non zeros non transpose
+    // |  1  2  3  4 |   |  1 |   |  90 |
+    // |  5  6  7  8 |   |  5 |   | 202 |
+    // |  9 10 11 12 | * |  9 | = | 314 |
+    // | 13 14 15 16 |   | 13 |   | 426 |
+
+    res = viennaSparse->multiply(column, false);
+
+    if(res[0] != 90)
+        test = false;
+    if(res[1] != 202)
+        test = false;
+    if(res[2] != 314)
+        test = false;
+    if(res[3] != 426)
+        test = false;
+
+    // Non zeros transpose
+    // | 1 5  9 13 |   |  1 |   | 276 |
+    // | 2 6 10 14 |   |  5 |   | 304 |
+    // | 3 7 11 15 | * |  9 | = | 314 |
+    // | 4 8 12 16 |   | 13 |   | 426 |
+
+    res = viennaSparse->multiply(column, true);
+
+    if(res[0] != 276)
+        test = false;
+    if(res[1] != 304)
+        test = false;
+    if(res[2] != 332)
+        test = false;
+    if(res[3] != 360)
+        test = false;
+
+    // Zeros non transpose
+    // | 0  2  0  4 |   |  1 |   |  62 |
+    // | 5  6  7  8 |   |  5 |   | 202 |
+    // | 9 10 11  0 | * |  9 | = | 158 |
+    // | 0  0 15 16 |   | 13 |   | 343 |
+
+    // Set new values for zeros.
+    eigenDense(0, 0) = 0;
+    eigenDense(0, 2) = 0;
+    eigenDense(2, 3) = 0;
+    eigenDense(3, 0) = 0;
+    eigenDense(3, 1) = 0;
+
+    // Create ViennaCL sparse matrix from Eigen dense matrix.
+    delete viennaSparse;
+    viennaSparse = new SparseMatrixViennaCL(eigenDense);
+
+    res = viennaSparse->multiply(column, false);
+
+    if(res[0] != 62)
+        test = false;
+    if(res[1] != 202)
+        test = false;
+    if(res[2] != 158)
+        test = false;
+    if(res[3] != 343)
+        test = false;
+
+
+    // Zeros transpose
+    // | 0 5  9  0 |   |  1 |   | 106 |
+    // | 2 6 10  0 |   |  5 |   | 122 |
+    // | 0 7 11 15 | * |  9 | = | 329 |
+    // | 4 8  0 16 |   | 13 |   | 252 |
+
+    res = viennaSparse->multiply(column, true);
+
+    if(res[0] != 106)
+        test = false;
+    if(res[1] != 122)
+        test = false;
+    if(res[2] != 329)
+        test = false;
+    if(res[3] != 252)
+        test = false;
+
+    QVERIFY(test);
+}
+
+void TestSparseMatrixViennaCL::operator_multiplyVectorInPlace()
+{
+    bool test = true;
+
+    // Create and fill Eigen dense matrix.
+    dmat eigenDense = dmat(4, 4);
+    int cont = 0;
+    for(int i = 0; i < 4; i++){
+        for(int j = 0; j < 4; j++) {
+            eigenDense(i, j) = cont+1;
+            cont++;
+        }
+    }
+
+    // Create ViennaCL sparse matrix from Eigen dense matrix.
+    SparseMatrixViennaCL *viennaSparse = new SparseMatrixViennaCL(eigenDense);
+
+    dvec column = viennaSparse->getColCopy(0);
+    dvec res = dvec(column.size());
+
+    // Non zeros non transpose
+    // |  1  2  3  4 |   |  1 |   |  90 |
+    // |  5  6  7  8 |   |  5 |   | 202 |
+    // |  9 10 11 12 | * |  9 | = | 314 |
+    // | 13 14 15 16 |   | 13 |   | 426 |
+
+    viennaSparse->multiplyInPlaceRep(column, 1, false);
+
+    if(column[0] != 90)
+        test = false;
+    if(column[1] != 202)
+        test = false;
+    if(column[2] != 314)
+        test = false;
+    if(column[3] != 426)
+        test = false;
+
+    // Non zeros transpose
+    // | 1 5  9 13 |   |  1 |   | 276 |
+    // | 2 6 10 14 |   |  5 |   | 304 |
+    // | 3 7 11 15 | * |  9 | = | 314 |
+    // | 4 8 12 16 |   | 13 |   | 426 |
+    column = viennaSparse->getColCopy(0);
+
+    viennaSparse->multiplyInPlaceRep(column, 1, true);
+
+    if(column[0] != 276)
+        test = false;
+    if(column[1] != 304)
+        test = false;
+    if(column[2] != 332)
+        test = false;
+    if(column[3] != 360)
+        test = false;
+
+    // Zeros non transpose
+    // | 0  2  0  4 |   |  1 |   |  62 |
+    // | 5  6  7  8 |   |  5 |   | 202 |
+    // | 9 10 11  0 | * |  9 | = | 158 |
+    // | 0  0 15 16 |   | 13 |   | 343 |
+    column = viennaSparse->getColCopy(0);
+
+    // Set new values for zeros.
+    eigenDense(0, 0) = 0;
+    eigenDense(0, 2) = 0;
+    eigenDense(2, 3) = 0;
+    eigenDense(3, 0) = 0;
+    eigenDense(3, 1) = 0;
+
+    // Create ViennaCL sparse matrix from Eigen dense matrix.
+    SparseMatrixViennaCL *viennaSparseZeros = new SparseMatrixViennaCL(eigenDense);
+
+    viennaSparseZeros->multiplyInPlaceRep(column, 1, false);
+
+    if(column[0] != 62)
+        test = false;
+    if(column[1] != 202)
+        test = false;
+    if(column[2] != 158)
+        test = false;
+    if(column[3] != 343)
+        test = false;
+
+    // Zeros transpose
+    // | 0 5  9  0 |   |  1 |   | 106 |
+    // | 2 6 10  0 |   |  5 |   | 122 |
+    // | 0 7 11 15 | * |  9 | = | 329 |
+    // | 4 8  0 16 |   | 13 |   | 252 |
+    column = viennaSparse->getColCopy(0);
+
+    viennaSparseZeros->multiplyInPlaceRep(column, 1, true);
+
+    if(column[0] != 106)
+        test = false;
+    if(column[1] != 122)
+        test = false;
+    if(column[2] != 329)
+        test = false;
+    if(column[3] != 252)
+        test = false;
+
+
+    // Zeros non transpose 2 times
+    // | 0  2  0  4 |   |  1 |   |  62 |     | 0  2  0  4 |   |  62 |   | 1776 |
+    // | 5  6  7  8 |   |  5 |   | 202 |     | 5  6  7  8 |   | 202 |   | 5372 |
+    // | 9 10 11  0 | * |  9 | = | 158 |  -> | 9 10 11  0 | * | 158 | = | 4316 |
+    // | 0  0 15 16 |   | 13 |   | 343 |     | 0  0 15 16 |   | 343 |   | 7858 |
+    column = viennaSparse->getColCopy(0);
+
+    viennaSparseZeros->multiplyInPlaceRep(column, 2, false);
+
+    if(column[0] != 1776)
+        test = false;
+    if(column[1] != 5372)
+        test = false;
+    if(column[2] != 4316)
+        test = false;
+    if(column[3] != 7858)
+        test = false;
+
+    // Zeros transpose 3 times
+    // | 0 5  9  0 |   |  1 |   | 106 |    | 0 5  9  0 |   | 106 |   | 3571 |    | 0 5  9  0 |   | 3571 |   |  95447 |
+    // | 2 6 10  0 |   |  5 |   | 122 |    | 2 6 10  0 |   | 122 |   | 4234 |    | 2 6 10  0 |   | 4234 |   | 115076 |
+    // | 0 7 11 15 | * |  9 | = | 329 | -> | 0 7 11 15 | * | 329 | = | 8253 | -> | 0 7 11 15 | * | 8253 | = | 201901 |
+    // | 4 8  0 16 |   | 13 |   | 252 |    | 4 8  0 16 |   | 252 |   | 5432 |    | 4 8  0 16 |   | 5432 |   | 135068 |
+    column = viennaSparse->getColCopy(0);
+
+    viennaSparseZeros->multiplyInPlaceRep(column, 3, true);
+
+    if(column[0] != 95447)
+        test = false;
+    if(column[1] != 115076)
+        test = false;
+    if(column[2] != 201901)
+        test = false;
+    if(column[3] != 135068)
+        test = false;
+
+    delete viennaSparse;
+    delete viennaSparseZeros;
+
+    QVERIFY(test);
+
+}
+
+void TestSparseMatrixViennaCL::operator_multiplyMatrix()
+{
+
+    bool test = true;
+
+    // Create and fill Eigen dense matrix.
+    dmat eigenDense = dmat(4, 4);
+    int cont = 0;
+    for(int i = 0; i < 4; i++){
+        for(int j = 0; j < 4; j++) {
+            eigenDense(i, j) = cont+1;
+            cont++;
+        }
+    }
+
+    // Non zeros non transpose
+    // |  1  2  3  4 |   |  1  2  3  4 |   |  90 100 110 120 |
+    // |  5  6  7  8 |   |  5  6  7  8 |   | 202 228 254 280 |
+    // |  9 10 11 12 | * |  9 10 11 12 | = | 314 356 398 440 |
+    // | 13 14 15 16 |   | 13 14 15 16 |   | 426 484 542 600 |
+
+    // Create ViennaCL sparse matrix from Eigen dense matrix.
+    SparseMatrixViennaCL viennaSparse = SparseMatrixViennaCL(eigenDense);
+    SparseMatrixViennaCL viennaSparse2 = SparseMatrixViennaCL(eigenDense);
+    SparseMatrixViennaCL result = *(static_cast<SparseMatrixViennaCL*>(viennaSparse.multiply(viennaSparse2, false)));
+
+    if(result.vcl_matrix(0, 0) != 90)
+         test = false;
+    if(result.vcl_matrix(0, 1) != 100)
+         test = false;
+    if(result.vcl_matrix(0, 2) != 110)
+         test = false;
+    if(result.vcl_matrix(0, 3) != 120)
+         test = false;
+
+    if(result.vcl_matrix(1, 0) != 202)
+         test = false;
+    if(result.vcl_matrix(1, 1) != 228)
+         test = false;
+    if(result.vcl_matrix(1, 2) != 254)
+         test = false;
+    if(result.vcl_matrix(1, 3) != 280)
+         test = false;
+
+    if(result.vcl_matrix(2, 0) != 314)
+         test = false;
+    if(result.vcl_matrix(2, 1) != 356)
+         test = false;
+    if(result.vcl_matrix(2, 2) != 398)
+         test = false;
+    if(result.vcl_matrix(2, 3) != 440)
+         test = false;
+
+    if(result.vcl_matrix(3, 0) != 426)
+         test = false;
+    if(result.vcl_matrix(3, 1) != 484)
+         test = false;
+    if(result.vcl_matrix(3, 2) != 542)
+         test = false;
+    if(result.vcl_matrix(3, 3) != 600)
+         test = false;
+
+
+    // Zeros non transpose
+    // | 0  2  0  4 |   | 0  2  0  4 |   |  10  12  74  80 |
+    // | 5  6  7  8 |   | 5  6  7  8 |   |  93 116 239 196 |
+    // | 9 10 11  0 | * | 9 10 11  0 | = | 149 188 191 116 |
+    // | 0  0 15 16 |   | 0  0 15 16 |   | 135 150 405 256 |
+
+    // Set new values for zeros.
+    eigenDense(0, 0) = 0;
+    eigenDense(0, 2) = 0;
+    eigenDense(2, 3) = 0;
+    eigenDense(3, 0) = 0;
+    eigenDense(3, 1) = 0;
+
+    // Create ViennaCL sparse matrix from Eigen dense matrix.
+    SparseMatrixViennaCL viennaSparse3 = SparseMatrixViennaCL(eigenDense);
+    SparseMatrixViennaCL viennaSparse4 = SparseMatrixViennaCL(eigenDense);
+    SparseMatrixViennaCL result2 = *(static_cast<SparseMatrixViennaCL*>(viennaSparse3.multiply(viennaSparse4, false)));
+
+
+    if(result2.vcl_matrix(0, 0) != 10)
+         test = false;
+    if(result2.vcl_matrix(0, 1) != 12)
+         test = false;
+    if(result2.vcl_matrix(0, 2) != 74)
+         test = false;
+    if(result2.vcl_matrix(0, 3) != 80)
+         test = false;
+
+    if(result2.vcl_matrix(1, 0) != 93)
+         test = false;
+    if(result2.vcl_matrix(1, 1) != 116)
+         test = false;
+    if(result2.vcl_matrix(1, 2) != 239)
+         test = false;
+    if(result2.vcl_matrix(1, 3) != 196)
+         test = false;
+
+    if(result2.vcl_matrix(2, 0) != 149)
+         test = false;
+    if(result2.vcl_matrix(2, 1) != 188)
+         test = false;
+    if(result2.vcl_matrix(2, 2) != 191)
+         test = false;
+    if(result2.vcl_matrix(2, 3) != 116)
+         test = false;
+
+    if(result2.vcl_matrix(3, 0) != 135)
+         test = false;
+    if(result2.vcl_matrix(3, 1) != 150)
+         test = false;
+    if(result2.vcl_matrix(3, 2) != 405)
+         test = false;
+    if(result2.vcl_matrix(3, 3) != 256)
+         test = false;
+
+
+
+
+    // Zeros transpose
+    // | 0  5  9  0 |   | 0  2  0  4 |   |  10  12  74  80 |
+    // | 2  6 10  0 |   | 5  6  7  8 |   |  93 116 239 196 |
+    // | 0  7 11 15 | * | 9 10 11  0 | = | 149 188 191 116 |
+    // | 4  8  0 16 |   | 0  0 15 16 |   | 135 150 405 256 |
+
+    // Create ViennaCL sparse matrix from Eigen dense matrix.
+    SparseMatrixViennaCL viennaSparse5 = SparseMatrixViennaCL(eigenDense);
+    SparseMatrixViennaCL viennaSparse6 = SparseMatrixViennaCL(eigenDense);
+    SparseMatrixViennaCL result3 = *(static_cast<SparseMatrixViennaCL*>(viennaSparse3.multiply(viennaSparse4, true)));
+
+    if(result3.vcl_matrix(0, 0) != 106)
+         test = false;
+    if(result3.vcl_matrix(0, 1) != 120)
+         test = false;
+    if(result3.vcl_matrix(0, 2) != 134)
+         test = false;
+    if(result3.vcl_matrix(0, 3) != 40)
+         test = false;
+
+    if(result3.vcl_matrix(1, 0) != 120)
+         test = false;
+    if(result3.vcl_matrix(1, 1) != 140)
+         test = false;
+    if(result3.vcl_matrix(1, 2) != 152)
+         test = false;
+    if(result3.vcl_matrix(1, 3) != 56)
+         test = false;
+
+    if(result3.vcl_matrix(2, 0) != 134)
+         test = false;
+    if(result3.vcl_matrix(2, 1) != 152)
+         test = false;
+    if(result3.vcl_matrix(2, 2) != 395)
+         test = false;
+    if(result3.vcl_matrix(2, 3) != 296)
+         test = false;
+
+    if(result3.vcl_matrix(3, 0) != 40)
+         test = false;
+    if(result3.vcl_matrix(3, 1) != 56)
+         test = false;
+    if(result3.vcl_matrix(3, 2) != 296)
+         test = false;
+    if(result3.vcl_matrix(3, 3) != 336)
+         test = false;
+
+    QVERIFY(test);
+
+}
+
 
