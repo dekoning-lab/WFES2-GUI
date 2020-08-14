@@ -1,4 +1,4 @@
-#include "sparseMatrixViennacl.h"
+﻿#include "sparseMatrixViennacl.h"
 
 using namespace wfes::vienna;
 using namespace wfes::utils;
@@ -386,6 +386,7 @@ void SparseMatrixViennaCL::saveMarket(std::string path)
 
     for (int i = 0; i < num_rows; ++i) {
         for (int j = row_index[i]; j < row_index[i + 1]; ++j) {
+            fprintf(out, "%d" "\t" "%d" "\t" DPF "\n", i + 1, cols[j] + 1, data[j]);
         }
     }
     fclose(out);

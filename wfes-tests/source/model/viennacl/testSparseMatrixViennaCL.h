@@ -52,6 +52,11 @@ namespace wfes {
                 void operator_multiplyVector();
                 void operator_multiplyVectorInPlace();
                 void operator_multiplyMatrix();
+                void operator_substractIdentity();
+                void operator_search();
+                void operator_setValue();
+
+                void inout_saveMarket();
             private:
 
         };

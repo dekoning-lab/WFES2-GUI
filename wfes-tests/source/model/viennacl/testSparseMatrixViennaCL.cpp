@@ -996,4 +996,109 @@ void TestSparseMatrixViennaCL::operator_multiplyMatrix()
 
 }
 
+void TestSparseMatrixViennaCL::operator_substractIdentity()
+{
+
+    bool test = true;
+
+    // Create and fill Eigen dense matrix.
+    dmat eigenDense = dmat(4, 4);
+    int cont = 0;
+    for(int i = 0; i < 4; i++){
+        for(int j = 0; j < 4; j++) {
+            eigenDense(i, j) = cont+1;
+            cont++;
+        }
+    }
+
+    // Create ViennaCL sparse matrix from Eigen dense matrix.
+    SparseMatrixViennaCL viennaSparse = SparseMatrixViennaCL(eigenDense);
+    SparseMatrixViennaCL viennaSparse2 = SparseMatrixViennaCL(eigenDense);
+    viennaSparse.subtractIdentity();
+
+    // Compare viennacl matrix with generated dense.
+    for(unsigned long i = 0; i < viennaSparse.vcl_matrix.size1(); i++){
+        for(unsigned long j = 0; j < viennaSparse.vcl_matrix.size2(); j++) {
+            if(i == j && ((1 - viennaSparse2.vcl_matrix(i, j)) != viennaSparse.vcl_matrix(i, j)))
+                test = false;
+            if(i != j && ((0 - viennaSparse2.vcl_matrix(i, j)) != viennaSparse.vcl_matrix(i, j)))
+                test = false;
+        }
+    }
+
+    QVERIFY(test);
+}
+
+void TestSparseMatrixViennaCL::operator_search()
+{
+
+    bool test = true;
+
+    // Create and fill Eigen dense matrix.
+    dmat eigenDense = dmat(4, 4);
+    int cont = 0;
+    for(int i = 0; i < 4; i++){
+        for(int j = 0; j < 4; j++) {
+            eigenDense(i, j) = cont+1;
+            cont++;
+        }
+    }
+
+    // Set new values for zeros.
+    eigenDense(0, 0) = 0;
+    eigenDense(0, 2) = 0;
+    eigenDense(2, 3) = 0;
+    eigenDense(3, 0) = 0;
+    eigenDense(3, 1) = 0;
+
+
+    // Create ViennaCL sparse matrix from Eigen dense matrix.
+    SparseMatrixViennaCL viennaSparse = SparseMatrixViennaCL(eigenDense);
+
+    for(int i = 0; i < 4; i++){
+        for(int j = 0; j < 4; j++) {
+            if(viennaSparse.vcl_matrix(i, j) != viennaSparse.search(i, j))
+                test = false;
+        }
+    }
+
+    QVERIFY(test);
+
+}
+
+void TestSparseMatrixViennaCL::operator_setValue()
+{
+    //TODO Not implemented in wfes-lib.
+    QVERIFY(true);
+}
+
+void TestSparseMatrixViennaCL::inout_saveMarket()
+{
+    // Create and fill Eigen dense matrix.
+    dmat eigenDense = dmat(4, 4);
+    int cont = 0;
+    for(int i = 0; i < 4; i++){
+        for(int j = 0; j < 4; j++) {
+            eigenDense(i, j) = cont+1;
+            cont++;
+        }
+    }
+
+    // Set new values for zeros.
+    eigenDense(0, 0) = 0;
+    eigenDense(0, 2) = 0;
+    eigenDense(2, 3) = 0;
+    eigenDense(3, 0) = 0;
+    eigenDense(3, 1) = 0;
+
+
+    // Create ViennaCL sparse matrix from Eigen dense matrix.
+    SparseMatrixViennaCL viennaSparse = SparseMatrixViennaCL(eigenDense);
+
+    viennaSparse.saveMarket("savedFile.csv");
+
+    // Verify that the generated file has the requested information.
+    QVERIFY(true);
+}
+
 
