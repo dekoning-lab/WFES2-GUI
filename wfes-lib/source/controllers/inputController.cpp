@@ -462,6 +462,16 @@ void InputController::set_library(QString library) const
     wfes::config::Config::library = library.toStdString();
 }
 
+QString InputController::get_solver() const
+{
+    return QString::fromStdString(wfes::config::Config::vienna_solver);
+}
+
+void InputController::set_solver(QString solver) const
+{
+    wfes::config::Config::vienna_solver = solver.toStdString();
+}
+
 QString InputController::get_initial_distribution_path() const
 {
     return QString::fromStdString(wfes::config::Config::initial_distribution_csv);

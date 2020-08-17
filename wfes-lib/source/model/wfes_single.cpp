@@ -145,7 +145,7 @@ Results* wfes_single::execute()
 
         llong size = (2 * Config::population_size) - 1;
 
-        Solver* solver = SolverFactory::createSolver(Config::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level);
+        Solver* solver = SolverFactory::createSolver(Config::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, Config::vienna_solver);
 
         solver->preprocess();
 
@@ -277,7 +277,7 @@ Results* wfes_single::execute()
 
         W.Q->subtractIdentity();
 
-        Solver* solver = SolverFactory::createSolver(Config::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level);
+        Solver* solver = SolverFactory::createSolver(Config::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, Config::vienna_solver);
 
         solver->preprocess();
         dmat N(size, size);
@@ -310,7 +310,7 @@ Results* wfes_single::execute()
         llong size = (2 * Config::population_size) + 1;
         wrightfisher::Matrix W = wrightfisher::EquilibriumSolvingMatrix(Config::population_size, Config::s, Config::h, Config::u, Config::v, Config::a, Config::verbose, Config::b);
 
-        Solver* solver = SolverFactory::createSolver(Config::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level);
+        Solver* solver = SolverFactory::createSolver(Config::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, Config::vienna_solver);
 
         solver->preprocess();
         dvec O = dvec::Zero(size);
@@ -354,7 +354,7 @@ Results* wfes_single::execute()
 
         llong size = (2 * Config::population_size) - 1;
 
-        Solver* solver_full = SolverFactory::createSolver(Config::library, *(W_full.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level);
+        Solver* solver_full = SolverFactory::createSolver(Config::library, *(W_full.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, Config::vienna_solver);
 
         solver_full->preprocess();
 
@@ -421,7 +421,7 @@ Results* wfes_single::execute()
 
         W_tr.Q->subtractIdentity();
 
-        Solver* solver_tr = SolverFactory::createSolver(Config::library, *(W_tr.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level);
+        Solver* solver_tr = SolverFactory::createSolver(Config::library, *(W_tr.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, Config::vienna_solver);
 
         solver_tr->preprocess();
 
@@ -528,7 +528,7 @@ Results* wfes_single::execute()
         dvec Q_x = W.Q-> getColCopy(x);
         W.Q->subtractIdentity();
 
-        Solver* solver = SolverFactory::createSolver(Config::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level);
+        Solver* solver = SolverFactory::createSolver(Config::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, Config::vienna_solver);
 
         solver->preprocess();
 

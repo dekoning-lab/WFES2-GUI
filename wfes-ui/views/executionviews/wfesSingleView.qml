@@ -18,10 +18,10 @@ ApplicationWindow {
 
     width: 920
     minimumWidth: 920
-    height: 540
-    minimumHeight: 540
+    height: 570
+    minimumHeight: 570
     maximumWidth: 920
-    maximumHeight: 540
+    maximumHeight: 570
 
     // Select theme for the application.
     Universal.theme: Universal.Light
@@ -772,11 +772,21 @@ ApplicationWindow {
                                         text: "Library:"
                                         model: ["Pardiso", "ViennaCL"]
                                         onTextChanged: {
-                                            if(comboBoxSolver.currentText === "Pardiso")
+                                            if(comboBoxSolver.currentText === "Pardiso") {
                                                 comboBoxBackend.enabled = false
-                                            else if (comboBoxSolver.currentText === "ViennaCL")
+                                                comboBoxSolver.enabled = false
+                                            }else if (comboBoxSolver.currentText === "ViennaCL"){
                                                 comboBoxBackend.enabled = true
+                                                comboBoxSolver.enabled = true
+                                            }
                                         }
+                                    }
+
+                                    LabeledComboBox {
+                                        id: comboBoxSolver
+                                        text: "Solver:"
+                                        model: ["MixedCG", "CG", "BicGStab", "GMRes"]
+                                        enabled: (comboBoxLibrary.currentText === "ViennaCL")
                                     }
 
                                     LabeledComboBox {
@@ -873,6 +883,7 @@ ApplicationWindow {
                                 inputController.ui_initial_distribution = inputI.textFieldText
 
                                 inputController.ui_library = comboBoxLibrary.currentText;
+                                inputController.ui_solver = comboBoxSolver.currentText;
 
                             if(outputController.ui_get_error_message == "") {
                                 outputController.ui_execute
