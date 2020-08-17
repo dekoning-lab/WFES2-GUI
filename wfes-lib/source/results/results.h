@@ -1,7 +1,7 @@
 #ifndef RESULTS_H
 #define RESULTS_H
 
-#import <config/config.h>
+#include <config/config.h>
 
 
 class Results

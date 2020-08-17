@@ -19,6 +19,13 @@ void SolverViennaCL::preprocess()
 
 dvec SolverViennaCL::solve(dvec &b, bool transpose)
 {
+
+    //TODO Number of threads from exe arguments.
+#ifdef VIENNACL_WITH_OPENMP
+    omp_set_num_threads(wfes::config::Config::n_threads);
+#endif
+
+
     dvec res = dvec(b.size());
 
     if(this->solver.compare("MixedCG") == 0) {

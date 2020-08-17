@@ -66,6 +66,7 @@ void TestSparseMatrixViennaCL::createViennaCL_createWithSize()
     if(viennaSparse.num_non_zeros != 0)
         test = false;
 
+    QVERIFY(test);
 }
 
 void TestSparseMatrixViennaCL::createViennaCL_createFromEigenDense()

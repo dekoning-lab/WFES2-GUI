@@ -14,7 +14,7 @@ INCLUDEPATH += source \
     ../dependencies \
     ../dependencies/intel/mkl/include
 
-QMAKE_CXXFLAGS += -DMKL_ILP64 -m64
+QMAKE_CXXFLAGS += -DMKL_ILP64 -m64 -fopenmp
 
 DESTDIR = $$PWD/../binaries/$$DESTINATION_PATH
 OBJECTS_DIR = $$PWD/build/$$DESTINATION_PATH/.obj

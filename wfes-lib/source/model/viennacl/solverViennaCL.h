@@ -2,11 +2,12 @@
 #define SOLVERVIENNACL_H
 
 #define VIENNACL_HAVE_EIGEN 1
-
+#define VIENNACL_WITH_OPENMP 1
 #include "model/solver/solver.h"
 #include "sparseMatrixViennacl.h"
 #include <viennacl/compressed_matrix.hpp>
 #include "utils/types.h"
+#include "config/config.h"
 
 #include "viennacl/linalg/amg.hpp"
 #include "viennacl/linalg/cg.hpp"

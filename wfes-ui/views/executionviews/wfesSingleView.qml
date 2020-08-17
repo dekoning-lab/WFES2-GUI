@@ -772,10 +772,10 @@ ApplicationWindow {
                                         text: "Library:"
                                         model: ["Pardiso", "ViennaCL"]
                                         onTextChanged: {
-                                            if(comboBoxSolver.currentText === "Pardiso") {
+                                            if(comboBoxLibrary.currentText === "Pardiso") {
                                                 comboBoxBackend.enabled = false
                                                 comboBoxSolver.enabled = false
-                                            }else if (comboBoxSolver.currentText === "ViennaCL"){
+                                            }else if (comboBoxLibrary.currentText === "ViennaCL"){
                                                 comboBoxBackend.enabled = true
                                                 comboBoxSolver.enabled = true
                                             }
