@@ -90,18 +90,7 @@ SparseMatrix* SparseMatrixViennaCL::LeftPaddedDiagonal(int dim, double x, int pa
 }
 
 SparseMatrixViennaCL::~SparseMatrixViennaCL(){
-    if(data != nullptr) {
-        free(data);
-        data = nullptr;
-    }
-    if(cols != nullptr) {
-        free(cols);
-        cols = nullptr;
-    }
-    if(row_index != nullptr) {
-        free(row_index);
-        row_index = nullptr;
-    }
+
 }
 
 void SparseMatrixViennaCL::appendRow(dvec &row, int col_start, int size)

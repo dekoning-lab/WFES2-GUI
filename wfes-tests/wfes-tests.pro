@@ -33,9 +33,11 @@ SOURCES +=  \
     source/main.cpp \
     source/model/pardiso/testSparseMatrixPardiso.cpp \
     source/model/viennacl/testSparseMatrixViennaCL.cpp \
+    source/model/viennacl/testSolverViennacl.cpp \
     source/testsuite.cpp
 
 HEADERS += \
     source/model/pardiso/testSparseMatrixPardiso.h \
+    source/model/viennacl/testSolverViennacl.h \
     source/model/viennacl/testSparseMatrixViennaCL.h \
     source/testsuite.h

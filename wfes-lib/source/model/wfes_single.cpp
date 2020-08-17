@@ -90,7 +90,7 @@ Results* wfes_single::execute()
 
         llong size = (2 * Config::population_size);
 
-        Solver *solver = wfes::solver::SolverFactory::createSolver(Config::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level);
+        Solver *solver = wfes::solver::SolverFactory::createSolver(Config::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, Config::vienna_solver);
 
         solver->preprocess();
 

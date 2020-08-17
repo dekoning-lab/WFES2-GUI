@@ -18,6 +18,8 @@ namespace wfes {
 
                 static std::string library;
 
+                static std::string vienna_solver;
+
                 static ModelType modelType;
 
                 static int population_size;

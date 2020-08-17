@@ -11,6 +11,9 @@
 
 #include <Eigen/Core>
 #include <QDebug>
+
+#include <memory>
+
 using namespace wfes::sparsematrix;
 
 namespace wfes {

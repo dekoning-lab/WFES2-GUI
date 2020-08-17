@@ -3,6 +3,7 @@
 
 #include "sparseMatrix.h"
 #include "model/pardiso/sparseMatrixPardiso.h"
+#include "model/viennacl/sparseMatrixViennacl.h"
 #include <Eigen/SparseCore>
 
 namespace wfes {

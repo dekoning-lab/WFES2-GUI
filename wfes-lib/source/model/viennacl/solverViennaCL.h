@@ -1,9 +1,10 @@
 #ifndef SOLVERVIENNACL_H
 #define SOLVERVIENNACL_H
 
+#define VIENNACL_HAVE_EIGEN 1
+
 #include "model/solver/solver.h"
 #include "sparseMatrixViennacl.h"
-#include "model/pardiso/sparseMatrixPardiso.h"
 #include <viennacl/compressed_matrix.hpp>
 #include "utils/types.h"
 
@@ -11,6 +12,7 @@
 #include "viennacl/linalg/cg.hpp"
 #include <viennacl/linalg/bicgstab.hpp>
 #include <viennacl/linalg/gmres.hpp>
+#include <viennacl/linalg/mixed_precision_cg.hpp>
 
 #include "QDebug"
 namespace wfes{
@@ -19,14 +21,18 @@ namespace wfes{
         class SolverViennaCL : public solver::Solver {
 
             public:
-                // ViennaCL compressed matrix.
-                viennacl::compressed_matrix<double> vcl_matrix;
+            // Solver to use.
+            std::string solver;
+            //Preconditioner to use.
+            std::string preconditioner;
 
                 /**
                  * Instantiate the solver and converts from SparseMatrix to viennacl::compressed_matrix.
                  * @param A Sparse matrix for analysis.
+                 * @param solver Solver to use.
+                 * @param preconditioner Preconditioner to use.
                  */
-                SolverViennaCL(wfes::pardiso::SparseMatrixPardiso &A);
+                SolverViennaCL(wfes::vienna::SparseMatrixViennaCL &A, std::string solver, std::string preconditioner);
 
                 /**
                  * Destructor of ViennaCL solver.
@@ -45,6 +51,11 @@ namespace wfes{
                  * @return Vector x obtained after solving the system Ax=b.
                  */
                 dvec solve(dvec& b, bool transpose = false) override;
+
+                dvec solve_mixed_cg(dvec& b, bool transpose = false);
+                dvec solve_cg(dvec& b, bool transpose = false);
+                dvec solve_bicgstab(dvec& b, bool transpose = false);
+                dvec solve_gmres(dvec& b, bool transpose = false);
 
                 /**
                  * Solve the linear system AX=B.
