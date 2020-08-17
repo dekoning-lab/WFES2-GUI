@@ -768,8 +768,8 @@ ApplicationWindow {
                                     width: childrenRect.width
 
                                     LabeledComboBox {
-                                        id: comboBoxSolver
-                                        text: "Solver:"
+                                        id: comboBoxLibrary
+                                        text: "Library:"
                                         model: ["Pardiso", "ViennaCL"]
                                         onTextChanged: {
                                             if(comboBoxSolver.currentText === "Pardiso")
@@ -783,7 +783,7 @@ ApplicationWindow {
                                         id: comboBoxBackend
                                         text: "Backend:"
                                         model: [ "1 Threaded", "OpenMP", "OpenCL", "CUDA" ]
-                                        enabled: (comboBoxSolver.currentText === "ViennaCL")
+                                        enabled: (comboBoxLibrary.currentText === "ViennaCL")
                                     }
 
                                     LabeledTextField {
@@ -871,6 +871,8 @@ ApplicationWindow {
                                 inputController.ui_t = inputT.textFieldText
 
                                 inputController.ui_initial_distribution = inputI.textFieldText
+
+                                inputController.ui_library = comboBoxLibrary.currentText;
 
                             if(outputController.ui_get_error_message == "") {
                                 outputController.ui_execute

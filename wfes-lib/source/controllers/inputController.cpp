@@ -452,6 +452,16 @@ void InputController::set_model_type(QString model_type) const
 
 }
 
+QString InputController::get_library() const
+{
+    return QString::fromStdString(wfes::config::Config::library);
+}
+
+void InputController::set_library(QString library) const
+{
+    wfes::config::Config::library = library.toStdString();
+}
+
 QString InputController::get_initial_distribution_path() const
 {
     return QString::fromStdString(wfes::config::Config::initial_distribution_csv);
