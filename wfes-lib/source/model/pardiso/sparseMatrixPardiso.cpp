@@ -12,7 +12,7 @@ SparseMatrixPardiso::SparseMatrixPardiso() :
 
 }
 
-SparseMatrixPardiso::SparseMatrixPardiso(long long numRows, long long numCols) :
+SparseMatrixPardiso::SparseMatrixPardiso(llong numRows, llong numCols) :
   SparseMatrix(numRows, numCols),
   current_row(0), full(false),
   row_index_start(-1),
@@ -42,7 +42,10 @@ SparseMatrixPardiso::SparseMatrixPardiso(dmat& eigenDenseMatrix) :
     j[0] = 0; j[1] = 0; j[2] = 0;
     j[3] = 2; j[4] = num_non_zeros; j[5] = 1;
 
-    mkl_ddnscsr(j, &num_rows, &num_cols, eigenDenseMatrix.data(), &num_cols, data, cols, row_index, &info);
+    llong num_rows_l = (llong)num_rows;
+    llong num_cols_l = (llong)num_cols;
+
+    mkl_ddnscsr(j, &(num_rows_l), &num_cols_l, eigenDenseMatrix.data(), &num_cols_l, data, cols, row_index, &info);
 
     free(j);
 
@@ -52,7 +55,7 @@ SparseMatrixPardiso::SparseMatrixPardiso(dmat& eigenDenseMatrix) :
 
 }
 
-SparseMatrix* SparseMatrixPardiso::LeftPaddedDiagonal(long long dim, double x, long long padLeft)
+SparseMatrix* SparseMatrixPardiso::LeftPaddedDiagonal(int dim, double x, int padLeft)
 {
 
     SparseMatrixPardiso* I = new SparseMatrixPardiso(dim, padLeft + dim);
@@ -84,13 +87,13 @@ SparseMatrixPardiso::~SparseMatrixPardiso(){
     mkl_sparse_destroy(handler);
 }
 
-void SparseMatrixPardiso::appendRow(dvec &row, long long col_start, long long size)
+void SparseMatrixPardiso::appendRow(dvec &row, int col_start, int size)
 {
     appendChunk(row, col_start, col_start, size);
     nextRow();
 }
 
-void SparseMatrixPardiso::appendChunk(dvec &row, long long m0, long long r0, long long size)
+void SparseMatrixPardiso::appendChunk(dvec &row, int m0, int r0, int size)
 {
     // Test not full
     assert(!full);
@@ -114,7 +117,7 @@ void SparseMatrixPardiso::appendChunk(dvec &row, long long m0, long long r0, lon
     num_non_zeros += size;
 }
 
-void SparseMatrixPardiso::appendValue(double value, long long j)
+void SparseMatrixPardiso::appendValue(double value, int j)
 {
     llong new_size = num_non_zeros + 1;
 
@@ -186,7 +189,10 @@ dmat SparseMatrixPardiso::dense()
     j[0] = 1; j[1] = 0; j[2] = 0;
     j[3] = 2; j[4] = num_non_zeros; j[5] = 1;
 
-    mkl_ddnscsr(j, &num_rows, &num_cols, dns.data(), &num_cols, data, cols, row_index, &info);
+    llong num_rows_l = (llong)num_rows;
+    llong num_cols_l = (llong)num_cols;
+
+    mkl_ddnscsr(j, &num_rows_l, &num_cols_l, dns.data(), &num_cols_l, data, cols, row_index, &info);
 
     free(j);
 
@@ -214,7 +220,7 @@ dvec SparseMatrixPardiso::getDiagCopy()
     return diag;
 }
 
-dvec SparseMatrixPardiso::getColCopy(long long c)
+dvec SparseMatrixPardiso::getColCopy(int c)
 {
     dvec column = dvec::Zero(num_rows);
     for(llong i = 0; i < num_rows; i++) {
@@ -228,9 +234,9 @@ dvec SparseMatrixPardiso::getColCopy(long long c)
     return column;
 }
 
-dvec SparseMatrixPardiso::getRowCopy(long long i)
+dvec SparseMatrixPardiso::getRowCopy(int i)
 {
-    //TODO
+    //TODO Implementation (Not used).
     return dvec();
 }
 
@@ -248,7 +254,7 @@ dvec SparseMatrixPardiso::multiply(dvec &x, bool transpose)
     return y;
 }
 
-void SparseMatrixPardiso::multiplyInPlaceRep(dvec &x, long long times, bool transpose)
+void SparseMatrixPardiso::multiplyInPlaceRep(dvec &x, int times, bool transpose)
 {
     transpose ? assert(x.size() == num_rows) : assert(x.size() == num_cols);
     dvec workspace(x.size());
@@ -286,7 +292,7 @@ void SparseMatrixPardiso::subtractIdentity()
     }
 }
 
-double SparseMatrixPardiso::search(long long i, long long j)
+double SparseMatrixPardiso::search(int i, int j)
 {
     if(i >= current_row) return NAN;
     for(llong k = row_index[i]; k < row_index[i + 1]; k++) {
@@ -297,16 +303,22 @@ double SparseMatrixPardiso::search(long long i, long long j)
     return 0; // was not found
 }
 
-void SparseMatrixPardiso::setValue(double x, long long i, long long j)
+void SparseMatrixPardiso::setValue(double x, int i, int j)
 {
-    //TODO
+    //TODO Implementation (Not used).
 }
 
 void SparseMatrixPardiso::saveMarket(std::string path)
 {
     FILE* out = fopen(path.c_str(), "w");
     fprintf(out, "%%%%MatrixMarket matrix coordinate real general\n");
-    fprintf(out, LPF "\t" LPF "\t" LPF "\n", num_rows, num_cols, num_non_zeros);
+
+
+    llong num_rows_l = (llong)num_rows;
+    llong num_cols_l = (llong)num_cols;
+    llong num_non_zeros_l = (llong)num_non_zeros;
+
+    fprintf(out, LPF "\t" LPF "\t" LPF "\n", num_rows_l, num_cols_l, num_non_zeros_l);
 
     for (llong i = 0; i < num_rows; ++i) {
         for (llong j = row_index[i]; j < row_index[i + 1]; ++j) {

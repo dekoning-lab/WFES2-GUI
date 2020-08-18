@@ -3,10 +3,10 @@
 using namespace wfes::wrightfisher;
 using namespace wfes::config;
 
-double wfes::wrightfisher::psi_diploid(const llong i, const llong N, const double s, const double h,
+double wfes::wrightfisher::psi_diploid(const int i, const int N, const double s, const double h,
                                  const double u, const double v) {
 
-    llong j = (2 * N) - i;
+    int j = (2 * N) - i;
     double w_11 = fmax(1 + s, 1e-30);
     double w_12 = fmax(1 + (s * h), 1e-30);
     double w_22 = 1;
@@ -17,14 +17,14 @@ double wfes::wrightfisher::psi_diploid(const llong i, const llong N, const doubl
     return (((a + b) * (1 - u)) + ((b + c) * v)) / w_bar;
 }
 
-wfes::wrightfisher::Row wfes::wrightfisher::binom_row(const llong size, const double p, const double alpha) {
+wfes::wrightfisher::Row wfes::wrightfisher::binom_row(const int size, const double p, const double alpha) {
 
-    llong start = 0;
-    llong end = size;
+    int start = 0;
+    int end = size;
     if (alpha != 0) {
         // start and end quantiles for covering 1 - alpha weight of the probability mass
-        start = (llong)binom_tail_cover(alpha / 2, size, p, true);
-        end = (llong)binom_tail_cover(alpha / 2, size, p, false);
+        start = (int)binom_tail_cover(alpha / 2, size, p, true);
+        end = (int)binom_tail_cover(alpha / 2, size, p, false);
     }
     // patch
     if (start < 0)
@@ -47,7 +47,7 @@ wfes::wrightfisher::Row wfes::wrightfisher::binom_row(const llong size, const do
     r.Q(0) = d;
 
     // Iterative binomial (in log)
-    for (llong j = start + 1; j <= end; j++) {
+    for (int j = start + 1; j <= end; j++) {
         d += log(size - j + 1) - log(j) + lc;
         r.Q(j - start) = d;
     }
@@ -61,28 +61,28 @@ wfes::wrightfisher::Row wfes::wrightfisher::binom_row(const llong size, const do
     return r;
 }
 
-wfes::wrightfisher::Matrix wfes::wrightfisher::EquilibriumSolvingMatrix(const llong N, const double s,
+wfes::wrightfisher::Matrix wfes::wrightfisher::EquilibriumSolvingMatrix(const int N, const double s,
                                                             const double h, const double u,
                                                             const double v, const double alpha,
                                                             const bool verbose,
-                                                            const llong block_size) {
+                                                            const int block_size) {
     time_point t_start, t_end;
     if (verbose)
         t_start = std::chrono::system_clock::now();
-    llong N2 = 2 * N;
-    llong size = N2 + 1;
+    int N2 = 2 * N;
+    int size = N2 + 1;
     wfes::wrightfisher::Matrix W(Config::library, size, size, n_absorbing(wfes::wrightfisher::NON_ABSORBING));
-    for (llong block_row = 0; block_row < size; block_row += block_size) {
-        llong block_length = (block_row + block_size) < size ? block_size : size - block_row;
+    for (int block_row = 0; block_row < size; block_row += block_size) {
+        int block_length = (block_row + block_size) < size ? block_size : size - block_row;
         std::deque<Row> buffer(block_length);
 
 #pragma omp parallel for
-        for (llong b = 0; b < block_length; b++) {
-            llong i = b + block_row;
+        for (int b = 0; b < block_length; b++) {
+            int i = b + block_row;
             buffer[b] = binom_row(2 * N, psi_diploid(i, N, s, h, u, v), alpha);
             Row &r = buffer[b];
             // I - Q
-            for (llong j = 0; j < r.Q.size(); j++)
+            for (int j = 0; j < r.Q.size(); j++)
                 r.Q(j) = -r.Q(j);
             // r.Q = -r.Q;
             // diagonal is set in the sequential block - since it may require a structural change to
@@ -90,9 +90,9 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::EquilibriumSolvingMatrix(const ll
             // r.Q(i - r.start) += 1;
         }
 
-        for (llong b = 0; b < block_length; b++) {
+        for (int b = 0; b < block_length; b++) {
             Row &r = buffer[b];
-            llong i = b + block_row;
+            int i = b + block_row;
 
             // diagnoal is left of chunk - insert new entry before chunk
             if (i < r.start)
@@ -123,11 +123,11 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::EquilibriumSolvingMatrix(const ll
     return W;
 }
 
-dmat wfes::wrightfisher::Equilibrium(llong N, double s, double h, double u, double v, double alpha,
+dmat wfes::wrightfisher::Equilibrium(int N, double s, double h, double u, double v, double alpha,
                                bool verbose) {
     Matrix wf_eq = EquilibriumSolvingMatrix(N, s, h, u, v, alpha, verbose);
 
-    llong msg_level = verbose ? MKL_PARDISO_MSG_VERBOSE : MKL_PARDISO_MSG_QUIET;
+    int msg_level = verbose ? MKL_PARDISO_MSG_VERBOSE : MKL_PARDISO_MSG_QUIET;
 
     wfes::solver::Solver* solver = wfes::solver::SolverFactory::createSolver(Config::library, (*wf_eq.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level);
 
@@ -143,30 +143,30 @@ dmat wfes::wrightfisher::Equilibrium(llong N, double s, double h, double u, doub
     return eq.matrix();
 }
 
-wfes::wrightfisher::Matrix wfes::wrightfisher::Single(const llong Nx, const llong Ny,
+wfes::wrightfisher::Matrix wfes::wrightfisher::Single(const int Nx, const int Ny,
                                           const absorption_type abs_t, const double s,
                                           const double h, const double u, const double v,
                                           bool recurrent_mutation, const double alpha,
-                                          const bool verbose, const llong block_size) {
+                                          const bool verbose, const int block_size) {
     time_point t_start, t_end;
     if (verbose)
         t_start = std::chrono::system_clock::now();
     bool verify_diagonal = (Nx == Ny);
-    llong Nx2 = 2 * Nx;
-    llong Ny2 = 2 * Ny;
-    llong size = Nx2 + 1;
+    int Nx2 = 2 * Nx;
+    int Ny2 = 2 * Ny;
+    int size = Nx2 + 1;
 
-    llong n_abs = n_absorbing(abs_t);
+    int n_abs = n_absorbing(abs_t);
 
     Matrix *W = new Matrix(Config::library, Nx2 + 1 - n_abs, Ny2 + 1 - n_abs, n_abs);
 
-    for (llong block_row = 0; block_row <= Nx2; block_row += block_size) {
-        llong block_length = (block_row + block_size) < size ? block_size : size - block_row;
+    for (int block_row = 0; block_row <= Nx2; block_row += block_size) {
+        int block_length = (block_row + block_size) < size ? block_size : size - block_row;
         std::deque<Row> buffer(block_length);
 
 #pragma omp parallel for
-        for (llong b = 0; b < block_length; b++) {
-            llong i = b + block_row;
+        for (int b = 0; b < block_length; b++) {
+            int i = b + block_row;
             if (!recurrent_mutation && i != 0) {
                 buffer[b] = binom_row(2 * Ny, psi_diploid(i, Nx, s, h, 0, 0), alpha);
             } else {
@@ -174,10 +174,10 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::Single(const llong Nx, const llon
             }
         }
 
-        for (llong b = 0; b < block_length; b++) {
+        for (int b = 0; b < block_length; b++) {
             Row &r = buffer[b];
-            llong i = b + block_row;
-            llong r_last = r.size - 1;
+            int i = b + block_row;
+            int r_last = r.size - 1;
 
             // diagonal is left of inserted chunk
             if (verify_diagonal && (i < r.start))
@@ -254,27 +254,27 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::Single(const llong Nx, const llon
     return *W;
 }
 
-wfes::wrightfisher::Matrix wfes::wrightfisher::Bounce(const llong Nx, const llong Ny, const double s,
+wfes::wrightfisher::Matrix wfes::wrightfisher::Bounce(const int Nx, const int Ny, const double s,
                                           const double h, const double u, const double v,
                                           bool recurrent_mutation, const double alpha,
-                                          const bool verbose, const llong block_size) {
+                                          const bool verbose, const int block_size) {
     time_point t_start, t_end;
     if (verbose)
         t_start = std::chrono::system_clock::now();
     bool verify_diagonal = (Nx == Ny);
-    llong Nx2 = 2 * Nx;
-    llong Ny2 = 2 * Ny;
-    llong size = Nx2 + 1;
+    int Nx2 = 2 * Nx;
+    int Ny2 = 2 * Ny;
+    int size = Nx2 + 1;
 
     Matrix *W = new Matrix(Config::library, Nx2 - 1, Ny2 - 1, 1);
 
-    for (llong block_row = 0; block_row <= Nx2; block_row += block_size) {
-        llong block_length = (block_row + block_size) < size ? block_size : size - block_row;
+    for (int block_row = 0; block_row <= Nx2; block_row += block_size) {
+        int block_length = (block_row + block_size) < size ? block_size : size - block_row;
         std::deque<Row> buffer(block_length);
 
 #pragma omp parallel for
-        for (llong b = 0; b < block_length; b++) {
-            llong i = b + block_row;
+        for (int b = 0; b < block_length; b++) {
+            int i = b + block_row;
             if (!recurrent_mutation && i != 0) {
                 buffer[b] = binom_row(2 * Ny, psi_diploid(i, Nx, s, h, 0, 0), alpha);
             } else {
@@ -282,10 +282,10 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::Bounce(const llong Nx, const llon
             }
         }
 
-        for (llong b = 0; b < block_length; b++) {
+        for (int b = 0; b < block_length; b++) {
             Row &r = buffer[b];
-            llong i = b + block_row;
-            llong r_last = r.size - 1;
+            int i = b + block_row;
+            int r_last = r.size - 1;
 
             // diagonal is left of inserted chunk
             if (verify_diagonal && (i < r.start))
@@ -326,27 +326,27 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::Bounce(const llong Nx, const llon
     return *W;
 }
 
-wfes::wrightfisher::Matrix wfes::wrightfisher::DualMutation(const llong Nx, const llong Ny, const double s,
+wfes::wrightfisher::Matrix wfes::wrightfisher::DualMutation(const int Nx, const int Ny, const double s,
                                                 const double h, const double u, const double v,
                                                 bool recurrent_mutation, const double alpha,
-                                                const bool verbose, const llong block_size) {
+                                                const bool verbose, const int block_size) {
     time_point t_start, t_end;
     if (verbose)
         t_start = std::chrono::system_clock::now();
     bool verify_diagonal = (Nx == Ny);
-    llong Nx2 = 2 * Nx;
-    llong Ny2 = 2 * Ny;
-    llong size = Nx2 + 1;
+    int Nx2 = 2 * Nx;
+    int Ny2 = 2 * Ny;
+    int size = Nx2 + 1;
 
     Matrix *W = new Matrix(Config::library, Nx2, Ny2, 2);
 
-    for (llong block_row = 0; block_row <= Nx2; block_row += block_size) {
-        llong block_length = (block_row + block_size) < size ? block_size : size - block_row;
+    for (int block_row = 0; block_row <= Nx2; block_row += block_size) {
+        int block_length = (block_row + block_size) < size ? block_size : size - block_row;
         std::deque<Row> buffer(block_length);
 
 #pragma omp parallel for
-        for (llong b = 0; b < block_length; b++) {
-            llong i = b + block_row;
+        for (int b = 0; b < block_length; b++) {
+            int i = b + block_row;
             if (!recurrent_mutation && i != 0) {
                 buffer[b] = binom_row(2 * Ny, psi_diploid(i, Nx, s, h, 0, 0), alpha);
             } else {
@@ -354,10 +354,10 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::DualMutation(const llong Nx, cons
             }
         }
 
-        for (llong b = 0; b < block_length; b++) {
+        for (int b = 0; b < block_length; b++) {
             Row &r = buffer[b];
-            llong i = b + block_row;
-            llong r_last = r.size - 1;
+            int i = b + block_row;
+            int r_last = r.size - 1;
 
             // diagonal is left of inserted chunk
             if (verify_diagonal && (i < r.start))
@@ -399,28 +399,28 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::DualMutation(const llong Nx, cons
     return *W;
 }
 
-wfes::wrightfisher::Matrix wfes::wrightfisher::Truncated(const llong Nx, const llong Ny, const llong t,
+wfes::wrightfisher::Matrix wfes::wrightfisher::Truncated(const int Nx, const int Ny, const int t,
                                              const double s, const double h, const double u,
                                              const double v, bool recurrent_mutation,
                                              const double alpha, const bool verbose,
-                                             const llong block_size) {
+                                             const int block_size) {
     time_point t_start, t_end;
     if (verbose)
         t_start = std::chrono::system_clock::now();
     bool verify_diagonal = (Nx == Ny);
-    // llong Nx2 = 2 * Nx;
-    // llong Ny2 = 2 * Ny;
-    // llong size = Nx2 + 1;
+    // int Nx2 = 2 * Nx;
+    // int Ny2 = 2 * Ny;
+    // int size = Nx2 + 1;
 
     Matrix *W = new Matrix(Config::library, t - 1, t - 1, 2);
 
-    for (llong block_row = 0; block_row <= t; block_row += block_size) {
-        llong block_length = (block_row + block_size) < t ? block_size : t - block_row;
+    for (int block_row = 0; block_row <= t; block_row += block_size) {
+        int block_length = (block_row + block_size) < t ? block_size : t - block_row;
         std::deque<Row> buffer(block_length);
 
 #pragma omp parallel for
-        for (llong b = 0; b < block_length; b++) {
-            llong i = b + block_row;
+        for (int b = 0; b < block_length; b++) {
+            int i = b + block_row;
             if (!recurrent_mutation && i != 0) {
                 buffer[b] = binom_row(2 * Ny, psi_diploid(i, Nx, s, h, 0, 0), alpha);
             } else {
@@ -428,11 +428,11 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::Truncated(const llong Nx, const l
             }
         }
 
-        for (llong b = 0; b < block_length; b++) {
+        for (int b = 0; b < block_length; b++) {
             Row &r = buffer[b];
-            llong i = b + block_row;
-            // llong r_last = r.size - 1;
-            llong t_off = t - r.start;
+            int i = b + block_row;
+            // int r_last = r.size - 1;
+            int t_off = t - r.start;
 
             // diagonal is left of inserted chunk
             if (verify_diagonal && (i < r.start))
@@ -474,15 +474,15 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::Truncated(const llong Nx, const l
     return *W;
 }
 
-std::deque<std::pair<llong, llong>> submatrix_indeces(const lvec &sizes) {
-    llong i = 0;
-    llong j = 0;
+std::deque<std::pair<int, int>> submatrix_indeces(const lvec &sizes) {
+    int i = 0;
+    int j = 0;
 
-    llong size = sizes.sum();
+    int size = sizes.sum();
 
-    std::deque<std::pair<llong, llong>> idx(size);
+    std::deque<std::pair<int, int>> idx(size);
 
-    for (llong r = 0; r < size; r++) {
+    for (int r = 0; r < size; r++) {
         if (j == sizes(i)) {
             j = 0;
             i++;
@@ -497,65 +497,65 @@ std::deque<std::pair<llong, llong>> submatrix_indeces(const lvec &sizes) {
 wfes::wrightfisher::Matrix wfes::wrightfisher::Switching(const lvec &N, const absorption_type abs_t,
                                              const dvec &s, const dvec &h, const dvec &u,
                                              const dvec &v, const dmat &switching, double alpha,
-                                             const bool verbose, const llong block_size) {
+                                             const bool verbose, const int block_size) {
     time_point t_start, t_end;
     if (verbose)
         t_start = std::chrono::system_clock::now();
 
-    llong k = N.size();
+    int k = N.size();
 
     if (abs_t == EXTINCTION_ONLY) {
         // backward mutation rate should be above 0
-        for (llong i = 0; i < k; i++) {
+        for (int i = 0; i < k; i++) {
             assert(u(i) > 0);
         }
     } else if (abs_t == FIXATION_ONLY) {
         // forward mutation rate should be above 0
-        for (llong i = 0; i < k; i++) {
+        for (int i = 0; i < k; i++) {
             assert(v(i) > 0);
         }
     }
 
-    llong n_abs_total = n_absorbing(abs_t) * k;
+    int n_abs_total = n_absorbing(abs_t) * k;
     lvec sizes = 2 * N + lvec::Ones(k);
-    llong size = sizes.sum();
+    int size = sizes.sum();
 
     Matrix *W = new Matrix(Config::library, size - n_abs_total, size - n_abs_total, n_abs_total);
-    std::deque<std::pair<llong, llong>> index = submatrix_indeces(sizes);
+    std::deque<std::pair<int, int>> index = submatrix_indeces(sizes);
 
-    for (llong block_row = 0; block_row <= size; block_row += block_size) {
-        llong block_length = (block_row + block_size) < size ? block_size : size - block_row;
+    for (int block_row = 0; block_row <= size; block_row += block_size) {
+        int block_length = (block_row + block_size) < size ? block_size : size - block_row;
         std::deque<std::deque<Row>> buffer(block_length);
-        for (llong b = 0; b < block_length; b++)
+        for (int b = 0; b < block_length; b++)
             buffer[b] = std::deque<Row>(k);
 
 #pragma omp parallel for
-        for (llong b = 0; b < block_length; b++) {
+        for (int b = 0; b < block_length; b++) {
 
-            llong row = b + block_row;
-            llong i = index[row].first;   // model index
-            llong im = index[row].second; // current index within model i
+            int row = b + block_row;
+            int i = index[row].first;   // model index
+            int im = index[row].second; // current index within model i
 
-            for (llong j = 0; j < k; j++) {
+            for (int j = 0; j < k; j++) {
                 double p = psi_diploid(im, N(i), s(j), h(j), u(j), v(j));
                 buffer[b][j] = binom_row(2 * N(j), p, alpha);
                 buffer[b][j].Q *= switching(i, j);
             }
         }
 
-        for (llong b = 0; b < block_length; b++) {
-            llong row = b + block_row;
-            llong i = index[row].first;   // model index
-            llong im = index[row].second; // current index within model i
-            llong offset = 0;             // coordinate of the submodel start
+        for (int b = 0; b < block_length; b++) {
+            int row = b + block_row;
+            int i = index[row].first;   // model index
+            int im = index[row].second; // current index within model i
+            int offset = 0;             // coordinate of the submodel start
 
             // BEGIN ITERATOR ROW
-            for (llong j = 0; j < k; j++) {
+            for (int j = 0; j < k; j++) {
                 Row &r = buffer[b][j];
                 bool row_complete = (j == (k - 1));
-                llong m_start = r.start + offset;
-                // llong m_end          = r.end + offset;
-                llong r_last = r.size - 1;
+                int m_start = r.start + offset;
+                // int m_end          = r.end + offset;
+                int r_last = r.size - 1;
                 bool verify_diagonal = (i == j);
 
                 if (verify_diagonal && (im < r.start))
@@ -633,9 +633,9 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::Switching(const lvec &N, const ab
 }
 
 wfes::wrightfisher::Matrix
-wfes::wrightfisher::NonAbsorbingToFixationOnly(const llong N, const dvec &s, const dvec &h, const dvec &u,
+wfes::wrightfisher::NonAbsorbingToFixationOnly(const int N, const dvec &s, const dvec &h, const dvec &u,
                                          const dvec &v, const dmat &switching, const double alpha,
-                                         const bool verbose, const llong block_size) {
+                                         const bool verbose, const int block_size) {
     time_point t_start, t_end;
     if (verbose)
         t_start = std::chrono::system_clock::now();
@@ -643,26 +643,26 @@ wfes::wrightfisher::NonAbsorbingToFixationOnly(const llong N, const dvec &s, con
     // TODO: proper error checking
     assert(s.size() == 2);
     // forward mutation rate should be above 0
-    for (llong i = 0; i < 2; i++)
+    for (int i = 0; i < 2; i++)
         assert(v(i) > 0);
 
     lvec sizes(2);
     sizes << (2 * N) + 1, 2 * N;
-    llong size = sizes.sum();
+    int size = sizes.sum();
 
     Matrix *W = new Matrix(Config::library, size, size, 1);
-    std::deque<std::pair<llong, llong>> index = submatrix_indeces(sizes);
+    std::deque<std::pair<int, int>> index = submatrix_indeces(sizes);
 
-    for (llong block_row = 0; block_row < size; block_row += block_size) {
-        llong block_length = (block_row + block_size) < size ? block_size : size - block_row;
+    for (int block_row = 0; block_row < size; block_row += block_size) {
+        int block_length = (block_row + block_size) < size ? block_size : size - block_row;
         std::deque<Row> b_1(block_length);
         std::deque<Row> b_2(block_length);
 
 #pragma omp parallel for
-        for (llong b = 0; b < block_length; b++) {
-            llong row = block_row + b;
-            llong i = index[row].first;   // model index
-            llong im = index[row].second; // current index within model i
+        for (int b = 0; b < block_length; b++) {
+            int row = block_row + b;
+            int i = index[row].first;   // model index
+            int im = index[row].second; // current index within model i
 
             Row r_1 = binom_row(2 * N, psi_diploid(im, N, s(0), h(0), u(0), v(0)), alpha);
             r_1.Q *= switching(i, 0);
@@ -673,9 +673,9 @@ wfes::wrightfisher::NonAbsorbingToFixationOnly(const llong N, const dvec &s, con
             b_2[b] = r_2;
         }
 
-        for (llong b = 0; b < block_length; b++) {
-            llong row = block_row + b;
-            llong offset = (2 * N) + 1;
+        for (int b = 0; b < block_length; b++) {
+            int row = block_row + b;
+            int offset = (2 * N) + 1;
 
             W->Q->appendChunk(b_1[b].Q, b_1[b].start, 0, b_1[b].size);
 
@@ -698,8 +698,8 @@ wfes::wrightfisher::NonAbsorbingToFixationOnly(const llong N, const dvec &s, con
 }
 
 wfes::wrightfisher::Matrix wfes::wrightfisher::NonAbsorbingToBothAbsorbing(
-    const llong N, const dvec &s, const dvec &h, const dvec &u, const dvec &v,
-    const dmat &switching, const double alpha, const bool verbose, const llong block_size) {
+    const int N, const dvec &s, const dvec &h, const dvec &u, const dvec &v,
+    const dmat &switching, const double alpha, const bool verbose, const int block_size) {
     time_point t_start, t_end;
     if (verbose)
         t_start = std::chrono::system_clock::now();
@@ -707,26 +707,26 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::NonAbsorbingToBothAbsorbing(
     // TODO: proper error checking
     assert(s.size() == 2);
     // forward mutation rate should be above 0
-    for (llong i = 0; i < 2; i++)
+    for (int i = 0; i < 2; i++)
         assert(v(i) > 0);
 
     lvec sizes(2);
     sizes << (2 * N) + 1, (2 * N) - 1;
-    llong size = sizes.sum();
+    int size = sizes.sum();
 
     Matrix *W = new Matrix(Config::library, size, size, 2);
-    std::deque<std::pair<llong, llong>> index = submatrix_indeces(sizes);
+    std::deque<std::pair<int, int>> index = submatrix_indeces(sizes);
 
-    for (llong block_row = 0; block_row < size; block_row += block_size) {
-        llong block_length = (block_row + block_size) < size ? block_size : size - block_row;
+    for (int block_row = 0; block_row < size; block_row += block_size) {
+        int block_length = (block_row + block_size) < size ? block_size : size - block_row;
         std::deque<Row> buffer_1(block_length);
         std::deque<Row> buffer_2(block_length);
 
 #pragma omp parallel for
-        for (llong b = 0; b < block_length; b++) {
-            llong row = block_row + b;
-            llong i = index[row].first; // model index
-            llong im =
+        for (int b = 0; b < block_length; b++) {
+            int row = block_row + b;
+            int i = index[row].first; // model index
+            int im =
                 index[row].second +
                 i; // current index within model i, correct for non-absorbing starting state - ugly
 
@@ -739,9 +739,9 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::NonAbsorbingToBothAbsorbing(
             buffer_2[b] = r_2;
         }
 
-        for (llong b = 0; b < block_length; b++) {
-            llong row = block_row + b;
-            llong offset = (2 * N) + 1;
+        for (int b = 0; b < block_length; b++) {
+            int row = block_row + b;
+            int offset = (2 * N) + 1;
 
             W->Q->appendChunk(buffer_1[b].Q, buffer_1[b].start, 0, buffer_1[b].size);
 

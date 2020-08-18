@@ -4,18 +4,18 @@
 #include <QtTest/QtTest>
 #include <QDebug>
 
-#include "model/pardiso/sparseMatrixPardiso.h"
+#include "model/viennacl/sparseMatrixViennacl.h"
 #include "testsuite.h"
 #include "wfesLib.h"
 
 namespace wfes {
-    namespace pardiso {
+    namespace vienna {
 
-        class TestSparseMatrixPardiso : public TestSuite {
+        class TestSparseMatrixViennaCL : public TestSuite {
             Q_OBJECT
 
             public:
-                TestSparseMatrixPardiso();
+                TestSparseMatrixViennaCL();
 
 
             private slots:
@@ -30,7 +30,10 @@ namespace wfes {
 
             private slots:
                 void createMatrix_createDiagMatrix();
+                void testmatrix();
             private:
+                SparseMatrixViennaCL* sparseMatrix;
+                WfesLib lib;
 
         };
 

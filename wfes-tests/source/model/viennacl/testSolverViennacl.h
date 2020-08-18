@@ -1,21 +1,28 @@
-#ifndef TESTSPARSEMATRIXPARDISO_H
-#define TESTSPARSEMATRIXPARDISO_H
+#ifndef TESTSOLVERVIENNACL_H
+#define TESTSOLVERVIENNACL_H
+
+#define VIENNACL_HAVE_EIGEN 1
 
 #include <QtTest/QtTest>
 #include <QDebug>
 
-#include "model/pardiso/sparseMatrixPardiso.h"
+#include "model/viennacl/solverViennaCL.h"
+#include "model/viennacl/sparseMatrixViennacl.h"
 #include "testsuite.h"
 #include "wfesLib.h"
 
-namespace wfes {
-    namespace pardiso {
+#include <utils/types.h>
 
-        class TestSparseMatrixPardiso : public TestSuite {
+#include <math.h>
+
+namespace wfes {
+    namespace vienna {
+
+        class TestSolverViennaCL : public TestSuite {
             Q_OBJECT
 
             public:
-                TestSparseMatrixPardiso();
+                TestSolverViennaCL();
 
 
             private slots:
@@ -29,7 +36,8 @@ namespace wfes {
                 void cleanup();
 
             private slots:
-                void createMatrix_createDiagMatrix();
+                void solve_solveSimple();
+
             private:
 
         };
@@ -37,4 +45,4 @@ namespace wfes {
     }
 }
 
-#endif // TESTSPARSEMATRIXPARDISO_H
+#endif // TESTSOLVERVIENNACL_H

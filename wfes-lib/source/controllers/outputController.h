@@ -49,7 +49,7 @@ namespace wfes {
             Q_PROPERTY(QString ui_get_s_a READ get_s_a NOTIFY results_changed)
             Q_PROPERTY(QString ui_get_error_message READ get_error_message NOTIFY results_changed)
             Q_PROPERTY(QString ui_reset_error READ reset_error NOTIFY results_changed)
-
+            Q_PROPERTY(QString ui_get_time READ get_time NOTIFY results_changed)
             public:
                 // Store results of an execution.
                 Results* results = new Results();
@@ -85,6 +85,7 @@ namespace wfes {
                 QString get_s_a() const;
                 QString get_error_message() const;
                 QString reset_error() const;
+                QString get_time() const;
 
             signals:
                 void results_changed();

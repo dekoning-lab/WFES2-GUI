@@ -121,6 +121,14 @@ namespace wfes{
         lvec closedRange(llong start, llong stop);
 
         /**
+         * @brief Get closed range of a vector.
+         * @param start Start position.
+         * @param stop Stop position.
+         * @return Closed range of a vector.
+         */
+        ivec closedRangeInt(int start, int stop);
+
+        /**
          * @brief Write results in a CSV file.
          * @param results results to be printed in a CSV file.
          * @param path Path of the file.

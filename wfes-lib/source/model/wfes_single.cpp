@@ -12,8 +12,7 @@ Results* wfes_single::execute()
 {
 
     time_point t_start, t_end;
-    if (Config::verbose)
-        t_start = std::chrono::system_clock::now();
+    t_start = std::chrono::system_clock::now();
 
     if (Config::modelType == ModelType::NONE) {
         throw exception::Error("Should have exactly one of the 'Model type' options");
@@ -91,7 +90,7 @@ Results* wfes_single::execute()
 
         llong size = (2 * Config::population_size);
 
-        Solver *solver = wfes::solver::SolverFactory::createSolver(Config::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level);
+        Solver *solver = wfes::solver::SolverFactory::createSolver(Config::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, Config::vienna_solver);
 
         solver->preprocess();
 
@@ -116,12 +115,17 @@ Results* wfes_single::execute()
             utils::writeVectorToFile(B, Config::path_output_B);
         }
 
-        Results* res = new Results(Config::modelType, T_fix, T_std, rate);
+
+        delete solver;
+
+        //Calculate time.
+        t_end = std::chrono::system_clock::now();
+        time_diff dt = t_end - t_start;
+
+        Results* res = new Results(Config::modelType, T_fix, T_std, rate, dt.count());
 
         if(Config::output_Res)
            utils::writeResultsToFile(res, Config::path_output_Res);
-
-        delete solver;
 
         return res;
 
@@ -141,7 +145,7 @@ Results* wfes_single::execute()
 
         llong size = (2 * Config::population_size) - 1;
 
-        Solver* solver = SolverFactory::createSolver(Config::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level);
+        Solver* solver = SolverFactory::createSolver(Config::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, Config::vienna_solver);
 
         solver->preprocess();
 
@@ -248,13 +252,16 @@ Results* wfes_single::execute()
             utils::writeMatrixToFile(B, Config::path_output_B);
         }
 
+        delete solver;
 
-        Results* res = new Results(Config::modelType, P_ext, P_fix, T_abs, T_abs_std, T_ext, T_ext_std, N_ext, T_fix, T_fix_std);
+        //Calculate time.
+        t_end = std::chrono::system_clock::now();
+        time_diff dt = t_end - t_start;
+
+        Results* res = new Results(Config::modelType, P_ext, P_fix, T_abs, T_abs_std, T_ext, T_ext_std, N_ext, T_fix, T_fix_std, dt.count());
 
         if(Config::output_Res)
            utils::writeResultsToFile(res, Config::path_output_Res);
-
-        delete solver;
 
         return res;
     } // END SINGLE ABSORPTION
@@ -270,7 +277,7 @@ Results* wfes_single::execute()
 
         W.Q->subtractIdentity();
 
-        Solver* solver = SolverFactory::createSolver(Config::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level);
+        Solver* solver = SolverFactory::createSolver(Config::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, Config::vienna_solver);
 
         solver->preprocess();
         dmat N(size, size);
@@ -292,23 +299,28 @@ Results* wfes_single::execute()
         }
         delete solver;
 
-        //TODO Return empty
-        return new Results();
+        //Calculate time.
+        t_end = std::chrono::system_clock::now();
+        time_diff dt = t_end - t_start;
+
+        return new Results(dt.count());
     }
 
     if (Config::modelType == ModelType::EQUILIBRIUM) {
         llong size = (2 * Config::population_size) + 1;
         wrightfisher::Matrix W = wrightfisher::EquilibriumSolvingMatrix(Config::population_size, Config::s, Config::h, Config::u, Config::v, Config::a, Config::verbose, Config::b);
 
-        Solver* solver = SolverFactory::createSolver(Config::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level);
+        Solver* solver = SolverFactory::createSolver(Config::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, Config::vienna_solver);
 
         solver->preprocess();
         dvec O = dvec::Zero(size);
         O(size - 1) = 1;
 
         dvec pi = solver->solve(O, true);
-        //TODO, Non testing if user wants E.
-        utils::writeVectorToFile(pi, Config::path_output_E);
+
+        if (Config::output_E) {
+            utils::writeVectorToFile(pi, Config::path_output_E);
+        }
 
         // Calculate expected frequency
         double e_freq = 0.0;
@@ -317,13 +329,17 @@ Results* wfes_single::execute()
         }
         e_freq /= (size - 1);
 
+        delete solver;
 
-        Results* res = new Results(Config::modelType, e_freq, (1.0 - e_freq));
+        //Calculate time.
+        t_end = std::chrono::system_clock::now();
+        time_diff dt = t_end - t_start;
+
+        Results* res = new Results(Config::modelType, e_freq, (1.0 - e_freq), dt.count());
 
         if(Config::output_Res)
            utils::writeResultsToFile(res, Config::path_output_Res);
 
-        delete solver;
 
         return res;
     }
@@ -338,7 +354,7 @@ Results* wfes_single::execute()
 
         llong size = (2 * Config::population_size) - 1;
 
-        Solver* solver_full = SolverFactory::createSolver(Config::library, *(W_full.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level);
+        Solver* solver_full = SolverFactory::createSolver(Config::library, *(W_full.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, Config::vienna_solver);
 
         solver_full->preprocess();
 
@@ -405,7 +421,7 @@ Results* wfes_single::execute()
 
         W_tr.Q->subtractIdentity();
 
-        Solver* solver_tr = SolverFactory::createSolver(Config::library, *(W_tr.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level);
+        Solver* solver_tr = SolverFactory::createSolver(Config::library, *(W_tr.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, Config::vienna_solver);
 
         solver_tr->preprocess();
 
@@ -479,14 +495,18 @@ Results* wfes_single::execute()
         }
         double T_est_std = sqrt(T_est_var);
 
+        delete solver_full;
+        delete solver_tr;
+
+        //Calculate time.
+        t_end = std::chrono::system_clock::now();
+        time_diff dt = t_end - t_start;
+
         Results* res = new Results(Config::modelType, est_freq, P_est, T_seg, T_seg_std,
-                                   T_seg_ext, T_seg_ext_std, T_seg_fix, T_seg_fix_std, T_est, T_est_std);
+                                   T_seg_ext, T_seg_ext_std, T_seg_fix, T_seg_fix_std, T_est, T_est_std, dt.count());
 
         if(Config::output_Res)
            utils::writeResultsToFile(res, Config::path_output_Res);
-
-        delete solver_full;
-        delete solver_tr;
 
         return res;
     }
@@ -508,7 +528,7 @@ Results* wfes_single::execute()
         dvec Q_x = W.Q-> getColCopy(x);
         W.Q->subtractIdentity();
 
-        Solver* solver = SolverFactory::createSolver(Config::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level);
+        Solver* solver = SolverFactory::createSolver(Config::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, Config::vienna_solver);
 
         solver->preprocess();
 
@@ -551,8 +571,10 @@ Results* wfes_single::execute()
             S_allele_age = sqrt((M3.dot(A_x) / M1(x)) - pow(E_allele_age, 2));
         }
 
+        t_end = std::chrono::system_clock::now();
+        time_diff dt = t_end - t_start;
 
-        Results* res = new Results(Config::modelType, E_allele_age, S_allele_age, true);
+        Results* res = new Results(Config::modelType, E_allele_age, S_allele_age, true, dt.count());
 
         if(Config::output_Res)
            utils::writeResultsToFile(res, Config::path_output_Res);
@@ -569,17 +591,14 @@ Results* wfes_single::execute()
         if (Config::output_Q)
             W.Q->saveMarket(Config::path_output_Q);
 
-        return new Results();
-    }
-
-    if (Config::verbose) {
+        //Calculate time.
         t_end = std::chrono::system_clock::now();
         time_diff dt = t_end - t_start;
-        std::cout << "Total runtime: " << dt.count() << " s" << std::endl;
+
+        return new Results(dt.count());
     }
 
-    //return EXIT_SUCCESS;
-
-    //TODO Review
+    // If for some reason none of the model types was selected, return nan values for all outputs,
+    // so the GUI does not show anything.
     return new Results();
 }

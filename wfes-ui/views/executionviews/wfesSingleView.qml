@@ -7,7 +7,7 @@ import QtQuick.Controls.Styles 1.4
 import QtQuick.Controls.Universal 2.3
 import components 1.0
 
-
+//TODO Implement value validators and return exceptions.
 ApplicationWindow {
     id: root
     title: qsTr("WFES - Wright-Fisher Exact Solver (wfes_single)")
@@ -18,10 +18,10 @@ ApplicationWindow {
 
     width: 920
     minimumWidth: 920
-    height: 540
-    minimumHeight: 540
+    height: 570
+    minimumHeight: 570
     maximumWidth: 920
-    maximumHeight: 540
+    maximumHeight: 570
 
     // Select theme for the application.
     Universal.theme: Universal.Light
@@ -457,7 +457,6 @@ ApplicationWindow {
                             LabeledTextField {
                                 id: inputp
                                 text: "p: "
-                                //TODO Top is N
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
                                 textFieldText: inputController.ui_p
                                 enabled: (inputController.ui_modelType == "Fixation" ||
@@ -476,7 +475,6 @@ ApplicationWindow {
                             LabeledTextField {
                                 id: inputX
                                 text: "x: "
-                                //TODO Top is N
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
                                 textFieldText: inputController.ui_x
                                 enabled: (inputController.ui_modelType == "Allele Age")
@@ -770,22 +768,32 @@ ApplicationWindow {
                                     width: childrenRect.width
 
                                     LabeledComboBox {
-                                        id: comboBoxSolver
-                                        text: "Solver:"
+                                        id: comboBoxLibrary
+                                        text: "Library:"
                                         model: ["Pardiso", "ViennaCL"]
                                         onTextChanged: {
-                                            if(comboBoxSolver.currentText === "Pardiso")
+                                            if(comboBoxLibrary.currentText === "Pardiso") {
                                                 comboBoxBackend.enabled = false
-                                            else if (comboBoxSolver.currentText === "ViennaCL")
+                                                comboBoxSolver.enabled = false
+                                            }else if (comboBoxLibrary.currentText === "ViennaCL"){
                                                 comboBoxBackend.enabled = true
+                                                comboBoxSolver.enabled = true
+                                            }
                                         }
+                                    }
+
+                                    LabeledComboBox {
+                                        id: comboBoxSolver
+                                        text: "Solver:"
+                                        model: ["MixedCG", "CG", "BicGStab", "GMRes"]
+                                        enabled: (comboBoxLibrary.currentText === "ViennaCL")
                                     }
 
                                     LabeledComboBox {
                                         id: comboBoxBackend
                                         text: "Backend:"
                                         model: [ "1 Threaded", "OpenMP", "OpenCL", "CUDA" ]
-                                        enabled: (comboBoxSolver.currentText === "ViennaCL")
+                                        enabled: (comboBoxLibrary.currentText === "ViennaCL")
                                     }
 
                                     LabeledTextField {
@@ -873,6 +881,9 @@ ApplicationWindow {
                                 inputController.ui_t = inputT.textFieldText
 
                                 inputController.ui_initial_distribution = inputI.textFieldText
+
+                                inputController.ui_library = comboBoxLibrary.currentText;
+                                inputController.ui_solver = comboBoxSolver.currentText;
 
                             if(outputController.ui_get_error_message == "") {
                                 outputController.ui_execute
@@ -1020,7 +1031,6 @@ ApplicationWindow {
                                 labelPreferredWidth: 75
                                 textFieldPreferredWidth: 180
                                 text: "Rate: "
-                                //TODO
                                 textFieldText: outputController.ui_get_rate
                                 readOnly: true
                                 visible: radioButtonFixation.checked
@@ -1031,7 +1041,6 @@ ApplicationWindow {
                                 labelPreferredWidth: 75
                                 textFieldPreferredWidth: 180
                                 text: "E[freq mut]: "
-                                //TODO
                                 textFieldText: outputController.ui_get_e_freq_mut
                                 readOnly: true
                                 visible: radioButtonEquilibrium.checked
@@ -1042,7 +1051,6 @@ ApplicationWindow {
                                 labelPreferredWidth: 75
                                 textFieldPreferredWidth: 180
                                 text: "E[freq  wt]: "
-                                //TODO
                                 textFieldText: outputController.ui_get_e_freq_wt
                                 readOnly: true
                                 visible: radioButtonEquilibrium.checked
@@ -1053,7 +1061,6 @@ ApplicationWindow {
                                 labelPreferredWidth: 75
                                 textFieldPreferredWidth: 180
                                 text: "F. est.: "
-                                //TODO
                                 textFieldText: outputController.ui_get_f_est
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
@@ -1064,7 +1071,6 @@ ApplicationWindow {
                                 labelPreferredWidth: 75
                                 textFieldPreferredWidth: 180
                                 text: "P. est.: "
-                                //TODO
                                 textFieldText: outputController.ui_get_p_est
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
@@ -1075,7 +1081,6 @@ ApplicationWindow {
                                 labelPreferredWidth: 75
                                 textFieldPreferredWidth: 180
                                 text: "T. seg.: "
-                                //TODO
                                 textFieldText: outputController.ui_get_t_seg
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
@@ -1086,7 +1091,6 @@ ApplicationWindow {
                                 labelPreferredWidth: 75
                                 textFieldPreferredWidth: 180
                                 text: "T. seg. std.: "
-                                //TODO
                                 textFieldText: outputController.ui_get_t_seg_std
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
@@ -1097,7 +1101,6 @@ ApplicationWindow {
                                 labelPreferredWidth: 75
                                 textFieldPreferredWidth: 180
                                 text: "T. seg. ext.: "
-                                //TODO
                                 textFieldText: outputController.ui_get_t_seg_est
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
@@ -1108,7 +1111,6 @@ ApplicationWindow {
                                 labelPreferredWidth: 75
                                 textFieldPreferredWidth: 180
                                 text: "T. seg. ext. std.: "
-                                //TODO
                                 textFieldText: outputController.ui_get_t_seg_est_std
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
@@ -1119,7 +1121,6 @@ ApplicationWindow {
                                 labelPreferredWidth: 75
                                 textFieldPreferredWidth: 180
                                 text: "T. seg. fix.: "
-                                //TODO
                                 textFieldText: outputController.ui_get_t_seg_fix
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
@@ -1130,7 +1131,6 @@ ApplicationWindow {
                                 labelPreferredWidth: 75
                                 textFieldPreferredWidth: 180
                                 text: "T. seg. fix. std.: "
-                                //TODO
                                 textFieldText: outputController.ui_get_t_seg_fix_std
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
@@ -1141,7 +1141,6 @@ ApplicationWindow {
                                 labelPreferredWidth: 75
                                 textFieldPreferredWidth: 180
                                 text: "T. est.: "
-                                //TODO
                                 textFieldText: outputController.ui_get_t_est
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
@@ -1152,7 +1151,6 @@ ApplicationWindow {
                                 labelPreferredWidth: 75
                                 textFieldPreferredWidth: 180
                                 text: "T. est. std.: "
-                                //TODO
                                 textFieldText: outputController.ui_get_t_est_std
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
@@ -1163,7 +1161,6 @@ ApplicationWindow {
                                 labelPreferredWidth: 75
                                 textFieldPreferredWidth: 180
                                 text: "E(A): "
-                                //TODO
                                 textFieldText: outputController.ui_get_e_a
                                 readOnly: true
                                 visible: radioButtonAlleleAge.checked
@@ -1174,10 +1171,19 @@ ApplicationWindow {
                                 labelPreferredWidth: 75
                                 textFieldPreferredWidth: 180
                                 text: "S(A): "
-                                //TODO
                                 textFieldText: outputController.ui_get_s_a
                                 readOnly: true
                                 visible: radioButtonAlleleAge.checked
+                            }
+
+
+                            LabeledTextField {
+                                id: outputTime
+                                labelPreferredWidth: 75
+                                textFieldPreferredWidth: 180
+                                text: "Time (s): "
+                                textFieldText: outputController.ui_get_time
+                                readOnly: true
                             }
                         }
                     }

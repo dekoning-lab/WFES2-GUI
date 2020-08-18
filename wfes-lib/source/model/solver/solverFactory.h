@@ -3,6 +3,7 @@
 
 #include "solver.h"
 #include "model/pardiso/solverPardiso.h"
+#include "model/viennacl/solverViennaCL.h"
 
 namespace wfes {
     namespace solver {
@@ -20,9 +21,12 @@ namespace wfes {
                  * @param matrix_type MKL Pardiso type of matrix.
                  * @param message_level Message level for MKL pardiso.
                  * @param n_rhs Right side of linear system.
+                 * @param vienna_solver Solver used by ViennaCL.
+                 * @param preconditioner Preconditioner used by ViennaCL.
                  * @return A pointer to a solver.
                  */
-                static Solver* createSolver(std::string solver, SparseMatrix& A, llong matrix_type = MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, llong message_level = 0LL, llong n_rhs = 1LL);
+                //TODO Default preconditioner.
+                static Solver* createSolver(std::string solver, SparseMatrix& A, llong matrix_type = MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, llong message_level = 0LL, std::string vienna_solver = "GMRes", std::string preconditioner = "", llong n_rhs = 1LL);
         };
     }
 }
