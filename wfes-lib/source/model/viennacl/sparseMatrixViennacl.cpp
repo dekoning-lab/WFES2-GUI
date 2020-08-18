@@ -9,6 +9,11 @@ SparseMatrixViennaCL::SparseMatrixViennaCL() :
     row_index_start(-1),
     data(nullptr), cols(nullptr), row_index(nullptr)
 {
+
+#ifdef VIENNACL_WITH_OPENMP
+    omp_set_num_threads(wfes::config::Config::n_threads);
+#endif
+
     this->vcl_matrix = viennacl::compressed_matrix<double>(0, 0);
 }
 
