@@ -9,7 +9,7 @@ namespace wfes {
     namespace solver {
 
         /**
-         * Instantiates a solver
+         * Instantiates a solver.
          */
         class SolverFactory{
             public:
@@ -20,9 +20,9 @@ namespace wfes {
                  * @param A Sparse matrix for analysis.
                  * @param matrix_type MKL Pardiso type of matrix.
                  * @param message_level Message level for MKL pardiso.
-                 * @param n_rhs Right side of linear system.
                  * @param vienna_solver Solver used by ViennaCL.
                  * @param preconditioner Preconditioner used by ViennaCL.
+                 * @param n_rhs Right side of linear system.
                  * @return A pointer to a solver.
                  */
                 //TODO Default preconditioner.

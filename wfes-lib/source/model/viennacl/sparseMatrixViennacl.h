@@ -19,28 +19,48 @@ using namespace wfes::sparsematrix;
 
 namespace wfes {
     namespace vienna {
+
+        /**
+         * @brief The SparseMatrixViennaCL class defines a sparse matrix to be used by ViennaCL.
+         */
         class SparseMatrixViennaCL : public SparseMatrix
         {
             protected:
-                // Current row that is being processed.
+                /**
+                 * @brief Current row that is being processed.
+                 */
                 llong current_row;
-                // Matrix is full or not.
+                /**
+                 * @brief Matrix is full or not.
+                 */
                 bool full;
-                // Index where the current row starts.
+                /**
+                 * @brief Index where the current row starts.
+                 */
                 llong row_index_start;
 
             public:
-            // Non-zero values of the matrix, ordered by row/column.
+                /**
+                 * @brief Non-zero values of the matrix, ordered by row/column.
+                 */
                 double* data;
-                // Column index of each element in the array data.
+                /**
+                 * @brief Column index of each element in the array data.
+                 */
                 int* cols;
-                // Indicate which elements of data start a new row.
+                /**
+                 * @brief Indicate which elements of data start a new row.
+                 */
                 int* row_index;
-
-            public:
-                // ViennaCL compressed matrix.
+                /**
+                 * @brief ViennaCL compressed matrix.
+                 */
                 viennacl::compressed_matrix<double> vcl_matrix;
 
+            public:
+                /**
+                 * @brief Empty constructor of a Sparse Matrix.
+                 */
                 SparseMatrixViennaCL();
 
                 /**

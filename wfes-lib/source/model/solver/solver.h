@@ -13,7 +13,9 @@ namespace wfes {
          */
         class Solver {
             protected:
-                // Sparse matrix to be solved.
+                /**
+                 * @brief Sparse matrix to be solved.
+                 */
                 SparseMatrix& m;
             public:
                 /**

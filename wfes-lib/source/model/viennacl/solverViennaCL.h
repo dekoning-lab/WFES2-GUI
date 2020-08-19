@@ -19,16 +19,23 @@
 #include <viennacl/linalg/ilu.hpp>
 
 #include "QDebug"
+
 namespace wfes{
     namespace vienna {
 
+    /**
+     * @brief The SolverViennaCL class implements a matrix system solver using ViennaCL.
+     */
         class SolverViennaCL : public solver::Solver {
-
             public:
-            // Solver to use.
-            std::string solver;
-            //Preconditioner to use.
-            std::string preconditioner;
+                /**
+                 * @brief Solver to be used.
+                 */
+                std::string solver;
+                /**
+                 * @brief Preconditioner to be usd.
+                 */
+                std::string preconditioner;
 
                 /**
                  * Instantiate the solver and converts from SparseMatrix to viennacl::compressed_matrix.
@@ -56,9 +63,36 @@ namespace wfes{
                  */
                 dvec solve(dvec& b, bool transpose = false) override;
 
+                /**
+                 * @brief Solve system using mixed CG method.
+                 * @param b Vector rhs of the system.
+                 * @param transpose Set to true for transposing the matrix before solving.
+                 * @return Vector x obtained after solving the system Ax=b.
+                 */
                 dvec solve_mixed_cg(dvec& b, bool transpose = false);
+
+                /**
+                 * @brief Solve system using CG method.
+                 * @param b Vector rhs of the system.
+                 * @param transpose Set to true for transposing the matrix before solving.
+                 * @return Vector x obtained after solving the system Ax=b.
+                 */
                 dvec solve_cg(dvec& b, bool transpose = false);
+
+                /**
+                 * @brief Solve system using BiCGStab method.
+                 * @param b Vector rhs of the system.
+                 * @param transpose Set to true for transposing the matrix before solving.
+                 * @return Vector x obtained after solving the system Ax=b.
+                 */
                 dvec solve_bicgstab(dvec& b, bool transpose = false);
+
+                /**
+                 * @brief Solve system using GMRes method.
+                 * @param b Vector rhs of the system.
+                 * @param transpose Set to true for transposing the matrix before solving.
+                 * @return Vector x obtained after solving the system Ax=b.
+                 */
                 dvec solve_gmres(dvec& b, bool transpose = false);
 
                 /**

@@ -12,24 +12,41 @@ using namespace wfes::sparsematrix;
 namespace wfes{
     namespace pardiso{
 
+        /**
+         * @brief The SparseMatrixPardiso class defines a sparse matrix to be used by Pardiso MKL.
+         */
         class SparseMatrixPardiso : public SparseMatrix
         {
             protected:
-                // Current row that is being processed.
+                /**
+                 * @brief Current row that is being processed.
+                 */
                 llong current_row;
-                // Matrix is full or not.
+                /**
+                 * @brief Matrix is full or not.
+                 */
                 bool full;
-                // Index where the current row starts.
+                /**
+                 * @brief Index where the current row starts.
+                 */
                 llong row_index_start;
 
             public:
-            // Non-zero values of the matrix, ordered by row/column.
+                /**
+                 * @brief Non-zero values of the matrix, ordered by row/column.
+                 */
                 double* data;
-                // Column index of each element in the array data.
+                /**
+                 * @brief Column index of each element in the array data.
+                 */
                 llong* cols;
-                // Indicate which elements of data start a new row.
+                /**
+                 * @brief Indicate which elements of data start a new row.
+                 */
                 llong* row_index;
-                // Handler for the matrix data in Pardiso.
+                /**
+                 * @brief Handler for the matrix data in Pardiso.
+                 */
                 sparse_matrix_t handler;
 
             public:

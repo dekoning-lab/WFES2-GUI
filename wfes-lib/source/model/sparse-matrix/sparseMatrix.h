@@ -13,11 +13,17 @@ namespace wfes {
          */
         class SparseMatrix {
             public: // Parammeters
-                // Number of non-zero elements in the matrix.
+                /**
+                 * @brief Number of non-zero elements in the matrix.
+                 */
                 int num_non_zeros;
-                // Number of rows in the matrix.
+                /**
+                 * @brief Number of rows in the matrix.
+                 */
                 int num_rows;
-                // Number of columns in the matrix.
+                /**
+                 * @brief Number of columns in the matrix.
+                 */
                 int num_cols;
 
             public: // Constructors and destructors.
