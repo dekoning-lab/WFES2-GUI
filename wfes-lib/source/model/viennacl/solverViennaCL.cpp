@@ -10,6 +10,9 @@ SolverViennaCL::SolverViennaCL(SparseMatrixViennaCL &A, std::string solver, std:
     omp_set_num_threads(wfes::config::Config::n_threads);
 #endif
 
+#ifdef VIENNACL_WITH_OPENCL
+    qDebug() << QString::fromStdString(viennacl::ocl::current_device().info());
+#endif
 }
 
 SolverViennaCL::~SolverViennaCL()
@@ -96,12 +99,15 @@ dvec SolverViennaCL::solve_cg(dvec &b, bool transpose)
 
 dvec SolverViennaCL::solve_bicgstab(dvec &b, bool transpose)
 {
+
+
+
     // Eigen vector to ViennaCL vector.
     viennacl::vector<double> vcl_vec(b.size());
     copy(b, vcl_vec);
 
     viennacl::vector<double> vcl_res = viennacl::vector<double>(b.size());
-    viennacl::linalg::bicgstab_tag my_bicgstab_tag(1e-5, 200, 100);
+    viennacl::linalg::bicgstab_tag my_bicgstab_tag(1e-10, 400, 400);
 
     wfes::vienna::SparseMatrixViennaCL mat = static_cast<wfes::vienna::SparseMatrixViennaCL&>(m);
 
@@ -128,29 +134,25 @@ dvec SolverViennaCL::solve_gmres(dvec &b, bool transpose)
     copy(b, vcl_vec);
 
     viennacl::vector<double> vcl_res = viennacl::vector<double>(b.size());
-    viennacl::linalg::gmres_tag my_gmres_tag(1e-5, 200, 100);
+    viennacl::linalg::gmres_tag my_gmres_tag(1e-5, 500, 200);
 
     wfes::vienna::SparseMatrixViennaCL mat = static_cast<wfes::vienna::SparseMatrixViennaCL&>(m);
-
-    viennacl::linalg::chow_patel_tag chow_patel_ilu_config;
-    chow_patel_ilu_config.sweeps(1);       // nonlinear sweeps
-    chow_patel_ilu_config.jacobi_iters(1); // Jacobi iterations per triangular 'solve' Rx=r
 
     if(transpose) {
         viennacl::compressed_matrix<double> vcl_transposed(mat.vcl_matrix.size1(), mat.vcl_matrix.size2());
         viennacl::linalg::detail::amg::amg_transpose(mat.vcl_matrix, vcl_transposed);
 
         // create and compute preconditioner:
-        viennacl::linalg::chow_patel_ilu_precond< viennacl::compressed_matrix<double> > chow_patel_ilu(vcl_transposed, chow_patel_ilu_config);
+        viennacl::linalg::block_ilu_precond<viennacl::compressed_matrix<double>, viennacl::linalg::ilu0_tag> vcl_block_ilu0(vcl_transposed, viennacl::linalg::ilu0_tag(), 1024);
 
         // Solve transposed.
-        vcl_res = viennacl::linalg::solve(vcl_transposed, vcl_vec, my_gmres_tag, chow_patel_ilu);
+        vcl_res = viennacl::linalg::solve(vcl_transposed, vcl_vec, my_gmres_tag, vcl_block_ilu0);
     } else {
-        // create and compute preconditioner:
-        viennacl::linalg::chow_patel_ilu_precond< viennacl::compressed_matrix<double> > chow_patel_ilu(mat.vcl_matrix, chow_patel_ilu_config);
+        // create and compute preconditioner:/
+        viennacl::linalg::block_ilu_precond<viennacl::compressed_matrix<double>, viennacl::linalg::ilu0_tag> vcl_block_ilu0(mat.vcl_matrix, viennacl::linalg::ilu0_tag(), 1024);
 
         // Solve non transposed.
-        vcl_res = viennacl::linalg::solve(mat.vcl_matrix, vcl_vec, my_gmres_tag, chow_patel_ilu);
+        vcl_res = viennacl::linalg::solve(mat.vcl_matrix, vcl_vec, my_gmres_tag, vcl_block_ilu0);
     }
 
     dvec res = dvec(b.size());

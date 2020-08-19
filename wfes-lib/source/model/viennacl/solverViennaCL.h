@@ -16,6 +16,7 @@
 #include <viennacl/linalg/gmres.hpp>
 #include <viennacl/linalg/mixed_precision_cg.hpp>
 #include <viennacl/linalg/jacobi_precond.hpp>
+#include <viennacl/linalg/ilu.hpp>
 
 #include "QDebug"
 namespace wfes{

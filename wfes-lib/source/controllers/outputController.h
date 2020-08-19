@@ -16,11 +16,12 @@
 
 namespace wfes {
     namespace controllers {
+
+        /**
+         * @brief The OutputController class contains output values of the application, e.g., the results of an execution.
+         */
         class WFESLIBSHARED_EXPORT OutputController : public QObject
         {
-
-
-
             Q_OBJECT
             Q_PROPERTY(QString ui_execute READ execute CONSTANT)
             Q_PROPERTY(QString ui_get_p_ext READ get_p_ext NOTIFY results_changed)
@@ -50,44 +51,196 @@ namespace wfes {
             Q_PROPERTY(QString ui_get_error_message READ get_error_message NOTIFY results_changed)
             Q_PROPERTY(QString ui_reset_error READ reset_error NOTIFY results_changed)
             Q_PROPERTY(QString ui_get_time READ get_time NOTIFY results_changed)
+
             public:
-                // Store results of an execution.
+                /**
+                 * @brief Store results of an execution.
+                 */
                 Results* results = new Results();
 
+                /**
+                 * @brief OutputController .Constructor
+                 * @param parent To be used by Qt.
+                 */
                 explicit OutputController(QObject* parent = nullptr);
+
+                /**
+                 * @brief InputController Destructor.
+                 */
                 ~OutputController();
 
+                /**
+                 * @brief Execute wfes_single and get results.
+                 * @return Results of wfes_single execution.
+                 */
                 QString execute();
 
+                /**
+                 * @brief Send p_ext to GUI.
+                 * @return QString containing p_ext.
+                 */
                 QString get_p_ext() const;
+
+                /**
+                 * @brief Send p_fix to GUI.
+                 * @return QString containing p_fix.
+                 */
                 QString get_p_fix() const;
+
+                /**
+                 * @brief Send t_abs to GUI.
+                 * @return QString containing t_abs.
+                 */
                 QString get_t_abs() const;
+
+                /**
+                 * @brief Send t_abs_std to GUI.
+                 * @return QString containing t_abs_std.
+                 */
                 QString get_t_abs_std() const;
+
+                /**
+                 * @brief Send t_ext to GUI.
+                 * @return QString containing t_ext.
+                 */
                 QString get_t_ext() const;
+
+                /**
+                 * @brief Send t_ext_std to GUI.
+                 * @return QString containing t_ext_std.
+                 */
                 QString get_t_ext_std() const;
+
+                /**
+                 * @brief Send n_ext to GUI.
+                 * @return QString containing n_ext.
+                 */
                 QString get_n_ext() const;
+
+                /**
+                 * @brief Send t_fix to GUI.
+                 * @return QString containing t_fix.
+                 */
                 QString get_t_fix() const;
+
+                /**
+                 * @brief Send t_fix_std to GUI.
+                 * @return QString containing t_fix_std.
+                 */
                 QString get_t_fix_std() const;
+
+                /**
+                 * @brief Send rate to GUI.
+                 * @return QString containing rate.
+                 */
                 QString get_rate() const;
+
+                /**
+                 * @brief Send e_freq_mut to GUI.
+                 * @return QString containing e_freq_mut.
+                 */
                 QString get_e_freq_mut() const;
+
+                /**
+                 * @brief Send e_freq_wt to GUI.
+                 * @return QString containing e_freq_wt.
+                 */
                 QString get_e_freq_wt() const;
+
+                /**
+                 * @brief Send f_est to GUI.
+                 * @return QString containing f_est.
+                 */
                 QString get_f_est() const;
+
+                /**
+                 * @brief Send p_est to GUI.
+                 * @return QString containing p_est.
+                 */
                 QString get_p_est() const;
+
+                /**
+                 * @brief Send t_seg to GUI.
+                 * @return QString containing t_seg.
+                 */
                 QString get_t_seg() const;
+
+                /**
+                 * @brief Send t_seg_std to GUI.
+                 * @return QString containing t_seg_std.
+                 */
                 QString get_t_seg_std() const;
+
+                /**
+                 * @brief Send t_seg_est to GUI.
+                 * @return QString containing t_seg_est.
+                 */
                 QString get_t_seg_est() const;
+
+                /**
+                 * @brief Send t_seg_est_std to GUI.
+                 * @return QString containing t_seg_est_std.
+                 */
                 QString get_t_seg_est_std() const;
+
+                /**
+                 * @brief Send t_seg_fix to GUI.
+                 * @return QString containing t_seg_fix.
+                 */
                 QString get_t_seg_fix() const;
+
+                /**
+                 * @brief Send t_seg_fix_std to GUI.
+                 * @return QString containing t_seg_fix_std.
+                 */
                 QString get_t_seg_fix_std() const;
+
+                /**
+                 * @brief Send t_est to GUI.
+                 * @return QString containing t_est.
+                 */
                 QString get_t_est() const;
+
+                /**
+                 * @brief Send t_est_std to GUI.
+                 * @return QString containing t_est_std.
+                 */
                 QString get_t_est_std() const;
+
+                /**
+                 * @brief Send e_a to GUI.
+                 * @return QString containing e_a.
+                 */
                 QString get_e_a() const;
+
+                /**
+                 * @brief Send s_a to GUI.
+                 * @return QString containing s_a.
+                 */
                 QString get_s_a() const;
+
+                /**
+                 * @brief Send error_message to GUI.
+                 * @return QString containing error_message.
+                 */
                 QString get_error_message() const;
+
+                /**
+                 * @brief Reset error message.
+                 * @return QString empty.
+                 */
                 QString reset_error() const;
+
+                /**
+                 * @brief Send execution time to GUI.
+                 * @return QString containing execution time.
+                 */
                 QString get_time() const;
 
             signals:
+                /**
+                 * @brief Signal for notifying when results has been calculated/changed in backend.
+                 */
                 void results_changed();
         };
     }
