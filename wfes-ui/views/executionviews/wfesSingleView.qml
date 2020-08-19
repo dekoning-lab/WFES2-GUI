@@ -792,7 +792,7 @@ ApplicationWindow {
                                     LabeledComboBox {
                                         id: comboBoxBackend
                                         text: "Backend:"
-                                        model: [ "1 Threaded", "OpenMP", "OpenCL", "CUDA" ]
+                                        model: [ "OpenCL", "OpenMP", "CUDA" ]
                                         enabled: (comboBoxLibrary.currentText === "ViennaCL")
                                     }
 

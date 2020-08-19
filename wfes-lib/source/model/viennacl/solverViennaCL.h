@@ -2,7 +2,7 @@
 #define SOLVERVIENNACL_H
 
 #define VIENNACL_HAVE_EIGEN 1
-#define VIENNACL_WITH_OPENMP 1
+#define VIENNACL_WITH_OPENCL 1
 
 #include "model/solver/solver.h"
 #include "sparseMatrixViennacl.h"
@@ -15,6 +15,8 @@
 #include <viennacl/linalg/bicgstab.hpp>
 #include <viennacl/linalg/gmres.hpp>
 #include <viennacl/linalg/mixed_precision_cg.hpp>
+#include <viennacl/linalg/jacobi_precond.hpp>
+#include <viennacl/linalg/ilu.hpp>
 
 #include "QDebug"
 namespace wfes{
