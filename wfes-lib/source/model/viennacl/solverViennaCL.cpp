@@ -101,7 +101,7 @@ dvec SolverViennaCL::solve_bicgstab(dvec &b, bool transpose)
     copy(b, vcl_vec);
 
     viennacl::vector<double> vcl_res = viennacl::vector<double>(b.size());
-    viennacl::linalg::bicgstab_tag my_bicgstab_tag(1e-10, 10000, 10000);
+    viennacl::linalg::bicgstab_tag my_bicgstab_tag(1e-5, 200, 100);
 
     wfes::vienna::SparseMatrixViennaCL mat = static_cast<wfes::vienna::SparseMatrixViennaCL&>(m);
 
@@ -133,8 +133,8 @@ dvec SolverViennaCL::solve_gmres(dvec &b, bool transpose)
     wfes::vienna::SparseMatrixViennaCL mat = static_cast<wfes::vienna::SparseMatrixViennaCL&>(m);
 
     viennacl::linalg::chow_patel_tag chow_patel_ilu_config;
-    chow_patel_ilu_config.sweeps(3);       // three nonlinear sweeps
-    chow_patel_ilu_config.jacobi_iters(2); // two Jacobi iterations per triangular 'solve' Rx=r
+    chow_patel_ilu_config.sweeps(1);       // nonlinear sweeps
+    chow_patel_ilu_config.jacobi_iters(1); // Jacobi iterations per triangular 'solve' Rx=r
 
     if(transpose) {
         viennacl::compressed_matrix<double> vcl_transposed(mat.vcl_matrix.size1(), mat.vcl_matrix.size2());
