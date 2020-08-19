@@ -2,7 +2,7 @@
 #define SPARSEMATRIXVIENNACL_H
 
 #define VIENNACL_HAVE_EIGEN 1
-#define VIENNACL_WITH_OPENMP 1
+#define VIENNACL_WITH_OPENCL 1
 
 #include "model/sparse-matrix/sparseMatrix.h"
 #include <viennacl/compressed_matrix.hpp>

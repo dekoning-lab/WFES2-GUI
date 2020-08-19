@@ -13,8 +13,6 @@ SparseMatrixViennaCL::SparseMatrixViennaCL() :
 #ifdef VIENNACL_WITH_OPENMP
     omp_set_num_threads(wfes::config::Config::n_threads);
 #endif
-
-    this->vcl_matrix = viennacl::compressed_matrix<double>(0, 0);
 }
 
 SparseMatrixViennaCL::SparseMatrixViennaCL(int numRows, int numCols) :
@@ -28,8 +26,6 @@ SparseMatrixViennaCL::SparseMatrixViennaCL(int numRows, int numCols) :
   row_index = (int*)malloc((numRows + 1) * sizeof(int));
 
   row_index[0] = 0;
-
-  this->vcl_matrix = viennacl::compressed_matrix<double>(num_rows, num_cols);
 }
 
 SparseMatrixViennaCL::SparseMatrixViennaCL(dmat& eigenDenseMatrix) :
