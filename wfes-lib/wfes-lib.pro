@@ -10,10 +10,6 @@ CONFIG += c++11
 
 DEFINES += WFESLIB_LIBRARY
 
-INCLUDEPATH += source \
-    ../dependencies \
-    ../dependencies/intel/mkl/include
-
 QMAKE_CXXFLAGS += -DMKL_ILP64 -m64 -fopenmp
 
 DESTDIR = $$PWD/../binaries/$$DESTINATION_PATH
@@ -80,5 +76,10 @@ SOURCES += \
 # Default rules for deployment.
 unix {
     target.path = /usr/lib
+
+    INCLUDEPATH += source \
+        ../dependencies/unix \
+        ../dependencies/unix/intel/mkl/include
+
 }
 !isEmpty(target.path): INSTALLS += target
