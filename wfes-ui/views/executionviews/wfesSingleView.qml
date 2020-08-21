@@ -545,6 +545,7 @@ ApplicationWindow {
                             LabeledCheckBox {
                                 id: inputM
                                 text: "m: "
+                                toolTipText: "No recurrent mutation."
                                 checked: inputController.ui_m
                                 enabled: (inputController.ui_modelType == "Fixation" ||
                                           inputController.ui_modelType == "Absorption" ||
@@ -644,6 +645,7 @@ ApplicationWindow {
                                 LabeledCheckBox {
                                     id: inputWriteQ
                                     text: "Q: "
+                                    toolTipText: "Output Q as CSV file."
                                     checked: inputController.ui_output_Q
                                     enabled: (inputController.ui_modelType == "Fixation" ||
                                               inputController.ui_modelType == "Absorption" ||
@@ -657,6 +659,7 @@ ApplicationWindow {
                                 LabeledCheckBox {
                                     id: inputWriteR
                                     text: "R: "
+                                    toolTipText: "Output R as CSV file."
                                     checked: inputController.ui_output_R
                                     enabled: (inputController.ui_modelType == "Fixation" ||
                                               inputController.ui_modelType == "Absorption" ||
@@ -668,6 +671,7 @@ ApplicationWindow {
                                 LabeledCheckBox {
                                     id: inputWriteB
                                     text: "B: "
+                                    toolTipText: "Output B as CSV file."
                                     checked: inputController.ui_output_B
                                     enabled: (inputController.ui_modelType == "Fixation" ||
                                               inputController.ui_modelType == "Absorption")
@@ -676,6 +680,7 @@ ApplicationWindow {
                                 LabeledCheckBox {
                                     id: inputWriteN
                                     text: "N: "
+                                    toolTipText: "Output N as CSV file."
                                     checked: inputController.ui_output_N
                                     enabled: (inputController.ui_modelType == "Fixation" ||
                                               inputController.ui_modelType == "Absorption" ||
@@ -684,14 +689,16 @@ ApplicationWindow {
 
                                 LabeledCheckBox {
                                     id: inputWriteNExt
-                                    text: "N. ext.: "
+                                    toolTipText: "Output N ext. (extintion-conditional sojourn) as CSV file."
+                                    text: "N ext.: "
                                     checked: inputController.ui_output_NExt
                                     enabled: (inputController.ui_modelType == "Absorption")
                                 }
 
                                 LabeledCheckBox {
                                     id: inputWriteNFix
-                                    text: "N. fix.: "
+                                    text: "N fix.: "
+                                    toolTipText: "Output N fix. (fixation-conditional sojourn) as CSV file."
                                     checked: inputController.ui_output_NFix
                                     enabled: (inputController.ui_modelType == "Absorption")
                                 }
@@ -699,12 +706,14 @@ ApplicationWindow {
                                 LabeledCheckBox {
                                     id: inputWriteI
                                     text: "I: "
+                                    toolTipText: "Output I (Initial probability distribution) as CSV file."
                                     checked: inputController.ui_output_I
                                 }
 
                                 LabeledCheckBox {
                                     id: inputWriteE
                                     text: "E: "
+                                    toolTipText: "Output E (Equilibrium frequencies) as CSV file (Equilibrium mode only)."
                                     checked: inputController.ui_output_E
                                     enabled: (inputController.ui_modelType == "Equilibrium")
                                 }
@@ -712,6 +721,7 @@ ApplicationWindow {
                                 LabeledCheckBox {
                                     id: inputWriteV
                                     text: "V: "
+                                    toolTipText: "Output V (Variance time matrix) as CSV file (Fundamental mode only)."
                                     checked: inputController.ui_output_V
                                     enabled: (inputController.ui_modelType == "Fundamental")
                                 }
@@ -720,6 +730,7 @@ ApplicationWindow {
                                 LabeledCheckBox {
                                     id: inputWriteRes
                                     text: "Res: "
+                                    toolTipText: "Output Res (Generated results at right side) as CSV file."
                                     checked: inputController.ui_output_Res
                                     enabled: (inputController.ui_modelType == "Fixation" ||
                                               inputController.ui_modelType == "Absorption" ||
@@ -763,6 +774,7 @@ ApplicationWindow {
 
                                     LabeledCheckBox {
                                         id: inputForce
+                                        toolTipText: "Do not perform parameter checks."
                                         text: "Force: "
                                         checked: inputController.ui_force
                                     }

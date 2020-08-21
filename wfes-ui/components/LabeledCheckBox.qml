@@ -13,6 +13,8 @@ Rectangle {
 
     property var fun: function(){}
 
+    property string toolTipText: "This is a tooltip"
+
     color: "transparent"
     width: childrenRect.width
     height: childrenRect.height
@@ -20,8 +22,19 @@ Rectangle {
     RowLayout {
         Label {
             id: label
-            Layout.preferredWidth: 20
+            Layout.preferredWidth: 30
             text: "v:"
+            ToolTip.visible: toolTipText ? ma.containsMouse : false
+            ToolTip.delay: 1000
+            ToolTip.timeout: 5000
+            ToolTip.text: qsTr(toolTipText)
+
+            MouseArea {
+                id: ma
+                anchors.fill: parent
+                hoverEnabled: true
+            }
+
         }
         CheckBox {
             Layout.preferredWidth: 100
