@@ -87,6 +87,11 @@ ApplicationWindow {
                                 checked: true
                                 text: qsTr("Absorption")
 
+                                ToolTip.visible: hovered
+                                ToolTip.delay: 1000
+                                ToolTip.timeout: 5000
+                                ToolTip.text: qsTr("Both fixation and extinction states are absorbing.")
+
                                 onCheckedChanged: {
                                     outputPExt.visible = checked
                                     outputPFix.visible = checked;
@@ -134,6 +139,12 @@ ApplicationWindow {
                             RadioButton {
                                 id: radioButtonFixation
                                 text: qsTr("Fixation")
+
+                                ToolTip.visible: hovered
+                                ToolTip.delay: 1000
+                                ToolTip.timeout: 5000
+                                ToolTip.text: qsTr("Only fixation state is absorbing.")
+
                                 onCheckedChanged: {
                                     outputPExt.visible = !checked
                                     outputPFix.visible = !checked;
@@ -181,6 +192,12 @@ ApplicationWindow {
                             RadioButton {
                                 id: radioButtonEstablishment
                                 text: qsTr("Establishment")
+
+                                ToolTip.visible: hovered
+                                ToolTip.delay: 1000
+                                ToolTip.timeout: 5000
+                                ToolTip.text: qsTr("Calculate establishment properties.")
+
                                 onCheckedChanged: {
                                     outputPExt.visible = !checked
                                     outputPFix.visible = !checked;
@@ -227,6 +244,12 @@ ApplicationWindow {
                             RadioButton {
                                 id: radioButtonFundamental
                                 text: qsTr("Fundamental")
+
+                                ToolTip.visible: hovered
+                                ToolTip.delay: 1000
+                                ToolTip.timeout: 5000
+                                ToolTip.text: qsTr("Calculate the entire fundamental matrix (slow).")
+
                                 onCheckedChanged: {
                                     outputPExt.visible = !checked
                                     outputPFix.visible = !checked;
@@ -273,6 +296,12 @@ ApplicationWindow {
                             RadioButton {
                                 id: radioButtonNonAbsorbing
                                 text: qsTr("Non Absorbing")
+
+                                ToolTip.visible: hovered
+                                ToolTip.delay: 1000
+                                ToolTip.timeout: 5000
+                                ToolTip.text: qsTr("Build a non-absorbing WF matrix.")
+
                                 onCheckedChanged: {
                                     outputPExt.visible = !checked
                                     outputPFix.visible = !checked;
@@ -320,6 +349,12 @@ ApplicationWindow {
                             RadioButton {
                                 id: radioButtonEquilibrium
                                 text: qsTr("Equilibrium")
+
+                                ToolTip.visible: hovered
+                                ToolTip.delay: 1000
+                                ToolTip.timeout: 5000
+                                ToolTip.text: qsTr("Calculate the equilibrium distribtion of allele states.")
+
                                 onCheckedChanged: {
                                     outputPExt.visible = !checked
                                     outputPFix.visible = !checked;
@@ -366,6 +401,12 @@ ApplicationWindow {
                             RadioButton {
                                 id: radioButtonAlleleAge
                                 text: qsTr("Allele Age")
+
+                                ToolTip.visible: hovered
+                                ToolTip.delay: 1000
+                                ToolTip.timeout: 5000
+                                ToolTip.text: qsTr("Calculate age of an allele.")
+
                                 onCheckedChanged: {
                                     outputPExt.visible = !checked
                                     outputPFix.visible = !checked;
