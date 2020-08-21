@@ -795,6 +795,7 @@ ApplicationWindow {
                                         id: comboBoxLibrary
                                         text: "Library:"
                                         model: ["Pardiso", "ViennaCL"]
+                                        toolTipText: "Library used for solving matrix systems."
                                         onTextChanged: {
                                             if(comboBoxLibrary.currentText === "Pardiso") {
                                                 comboBoxBackend.enabled = false
@@ -809,6 +810,7 @@ ApplicationWindow {
                                     LabeledComboBox {
                                         id: comboBoxSolver
                                         text: "Solver:"
+                                        toolTipText: "Solver used by viennacl."
                                         model: ["MixedCG", "CG", "BicGStab", "GMRes"]
                                         enabled: (comboBoxLibrary.currentText === "ViennaCL")
                                     }
@@ -816,6 +818,7 @@ ApplicationWindow {
                                     LabeledComboBox {
                                         id: comboBoxBackend
                                         text: "Backend:"
+                                        toolTipText: "Backend used by ViennaCL."
                                         model: [ "OpenCL", "OpenMP", "CUDA" ]
                                         enabled: (comboBoxLibrary.currentText === "ViennaCL")
                                     }

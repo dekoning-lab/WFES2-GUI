@@ -14,6 +14,8 @@ Rectangle {
 
     property var fun: function(){}
 
+    property string toolTipText: "This is a tooltip"
+
     color: "transparent"
     width: childrenRect.width
     height: childrenRect.height
@@ -24,6 +26,17 @@ Rectangle {
             id: label
             Layout.preferredWidth: 75
             text: "Solver:"
+            ToolTip.visible: toolTipText ? ma.containsMouse : false
+            ToolTip.delay: 1000
+            ToolTip.timeout: 5000
+            ToolTip.text: qsTr(toolTipText)
+
+            MouseArea {
+                id: ma
+                anchors.fill: parent
+                hoverEnabled: true
+            }
+
         }
         ComboBox {
             id: comboBox
