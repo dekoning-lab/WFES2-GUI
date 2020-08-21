@@ -86,6 +86,7 @@ ApplicationWindow {
                                 id: radioButtonAbsorption
                                 checked: true
                                 text: qsTr("Absorption")
+
                                 onCheckedChanged: {
                                     outputPExt.visible = checked
                                     outputPFix.visible = checked;
@@ -443,6 +444,7 @@ ApplicationWindow {
                             LabeledTextField {
                                 id: inputN
                                 text: "N: "
+                                toolTipText: "Size of the population in the Wright Fisher Model."
                                 validator: DoubleValidator {bottom: 2; top: 50000;}
                                 textFieldText: inputController.ui_n
                             }
@@ -450,6 +452,7 @@ ApplicationWindow {
                             LabeledTextField {
                                 id: inputA
                                 text: "a: "
+                                toolTipText: "Tail truncation weight."
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
                                 textFieldText: inputController.ui_a
                             }
@@ -457,6 +460,7 @@ ApplicationWindow {
                             LabeledTextField {
                                 id: inputp
                                 text: "p: "
+                                toolTipText: "Starting number of copies - no integration."
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
                                 textFieldText: inputController.ui_p
                                 enabled: (inputController.ui_modelType == "Fixation" ||
@@ -468,6 +472,7 @@ ApplicationWindow {
                             LabeledTextField {
                                 id: inputc
                                 text: "c: "
+                                toolTipText: "Starting number of copies integration cutoff."
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
                                 textFieldText: inputController.ui_c
                             }
@@ -475,6 +480,7 @@ ApplicationWindow {
                             LabeledTextField {
                                 id: inputX
                                 text: "x: "
+                                toolTipText: "Observed number of copies (--allele-age only)."
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
                                 textFieldText: inputController.ui_x
                                 enabled: (inputController.ui_modelType == "Allele Age")
@@ -483,6 +489,7 @@ ApplicationWindow {
                             LabeledTextField {
                                 id: inputK
                                 text: "k: "
+                                toolTipText: "Odds ratio (--establishment only)."
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
                                 textFieldText: inputController.ui_k
                                 enabled: (inputController.ui_modelType == "Establishment")
@@ -522,6 +529,7 @@ ApplicationWindow {
                             LabeledTextField {
                                 id: inputU
                                 text: "u: "
+                                toolTipText: "Backward mutation rate."
                                 validator: DoubleValidator {bottom: 2; top: 50000;}
                                 textFieldText: inputController.ui_u
                             }
@@ -529,6 +537,7 @@ ApplicationWindow {
                             LabeledTextField {
                                 id: inputV
                                 text: "v: "
+                                toolTipText: "Forward mutation rate."
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
                                 textFieldText: inputController.ui_v
                             }
@@ -577,6 +586,7 @@ ApplicationWindow {
                             LabeledTextField {
                                 id: inputS
                                 text: "s: "
+                                toolTipText: "Selection coefficient."
                                 validator: DoubleValidator {bottom: 2; top: 50000;}
                                 textFieldText: inputController.ui_s
                             }
@@ -584,6 +594,7 @@ ApplicationWindow {
                             LabeledTextField {
                                 id: inputH
                                 text: "h: "
+                                toolTipText: "Dominance coefficient."
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
                                 textFieldText: inputController.ui_h
                             }
@@ -759,6 +770,7 @@ ApplicationWindow {
                                     LabeledTextField {
                                         id: inputT
                                         text: "t: "
+                                        toolTipText: "Number of threads for OpenMP."
                                         validator: DoubleValidator {bottom: 2; top: 50000;}
                                         textFieldText: inputController.ui_t
                                     }
@@ -799,6 +811,7 @@ ApplicationWindow {
                                     LabeledTextField {
                                         id: inputI
                                         text: "I. Dist.: "
+                                        toolTipText: "Path to initial probability distribution CSV file."
                                         labelPreferredWidth: 75
                                         textFieldPreferredWidth: 185
                                         textFieldText: inputController.ui_initial_distribution

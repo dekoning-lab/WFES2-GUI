@@ -19,8 +19,16 @@
 namespace wfes{
     namespace wrightfisher {
 
+
+        /**
+         * @brief Enumeration containing possible absorption types.
+         */
         enum absorption_type { NON_ABSORBING = 0, EXTINCTION_ONLY, FIXATION_ONLY, BOTH_ABSORBING };
 
+
+        /**
+         * @brief Get number corresponding to each absorption type.
+         */
         inline int n_absorbing(absorption_type a_t) {
             switch (a_t) {
             case NON_ABSORBING:
@@ -32,10 +40,14 @@ namespace wfes{
             case BOTH_ABSORBING:
                 return 2;
             default:
+                //TODO Show as exception in GUI dialog.
                 throw std::runtime_error("Unknown absorption type");
             }
         }
 
+        /**
+         * @brief Get description of each absorption type.
+         */
         inline std::string absorption_type_desc(absorption_type a_t) {
             switch (a_t) {
             case NON_ABSORBING:
@@ -47,6 +59,7 @@ namespace wfes{
             case BOTH_ABSORBING:
                 return "Both extinction and fixation boundaries are absorbing";
             default:
+                //TODO Show as exception in GUI dialog.
                 throw std::runtime_error("Unknown absorption type");
             }
         }

@@ -14,7 +14,7 @@ Rectangle {
     property alias textFieldText: textField.text
     property int textFieldPreferredWidth: 110
     property alias readOnly: textField.readOnly
-
+    property string toolTipText: "This is a tooltip"
     property var fun: function(){}
 
     color: "transparent"
@@ -26,6 +26,17 @@ Rectangle {
             id: label
             Layout.preferredWidth: labelPreferredWidth
             text: "v:"
+
+            ToolTip.visible: toolTipText ? ma.containsMouse : false
+            ToolTip.delay: 1000
+            ToolTip.timeout: 5000
+            ToolTip.text: qsTr(toolTipText)
+            MouseArea {
+                id: ma
+                anchors.fill: parent
+                hoverEnabled: true
+            }
+
         }
         TextField {
             id: textField
