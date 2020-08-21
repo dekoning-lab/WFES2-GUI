@@ -16,11 +16,11 @@ ApplicationWindow {
 
     visible: true
 
-    width: 920
-    minimumWidth: 920
+    width: 945
+    minimumWidth: 945
     height: 570
     minimumHeight: 570
-    maximumWidth: 920
+    maximumWidth: 945
     maximumHeight: 570
 
     // Select theme for the application.
@@ -1007,9 +1007,9 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 id: outputPExt
-                                labelPreferredWidth: 75
+                                labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "P. ext. : "
+                                text: "P ext. : "
                                 textFieldText: outputController.ui_get_p_ext
                                 readOnly: true
                                 visible: radioButtonAbsorption.checked
@@ -1017,9 +1017,9 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 id: outputPFix
-                                labelPreferredWidth: 75
+                                labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "P. fix. : "
+                                text: "P fix. : "
                                 textFieldText: outputController.ui_get_p_fix
                                 readOnly: true
                                 visible: radioButtonAbsorption.checked
@@ -1027,9 +1027,9 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 id: outputTAbs
-                                labelPreferredWidth: 75
+                                labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "T. abs. : "
+                                text: "T abs. : "
                                 textFieldText: outputController.ui_get_t_abs
                                 readOnly: true
                                 visible: radioButtonAbsorption.checked
@@ -1037,9 +1037,9 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 id: outputTAbsStd
-                                labelPreferredWidth: 75
+                                labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "T. abs. std.: "
+                                text: "T abs. std.: "
                                 textFieldText: outputController.ui_get_t_abs_std
                                 readOnly: true
                                 visible: radioButtonAbsorption.checked
@@ -1047,9 +1047,9 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 id: outputText
-                                labelPreferredWidth: 75
+                                labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "T. ext.: "
+                                text: "T ext.: "
                                 textFieldText: outputController.ui_get_t_ext
                                 readOnly: true
                                 visible: radioButtonAbsorption.checked
@@ -1057,9 +1057,9 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 id: outputTextStd
-                                labelPreferredWidth: 75
+                                labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "T. ext. std.: "
+                                text: "T ext. std.: "
                                 textFieldText: outputController.ui_get_t_ext_std
                                 readOnly: true
                                 visible: radioButtonAbsorption.checked
@@ -1067,9 +1067,9 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 id: outputNext
-                                labelPreferredWidth: 75
+                                labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "N. ext.: "
+                                text: "N ext.: "
                                 textFieldText: outputController.ui_get_n_ext
                                 readOnly: true
                                 visible: radioButtonAbsorption.checked
@@ -1077,9 +1077,9 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 id: outputTFix
-                                labelPreferredWidth: 75
+                                labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "T. fix.: "
+                                text: "T fix.: "
                                 textFieldText: outputController.ui_get_t_fix
                                 readOnly: true
                                 visible: radioButtonFixation.checked || radioButtonAbsorption.checked
@@ -1087,9 +1087,9 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 id: outputTFixStd
-                                labelPreferredWidth: 75
+                                labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "T. fix. std.: "
+                                text: "T fix. std.: "
                                 textFieldText: outputController.ui_get_t_fix_std
                                 readOnly: true
                                 visible: radioButtonFixation.checked || radioButtonAbsorption.checked
@@ -1097,7 +1097,7 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 id: outputRate
-                                labelPreferredWidth: 75
+                                labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "Rate: "
                                 textFieldText: outputController.ui_get_rate
@@ -1107,7 +1107,7 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 id: outputEFreqMut
-                                labelPreferredWidth: 75
+                                labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "E[freq mut]: "
                                 textFieldText: outputController.ui_get_e_freq_mut
@@ -1117,7 +1117,7 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 id: outputEFreqWt
-                                labelPreferredWidth: 75
+                                labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "E[freq  wt]: "
                                 textFieldText: outputController.ui_get_e_freq_wt
@@ -1127,9 +1127,9 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 id: outputFEst
-                                labelPreferredWidth: 75
+                                labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "F. est.: "
+                                text: "F est.: "
                                 textFieldText: outputController.ui_get_f_est
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
@@ -1137,9 +1137,9 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 id: outputPEst
-                                labelPreferredWidth: 75
+                                labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "P. est.: "
+                                text: "P est.: "
                                 textFieldText: outputController.ui_get_p_est
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
@@ -1147,9 +1147,9 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 id: outputTSeg
-                                labelPreferredWidth: 75
+                                labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "T. seg.: "
+                                text: "T seg.: "
                                 textFieldText: outputController.ui_get_t_seg
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
@@ -1157,9 +1157,9 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 id: outputTSegStd
-                                labelPreferredWidth: 75
+                                labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "T. seg. std.: "
+                                text: "T seg. std.: "
                                 textFieldText: outputController.ui_get_t_seg_std
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
@@ -1167,9 +1167,9 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 id: outputTSegEst
-                                labelPreferredWidth: 75
+                                labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "T. seg. ext.: "
+                                text: "T seg. ext.: "
                                 textFieldText: outputController.ui_get_t_seg_est
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
@@ -1177,9 +1177,9 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 id: outputTSegEstStd
-                                labelPreferredWidth: 75
+                                labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "T. seg. ext. std.: "
+                                text: "T seg. ext. std.: "
                                 textFieldText: outputController.ui_get_t_seg_est_std
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
@@ -1187,9 +1187,9 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 id: outputTSegFix
-                                labelPreferredWidth: 75
+                                labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "T. seg. fix.: "
+                                text: "T seg. fix.: "
                                 textFieldText: outputController.ui_get_t_seg_fix
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
@@ -1197,9 +1197,9 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 id: outputTSegFixStd
-                                labelPreferredWidth: 75
+                                labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "T. seg. fix. std.: "
+                                text: "T seg. fix. std.: "
                                 textFieldText: outputController.ui_get_t_seg_fix_std
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
@@ -1207,9 +1207,9 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 id: outputTEst
-                                labelPreferredWidth: 75
+                                labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "T. est.: "
+                                text: "T est.: "
                                 textFieldText: outputController.ui_get_t_est
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
@@ -1217,9 +1217,9 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 id: outputTEstStd
-                                labelPreferredWidth: 75
+                                labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "T. est. std.: "
+                                text: "T est. std.: "
                                 textFieldText: outputController.ui_get_t_est_std
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
@@ -1227,7 +1227,7 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 id: outputEA
-                                labelPreferredWidth: 75
+                                labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "E(A): "
                                 textFieldText: outputController.ui_get_e_a
@@ -1237,7 +1237,7 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 id: outputSA
-                                labelPreferredWidth: 75
+                                labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "S(A): "
                                 textFieldText: outputController.ui_get_s_a
@@ -1248,7 +1248,7 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 id: outputTime
-                                labelPreferredWidth: 75
+                                labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "Time (s): "
                                 textFieldText: outputController.ui_get_time
