@@ -282,4 +282,3 @@ QString OutputController::get_time() const
     else
         return QString::fromStdString(fmt.str());
 }
-

@@ -899,9 +899,12 @@ ApplicationWindow {
                     }
 
                     Button {
+                        id: executeButton
                         Layout.margins: 10
                         Layout.alignment: Qt.AlignRight
                         text: "Execute"
+                        enabled: outputController.ui_get_not_executing
+
                         // All changes made in backend from GUI are done here.
                         onClicked: {
                                 // Set mode in backend.
@@ -955,6 +958,7 @@ ApplicationWindow {
                                 inputController.ui_solver = comboBoxSolver.currentText;
 
                             if(outputController.ui_get_error_message == "") {
+                                executeButton.enabled = false
                                 outputController.ui_execute
                             } else {
                                 messageDialog.text = outputController.ui_get_error_message
@@ -962,6 +966,7 @@ ApplicationWindow {
                             }
                             outputController.ui_reset_error
                         }
+
                     }
                 }
 
@@ -1264,6 +1269,9 @@ ApplicationWindow {
                                 toolTipText: "Execution time in seconds."
                                 textFieldText: outputController.ui_get_time
                                 readOnly: true
+                                // The execute button is activated here.
+                                // TODO There must to be a better way of doing this.
+                                onTextFieldTextChanged: {executeButton.enabled = true;}
                             }
                         }
                     }

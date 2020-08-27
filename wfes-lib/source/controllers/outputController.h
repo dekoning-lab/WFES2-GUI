@@ -264,6 +264,12 @@ namespace wfes {
                  */
                 QString get_time() const;
 
+                /**
+                 * @brief Send if the background thread is executing.
+                 * @return Boolean telling if the background thread is executing.
+                 */
+                bool get_not_executing() const;
+
             public slots:
                 void handleResults(Results results){
                     this->results = results;
