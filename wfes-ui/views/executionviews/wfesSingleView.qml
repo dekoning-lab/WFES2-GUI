@@ -1010,6 +1010,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "P ext. : "
+                                toolTipText: "Probability of extintion."
                                 textFieldText: outputController.ui_get_p_ext
                                 readOnly: true
                                 visible: radioButtonAbsorption.checked
@@ -1020,6 +1021,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "P fix. : "
+                                toolTipText: "Probability of fixation."
                                 textFieldText: outputController.ui_get_p_fix
                                 readOnly: true
                                 visible: radioButtonAbsorption.checked
@@ -1030,6 +1032,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "T abs. : "
+                                toolTipText: "Absorption time."
                                 textFieldText: outputController.ui_get_t_abs
                                 readOnly: true
                                 visible: radioButtonAbsorption.checked
@@ -1040,6 +1043,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "T abs. std.: "
+                                toolTipText: "Standard absorption time."
                                 textFieldText: outputController.ui_get_t_abs_std
                                 readOnly: true
                                 visible: radioButtonAbsorption.checked
@@ -1050,6 +1054,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "T ext.: "
+                                toolTipText: "Extintion time."
                                 textFieldText: outputController.ui_get_t_ext
                                 readOnly: true
                                 visible: radioButtonAbsorption.checked
@@ -1060,6 +1065,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "T ext. std.: "
+                                toolTipText: "Standard extintion time."
                                 textFieldText: outputController.ui_get_t_ext_std
                                 readOnly: true
                                 visible: radioButtonAbsorption.checked
@@ -1070,6 +1076,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "N ext.: "
+                                toolTipText: "Number of generations till extintion."
                                 textFieldText: outputController.ui_get_n_ext
                                 readOnly: true
                                 visible: radioButtonAbsorption.checked
@@ -1080,6 +1087,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "T fix.: "
+                                toolTipText: "Fixation time."
                                 textFieldText: outputController.ui_get_t_fix
                                 readOnly: true
                                 visible: radioButtonFixation.checked || radioButtonAbsorption.checked
@@ -1090,6 +1098,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "T fix. std.: "
+                                toolTipText: "Standard fixation time."
                                 textFieldText: outputController.ui_get_t_fix_std
                                 readOnly: true
                                 visible: radioButtonFixation.checked || radioButtonAbsorption.checked
@@ -1100,6 +1109,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "Rate: "
+                                toolTipText: "Rate."
                                 textFieldText: outputController.ui_get_rate
                                 readOnly: true
                                 visible: radioButtonFixation.checked
@@ -1251,6 +1261,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "Time (s): "
+                                toolTipText: "Execution time in seconds."
                                 textFieldText: outputController.ui_get_time
                                 readOnly: true
                             }

@@ -9,6 +9,8 @@
 #include "results/results.h"
 
 #include <QString>
+#include <QThread>
+
 #include "math.h"
 #include <boost/format.hpp>
 
@@ -16,6 +18,31 @@
 
 namespace wfes {
     namespace controllers {
+
+        class WorkerThread : public QThread
+        {
+            Q_OBJECT
+
+            public:
+                /**
+                 * @brief Store results of an execution.
+                 */
+                Results results = Results();
+
+
+                void run() override {
+                        QString result;
+                        wfes_single single = wfes_single();
+                        results = *single.execute();
+
+                        emit resultReady(results);
+                    }
+
+            signals:
+                void resultReady(Results results);
+        };
+
+
 
         /**
          * @brief The OutputController class contains output values of the application, e.g., the results of an execution.
@@ -53,10 +80,10 @@ namespace wfes {
             Q_PROPERTY(QString ui_get_time READ get_time NOTIFY results_changed)
 
             public:
-                /**
-                 * @brief Store results of an execution.
-                 */
-                Results* results = new Results();
+
+                QThread workerThread;
+
+                Results results;
 
                 /**
                  * @brief OutputController .Constructor
@@ -237,11 +264,19 @@ namespace wfes {
                  */
                 QString get_time() const;
 
+            public slots:
+                void handleResults(Results results){
+                    this->results = results;
+                    emit results_changed();
+                }
+
+
             signals:
                 /**
                  * @brief Signal for notifying when results has been calculated/changed in backend.
                  */
                 void results_changed();
+                void operate();
         };
     }
 }
