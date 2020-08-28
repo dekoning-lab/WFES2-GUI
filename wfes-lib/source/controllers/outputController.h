@@ -78,12 +78,15 @@ namespace wfes {
             Q_PROPERTY(QString ui_get_error_message READ get_error_message NOTIFY results_changed)
             Q_PROPERTY(QString ui_reset_error READ reset_error NOTIFY results_changed)
             Q_PROPERTY(QString ui_get_time READ get_time NOTIFY results_changed)
+            Q_PROPERTY(bool ui_get_not_exec READ get_not_exec NOTIFY results_changed)
 
             public:
 
                 QThread workerThread;
 
                 Results results;
+
+                bool executing;
 
                 /**
                  * @brief OutputController .Constructor
@@ -268,11 +271,12 @@ namespace wfes {
                  * @brief Send if the background thread is executing.
                  * @return Boolean telling if the background thread is executing.
                  */
-                bool get_not_executing() const;
+                bool get_not_exec() const;
 
             public slots:
                 void handleResults(Results results){
                     this->results = results;
+                    this->executing = false;
                     emit results_changed();
                 }
 

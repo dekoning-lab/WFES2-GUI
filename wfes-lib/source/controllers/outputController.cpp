@@ -2,7 +2,7 @@
 
 using namespace wfes::controllers;
 
-OutputController::OutputController(QObject* parent): QObject(parent){}
+OutputController::OutputController(QObject* parent): QObject(parent), executing(false){}
 
 OutputController::~OutputController()
 {
@@ -12,6 +12,7 @@ OutputController::~OutputController()
 
 QString OutputController::execute()
 {
+    executing = true;
     qRegisterMetaType<Results>("Results");
 
     WorkerThread *workerThread = new WorkerThread();
@@ -281,4 +282,9 @@ QString OutputController::get_time() const
         return "";
     else
         return QString::fromStdString(fmt.str());
+}
+
+bool OutputController::get_not_exec() const
+{
+        return !executing;
 }

@@ -1,7 +1,7 @@
-import QtQuick 2.12
-import QtQuick.Window 2.12
+import QtQuick 2.9
+import QtQuick.Window 2.3
 import QtQuick.Dialogs 1.2
-import QtQuick.Layouts 1.15
+import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.5
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Controls.Universal 2.3
@@ -903,7 +903,14 @@ ApplicationWindow {
                         Layout.margins: 10
                         Layout.alignment: Qt.AlignRight
                         text: "Execute"
-                        enabled: outputController.ui_get_not_executing
+                        //enabled: outputController.ui_get_not_exec
+
+                        Binding {
+                            target: executeButton
+                            property: "enabled"
+                            value: outputController.ui_get_not_exec
+
+                        }
 
                         // All changes made in backend from GUI are done here.
                         onClicked: {
@@ -1269,9 +1276,6 @@ ApplicationWindow {
                                 toolTipText: "Execution time in seconds."
                                 textFieldText: outputController.ui_get_time
                                 readOnly: true
-                                // The execute button is activated here.
-                                // TODO There must to be a better way of doing this.
-                                onTextFieldTextChanged: {executeButton.enabled = true;}
                             }
                         }
                     }
