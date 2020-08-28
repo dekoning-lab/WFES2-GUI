@@ -21,9 +21,30 @@
 
 #include "results/results.h"
 
-class wfes_single{
+#include <utils/observer/subject.h>
+
+class wfes_single : public Subject{
     public:
+        time_point t_start, t_end;
+        llong msg_level;
+        dvec starting_copies_p;
+        llong z;
+
         Results* execute();
+
+        Results* fixation();
+
+        Results* absorption();
+
+        Results* fundamental();
+
+        Results* equilibrium();
+
+        Results* establishment();
+
+        Results* alleleAge();
+
+        Results* nonAbsorbing();
 };
 
 #endif // WFES_SINGLE_H
