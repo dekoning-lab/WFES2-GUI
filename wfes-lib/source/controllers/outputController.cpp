@@ -17,6 +17,7 @@ QString OutputController::execute()
 
     WorkerThread *workerThread = new WorkerThread();
     connect(workerThread, SIGNAL(resultReady(Results)), this, SLOT(handleResults(Results)));
+    connect(workerThread, SIGNAL(updateProgress(int)), this, SLOT(handleProgress(int)));
     connect(workerThread, SIGNAL(finished()), workerThread, SLOT(deleteLater()));
     workerThread->start();
     return QString();
@@ -286,5 +287,11 @@ QString OutputController::get_time() const
 
 bool OutputController::get_not_exec() const
 {
-        return !executing;
+    return !executing;
+}
+
+QString OutputController::get_progress() const
+{
+    qDebug() << this->progress;
+    return this->progress;
 }

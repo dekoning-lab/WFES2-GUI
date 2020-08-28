@@ -9,8 +9,6 @@ public:
 
     virtual ~Observer() {};
 
-    virtual void update() = 0;
-
     virtual void update(int value) = 0;
 };
 

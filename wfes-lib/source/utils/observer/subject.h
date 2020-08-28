@@ -10,13 +10,9 @@ class Subject
 public:
     Subject();
 
-    ~Subject();
-
     std::vector<Observer*> observers;
 
     void addObserver(Observer* observer);
-
-    void notify();
 
     void notify(int value);
 

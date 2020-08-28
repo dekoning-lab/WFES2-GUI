@@ -23,7 +23,15 @@
 
 #include <utils/observer/subject.h>
 
+
+enum ExecutionStatus{
+    NONE, STARTING, BUILDING_MATRICES, SOLVING_MATRICES, SAVING_DATA, DONE
+};
+
+static const char* ExecutionStatusName[] = { "None", "Starting...", "Building matrices...", "Solving matrices...", "Saving data...", "Done."};
+
 class wfes_single : public Subject{
+
     public:
         time_point t_start, t_end;
         llong msg_level;
@@ -45,6 +53,10 @@ class wfes_single : public Subject{
         Results* alleleAge();
 
         Results* nonAbsorbing();
+
+        void force();
+        void calculateStartingCopies();
+        void calculateZ();
 };
 
 #endif // WFES_SINGLE_H

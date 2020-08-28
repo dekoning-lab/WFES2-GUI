@@ -19,7 +19,7 @@
 namespace wfes {
     namespace controllers {
 
-        class WorkerThread : public QThread
+        class WorkerThread : public QThread, public Observer
         {
             Q_OBJECT
 
@@ -29,17 +29,24 @@ namespace wfes {
                  */
                 Results results = Results();
 
+                explicit WorkerThread(QObject* parent = nullptr) : QThread(parent) {}
 
                 void run() override {
                         QString result;
                         wfes_single single = wfes_single();
+                        single.addObserver(this);
                         results = *single.execute();
 
                         emit resultReady(results);
                     }
 
+                void update(int value) override {
+                    emit updateProgress(value);
+                }
+
             signals:
                 void resultReady(Results results);
+                void updateProgress(int progress);
         };
 
 
@@ -79,6 +86,7 @@ namespace wfes {
             Q_PROPERTY(QString ui_reset_error READ reset_error NOTIFY results_changed)
             Q_PROPERTY(QString ui_get_time READ get_time NOTIFY results_changed)
             Q_PROPERTY(bool ui_get_not_exec READ get_not_exec NOTIFY results_changed)
+            Q_PROPERTY(QString ui_progress READ get_progress NOTIFY updateProgress)
 
             public:
 
@@ -87,6 +95,8 @@ namespace wfes {
                 Results results;
 
                 bool executing;
+
+                QString progress = "";
 
                 /**
                  * @brief OutputController .Constructor
@@ -273,13 +283,18 @@ namespace wfes {
                  */
                 bool get_not_exec() const;
 
+                QString get_progress() const;
+
             public slots:
                 void handleResults(Results results){
                     this->results = results;
                     this->executing = false;
                     emit results_changed();
                 }
-
+                void handleProgress(int progress){
+                    this->progress = ExecutionStatusName[progress];
+                    emit updateProgress();
+                }
 
             signals:
                 /**
@@ -287,6 +302,7 @@ namespace wfes {
                  */
                 void results_changed();
                 void operate();
+                void updateProgress();
         };
     }
 }

@@ -1277,6 +1277,16 @@ ApplicationWindow {
                                 textFieldText: outputController.ui_get_time
                                 readOnly: true
                             }
+
+                            LabeledTextField {
+                                id: prueba
+                                labelPreferredWidth: 100
+                                textFieldPreferredWidth: 180
+                                text: "Time (s): "
+                                toolTipText: "Execution time in seconds."
+                                readOnly: true
+                                textFieldText: outputController.ui_progress
+                            }
                         }
                     }
                 }

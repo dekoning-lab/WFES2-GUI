@@ -13,77 +13,37 @@ using namespace wfes;
 Results* wfes_single::execute()
 {
 
+    // Start counting execution time.
     t_start = std::chrono::system_clock::now();
 
-    if (Config::modelType == ModelType::NONE) {
-        // TODO Show as dialog.
-        throw exception::Error("Should have exactly one of the 'Model type' options");
-    }
-
-    if (!Config::force) {
-        if (Config::population_size > 500000) {
-            // TODO Show as dialog.
-            throw exception::Error("Population size is quite large - the computations will take a long "
-                              "time. Use --force to ignore");
-        }
-        double max_mu = std::max(Config::u, Config::v);
-        if ((4 * Config::population_size * max_mu) > 1) {
-            // TODO Show as dialog.
-            throw exception::Error("The mutation rate might violate the Wright-Fisher assumptions. Use "
-                              "--force to ignore");
-        }
-        if ((2 * Config::population_size * Config::s) <= -100) {
-            // TODO Show as dialog.
-            throw exception::Error("The selection coefficient is quite negative. Fixations might be "
-                              "impossible. Use --force to ignore");
-        }
-        if (Config::a > 1e-5) {
-            // TODO Show as dialog.
-            throw exception::Error("Zero cutoff value is quite high. This might produce inaccurate "
-                              "results. Use --force to ignore");
-        }
-    }
-
+    // Select verbose level for Intel MKL Pardiso.
     msg_level = Config::verbose ? MKL_PARDISO_MSG_VERBOSE : MKL_PARDISO_MSG_QUIET;
 
-#ifdef OMP
-    omp_set_num_threads(Config::n_threads);
-#endif
-    mkl_set_num_threads(Config::n_threads);
+    // If force is not activated, show error when values are not in expected ranges.
+    this->force();
 
+    // Set number of threads for intel MKL Pardiso.
+    #ifdef OMP
+        omp_set_num_threads(Config::n_threads);
+    #endif
+        mkl_set_num_threads(Config::n_threads);
 
-    if (Config::initial_distribution_csv.compare("") != 0) {
-        // TODO Show as dialog.
-        // cout << "Reading initial from file" << args::get(initial_distributon_csv_f) << "" <<
-        // endl;
-        starting_copies_p = load_csv_col_vector(Config::initial_distribution_csv);
-    } else {
-        dvec first_row =
-            wrightfisher::binom_row(2 * Config::population_size, wrightfisher::psi_diploid(0, Config::population_size, Config::s, Config::h, Config::u, Config::v), Config::a)
-                .Q;
-        starting_copies_p = first_row.tail(first_row.size() - 1); // renormalize
-        starting_copies_p /= 1 - first_row(0);
-    }
+    //Notify starting.
+    this->notify(ExecutionStatus::STARTING);
 
+    // Set value for starting copies if the user has provided an initial distribution,
+    // load it and calculate starting copies p.
+    this->calculateStartingCopies();
+
+    // Save initial distribution if resquested by the user.
     if (Config::output_I)
         utils::writeVectorToFile(starting_copies_p, Config::path_output_I);
 
-    z = 0;
+    // Set value of z if the user has provided an initial distribution,
+    // load it and calculate z value.
+    this->calculateZ();
 
-    if (Config::initial_distribution_csv.compare("") != 0) {
-        z = starting_copies_p.size();
-    } else if (Config::integration_cutoff <= 0 || Config::v == 0) { // no integration
-        z = 1;
-        starting_copies_p[0] = 1;
-    } else {
-        for (llong i = 0; starting_copies_p(i) > Config::integration_cutoff; i++) {
-            z++;
-        }
-    }
-    if (Config::starting_copies)
-        z = 1;
-
-    // All cases has been wrapped in this switch instruction.
+    // All cases (models) are wrapped in this switch instruction.
     switch(Config::modelType) {
         case ModelType::FIXATION:
             return this->fixation();
@@ -104,6 +64,7 @@ Results* wfes_single::execute()
         // return default results, which is formed by nan values, so the GUI does not show anything.
         case ModelType::NONE:
         default:
+            // TODO Show error as dialog.
             return new Results();
     }
 
@@ -114,13 +75,22 @@ Results* wfes_single::execute()
 
 Results *wfes_single::fixation()
 {
+    //Notify building matrix.
+    this->notify(ExecutionStatus::BUILDING_MATRICES);
+
     wrightfisher::Matrix W = wrightfisher::Single(Config::population_size, Config::population_size, wrightfisher::FIXATION_ONLY, Config::s, Config::h, Config::u, Config::v,
                               Config::rem, Config::a, Config::verbose, Config::b);
+
+    //Notify saving data.
+    this->notify(ExecutionStatus::SAVING_DATA);
 
     if (Config::output_Q)
         W.Q->saveMarket(Config::path_output_Q);
     if (Config::output_R)
         utils::writeMatrixToFile(W.R, Config::path_output_R);
+
+    //Notify solving
+    this->notify(ExecutionStatus::SOLVING_MATRICES);
 
     W.Q->subtractIdentity();
 
@@ -144,6 +114,9 @@ Results *wfes_single::fixation()
     double rate = 1.0 / T_fix;
     double T_std = sqrt(T_var);
 
+    //Notify saving data.
+    this->notify(ExecutionStatus::SAVING_DATA);
+
     if (Config::output_N)
         utils::writeMatrixToFile(N_mat, Config::path_output_N);
     if (Config::output_B) {
@@ -151,8 +124,10 @@ Results *wfes_single::fixation()
         utils::writeVectorToFile(B, Config::path_output_B);
     }
 
-
     delete solver;
+
+    //Notify solving
+    this->notify(ExecutionStatus::SOLVING_MATRICES);
 
     //Calculate time.
     t_end = std::chrono::system_clock::now();
@@ -163,19 +138,31 @@ Results *wfes_single::fixation()
     if(Config::output_Res)
        utils::writeResultsToFile(res, Config::path_output_Res);
 
+    //Notify done.
+    this->notify(ExecutionStatus::DONE);
+
     return res;
 }
 
 Results *wfes_single::absorption()
 {
 
+    //Notify building matrix.
+    this->notify(ExecutionStatus::BUILDING_MATRICES);
+
     wrightfisher::Matrix W = wrightfisher::Single(Config::population_size, Config::population_size, wrightfisher::BOTH_ABSORBING, Config::s, Config::h, Config::u, Config::v,
                               Config::rem, Config::a, Config::verbose, Config::b);
+
+    //Notify saving data.
+    this->notify(ExecutionStatus::SAVING_DATA);
 
     if (Config::output_Q)
         W.Q->saveMarket(Config::path_output_Q);
     if (Config::output_R)
         utils::writeMatrixToFile(W.R, Config::path_output_R);
+
+    //Notify solving
+    this->notify(ExecutionStatus::SOLVING_MATRICES);
 
     W.Q->subtractIdentity();
 
@@ -275,6 +262,9 @@ Results *wfes_single::absorption()
 
     N_ext /= (1 / (2 * Config::population_size * Config::v)) + T_ext;
 
+    //Notify saving data.
+    this->notify(ExecutionStatus::SAVING_DATA);
+
     if (Config::output_N)
         utils::writeMatrixToFile(N_mat, Config::path_output_N);
     if (Config::output_N_ext)
@@ -299,18 +289,32 @@ Results *wfes_single::absorption()
     if(Config::output_Res)
        utils::writeResultsToFile(res, Config::path_output_Res);
 
+    //Notify done.
+    this->notify(ExecutionStatus::DONE);
+
     return res;
 }
 
 Results *wfes_single::fundamental()
 {
+
+    //Notify building matrix.
+    this->notify(ExecutionStatus::BUILDING_MATRICES);
+
     llong size = (2 * Config::population_size) - 1;
     wrightfisher::Matrix W = wrightfisher::Single(Config::population_size, Config::population_size, wrightfisher::BOTH_ABSORBING, Config::s, Config::h, Config::u, Config::v,
                               Config::rem, Config::a, Config::verbose, Config::b);
+
+    //Notify saving data.
+    this->notify(ExecutionStatus::SAVING_DATA);
+
     if (Config::output_Q)
         W.Q->saveMarket(Config::path_output_Q);
     if (Config::output_R)
         utils::writeMatrixToFile(W.R, Config::path_output_R);
+
+    //Notify solving
+    this->notify(ExecutionStatus::SOLVING_MATRICES);
 
     W.Q->subtractIdentity();
 
@@ -324,6 +328,10 @@ Results *wfes_single::fundamental()
         id(i) = 1;
         N.row(i) = solver->solve(id, true);
     }
+
+    //Notify saving data.
+    this->notify(ExecutionStatus::SAVING_DATA);
+
     if (Config::output_N)
         utils::writeMatrixToFile(N, Config::path_output_N);
 
@@ -340,15 +348,24 @@ Results *wfes_single::fundamental()
     t_end = std::chrono::system_clock::now();
     time_diff dt = t_end - t_start;
 
+    //Notify done.
+    this->notify(ExecutionStatus::DONE);
+
     return new Results(dt.count());
 }
 
 Results *wfes_single::equilibrium()
 {
+    //Notify building matrix.
+    this->notify(ExecutionStatus::BUILDING_MATRICES);
+
     llong size = (2 * Config::population_size) + 1;
     wrightfisher::Matrix W = wrightfisher::EquilibriumSolvingMatrix(Config::population_size, Config::s, Config::h, Config::u, Config::v, Config::a, Config::verbose, Config::b);
 
     Solver* solver = SolverFactory::createSolver(Config::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, Config::vienna_solver);
+
+    //Notify solving
+    this->notify(ExecutionStatus::SOLVING_MATRICES);
 
     solver->preprocess();
     dvec O = dvec::Zero(size);
@@ -356,9 +373,15 @@ Results *wfes_single::equilibrium()
 
     dvec pi = solver->solve(O, true);
 
+    //Notify saving data.
+    this->notify(ExecutionStatus::SAVING_DATA);
+
     if (Config::output_E) {
         utils::writeVectorToFile(pi, Config::path_output_E);
     }
+
+    //Notify solving
+    this->notify(ExecutionStatus::SOLVING_MATRICES);
 
     // Calculate expected frequency
     double e_freq = 0.0;
@@ -375,9 +398,14 @@ Results *wfes_single::equilibrium()
 
     Results* res = new Results(Config::modelType, e_freq, (1.0 - e_freq), dt.count());
 
+    //Notify saving data.
+    this->notify(ExecutionStatus::SAVING_DATA);
+
     if(Config::output_Res)
        utils::writeResultsToFile(res, Config::path_output_Res);
 
+    //Notify done.
+    this->notify(ExecutionStatus::DONE);
 
     return res;
 }
@@ -385,9 +413,15 @@ Results *wfes_single::equilibrium()
 Results *wfes_single::establishment()
 {
 
+    //Notify building matrix.
+    this->notify(ExecutionStatus::BUILDING_MATRICES);
+
     // Full Wright-Fisher
     wrightfisher::Matrix W_full = wrightfisher::Single(Config::population_size, Config::population_size, wrightfisher::BOTH_ABSORBING, Config::s, Config::h,
                                    Config::u, Config::v, Config::rem, Config::a, Config::verbose, Config::b);
+
+    //Notify solving
+    this->notify(ExecutionStatus::SOLVING_MATRICES);
 
     W_full.Q->subtractIdentity();
 
@@ -449,10 +483,17 @@ Results *wfes_single::establishment()
     // Truncated model
     wrightfisher::Matrix W_tr = wrightfisher::Truncated(Config::population_size, Config::population_size, est_idx, Config::s, Config::h, Config::u, Config::v, Config::rem,
                                     Config::a, Config::verbose, Config::b);
+
+    //Notify saving data.
+    this->notify(ExecutionStatus::SAVING_DATA);
+
     if (Config::output_Q)
         W_tr.Q->saveMarket(Config::path_output_Q);
     if (Config::output_R)
         utils::writeMatrixToFile(W_tr.R, Config::path_output_R);
+
+    //Notify solving
+    this->notify(ExecutionStatus::SOLVING_MATRICES);
 
     // To test
     // cout << W_tr.R.col(0) + W_tr.Q.dense().rowwise().sum() + W_tr.R.col(1) << endl;
@@ -544,14 +585,23 @@ Results *wfes_single::establishment()
     Results* res = new Results(Config::modelType, est_freq, P_est, T_seg, T_seg_std,
                                T_seg_ext, T_seg_ext_std, T_seg_fix, T_seg_fix_std, T_est, T_est_std, dt.count());
 
+    //Notify saving data.
+    this->notify(ExecutionStatus::SAVING_DATA);
+
     if(Config::output_Res)
        utils::writeResultsToFile(res, Config::path_output_Res);
+
+    //Notify done.
+    this->notify(ExecutionStatus::DONE);
 
     return res;
 }
 
 Results *wfes_single::alleleAge()
 {
+    //Notify building matrix.
+    this->notify(ExecutionStatus::BUILDING_MATRICES);
+
     if (Config::observed_copies < 1 || Config::observed_copies > Config::population_size) {
         throw wfes::exception::Error("x (observed copies) must be between 1 and N");
     }
@@ -560,12 +610,19 @@ Results *wfes_single::alleleAge()
     llong size = (2 * Config::population_size) - 1;
     wrightfisher::Matrix W = wrightfisher::Single(Config::population_size, Config::population_size, wrightfisher::BOTH_ABSORBING, Config::s, Config::h, Config::u, Config::v,
                               Config::rem, Config::a, Config::verbose, Config::b);
+
+    //Notify saving data.
+    this->notify(ExecutionStatus::SAVING_DATA);
+
     if (Config::output_Q)
         W.Q->saveMarket(Config::path_output_Q);
     if (Config::output_R)
         utils::writeMatrixToFile(W.R, Config::path_output_R);
     dvec Q_x = W.Q-> getColCopy(x);
     W.Q->subtractIdentity();
+
+    //Notify solving
+    this->notify(ExecutionStatus::SOLVING_MATRICES);
 
     Solver* solver = SolverFactory::createSolver(Config::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, Config::vienna_solver);
 
@@ -615,18 +672,30 @@ Results *wfes_single::alleleAge()
 
     Results* res = new Results(Config::modelType, E_allele_age, S_allele_age, true, dt.count());
 
+    //Notify saving data.
+    this->notify(ExecutionStatus::SAVING_DATA);
+
     if(Config::output_Res)
        utils::writeResultsToFile(res, Config::path_output_Res);
 
     delete solver;
+
+    //Notify done.
+    this->notify(ExecutionStatus::DONE);
 
     return res;
 }
 
 Results *wfes_single::nonAbsorbing()
 {
+    //Notify building matrix.
+    this->notify(ExecutionStatus::BUILDING_MATRICES);
+
     wrightfisher::Matrix W = wrightfisher::Single(Config::population_size, Config::population_size, wrightfisher::NON_ABSORBING, Config::s, Config::h, Config::u, Config::v,
                               Config::rem, Config::a, Config::verbose, Config::b);
+
+    //Notify saving data.
+    this->notify(ExecutionStatus::SAVING_DATA);
 
     if (Config::output_Q)
         W.Q->saveMarket(Config::path_output_Q);
@@ -635,5 +704,69 @@ Results *wfes_single::nonAbsorbing()
     t_end = std::chrono::system_clock::now();
     time_diff dt = t_end - t_start;
 
+    //Notify done.
+    this->notify(ExecutionStatus::DONE);
+
     return new Results(dt.count());
+}
+
+void wfes_single::force()
+{
+    if (!Config::force) {
+        if (Config::population_size > 500000) {
+            // TODO Show as dialog.
+            throw exception::Error("Population size is quite large - the computations will take a long "
+                              "time. Use --force to ignore");
+        }
+        double max_mu = std::max(Config::u, Config::v);
+        if ((4 * Config::population_size * max_mu) > 1) {
+            // TODO Show as dialog.
+            throw exception::Error("The mutation rate might violate the Wright-Fisher assumptions. Use "
+                              "--force to ignore");
+        }
+        if ((2 * Config::population_size * Config::s) <= -100) {
+            // TODO Show as dialog.
+            throw exception::Error("The selection coefficient is quite negative. Fixations might be "
+                              "impossible. Use --force to ignore");
+        }
+        if (Config::a > 1e-5) {
+            // TODO Show as dialog.
+            throw exception::Error("Zero cutoff value is quite high. This might produce inaccurate "
+                              "results. Use --force to ignore");
+        }
+    }
+
+}
+
+void wfes_single::calculateStartingCopies()
+{
+    if (Config::initial_distribution_csv.compare("") != 0) {
+        // TODO Show as dialog.
+        // cout << "Reading initial from file" << args::get(initial_distributon_csv_f) << "" <<
+        // endl;
+        starting_copies_p = load_csv_col_vector(Config::initial_distribution_csv);
+    } else {
+        dvec first_row = wrightfisher::binom_row(2 * Config::population_size, wrightfisher::psi_diploid(0, Config::population_size, Config::s, Config::h, Config::u, Config::v), Config::a).Q;
+        starting_copies_p = first_row.tail(first_row.size() - 1); // renormalize
+        starting_copies_p /= 1 - first_row(0);
+    }
+}
+
+void wfes_single::calculateZ()
+{
+    // Set value of z if the user has provided an initial distribution,
+    // load it and calculate z value.
+    z = 0;
+    if (Config::initial_distribution_csv.compare("") != 0) {
+        z = starting_copies_p.size();
+    } else if (Config::integration_cutoff <= 0 || Config::v == 0) { // no integration
+        z = 1;
+        starting_copies_p[0] = 1;
+    } else {
+        for (llong i = 0; starting_copies_p(i) > Config::integration_cutoff; i++) {
+            z++;
+        }
+    }
+    if (Config::starting_copies)
+        z = 1;
 }
