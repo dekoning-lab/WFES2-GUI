@@ -53,6 +53,7 @@ namespace wfes {
             Q_PROPERTY(QString ui_initial_distribution READ get_initial_distribution_path WRITE set_initial_distribution_path NOTIFY input_changed)
 
             public:
+
                 /**
                  * @brief InputController Constructor.
                  * @param parent To be used by Qt.

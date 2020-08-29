@@ -1,7 +1,7 @@
-import QtQuick 2.12
-import QtQuick.Window 2.12
+import QtQuick 2.9
+import QtQuick.Window 2.3
 import QtQuick.Dialogs 1.2
-import QtQuick.Layouts 1.15
+import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.5
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Controls.Universal 2.3
@@ -898,70 +898,109 @@ ApplicationWindow {
 
                     }
 
-                    Button {
-                        Layout.margins: 10
-                        Layout.alignment: Qt.AlignRight
-                        text: "Execute"
-                        // All changes made in backend from GUI are done here.
-                        onClicked: {
-                                // Set mode in backend.
-                                if(radioButtonAbsorption.checked)
-                                    inputController.ui_modelType = "Absorption"
-                                else if (radioButtonFixation.checked)
-                                    inputController.ui_modelType = "Fixation"
-                                else if (radioButtonEstablishment.checked)
-                                    inputController.ui_modelType = "Establishment"
-                                else if (radioButtonFundamental.checked)
-                                    inputController.ui_modelType = "Fundamental"
-                                else if (radioButtonNonAbsorbing.checked)
-                                    inputController.ui_modelType = "Non Absorbing"
-                                else if (radioButtonEquilibrium.checked)
-                                    inputController.ui_modelType = "Equilibrium"
-                                else if (radioButtonAlleleAge.checked)
-                                    inputController.ui_modelType = "Allele Age"
+                    RowLayout {
+                        id: row2
+                        Layout.preferredHeight: childrenRect.height
+                        Layout.preferredWidth: parent.width
 
-                                inputController.ui_n = inputN.textFieldText
-                                inputController.ui_a = inputA.textFieldText
-                                if(inputController.ui_modelType == "Fixation" || inputController.ui_modelType == "Absorption" || inputController.ui_modelType == "Establishment" || inputController.ui_modelType == "Allele Age")
-                                    inputController.ui_p = inputp.textFieldText
-                                inputController.ui_c = inputc.textFieldText
-                                if(inputController.ui_modelType == "Allele Age")
-                                    inputController.ui_x = inputX.textFieldText
-                                if(inputController.ui_modelType == "Establishment")
-                                    inputController.ui_k = inputK.textFieldText
-                                inputController.ui_u = inputU.textFieldText
-                                inputController.ui_v = inputV.textFieldText
-                                inputController.ui_m = inputM.checked
-                                inputController.ui_s = inputS.textFieldText
-                                inputController.ui_h = inputH.textFieldText
+                        Button {
+                            id: stopButton
+                            Layout.margins: 10
+                            Layout.alignment: Qt.AlignRight
+                            text: "Stop"
 
-                                inputController.ui_output_Q = inputWriteQ.checked
-                                inputController.ui_output_R = inputWriteR.checked
-                                inputController.ui_output_B = inputWriteB.checked
-                                inputController.ui_output_N = inputWriteN.checked
-                                inputController.ui_output_NExt = inputWriteNExt.checked
-                                inputController.ui_output_NFix = inputWriteNFix.checked
-                                inputController.ui_output_I = inputWriteI.checked
-                                inputController.ui_output_E = inputWriteE.checked
-                                inputController.ui_output_V = inputWriteV.checked
-                                inputController.ui_output_Res = inputWriteRes.checked
+                            Binding {
+                                target: stopButton
+                                property: "enabled"
+                                value: !outputController.ui_get_not_exec
 
-                                inputController.ui_force = inputForce.checked
-                                inputController.ui_t = inputT.textFieldText
-
-                                inputController.ui_initial_distribution = inputI.textFieldText
-
-                                inputController.ui_library = comboBoxLibrary.currentText;
-                                inputController.ui_solver = comboBoxSolver.currentText;
-
-                            if(outputController.ui_get_error_message == "") {
-                                outputController.ui_execute
-                            } else {
-                                messageDialog.text = outputController.ui_get_error_message
-                                messageDialog.open()
                             }
-                            outputController.ui_reset_error
+
+                            onClicked: {
+                                outputController.ui_stop
+                                stopButton.enabled = false
+                                executeButton.enabled = true
+                            }
                         }
+
+                        Button {
+                            id: executeButton
+                            Layout.margins: 10
+                            Layout.alignment: Qt.AlignRight
+                            text: "Execute"
+
+                            Binding {
+                                target: executeButton
+                                property: "enabled"
+                                value: outputController.ui_get_not_exec
+
+                            }
+
+                            // All changes made in backend from GUI are done here.
+                            onClicked: {
+                                    // Set mode in backend.
+                                    if(radioButtonAbsorption.checked)
+                                        inputController.ui_modelType = "Absorption"
+                                    else if (radioButtonFixation.checked)
+                                        inputController.ui_modelType = "Fixation"
+                                    else if (radioButtonEstablishment.checked)
+                                        inputController.ui_modelType = "Establishment"
+                                    else if (radioButtonFundamental.checked)
+                                        inputController.ui_modelType = "Fundamental"
+                                    else if (radioButtonNonAbsorbing.checked)
+                                        inputController.ui_modelType = "Non Absorbing"
+                                    else if (radioButtonEquilibrium.checked)
+                                        inputController.ui_modelType = "Equilibrium"
+                                    else if (radioButtonAlleleAge.checked)
+                                        inputController.ui_modelType = "Allele Age"
+
+                                    inputController.ui_n = inputN.textFieldText
+                                    inputController.ui_a = inputA.textFieldText
+                                    if(inputController.ui_modelType == "Fixation" || inputController.ui_modelType == "Absorption" || inputController.ui_modelType == "Establishment" || inputController.ui_modelType == "Allele Age")
+                                        inputController.ui_p = inputp.textFieldText
+                                    inputController.ui_c = inputc.textFieldText
+                                    if(inputController.ui_modelType == "Allele Age")
+                                        inputController.ui_x = inputX.textFieldText
+                                    if(inputController.ui_modelType == "Establishment")
+                                        inputController.ui_k = inputK.textFieldText
+                                    inputController.ui_u = inputU.textFieldText
+                                    inputController.ui_v = inputV.textFieldText
+                                    inputController.ui_m = inputM.checked
+                                    inputController.ui_s = inputS.textFieldText
+                                    inputController.ui_h = inputH.textFieldText
+
+                                    inputController.ui_output_Q = inputWriteQ.checked
+                                    inputController.ui_output_R = inputWriteR.checked
+                                    inputController.ui_output_B = inputWriteB.checked
+                                    inputController.ui_output_N = inputWriteN.checked
+                                    inputController.ui_output_NExt = inputWriteNExt.checked
+                                    inputController.ui_output_NFix = inputWriteNFix.checked
+                                    inputController.ui_output_I = inputWriteI.checked
+                                    inputController.ui_output_E = inputWriteE.checked
+                                    inputController.ui_output_V = inputWriteV.checked
+                                    inputController.ui_output_Res = inputWriteRes.checked
+
+                                    inputController.ui_force = inputForce.checked
+                                    inputController.ui_t = inputT.textFieldText
+
+                                    inputController.ui_initial_distribution = inputI.textFieldText
+
+                                    inputController.ui_library = comboBoxLibrary.currentText;
+                                    inputController.ui_solver = comboBoxSolver.currentText;
+
+                                if(outputController.ui_get_error_message == "") {
+                                    executeButton.enabled = false
+                                    stopButton.enabled = true
+                                    outputController.ui_execute
+                                } else {
+                                    messageDialog.text = outputController.ui_get_error_message
+                                    messageDialog.open()
+                                }
+                                outputController.ui_reset_error
+                            }
+
+                        }
+
                     }
                 }
 
@@ -1010,6 +1049,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "P ext. : "
+                                toolTipText: "Probability of extintion."
                                 textFieldText: outputController.ui_get_p_ext
                                 readOnly: true
                                 visible: radioButtonAbsorption.checked
@@ -1020,6 +1060,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "P fix. : "
+                                toolTipText: "Probability of fixation."
                                 textFieldText: outputController.ui_get_p_fix
                                 readOnly: true
                                 visible: radioButtonAbsorption.checked
@@ -1030,6 +1071,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "T abs. : "
+                                toolTipText: "Absorption time."
                                 textFieldText: outputController.ui_get_t_abs
                                 readOnly: true
                                 visible: radioButtonAbsorption.checked
@@ -1040,6 +1082,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "T abs. std.: "
+                                toolTipText: "Standard absorption time."
                                 textFieldText: outputController.ui_get_t_abs_std
                                 readOnly: true
                                 visible: radioButtonAbsorption.checked
@@ -1050,6 +1093,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "T ext.: "
+                                toolTipText: "Extintion time."
                                 textFieldText: outputController.ui_get_t_ext
                                 readOnly: true
                                 visible: radioButtonAbsorption.checked
@@ -1060,6 +1104,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "T ext. std.: "
+                                toolTipText: "Standard extintion time."
                                 textFieldText: outputController.ui_get_t_ext_std
                                 readOnly: true
                                 visible: radioButtonAbsorption.checked
@@ -1070,6 +1115,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "N ext.: "
+                                toolTipText: "Number of generations till extintion."
                                 textFieldText: outputController.ui_get_n_ext
                                 readOnly: true
                                 visible: radioButtonAbsorption.checked
@@ -1080,6 +1126,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "T fix.: "
+                                toolTipText: "Fixation time."
                                 textFieldText: outputController.ui_get_t_fix
                                 readOnly: true
                                 visible: radioButtonFixation.checked || radioButtonAbsorption.checked
@@ -1090,6 +1137,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "T fix. std.: "
+                                toolTipText: "Standard fixation time."
                                 textFieldText: outputController.ui_get_t_fix_std
                                 readOnly: true
                                 visible: radioButtonFixation.checked || radioButtonAbsorption.checked
@@ -1100,6 +1148,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "Rate: "
+                                toolTipText: "Rate."
                                 textFieldText: outputController.ui_get_rate
                                 readOnly: true
                                 visible: radioButtonFixation.checked
@@ -1251,8 +1300,19 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "Time (s): "
+                                toolTipText: "Execution time in seconds."
                                 textFieldText: outputController.ui_get_time
                                 readOnly: true
+                            }
+
+                            LabeledTextField {
+                                id: prueba
+                                labelPreferredWidth: 100
+                                textFieldPreferredWidth: 180
+                                text: "Status: "
+                                toolTipText: "Status of the current execution."
+                                readOnly: true
+                                textFieldText: outputController.ui_progress
                             }
                         }
                     }

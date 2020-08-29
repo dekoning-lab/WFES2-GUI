@@ -21,9 +21,42 @@
 
 #include "results/results.h"
 
-class wfes_single{
+#include <utils/observer/subject.h>
+
+
+enum ExecutionStatus{
+    NONE, STARTING, BUILDING_MATRICES, SOLVING_MATRICES, SAVING_DATA, DONE, ABORTED
+};
+
+static const char* ExecutionStatusName[] = { "None", "Starting...", "Building matrices...", "Solving matrices...", "Saving data...", "Done.", "Aborted by user."};
+
+class wfes_single : public Subject{
+
     public:
+        time_point t_start, t_end;
+        llong msg_level;
+        dvec starting_copies_p;
+        llong z;
+
         Results* execute();
+
+        Results* fixation();
+
+        Results* absorption();
+
+        Results* fundamental();
+
+        Results* equilibrium();
+
+        Results* establishment();
+
+        Results* alleleAge();
+
+        Results* nonAbsorbing();
+
+        void force();
+        void calculateStartingCopies();
+        void calculateZ();
 };
 
 #endif // WFES_SINGLE_H

@@ -9,6 +9,8 @@
 #include "results/results.h"
 
 #include <QString>
+#include <QThread>
+
 #include "math.h"
 #include <boost/format.hpp>
 
@@ -17,6 +19,47 @@
 namespace wfes {
     namespace controllers {
 
+        class WorkerThread : public QThread, public Observer
+        {
+            Q_OBJECT
+
+            public:
+                /**
+                 * @brief Store results of an execution.
+                 */
+                Results results = Results();
+
+                bool done = false;
+
+                explicit WorkerThread(QObject* parent = nullptr) : QThread(parent) {}
+
+                ~WorkerThread() {
+                    if (!done)
+                        emit updateProgress(ExecutionStatus::ABORTED);
+                }
+
+                void run() override {
+                        QString result;
+                        wfes_single single = wfes_single();
+                        single.addObserver(this);
+                        results = *single.execute();
+
+                        done = true;
+                        emit resultReady(results);
+                    }
+
+
+                void update(int value) override {
+                    emit updateProgress(value);
+                }
+
+            signals:
+                void resultReady(Results results);
+                void updateProgress(int progress);
+        };
+
+
+
         /**
          * @brief The OutputController class contains output values of the application, e.g., the results of an execution.
          */
@@ -24,6 +67,7 @@ namespace wfes {
         {
             Q_OBJECT
             Q_PROPERTY(QString ui_execute READ execute CONSTANT)
+            Q_PROPERTY(QString ui_stop READ stop CONSTANT)
             Q_PROPERTY(QString ui_get_p_ext READ get_p_ext NOTIFY results_changed)
             Q_PROPERTY(QString ui_get_p_fix READ get_p_fix NOTIFY results_changed)
             Q_PROPERTY(QString ui_get_t_abs READ get_t_abs NOTIFY results_changed)
@@ -51,12 +95,19 @@ namespace wfes {
             Q_PROPERTY(QString ui_get_error_message READ get_error_message NOTIFY results_changed)
             Q_PROPERTY(QString ui_reset_error READ reset_error NOTIFY results_changed)
             Q_PROPERTY(QString ui_get_time READ get_time NOTIFY results_changed)
+            Q_PROPERTY(bool ui_get_not_exec READ get_not_exec NOTIFY results_changed)
+            Q_PROPERTY(QString ui_progress READ get_progress NOTIFY updateProgress)
 
             public:
-                /**
-                 * @brief Store results of an execution.
-                 */
-                Results* results = new Results();
+
+                Results results;
+
+                bool executing;
+
+                WorkerThread* worker;
+
+
+                QString progress = "";
 
                 /**
                  * @brief OutputController .Constructor
@@ -74,6 +125,12 @@ namespace wfes {
                  * @return Results of wfes_single execution.
                  */
                 QString execute();
+
+                /**
+                 * @brief Stop an execution of wfes_single.
+                 * @return Nothing.
+                 */
+                QString stop();
 
                 /**
                  * @brief Send p_ext to GUI.
@@ -237,11 +294,32 @@ namespace wfes {
                  */
                 QString get_time() const;
 
+                /**
+                 * @brief Send if the background thread is executing.
+                 * @return Boolean telling if the background thread is executing.
+                 */
+                bool get_not_exec() const;
+
+                QString get_progress() const;
+
+            public slots:
+                void handleResults(Results results){
+                    this->results = results;
+                    this->executing = false;
+                    emit results_changed();
+                }
+                void handleProgress(int progress){
+                    this->progress = ExecutionStatusName[progress];
+                    emit updateProgress();
+                }
+
             signals:
                 /**
                  * @brief Signal for notifying when results has been calculated/changed in backend.
                  */
                 void results_changed();
+                void operate();
+                void updateProgress();
         };
     }
 }

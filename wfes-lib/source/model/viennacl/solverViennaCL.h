@@ -20,6 +20,8 @@
 
 #include "QDebug"
 
+#include <chrono>
+
 namespace wfes{
     namespace vienna {
 

@@ -135,8 +135,17 @@ ivec wfes::utils::closedRangeInt(int start, int stop)
 
 void wfes::utils::writeResultsToFile(Results *results, std::string path)
 {
+
+
+    time_t t = time(0);   // get time now
+    struct tm * now = localtime(&t);
+    std::stringstream sstm;
+    sstm << (now->tm_hour) << '-' << (now->tm_min) << '-' << now->tm_sec;
+    std::string s = sstm.str();
+
+
     std::ofstream myfile;
-    myfile.open (path);
+    myfile.open (s + "_Res");
     myfile << "Result, Value" << "\n";
 
     if(!std::isnan(results->pExt))
@@ -210,6 +219,10 @@ void wfes::utils::writeResultsToFile(Results *results, std::string path)
 
     if(!std::isnan(results->sAlleleAge))
         myfile << "S(A), " << results->sAlleleAge << "\n";
+
+
+    if(!std::isnan(results->time))
+        myfile << "Time, " << results->time << "\n";
 
 
     myfile.close();
