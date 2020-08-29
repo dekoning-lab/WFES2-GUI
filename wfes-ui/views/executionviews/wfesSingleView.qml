@@ -1309,8 +1309,8 @@ ApplicationWindow {
                                 id: prueba
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "Time (s): "
-                                toolTipText: "Execution time in seconds."
+                                text: "Status: "
+                                toolTipText: "Status of the current execution."
                                 readOnly: true
                                 textFieldText: outputController.ui_progress
                             }
