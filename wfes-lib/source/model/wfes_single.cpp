@@ -12,7 +12,6 @@ using namespace wfes;
 
 Results* wfes_single::execute()
 {
-
     // Start counting execution time.
     t_start = std::chrono::system_clock::now();
 

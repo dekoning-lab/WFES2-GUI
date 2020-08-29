@@ -29,7 +29,14 @@ namespace wfes {
                  */
                 Results results = Results();
 
+                bool done = false;
+
                 explicit WorkerThread(QObject* parent = nullptr) : QThread(parent) {}
+
+                ~WorkerThread() {
+                    if (!done)
+                        emit updateProgress(ExecutionStatus::ABORTED);
+                }
 
                 void run() override {
                         QString result;
@@ -37,8 +44,10 @@ namespace wfes {
                         single.addObserver(this);
                         results = *single.execute();
 
+                        done = true;
                         emit resultReady(results);
                     }
+
 
                 void update(int value) override {
                     emit updateProgress(value);
@@ -58,6 +67,7 @@ namespace wfes {
         {
             Q_OBJECT
             Q_PROPERTY(QString ui_execute READ execute CONSTANT)
+            Q_PROPERTY(QString ui_stop READ stop CONSTANT)
             Q_PROPERTY(QString ui_get_p_ext READ get_p_ext NOTIFY results_changed)
             Q_PROPERTY(QString ui_get_p_fix READ get_p_fix NOTIFY results_changed)
             Q_PROPERTY(QString ui_get_t_abs READ get_t_abs NOTIFY results_changed)
@@ -90,11 +100,12 @@ namespace wfes {
 
             public:
 
-                QThread workerThread;
-
                 Results results;
 
                 bool executing;
+
+                WorkerThread* worker;
+
 
                 QString progress = "";
 
@@ -114,6 +125,12 @@ namespace wfes {
                  * @return Results of wfes_single execution.
                  */
                 QString execute();
+
+                /**
+                 * @brief Stop an execution of wfes_single.
+                 * @return Nothing.
+                 */
+                QString stop();
 
                 /**
                  * @brief Send p_ext to GUI.

@@ -1,4 +1,4 @@
-#include "outputController.h"
+﻿#include "outputController.h"
 
 using namespace wfes::controllers;
 
@@ -6,8 +6,8 @@ OutputController::OutputController(QObject* parent): QObject(parent), executing(
 
 OutputController::~OutputController()
 {
-    workerThread.quit();
-    workerThread.wait();
+    worker->quit();
+    worker->wait();
 }
 
 QString OutputController::execute()
@@ -15,11 +15,21 @@ QString OutputController::execute()
     executing = true;
     qRegisterMetaType<Results>("Results");
 
-    WorkerThread *workerThread = new WorkerThread();
-    connect(workerThread, SIGNAL(resultReady(Results)), this, SLOT(handleResults(Results)));
-    connect(workerThread, SIGNAL(updateProgress(int)), this, SLOT(handleProgress(int)));
-    connect(workerThread, SIGNAL(finished()), workerThread, SLOT(deleteLater()));
-    workerThread->start();
+    worker = new WorkerThread();
+    connect(worker, SIGNAL(resultReady(Results)), this, SLOT(handleResults(Results)));
+    connect(worker, SIGNAL(updateProgress(int)), this, SLOT(handleProgress(int)));
+    connect(worker, SIGNAL(finished()), worker, SLOT(deleteLater()));
+    worker->start();
+    return QString();
+}
+
+QString OutputController::stop()
+{
+    // TODO Looks that using terminate is a bad practice because it can stop the thread, for example, while writting a file,
+    // and the file will be corrupt then. Look for a better way of doing this.
+    worker->terminate();
+    worker->wait();
+
     return QString();
 }
 

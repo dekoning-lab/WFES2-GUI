@@ -898,80 +898,107 @@ ApplicationWindow {
 
                     }
 
-                    Button {
-                        id: executeButton
-                        Layout.margins: 10
-                        Layout.alignment: Qt.AlignRight
-                        text: "Execute"
-                        //enabled: outputController.ui_get_not_exec
+                    RowLayout {
+                        id: row2
+                        Layout.preferredHeight: childrenRect.height
+                        Layout.preferredWidth: parent.width
 
-                        Binding {
-                            target: executeButton
-                            property: "enabled"
-                            value: outputController.ui_get_not_exec
+                        Button {
+                            id: stopButton
+                            Layout.margins: 10
+                            Layout.alignment: Qt.AlignRight
+                            text: "Stop"
 
+                            Binding {
+                                target: stopButton
+                                property: "enabled"
+                                value: !outputController.ui_get_not_exec
+
+                            }
+
+                            onClicked: {
+                                outputController.ui_stop
+                                stopButton.enabled = false
+                                executeButton.enabled = true
+                            }
                         }
 
-                        // All changes made in backend from GUI are done here.
-                        onClicked: {
-                                // Set mode in backend.
-                                if(radioButtonAbsorption.checked)
-                                    inputController.ui_modelType = "Absorption"
-                                else if (radioButtonFixation.checked)
-                                    inputController.ui_modelType = "Fixation"
-                                else if (radioButtonEstablishment.checked)
-                                    inputController.ui_modelType = "Establishment"
-                                else if (radioButtonFundamental.checked)
-                                    inputController.ui_modelType = "Fundamental"
-                                else if (radioButtonNonAbsorbing.checked)
-                                    inputController.ui_modelType = "Non Absorbing"
-                                else if (radioButtonEquilibrium.checked)
-                                    inputController.ui_modelType = "Equilibrium"
-                                else if (radioButtonAlleleAge.checked)
-                                    inputController.ui_modelType = "Allele Age"
+                        Button {
+                            id: executeButton
+                            Layout.margins: 10
+                            Layout.alignment: Qt.AlignRight
+                            text: "Execute"
 
-                                inputController.ui_n = inputN.textFieldText
-                                inputController.ui_a = inputA.textFieldText
-                                if(inputController.ui_modelType == "Fixation" || inputController.ui_modelType == "Absorption" || inputController.ui_modelType == "Establishment" || inputController.ui_modelType == "Allele Age")
-                                    inputController.ui_p = inputp.textFieldText
-                                inputController.ui_c = inputc.textFieldText
-                                if(inputController.ui_modelType == "Allele Age")
-                                    inputController.ui_x = inputX.textFieldText
-                                if(inputController.ui_modelType == "Establishment")
-                                    inputController.ui_k = inputK.textFieldText
-                                inputController.ui_u = inputU.textFieldText
-                                inputController.ui_v = inputV.textFieldText
-                                inputController.ui_m = inputM.checked
-                                inputController.ui_s = inputS.textFieldText
-                                inputController.ui_h = inputH.textFieldText
+                            Binding {
+                                target: executeButton
+                                property: "enabled"
+                                value: outputController.ui_get_not_exec
 
-                                inputController.ui_output_Q = inputWriteQ.checked
-                                inputController.ui_output_R = inputWriteR.checked
-                                inputController.ui_output_B = inputWriteB.checked
-                                inputController.ui_output_N = inputWriteN.checked
-                                inputController.ui_output_NExt = inputWriteNExt.checked
-                                inputController.ui_output_NFix = inputWriteNFix.checked
-                                inputController.ui_output_I = inputWriteI.checked
-                                inputController.ui_output_E = inputWriteE.checked
-                                inputController.ui_output_V = inputWriteV.checked
-                                inputController.ui_output_Res = inputWriteRes.checked
-
-                                inputController.ui_force = inputForce.checked
-                                inputController.ui_t = inputT.textFieldText
-
-                                inputController.ui_initial_distribution = inputI.textFieldText
-
-                                inputController.ui_library = comboBoxLibrary.currentText;
-                                inputController.ui_solver = comboBoxSolver.currentText;
-
-                            if(outputController.ui_get_error_message == "") {
-                                executeButton.enabled = false
-                                outputController.ui_execute
-                            } else {
-                                messageDialog.text = outputController.ui_get_error_message
-                                messageDialog.open()
                             }
-                            outputController.ui_reset_error
+
+                            // All changes made in backend from GUI are done here.
+                            onClicked: {
+                                    // Set mode in backend.
+                                    if(radioButtonAbsorption.checked)
+                                        inputController.ui_modelType = "Absorption"
+                                    else if (radioButtonFixation.checked)
+                                        inputController.ui_modelType = "Fixation"
+                                    else if (radioButtonEstablishment.checked)
+                                        inputController.ui_modelType = "Establishment"
+                                    else if (radioButtonFundamental.checked)
+                                        inputController.ui_modelType = "Fundamental"
+                                    else if (radioButtonNonAbsorbing.checked)
+                                        inputController.ui_modelType = "Non Absorbing"
+                                    else if (radioButtonEquilibrium.checked)
+                                        inputController.ui_modelType = "Equilibrium"
+                                    else if (radioButtonAlleleAge.checked)
+                                        inputController.ui_modelType = "Allele Age"
+
+                                    inputController.ui_n = inputN.textFieldText
+                                    inputController.ui_a = inputA.textFieldText
+                                    if(inputController.ui_modelType == "Fixation" || inputController.ui_modelType == "Absorption" || inputController.ui_modelType == "Establishment" || inputController.ui_modelType == "Allele Age")
+                                        inputController.ui_p = inputp.textFieldText
+                                    inputController.ui_c = inputc.textFieldText
+                                    if(inputController.ui_modelType == "Allele Age")
+                                        inputController.ui_x = inputX.textFieldText
+                                    if(inputController.ui_modelType == "Establishment")
+                                        inputController.ui_k = inputK.textFieldText
+                                    inputController.ui_u = inputU.textFieldText
+                                    inputController.ui_v = inputV.textFieldText
+                                    inputController.ui_m = inputM.checked
+                                    inputController.ui_s = inputS.textFieldText
+                                    inputController.ui_h = inputH.textFieldText
+
+                                    inputController.ui_output_Q = inputWriteQ.checked
+                                    inputController.ui_output_R = inputWriteR.checked
+                                    inputController.ui_output_B = inputWriteB.checked
+                                    inputController.ui_output_N = inputWriteN.checked
+                                    inputController.ui_output_NExt = inputWriteNExt.checked
+                                    inputController.ui_output_NFix = inputWriteNFix.checked
+                                    inputController.ui_output_I = inputWriteI.checked
+                                    inputController.ui_output_E = inputWriteE.checked
+                                    inputController.ui_output_V = inputWriteV.checked
+                                    inputController.ui_output_Res = inputWriteRes.checked
+
+                                    inputController.ui_force = inputForce.checked
+                                    inputController.ui_t = inputT.textFieldText
+
+                                    inputController.ui_initial_distribution = inputI.textFieldText
+
+                                    inputController.ui_library = comboBoxLibrary.currentText;
+                                    inputController.ui_solver = comboBoxSolver.currentText;
+
+                                if(outputController.ui_get_error_message == "") {
+                                    executeButton.enabled = false
+                                    stopButton.enabled = true
+                                    outputController.ui_execute
+                                } else {
+                                    messageDialog.text = outputController.ui_get_error_message
+                                    messageDialog.open()
+                                }
+                                outputController.ui_reset_error
+                            }
+
                         }
 
                     }
