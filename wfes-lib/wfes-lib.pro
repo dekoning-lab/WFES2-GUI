@@ -82,8 +82,8 @@ unix {
     target.path = /usr/lib
 
     INCLUDEPATH += source \
-        ../dependencies/unix \
-        ../dependencies/unix/intel/mkl/include
+        $$PWD/../dependencies/unix \
+        $$PWD/../dependencies/unix/intel/mkl/include
 
 }
 !isEmpty(target.path): INSTALLS += target
