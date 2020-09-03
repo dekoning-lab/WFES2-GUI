@@ -8,6 +8,8 @@
 #include <results/results.h>
 #include <config/config.h>
 
+#include "thread/threadwfessingle.h"
+
 int main(int argc, char *argv[])
 {
     QQuickStyle::setStyle("Universal");
@@ -21,11 +23,11 @@ int main(int argc, char *argv[])
 
     qmlRegisterType<wfes::controllers::OutputController>("WFES", 1, 0, "OutputController");
     qmlRegisterType<wfes::controllers::InputController>("WFES", 1, 0, "InputController");
-    qmlRegisterType<wfes::controllers::WorkerThread>("WFES", 1, 0, "WorkerThread");
+    qmlRegisterType<WorkerThread>("WFES", 1, 0, "WorkerThread");
 
     wfes::controllers::OutputController outputController;
     wfes::controllers::InputController inputController;
-    wfes::controllers::WorkerThread workerThread;
+    WorkerThread workerThread;
 
     QQmlApplicationEngine engine;
     engine.addImportPath("qrc:/");

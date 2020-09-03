@@ -46,6 +46,7 @@ HEADERS += \
     source/model/wright-fisher/rdist.h \
     source/model/wright-fisher/wrightFisher.h \
     source/results/results.h \
+    source/thread/threadwfessingle.h \
     source/utils/exceptions.h \
     source/utils/observer/observer.h \
     source/utils/observer/subject.h \
@@ -71,6 +72,7 @@ SOURCES += \
     source/model/wright-fisher/rdist.cpp \
     source/model/wright-fisher/wrightFisher.cpp \
     source/results/results.cpp \
+    source/thread/threadwfessingle.cpp \
     source/utils/observer/observer.cpp \
     source/utils/observer/subject.cpp \
     source/utils/parsing.cpp \
@@ -84,6 +86,14 @@ unix {
     INCLUDEPATH += source \
         $$PWD/../dependencies/unix \
         $$PWD/../dependencies/unix/intel/mkl/include
+
+}
+
+win32 {
+
+    INCLUDEPATH += source \
+        $$PWD/../dependencies/windows \
+        $$PWD/../dependencies/windows/intel/compilers_and_libraries_2020.3.279/windows/mkl/include
 
 }
 !isEmpty(target.path): INSTALLS += target

@@ -13,7 +13,7 @@ CONFIG -= app_bundle
 
 INCLUDEPATH += source \
     ../wfes-lib/source \
-    ../wfes-lib \
+    ../wfes-lib
 
 LIBS += -L$$PWD/../binaries/$$DESTINATION_PATH -lwfes-lib
 
@@ -41,7 +41,7 @@ unix {
     # TODO Change for compatibility with mac and windows
     LIBS +=  -L$$PWD/../dependencies/unix/intel/mkl/lib/intel64 -Wl,--no-as-needed -lmkl_intel_ilp64 -lmkl_intel_thread -lmkl_core -lpthread -lm -ldl
     LIBS +=  -L$$PWD/../dependencies/unix/intel/lib/intel64 -Wl,--no-as-needed -liomp5
-    LIBS += -L$$PWD/../dependencies/unix/CL/lib/linux/ -lOpenCL
+    LIBS += -L$$PWD/../dependencies/unix/CL/lib/ -lOpenCL
 
     INCLUDEPATH += \
         $$PWD/../dependencies/unix \
@@ -49,4 +49,19 @@ unix {
         $$PWD/../dependencies/unix/CL
 
     DEPENDPATH += $$PWD/../dependencies/unix/CL
+}
+
+win32 {
+
+    # TODO Change for compatibility with mac and windows
+    LIBS +=  -L$$PWD/../dependencies/windows/intel/compilers_and_libraries_2020.3.279/windows/mkl/lib/intel64_win -Wl,--no-as-needed -lmkl_intel_ilp64 -lmkl_intel_thread -lmkl_core -lpthread -lm
+    LIBS +=  -L$$PWD/../dependencies/windows/intel/compilers_and_libraries_2020.3.279/windows/redist/intel64_win/compiler -Wl,--no-as-needed -liomp5md
+    LIBS += -L$$PWD/../dependencies/windows/CL/lib/ -lOpenCL
+
+    INCLUDEPATH += \
+        $$PWD/../dependencies/windows \
+        $$PWD/../dependencies/windows/intel/compilers_and_libraries_2020.3.279/windows/mkl/include \
+        $$PWD/../dependencies/windows/CL
+
+    DEPENDPATH += $$PWD/../dependencies/windows/CL
 }

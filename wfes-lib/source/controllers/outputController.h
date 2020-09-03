@@ -16,49 +16,10 @@
 
 #include "config/config.h"
 
+#include "thread/threadwfessingle.h"
+
 namespace wfes {
     namespace controllers {
-
-        class WorkerThread : public QThread, public Observer
-        {
-            Q_OBJECT
-
-            public:
-                /**
-                 * @brief Store results of an execution.
-                 */
-                Results results = Results();
-
-                bool done = false;
-
-                explicit WorkerThread(QObject* parent = nullptr) : QThread(parent) {}
-
-                ~WorkerThread() {
-                    if (!done)
-                        emit updateProgress(ExecutionStatus::ABORTED);
-                }
-
-                void run() override {
-                        QString result;
-                        wfes_single single = wfes_single();
-                        single.addObserver(this);
-                        results = *single.execute();
-
-                        done = true;
-                        emit resultReady(results);
-                    }
-
-
-                void update(int value) override {
-                    emit updateProgress(value);
-                }
-
-            signals:
-                void resultReady(Results results);
-                void updateProgress(int progress);
-        };
-
-
 
         /**
          * @brief The OutputController class contains output values of the application, e.g., the results of an execution.
@@ -105,7 +66,6 @@ namespace wfes {
                 bool executing;
 
                 WorkerThread* worker;
-
 
                 QString progress = "";
 
