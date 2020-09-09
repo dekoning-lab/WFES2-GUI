@@ -7,6 +7,8 @@
 #include "model/sparse-matrix/sparseMatrix.h"
 #include "utils/utils.h"
 
+#include <boost/math/special_functions/fpclassify.hpp>
+
 using namespace wfes::sparsematrix;
 
 namespace wfes{

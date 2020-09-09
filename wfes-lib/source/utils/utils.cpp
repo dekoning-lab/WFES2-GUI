@@ -148,80 +148,80 @@ void wfes::utils::writeResultsToFile(Results *results, std::string path)
     myfile.open (s + "_Res");
     myfile << "Result, Value" << "\n";
 
-    if(!std::isnan(results->pExt))
+    if(!(boost::math::isnan)(results->pExt))
         myfile << "P_ext, " << results->pExt << "\n";
 
-    if(!std::isnan(results->pFix))
+    if(!(boost::math::isnan)(results->pFix))
         myfile << "P_fix, " << results->pFix << "\n";
 
-    if(!std::isnan(results->tAbs))
+    if(!(boost::math::isnan)(results->tAbs))
         myfile << "T_abs, " << results->tAbs << "\n";
 
-    if(!std::isnan(results->tAbsStd))
+    if(!(boost::math::isnan)(results->tAbsStd))
         myfile << "T_abs_std, " << results->tAbsStd << "\n";
 
-    if(!std::isnan(results->tExt))
+    if(!(boost::math::isnan)(results->tExt))
         myfile << "T_ext, " << results->tExt << "\n";
 
-    if(!std::isnan(results->tExtStd))
+    if(!(boost::math::isnan)(results->tExtStd))
         myfile << "T_ext_std, " << results->tExtStd << "\n";
 
-    if(!std::isnan(results->nExt))
+    if(!(boost::math::isnan)(results->nExt))
         myfile << "N_ext, " << results->nExt << "\n";
 
-    if(!std::isnan(results->tFix))
+    if(!(boost::math::isnan)(results->tFix))
         myfile << "T_fix, " << results->tFix << "\n";
 
-    if(!std::isnan(results->tFixStd))
+    if(!(boost::math::isnan)(results->tFixStd))
         myfile << "T_fix_std, " << results->tFixStd << "\n";
 
-    if(!std::isnan(results->rate))
+    if(!(boost::math::isnan)(results->rate))
         myfile << "Rate, " << results->rate << "\n";
 
-    if(!std::isnan(results->freqMut))
+    if(!(boost::math::isnan)(results->freqMut))
         myfile << "E[freq mut], " << results->freqMut << "\n";
 
-    if(!std::isnan(results->freqWt))
+    if(!(boost::math::isnan)(results->freqWt))
         myfile << "E[freq  wt], " << results->freqWt << "\n";
 
-    if(!std::isnan(results->fEst))
+    if(!(boost::math::isnan)(results->fEst))
         myfile << "F_est, " << results->fEst << "\n";
 
-    if(!std::isnan(results->pEst))
+    if(!(boost::math::isnan)(results->pEst))
         myfile << "P_est, " << results->fEst << "\n";
 
-    if(!std::isnan(results->tSeg))
+    if(!(boost::math::isnan)(results->tSeg))
         myfile << "T_seg, " << results->tSeg << "\n";
 
-    if(!std::isnan(results->tSegStd))
+    if(!(boost::math::isnan)(results->tSegStd))
         myfile << "T_seg_std, " << results->tSegStd << "\n";
 
-    if(!std::isnan(results->tSegExt))
+    if(!(boost::math::isnan)(results->tSegExt))
         myfile << "T_seg_ext, " << results->tSegExt << "\n";
 
-    if(!std::isnan(results->tSegExtStd))
+    if(!(boost::math::isnan)(results->tSegExtStd))
         myfile << "T_seg_ext_std, " << results->tSegExtStd << "\n";
 
-    if(!std::isnan(results->tSegFix))
+    if(!(boost::math::isnan)(results->tSegFix))
         myfile << "T_seg_fix, " << results->tSegFix << "\n";
 
-    if(!std::isnan(results->tSegFixStd))
+    if(!(boost::math::isnan)(results->tSegFixStd))
         myfile << "T_seg_fix_std, " << results->tSegFixStd << "\n";
 
-    if(!std::isnan(results->tEst))
+    if(!(boost::math::isnan)(results->tEst))
         myfile << "T_est, " << results->tEst << "\n";
 
-    if(!std::isnan(results->tEstStd))
+    if(!(boost::math::isnan)(results->tEstStd))
         myfile << "T_est_std, " << results->tEstStd << "\n";
 
-    if(!std::isnan(results->eAlleleAge))
+    if(!(boost::math::isnan)(results->eAlleleAge))
         myfile << "E(A), " << results->eAlleleAge << "\n";
 
-    if(!std::isnan(results->sAlleleAge))
+    if(!(boost::math::isnan)(results->sAlleleAge))
         myfile << "S(A), " << results->sAlleleAge << "\n";
 
 
-    if(!std::isnan(results->time))
+    if(!(boost::math::isnan)(results->time))
         myfile << "Time, " << results->time << "\n";
 
 

@@ -1,10 +1,11 @@
 #include "rdist.h"
 
+
 double q_norm(double p, double mu, double sigma, bool lower_tail, bool log_p)
 {
     double p_, q, r, val;
 
-    if (std::isnan(p) || std::isnan(mu) || std::isnan(sigma)) return p + mu + sigma;
+    if ((boost::math::isnan)(p) || (boost::math::isnan)(mu) || (boost::math::isnan)(sigma)) return p + mu + sigma;
     if (log_p) {
         if(p > 0) return NAN;
         if(p == 0) return lower_tail ? INFINITY : -INFINITY;

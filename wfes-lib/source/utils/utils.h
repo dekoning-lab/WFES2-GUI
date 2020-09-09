@@ -6,6 +6,8 @@
 
 #include <Eigen/Core>
 
+#include <boost/math/special_functions/fpclassify.hpp>
+
 namespace wfes{
     namespace utils{
 

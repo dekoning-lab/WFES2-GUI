@@ -21,20 +21,20 @@ int main(int argc, char *argv[])
     app.setOrganizationName("University of Calgary");
     app.setOrganizationDomain("www.ucalgary.ca");
 
-    qmlRegisterType<wfes::controllers::OutputController>("WFES", 1, 0, "OutputController");
-    qmlRegisterType<wfes::controllers::InputController>("WFES", 1, 0, "InputController");
-    qmlRegisterType<WorkerThread>("WFES", 1, 0, "WorkerThread");
+    //qmlRegisterType<wfes::controllers::OutputController>("WFES", 1, 0, "OutputController");
+    //qmlRegisterType<wfes::controllers::InputController>("WFES", 1, 0, "InputController");
+    //qmlRegisterType<WorkerThread>("WFES", 1, 0, "WorkerThread");
 
-    wfes::controllers::OutputController outputController;
-    wfes::controllers::InputController inputController;
+    //wfes::controllers::OutputController outputController;
+    //wfes::controllers::InputController inputController;
     WorkerThread workerThread;
 
     QQmlApplicationEngine engine;
     engine.addImportPath("qrc:/");
 
-    engine.rootContext()->setContextProperty("outputController", &outputController);
-    engine.rootContext()->setContextProperty("inputController", &inputController);
-    engine.rootContext()->setContextProperty("workerThread", &workerThread);
+    //engine.rootContext()->setContextProperty("outputController", &outputController);
+    //engine.rootContext()->setContextProperty("inputController", &inputController);
+    //engine.rootContext()->setContextProperty("workerThread", &workerThread);
 
     const QUrl url(QStringLiteral("qrc:/views/mainview/MainView.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,

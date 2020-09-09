@@ -11,7 +11,7 @@
 #include <QString>
 #include <QThread>
 
-#include "math.h"
+#include <boost/math/special_functions/fpclassify.hpp>
 #include <boost/format.hpp>
 
 #include "config/config.h"

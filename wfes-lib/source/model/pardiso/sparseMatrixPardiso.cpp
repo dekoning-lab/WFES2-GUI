@@ -169,7 +169,7 @@ bool SparseMatrixPardiso::approxEquals(const SparseMatrix &rhs, double tol, bool
     for (llong i = 0; i < num_rows; ++i) {
         for (llong j = row_index[i]; j < row_index[i + 1]; ++j) {
             double diff = fabs(data[j] - static_cast<const SparseMatrixPardiso&>(rhs).data[j]);
-            if(diff > tol || std::isnan(diff)) {
+            if(diff > tol || (boost::math::isnan)(diff)) {
                 if(verbose) {
                     fprintf(stderr, DPF " != " DPF " [%lld] (" DPF ", " DPF ")\n", data[j], static_cast<const SparseMatrixPardiso&>(rhs).data[j], j, diff, tol);
                 }
@@ -246,7 +246,8 @@ dvec SparseMatrixPardiso::multiply(dvec &x, bool transpose)
     transpose ? assert(x.size() == num_rows) : assert(x.size() == num_cols);
     dvec y(v_size);
 
-    struct matrix_descr descr = {.type = SPARSE_MATRIX_TYPE_GENERAL};
+    struct matrix_descr descr;
+    descr.type = SPARSE_MATRIX_TYPE_GENERAL;
     sparse_operation_t op = transpose ? SPARSE_OPERATION_TRANSPOSE : SPARSE_OPERATION_NON_TRANSPOSE;
 
     mkl_sparse_d_mv(op, 1, handler, descr, x.data(), 0, y.data());
@@ -259,7 +260,8 @@ void SparseMatrixPardiso::multiplyInPlaceRep(dvec &x, int times, bool transpose)
     transpose ? assert(x.size() == num_rows) : assert(x.size() == num_cols);
     dvec workspace(x.size());
 
-    struct matrix_descr descr = {.type = SPARSE_MATRIX_TYPE_GENERAL};
+    struct matrix_descr descr;
+    descr.type = SPARSE_MATRIX_TYPE_GENERAL;
     sparse_operation_t op = transpose ? SPARSE_OPERATION_TRANSPOSE : SPARSE_OPERATION_NON_TRANSPOSE;
 
     for(llong i = 0; i < times; i++) {

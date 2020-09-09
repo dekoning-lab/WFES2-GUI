@@ -10,7 +10,7 @@ CONFIG += c++11
 
 DEFINES += WFESLIB_LIBRARY
 
-QMAKE_CXXFLAGS += -DMKL_ILP64 -m64 -fopenmp
+QMAKE_CXXFLAGS += -DMKL_ILP64 -m64
 
 DESTDIR = $$PWD/../binaries/$$DESTINATION_PATH
 OBJECTS_DIR = $$PWD/build/$$DESTINATION_PATH/.obj
@@ -91,9 +91,24 @@ unix {
 
 win32 {
 
-    INCLUDEPATH += source \
-        $$PWD/../dependencies/windows \
-        $$PWD/../dependencies/windows/intel/compilers_and_libraries_2020.3.279/windows/mkl/include
+    INCLUDEPATH += $$PWD/source/
+    INCLUDEPATH += $$PWD/../dependencies/windows/
+
+    # OpenCL
+    LIBS += -L$$PWD/../dependencies/windows/CL/lib/ -lOpenCL
+    INCLUDEPATH += $$PWD/../dependencies/windows/CL
+    DEPENDPATH += $$PWD/../dependencies/windows/CL
+
+    # Intel MKL
+    LIBS += -L$$PWD/../dependencies/windows/intel/compilers_and_libraries_2020.3.279/windows/mkl/lib/intel64_win/ -Wl,--no-as-needed -lmkl_core_dll
+    LIBS += -L$$PWD/../dependencies/windows/intel/compilers_and_libraries_2020.3.279/windows/mkl/lib/intel64_win/ -Wl,--no-as-needed -lmkl_intel_ilp64_dll
+    LIBS += -L$$PWD/../dependencies/windows/intel/compilers_and_libraries_2020.3.279/windows/mkl/lib/intel64_win/ -Wl,--no-as-needed -lmkl_intel_thread_dll
+    # LIBS += -L$$PWD/../dependencies/windows/intel/compilers_and_libraries_2020.3.279/windows/mkl/lib/intel64_win/ -Wl,--no-as-needed -lpthread
+    # LIBS += -L$$PWD/../dependencies/windows/intel/compilers_and_libraries_2020.3.279/windows/mkl/lib/intel64_win/ -Wl,--no-as-needed -lm
+    LIBS += -L$$PWD/../dependencies/windows/intel/compilers_and_libraries_2020.3.279/windows/compiler/lib/intel64_win/ -Wl,--no-as-needed -llibiomp5md
+    INCLUDEPATH += $$PWD/../dependencies/windows/intel/compilers_and_libraries_2020.3.279/windows/mkl/include
+    DEPENDPATH += $$PWD/../dependencies/windows/intel/compilers_and_libraries_2020.3.279/windows/mkl/include
 
 }
+
 !isEmpty(target.path): INSTALLS += target
