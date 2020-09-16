@@ -16,7 +16,7 @@
 
 #include "config/config.h"
 
-#include <thread/threadwfessingle.h>
+#include "thread/threadwfessingle.h"
 
 namespace wfes {
     namespace controllers {

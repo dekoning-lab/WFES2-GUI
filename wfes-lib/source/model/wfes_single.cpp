@@ -25,7 +25,7 @@ Results* wfes_single::execute()
     #ifdef OMP
         omp_set_num_threads(Config::n_threads);
     #endif
-        //mkl_set_num_threads(Config::n_threads);
+        mkl_set_num_threads(Config::n_threads);
 
     //Notify starting.
     this->notify(ExecutionStatus::STARTING);
