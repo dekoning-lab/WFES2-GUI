@@ -96,7 +96,7 @@ dmat PardisoSolver::solve_multiple(dmat& B, bool transpose)
             X(j, i) = workspace(i * size + j);
         }
     }
-    return X;
+    return B;
 }
 
 dvec PardisoSolver::get_diagonal()

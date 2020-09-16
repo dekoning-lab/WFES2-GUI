@@ -25,7 +25,7 @@ Results* wfes_single::execute()
     #ifdef OMP
         omp_set_num_threads(Config::n_threads);
     #endif
-        mkl_set_num_threads(Config::n_threads);
+        //mkl_set_num_threads(Config::n_threads);
 
     //Notify starting.
     this->notify(ExecutionStatus::STARTING);
@@ -762,8 +762,12 @@ void wfes_single::calculateZ()
         z = 1;
         starting_copies_p[0] = 1;
     } else {
-        for (llong i = 0; starting_copies_p(i) > Config::integration_cutoff; i++) {
-            z++;
+        int i = 0;
+        while(i < starting_copies_p.size()) {
+            if(starting_copies_p(i) > Config::integration_cutoff)
+                z++;
+            else break;
+            i++;
         }
     }
     if (Config::starting_copies)

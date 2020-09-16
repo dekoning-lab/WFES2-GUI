@@ -11,12 +11,12 @@
 #include <QString>
 #include <QThread>
 
-#include <boost/math/special_functions/fpclassify.hpp>
+#include "math.h"
 #include <boost/format.hpp>
 
 #include "config/config.h"
 
-#include "thread/threadwfessingle.h"
+#include <thread/threadwfessingle.h>
 
 namespace wfes {
     namespace controllers {

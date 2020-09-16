@@ -62,14 +62,12 @@ win32 {
     DEPENDPATH += $$PWD/../dependencies/windows/CL
 
     # Intel MKL
-    LIBS += -L$$PWD/../dependencies/windows/intel/compilers_and_libraries_2020.3.279/windows/mkl/lib/intel64_win/ -Wl,--no-as-needed -lmkl_core_dll
-    LIBS += -L$$PWD/../dependencies/windows/intel/compilers_and_libraries_2020.3.279/windows/mkl/lib/intel64_win/ -Wl,--no-as-needed -lmkl_intel_ilp64_dll
-    LIBS += -L$$PWD/../dependencies/windows/intel/compilers_and_libraries_2020.3.279/windows/mkl/lib/intel64_win/ -Wl,--no-as-needed -lmkl_intel_thread_dll
-    # LIBS += -L$$PWD/../dependencies/windows/intel/compilers_and_libraries_2020.3.279/windows/mkl/lib/intel64_win/ -Wl,--no-as-needed -lpthread
-    # LIBS += -L$$PWD/../dependencies/windows/intel/compilers_and_libraries_2020.3.279/windows/mkl/lib/intel64_win/ -Wl,--no-as-needed -lm
-    LIBS += -L$$PWD/../dependencies/windows/intel/compilers_and_libraries_2020.3.279/windows/compiler/lib/intel64_win/ -Wl,--no-as-needed -llibiomp5md
-    INCLUDEPATH += $$PWD/../dependencies/windows/intel/compilers_and_libraries_2020.3.279/windows/mkl/include
-    DEPENDPATH += $$PWD/../dependencies/windows/intel/compilers_and_libraries_2020.3.279/windows/mkl/include
+    LIBS += -L$$PWD/../dependencies/windows/intel/mkl/lib/intel64_win/ -Wl,--no-as-needed -lmkl_core_dll
+    LIBS += -L$$PWD/../dependencies/windows/intel/mkl/lib/intel64_win/ -Wl,--no-as-needed -lmkl_intel_ilp64_dll
+    LIBS += -L$$PWD/../dependencies/windows/intel/mkl/lib/intel64_win/ -Wl,--no-as-needed -lmkl_intel_thread_dll
+    LIBS += -L$$PWD/../dependencies/windows/intel/mkl/compiler/ -Wl,--no-as-needed -llibiomp5md
+    INCLUDEPATH += $$PWD/../dependencies/windows/intel/mkl/include
+    DEPENDPATH += $$PWD/../dependencies/windows/intel/mkl/include
 
 }
 
