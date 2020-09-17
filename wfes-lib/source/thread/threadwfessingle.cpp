@@ -6,8 +6,12 @@ WorkerThread::WorkerThread(QObject *parent) : QThread(parent) {
 }
 
 WorkerThread::~WorkerThread() {
-    if (!done)
+    if (!done) {
+        exit();
         emit updateProgress(ExecutionStatus::ABORTED);
+    } else {
+        exit();
+    }
 }
 
 void WorkerThread::run() {

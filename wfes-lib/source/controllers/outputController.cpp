@@ -6,8 +6,6 @@ OutputController::OutputController(QObject* parent): QObject(parent), executing(
 
 OutputController::~OutputController()
 {
-    worker->quit();
-    worker->wait();
 }
 
 QString OutputController::execute()
@@ -29,6 +27,7 @@ QString OutputController::stop()
     // and the file will be corrupt then. Look for a better way of doing this.
     worker->terminate();
     worker->wait();
+    worker->exit();
 
     return QString();
 }
