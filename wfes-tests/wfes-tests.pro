@@ -40,8 +40,8 @@ unix {
 
     # TODO Change for compatibility with mac and windows
     LIBS +=  -L$$PWD/../dependencies/unix/intel/mkl/lib/intel64 -Wl,--no-as-needed -lmkl_intel_ilp64 -lmkl_intel_thread -lmkl_core -lpthread -lm -ldl
-    LIBS +=  -L$$PWD/../dependencies/unix/intel/lib/intel64 -Wl,--no-as-needed -liomp5
-    LIBS += -L$$PWD/../dependencies/unix/CL/lib/ -lOpenCL
+    LIBS +=  -L$$PWD/../dependencies/unix/intel/mkl/compiler/ -Wl,--no-as-needed -liomp5
+    LIBS += -L$$PWD/../dependencies/unix/CL/lib/linux/ -lOpenCL
 
     INCLUDEPATH += \
         $$PWD/../dependencies/unix \
