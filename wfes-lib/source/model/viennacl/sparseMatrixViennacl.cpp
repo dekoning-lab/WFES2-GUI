@@ -178,7 +178,7 @@ bool SparseMatrixViennaCL::approxEquals(const SparseMatrix &rhs, double tol, boo
     for (int i = 0; i < num_rows; ++i) {
         for (int j = row_index[i]; j < row_index[i + 1]; ++j) {
             double diff = fabs(data[j] - static_cast<const SparseMatrixViennaCL&>(rhs).data[j]);
-            if(diff > tol || std::isnan(diff)) {
+            if(diff > tol || (boost::math::isnan)(diff)) {
                 if(verbose) {
                     fprintf(stderr, DPF " != " DPF " [%lld] (" DPF ", " DPF ")\n", data[j], static_cast<const SparseMatrixViennaCL&>(rhs).data[j], j, diff, tol);
                 }

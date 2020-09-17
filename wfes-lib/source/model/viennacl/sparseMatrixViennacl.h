@@ -15,6 +15,8 @@
 
 #include <memory>
 
+#include <boost/math/special_functions/fpclassify.hpp>
+
 using namespace wfes::sparsematrix;
 
 namespace wfes {

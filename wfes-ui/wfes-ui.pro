@@ -9,7 +9,7 @@ CONFIG += c++11
 
 INCLUDEPATH += source \
     ../wfes-lib \
-    ../wfes-lib/source \
+    ../wfes-lib/source
 
 QMAKE_CXXFLAGS += -DMKL_ILP64 -m64
 
@@ -43,7 +43,7 @@ LIBS += -L$$PWD/../binaries/$$DESTINATION_PATH -lwfes-lib
 QML_IMPORT_PATH = $$PWD
 
 # Additional import path used to resolve QML modules just for Qt Quick Designer
-QML_DESIGNER_IMPORT_PATH =
+#QML_DESIGNER_IMPORT_PATH =
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -64,5 +64,24 @@ unix {
         $$PWD/../dependencies/unix/CL
 
     DEPENDPATH += $$PWD/../dependencies/unix/CL
+}
+
+win32 {
+
+    INCLUDEPATH += $$PWD/source/
+    INCLUDEPATH += $$PWD/../dependencies/windows/
+
+    # OpenCL
+    LIBS += -L$$PWD/../dependencies/windows/CL/lib/ -lOpenCL
+    INCLUDEPATH += $$PWD/../dependencies/windows/CL
+    DEPENDPATH += $$PWD/../dependencies/windows/CL
+
+    # Intel MKL
+    LIBS += -L$$PWD/../dependencies/windows/intel/mkl/lib/intel64_win/ -Wl,--no-as-needed -lmkl_core_dll
+    LIBS += -L$$PWD/../dependencies/windows/intel/mkl/lib/intel64_win/ -Wl,--no-as-needed -lmkl_intel_ilp64_dll
+    LIBS += -L$$PWD/../dependencies/windows/intel/mkl/lib/intel64_win/ -Wl,--no-as-needed -lmkl_intel_thread_dll
+    LIBS += -L$$PWD/../dependencies/windows/intel/mkl/compiler/ -Wl,--no-as-needed -llibiomp5md
+    INCLUDEPATH += $$PWD/../dependencies/windows/intel/mkl/include
+    DEPENDPATH += $$PWD/../dependencies/windows/intel/mkl/include
 }
 

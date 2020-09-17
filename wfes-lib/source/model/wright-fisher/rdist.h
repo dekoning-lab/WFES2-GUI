@@ -1,6 +1,7 @@
 #ifndef RDIST_H
 #define RDIST_H
 
+#include <boost/math/special_functions/fpclassify.hpp>
 #include <cmath>
 #include <cfloat>
 

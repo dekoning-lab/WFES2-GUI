@@ -21,18 +21,15 @@ int main(int argc, char *argv[])
 
     qmlRegisterType<wfes::controllers::OutputController>("WFES", 1, 0, "OutputController");
     qmlRegisterType<wfes::controllers::InputController>("WFES", 1, 0, "InputController");
-    qmlRegisterType<wfes::controllers::WorkerThread>("WFES", 1, 0, "WorkerThread");
 
     wfes::controllers::OutputController outputController;
     wfes::controllers::InputController inputController;
-    wfes::controllers::WorkerThread workerThread;
 
     QQmlApplicationEngine engine;
     engine.addImportPath("qrc:/");
 
     engine.rootContext()->setContextProperty("outputController", &outputController);
     engine.rootContext()->setContextProperty("inputController", &inputController);
-    engine.rootContext()->setContextProperty("workerThread", &workerThread);
 
     const QUrl url(QStringLiteral("qrc:/views/mainview/MainView.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,

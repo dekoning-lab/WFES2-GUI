@@ -18,8 +18,6 @@
 #include <chrono>
 #include <stdexcept>
 
-#include <mkl.h>
-
 #include <Eigen/Core>
 #include <Eigen/Sparse>
 

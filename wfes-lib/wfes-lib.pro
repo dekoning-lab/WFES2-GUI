@@ -10,7 +10,7 @@ CONFIG += c++11
 
 DEFINES += WFESLIB_LIBRARY
 
-QMAKE_CXXFLAGS += -DMKL_ILP64 -m64 -fopenmp
+QMAKE_CXXFLAGS += -DMKL_ILP64 -m64
 
 DESTDIR = $$PWD/../binaries/$$DESTINATION_PATH
 OBJECTS_DIR = $$PWD/build/$$DESTINATION_PATH/.obj
@@ -46,6 +46,7 @@ HEADERS += \
     source/model/wright-fisher/rdist.h \
     source/model/wright-fisher/wrightFisher.h \
     source/results/results.h \
+    source/thread/threadwfessingle.h \
     source/utils/exceptions.h \
     source/utils/observer/observer.h \
     source/utils/observer/subject.h \
@@ -71,6 +72,7 @@ SOURCES += \
     source/model/wright-fisher/rdist.cpp \
     source/model/wright-fisher/wrightFisher.cpp \
     source/results/results.cpp \
+    source/thread/threadwfessingle.cpp \
     source/utils/observer/observer.cpp \
     source/utils/observer/subject.cpp \
     source/utils/parsing.cpp \
@@ -86,4 +88,24 @@ unix {
         $$PWD/../dependencies/unix/intel/mkl/include
 
 }
+
+win32 {
+
+    INCLUDEPATH += $$PWD/source/
+    INCLUDEPATH += $$PWD/../dependencies/windows/
+
+    # OpenCL
+    LIBS += -L$$PWD/../dependencies/windows/CL/lib/ -lOpenCL
+    INCLUDEPATH += $$PWD/../dependencies/windows/CL
+    DEPENDPATH += $$PWD/../dependencies/windows/CL
+
+    # Intel MKL
+    LIBS += -L$$PWD/../dependencies/windows/intel/mkl/lib/intel64_win/ -Wl,--no-as-needed -lmkl_core_dll
+    LIBS += -L$$PWD/../dependencies/windows/intel/mkl/lib/intel64_win/ -Wl,--no-as-needed -lmkl_intel_ilp64_dll
+    LIBS += -L$$PWD/../dependencies/windows/intel/mkl/lib/intel64_win/ -Wl,--no-as-needed -lmkl_intel_thread_dll
+    LIBS += -L$$PWD/../dependencies/windows/intel/mkl/compiler/ -Wl,--no-as-needed -llibiomp5md
+    INCLUDEPATH += $$PWD/../dependencies/windows/intel/mkl/include
+    DEPENDPATH += $$PWD/../dependencies/windows/intel/mkl/include
+}
+
 !isEmpty(target.path): INSTALLS += target

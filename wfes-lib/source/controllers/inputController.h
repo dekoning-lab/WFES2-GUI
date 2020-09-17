@@ -9,9 +9,10 @@
 #include "results/results.h"
 
 #include <QString>
-#include "math.h"
 #include <boost/format.hpp>
 #include <boost/lexical_cast.hpp>
+
+#include <boost/math/special_functions/fpclassify.hpp>
 
 namespace wfes {
     namespace controllers {

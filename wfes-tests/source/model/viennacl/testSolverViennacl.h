@@ -13,7 +13,7 @@
 
 #include <utils/types.h>
 
-#include <math.h>
+#include <cmath>
 
 namespace wfes {
     namespace vienna {

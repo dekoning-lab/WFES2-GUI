@@ -12,7 +12,7 @@ QString InputController::get_n() const
 {
     boost::format fmt = boost::format(DPFS) % (wfes::config::Config::population_size);
 
-    if(isnan(wfes::config::Config::population_size))
+    if((boost::math::isnan)(wfes::config::Config::population_size))
         return "Error";
     else
         return QString::fromStdString(fmt.str());
@@ -39,7 +39,7 @@ QString InputController::get_a() const
 {
     boost::format fmt = boost::format(DPFS) % (wfes::config::Config::a);
 
-    if(isnan(wfes::config::Config::a))
+    if((boost::math::isnan)(wfes::config::Config::a))
         return "Error";
     else
         return QString::fromStdString(fmt.str());
@@ -66,7 +66,7 @@ QString InputController::get_p() const
 {
     boost::format fmt = boost::format(DPFS) % (wfes::config::Config::starting_copies);
 
-    if(isnan(wfes::config::Config::starting_copies))
+    if((boost::math::isnan)(wfes::config::Config::starting_copies))
         return "Error";
     else
         return QString::fromStdString(fmt.str());
@@ -93,7 +93,7 @@ QString InputController::get_c() const
 {
     boost::format fmt = boost::format(DPFS) % (wfes::config::Config::integration_cutoff);
 
-    if(isnan(wfes::config::Config::integration_cutoff))
+    if((boost::math::isnan)(wfes::config::Config::integration_cutoff))
         return "Error";
     else
         return QString::fromStdString(fmt.str());
@@ -120,7 +120,7 @@ QString InputController::get_x() const
 {
     boost::format fmt = boost::format(DPFS) % (wfes::config::Config::observed_copies);
 
-    if(isnan(wfes::config::Config::observed_copies))
+    if((boost::math::isnan)(wfes::config::Config::observed_copies))
         return "Error";
     else
         return QString::fromStdString(fmt.str());
@@ -147,7 +147,7 @@ QString InputController::get_k() const
 {
     boost::format fmt = boost::format(DPFS) % (wfes::config::Config::odds_ratio);
 
-    if(isnan(wfes::config::Config::odds_ratio))
+    if((boost::math::isnan)(wfes::config::Config::odds_ratio))
         return "Error";
     else
         return QString::fromStdString(fmt.str());
@@ -174,7 +174,7 @@ QString InputController::get_u() const
 {
     boost::format fmt = boost::format(DPFS) % (wfes::config::Config::u);
 
-    if(isnan(wfes::config::Config::u))
+    if((boost::math::isnan)(wfes::config::Config::u))
         return "Error";
     else
         return QString::fromStdString(fmt.str());
@@ -202,7 +202,7 @@ QString InputController::get_v() const
 {
     boost::format fmt = boost::format(DPFS) % (wfes::config::Config::v);
 
-    if(isnan(wfes::config::Config::v))
+    if((boost::math::isnan)(wfes::config::Config::v))
         return "Error";
     else
         return QString::fromStdString(fmt.str());
@@ -229,7 +229,7 @@ QString InputController::get_s() const
 {
     boost::format fmt = boost::format(DPFS) % (wfes::config::Config::s);
 
-    if(isnan(wfes::config::Config::s))
+    if((boost::math::isnan)(wfes::config::Config::s))
         return "Error";
     else
         return QString::fromStdString(fmt.str());
@@ -256,7 +256,7 @@ QString InputController::get_h() const
 {
     boost::format fmt = boost::format(DPFS) % (wfes::config::Config::h);
 
-    if(isnan(wfes::config::Config::h))
+    if((boost::math::isnan)(wfes::config::Config::h))
         return "Error";
     else
         return QString::fromStdString(fmt.str());
@@ -283,7 +283,7 @@ QString InputController::get_t() const
 {
     boost::format fmt = boost::format(DPFS) % (wfes::config::Config::n_threads);
 
-    if(isnan(wfes::config::Config::n_threads))
+    if((boost::math::isnan)(wfes::config::Config::n_threads))
         return "Error";
     else
         return QString::fromStdString(fmt.str());
