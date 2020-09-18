@@ -8,6 +8,11 @@
 
 #include <boost/math/special_functions/fpclassify.hpp>
 
+#include <limits>
+
+#include <QDebug>
+#include <QtGui/QImage>
+
 namespace wfes{
     namespace utils{
 
@@ -136,6 +141,12 @@ namespace wfes{
          * @param path Path of the file.
          */
         void writeResultsToFile(Results* results, std::string path);
+
+        /**
+         * @brief Represent the matrix as an image.
+         * @param a Matrix to be represented.
+         */
+        void writeMatrixToImage(const dmat& a);
     }
 }
 

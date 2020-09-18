@@ -333,6 +333,7 @@ Results *wfes_single::fundamental()
 
     if (Config::output_N)
         utils::writeMatrixToFile(N, Config::path_output_N);
+    wfes::utils::writeMatrixToImage(N);
 
     if (Config::output_V) {
         dvec Ndg = (2 * N.diagonal().array()) - 1;

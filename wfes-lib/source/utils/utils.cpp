@@ -1,5 +1,6 @@
 #include "utils.h"
 
+
 void wfes::utils::writeMatrixToFile(const dmat &A, std::string path, bool append)
 {
     if (path == "stdout") {
@@ -227,3 +228,38 @@ void wfes::utils::writeResultsToFile(Results *results, std::string path)
 
     myfile.close();
 }
+
+
+void wfes::utils::writeMatrixToImage(const dmat &a)
+{
+    // Get minimum and maximum value
+    double max = std::numeric_limits<double>::min();
+    double min = std::numeric_limits<double>::max();
+    for(int i = 0; i < a.rows(); i++){
+        for(int j = 0; j < a.cols(); j++){
+            if(a(i, j) < min)
+                min = a(i, j);
+            if(a(i, j) > max)
+                max = a(i, j);
+        }
+    }
+
+    uchar data[a.rows()][a.cols()];
+
+    for(int i = 0; i < a.rows(); i++){
+        for(int j = 0; j < a.cols(); j++){
+            double val = a(j, i) + std::abs(min);
+            val = val * 255;
+            val = val / (std::abs(min + max));
+            data[i][j] = (uchar) val;
+            qDebug() << data[i][j];
+        }
+        qDebug() << "";
+    }
+
+    QImage image(data[0] ,a.cols(), a.rows(),QImage::Format_Indexed8);
+    image = image.mirrored(true, false);
+
+    image.save("saved", "PNG");
+}
+
