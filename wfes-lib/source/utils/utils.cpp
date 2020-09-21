@@ -244,22 +244,23 @@ void wfes::utils::writeMatrixToImage(const dmat &a)
         }
     }
 
-    uchar data[a.rows()][a.cols()];
+    uchar* data = (uchar*) malloc(a.rows() * a.cols() * sizeof(uchar));
 
-    for(int i = 0; i < a.rows(); i++){
-        for(int j = 0; j < a.cols(); j++){
-            double val = a(j, i) + std::abs(min);
-            val = val * 255;
-            val = val / (std::abs(min + max));
-            data[i][j] = (uchar) val;
-            qDebug() << data[i][j];
-        }
-        qDebug() << "";
+    int bytesPerLine = (a.rows() * a.cols() * sizeof(uchar)) / a.cols();
+
+    for(int i = a.rows() * a.cols(); i >= 0 ; i--) {
+        double val = a.data()[i] + std::abs(min);
+        val = val * 255;
+        val = val / (std::abs(min + max));
+        data[i] = (uchar) std::abs(255-(val));
     }
 
-    QImage image(data[0] ,a.cols(), a.rows(),QImage::Format_Indexed8);
-    image = image.mirrored(true, false);
+    QImage image(data, a.cols(), a.rows(), bytesPerLine, QImage::Format_Grayscale8);
 
     image.save("saved", "PNG");
+    qDebug() << "";
+    qDebug() << "";
+    qDebug() << data[0];
+    qDebug() << image.bits()[0];
 }
 
