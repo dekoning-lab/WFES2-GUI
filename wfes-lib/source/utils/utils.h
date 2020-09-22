@@ -143,10 +143,19 @@ namespace wfes{
         void writeResultsToFile(Results* results, std::string path);
 
         /**
-         * @brief Represent the matrix as an image.
+         * @brief Generate an image representation of the matrix as a heatmap.
          * @param a Matrix to be represented.
          */
-        void writeMatrixToImage(const dmat& a);
+        QImage* generateImage(const dmat& a, std::string path);
+
+        /**
+         * @brief Save image on disk, in the specified path.
+         * @param image Image to be saved, as a QImage.
+         * @param path Path of the image.
+         * @return True if the image has been saved sucesfully.
+         */
+        bool saveImage(QImage* image, std::string path);
+
     }
 }
 

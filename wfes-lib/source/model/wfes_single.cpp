@@ -44,10 +44,10 @@ Results* wfes_single::execute()
 
     // All cases (models) are wrapped in this switch instruction.
     switch(Config::modelType) {
-        case ModelType::FIXATION:
-            return this->fixation();
         case ModelType::ABSORPTION:
             return this->absorption();
+        case ModelType::FIXATION:
+            return this->fixation();
         case ModelType::FUNDAMENTAL:
             return this->fundamental();
         case ModelType::EQUILIBRIUM:
@@ -70,77 +70,6 @@ Results* wfes_single::execute()
     // If for some reason the code reaches this line (it shouldn't because all cases are covered by the switch),
     // return default results, which is formed by nan values, so the GUI does not show anything.
     return new Results();
-}
-
-Results *wfes_single::fixation()
-{
-    //Notify building matrix.
-    this->notify(ExecutionStatus::BUILDING_MATRICES);
-
-    wrightfisher::Matrix W = wrightfisher::Single(Config::population_size, Config::population_size, wrightfisher::FIXATION_ONLY, Config::s, Config::h, Config::u, Config::v,
-                              Config::rem, Config::a, Config::verbose, Config::b);
-
-    //Notify saving data.
-    this->notify(ExecutionStatus::SAVING_DATA);
-
-    if (Config::output_Q)
-        W.Q->saveMarket(Config::path_output_Q);
-    if (Config::output_R)
-        utils::writeMatrixToFile(W.R, Config::path_output_R);
-
-    //Notify solving
-    this->notify(ExecutionStatus::SOLVING_MATRICES);
-
-    W.Q->subtractIdentity();
-
-    llong size = (2 * Config::population_size);
-
-    Solver *solver = wfes::solver::SolverFactory::createSolver(Config::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, Config::vienna_solver);
-
-    solver->preprocess();
-
-    dvec id(size);
-    dmat N_mat(1, size);
-
-    id.setZero();
-    id(Config::starting_copies) = 1;
-    N_mat.row(0) = solver->solve(id, true);
-    dvec N1 = N_mat.row(0);
-    dvec N2 = solver->solve(N1, true);
-    double T_fix = N1.sum();
-    double T_var = ((2 * N2.sum()) - N1.sum()) - pow(N1.sum(), 2);
-
-    double rate = 1.0 / T_fix;
-    double T_std = sqrt(T_var);
-
-    //Notify saving data.
-    this->notify(ExecutionStatus::SAVING_DATA);
-
-    if (Config::output_N)
-        utils::writeMatrixToFile(N_mat, Config::path_output_N);
-    if (Config::output_B) {
-        dvec B = dvec::Ones(size);
-        utils::writeVectorToFile(B, Config::path_output_B);
-    }
-
-    delete solver;
-
-    //Notify solving
-    this->notify(ExecutionStatus::SOLVING_MATRICES);
-
-    //Calculate time.
-    t_end = std::chrono::system_clock::now();
-    time_diff dt = t_end - t_start;
-
-    Results* res = new Results(Config::modelType, T_fix, T_std, rate, dt.count());
-
-    if(Config::output_Res)
-       utils::writeResultsToFile(res, Config::path_output_Res);
-
-    //Notify done.
-    this->notify(ExecutionStatus::DONE);
-
-    return res;
 }
 
 Results *wfes_single::absorption()
@@ -294,6 +223,77 @@ Results *wfes_single::absorption()
     return res;
 }
 
+Results *wfes_single::fixation()
+{
+    //Notify building matrix.
+    this->notify(ExecutionStatus::BUILDING_MATRICES);
+
+    wrightfisher::Matrix W = wrightfisher::Single(Config::population_size, Config::population_size, wrightfisher::FIXATION_ONLY, Config::s, Config::h, Config::u, Config::v,
+                              Config::rem, Config::a, Config::verbose, Config::b);
+
+    //Notify saving data.
+    this->notify(ExecutionStatus::SAVING_DATA);
+
+    if (Config::output_Q)
+        W.Q->saveMarket(Config::path_output_Q);
+    if (Config::output_R)
+        utils::writeMatrixToFile(W.R, Config::path_output_R);
+
+    //Notify solving
+    this->notify(ExecutionStatus::SOLVING_MATRICES);
+
+    W.Q->subtractIdentity();
+
+    llong size = (2 * Config::population_size);
+
+    Solver *solver = wfes::solver::SolverFactory::createSolver(Config::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, Config::vienna_solver);
+
+    solver->preprocess();
+
+    dvec id(size);
+    dmat N_mat(1, size);
+
+    id.setZero();
+    id(Config::starting_copies) = 1;
+    N_mat.row(0) = solver->solve(id, true);
+    dvec N1 = N_mat.row(0);
+    dvec N2 = solver->solve(N1, true);
+    double T_fix = N1.sum();
+    double T_var = ((2 * N2.sum()) - N1.sum()) - pow(N1.sum(), 2);
+
+    double rate = 1.0 / T_fix;
+    double T_std = sqrt(T_var);
+
+    //Notify saving data.
+    this->notify(ExecutionStatus::SAVING_DATA);
+
+    if (Config::output_N)
+        utils::writeMatrixToFile(N_mat, Config::path_output_N);
+    if (Config::output_B) {
+        dvec B = dvec::Ones(size);
+        utils::writeVectorToFile(B, Config::path_output_B);
+    }
+
+    delete solver;
+
+    //Notify solving
+    this->notify(ExecutionStatus::SOLVING_MATRICES);
+
+    //Calculate time.
+    t_end = std::chrono::system_clock::now();
+    time_diff dt = t_end - t_start;
+
+    Results* res = new Results(Config::modelType, T_fix, T_std, rate, dt.count());
+
+    if(Config::output_Res)
+       utils::writeResultsToFile(res, Config::path_output_Res);
+
+    //Notify done.
+    this->notify(ExecutionStatus::DONE);
+
+    return res;
+}
+
 Results *wfes_single::fundamental()
 {
 
@@ -333,7 +333,6 @@ Results *wfes_single::fundamental()
 
     if (Config::output_N)
         utils::writeMatrixToFile(N, Config::path_output_N);
-    wfes::utils::writeMatrixToImage(N);
 
     if (Config::output_V) {
         dvec Ndg = (2 * N.diagonal().array()) - 1;
@@ -351,7 +350,7 @@ Results *wfes_single::fundamental()
     //Notify done.
     this->notify(ExecutionStatus::DONE);
 
-    return new Results(dt.count());
+    return new Results(Config::modelType, dt.count());
 }
 
 Results *wfes_single::equilibrium()

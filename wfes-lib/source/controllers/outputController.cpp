@@ -301,6 +301,5 @@ bool OutputController::get_not_exec() const
 
 QString OutputController::get_progress() const
 {
-    qDebug() << this->progress;
     return this->progress;
 }

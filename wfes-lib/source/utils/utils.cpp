@@ -230,7 +230,7 @@ void wfes::utils::writeResultsToFile(Results *results, std::string path)
 }
 
 
-void wfes::utils::writeMatrixToImage(const dmat &a)
+QImage* wfes::utils::generateImage(const dmat &a, std::string path)
 {
     // Get minimum and maximum value
     double max = std::numeric_limits<double>::min();
@@ -244,23 +244,32 @@ void wfes::utils::writeMatrixToImage(const dmat &a)
         }
     }
 
+    // Allocate vector of uchar to store pixel values.
     uchar* data = (uchar*) malloc(a.rows() * a.cols() * sizeof(uchar));
 
-    int bytesPerLine = (a.rows() * a.cols() * sizeof(uchar)) / a.cols();
+    // Get number of bytes per each row.
+    int bytesPerLine = (a.rows() * a.cols() * sizeof(uchar)) / a.rows();
 
+    // Calculate pixel values using min and max.
     for(int i = a.rows() * a.cols(); i >= 0 ; i--) {
         double val = a.data()[i] + std::abs(min);
         val = val * 255;
         val = val / (std::abs(min + max));
+        // Invert pixel values so higher values are darker.
         data[i] = (uchar) std::abs(255-(val));
+        //qDebug() << data[i];
     }
 
-    QImage image(data, a.cols(), a.rows(), bytesPerLine, QImage::Format_Grayscale8);
+    // Create QImage using vector of pixels.
+    QImage* image = new QImage(data, a.cols(), a.rows(), bytesPerLine, QImage::Format_Grayscale8);
 
-    image.save("saved", "PNG");
-    qDebug() << "";
-    qDebug() << "";
-    qDebug() << data[0];
-    qDebug() << image.bits()[0];
+    free(data);
+
+    return image;
 }
 
+
+bool wfes::utils::saveImage(QImage *image, std::string path)
+{
+    return image->save(QString::fromStdString(path), "PNG");
+}

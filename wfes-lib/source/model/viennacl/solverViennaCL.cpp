@@ -9,10 +9,11 @@ SolverViennaCL::SolverViennaCL(SparseMatrixViennaCL &A, std::string solver, std:
 #ifdef VIENNACL_WITH_OPENMP
     omp_set_num_threads(wfes::config::Config::n_threads);
 #endif
-
+/*
 #ifdef VIENNACL_WITH_OPENCL
     qDebug() << QString::fromStdString(viennacl::ocl::current_device().info());
 #endif
+*/
 }
 
 SolverViennaCL::~SolverViennaCL()
@@ -137,9 +138,6 @@ dvec SolverViennaCL::solve_bicgstab(dvec &b, bool transpose)
     }
     auto finish = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> elapsed = finish - start;
-
-    qDebug() << "Elapsed time: " << elapsed.count();
-
 
     dvec res = dvec(b.size());
     copy(vcl_res, res);

@@ -1,5 +1,6 @@
 #include "results.h"
 
+// Empty constructor
 Results::Results() :
     modelType(wfes::config::NONE), pExt(std::nan("")), pFix(std::nan("")), tAbs(std::nan("")),
       tAbsStd(std::nan("")), tExt(std::nan("")), tExtStd(std::nan("")), nExt(std::nan("")),
@@ -13,11 +14,9 @@ Results::Results() :
 
       eAlleleAge(std::nan("")), sAlleleAge(std::nan("")),
 
-      time(std::nan(""))
-{
+      time(std::nan("")) {}
 
-}
-
+// Empty constructor with time
 Results::Results(double time)  :
     modelType(wfes::config::NONE), pExt(std::nan("")), pFix(std::nan("")), tAbs(std::nan("")),
       tAbsStd(std::nan("")), tExt(std::nan("")), tExtStd(std::nan("")), nExt(std::nan("")),
@@ -31,12 +30,12 @@ Results::Results(double time)  :
 
       eAlleleAge(std::nan("")), sAlleleAge(std::nan("")),
 
-      time(time)
-{
+      time(time) {}
 
-}
-
-Results::Results(wfes::config::ModelType modelType, double pExt, double pFix, double tAbs, double tAbsStd, double tExt, double tExtStd, double nExt, double tFix, double tFixStd, double time) :
+// Absorption
+Results::Results(wfes::config::ModelType modelType, double pExt,
+                 double pFix, double tAbs, double tAbsStd, double tExt,
+                 double tExtStd, double nExt, double tFix, double tFixStd, double time) :
     modelType(modelType), pExt(pExt), pFix(pFix), tAbs(tAbs), tAbsStd(tAbsStd),
     tExt(tExt), tExtStd(tExtStd), nExt(nExt), tFix(tFix), tFixStd(tFixStd), rate(std::nan("")),
 
@@ -48,47 +47,9 @@ Results::Results(wfes::config::ModelType modelType, double pExt, double pFix, do
 
     eAlleleAge(std::nan("")), sAlleleAge(std::nan("")),
 
-    time(time)
-{
+    time(time) {}
 
-}
-
-Results::Results(wfes::config::ModelType modelType, double freqMut, double freqWt, double time) :
-    modelType(modelType), pExt(std::nan("")), pFix(std::nan("")), tAbs(std::nan("")),
-    tAbsStd(std::nan("")), tExt(std::nan("")), tExtStd(std::nan("")), nExt(std::nan("")),
-    tFix(std::nan("")), tFixStd(std::nan("")), rate(std::nan("")),
-
-    freqMut(freqMut), freqWt(freqWt),
-
-    fEst(std::nan("")), pEst(std::nan("")), tSeg(std::nan("")), tSegStd(std::nan("")),
-    tSegExt(std::nan("")), tSegExtStd(std::nan("")), tSegFix(std::nan("")), tSegFixStd(std::nan("")),
-    tEst(std::nan("")), tEstStd(std::nan("")),
-
-    eAlleleAge(std::nan("")), sAlleleAge(std::nan("")),
-
-    time(time)
-{
-
-}
-
-Results::Results(wfes::config::ModelType modelType, double eAlleleAge, double sAlleleAge, bool allele, double time) :
-    modelType(modelType), pExt(std::nan("")), pFix(std::nan("")), tAbs(std::nan("")),
-      tAbsStd(std::nan("")), tExt(std::nan("")), tExtStd(std::nan("")), nExt(std::nan("")),
-      tFix(std::nan("")), tFixStd(std::nan("")), rate(std::nan("")),
-
-      freqMut(std::nan("")), freqWt(std::nan("")),
-
-      fEst(std::nan("")), pEst(std::nan("")), tSeg(std::nan("")), tSegStd(std::nan("")),
-      tSegExt(std::nan("")), tSegExtStd(std::nan("")), tSegFix(std::nan("")), tSegFixStd(std::nan("")),
-      tEst(std::nan("")), tEstStd(std::nan("")),
-
-      eAlleleAge(eAlleleAge), sAlleleAge(sAlleleAge),
-
-      time(time)
-{
-
-}
-
+// Fixation
 Results::Results(wfes::config::ModelType modelType, double tFix, double tFixStd, double rate, double time) :
     modelType(modelType), pExt(std::nan("")), pFix(std::nan("")), tAbs(std::nan("")),
       tAbsStd(std::nan("")), tExt(std::nan("")), tExtStd(std::nan("")), nExt(std::nan("")),
@@ -102,11 +63,41 @@ Results::Results(wfes::config::ModelType modelType, double tFix, double tFixStd,
 
       eAlleleAge(std::nan("")), sAlleleAge(std::nan("")),
 
-      time(time)
-{
+      time(time) {}
 
-}
+// Fundamental
+Results::Results(wfes::config::ModelType modelType, double time) :
+    modelType(modelType), pExt(std::nan("")), pFix(std::nan("")), tAbs(std::nan("")),
+      tAbsStd(std::nan("")), tExt(std::nan("")), tExtStd(std::nan("")), nExt(std::nan("")),
+      tFix(std::nan("")), tFixStd(std::nan("")), rate(std::nan("")),
 
+      freqMut(std::nan("")), freqWt(std::nan("")),
+
+      fEst(std::nan("")), pEst(std::nan("")), tSeg(std::nan("")), tSegStd(std::nan("")),
+      tSegExt(std::nan("")), tSegExtStd(std::nan("")), tSegFix(std::nan("")), tSegFixStd(std::nan("")),
+      tEst(std::nan("")), tEstStd(std::nan("")),
+
+      eAlleleAge(std::nan("")), sAlleleAge(std::nan("")),
+
+      time(time) {}
+
+// Equilibrium
+Results::Results(wfes::config::ModelType modelType, double freqMut, double freqWt, double time) :
+    modelType(modelType), pExt(std::nan("")), pFix(std::nan("")), tAbs(std::nan("")),
+    tAbsStd(std::nan("")), tExt(std::nan("")), tExtStd(std::nan("")), nExt(std::nan("")),
+    tFix(std::nan("")), tFixStd(std::nan("")), rate(std::nan("")),
+
+    freqMut(freqMut), freqWt(freqWt),
+
+    fEst(std::nan("")), pEst(std::nan("")), tSeg(std::nan("")), tSegStd(std::nan("")),
+    tSegExt(std::nan("")), tSegExtStd(std::nan("")), tSegFix(std::nan("")), tSegFixStd(std::nan("")),
+    tEst(std::nan("")), tEstStd(std::nan("")),
+
+    eAlleleAge(std::nan("")), sAlleleAge(std::nan("")),
+
+    time(time) {}
+
+// Establishment
 Results::Results(wfes::config::ModelType modelType, double fEst, double pEst, double tSeg, double tSegStd, double tSegExt, double tSegExtStd, double tSegFix, double tSegFixStd, double tEst, double tEstStd, double time) :
       modelType(modelType), pExt(std::nan("")), pFix(std::nan("")), tAbs(std::nan("")),
       tAbsStd(std::nan("")), tExt(std::nan("")), tExtStd(std::nan("")), nExt(std::nan("")),
@@ -120,9 +111,37 @@ Results::Results(wfes::config::ModelType modelType, double fEst, double pEst, do
 
       eAlleleAge(std::nan("")), sAlleleAge(std::nan("")),
 
-      time(time)
+      time(time) {}
 
-{
+// Allele Age
+Results::Results(wfes::config::ModelType modelType, double eAlleleAge, double sAlleleAge, bool allele, double time) :
+    modelType(modelType), pExt(std::nan("")), pFix(std::nan("")), tAbs(std::nan("")),
+      tAbsStd(std::nan("")), tExt(std::nan("")), tExtStd(std::nan("")), nExt(std::nan("")),
+      tFix(std::nan("")), tFixStd(std::nan("")), rate(std::nan("")),
 
-}
+      freqMut(std::nan("")), freqWt(std::nan("")),
+
+      fEst(std::nan("")), pEst(std::nan("")), tSeg(std::nan("")), tSegStd(std::nan("")),
+      tSegExt(std::nan("")), tSegExtStd(std::nan("")), tSegFix(std::nan("")), tSegFixStd(std::nan("")),
+      tEst(std::nan("")), tEstStd(std::nan("")),
+
+      eAlleleAge(eAlleleAge), sAlleleAge(sAlleleAge),
+
+      time(time) {}
+
+Results::Results(wfes::config::ModelType modelType, bool nonAbsorbing, double time) :
+    modelType(modelType), pExt(std::nan("")), pFix(std::nan("")), tAbs(std::nan("")),
+      tAbsStd(std::nan("")), tExt(std::nan("")), tExtStd(std::nan("")), nExt(std::nan("")),
+      tFix(std::nan("")), tFixStd(std::nan("")), rate(std::nan("")),
+
+      freqMut(std::nan("")), freqWt(std::nan("")),
+
+      fEst(std::nan("")), pEst(std::nan("")), tSeg(std::nan("")), tSegStd(std::nan("")),
+      tSegExt(std::nan("")), tSegExtStd(std::nan("")), tSegFix(std::nan("")), tSegFixStd(std::nan("")),
+      tEst(std::nan("")), tEstStd(std::nan("")),
+
+      eAlleleAge(std::nan("")), sAlleleAge(std::nan("")),
+
+      time(time) {}
+
 
