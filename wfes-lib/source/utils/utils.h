@@ -146,7 +146,7 @@ namespace wfes{
          * @brief Generate an image representation of the matrix as a heatmap.
          * @param a Matrix to be represented.
          */
-        QImage* generateImage(const dmat& a, std::string path);
+        QImage* generateImage(const dmat& a);
 
         /**
          * @brief Save image on disk, in the specified path.

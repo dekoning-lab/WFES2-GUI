@@ -235,6 +235,52 @@ namespace wfes {
                  * @brief Error messages to show if there is an error.
                  */
                 static std::string error;
+
+                /**
+                 * @brief Save matrix I (Initial probability distribution) as image for visualization.
+                 */
+                static bool saveImageI;
+
+                /**
+                 * @brief Save matrix Q as image for visualization.
+                 */
+                static bool saveImageQ;
+
+                /**
+                 * @brief Save matrix R as image for visualization.
+                 */
+                static bool saveImageR;
+
+                /**
+                 * @brief Save matrix N as image for visualization.
+                 */
+                static bool saveImageN;
+
+                /**
+                 * @brief Save matrix N_Ext (extintion-conditional sojourn) as image for visualization.
+                 */
+                static bool saveImageNExt;
+
+                /**
+                 * @brief Save matrix N_fix (fixation-conditional sojourn) as image for visualization.
+                 */
+                static bool saveImageNFix;
+
+                /**
+                 * @brief Save matrix B as image for visualization.
+                 */
+                static bool saveImageB;
+
+                /**
+                 * @brief Save matrix V (Variance time matrix) as image for visualization (Fundamental mode only).
+                 */
+                static bool saveImageV;
+
+                /**
+                 * @brief Save matrix E (Equilibrium frequencies) as image for visualization (Equilibrium mode only).
+                 */
+                static bool saveImageE;
+
         };
     }
 }

@@ -74,7 +74,6 @@ Results* wfes_single::execute()
 
 Results *wfes_single::absorption()
 {
-
     //Notify building matrix.
     this->notify(ExecutionStatus::BUILDING_MATRICES);
 
@@ -193,6 +192,8 @@ Results *wfes_single::absorption()
     //Notify saving data.
     this->notify(ExecutionStatus::SAVING_DATA);
 
+    //Save data into file.
+    dmat B(size, 2);
     if (Config::output_N)
         utils::writeMatrixToFile(N_mat, Config::path_output_N);
     if (Config::output_N_ext)
@@ -200,7 +201,6 @@ Results *wfes_single::absorption()
     if (Config::output_N_fix)
         utils::writeMatrixToFile(E_fix_mat, Config::path_output_N_fix);
     if (Config::output_B) {
-        dmat B(size, 2);
         B.col(0) = B_ext;
         B.col(1) = B_fix;
         utils::writeMatrixToFile(B, Config::path_output_B);
@@ -212,7 +212,40 @@ Results *wfes_single::absorption()
     t_end = std::chrono::system_clock::now();
     time_diff dt = t_end - t_start;
 
-    Results* res = new Results(Config::modelType, P_ext, P_fix, T_abs, T_abs_std, T_ext, T_ext_std, N_ext, T_fix, T_fix_std, dt.count());
+    // Generate images from matrices and save to file.
+    QImage *imageI = nullptr, *imageQ = nullptr, *imageR = nullptr, *imageN = nullptr, *imageNExt = nullptr, *imageNFix = nullptr, *imageB = nullptr;
+    if(Config::saveImageI) {
+        imageI = utils::generateImage(starting_copies_p);
+        utils::saveImage(imageI, "Image_I");
+    }
+    if(Config::saveImageQ) {
+        imageQ = utils::generateImage(W.Q->dense());
+        utils::saveImage(imageQ, "Image_Q");
+    }
+    if(Config::saveImageR) {
+        imageR = utils::generateImage(W.R);
+        utils::saveImage(imageR, "Image_R");
+    }
+    if(Config::saveImageN) {
+        imageN = utils::generateImage(N_mat);
+        utils::saveImage(imageN, "Image_N");
+    }
+    if(Config::saveImageNExt) {
+        imageNExt = utils::generateImage(E_ext_mat);
+        utils::saveImage(imageNExt, "Image_NExt");
+    }
+    if(Config::saveImageNFix) {
+        imageNFix = utils::generateImage(E_fix_mat);
+        utils::saveImage(imageNFix, "Image_NFix");
+    }
+    if(Config::saveImageB) {
+        B.col(0) = B_ext;
+        B.col(1) = B_fix;
+        imageB = utils::generateImage(B);
+        utils::saveImage(imageB, "Image_B");
+    }
+
+    Results* res = new Results(Config::modelType, P_ext, P_fix, T_abs, T_abs_std, T_ext, T_ext_std, N_ext, T_fix, T_fix_std, dt.count(), imageI, imageQ, imageR, imageN, imageNExt, imageNFix, imageB);
 
     if(Config::output_Res)
        utils::writeResultsToFile(res, Config::path_output_Res);
@@ -267,10 +300,11 @@ Results *wfes_single::fixation()
     //Notify saving data.
     this->notify(ExecutionStatus::SAVING_DATA);
 
+    //Save data into file.
+    dvec B = dvec::Ones(size);
     if (Config::output_N)
         utils::writeMatrixToFile(N_mat, Config::path_output_N);
     if (Config::output_B) {
-        dvec B = dvec::Ones(size);
         utils::writeVectorToFile(B, Config::path_output_B);
     }
 
@@ -283,7 +317,29 @@ Results *wfes_single::fixation()
     t_end = std::chrono::system_clock::now();
     time_diff dt = t_end - t_start;
 
-    Results* res = new Results(Config::modelType, T_fix, T_std, rate, dt.count());
+    // Generate images from matrices and save to file.
+    QImage *imageI = nullptr, *imageQ = nullptr, *imageR = nullptr, *imageN = nullptr, *imageB = nullptr;
+    if(Config::saveImageI) {
+        imageI = utils::generateImage(starting_copies_p);
+        utils::saveImage(imageI, "Image_I");
+    }
+    if(Config::saveImageQ) {
+        imageQ = utils::generateImage(W.Q->dense());
+        utils::saveImage(imageQ, "Image_Q");
+    }
+    if(Config::saveImageR) {
+        imageR = utils::generateImage(W.R);
+        utils::saveImage(imageR, "Image_R");
+    }
+    if(Config::saveImageN) {
+        imageN = utils::generateImage(N_mat);
+        utils::saveImage(imageN, "Image_N");
+    }
+    if(Config::saveImageB) {
+        imageB = utils::generateImage(B);
+        utils::saveImage(imageB, "Image_B");
+    }
+    Results* res = new Results(Config::modelType, T_fix, T_std, rate, dt.count(), imageI, imageQ, imageR, imageN, imageB);
 
     if(Config::output_Res)
        utils::writeResultsToFile(res, Config::path_output_Res);
@@ -331,13 +387,14 @@ Results *wfes_single::fundamental()
     //Notify saving data.
     this->notify(ExecutionStatus::SAVING_DATA);
 
+    //Save data into file.
+    dmat V;
     if (Config::output_N)
         utils::writeMatrixToFile(N, Config::path_output_N);
-
     if (Config::output_V) {
         dvec Ndg = (2 * N.diagonal().array()) - 1;
         dmat Nsq = N.array().square();
-        dmat V = (N * diagmat(Ndg)) - Nsq;
+        V = (N * diagmat(Ndg)) - Nsq;
 
         utils::writeMatrixToFile(V, Config::path_output_V);
     }
@@ -350,7 +407,33 @@ Results *wfes_single::fundamental()
     //Notify done.
     this->notify(ExecutionStatus::DONE);
 
-    return new Results(Config::modelType, dt.count());
+    // Generate images from matrices and save to file.
+    QImage *imageI = nullptr, *imageQ = nullptr, *imageR = nullptr, *imageN = nullptr, *imageV = nullptr;
+    if(Config::saveImageI) {
+        imageI = utils::generateImage(starting_copies_p);
+        utils::saveImage(imageI, "Image_I");
+    }
+    if (Config::saveImageQ) {
+        imageQ = utils::generateImage(W.Q->dense());
+        utils::saveImage(imageQ, "Image_Q");
+    }
+    if (Config::saveImageR) {
+        imageR = utils::generateImage(W.R);
+        utils::saveImage(imageR, "Image_R");
+    }
+    if(Config::saveImageN) {
+        imageN = utils::generateImage(N);
+        utils::saveImage(imageN, "Image_N");
+    }
+    if(Config::saveImageV) {
+        dvec Ndg = (2 * N.diagonal().array()) - 1;
+        dmat Nsq = N.array().square();
+        V = (N * diagmat(Ndg)) - Nsq;
+        imageV = utils::generateImage(V);
+        utils::saveImage(imageV, "Image_V");
+    }
+
+    return new Results(Config::modelType, dt.count(), imageI, imageQ, imageR, imageN, imageV);
 }
 
 Results *wfes_single::equilibrium()
@@ -375,6 +458,7 @@ Results *wfes_single::equilibrium()
     //Notify saving data.
     this->notify(ExecutionStatus::SAVING_DATA);
 
+    //Save data into file.
     if (Config::output_E) {
         utils::writeVectorToFile(pi, Config::path_output_E);
     }
@@ -395,7 +479,17 @@ Results *wfes_single::equilibrium()
     t_end = std::chrono::system_clock::now();
     time_diff dt = t_end - t_start;
 
-    Results* res = new Results(Config::modelType, e_freq, (1.0 - e_freq), dt.count());
+    // Generate images from matrices and save to file.
+    QImage *imageI = nullptr, *imageE = nullptr;
+    if(Config::saveImageI) {
+        imageI = utils::generateImage(starting_copies_p);
+        utils::saveImage(imageI, "Image_I");
+    }
+    if(Config::saveImageE) {
+        imageE = utils::generateImage(pi);
+        utils::saveImage(imageE, "Image_E");
+    }
+    Results* res = new Results(Config::modelType, e_freq, (1.0 - e_freq), dt.count(), imageI, imageE);
 
     //Notify saving data.
     this->notify(ExecutionStatus::SAVING_DATA);
@@ -486,6 +580,7 @@ Results *wfes_single::establishment()
     //Notify saving data.
     this->notify(ExecutionStatus::SAVING_DATA);
 
+    //Save data into file.
     if (Config::output_Q)
         W_tr.Q->saveMarket(Config::path_output_Q);
     if (Config::output_R)
@@ -581,8 +676,23 @@ Results *wfes_single::establishment()
     t_end = std::chrono::system_clock::now();
     time_diff dt = t_end - t_start;
 
+    // Generate images from matrices and save to file.
+    QImage *imageI = nullptr, *imageQ = nullptr, *imageR = nullptr;
+    if(Config::saveImageI) {
+        imageI = utils::generateImage(starting_copies_p);
+        utils::saveImage(imageI, "Image_I");
+    }
+    if(Config::saveImageQ) {
+        imageQ = utils::generateImage(W_tr.Q->dense());
+        utils::saveImage(imageQ, "Image_Q");
+    }
+    if(Config::saveImageR) {
+        imageR = utils::generateImage(W_tr.R);
+        utils::saveImage(imageR, "Image_R");
+    }
+
     Results* res = new Results(Config::modelType, est_freq, P_est, T_seg, T_seg_std,
-                               T_seg_ext, T_seg_ext_std, T_seg_fix, T_seg_fix_std, T_est, T_est_std, dt.count());
+                               T_seg_ext, T_seg_ext_std, T_seg_fix, T_seg_fix_std, T_est, T_est_std, dt.count(), imageI, imageQ, imageR);
 
     //Notify saving data.
     this->notify(ExecutionStatus::SAVING_DATA);
@@ -669,7 +779,22 @@ Results *wfes_single::alleleAge()
     t_end = std::chrono::system_clock::now();
     time_diff dt = t_end - t_start;
 
-    Results* res = new Results(Config::modelType, E_allele_age, S_allele_age, true, dt.count());
+    // Generate images from matrices and save to file.
+    QImage *imageI = nullptr, *imageQ = nullptr, *imageR = nullptr;
+    if(Config::saveImageI) {
+        imageI = utils::generateImage(starting_copies_p);
+        utils::saveImage(imageI, "Image_I");
+    }
+    if(Config::saveImageQ) {
+        imageQ = utils::generateImage(W.Q->dense());
+        utils::saveImage(imageQ, "Image_Q");
+    }
+    if(Config::saveImageR) {
+        imageR = utils::generateImage(W.R);
+        utils::saveImage(imageR, "Image_R");
+    }
+
+    Results* res = new Results(Config::modelType, E_allele_age, S_allele_age, true, dt.count(), imageI, imageQ, imageR);
 
     //Notify saving data.
     this->notify(ExecutionStatus::SAVING_DATA);
@@ -696,6 +821,7 @@ Results *wfes_single::nonAbsorbing()
     //Notify saving data.
     this->notify(ExecutionStatus::SAVING_DATA);
 
+    //Save data into file.
     if (Config::output_Q)
         W.Q->saveMarket(Config::path_output_Q);
 
@@ -706,7 +832,19 @@ Results *wfes_single::nonAbsorbing()
     //Notify done.
     this->notify(ExecutionStatus::DONE);
 
-    return new Results(dt.count());
+    // Generate images from matrices and save to file.
+    //TODO Set if show and print from GUI.
+    QImage *imageI = nullptr, *imageQ = nullptr;
+    if(Config::saveImageI) {
+        imageI = utils::generateImage(starting_copies_p);
+        utils::saveImage(imageI, "Image_I");
+    }
+    if(Config::saveImageQ) {
+        imageQ = utils::generateImage(W.Q->dense());
+        utils::saveImage(imageQ, "Image_Q");
+    }
+
+    return new Results(Config::modelType, true, dt.count(), imageI, imageQ);
 }
 
 void wfes_single::force()

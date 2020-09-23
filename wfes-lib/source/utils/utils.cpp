@@ -230,7 +230,7 @@ void wfes::utils::writeResultsToFile(Results *results, std::string path)
 }
 
 
-QImage* wfes::utils::generateImage(const dmat &a, std::string path)
+QImage* wfes::utils::generateImage(const dmat &a)
 {
     // Get minimum and maximum value
     double max = std::numeric_limits<double>::min();
@@ -262,8 +262,6 @@ QImage* wfes::utils::generateImage(const dmat &a, std::string path)
 
     // Create QImage using vector of pixels.
     QImage* image = new QImage(data, a.cols(), a.rows(), bytesPerLine, QImage::Format_Grayscale8);
-
-    free(data);
 
     return image;
 }
