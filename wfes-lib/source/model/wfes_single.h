@@ -40,9 +40,9 @@ class wfes_single : public Subject{
 
         Results* execute();
 
-        Results* fixation();
-
         Results* absorption();
+
+        Results* fixation();
 
         Results* fundamental();
 

@@ -1,7 +1,7 @@
 include(../qmake-target-platform.pri)
 include(../qmake-destination-path.pri)
 
-QT -= gui
+QT += gui
 
 TARGET = wfes-lib
 TEMPLATE = lib

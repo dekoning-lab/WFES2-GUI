@@ -8,6 +8,11 @@
 
 #include <boost/math/special_functions/fpclassify.hpp>
 
+#include <limits>
+
+#include <QDebug>
+#include <QtGui/QImage>
+
 namespace wfes{
     namespace utils{
 
@@ -136,6 +141,21 @@ namespace wfes{
          * @param path Path of the file.
          */
         void writeResultsToFile(Results* results, std::string path);
+
+        /**
+         * @brief Generate an image representation of the matrix as a heatmap.
+         * @param a Matrix to be represented.
+         */
+        QImage* generateImage(const dmat& a);
+
+        /**
+         * @brief Save image on disk, in the specified path.
+         * @param image Image to be saved, as a QImage.
+         * @param path Path of the image.
+         * @return True if the image has been saved sucesfully.
+         */
+        bool saveImage(QImage* image, std::string path);
+
     }
 }
 

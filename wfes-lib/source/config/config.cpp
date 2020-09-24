@@ -48,6 +48,16 @@ bool Config::force = false;
 bool Config::verbose = false;
 bool Config::help = false;
 
+bool Config::saveImageI = false;
+bool Config::saveImageQ = false;
+bool Config::saveImageR = false;
+bool Config::saveImageN = false;
+bool Config::saveImageNExt = false;
+bool Config::saveImageNFix = false;
+bool Config::saveImageB = false;
+bool Config::saveImageV = false;
+bool Config::saveImageE = false;
+
 std::string Config::error = "";
 
 Config::Config() {
