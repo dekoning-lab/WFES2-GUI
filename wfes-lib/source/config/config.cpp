@@ -48,15 +48,15 @@ bool Config::force = false;
 bool Config::verbose = false;
 bool Config::help = false;
 
-bool Config::saveImageI = true;
-bool Config::saveImageQ = true;
-bool Config::saveImageR = true;
-bool Config::saveImageN = true;
-bool Config::saveImageNExt = true;
-bool Config::saveImageNFix = true;
-bool Config::saveImageB = true;
-bool Config::saveImageV = true;
-bool Config::saveImageE = true;
+bool Config::saveImageI = false;
+bool Config::saveImageQ = false;
+bool Config::saveImageR = false;
+bool Config::saveImageN = false;
+bool Config::saveImageNExt = false;
+bool Config::saveImageNFix = false;
+bool Config::saveImageB = false;
+bool Config::saveImageV = false;
+bool Config::saveImageE = false;
 
 std::string Config::error = "";
 
