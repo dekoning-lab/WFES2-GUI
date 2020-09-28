@@ -2,6 +2,7 @@
 
 using namespace wfes::wrightfisher;
 using namespace wfes::config;
+using namespace intelmkl;
 
 double wfes::wrightfisher::psi_diploid(const int i, const int N, const double s, const double h,
                                  const double u, const double v) {

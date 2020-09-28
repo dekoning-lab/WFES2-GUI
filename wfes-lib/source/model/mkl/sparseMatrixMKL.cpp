@@ -2,6 +2,7 @@
 
 using namespace wfes::mkl;
 using namespace wfes::utils;
+using namespace intelmkl;
 
 SparseMatrixMKL::SparseMatrixMKL() :
     SparseMatrix(0, 0),

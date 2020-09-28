@@ -16,7 +16,9 @@
 
 #include "config/config.h"
 
-#include <mkl.h>
+namespace intelmkl {
+    #include <mkl.h>
+}
 
 namespace wfes{
     namespace wrightfisher {

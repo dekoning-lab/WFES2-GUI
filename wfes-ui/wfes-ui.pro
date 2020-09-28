@@ -5,7 +5,7 @@ QT += qml quick quickcontrols2
 
 TEMPLATE = app
 
-CONFIG += c++11
+CONFIG += c++14
 
 INCLUDEPATH += source \
     ../wfes-lib \

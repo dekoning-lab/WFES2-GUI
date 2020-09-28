@@ -6,7 +6,7 @@ QT += gui
 TARGET = wfes-lib
 TEMPLATE = lib
 
-CONFIG += c++11
+CONFIG += c++14
 
 DEFINES += WFESLIB_LIBRARY
 
@@ -36,6 +36,7 @@ HEADERS += \
     source/model/mkl/MKL_Consts.h \
     source/model/mkl/solverMKL.h \
     source/model/mkl/sparseMatrixMKL.h \
+    source/model/pardiso/solverPardisoProject.h \
     source/model/solver/solver.h \
     source/model/solver/solverFactory.h \
     source/model/sparse-matrix/sparseMatrix.h \
@@ -62,6 +63,7 @@ SOURCES += \
     source/controllers/inputController.cpp \
     source/model/mkl/solverMKL.cpp \
     source/model/mkl/sparseMatrixMKL.cpp \
+    source/model/pardiso/solverPardisoProject.cpp \
     source/model/solver/solver.cpp \
     source/model/solver/solverFactory.cpp \
     source/model/sparse-matrix/sparseMatrix.cpp \

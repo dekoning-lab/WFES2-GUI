@@ -7,7 +7,7 @@ QT -= gui
 TARGET = wfes-tests
 TEMPLATE = app
 
-CONFIG += C++11
+CONFIG += C++14
 CONFIG += qt console warn_on depend_includepath testcase
 CONFIG -= app_bundle
 

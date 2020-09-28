@@ -3,13 +3,16 @@
 
 #include <iostream>
 
-#include <mkl.h>
+namespace intelmkl {
+    #include <mkl.h>
+}
 #include "model/sparse-matrix/sparseMatrix.h"
 #include "utils/utils.h"
 
 #include <boost/math/special_functions/fpclassify.hpp>
 
 using namespace wfes::sparsematrix;
+using namespace intelmkl;
 
 namespace wfes{
     namespace mkl{
