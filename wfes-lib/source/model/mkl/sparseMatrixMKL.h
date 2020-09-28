@@ -1,5 +1,5 @@
-#ifndef SPARSEMATRIXPARDISO_H
-#define SPARSEMATRIXPARDISO_H
+#ifndef SPARSEMATRIXMKL_H
+#define SPARSEMATRIXMKL_H
 
 #include <iostream>
 
@@ -15,7 +15,7 @@ namespace wfes{
     namespace mkl{
 
         /**
-         * @brief The SparseMatrixPardiso class defines a sparse matrix to be used by Pardiso MKL.
+         * @brief The SparseMatrixMKLclass defines a sparse matrix to be used by Pardiso MKL.
          */
         class SparseMatrixMKL : public SparseMatrix
         {
@@ -47,7 +47,7 @@ namespace wfes{
                  */
                 llong* row_index;
                 /**
-                 * @brief Handler for the matrix data in Pardiso.
+                 * @brief Handler for the matrix data in Pardiso MKL.
                  */
                 sparse_matrix_t handler;
 
@@ -214,4 +214,4 @@ namespace wfes{
 
     }
 }
-#endif // SPARSEMATRIXVIENNACL_H
+#endif // SPARSEMATRIXMKL_H

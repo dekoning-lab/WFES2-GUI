@@ -1,5 +1,5 @@
-#ifndef SOLVERPARDISO_H
-#define SOLVERPARDISO_H
+#ifndef SOLVERMKL_H
+#define SOLVERMKL_H
 
 #include "model/mkl/sparseMatrixMKL.h"
 #include "model/solver/solver.h"
@@ -10,7 +10,7 @@ namespace wfes{
     namespace mkl {
 
         /**
-         * @brief The PardisoSolver class implements a matrix system solver using Pardiso MKL.
+         * @brief The MKLSolver class implements a matrix system solver using Pardiso MKL.
          */
         class MKLSolver : public solver::Solver {
 
@@ -76,7 +76,7 @@ namespace wfes{
             public:
 
                 /**
-                 * @brief Constructor of class PardisoSolver.
+                 * @brief Constructor of class MKLSolver.
                  * @param A Sparse matrix to solve.
                  * @param matrix_type Defines the matrix type, which influences the pivoting method. (From MKL Pardiso documentation). The possible values can be seen in MKL_Consts.h.
                  * @param message_level Message level information. 0 for no information and 1 for verbose. (From MKL Pardiso documentation).
@@ -119,4 +119,4 @@ namespace wfes{
     }
 }
 
-#endif // SOLVERPARDISO_H
+#endif // SOLVERMKL_H

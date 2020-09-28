@@ -5,7 +5,7 @@
 
 const llong MKL_IFS_SIZE = 64LL;
 
-// PARDISO-specific parameters - refer to
+// MKLPARDISO-specific parameters - refer to
 // https://software.intel.com/en-us/node/521690
 
 // Matrix types - mtype

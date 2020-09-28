@@ -41,7 +41,7 @@ Rectangle {
         ComboBox {
             id: comboBox
             Layout.preferredWidth: 185
-            model: [ "ViennaCL", "Pardiso" ]
+            model: [ "ViennaCL", "MKL" ]
             onCurrentTextChanged: fun()
         }
     }
