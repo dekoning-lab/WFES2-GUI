@@ -83,10 +83,25 @@ SOURCES += \
 unix {
     target.path = /usr/lib
 
-    INCLUDEPATH += source \
-        $$PWD/../dependencies/unix \
-        $$PWD/../dependencies/unix/intel/mkl/include
+    # TODO Change for compatibility with mac and windows
+    LIBS +=  -L$$PWD/../dependencies/unix/intel/mkl/lib/intel64 -Wl,--no-as-needed -lmkl_intel_ilp64 -lmkl_intel_thread -lmkl_core -lpthread -lm -ldl
+    LIBS +=  -L$$PWD/../dependencies/unix/intel/mkl/compiler/ -Wl,--no-as-needed -liomp5
+    LIBS += -L$$PWD/../dependencies/unix/CL/lib/linux/ -lOpenCL
+    LIBS += -L$$PWD/../dependencies/unix/pardiso-project/ -lpardiso600-GNU720-X86-64
 
+    INCLUDEPATH += \
+        $$PWD/../dependencies/unix \
+        $$PWD/../dependencies/unix/intel/mkl/include \
+        $$PWD/../dependencies/unix/CL \
+        $$PWD/../dependencies/unix/openblas/include \
+        $$PWD/../dependencies/unix/pardiso-project \
+        $$PWD/source
+
+    DEPENDPATH += $$PWD/../dependencies/unix/pardiso-project
+    DEPENDPATH += $$PWD/../dependencies/unix/openblas/include
+    DEPENDPATH += $$PWD/../dependencies/unix/CL
+
+    LIBS += -lgfortran -fopenmp
 }
 
 win32 {
