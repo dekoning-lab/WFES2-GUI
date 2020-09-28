@@ -1,6 +1,6 @@
 #include "testSparseMatrixPardiso.h"
 
-using namespace wfes::pardiso;
+using namespace wfes::mkl;
 
 static TestSparseMatrixPardiso instance;
 
@@ -31,9 +31,9 @@ void TestSparseMatrixPardiso::cleanup()
 
 void TestSparseMatrixPardiso::createMatrix_createDiagMatrix()
 {
-    SparseMatrixPardiso *sparseMatrix = new SparseMatrixPardiso();
+    SparseMatrixMKL *sparseMatrix = new SparseMatrixMKL();
 
-    sparseMatrix = dynamic_cast<SparseMatrixPardiso*>(sparseMatrix->LeftPaddedDiagonal(3, 3, 0));
+    sparseMatrix = dynamic_cast<SparseMatrixMKL*>(sparseMatrix->LeftPaddedDiagonal(3, 3, 0));
 
     bool equals = true;
     for(int i = 0; i < sparseMatrix->num_rows; i++){

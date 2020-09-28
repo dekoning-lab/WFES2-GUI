@@ -4,12 +4,12 @@
 #include <QtTest/QtTest>
 #include <QDebug>
 
-#include "model/pardiso/sparseMatrixPardiso.h"
+#include "model/mkl/sparseMatrixMKL.h"
 #include "testsuite.h"
 #include "wfesLib.h"
 
 namespace wfes {
-    namespace pardiso {
+    namespace mkl {
 
         class TestSparseMatrixPardiso : public TestSuite {
             Q_OBJECT

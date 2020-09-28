@@ -16,8 +16,8 @@
 
 #include "model/wright-fisher/wrightFisher.h"
 
-#include "model/pardiso/solverPardiso.h"
-#include "model/pardiso/sparseMatrixPardiso.h"
+#include "model/mkl/solverMKL.h"
+#include "model/mkl/sparseMatrixMKL.h"
 
 #include "results/results.h"
 

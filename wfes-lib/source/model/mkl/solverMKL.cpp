@@ -1,8 +1,8 @@
-#include "solverPardiso.h"
+#include "solverMKL.h"
 
-using namespace wfes::pardiso;
+using namespace wfes::mkl;
 
-PardisoSolver::PardisoSolver(SparseMatrixPardiso& A, llong matrix_type, llong message_level, llong n_rhs):
+MKLSolver::MKLSolver(SparseMatrixMKL& A, llong matrix_type, llong message_level, llong n_rhs):
         Solver(A),
         size(A.num_rows),
         n_right_hand_sides(n_rhs),
@@ -33,13 +33,13 @@ PardisoSolver::PardisoSolver(SparseMatrixPardiso& A, llong matrix_type, llong me
     control(MKL_PARDISO_PIVOT_OPTION) = MKL_PARDISO_PIVOT_CALLBACK; // allow calling get_diag                                   // iparm[55] = 1
 }
 
-void PardisoSolver::preprocess()
+void MKLSolver::preprocess()
 {
     phase = MKL_PARDISO_SOLVER_PHASE_ANALYSIS;
 
     pardiso_64(internal.data(), &max_factors, &matrix_number,
                &matrix_type, &phase, &size,
-               dynamic_cast<SparseMatrixPardiso&>(m).data, dynamic_cast<SparseMatrixPardiso&>(m).row_index, dynamic_cast<SparseMatrixPardiso&>(m).cols,
+               dynamic_cast<SparseMatrixMKL&>(m).data, dynamic_cast<SparseMatrixMKL&>(m).row_index, dynamic_cast<SparseMatrixMKL&>(m).cols,
                nullptr, &n_right_hand_sides, control.data(),
                &message_level, nullptr, nullptr, &error);
 
@@ -48,14 +48,14 @@ void PardisoSolver::preprocess()
     phase = MKL_PARDISO_SOLVER_PHASE_NUMERICAL_FACTORIZATION;
     pardiso_64(internal.data(), &max_factors, &matrix_number,
                &matrix_type, &phase, &size,
-               dynamic_cast<SparseMatrixPardiso&>(m).data, dynamic_cast<SparseMatrixPardiso&>(m).row_index, dynamic_cast<SparseMatrixPardiso&>(m).cols,
+               dynamic_cast<SparseMatrixMKL&>(m).data, dynamic_cast<SparseMatrixMKL&>(m).row_index, dynamic_cast<SparseMatrixMKL&>(m).cols,
                nullptr, &n_right_hand_sides, control.data(),
                &message_level, nullptr, nullptr, &error);
 
     if(error != 0) throw std::runtime_error("PardisoSolver::preprocess(): Numerical factorization error: " + std::to_string(error));
 }
 
-dvec PardisoSolver::solve(dvec& b, bool transpose)
+dvec MKLSolver::solve(dvec& b, bool transpose)
 {
     phase = MKL_PARDISO_SOLVER_PHASE_SOLVE_ITERATIVE_REFINEMENT;
     if(transpose) control(MKL_PARDISO_SOLVE_OPTION) = MKL_PARDISO_SOLVE_TRANSPOSED;
@@ -63,7 +63,7 @@ dvec PardisoSolver::solve(dvec& b, bool transpose)
 
     pardiso_64(internal.data(), &max_factors, &matrix_number,
                &matrix_type, &phase, &size,
-               dynamic_cast<SparseMatrixPardiso&>(m).data, dynamic_cast<SparseMatrixPardiso&>(m).row_index, dynamic_cast<SparseMatrixPardiso&>(m).cols,
+               dynamic_cast<SparseMatrixMKL&>(m).data, dynamic_cast<SparseMatrixMKL&>(m).row_index, dynamic_cast<SparseMatrixMKL&>(m).cols,
                nullptr, &n_right_hand_sides, control.data(),
                &message_level, b.data(), workspace.data(), &error);
 
@@ -74,7 +74,7 @@ dvec PardisoSolver::solve(dvec& b, bool transpose)
     return x;
 }
 
-dmat PardisoSolver::solve_multiple(dmat& B, bool transpose)
+dmat MKLSolver::solve_multiple(dmat& B, bool transpose)
 {
     assert(B.rows() == n_right_hand_sides);
     phase = MKL_PARDISO_SOLVER_PHASE_SOLVE_ITERATIVE_REFINEMENT;
@@ -83,7 +83,7 @@ dmat PardisoSolver::solve_multiple(dmat& B, bool transpose)
 
     pardiso_64(internal.data(), &max_factors, &matrix_number,
                &matrix_type, &phase, &size,
-               dynamic_cast<SparseMatrixPardiso&>(m).data, dynamic_cast<SparseMatrixPardiso&>(m).row_index, dynamic_cast<SparseMatrixPardiso&>(m).cols,
+               dynamic_cast<SparseMatrixMKL&>(m).data, dynamic_cast<SparseMatrixMKL&>(m).row_index, dynamic_cast<SparseMatrixMKL&>(m).cols,
                nullptr, &n_right_hand_sides, control.data(),
                &message_level, B.data(), workspace.data(), &error);
 
@@ -99,7 +99,7 @@ dmat PardisoSolver::solve_multiple(dmat& B, bool transpose)
     return X;
 }
 
-dvec PardisoSolver::get_diagonal()
+dvec MKLSolver::get_diagonal()
 {
   dvec d_factorized(size);
   dvec d_initial(size);
@@ -111,12 +111,12 @@ dvec PardisoSolver::get_diagonal()
   return d_factorized;
 }
 
-PardisoSolver::~PardisoSolver()
+MKLSolver::~MKLSolver()
 {
     phase = MKL_PARDISO_SOLVER_PHASE_RELEASE_MEMORY_ALL;
     pardiso_64(internal.data(), &max_factors, &matrix_number,
                &matrix_type, &phase, &size,
-               nullptr, dynamic_cast<SparseMatrixPardiso&>(m).row_index, dynamic_cast<SparseMatrixPardiso&>(m).cols,
+               nullptr, dynamic_cast<SparseMatrixMKL&>(m).row_index, dynamic_cast<SparseMatrixMKL&>(m).cols,
                nullptr, &n_right_hand_sides, control.data(),
                &message_level, nullptr, nullptr, &error);
 

@@ -6,7 +6,7 @@
 using namespace wfes::wrightfisher;
 using namespace wfes::solver;
 using namespace wfes::sparsematrix;
-using namespace wfes::pardiso;
+using namespace wfes::mkl;
 using namespace wfes::config;
 using namespace wfes;
 

@@ -1,18 +1,18 @@
 #ifndef SOLVERPARDISO_H
 #define SOLVERPARDISO_H
 
-#include "model/pardiso/sparseMatrixPardiso.h"
+#include "model/mkl/sparseMatrixMKL.h"
 #include "model/solver/solver.h"
 #include "utils/types.h"
 #include "MKL_Consts.h"
 
 namespace wfes{
-    namespace pardiso {
+    namespace mkl {
 
         /**
          * @brief The PardisoSolver class implements a matrix system solver using Pardiso MKL.
          */
-        class PardisoSolver : public solver::Solver {
+        class MKLSolver : public solver::Solver {
 
                 /**
                  * @brief Size of the matrix (number of rows or columns since it is squared.)
@@ -82,12 +82,12 @@ namespace wfes{
                  * @param message_level Message level information. 0 for no information and 1 for verbose. (From MKL Pardiso documentation).
                  * @param n_rhs Number of right-hand sides that need to be solved for. (From MKL Pardiso documentation).
                  */
-                PardisoSolver(SparseMatrixPardiso& A, llong matrix_type, llong message_level, llong n_rhs = 1);
+                MKLSolver(SparseMatrixMKL& A, llong matrix_type, llong message_level, llong n_rhs = 1);
 
                 /**
                  * Constructor of class PardisoSolver.
                  */
-                ~PardisoSolver();
+                ~MKLSolver();
 
                 /**
                  * @brief Preprocess steps over the matrix before solving.

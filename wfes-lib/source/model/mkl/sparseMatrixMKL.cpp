@@ -1,9 +1,9 @@
-#include "sparseMatrixPardiso.h"
+#include "sparseMatrixMKL.h"
 
-using namespace wfes::pardiso;
+using namespace wfes::mkl;
 using namespace wfes::utils;
 
-SparseMatrixPardiso::SparseMatrixPardiso() :
+SparseMatrixMKL::SparseMatrixMKL() :
     SparseMatrix(0, 0),
     current_row(0), full(false),
     row_index_start(-1),
@@ -12,7 +12,7 @@ SparseMatrixPardiso::SparseMatrixPardiso() :
 
 }
 
-SparseMatrixPardiso::SparseMatrixPardiso(llong numRows, llong numCols) :
+SparseMatrixMKL::SparseMatrixMKL(llong numRows, llong numCols) :
   SparseMatrix(numRows, numCols),
   current_row(0), full(false),
   row_index_start(-1),
@@ -25,7 +25,7 @@ SparseMatrixPardiso::SparseMatrixPardiso(llong numRows, llong numCols) :
   row_index[0] = 0;
 }
 
-SparseMatrixPardiso::SparseMatrixPardiso(dmat& eigenDenseMatrix) :
+SparseMatrixMKL::SparseMatrixMKL(dmat& eigenDenseMatrix) :
     SparseMatrix(eigenDenseMatrix.rows(), eigenDenseMatrix.cols()),
     current_row(0), full(true),
     row_index_start(-1),
@@ -55,10 +55,10 @@ SparseMatrixPardiso::SparseMatrixPardiso(dmat& eigenDenseMatrix) :
 
 }
 
-SparseMatrix* SparseMatrixPardiso::LeftPaddedDiagonal(int dim, double x, int padLeft)
+SparseMatrix* SparseMatrixMKL::LeftPaddedDiagonal(int dim, double x, int padLeft)
 {
 
-    SparseMatrixPardiso* I = new SparseMatrixPardiso(dim, padLeft + dim);
+    SparseMatrixMKL* I = new SparseMatrixMKL(dim, padLeft + dim);
     I->full = true;
     I->num_non_zeros = dim;
 
@@ -80,20 +80,20 @@ SparseMatrix* SparseMatrixPardiso::LeftPaddedDiagonal(int dim, double x, int pad
     return I;
 }
 
-SparseMatrixPardiso::~SparseMatrixPardiso(){
+SparseMatrixMKL::~SparseMatrixMKL(){
     free(data);
     free(cols);
     free(row_index);
     mkl_sparse_destroy(handler);
 }
 
-void SparseMatrixPardiso::appendRow(dvec &row, int col_start, int size)
+void SparseMatrixMKL::appendRow(dvec &row, int col_start, int size)
 {
     appendChunk(row, col_start, col_start, size);
     nextRow();
 }
 
-void SparseMatrixPardiso::appendChunk(dvec &row, int m0, int r0, int size)
+void SparseMatrixMKL::appendChunk(dvec &row, int m0, int r0, int size)
 {
     // Test not full
     assert(!full);
@@ -117,7 +117,7 @@ void SparseMatrixPardiso::appendChunk(dvec &row, int m0, int r0, int size)
     num_non_zeros += size;
 }
 
-void SparseMatrixPardiso::appendValue(double value, int j)
+void SparseMatrixMKL::appendValue(double value, int j)
 {
     llong new_size = num_non_zeros + 1;
 
@@ -136,7 +136,7 @@ void SparseMatrixPardiso::appendValue(double value, int j)
     num_non_zeros += 1;
 }
 
-void SparseMatrixPardiso::nextRow()
+void SparseMatrixMKL::nextRow()
 {
     assert(!full);
     row_index[current_row] = row_index_start;
@@ -150,7 +150,7 @@ void SparseMatrixPardiso::nextRow()
     }
 }
 
-void SparseMatrixPardiso::debugPrint()
+void SparseMatrixMKL::debugPrint()
 {
     std::cout << "data:    " << std::endl;
     printBuffer(data, (size_t)num_non_zeros);
@@ -160,18 +160,18 @@ void SparseMatrixPardiso::debugPrint()
     printBuffer(row_index, (size_t)(num_rows + 1));
 }
 
-bool SparseMatrixPardiso::approxEquals(const SparseMatrix &rhs, double tol, bool verbose)
+bool SparseMatrixMKL::approxEquals(const SparseMatrix &rhs, double tol, bool verbose)
 {
-    if(num_rows != static_cast<const SparseMatrixPardiso&>(rhs).num_rows) return false;
-    if(num_cols != static_cast<const SparseMatrixPardiso&>(rhs).num_cols) return false;
-    if(num_non_zeros != static_cast<const SparseMatrixPardiso&>(rhs).num_non_zeros) return false;
+    if(num_rows != static_cast<const SparseMatrixMKL&>(rhs).num_rows) return false;
+    if(num_cols != static_cast<const SparseMatrixMKL&>(rhs).num_cols) return false;
+    if(num_non_zeros != static_cast<const SparseMatrixMKL&>(rhs).num_non_zeros) return false;
 
     for (llong i = 0; i < num_rows; ++i) {
         for (llong j = row_index[i]; j < row_index[i + 1]; ++j) {
-            double diff = fabs(data[j] - static_cast<const SparseMatrixPardiso&>(rhs).data[j]);
+            double diff = fabs(data[j] - static_cast<const SparseMatrixMKL&>(rhs).data[j]);
             if(diff > tol || (boost::math::isnan)(diff)) {
                 if(verbose) {
-                    fprintf(stderr, DPF " != " DPF " [%lld] (" DPF ", " DPF ")\n", data[j], static_cast<const SparseMatrixPardiso&>(rhs).data[j], j, diff, tol);
+                    fprintf(stderr, DPF " != " DPF " [%lld] (" DPF ", " DPF ")\n", data[j], static_cast<const SparseMatrixMKL&>(rhs).data[j], j, diff, tol);
                 }
                 return false;
             }
@@ -180,7 +180,7 @@ bool SparseMatrixPardiso::approxEquals(const SparseMatrix &rhs, double tol, bool
     return true;
 }
 
-dmat SparseMatrixPardiso::dense()
+dmat SparseMatrixMKL::dense()
 {
     dmat dns(num_rows, num_cols);
 
@@ -201,7 +201,7 @@ dmat SparseMatrixPardiso::dense()
     return dns;
 }
 
-dvec SparseMatrixPardiso::getDiagCopy()
+dvec SparseMatrixMKL::getDiagCopy()
 {
     assert(num_rows == num_cols);
 
@@ -220,7 +220,7 @@ dvec SparseMatrixPardiso::getDiagCopy()
     return diag;
 }
 
-dvec SparseMatrixPardiso::getColCopy(int c)
+dvec SparseMatrixMKL::getColCopy(int c)
 {
     dvec column = dvec::Zero(num_rows);
     for(llong i = 0; i < num_rows; i++) {
@@ -234,13 +234,13 @@ dvec SparseMatrixPardiso::getColCopy(int c)
     return column;
 }
 
-dvec SparseMatrixPardiso::getRowCopy(int i)
+dvec SparseMatrixMKL::getRowCopy(int i)
 {
     //TODO Implementation (Not used).
     return dvec();
 }
 
-dvec SparseMatrixPardiso::multiply(dvec &x, bool transpose)
+dvec SparseMatrixMKL::multiply(dvec &x, bool transpose)
 {
     llong v_size = transpose ? num_cols : num_rows;
     transpose ? assert(x.size() == num_rows) : assert(x.size() == num_cols);
@@ -255,7 +255,7 @@ dvec SparseMatrixPardiso::multiply(dvec &x, bool transpose)
     return y;
 }
 
-void SparseMatrixPardiso::multiplyInPlaceRep(dvec &x, int times, bool transpose)
+void SparseMatrixMKL::multiplyInPlaceRep(dvec &x, int times, bool transpose)
 {
     transpose ? assert(x.size() == num_rows) : assert(x.size() == num_cols);
     dvec workspace(x.size());
@@ -271,20 +271,20 @@ void SparseMatrixPardiso::multiplyInPlaceRep(dvec &x, int times, bool transpose)
     }
 }
 
-SparseMatrix* SparseMatrixPardiso::multiply(SparseMatrix &B, bool transpose)
+SparseMatrix* SparseMatrixMKL::multiply(SparseMatrix &B, bool transpose)
 {
     sparse_operation_t op = transpose ? SPARSE_OPERATION_TRANSPOSE : SPARSE_OPERATION_NON_TRANSPOSE;
 
-    SparseMatrixPardiso *C = new SparseMatrixPardiso(num_rows, static_cast<SparseMatrixPardiso&>(B).num_cols);
+    SparseMatrixMKL *C = new SparseMatrixMKL(num_rows, static_cast<SparseMatrixMKL&>(B).num_cols);
 
-    sparse_status_t info = mkl_sparse_spmm(op, handler, static_cast<SparseMatrixPardiso&>(B).handler, &C->handler);
+    sparse_status_t info = mkl_sparse_spmm(op, handler, static_cast<SparseMatrixMKL&>(B).handler, &C->handler);
 
     if(info != SPARSE_STATUS_SUCCESS) throw std::runtime_error("SparseMatrix::multiply(sparse): " + std::to_string(info));
 
     return C;
 }
 
-void SparseMatrixPardiso::subtractIdentity()
+void SparseMatrixMKL::subtractIdentity()
 {
     for (llong i = 0; i < num_rows; ++i) {
         for (llong j = row_index[i]; j < row_index[i + 1]; ++j) {
@@ -294,7 +294,7 @@ void SparseMatrixPardiso::subtractIdentity()
     }
 }
 
-double SparseMatrixPardiso::search(int i, int j)
+double SparseMatrixMKL::search(int i, int j)
 {
     if(i >= current_row) return NAN;
     for(llong k = row_index[i]; k < row_index[i + 1]; k++) {
@@ -305,12 +305,12 @@ double SparseMatrixPardiso::search(int i, int j)
     return 0; // was not found
 }
 
-void SparseMatrixPardiso::setValue(double x, int i, int j)
+void SparseMatrixMKL::setValue(double x, int i, int j)
 {
     //TODO Implementation (Not used).
 }
 
-void SparseMatrixPardiso::saveMarket(std::string path)
+void SparseMatrixMKL::saveMarket(std::string path)
 {
     FILE* out = fopen(path.c_str(), "w");
     fprintf(out, "%%%%MatrixMarket matrix coordinate real general\n");

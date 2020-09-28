@@ -1,8 +1,8 @@
 #ifndef WRIGHTFISHER_H
 #define WRIGHTFISHER_H
 
-#include "model/pardiso/solverPardiso.h"
-#include <model/pardiso/sparseMatrixPardiso.h>
+#include "model/mkl/solverMKL.h"
+#include <model/mkl/sparseMatrixMKL.h>
 
 #include "model/solver/solver.h"
 #include "model/solver/solverFactory.h"
@@ -108,7 +108,7 @@ namespace wfes{
             }
 
             ~Matrix(){
-                delete dynamic_cast<wfes::pardiso::SparseMatrixPardiso*>(Q);
+                delete dynamic_cast<wfes::mkl::SparseMatrixMKL*>(Q);
             }
         };
 

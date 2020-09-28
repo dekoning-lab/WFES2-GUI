@@ -12,12 +12,12 @@
 using namespace wfes::sparsematrix;
 
 namespace wfes{
-    namespace pardiso{
+    namespace mkl{
 
         /**
          * @brief The SparseMatrixPardiso class defines a sparse matrix to be used by Pardiso MKL.
          */
-        class SparseMatrixPardiso : public SparseMatrix
+        class SparseMatrixMKL : public SparseMatrix
         {
             protected:
                 /**
@@ -55,19 +55,19 @@ namespace wfes{
                 /**
                  * @brief Default constructor of a Sparse Matrix.
                  */
-                SparseMatrixPardiso();
+                SparseMatrixMKL();
                 /**
                  * @brief Empty constructor of a Sparse Matrix.
                  * @param numRows Number of rows in the matrix.
                  * @param numCols Number of columns in the matrix.
                  */
-                SparseMatrixPardiso(llong num_rows, llong num_cols);
+                SparseMatrixMKL(llong num_rows, llong num_cols);
 
                 /**
                  * @brief Copy constructor of a Sparse Matrix using an Eigen Dense Matrix.
                  * @param eigenDenseMatrix An Eigen Dense Matrix.
                  */
-                SparseMatrixPardiso(dmat& eigenDenseMatrix);
+                SparseMatrixMKL(dmat& eigenDenseMatrix);
 
                 /**
                  * @brief Create a Sparse Matrix containing only a padded diagonal.
@@ -81,7 +81,7 @@ namespace wfes{
                 /**
                  * @brief Destructor of a Sparse Matrix.
                  */
-                ~SparseMatrixPardiso();
+                ~SparseMatrixMKL();
 
         public: // Append functions.
 
