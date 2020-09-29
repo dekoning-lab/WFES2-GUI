@@ -6,7 +6,7 @@ void wfes::pardisoproject::PardisoProjectSolver::convertToFortranNotation()
         mat->cols[i] += 1;
 
     for(int i = 0; i < mat->num_rows+1 ; i++)
-        mat->row_index += 1;
+        mat->row_index[i] += 1;
 }
 void wfes::pardisoproject::PardisoProjectSolver::convertToCNotation()
 {
@@ -14,7 +14,7 @@ void wfes::pardisoproject::PardisoProjectSolver::convertToCNotation()
         mat->cols[i] -= 1;
 
     for(int i = 0; i < mat->num_rows+1 ; i++)
-        mat->row_index -= 1;
+        mat->row_index[i] -= 1;
 }
 
 
@@ -42,11 +42,11 @@ wfes::pardisoproject::PardisoProjectSolver::PardisoProjectSolver(wfes::vienna::S
             qDebug() << "[PARDISO]: Error (" << error << ") - Wrong username or hostname.";
     }
     else
-        qDebug() << "[PARDISO]: License check was successful...";
+        //qDebug() << "[PARDISO]: License check was successful...";
 
     // Set number of threads using environment variable.
-    qputenv("OMP_NUM_THREADS", "1");
-    iparm[2]  = 1;
+    qputenv("OMP_NUM_THREADS", QByteArray::fromStdString(std::to_string(config::Config::n_threads)));
+    iparm[2]  = config::Config::n_threads;
 }
 
 wfes::pardisoproject::PardisoProjectSolver::~PardisoProjectSolver()
@@ -61,8 +61,6 @@ void wfes::pardisoproject::PardisoProjectSolver::preprocess()
 {
     int phase = MKL_PARDISO_SOLVER_PHASE_ANALYSIS;
 
-    qDebug() <<  mat->data[0];
-
     convertToFortranNotation();
 
     pardiso (pt, &maxfct, &mnum, &mtype, &phase,
@@ -72,9 +70,9 @@ void wfes::pardisoproject::PardisoProjectSolver::preprocess()
     if (error != 0) {
         qDebug() << "ERROR during symbolic factorization: " << error;
     }
-    qDebug() << "Reordering completed...";
-    qDebug() << "Number of nonzeros in factors: " << iparm[17];
-    qDebug() << "Number of factorization MFLOPS: " << iparm[18];
+    //qDebug() << "Reordering completed...";
+    //qDebug() << "Number of nonzeros in factors: " << iparm[17];
+    //qDebug() << "Number of factorization MFLOPS: " << iparm[18];
 
     phase = MKL_PARDISO_SOLVER_PHASE_NUMERICAL_FACTORIZATION;
 
@@ -87,7 +85,7 @@ void wfes::pardisoproject::PardisoProjectSolver::preprocess()
     if (error != 0) {
         qDebug() << "ERROR during numerical factorization: " << error;
     }
-    qDebug() << "Factorization completed...";
+    //qDebug() << "Factorization completed...";
 }
 
 dvec wfes::pardisoproject::PardisoProjectSolver::solve(dvec &b, bool transpose)
@@ -111,7 +109,7 @@ dvec wfes::pardisoproject::PardisoProjectSolver::solve(dvec &b, bool transpose)
         qDebug() << "ERROR during solution: " << error;
     }
 
-    qDebug() << "Solve completed...";
+    //qDebug() << "Solve completed...";
 
     convertToCNotation();
 

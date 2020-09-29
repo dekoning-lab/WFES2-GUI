@@ -89,6 +89,8 @@ Results *wfes_single::absorption()
     //Notify solving
     this->notify(ExecutionStatus::SOLVING_MATRICES);
 
+    time_point t_start2 = std::chrono::system_clock::now();
+
     W.Q->subtractIdentity();
 
     llong size = (2 * Config::population_size) - 1;
@@ -208,8 +210,10 @@ Results *wfes_single::absorption()
 
     //Calculate time.
     t_end = std::chrono::system_clock::now();
+    time_point t_end2 = std::chrono::system_clock::now();
+    time_diff dt2 = t_end2 - t_start2;
     time_diff dt = t_end - t_start;
-
+    qDebug() << "Solve time: " << dt2.count();
     // Generate images from matrices and save to file.
     QImage *imageI = nullptr, *imageQ = nullptr, *imageR = nullptr, *imageN = nullptr, *imageNExt = nullptr, *imageNFix = nullptr, *imageB = nullptr;
     if(Config::saveImageI) {

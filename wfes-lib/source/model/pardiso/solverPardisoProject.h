@@ -8,6 +8,8 @@
 
 #include "model/mkl/MKL_Consts.h"
 
+#include "config/config.h"
+
 /* PARDISO prototype. */
 extern "C" void pardisoinit (void   *, int    *,   int *, int *, double *, int *);
 extern "C" void pardiso     (void   *, int    *,   int *, int *,    int *, int *,
