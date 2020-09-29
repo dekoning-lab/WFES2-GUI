@@ -16,7 +16,6 @@ extern "C" void pardiso     (void   *, int    *,   int *, int *,    int *, int *
 extern "C" void pardiso_chkmatrix  (int *, int *, double *, int *, int *, int *);
 extern "C" void pardiso_chkvec     (int *, int *, double *, int *);
 extern "C" void pardiso_printstats (int *, int *, double *, int *, int *, int *, double *, int *);
-extern "C" void pardiso_getdiag(void *, void *df, void *da, int *mnum, int *error);
 
 namespace wfes{
     namespace pardisoproject {
@@ -44,7 +43,7 @@ namespace wfes{
                 // Which factorization to use.
                 int mnum;
                 // Matrix in format of ViennaCL.
-                wfes::vienna::SparseMatrixViennaCL mat;
+                wfes::vienna::SparseMatrixViennaCL *mat;
 
                 void convertToFortranNotation();
 

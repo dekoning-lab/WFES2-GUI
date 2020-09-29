@@ -57,7 +57,7 @@ void TestSolverViennaCL::solve_solveSimple()
 
     dvec res = dvec(3);
 
-    SolverViennaCL solver = SolverViennaCL(*mat, "GMRes", "");
+    SolverViennaCL solver = SolverViennaCL(*mat, "MixedCG", "");
 
     res = solver.solve(right, false);
 

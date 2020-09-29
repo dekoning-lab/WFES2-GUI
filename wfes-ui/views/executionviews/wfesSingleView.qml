@@ -835,7 +835,7 @@ ApplicationWindow {
                                     LabeledComboBox {
                                         id: comboBoxLibrary
                                         text: "Library:"
-                                        model: ["MKL", "ViennaCL", "Pardiso"]
+                                        model: ["Pardiso", "ViennaCL", "MKL"]
                                         toolTipText: "Library used for solving matrix systems."
                                         onTextChanged: {
                                             if(comboBoxLibrary.currentText === "MKL") {

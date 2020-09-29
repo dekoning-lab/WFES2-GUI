@@ -16,9 +16,6 @@
 
 #include "model/wright-fisher/wrightFisher.h"
 
-#include "model/mkl/solverMKL.h"
-#include "model/mkl/sparseMatrixMKL.h"
-
 #include "results/results.h"
 
 #include <utils/observer/subject.h>

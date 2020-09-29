@@ -6,7 +6,6 @@
 using namespace wfes::wrightfisher;
 using namespace wfes::solver;
 using namespace wfes::sparsematrix;
-using namespace wfes::mkl;
 using namespace wfes::config;
 using namespace wfes;
 
@@ -25,7 +24,6 @@ Results* wfes_single::execute()
     #ifdef OMP
         omp_set_num_threads(Config::n_threads);
     #endif
-        mkl_set_num_threads(Config::n_threads);
 
     //Notify starting.
     this->notify(ExecutionStatus::STARTING);

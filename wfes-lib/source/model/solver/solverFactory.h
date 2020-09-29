@@ -2,7 +2,6 @@
 #define SOLVERFACTORY_H
 
 #include "solver.h"
-#include "model/mkl/solverMKL.h"
 #include "model/viennacl/solverViennaCL.h"
 #include "model/pardiso/solverPardisoProject.h"
 

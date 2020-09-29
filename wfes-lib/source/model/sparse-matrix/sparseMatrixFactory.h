@@ -2,7 +2,6 @@
 #define SPARSEMATRIXFACTORY_H
 
 #include "sparseMatrix.h"
-#include "model/mkl/sparseMatrixMKL.h"
 #include "model/viennacl/sparseMatrixViennacl.h"
 #include <Eigen/SparseCore>
 

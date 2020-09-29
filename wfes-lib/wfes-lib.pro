@@ -34,8 +34,8 @@ HEADERS += \
     source/controllers/outputController.h \
     source/controllers/inputController.h \
     source/model/mkl/MKL_Consts.h \
-    source/model/mkl/solverMKL.h \
-    source/model/mkl/sparseMatrixMKL.h \
+    #source/model/mkl/solverMKL.h \
+    #source/model/mkl/sparseMatrixMKL.h \
     source/model/pardiso/solverPardisoProject.h \
     source/model/solver/solver.h \
     source/model/solver/solverFactory.h \
@@ -61,8 +61,8 @@ SOURCES += \
     source/config/config.cpp \
     source/controllers/outputController.cpp \
     source/controllers/inputController.cpp \
-    source/model/mkl/solverMKL.cpp \
-    source/model/mkl/sparseMatrixMKL.cpp \
+    #source/model/mkl/solverMKL.cpp \
+    #source/model/mkl/sparseMatrixMKL.cpp \
     source/model/pardiso/solverPardisoProject.cpp \
     source/model/solver/solver.cpp \
     source/model/solver/solverFactory.cpp \
@@ -86,14 +86,12 @@ unix {
     target.path = /usr/lib
 
     # TODO Change for compatibility with mac and windows
-    LIBS +=  -L$$PWD/../dependencies/unix/intel/mkl/lib/intel64 -Wl,--no-as-needed -lmkl_intel_ilp64 -lmkl_intel_thread -lmkl_core -lpthread -lm -ldl
-    LIBS +=  -L$$PWD/../dependencies/unix/intel/mkl/compiler/ -Wl,--no-as-needed -liomp5
     LIBS += -L$$PWD/../dependencies/unix/CL/lib/linux/ -lOpenCL
     LIBS += -L$$PWD/../dependencies/unix/pardiso-project/ -lpardiso600-GNU720-X86-64
+    LIBS += -L$$PWD/../dependencies/unix/openblas/lib/ -lopenblas
 
     INCLUDEPATH += \
         $$PWD/../dependencies/unix \
-        $$PWD/../dependencies/unix/intel/mkl/include \
         $$PWD/../dependencies/unix/CL \
         $$PWD/../dependencies/unix/openblas/include \
         $$PWD/../dependencies/unix/pardiso-project \
@@ -103,7 +101,7 @@ unix {
     DEPENDPATH += $$PWD/../dependencies/unix/openblas/include
     DEPENDPATH += $$PWD/../dependencies/unix/CL
 
-    LIBS += -lgfortran -fopenmp
+    PRE_TARGETDEPS += $$PWD/../dependencies/unix/openblas/lib/libopenblas.a
 }
 
 win32 {
@@ -126,3 +124,5 @@ win32 {
 }
 
 !isEmpty(target.path): INSTALLS += target
+
+LIBS += -lgfortran -fopenmp -lpthread -lm

@@ -1,9 +1,6 @@
 #ifndef WRIGHTFISHER_H
 #define WRIGHTFISHER_H
 
-#include "model/mkl/solverMKL.h"
-#include <model/mkl/sparseMatrixMKL.h>
-
 #include "model/solver/solver.h"
 #include "model/solver/solverFactory.h"
 
@@ -15,10 +12,6 @@
 #include "rdist.h"
 
 #include "config/config.h"
-
-namespace intelmkl {
-    #include <mkl.h>
-}
 
 namespace wfes{
     namespace wrightfisher {
@@ -110,7 +103,7 @@ namespace wfes{
             }
 
             ~Matrix(){
-                delete dynamic_cast<wfes::mkl::SparseMatrixMKL*>(Q);
+
             }
         };
 

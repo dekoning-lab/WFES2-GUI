@@ -53,7 +53,8 @@ void TestSparseMatrixViennaCL::createViennaCL_createWithSize()
 {
     SparseMatrixViennaCL viennaSparse = SparseMatrixViennaCL(3, 3);
     bool test = true;
-    if(viennaSparse.vcl_matrix.size1() != 3)
+    // 0 because creating an empty matrix in viennacl raises an exception.
+    if(viennaSparse.vcl_matrix.size1() != 0)
         test = false;
     if(viennaSparse.vcl_matrix.size2() != 0)
         test = false;

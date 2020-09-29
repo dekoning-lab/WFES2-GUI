@@ -2,7 +2,6 @@
 
 using namespace wfes::wrightfisher;
 using namespace wfes::config;
-using namespace intelmkl;
 
 double wfes::wrightfisher::psi_diploid(const int i, const int N, const double s, const double h,
                                  const double u, const double v) {
@@ -54,7 +53,10 @@ wfes::wrightfisher::Row wfes::wrightfisher::binom_row(const int size, const doub
     }
 
     // Exponentiate
-    vdExp(r.Q.size(), r.Q.data(), r.Q.data());
+    //vdExp(r.Q.size(), r.Q.data(), r.Q.data());
+    for(int i = 0; i < r.Q.size(); i++) {
+        r.Q(i) = std::exp(r.Q(i));
+    }
     // Re-weigh to sum to 1
     r.weight = r.Q.sum();
     r.Q /= r.weight;
