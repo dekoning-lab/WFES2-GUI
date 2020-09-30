@@ -18,6 +18,7 @@ extern "C" void pardiso     (void   *, int    *,   int *, int *,    int *, int *
 extern "C" void pardiso_chkmatrix  (int *, int *, double *, int *, int *, int *);
 extern "C" void pardiso_chkvec     (int *, int *, double *, int *);
 extern "C" void pardiso_printstats (int *, int *, double *, int *, int *, int *, double *, int *);
+extern "C" void openblas_set_num_threads(int num_threads);
 
 namespace wfes{
     namespace pardisoproject {

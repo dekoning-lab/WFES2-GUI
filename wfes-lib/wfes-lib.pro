@@ -87,7 +87,7 @@ unix {
 
     # TODO Change for compatibility with mac and windows
     LIBS += -L$$PWD/../dependencies/unix/CL/lib/linux/ -lOpenCL
-    LIBS += -L$$PWD/../dependencies/unix/pardiso-project/ -lpardiso600-GNU720-X86-64
+    LIBS += -L$$PWD/../dependencies/unix/pardiso-project/ -lpardiso600-GNU800-X86-64
     LIBS += -L$$PWD/../dependencies/unix/openblas/lib/ -lopenblas
 
     INCLUDEPATH += \

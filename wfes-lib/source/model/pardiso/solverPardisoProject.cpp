@@ -47,6 +47,7 @@ wfes::pardisoproject::PardisoProjectSolver::PardisoProjectSolver(wfes::vienna::S
     // Set number of threads using environment variable.
     qputenv("OMP_NUM_THREADS", QByteArray::fromStdString(std::to_string(config::Config::n_threads)));
     iparm[2]  = config::Config::n_threads;
+    openblas_set_num_threads(config::Config::n_threads);
 }
 
 wfes::pardisoproject::PardisoProjectSolver::~PardisoProjectSolver()
