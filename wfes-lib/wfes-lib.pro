@@ -42,7 +42,7 @@ HEADERS += \
     source/model/pardiso/sparseMatrixPardiso.h \
     source/model/viennacl/solverViennaCL.h \
     source/model/viennacl/sparseMatrixViennacl.h \
-    source/model/wfes_single.h \
+    source/model/executables/wfes_single/wfes_single.h \
     source/model/wright-fisher/rdist.h \
     source/model/wright-fisher/wrightFisher.h \
     source/results/results.h \
@@ -53,8 +53,7 @@ HEADERS += \
     source/utils/parsing.h \
     source/utils/types.h \
     source/utils/utils.h \
-    wfes-lib_global.h \
-    source/wfesLib.h
+    wfes-lib_global.h
 
 SOURCES += \
     source/config/config.cpp \
@@ -68,7 +67,7 @@ SOURCES += \
     source/model/pardiso/sparseMatrixPardiso.cpp \
     source/model/viennacl/solverViennaCL.cpp \
     source/model/viennacl/sparseMatrixViennacl.cpp \
-    source/model/wfes_single.cpp \
+    source/model/executables/wfes_single/wfes_single.cpp \
     source/model/wright-fisher/rdist.cpp \
     source/model/wright-fisher/wrightFisher.cpp \
     source/results/results.cpp \
@@ -76,8 +75,7 @@ SOURCES += \
     source/utils/observer/observer.cpp \
     source/utils/observer/subject.cpp \
     source/utils/parsing.cpp \
-    source/utils/utils.cpp \
-    source/wfesLib.cpp
+    source/utils/utils.cpp
 
 # Default rules for deployment.
 unix {

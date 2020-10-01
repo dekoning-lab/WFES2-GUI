@@ -13,7 +13,7 @@
 #include <boost/format.hpp>
 #include <utils/observer/observer.h>
 #include <results/results.h>
-#include <model/wfes_single.h>
+#include <model/executables/wfes_single/wfes_single.h>
 
 #include "config/config.h"
 

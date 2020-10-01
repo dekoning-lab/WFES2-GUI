@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QDebug>
 #include <wfes-lib_global.h>
-#include "model/wfes_single.h"
+#include "model/executables/wfes_single/wfes_single.h"
 
 #include "results/results.h"
 
