@@ -20,13 +20,18 @@ void wfes::pardisoproject::PardisoProjectSolver::convertToCNotation()
 
 wfes::pardisoproject::PardisoProjectSolver::PardisoProjectSolver(wfes::vienna::SparseMatrixViennaCL &A, int matrix_type, int message_level, int n_rhs)  :
     Solver(A), mtype(matrix_type), verbose(message_level), n_rhs(n_rhs) {
+    verbose = 1;
 
     mat = dynamic_cast<wfes::vienna::SparseMatrixViennaCL*>(&m);
+    qputenv("MKL SERIAL", "YES");
+    convertToFortranNotation();
 
     // Set some parameters...
     maxfct = 1;         /* Maximum number of numerical factorizations.  */
     mnum   = 1;         /* Which factorization to use. */
     error  = 0;         /* Initialize error flag */
+
+    iparm[0] = 0;
 
     // Initialize pardiso and read license.
     pardisoinit (pt,  &mtype, &solver, iparm, dparm, &error);
@@ -46,8 +51,12 @@ wfes::pardisoproject::PardisoProjectSolver::PardisoProjectSolver(wfes::vienna::S
 
     // Set number of threads using environment variable.
     qputenv("OMP_NUM_THREADS", QByteArray::fromStdString(std::to_string(config::Config::n_threads)));
-    iparm[2]  = config::Config::n_threads;
     openblas_set_num_threads(config::Config::n_threads);
+    iparm[2]  = config::Config::n_threads;
+    iparm[1] = 3;
+    iparm[27] = 1;
+
+    iparm[33]=iparm[23]=iparm[24]=1;
 }
 
 wfes::pardisoproject::PardisoProjectSolver::~PardisoProjectSolver()
@@ -60,9 +69,8 @@ wfes::pardisoproject::PardisoProjectSolver::~PardisoProjectSolver()
 
 void wfes::pardisoproject::PardisoProjectSolver::preprocess()
 {
-    int phase = MKL_PARDISO_SOLVER_PHASE_ANALYSIS;
 
-    convertToFortranNotation();
+    int phase = MKL_PARDISO_SOLVER_PHASE_ANALYSIS;
 
     pardiso (pt, &maxfct, &mnum, &mtype, &phase,
              &(mat->num_cols), mat->data, mat->row_index, mat->cols, &idum, &n_rhs,
@@ -81,8 +89,6 @@ void wfes::pardisoproject::PardisoProjectSolver::preprocess()
              &mat->num_cols, mat->data, mat->row_index, mat->cols, &idum, &n_rhs,
              iparm, &verbose, &ddum, &ddum, &error, dparm);
 
-    convertToCNotation();
-
     if (error != 0) {
         qDebug() << "ERROR during numerical factorization: " << error;
     }
@@ -91,13 +97,9 @@ void wfes::pardisoproject::PardisoProjectSolver::preprocess()
 
 dvec wfes::pardisoproject::PardisoProjectSolver::solve(dvec &b, bool transpose)
 {
-
-    convertToFortranNotation();
-
     int phase = MKL_PARDISO_SOLVER_PHASE_SOLVE_ITERATIVE_REFINEMENT;
 
     double res[b.size()];
-
     iparm[7] = 0;       /* Max numbers of iterative refinement steps. */
     if(transpose) iparm[MKL_PARDISO_SOLVE_OPTION] = MKL_PARDISO_SOLVE_TRANSPOSED;
     else iparm[MKL_PARDISO_SOLVE_OPTION] = MKL_PARDISO_DEFAULT;
@@ -111,8 +113,6 @@ dvec wfes::pardisoproject::PardisoProjectSolver::solve(dvec &b, bool transpose)
     }
 
     //qDebug() << "Solve completed...";
-
-    convertToCNotation();
 
     dvec ret(b.size());
 

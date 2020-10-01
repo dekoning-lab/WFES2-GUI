@@ -54,7 +54,6 @@ unix {
     DEPENDPATH += $$PWD/../dependencies/unix/openblas/include
     DEPENDPATH += $$PWD/../dependencies/unix/CL
 
-    PRE_TARGETDEPS += $$PWD/../dependencies/unix/openblas/lib/libopenblas.a
 }
 
 

@@ -102,6 +102,8 @@ unix {
     DEPENDPATH += $$PWD/../dependencies/unix/CL
 
     PRE_TARGETDEPS += $$PWD/../dependencies/unix/openblas/lib/libopenblas.a
+
+
 }
 
 win32 {
