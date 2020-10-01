@@ -52,8 +52,14 @@ wfes::pardisoproject::PardisoProjectSolver::PardisoProjectSolver(wfes::vienna::S
     // Set number of threads using environment variable.
     qputenv("OMP_NUM_THREADS", QByteArray::fromStdString(std::to_string(config::Config::n_threads)));
     openblas_set_num_threads(config::Config::n_threads);
-    iparm[2]  = config::Config::n_threads;
     iparm[1] = 3;
+    iparm[2]  = config::Config::n_threads;
+    iparm[7] = 0;       /* Max numbers of iterative refinement steps. */
+    iparm[9]  = 20;
+    iparm[10] = 1;
+    iparm[11] = 0;
+    iparm[12] = 1;
+    iparm[17] = -1;
     iparm[27] = 1;
 
     iparm[33]=iparm[23]=iparm[24]=1;
@@ -100,7 +106,6 @@ dvec wfes::pardisoproject::PardisoProjectSolver::solve(dvec &b, bool transpose)
     int phase = MKL_PARDISO_SOLVER_PHASE_SOLVE_ITERATIVE_REFINEMENT;
 
     double res[b.size()];
-    iparm[7] = 0;       /* Max numbers of iterative refinement steps. */
     if(transpose) iparm[MKL_PARDISO_SOLVE_OPTION] = MKL_PARDISO_SOLVE_TRANSPOSED;
     else iparm[MKL_PARDISO_SOLVE_OPTION] = MKL_PARDISO_DEFAULT;
 
