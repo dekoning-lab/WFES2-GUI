@@ -3,10 +3,14 @@
 
 #include <source/model/executables/wfes_single/config/configWfesSingle.h>
 
+#include <boost/math/special_functions/fpclassify.hpp>
+
+#include "utils/types.h"
+
 #include <QtGui/QImage>
 
 
-class Results
+class ResultsWfesSingle
 {
 public:
     wfes::config::ModelType modelType;
@@ -46,43 +50,49 @@ public:
     QImage* imageE;
 
     // Empty constructor
-    Results();
+    ResultsWfesSingle();
 
     // Empty constructor with time
-    Results(double time);
+    ResultsWfesSingle(double time);
 
     // Absorption
-    Results(wfes::config::ModelType modelType, double pExt,
+    ResultsWfesSingle(wfes::config::ModelType modelType, double pExt,
             double pFix, double tAbs, double tAbsStd, double tExt,
             double tExtStd, double nExt, double tFix, double tFixStd, double time,
             QImage* imageI, QImage* imageQ, QImage* imageR, QImage* imageN, QImage* imageNExt, QImage* imageNFix, QImage* imageB);
 
     // Fixation
-    Results(wfes::config::ModelType modelType, double tFix, double tFixStd, double rate, double time,
+    ResultsWfesSingle(wfes::config::ModelType modelType, double tFix, double tFixStd, double rate, double time,
             QImage* imageI, QImage* imageQ, QImage* imageR, QImage* imageN, QImage* imageB);
 
     // Fundamental
-    Results(wfes::config::ModelType modelType, double time,
+    ResultsWfesSingle(wfes::config::ModelType modelType, double time,
             QImage* imageI, QImage* imageQ, QImage* imageR, QImage* imageN, QImage* imageV);
 
     // Equilibrium
-    Results(wfes::config::ModelType modelType, double freqMut, double freqWt, double time,
+    ResultsWfesSingle(wfes::config::ModelType modelType, double freqMut, double freqWt, double time,
             QImage* imageI, QImage* imageE);
 
     // Establishment
-    Results(wfes::config::ModelType modelType, double fEst, double pEst, double tSeg, double tSegStd,
+    ResultsWfesSingle(wfes::config::ModelType modelType, double fEst, double pEst, double tSeg, double tSegStd,
             double tSegExt, double tSegExtStd, double tSegFix,
             double tSegFixStd, double tEst, double tEstStd, double time,
             QImage* imageI, QImage* imageQ, QImage* imageR);
 
     // Allele Age.
-    Results(wfes::config::ModelType modelType, double eAlleleAge, double sAlleleAge, bool alelle, double time,
+    ResultsWfesSingle(wfes::config::ModelType modelType, double eAlleleAge, double sAlleleAge, bool alelle, double time,
             QImage* imageI, QImage* imageQ, QImage* imageR);
 
     // Non absorbing.
-    Results(wfes::config::ModelType modelType, bool nonAbsorbing, double time,
+    ResultsWfesSingle(wfes::config::ModelType modelType, bool nonAbsorbing, double time,
             QImage* imageI, QImage* imageQ);
 
+    /**
+     * @brief Write results in a CSV file.
+     * @param results results to be printed in a CSV file.
+     * @param path Path of the file.
+     */
+    void writeResultsToFile(ResultsWfesSingle *results, std::string path);
 
 };
 

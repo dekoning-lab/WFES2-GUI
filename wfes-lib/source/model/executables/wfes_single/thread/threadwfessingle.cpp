@@ -2,13 +2,13 @@
 
 
 WorkerThread::WorkerThread(QObject *parent) : QThread(parent) {
-    results = Results();
+    results = ResultsWfesSingle();
 }
 
 WorkerThread::~WorkerThread() {
     if (!done) {
         exit();
-        emit updateProgress(ExecutionStatus::ABORTED);
+        emit updateProgress(wfes::utils::ExecutionStatus::ABORTED);
     } else {
         exit();
     }

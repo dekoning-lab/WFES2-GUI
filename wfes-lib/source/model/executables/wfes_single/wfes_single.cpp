@@ -8,9 +8,10 @@ using namespace wfes::solver;
 using namespace wfes::sparsematrix;
 using namespace wfes::pardiso;
 using namespace wfes::config;
+using namespace wfes::utils;
 using namespace wfes;
 
-Results* wfes_single::execute()
+ResultsWfesSingle* wfes_single::execute()
 {
     // Start counting execution time.
     t_start = std::chrono::system_clock::now();
@@ -64,15 +65,15 @@ Results* wfes_single::execute()
         case ModelType::NONE:
         default:
             // TODO Show error as dialog.
-            return new Results();
+            return new ResultsWfesSingle();
     }
 
     // If for some reason the code reaches this line (it shouldn't because all cases are covered by the switch),
     // return default results, which is formed by nan values, so the GUI does not show anything.
-    return new Results();
+    return new ResultsWfesSingle();
 }
 
-Results *wfes_single::absorption()
+ResultsWfesSingle *wfes_single::absorption()
 {
     //Notify building matrix.
     this->notify(ExecutionStatus::BUILDING_MATRICES);
@@ -251,10 +252,10 @@ Results *wfes_single::absorption()
         utils::saveImage(imageB, "Image_B");
     }
 
-    Results* res = new Results(Config::modelType, P_ext, P_fix, T_abs, T_abs_std, T_ext, T_ext_std, N_ext, T_fix, T_fix_std, dt.count(), imageI, imageQ, imageR, imageN, imageNExt, imageNFix, imageB);
+    ResultsWfesSingle* res = new ResultsWfesSingle(Config::modelType, P_ext, P_fix, T_abs, T_abs_std, T_ext, T_ext_std, N_ext, T_fix, T_fix_std, dt.count(), imageI, imageQ, imageR, imageN, imageNExt, imageNFix, imageB);
 
     if(Config::output_Res)
-       utils::writeResultsToFile(res, Config::path_output_Res);
+       res->writeResultsToFile(res, Config::path_output_Res);
 
     //Notify done.
     this->notify(ExecutionStatus::DONE);
@@ -262,7 +263,7 @@ Results *wfes_single::absorption()
     return res;
 }
 
-Results *wfes_single::fixation()
+ResultsWfesSingle *wfes_single::fixation()
 {
     //Notify building matrix.
     this->notify(ExecutionStatus::BUILDING_MATRICES);
@@ -345,10 +346,10 @@ Results *wfes_single::fixation()
         imageB = utils::generateImage(B);
         utils::saveImage(imageB, "Image_B");
     }
-    Results* res = new Results(Config::modelType, T_fix, T_std, rate, dt.count(), imageI, imageQ, imageR, imageN, imageB);
+    ResultsWfesSingle* res = new ResultsWfesSingle(Config::modelType, T_fix, T_std, rate, dt.count(), imageI, imageQ, imageR, imageN, imageB);
 
     if(Config::output_Res)
-       utils::writeResultsToFile(res, Config::path_output_Res);
+       res->writeResultsToFile(res, Config::path_output_Res);
 
     //Notify done.
     this->notify(ExecutionStatus::DONE);
@@ -356,7 +357,7 @@ Results *wfes_single::fixation()
     return res;
 }
 
-Results *wfes_single::fundamental()
+ResultsWfesSingle *wfes_single::fundamental()
 {
 
     //Notify building matrix.
@@ -439,10 +440,10 @@ Results *wfes_single::fundamental()
         utils::saveImage(imageV, "Image_V");
     }
 
-    return new Results(Config::modelType, dt.count(), imageI, imageQ, imageR, imageN, imageV);
+    return new ResultsWfesSingle(Config::modelType, dt.count(), imageI, imageQ, imageR, imageN, imageV);
 }
 
-Results *wfes_single::equilibrium()
+ResultsWfesSingle *wfes_single::equilibrium()
 {
     //Notify building matrix.
     this->notify(ExecutionStatus::BUILDING_MATRICES);
@@ -496,13 +497,13 @@ Results *wfes_single::equilibrium()
         imageE = utils::generateImage(pi);
         utils::saveImage(imageE, "Image_E");
     }
-    Results* res = new Results(Config::modelType, e_freq, (1.0 - e_freq), dt.count(), imageI, imageE);
+    ResultsWfesSingle* res = new ResultsWfesSingle(Config::modelType, e_freq, (1.0 - e_freq), dt.count(), imageI, imageE);
 
     //Notify saving data.
     this->notify(ExecutionStatus::SAVING_DATA);
 
     if(Config::output_Res)
-       utils::writeResultsToFile(res, Config::path_output_Res);
+       res->writeResultsToFile(res, Config::path_output_Res);
 
     //Notify done.
     this->notify(ExecutionStatus::DONE);
@@ -510,7 +511,7 @@ Results *wfes_single::equilibrium()
     return res;
 }
 
-Results *wfes_single::establishment()
+ResultsWfesSingle *wfes_single::establishment()
 {
 
     //Notify building matrix.
@@ -698,14 +699,14 @@ Results *wfes_single::establishment()
         utils::saveImage(imageR, "Image_R");
     }
 
-    Results* res = new Results(Config::modelType, est_freq, P_est, T_seg, T_seg_std,
+    ResultsWfesSingle* res = new ResultsWfesSingle(Config::modelType, est_freq, P_est, T_seg, T_seg_std,
                                T_seg_ext, T_seg_ext_std, T_seg_fix, T_seg_fix_std, T_est, T_est_std, dt.count(), imageI, imageQ, imageR);
 
     //Notify saving data.
     this->notify(ExecutionStatus::SAVING_DATA);
 
     if(Config::output_Res)
-       utils::writeResultsToFile(res, Config::path_output_Res);
+       res->writeResultsToFile(res, Config::path_output_Res);
 
     //Notify done.
     this->notify(ExecutionStatus::DONE);
@@ -713,7 +714,7 @@ Results *wfes_single::establishment()
     return res;
 }
 
-Results *wfes_single::alleleAge()
+ResultsWfesSingle *wfes_single::alleleAge()
 {
     //Notify building matrix.
     this->notify(ExecutionStatus::BUILDING_MATRICES);
@@ -801,13 +802,13 @@ Results *wfes_single::alleleAge()
         utils::saveImage(imageR, "Image_R");
     }
 
-    Results* res = new Results(Config::modelType, E_allele_age, S_allele_age, true, dt.count(), imageI, imageQ, imageR);
+    ResultsWfesSingle* res = new ResultsWfesSingle(Config::modelType, E_allele_age, S_allele_age, true, dt.count(), imageI, imageQ, imageR);
 
     //Notify saving data.
     this->notify(ExecutionStatus::SAVING_DATA);
 
     if(Config::output_Res)
-       utils::writeResultsToFile(res, Config::path_output_Res);
+       res->writeResultsToFile(res, Config::path_output_Res);
 
     delete solver;
 
@@ -817,7 +818,7 @@ Results *wfes_single::alleleAge()
     return res;
 }
 
-Results *wfes_single::nonAbsorbing()
+ResultsWfesSingle *wfes_single::nonAbsorbing()
 {
     //Notify building matrix.
     this->notify(ExecutionStatus::BUILDING_MATRICES);
@@ -851,7 +852,7 @@ Results *wfes_single::nonAbsorbing()
         utils::saveImage(imageQ, "Image_Q");
     }
 
-    return new Results(Config::modelType, true, dt.count(), imageI, imageQ);
+    return new ResultsWfesSingle(Config::modelType, true, dt.count(), imageI, imageQ);
 }
 
 void wfes_single::force()

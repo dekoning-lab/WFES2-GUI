@@ -2,7 +2,6 @@
 #define UTILS_H
 
 #include "utils/types.h"
-#include "source/model/executables/wfes_single/results/resultsWfesSingle.h"
 
 #include <Eigen/Core>
 
@@ -15,6 +14,12 @@
 
 namespace wfes{
     namespace utils{
+
+        enum ExecutionStatus{
+            NONE, STARTING, BUILDING_MATRICES, SOLVING_MATRICES, SAVING_DATA, DONE, ABORTED
+        };
+
+        static const char* ExecutionStatusName[] = { "None", "Starting...", "Building matrices...", "Solving matrices...", "Saving data...", "Done.", "Aborted by user."};
 
         /**
          * @brief Format for CSV in input and output.
@@ -134,13 +139,6 @@ namespace wfes{
          * @return Closed range of a vector.
          */
         ivec closedRangeInt(int start, int stop);
-
-        /**
-         * @brief Write results in a CSV file.
-         * @param results results to be printed in a CSV file.
-         * @param path Path of the file.
-         */
-        void writeResultsToFile(Results* results, std::string path);
 
         /**
          * @brief Generate an image representation of the matrix as a heatmap.

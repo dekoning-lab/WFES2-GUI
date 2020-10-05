@@ -8,6 +8,8 @@
 
 #include "source/model/executables/wfes_single/results/resultsWfesSingle.h"
 
+#include "utils/utils.h"
+
 #include <QString>
 #include <boost/format.hpp>
 #include <boost/lexical_cast.hpp>

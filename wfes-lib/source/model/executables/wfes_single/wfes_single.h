@@ -23,13 +23,6 @@
 
 #include <utils/observer/subject.h>
 
-
-enum ExecutionStatus{
-    NONE, STARTING, BUILDING_MATRICES, SOLVING_MATRICES, SAVING_DATA, DONE, ABORTED
-};
-
-static const char* ExecutionStatusName[] = { "None", "Starting...", "Building matrices...", "Solving matrices...", "Saving data...", "Done.", "Aborted by user."};
-
 class wfes_single : public Subject{
 
     public:
@@ -38,21 +31,21 @@ class wfes_single : public Subject{
         dvec starting_copies_p;
         llong z;
 
-        Results* execute();
+        ResultsWfesSingle* execute();
 
-        Results* absorption();
+        ResultsWfesSingle* absorption();
 
-        Results* fixation();
+        ResultsWfesSingle* fixation();
 
-        Results* fundamental();
+        ResultsWfesSingle* fundamental();
 
-        Results* equilibrium();
+        ResultsWfesSingle* equilibrium();
 
-        Results* establishment();
+        ResultsWfesSingle* establishment();
 
-        Results* alleleAge();
+        ResultsWfesSingle* alleleAge();
 
-        Results* nonAbsorbing();
+        ResultsWfesSingle* nonAbsorbing();
 
         void force();
         void calculateStartingCopies();

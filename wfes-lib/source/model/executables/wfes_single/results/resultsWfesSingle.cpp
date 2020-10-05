@@ -1,7 +1,7 @@
 #include "resultsWfesSingle.h"
 
 // Empty constructor
-Results::Results() :
+ResultsWfesSingle::ResultsWfesSingle() :
     modelType(wfes::config::NONE), pExt(std::nan("")), pFix(std::nan("")), tAbs(std::nan("")),
       tAbsStd(std::nan("")), tExt(std::nan("")), tExtStd(std::nan("")), nExt(std::nan("")),
       tFix(std::nan("")), tFixStd(std::nan("")), rate(std::nan("")),
@@ -19,7 +19,7 @@ Results::Results() :
       imageI(nullptr), imageQ(nullptr), imageR(nullptr), imageN(nullptr), imageNExt(nullptr), imageNFix(nullptr), imageB(nullptr), imageV(nullptr), imageE(nullptr){}
 
 // Empty constructor with time
-Results::Results(double time)  :
+ResultsWfesSingle::ResultsWfesSingle(double time)  :
     modelType(wfes::config::NONE), pExt(std::nan("")), pFix(std::nan("")), tAbs(std::nan("")),
       tAbsStd(std::nan("")), tExt(std::nan("")), tExtStd(std::nan("")), nExt(std::nan("")),
       tFix(std::nan("")), tFixStd(std::nan("")), rate(std::nan("")),
@@ -37,7 +37,7 @@ Results::Results(double time)  :
       imageI(nullptr), imageQ(nullptr), imageR(nullptr), imageN(nullptr), imageNExt(nullptr), imageNFix(nullptr), imageB(nullptr), imageV(nullptr), imageE(nullptr){}
 
 // Absorption
-Results::Results(wfes::config::ModelType modelType, double pExt,
+ResultsWfesSingle::ResultsWfesSingle(wfes::config::ModelType modelType, double pExt,
                  double pFix, double tAbs, double tAbsStd, double tExt,
                  double tExtStd, double nExt, double tFix, double tFixStd, double time,
                  QImage* imageI, QImage* imageQ, QImage* imageR, QImage* imageN, QImage* imageNExt, QImage* imageNFix, QImage* imageB) :
@@ -57,7 +57,7 @@ Results::Results(wfes::config::ModelType modelType, double pExt,
     imageI(imageI), imageQ(imageQ), imageR(imageR), imageN(imageN), imageNExt(imageNExt), imageNFix(imageNFix), imageB(imageB), imageV(nullptr), imageE(nullptr){}
 
 // Fixation
-Results::Results(wfes::config::ModelType modelType, double tFix, double tFixStd, double rate, double time, QImage* imageI, QImage* imageQ, QImage* imageR, QImage* imageN, QImage* imageB) :
+ResultsWfesSingle::ResultsWfesSingle(wfes::config::ModelType modelType, double tFix, double tFixStd, double rate, double time, QImage* imageI, QImage* imageQ, QImage* imageR, QImage* imageN, QImage* imageB) :
     modelType(modelType), pExt(std::nan("")), pFix(std::nan("")), tAbs(std::nan("")),
       tAbsStd(std::nan("")), tExt(std::nan("")), tExtStd(std::nan("")), nExt(std::nan("")),
       tFix(tFix), tFixStd(tFixStd), rate(rate),
@@ -75,7 +75,7 @@ Results::Results(wfes::config::ModelType modelType, double tFix, double tFixStd,
       imageI(imageI), imageQ(imageQ), imageR(imageR), imageN(imageN), imageNExt(nullptr), imageNFix(nullptr), imageB(imageB), imageV(nullptr), imageE(nullptr){}
 
 // Fundamental
-Results::Results(wfes::config::ModelType modelType, double time, QImage* imageI, QImage* imageQ, QImage* imageR, QImage* imageN, QImage* imageV) :
+ResultsWfesSingle::ResultsWfesSingle(wfes::config::ModelType modelType, double time, QImage* imageI, QImage* imageQ, QImage* imageR, QImage* imageN, QImage* imageV) :
     modelType(modelType), pExt(std::nan("")), pFix(std::nan("")), tAbs(std::nan("")),
       tAbsStd(std::nan("")), tExt(std::nan("")), tExtStd(std::nan("")), nExt(std::nan("")),
       tFix(std::nan("")), tFixStd(std::nan("")), rate(std::nan("")),
@@ -93,7 +93,7 @@ Results::Results(wfes::config::ModelType modelType, double time, QImage* imageI,
       imageI(imageI), imageQ(imageQ), imageR(imageR), imageN(imageN), imageNExt(nullptr), imageNFix(nullptr), imageB(nullptr), imageV(imageV), imageE(nullptr){}
 
 // Equilibrium
-Results::Results(wfes::config::ModelType modelType, double freqMut, double freqWt, double time, QImage* imageI, QImage* imageE) :
+ResultsWfesSingle::ResultsWfesSingle(wfes::config::ModelType modelType, double freqMut, double freqWt, double time, QImage* imageI, QImage* imageE) :
     modelType(modelType), pExt(std::nan("")), pFix(std::nan("")), tAbs(std::nan("")),
     tAbsStd(std::nan("")), tExt(std::nan("")), tExtStd(std::nan("")), nExt(std::nan("")),
     tFix(std::nan("")), tFixStd(std::nan("")), rate(std::nan("")),
@@ -111,7 +111,7 @@ Results::Results(wfes::config::ModelType modelType, double freqMut, double freqW
     imageI(imageI), imageQ(nullptr), imageR(nullptr), imageN(nullptr), imageNExt(nullptr), imageNFix(nullptr), imageB(nullptr), imageV(nullptr), imageE(imageE){}
 
 // Establishment
-Results::Results(wfes::config::ModelType modelType, double fEst, double pEst, double tSeg, double tSegStd, double tSegExt, double tSegExtStd, double tSegFix, double tSegFixStd, double tEst, double tEstStd, double time, QImage* imageI, QImage* imageQ, QImage* imageR) :
+ResultsWfesSingle::ResultsWfesSingle(wfes::config::ModelType modelType, double fEst, double pEst, double tSeg, double tSegStd, double tSegExt, double tSegExtStd, double tSegFix, double tSegFixStd, double tEst, double tEstStd, double time, QImage* imageI, QImage* imageQ, QImage* imageR) :
       modelType(modelType), pExt(std::nan("")), pFix(std::nan("")), tAbs(std::nan("")),
       tAbsStd(std::nan("")), tExt(std::nan("")), tExtStd(std::nan("")), nExt(std::nan("")),
       tFix(std::nan("")), tFixStd(std::nan("")), rate(std::nan("")),
@@ -129,7 +129,7 @@ Results::Results(wfes::config::ModelType modelType, double fEst, double pEst, do
       imageI(imageI), imageQ(imageQ), imageR(imageR), imageN(nullptr), imageNExt(nullptr), imageNFix(nullptr), imageB(nullptr), imageV(nullptr), imageE(nullptr){}
 
 // Allele Age
-Results::Results(wfes::config::ModelType modelType, double eAlleleAge, double sAlleleAge, bool allele, double time, QImage* imageI, QImage* imageQ, QImage* imageR) :
+ResultsWfesSingle::ResultsWfesSingle(wfes::config::ModelType modelType, double eAlleleAge, double sAlleleAge, bool allele, double time, QImage* imageI, QImage* imageQ, QImage* imageR) :
     modelType(modelType), pExt(std::nan("")), pFix(std::nan("")), tAbs(std::nan("")),
       tAbsStd(std::nan("")), tExt(std::nan("")), tExtStd(std::nan("")), nExt(std::nan("")),
       tFix(std::nan("")), tFixStd(std::nan("")), rate(std::nan("")),
@@ -147,7 +147,7 @@ Results::Results(wfes::config::ModelType modelType, double eAlleleAge, double sA
       imageI(imageI), imageQ(imageQ), imageR(imageR), imageN(nullptr), imageNExt(nullptr), imageNFix(nullptr), imageB(nullptr), imageV(nullptr), imageE(nullptr){}
 
 // Non absorbing
-Results::Results(wfes::config::ModelType modelType, bool nonAbsorbing, double time, QImage* imageI, QImage* imageQ) :
+ResultsWfesSingle::ResultsWfesSingle(wfes::config::ModelType modelType, bool nonAbsorbing, double time, QImage* imageI, QImage* imageQ) :
     modelType(modelType), pExt(std::nan("")), pFix(std::nan("")), tAbs(std::nan("")),
       tAbsStd(std::nan("")), tExt(std::nan("")), tExtStd(std::nan("")), nExt(std::nan("")),
       tFix(std::nan("")), tFixStd(std::nan("")), rate(std::nan("")),
@@ -164,4 +164,100 @@ Results::Results(wfes::config::ModelType modelType, bool nonAbsorbing, double ti
 
       imageI(imageI), imageQ(imageQ), imageR(nullptr), imageN(nullptr), imageNExt(nullptr), imageNFix(nullptr), imageB(nullptr), imageV(nullptr), imageE(nullptr){}
 
+
+
+void ResultsWfesSingle::writeResultsToFile(ResultsWfesSingle *results, std::string path)
+{
+
+
+    time_t t = std::time(0);   // get time now
+    struct tm * now = localtime(&t);
+    std::stringstream sstm;
+    sstm << (now->tm_hour) << '-' << (now->tm_min) << '-' << now->tm_sec;
+    std::string s = sstm.str();
+
+
+    std::ofstream myfile;
+    myfile.open (s + "_Res");
+    myfile << "Result, Value" << "\n";
+
+    if(!(boost::math::isnan)(results->pExt))
+        myfile << "P_ext, " << results->pExt << "\n";
+
+    if(!(boost::math::isnan)(results->pFix))
+        myfile << "P_fix, " << results->pFix << "\n";
+
+    if(!(boost::math::isnan)(results->tAbs))
+        myfile << "T_abs, " << results->tAbs << "\n";
+
+    if(!(boost::math::isnan)(results->tAbsStd))
+        myfile << "T_abs_std, " << results->tAbsStd << "\n";
+
+    if(!(boost::math::isnan)(results->tExt))
+        myfile << "T_ext, " << results->tExt << "\n";
+
+    if(!(boost::math::isnan)(results->tExtStd))
+        myfile << "T_ext_std, " << results->tExtStd << "\n";
+
+    if(!(boost::math::isnan)(results->nExt))
+        myfile << "N_ext, " << results->nExt << "\n";
+
+    if(!(boost::math::isnan)(results->tFix))
+        myfile << "T_fix, " << results->tFix << "\n";
+
+    if(!(boost::math::isnan)(results->tFixStd))
+        myfile << "T_fix_std, " << results->tFixStd << "\n";
+
+    if(!(boost::math::isnan)(results->rate))
+        myfile << "Rate, " << results->rate << "\n";
+
+    if(!(boost::math::isnan)(results->freqMut))
+        myfile << "E[freq mut], " << results->freqMut << "\n";
+
+    if(!(boost::math::isnan)(results->freqWt))
+        myfile << "E[freq  wt], " << results->freqWt << "\n";
+
+    if(!(boost::math::isnan)(results->fEst))
+        myfile << "F_est, " << results->fEst << "\n";
+
+    if(!(boost::math::isnan)(results->pEst))
+        myfile << "P_est, " << results->fEst << "\n";
+
+    if(!(boost::math::isnan)(results->tSeg))
+        myfile << "T_seg, " << results->tSeg << "\n";
+
+    if(!(boost::math::isnan)(results->tSegStd))
+        myfile << "T_seg_std, " << results->tSegStd << "\n";
+
+    if(!(boost::math::isnan)(results->tSegExt))
+        myfile << "T_seg_ext, " << results->tSegExt << "\n";
+
+    if(!(boost::math::isnan)(results->tSegExtStd))
+        myfile << "T_seg_ext_std, " << results->tSegExtStd << "\n";
+
+    if(!(boost::math::isnan)(results->tSegFix))
+        myfile << "T_seg_fix, " << results->tSegFix << "\n";
+
+    if(!(boost::math::isnan)(results->tSegFixStd))
+        myfile << "T_seg_fix_std, " << results->tSegFixStd << "\n";
+
+    if(!(boost::math::isnan)(results->tEst))
+        myfile << "T_est, " << results->tEst << "\n";
+
+    if(!(boost::math::isnan)(results->tEstStd))
+        myfile << "T_est_std, " << results->tEstStd << "\n";
+
+    if(!(boost::math::isnan)(results->eAlleleAge))
+        myfile << "E(A), " << results->eAlleleAge << "\n";
+
+    if(!(boost::math::isnan)(results->sAlleleAge))
+        myfile << "S(A), " << results->sAlleleAge << "\n";
+
+
+    if(!(boost::math::isnan)(results->time))
+        myfile << "Time, " << results->time << "\n";
+
+
+    myfile.close();
+}
 

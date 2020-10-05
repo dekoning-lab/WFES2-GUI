@@ -8,6 +8,8 @@
 
 #include "source/model/executables/wfes_single/results/resultsWfesSingle.h"
 
+#include "utils/utils.h"
+
 #include <QString>
 #include <QThread>
 
@@ -61,7 +63,7 @@ namespace wfes {
 
             public:
 
-                Results results;
+                ResultsWfesSingle results;
 
                 bool executing;
 
@@ -263,13 +265,13 @@ namespace wfes {
                 QString get_progress() const;
 
             public slots:
-                void handleResults(Results results){
+                void handleResults(ResultsWfesSingle results){
                     this->results = results;
                     this->executing = false;
                     emit results_changed();
                 }
                 void handleProgress(int progress){
-                    this->progress = ExecutionStatusName[progress];
+                    this->progress = wfes::utils::ExecutionStatusName[progress];
                     emit updateProgress();
                 }
 

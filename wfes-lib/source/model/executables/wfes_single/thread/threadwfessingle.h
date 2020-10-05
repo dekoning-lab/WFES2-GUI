@@ -12,6 +12,7 @@
 #include <cmath>
 #include <boost/format.hpp>
 #include <utils/observer/observer.h>
+#include "utils/utils.h"
 #include <source/model/executables/wfes_single/results/resultsWfesSingle.h>
 #include <model/executables/wfes_single/wfes_single.h>
 
@@ -26,7 +27,7 @@ class WorkerThread : public QThread, public Observer
         /**
          * @brief Store results of an execution.
          */
-        Results results;
+        ResultsWfesSingle results;
 
         bool done = false;
 
@@ -36,11 +37,10 @@ class WorkerThread : public QThread, public Observer
 
         void run() override;
 
-
         void update(int value) override;
 
     signals:
-        void resultReady(Results results);
+        void resultReady(ResultsWfesSingle results);
         void updateProgress(int progress);
 };
 

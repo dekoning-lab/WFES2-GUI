@@ -11,10 +11,10 @@ OutputController::~OutputController()
 QString OutputController::execute()
 {
     executing = true;
-    qRegisterMetaType<Results>("Results");
+    qRegisterMetaType<ResultsWfesSingle>("Results");
 
     worker = new WorkerThread();
-    connect(worker, SIGNAL(resultReady(Results)), this, SLOT(handleResults(Results)));
+    connect(worker, SIGNAL(resultReady(ResultsWfesSingle)), this, SLOT(handleResults(ResultsWfesSingle)));
     connect(worker, SIGNAL(updateProgress(int)), this, SLOT(handleProgress(int)));
     connect(worker, SIGNAL(finished()), worker, SLOT(deleteLater()));
     worker->start();
