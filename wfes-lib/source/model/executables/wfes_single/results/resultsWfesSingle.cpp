@@ -1,4 +1,4 @@
-#include "results.h"
+#include "resultsWfesSingle.h"
 
 // Empty constructor
 Results::Results() :

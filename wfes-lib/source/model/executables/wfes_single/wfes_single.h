@@ -19,7 +19,7 @@
 #include "model/pardiso/solverPardiso.h"
 #include "model/pardiso/sparseMatrixPardiso.h"
 
-#include "results/results.h"
+#include "results/resultsWfesSingle.h"
 
 #include <utils/observer/subject.h>
 

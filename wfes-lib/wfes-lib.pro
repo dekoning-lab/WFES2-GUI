@@ -45,7 +45,7 @@ HEADERS += \
     source/model/executables/wfes_single/wfes_single.h \
     source/model/wright-fisher/rdist.h \
     source/model/wright-fisher/wrightFisher.h \
-    source/results/results.h \
+    source/model/executables/wfes_single/results/resultsWfesSingle.h \
     source/thread/threadwfessingle.h \
     source/utils/exceptions.h \
     source/utils/observer/observer.h \
@@ -70,7 +70,7 @@ SOURCES += \
     source/model/executables/wfes_single/wfes_single.cpp \
     source/model/wright-fisher/rdist.cpp \
     source/model/wright-fisher/wrightFisher.cpp \
-    source/results/results.cpp \
+    source/model/executables/wfes_single/results/resultsWfesSingle.cpp \
     source/thread/threadwfessingle.cpp \
     source/utils/observer/observer.cpp \
     source/utils/observer/subject.cpp \

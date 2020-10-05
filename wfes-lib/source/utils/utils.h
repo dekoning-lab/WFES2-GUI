@@ -2,7 +2,7 @@
 #define UTILS_H
 
 #include "utils/types.h"
-#include "results/results.h"
+#include "source/model/executables/wfes_single/results/resultsWfesSingle.h"
 
 #include <Eigen/Core>
 

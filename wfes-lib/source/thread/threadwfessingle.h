@@ -12,7 +12,7 @@
 #include <cmath>
 #include <boost/format.hpp>
 #include <utils/observer/observer.h>
-#include <results/results.h>
+#include <source/model/executables/wfes_single/results/resultsWfesSingle.h>
 #include <model/executables/wfes_single/wfes_single.h>
 
 #include "source/model/executables/wfes_single/config/configWfesSingle.h"
