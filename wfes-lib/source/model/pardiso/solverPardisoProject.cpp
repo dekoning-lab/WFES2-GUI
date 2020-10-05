@@ -20,7 +20,6 @@ void wfes::pardisoproject::PardisoProjectSolver::convertToCNotation()
 
 wfes::pardisoproject::PardisoProjectSolver::PardisoProjectSolver(wfes::vienna::SparseMatrixViennaCL &A, int matrix_type, int message_level, int n_rhs)  :
     Solver(A), mtype(matrix_type), verbose(message_level), n_rhs(n_rhs) {
-    verbose = 1;
 
     mat = dynamic_cast<wfes::vienna::SparseMatrixViennaCL*>(&m);
     qputenv("MKL SERIAL", "YES");
