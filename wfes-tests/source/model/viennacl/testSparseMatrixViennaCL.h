@@ -4,7 +4,7 @@
 #include <QtTest/QtTest>
 #include <QDebug>
 
-#include "model/viennacl/sparseMatrixViennacl.h"
+#include "model/sparse-matrix/viennacl/sparseMatrixViennacl.h"
 #include "testsuite.h"
 
 #include <utils/types.h>

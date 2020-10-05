@@ -1,7 +1,7 @@
 #ifndef SOLVERPARDISO_H
 #define SOLVERPARDISO_H
 
-#include "model/pardiso/sparseMatrixPardiso.h"
+#include "model/sparse-matrix/pardiso/sparseMatrixPardiso.h"
 #include "model/solver/solver.h"
 #include "utils/types.h"
 #include "MKL_Consts.h"

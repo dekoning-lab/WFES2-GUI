@@ -33,15 +33,15 @@ HEADERS += \
     source/model/executables/wfes_single/config/configWfesSingle.h \
     source/model/executables/wfes_single/controllers/inputControllerWfesSingle.h \
     source/model/executables/wfes_single/controllers/outputControllerWfesSingle.h \
-    source/model/pardiso/MKL_Consts.h \
-    source/model/pardiso/solverPardiso.h \
+    source/model/solver/pardiso/MKL_Consts.h \
+    source/model/solver/pardiso/solverPardiso.h \
     source/model/solver/solver.h \
     source/model/solver/solverFactory.h \
     source/model/sparse-matrix/sparseMatrix.h \
     source/model/sparse-matrix/sparseMatrixFactory.h \
-    source/model/pardiso/sparseMatrixPardiso.h \
-    source/model/viennacl/solverViennaCL.h \
-    source/model/viennacl/sparseMatrixViennacl.h \
+    source/model/sparse-matrix/pardiso/sparseMatrixPardiso.h \
+    source/model/solver/viennacl/solverViennaCL.h \
+    source/model/sparse-matrix/viennacl/sparseMatrixViennacl.h \
     source/model/executables/wfes_single/wfes_single.h \
     source/model/wright-fisher/rdist.h \
     source/model/wright-fisher/wrightFisher.h \
@@ -59,14 +59,14 @@ SOURCES += \
     source/model/executables/wfes_single/config/configWfesSingle.cpp \
     source/model/executables/wfes_single/controllers/inputControllerWfesSingle.cpp \
     source/model/executables/wfes_single/controllers/outputControllerWfesSingle.cpp \
-    source/model/pardiso/solverPardiso.cpp \
+    source/model/solver/pardiso/solverPardiso.cpp \
     source/model/solver/solver.cpp \
     source/model/solver/solverFactory.cpp \
     source/model/sparse-matrix/sparseMatrix.cpp \
     source/model/sparse-matrix/sparseMatrixFactory.cpp \
-    source/model/pardiso/sparseMatrixPardiso.cpp \
-    source/model/viennacl/solverViennaCL.cpp \
-    source/model/viennacl/sparseMatrixViennacl.cpp \
+    source/model/sparse-matrix/pardiso/sparseMatrixPardiso.cpp \
+    source/model/solver/viennacl/solverViennaCL.cpp \
+    source/model/sparse-matrix/viennacl/sparseMatrixViennacl.cpp \
     source/model/executables/wfes_single/wfes_single.cpp \
     source/model/wright-fisher/rdist.cpp \
     source/model/wright-fisher/wrightFisher.cpp \

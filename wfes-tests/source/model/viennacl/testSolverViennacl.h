@@ -6,8 +6,8 @@
 #include <QtTest/QtTest>
 #include <QDebug>
 
-#include "model/viennacl/solverViennaCL.h"
-#include "model/viennacl/sparseMatrixViennacl.h"
+#include "model/solver/viennacl/solverViennaCL.h"
+#include "model/sparse-matrix/viennacl/sparseMatrixViennacl.h"
 #include "testsuite.h"
 
 #include <utils/types.h>

@@ -4,7 +4,7 @@
 #include <QtTest/QtTest>
 #include <QDebug>
 
-#include "model/pardiso/sparseMatrixPardiso.h"
+#include "model/sparse-matrix/pardiso/sparseMatrixPardiso.h"
 #include "testsuite.h"
 
 namespace wfes {

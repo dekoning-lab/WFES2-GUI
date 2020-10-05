@@ -2,8 +2,8 @@
 #define SOLVERFACTORY_H
 
 #include "solver.h"
-#include "model/pardiso/solverPardiso.h"
-#include "model/viennacl/solverViennaCL.h"
+#include "model/solver/pardiso/solverPardiso.h"
+#include "model/solver/viennacl/solverViennaCL.h"
 
 namespace wfes {
     namespace solver {

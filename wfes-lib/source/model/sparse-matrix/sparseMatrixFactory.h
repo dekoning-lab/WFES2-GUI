@@ -2,8 +2,8 @@
 #define SPARSEMATRIXFACTORY_H
 
 #include "sparseMatrix.h"
-#include "model/pardiso/sparseMatrixPardiso.h"
-#include "model/viennacl/sparseMatrixViennacl.h"
+#include "model/sparse-matrix/pardiso/sparseMatrixPardiso.h"
+#include "model/sparse-matrix/viennacl/sparseMatrixViennacl.h"
 #include <Eigen/SparseCore>
 
 namespace wfes {

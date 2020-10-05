@@ -5,7 +5,7 @@
 #define VIENNACL_WITH_OPENCL 1
 
 #include "model/solver/solver.h"
-#include "sparseMatrixViennacl.h"
+#include "source/model/sparse-matrix/viennacl/sparseMatrixViennacl.h"
 #include <viennacl/compressed_matrix.hpp>
 #include "utils/types.h"
 #include "source/model/executables/wfes_single/config/configWfesSingle.h"

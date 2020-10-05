@@ -16,8 +16,8 @@
 
 #include "model/wright-fisher/wrightFisher.h"
 
-#include "model/pardiso/solverPardiso.h"
-#include "model/pardiso/sparseMatrixPardiso.h"
+#include "model/solver/pardiso/solverPardiso.h"
+#include "model/sparse-matrix/pardiso/sparseMatrixPardiso.h"
 
 #include "results/resultsWfesSingle.h"
 
