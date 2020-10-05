@@ -16,7 +16,7 @@
 
 #include "source/model/executables/wfes_single/config/configWfesSingle.h"
 
-#include "thread/threadwfessingle.h"
+#include "source/model/executables/wfes_single/thread/threadwfessingle.h"
 
 namespace wfes {
     namespace controllers {
