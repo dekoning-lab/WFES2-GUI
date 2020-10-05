@@ -1,4 +1,4 @@
-﻿#include "outputController.h"
+﻿#include "outputControllerWfesSingle.h"
 
 using namespace wfes::controllers;
 

@@ -31,8 +31,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 HEADERS += \
     source/config/config.h \
-    source/controllers/outputController.h \
-    source/controllers/inputController.h \
+    source/model/executables/wfes_single/controllers/inputControllerWfesSingle.h \
+    source/model/executables/wfes_single/controllers/outputControllerWfesSingle.h \
     source/model/pardiso/MKL_Consts.h \
     source/model/pardiso/solverPardiso.h \
     source/model/solver/solver.h \
@@ -57,8 +57,8 @@ HEADERS += \
 
 SOURCES += \
     source/config/config.cpp \
-    source/controllers/outputController.cpp \
-    source/controllers/inputController.cpp \
+    source/model/executables/wfes_single/controllers/inputControllerWfesSingle.cpp \
+    source/model/executables/wfes_single/controllers/outputControllerWfesSingle.cpp \
     source/model/pardiso/solverPardiso.cpp \
     source/model/solver/solver.cpp \
     source/model/solver/solverFactory.cpp \

@@ -487,7 +487,7 @@ ApplicationWindow {
                                 text: "N: "
                                 toolTipText: "Size of the population in the Wright Fisher Model."
                                 validator: DoubleValidator {bottom: 2; top: 50000;}
-                                textFieldText: inputController.ui_n
+                                textFieldText: inputControllerWfesSingle.ui_n
                             }
 
                             LabeledTextField {
@@ -495,7 +495,7 @@ ApplicationWindow {
                                 text: "a: "
                                 toolTipText: "Tail truncation weight."
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
-                                textFieldText: inputController.ui_a
+                                textFieldText: inputControllerWfesSingle.ui_a
                             }
 
                             LabeledTextField {
@@ -503,11 +503,11 @@ ApplicationWindow {
                                 text: "p: "
                                 toolTipText: "Starting number of copies - no integration."
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
-                                textFieldText: inputController.ui_p
-                                enabled: (inputController.ui_modelType == "Fixation" ||
-                                          inputController.ui_modelType == "Absorption" ||
-                                          inputController.ui_modelType == "Establishment" ||
-                                          inputController.ui_modelType == "Allele Age")
+                                textFieldText: inputControllerWfesSingle.ui_p
+                                enabled: (inputControllerWfesSingle.ui_modelType == "Fixation" ||
+                                          inputControllerWfesSingle.ui_modelType == "Absorption" ||
+                                          inputControllerWfesSingle.ui_modelType == "Establishment" ||
+                                          inputControllerWfesSingle.ui_modelType == "Allele Age")
                             }
 
                             LabeledTextField {
@@ -515,7 +515,7 @@ ApplicationWindow {
                                 text: "c: "
                                 toolTipText: "Starting number of copies integration cutoff."
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
-                                textFieldText: inputController.ui_c
+                                textFieldText: inputControllerWfesSingle.ui_c
                             }
 
                             LabeledTextField {
@@ -523,8 +523,8 @@ ApplicationWindow {
                                 text: "x: "
                                 toolTipText: "Observed number of copies (--allele-age only)."
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
-                                textFieldText: inputController.ui_x
-                                enabled: (inputController.ui_modelType == "Allele Age")
+                                textFieldText: inputControllerWfesSingle.ui_x
+                                enabled: (inputControllerWfesSingle.ui_modelType == "Allele Age")
                             }
 
                             LabeledTextField {
@@ -532,8 +532,8 @@ ApplicationWindow {
                                 text: "k: "
                                 toolTipText: "Odds ratio (--establishment only)."
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
-                                textFieldText: inputController.ui_k
-                                enabled: (inputController.ui_modelType == "Establishment")
+                                textFieldText: inputControllerWfesSingle.ui_k
+                                enabled: (inputControllerWfesSingle.ui_modelType == "Establishment")
                             }
                         }
 
@@ -572,7 +572,7 @@ ApplicationWindow {
                                 text: "u: "
                                 toolTipText: "Backward mutation rate."
                                 validator: DoubleValidator {bottom: 2; top: 50000;}
-                                textFieldText: inputController.ui_u
+                                textFieldText: inputControllerWfesSingle.ui_u
                             }
 
                             LabeledTextField {
@@ -580,20 +580,20 @@ ApplicationWindow {
                                 text: "v: "
                                 toolTipText: "Forward mutation rate."
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
-                                textFieldText: inputController.ui_v
+                                textFieldText: inputControllerWfesSingle.ui_v
                             }
 
                             LabeledCheckBox {
                                 id: inputM
                                 text: "m: "
                                 toolTipText: "No recurrent mutation."
-                                checked: inputController.ui_m
-                                enabled: (inputController.ui_modelType == "Fixation" ||
-                                          inputController.ui_modelType == "Absorption" ||
-                                          inputController.ui_modelType == "Fundamental" ||
-                                          inputController.ui_modelType == "Establishment" ||
-                                          inputController.ui_modelType == "Allele Age" ||
-                                          inputController.ui_modelType == "Non Absorbing")
+                                checked: inputControllerWfesSingle.ui_m
+                                enabled: (inputControllerWfesSingle.ui_modelType == "Fixation" ||
+                                          inputControllerWfesSingle.ui_modelType == "Absorption" ||
+                                          inputControllerWfesSingle.ui_modelType == "Fundamental" ||
+                                          inputControllerWfesSingle.ui_modelType == "Establishment" ||
+                                          inputControllerWfesSingle.ui_modelType == "Allele Age" ||
+                                          inputControllerWfesSingle.ui_modelType == "Non Absorbing")
                             }
                         }
                     }
@@ -630,7 +630,7 @@ ApplicationWindow {
                                 text: "s: "
                                 toolTipText: "Selection coefficient."
                                 validator: DoubleValidator {bottom: 2; top: 50000;}
-                                textFieldText: inputController.ui_s
+                                textFieldText: inputControllerWfesSingle.ui_s
                             }
 
                             LabeledTextField {
@@ -638,7 +638,7 @@ ApplicationWindow {
                                 text: "h: "
                                 toolTipText: "Dominance coefficient."
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
-                                textFieldText: inputController.ui_h
+                                textFieldText: inputControllerWfesSingle.ui_h
                             }
 
                         }
@@ -687,13 +687,13 @@ ApplicationWindow {
                                     id: inputWriteQ
                                     text: "Q: "
                                     toolTipText: "Output Q as CSV file."
-                                    checked: inputController.ui_output_Q
-                                    enabled: (inputController.ui_modelType == "Fixation" ||
-                                              inputController.ui_modelType == "Absorption" ||
-                                              inputController.ui_modelType == "Fundamental" ||
-                                              inputController.ui_modelType == "Establishment" ||
-                                              inputController.ui_modelType == "Allele Age" ||
-                                              inputController.ui_modelType == "Non Absorbing")
+                                    checked: inputControllerWfesSingle.ui_output_Q
+                                    enabled: (inputControllerWfesSingle.ui_modelType == "Fixation" ||
+                                              inputControllerWfesSingle.ui_modelType == "Absorption" ||
+                                              inputControllerWfesSingle.ui_modelType == "Fundamental" ||
+                                              inputControllerWfesSingle.ui_modelType == "Establishment" ||
+                                              inputControllerWfesSingle.ui_modelType == "Allele Age" ||
+                                              inputControllerWfesSingle.ui_modelType == "Non Absorbing")
 
                                 }
 
@@ -701,70 +701,70 @@ ApplicationWindow {
                                     id: inputWriteR
                                     text: "R: "
                                     toolTipText: "Output R as CSV file."
-                                    checked: inputController.ui_output_R
-                                    enabled: (inputController.ui_modelType == "Fixation" ||
-                                              inputController.ui_modelType == "Absorption" ||
-                                              inputController.ui_modelType == "Fundamental" ||
-                                              inputController.ui_modelType == "Establishment" ||
-                                              inputController.ui_modelType == "Allele Age")
+                                    checked: inputControllerWfesSingle.ui_output_R
+                                    enabled: (inputControllerWfesSingle.ui_modelType == "Fixation" ||
+                                              inputControllerWfesSingle.ui_modelType == "Absorption" ||
+                                              inputControllerWfesSingle.ui_modelType == "Fundamental" ||
+                                              inputControllerWfesSingle.ui_modelType == "Establishment" ||
+                                              inputControllerWfesSingle.ui_modelType == "Allele Age")
                                 }
 
                                 LabeledCheckBox {
                                     id: inputWriteB
                                     text: "B: "
                                     toolTipText: "Output B as CSV file."
-                                    checked: inputController.ui_output_B
-                                    enabled: (inputController.ui_modelType == "Fixation" ||
-                                              inputController.ui_modelType == "Absorption")
+                                    checked: inputControllerWfesSingle.ui_output_B
+                                    enabled: (inputControllerWfesSingle.ui_modelType == "Fixation" ||
+                                              inputControllerWfesSingle.ui_modelType == "Absorption")
                                 }
 
                                 LabeledCheckBox {
                                     id: inputWriteN
                                     text: "N: "
                                     toolTipText: "Output N as CSV file."
-                                    checked: inputController.ui_output_N
-                                    enabled: (inputController.ui_modelType == "Fixation" ||
-                                              inputController.ui_modelType == "Absorption" ||
-                                              inputController.ui_modelType == "Fundamental")
+                                    checked: inputControllerWfesSingle.ui_output_N
+                                    enabled: (inputControllerWfesSingle.ui_modelType == "Fixation" ||
+                                              inputControllerWfesSingle.ui_modelType == "Absorption" ||
+                                              inputControllerWfesSingle.ui_modelType == "Fundamental")
                                 }
 
                                 LabeledCheckBox {
                                     id: inputWriteNExt
                                     toolTipText: "Output N ext. (extintion-conditional sojourn) as CSV file."
                                     text: "N ext.: "
-                                    checked: inputController.ui_output_NExt
-                                    enabled: (inputController.ui_modelType == "Absorption")
+                                    checked: inputControllerWfesSingle.ui_output_NExt
+                                    enabled: (inputControllerWfesSingle.ui_modelType == "Absorption")
                                 }
 
                                 LabeledCheckBox {
                                     id: inputWriteNFix
                                     text: "N fix.: "
                                     toolTipText: "Output N fix. (fixation-conditional sojourn) as CSV file."
-                                    checked: inputController.ui_output_NFix
-                                    enabled: (inputController.ui_modelType == "Absorption")
+                                    checked: inputControllerWfesSingle.ui_output_NFix
+                                    enabled: (inputControllerWfesSingle.ui_modelType == "Absorption")
                                 }
 
                                 LabeledCheckBox {
                                     id: inputWriteI
                                     text: "I: "
                                     toolTipText: "Output I (Initial probability distribution) as CSV file."
-                                    checked: inputController.ui_output_I
+                                    checked: inputControllerWfesSingle.ui_output_I
                                 }
 
                                 LabeledCheckBox {
                                     id: inputWriteE
                                     text: "E: "
                                     toolTipText: "Output E (Equilibrium frequencies) as CSV file (Equilibrium mode only)."
-                                    checked: inputController.ui_output_E
-                                    enabled: (inputController.ui_modelType == "Equilibrium")
+                                    checked: inputControllerWfesSingle.ui_output_E
+                                    enabled: (inputControllerWfesSingle.ui_modelType == "Equilibrium")
                                 }
 
                                 LabeledCheckBox {
                                     id: inputWriteV
                                     text: "V: "
                                     toolTipText: "Output V (Variance time matrix) as CSV file (Fundamental mode only)."
-                                    checked: inputController.ui_output_V
-                                    enabled: (inputController.ui_modelType == "Fundamental")
+                                    checked: inputControllerWfesSingle.ui_output_V
+                                    enabled: (inputControllerWfesSingle.ui_modelType == "Fundamental")
                                 }
 
 
@@ -772,12 +772,12 @@ ApplicationWindow {
                                     id: inputWriteRes
                                     text: "Res: "
                                     toolTipText: "Output Res (Generated results at right side) as CSV file."
-                                    checked: inputController.ui_output_Res
-                                    enabled: (inputController.ui_modelType == "Fixation" ||
-                                              inputController.ui_modelType == "Absorption" ||
-                                              inputController.ui_modelType == "Equilibrium" ||
-                                              inputController.ui_modelType == "Establishment" ||
-                                              inputController.ui_modelType == "Allele Age")
+                                    checked: inputControllerWfesSingle.ui_output_Res
+                                    enabled: (inputControllerWfesSingle.ui_modelType == "Fixation" ||
+                                              inputControllerWfesSingle.ui_modelType == "Absorption" ||
+                                              inputControllerWfesSingle.ui_modelType == "Equilibrium" ||
+                                              inputControllerWfesSingle.ui_modelType == "Establishment" ||
+                                              inputControllerWfesSingle.ui_modelType == "Allele Age")
                                 }
 
                             }
@@ -817,7 +817,7 @@ ApplicationWindow {
                                         id: inputForce
                                         toolTipText: "Do not perform parameter checks."
                                         text: "Force: "
-                                        checked: inputController.ui_force
+                                        checked: inputControllerWfesSingle.ui_force
                                     }
 
                                     LabeledTextField {
@@ -825,7 +825,7 @@ ApplicationWindow {
                                         text: "t: "
                                         toolTipText: "Number of threads for OpenMP."
                                         validator: DoubleValidator {bottom: 2; top: 50000;}
-                                        textFieldText: inputController.ui_t
+                                        textFieldText: inputControllerWfesSingle.ui_t
                                     }
                                 }
 
@@ -870,7 +870,7 @@ ApplicationWindow {
                                         toolTipText: "Path to initial probability distribution CSV file."
                                         labelPreferredWidth: 75
                                         textFieldPreferredWidth: 185
-                                        textFieldText: inputController.ui_initial_distribution
+                                        textFieldText: inputControllerWfesSingle.ui_initial_distribution
                                     }
 
                                     Button{
@@ -882,7 +882,6 @@ ApplicationWindow {
                                     FileDialog {
                                         id: fileDialog
                                         title: "Please choose a csv file"
-                                        folder: shortcuts.home
                                         nameFilters: [ "csv files (*.csv)" ]
                                         onAccepted: {
                                             var path = fileDialog.fileUrl.toString()
@@ -912,12 +911,12 @@ ApplicationWindow {
                             Binding {
                                 target: stopButton
                                 property: "enabled"
-                                value: !outputController.ui_get_not_exec
+                                value: !outputControllerWfesSingle.ui_get_not_exec
 
                             }
 
                             onClicked: {
-                                outputController.ui_stop
+                                outputControllerWfesSingle.ui_stop
                                 stopButton.enabled = false
                                 executeButton.enabled = true
                             }
@@ -932,7 +931,7 @@ ApplicationWindow {
                             Binding {
                                 target: executeButton
                                 property: "enabled"
-                                value: outputController.ui_get_not_exec
+                                value: outputControllerWfesSingle.ui_get_not_exec
 
                             }
 
@@ -940,63 +939,63 @@ ApplicationWindow {
                             onClicked: {
                                     // Set mode in backend.
                                     if(radioButtonAbsorption.checked)
-                                        inputController.ui_modelType = "Absorption"
+                                        inputControllerWfesSingle.ui_modelType = "Absorption"
                                     else if (radioButtonFixation.checked)
-                                        inputController.ui_modelType = "Fixation"
+                                        inputControllerWfesSingle.ui_modelType = "Fixation"
                                     else if (radioButtonEstablishment.checked)
-                                        inputController.ui_modelType = "Establishment"
+                                        inputControllerWfesSingle.ui_modelType = "Establishment"
                                     else if (radioButtonFundamental.checked)
-                                        inputController.ui_modelType = "Fundamental"
+                                        inputControllerWfesSingle.ui_modelType = "Fundamental"
                                     else if (radioButtonNonAbsorbing.checked)
-                                        inputController.ui_modelType = "Non Absorbing"
+                                        inputControllerWfesSingle.ui_modelType = "Non Absorbing"
                                     else if (radioButtonEquilibrium.checked)
-                                        inputController.ui_modelType = "Equilibrium"
+                                        inputControllerWfesSingle.ui_modelType = "Equilibrium"
                                     else if (radioButtonAlleleAge.checked)
-                                        inputController.ui_modelType = "Allele Age"
+                                        inputControllerWfesSingle.ui_modelType = "Allele Age"
 
-                                    inputController.ui_n = inputN.textFieldText
-                                    inputController.ui_a = inputA.textFieldText
-                                    if(inputController.ui_modelType == "Fixation" || inputController.ui_modelType == "Absorption" || inputController.ui_modelType == "Establishment" || inputController.ui_modelType == "Allele Age")
-                                        inputController.ui_p = inputp.textFieldText
-                                    inputController.ui_c = inputc.textFieldText
-                                    if(inputController.ui_modelType == "Allele Age")
-                                        inputController.ui_x = inputX.textFieldText
-                                    if(inputController.ui_modelType == "Establishment")
-                                        inputController.ui_k = inputK.textFieldText
-                                    inputController.ui_u = inputU.textFieldText
-                                    inputController.ui_v = inputV.textFieldText
-                                    inputController.ui_m = inputM.checked
-                                    inputController.ui_s = inputS.textFieldText
-                                    inputController.ui_h = inputH.textFieldText
+                                    inputControllerWfesSingle.ui_n = inputN.textFieldText
+                                    inputControllerWfesSingle.ui_a = inputA.textFieldText
+                                    if(inputControllerWfesSingle.ui_modelType == "Fixation" || inputControllerWfesSingle.ui_modelType == "Absorption" || inputControllerWfesSingle.ui_modelType == "Establishment" || inputControllerWfesSingle.ui_modelType == "Allele Age")
+                                        inputControllerWfesSingle.ui_p = inputp.textFieldText
+                                    inputControllerWfesSingle.ui_c = inputc.textFieldText
+                                    if(inputControllerWfesSingle.ui_modelType == "Allele Age")
+                                        inputControllerWfesSingle.ui_x = inputX.textFieldText
+                                    if(inputControllerWfesSingle.ui_modelType == "Establishment")
+                                        inputControllerWfesSingle.ui_k = inputK.textFieldText
+                                    inputControllerWfesSingle.ui_u = inputU.textFieldText
+                                    inputControllerWfesSingle.ui_v = inputV.textFieldText
+                                    inputControllerWfesSingle.ui_m = inputM.checked
+                                    inputControllerWfesSingle.ui_s = inputS.textFieldText
+                                    inputControllerWfesSingle.ui_h = inputH.textFieldText
 
-                                    inputController.ui_output_Q = inputWriteQ.checked
-                                    inputController.ui_output_R = inputWriteR.checked
-                                    inputController.ui_output_B = inputWriteB.checked
-                                    inputController.ui_output_N = inputWriteN.checked
-                                    inputController.ui_output_NExt = inputWriteNExt.checked
-                                    inputController.ui_output_NFix = inputWriteNFix.checked
-                                    inputController.ui_output_I = inputWriteI.checked
-                                    inputController.ui_output_E = inputWriteE.checked
-                                    inputController.ui_output_V = inputWriteV.checked
-                                    inputController.ui_output_Res = inputWriteRes.checked
+                                    inputControllerWfesSingle.ui_output_Q = inputWriteQ.checked
+                                    inputControllerWfesSingle.ui_output_R = inputWriteR.checked
+                                    inputControllerWfesSingle.ui_output_B = inputWriteB.checked
+                                    inputControllerWfesSingle.ui_output_N = inputWriteN.checked
+                                    inputControllerWfesSingle.ui_output_NExt = inputWriteNExt.checked
+                                    inputControllerWfesSingle.ui_output_NFix = inputWriteNFix.checked
+                                    inputControllerWfesSingle.ui_output_I = inputWriteI.checked
+                                    inputControllerWfesSingle.ui_output_E = inputWriteE.checked
+                                    inputControllerWfesSingle.ui_output_V = inputWriteV.checked
+                                    inputControllerWfesSingle.ui_output_Res = inputWriteRes.checked
 
-                                    inputController.ui_force = inputForce.checked
-                                    inputController.ui_t = inputT.textFieldText
+                                    inputControllerWfesSingle.ui_force = inputForce.checked
+                                    inputControllerWfesSingle.ui_t = inputT.textFieldText
 
-                                    inputController.ui_initial_distribution = inputI.textFieldText
+                                    inputControllerWfesSingle.ui_initial_distribution = inputI.textFieldText
 
-                                    inputController.ui_library = comboBoxLibrary.currentText;
-                                    inputController.ui_solver = comboBoxSolver.currentText;
+                                    inputControllerWfesSingle.ui_library = comboBoxLibrary.currentText;
+                                    inputControllerWfesSingle.ui_solver = comboBoxSolver.currentText;
 
-                                if(outputController.ui_get_error_message == "") {
+                                if(outputControllerWfesSingle.ui_get_error_message == "") {
                                     executeButton.enabled = false
                                     stopButton.enabled = true
-                                    outputController.ui_execute
+                                    outputControllerWfesSingle.ui_execute
                                 } else {
-                                    messageDialog.text = outputController.ui_get_error_message
+                                    messageDialog.text = outputControllerWfesSingle.ui_get_error_message
                                     messageDialog.open()
                                 }
-                                outputController.ui_reset_error
+                                outputControllerWfesSingle.ui_reset_error
                             }
 
                         }
@@ -1050,7 +1049,7 @@ ApplicationWindow {
                                 textFieldPreferredWidth: 180
                                 text: "P ext. : "
                                 toolTipText: "Probability of extintion."
-                                textFieldText: outputController.ui_get_p_ext
+                                textFieldText: outputControllerWfesSingle.ui_get_p_ext
                                 readOnly: true
                                 visible: radioButtonAbsorption.checked
                             }
@@ -1061,7 +1060,7 @@ ApplicationWindow {
                                 textFieldPreferredWidth: 180
                                 text: "P fix. : "
                                 toolTipText: "Probability of fixation."
-                                textFieldText: outputController.ui_get_p_fix
+                                textFieldText: outputControllerWfesSingle.ui_get_p_fix
                                 readOnly: true
                                 visible: radioButtonAbsorption.checked
                             }
@@ -1072,7 +1071,7 @@ ApplicationWindow {
                                 textFieldPreferredWidth: 180
                                 text: "T abs. : "
                                 toolTipText: "Absorption time."
-                                textFieldText: outputController.ui_get_t_abs
+                                textFieldText: outputControllerWfesSingle.ui_get_t_abs
                                 readOnly: true
                                 visible: radioButtonAbsorption.checked
                             }
@@ -1083,7 +1082,7 @@ ApplicationWindow {
                                 textFieldPreferredWidth: 180
                                 text: "T abs. std.: "
                                 toolTipText: "Standard absorption time."
-                                textFieldText: outputController.ui_get_t_abs_std
+                                textFieldText: outputControllerWfesSingle.ui_get_t_abs_std
                                 readOnly: true
                                 visible: radioButtonAbsorption.checked
                             }
@@ -1094,7 +1093,7 @@ ApplicationWindow {
                                 textFieldPreferredWidth: 180
                                 text: "T ext.: "
                                 toolTipText: "Extintion time."
-                                textFieldText: outputController.ui_get_t_ext
+                                textFieldText: outputControllerWfesSingle.ui_get_t_ext
                                 readOnly: true
                                 visible: radioButtonAbsorption.checked
                             }
@@ -1105,7 +1104,7 @@ ApplicationWindow {
                                 textFieldPreferredWidth: 180
                                 text: "T ext. std.: "
                                 toolTipText: "Standard extintion time."
-                                textFieldText: outputController.ui_get_t_ext_std
+                                textFieldText: outputControllerWfesSingle.ui_get_t_ext_std
                                 readOnly: true
                                 visible: radioButtonAbsorption.checked
                             }
@@ -1116,7 +1115,7 @@ ApplicationWindow {
                                 textFieldPreferredWidth: 180
                                 text: "N ext.: "
                                 toolTipText: "Number of generations till extintion."
-                                textFieldText: outputController.ui_get_n_ext
+                                textFieldText: outputControllerWfesSingle.ui_get_n_ext
                                 readOnly: true
                                 visible: radioButtonAbsorption.checked
                             }
@@ -1127,7 +1126,7 @@ ApplicationWindow {
                                 textFieldPreferredWidth: 180
                                 text: "T fix.: "
                                 toolTipText: "Fixation time."
-                                textFieldText: outputController.ui_get_t_fix
+                                textFieldText: outputControllerWfesSingle.ui_get_t_fix
                                 readOnly: true
                                 visible: radioButtonFixation.checked || radioButtonAbsorption.checked
                             }
@@ -1138,7 +1137,7 @@ ApplicationWindow {
                                 textFieldPreferredWidth: 180
                                 text: "T fix. std.: "
                                 toolTipText: "Standard fixation time."
-                                textFieldText: outputController.ui_get_t_fix_std
+                                textFieldText: outputControllerWfesSingle.ui_get_t_fix_std
                                 readOnly: true
                                 visible: radioButtonFixation.checked || radioButtonAbsorption.checked
                             }
@@ -1149,7 +1148,7 @@ ApplicationWindow {
                                 textFieldPreferredWidth: 180
                                 text: "Rate: "
                                 toolTipText: "Rate."
-                                textFieldText: outputController.ui_get_rate
+                                textFieldText: outputControllerWfesSingle.ui_get_rate
                                 readOnly: true
                                 visible: radioButtonFixation.checked
                             }
@@ -1159,7 +1158,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "E[freq mut]: "
-                                textFieldText: outputController.ui_get_e_freq_mut
+                                textFieldText: outputControllerWfesSingle.ui_get_e_freq_mut
                                 readOnly: true
                                 visible: radioButtonEquilibrium.checked
                             }
@@ -1169,7 +1168,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "E[freq  wt]: "
-                                textFieldText: outputController.ui_get_e_freq_wt
+                                textFieldText: outputControllerWfesSingle.ui_get_e_freq_wt
                                 readOnly: true
                                 visible: radioButtonEquilibrium.checked
                             }
@@ -1179,7 +1178,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "F est.: "
-                                textFieldText: outputController.ui_get_f_est
+                                textFieldText: outputControllerWfesSingle.ui_get_f_est
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
                             }
@@ -1189,7 +1188,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "P est.: "
-                                textFieldText: outputController.ui_get_p_est
+                                textFieldText: outputControllerWfesSingle.ui_get_p_est
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
                             }
@@ -1199,7 +1198,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "T seg.: "
-                                textFieldText: outputController.ui_get_t_seg
+                                textFieldText: outputControllerWfesSingle.ui_get_t_seg
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
                             }
@@ -1209,7 +1208,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "T seg. std.: "
-                                textFieldText: outputController.ui_get_t_seg_std
+                                textFieldText: outputControllerWfesSingle.ui_get_t_seg_std
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
                             }
@@ -1219,7 +1218,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "T seg. ext.: "
-                                textFieldText: outputController.ui_get_t_seg_est
+                                textFieldText: outputControllerWfesSingle.ui_get_t_seg_est
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
                             }
@@ -1229,7 +1228,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "T seg. ext. std.: "
-                                textFieldText: outputController.ui_get_t_seg_est_std
+                                textFieldText: outputControllerWfesSingle.ui_get_t_seg_est_std
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
                             }
@@ -1239,7 +1238,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "T seg. fix.: "
-                                textFieldText: outputController.ui_get_t_seg_fix
+                                textFieldText: outputControllerWfesSingle.ui_get_t_seg_fix
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
                             }
@@ -1249,7 +1248,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "T seg. fix. std.: "
-                                textFieldText: outputController.ui_get_t_seg_fix_std
+                                textFieldText: outputControllerWfesSingle.ui_get_t_seg_fix_std
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
                             }
@@ -1259,7 +1258,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "T est.: "
-                                textFieldText: outputController.ui_get_t_est
+                                textFieldText: outputControllerWfesSingle.ui_get_t_est
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
                             }
@@ -1269,7 +1268,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "T est. std.: "
-                                textFieldText: outputController.ui_get_t_est_std
+                                textFieldText: outputControllerWfesSingle.ui_get_t_est_std
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
                             }
@@ -1279,7 +1278,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "E(A): "
-                                textFieldText: outputController.ui_get_e_a
+                                textFieldText: outputControllerWfesSingle.ui_get_e_a
                                 readOnly: true
                                 visible: radioButtonAlleleAge.checked
                             }
@@ -1289,7 +1288,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "S(A): "
-                                textFieldText: outputController.ui_get_s_a
+                                textFieldText: outputControllerWfesSingle.ui_get_s_a
                                 readOnly: true
                                 visible: radioButtonAlleleAge.checked
                             }
@@ -1301,7 +1300,7 @@ ApplicationWindow {
                                 textFieldPreferredWidth: 180
                                 text: "Time (s): "
                                 toolTipText: "Execution time in seconds."
-                                textFieldText: outputController.ui_get_time
+                                textFieldText: outputControllerWfesSingle.ui_get_time
                                 readOnly: true
                             }
 
@@ -1312,7 +1311,7 @@ ApplicationWindow {
                                 text: "Status: "
                                 toolTipText: "Status of the current execution."
                                 readOnly: true
-                                textFieldText: outputController.ui_progress
+                                textFieldText: outputControllerWfesSingle.ui_progress
                             }
                         }
                     }

@@ -1,4 +1,4 @@
-#include "inputController.h"
+#include "inputControllerWfesSingle.h"
 
 using namespace wfes::controllers;
 

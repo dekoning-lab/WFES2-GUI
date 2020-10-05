@@ -468,7 +468,6 @@ ApplicationWindow {
                                         text: "Search"
 
                                         onClicked: {
-                                            fileDialogTimeDist.folder = fileDialogTimeDist.shortcuts
                                             fileDialogTimeDist.open()
                                         }
                                     }

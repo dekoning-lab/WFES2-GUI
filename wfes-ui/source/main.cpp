@@ -3,8 +3,8 @@
 #include <QQmlContext>
 #include <QQuickStyle>
 
-#include <controllers/outputController.h>
-#include <controllers/inputController.h>
+#include <controllers/outputControllerWfesSingle.h>
+#include <controllers/inputControllerWfesSingle.h>
 #include <results/results.h>
 #include <config/config.h>
 
@@ -19,8 +19,8 @@ int main(int argc, char *argv[])
     app.setOrganizationName("University of Calgary");
     app.setOrganizationDomain("www.ucalgary.ca");
 
-    qmlRegisterType<wfes::controllers::OutputController>("WFES", 1, 0, "OutputController");
-    qmlRegisterType<wfes::controllers::InputController>("WFES", 1, 0, "InputController");
+    qmlRegisterType<wfes::controllers::OutputController>("WFES", 1, 0, "OutputControllerWfesSingle");
+    qmlRegisterType<wfes::controllers::InputController>("WFES", 1, 0, "InputControllerWfesSingle");
 
     wfes::controllers::OutputController outputController;
     wfes::controllers::InputController inputController;
@@ -28,8 +28,8 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
     engine.addImportPath("qrc:/");
 
-    engine.rootContext()->setContextProperty("outputController", &outputController);
-    engine.rootContext()->setContextProperty("inputController", &inputController);
+    engine.rootContext()->setContextProperty("outputControllerWfesSingle", &outputController);
+    engine.rootContext()->setContextProperty("inputControllerWfesSingle", &inputController);
 
     const QUrl url(QStringLiteral("qrc:/views/mainview/MainView.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
