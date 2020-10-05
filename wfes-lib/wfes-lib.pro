@@ -30,7 +30,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 HEADERS += \
-    source/config/config.h \
+    source/model/executables/wfes_single/config/configWfesSingle.h \
     source/model/executables/wfes_single/controllers/inputControllerWfesSingle.h \
     source/model/executables/wfes_single/controllers/outputControllerWfesSingle.h \
     source/model/pardiso/MKL_Consts.h \
@@ -56,7 +56,7 @@ HEADERS += \
     wfes-lib_global.h
 
 SOURCES += \
-    source/config/config.cpp \
+    source/model/executables/wfes_single/config/configWfesSingle.cpp \
     source/model/executables/wfes_single/controllers/inputControllerWfesSingle.cpp \
     source/model/executables/wfes_single/controllers/outputControllerWfesSingle.cpp \
     source/model/pardiso/solverPardiso.cpp \

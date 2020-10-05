@@ -8,7 +8,7 @@
 #include "sparseMatrixViennacl.h"
 #include <viennacl/compressed_matrix.hpp>
 #include "utils/types.h"
-#include "config/config.h"
+#include "source/model/executables/wfes_single/config/configWfesSingle.h"
 
 #include "viennacl/linalg/amg.hpp"
 #include "viennacl/linalg/cg.hpp"

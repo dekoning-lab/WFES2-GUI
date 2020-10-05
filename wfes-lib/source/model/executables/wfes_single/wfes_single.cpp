@@ -1,6 +1,6 @@
 #include "wfes_single.h"
 
-#include <config/config.h>
+#include <source/model/executables/wfes_single/config/configWfesSingle.h>
 
 
 using namespace wfes::wrightfisher;

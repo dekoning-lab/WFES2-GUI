@@ -1,4 +1,4 @@
-#include "config.h"
+#include "configWfesSingle.h"
 
 using namespace wfes::config;
 

@@ -15,7 +15,7 @@
 #include <results/results.h>
 #include <model/executables/wfes_single/wfes_single.h>
 
-#include "config/config.h"
+#include "source/model/executables/wfes_single/config/configWfesSingle.h"
 
 
 class WorkerThread : public QThread, public Observer

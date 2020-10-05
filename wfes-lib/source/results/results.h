@@ -1,7 +1,7 @@
 #ifndef RESULTS_H
 #define RESULTS_H
 
-#include <config/config.h>
+#include <source/model/executables/wfes_single/config/configWfesSingle.h>
 
 #include <QtGui/QImage>
 

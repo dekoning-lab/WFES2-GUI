@@ -3,10 +3,10 @@
 #include <QQmlContext>
 #include <QQuickStyle>
 
-#include <controllers/outputControllerWfesSingle.h>
-#include <controllers/inputControllerWfesSingle.h>
+#include <source/model/executables/wfes_single/controllers/outputControllerWfesSingle.h>
+#include <source/model/executables/wfes_single/controllers/inputControllerWfesSingle.h>
 #include <results/results.h>
-#include <config/config.h>
+#include <source/model/executables/wfes_single/config/configWfesSingle.h>
 
 int main(int argc, char *argv[])
 {

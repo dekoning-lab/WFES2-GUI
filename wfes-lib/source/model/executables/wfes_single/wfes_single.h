@@ -1,7 +1,7 @@
 #ifndef WFES_SINGLE_H
 #define WFES_SINGLE_H
 
-#include "source/config/config.h"
+#include "source/model/executables/wfes_single/config/configWfesSingle.h"
 
 #include "utils/exceptions.h"
 #include "utils/types.h"
