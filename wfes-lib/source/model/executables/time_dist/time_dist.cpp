@@ -7,7 +7,7 @@ using namespace wfes::utils;
 using namespace wfes::config;
 using namespace wfes;
 
-void time_dist::execute()
+ResultsTimeDist *time_dist::execute()
 {
     // Start counting execution time.
     t_start = std::chrono::system_clock::now();
@@ -27,24 +27,24 @@ void time_dist::execute()
     // All cases (models) are wrapped in this switch instruction.
     switch(ConfigTimeDist::modelType) {
         case ModelTypeTimeDist::TIME_DIST:
-            this->timeDist();
+            return this->timeDist();
         case ModelTypeTimeDist::TIME_DIST_SGV:
-            this->timeDistSGV();
+            return this->timeDistSGV();
         case ModelTypeTimeDist::TIME_DIST_SKIP:
-            this->timeDistSkip();
+            return this->timeDistSkip();
         case ModelTypeTimeDist::TIME_DIST_DUAL:
-            this->timeDistDual();
+            return this->timeDistDual();
 
         // If for some reason there is an error and the selected model type is none, or any of the previous one,
         // return default results, which is formed by nan values, so the GUI does not show anything.
         case ModelTypeTimeDist::NONE:
         default:
             // TODO Show error as dialog. Right now it does nothing.
-            return;
+            return new ResultsTimeDist();
     }
 }
 
-void time_dist::timeDist()
+ResultsTimeDist *time_dist::timeDist()
 {
 
     //Notify building matrix.
@@ -93,19 +93,26 @@ void time_dist::timeDist()
         time_diff dt = t_end - t_start;
         std::cout << "Total runtime: " << dt.count() << " s" << std::endl;
     }
+
+    //Calculate time.
+    t_end = std::chrono::system_clock::now();
+    time_diff dt = t_end - t_start;
+
+    return new ResultsTimeDist(dt.count());
+
 }
 
-void time_dist::timeDistSGV()
+ResultsTimeDist *time_dist::timeDistSGV()
 {
 
 }
 
-void time_dist::timeDistSkip()
+ResultsTimeDist *time_dist::timeDistSkip()
 {
 
 }
 
-void time_dist::timeDistDual()
+ResultsTimeDist *time_dist::timeDistDual()
 {
 
 }

@@ -10,6 +10,8 @@
 
 #include <utils/observer/subject.h>
 
+#include <model/executables/time_dist/results/resultsTimeDist.h>
+
 
 class time_dist : public Subject{
 
@@ -19,15 +21,15 @@ class time_dist : public Subject{
         dvec starting_copies_p;
         llong z;
 
-        void execute();
+        ResultsTimeDist* execute();
 
-        void timeDist();
+        ResultsTimeDist* timeDist();
 
-        void timeDistSGV();
+        ResultsTimeDist* timeDistSGV();
 
-        void timeDistSkip();
+        ResultsTimeDist* timeDistSkip();
 
-        void timeDistDual();
+        ResultsTimeDist* timeDistDual();
 };
 
 
