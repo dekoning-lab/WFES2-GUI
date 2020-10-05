@@ -27,7 +27,3 @@ void WorkerThreadWfesSingle::run() {
 void WorkerThreadWfesSingle::update(int value) {
     emit updateProgress(value);
 }
-
-
-
-
