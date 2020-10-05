@@ -10,22 +10,23 @@ namespace wfes {
         /**
          * @brief Enumeration containing possible model types and NONE as special absent type.
          */
-        enum ModelType{
-            NONE, ABSORPTION, FIXATION, ESTABLISHMENT, FUNDAMENTAL, EQUILIBRIUM, NON_ABSORBING, ALLELE_AGE
+        enum class ModelType{
+            NONE = 0, ABSORPTION = 1, FIXATION = 2, ESTABLISHMENT = 3, FUNDAMENTAL = 4, EQUILIBRIUM = 5, NON_ABSORBING = 6, ALLELE_AGE = 7
         };
 
         /**
          * @brief Model Type Names as string, same order as enumeration above to obtain the name of a given enumeration value.
          */
-        static const char* ModelTypeNames[] = { "None", "Absorption", "Fixation", "Establishment", "Fundamental", "Equilibrium", "Non Absorbing", "Allele Age"};
+        static const char *ModelTypeNames[] = { "None", "Absorption", "Fixation", "Establishment", "Fundamental", "Equilibrium", "Non Absorbing", "Allele Age"};
 
-        class Config {
+        class ConfigWfesSingle {
             public:
                 /**
                  * @brief Default constructor for class Config.
                  */
-                Config();
+                ConfigWfesSingle();
 
+                static int ModelTypeWfesSingleToInt(ModelType modelType);
                 /**
                  * @brief Library used for solving matrix systems (e.g. pardiso, viennacl...).
                  */

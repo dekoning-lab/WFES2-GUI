@@ -1,11 +1,11 @@
-#include "threadwfessingle.h"
+#include "workerThreadWfesSingle.h"
 
 
-WorkerThread::WorkerThread(QObject *parent) : QThread(parent) {
+WorkerThreadWfesSingle::WorkerThreadWfesSingle(QObject *parent) : QThread(parent) {
     results = ResultsWfesSingle();
 }
 
-WorkerThread::~WorkerThread() {
+WorkerThreadWfesSingle::~WorkerThreadWfesSingle() {
     if (!done) {
         exit();
         emit updateProgress(wfes::utils::ExecutionStatus::ABORTED);
@@ -14,7 +14,7 @@ WorkerThread::~WorkerThread() {
     }
 }
 
-void WorkerThread::run() {
+void WorkerThreadWfesSingle::run() {
     QString result;
     wfes_single single = wfes_single();
     single.addObserver(this);
@@ -24,7 +24,7 @@ void WorkerThread::run() {
     emit resultReady(results);
 }
 
-void WorkerThread::update(int value) {
+void WorkerThreadWfesSingle::update(int value) {
     emit updateProgress(value);
 }
 

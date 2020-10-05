@@ -24,7 +24,24 @@ void time_dist::execute()
     //Notify starting.
     this->notify(ExecutionStatus::STARTING);
 
+    // All cases (models) are wrapped in this switch instruction.
+    switch(ConfigTimeDist::modelType) {
+        case ModelTypeTimeDist::TIME_DIST:
+            this->timeDist();
+        case ModelTypeTimeDist::TIME_DIST_SGV:
+            this->timeDistSGV();
+        case ModelTypeTimeDist::TIME_DIST_SKIP:
+            this->timeDistSkip();
+        case ModelTypeTimeDist::TIME_DIST_DUAL:
+            this->timeDistDual();
 
+        // If for some reason there is an error and the selected model type is none, or any of the previous one,
+        // return default results, which is formed by nan values, so the GUI does not show anything.
+        case ModelTypeTimeDist::NONE:
+        default:
+            // TODO Show error as dialog. Right now it does nothing.
+            return;
+    }
 }
 
 void time_dist::timeDist()

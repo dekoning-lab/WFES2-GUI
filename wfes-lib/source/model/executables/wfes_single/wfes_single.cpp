@@ -17,7 +17,7 @@ ResultsWfesSingle* wfes_single::execute()
     t_start = std::chrono::system_clock::now();
 
     // Select verbose level for Intel MKL Pardiso.
-    msg_level = Config::verbose ? MKL_PARDISO_MSG_VERBOSE : MKL_PARDISO_MSG_QUIET;
+    msg_level = ConfigWfesSingle::verbose ? MKL_PARDISO_MSG_VERBOSE : MKL_PARDISO_MSG_QUIET;
 
     // If force is not activated, show error when values are not in expected ranges.
     this->force();
@@ -26,7 +26,7 @@ ResultsWfesSingle* wfes_single::execute()
     #ifdef OMP
         omp_set_num_threads(Config::n_threads);
     #endif
-        mkl_set_num_threads(Config::n_threads);
+        mkl_set_num_threads(ConfigWfesSingle::n_threads);
 
     //Notify starting.
     this->notify(ExecutionStatus::STARTING);
@@ -36,15 +36,15 @@ ResultsWfesSingle* wfes_single::execute()
     this->calculateStartingCopies();
 
     // Save initial distribution if resquested by the user.
-    if (Config::output_I)
-        utils::writeVectorToFile(starting_copies_p, Config::path_output_I);
+    if (ConfigWfesSingle::output_I)
+        utils::writeVectorToFile(starting_copies_p, ConfigWfesSingle::path_output_I);
 
     // Set value of z if the user has provided an initial distribution,
     // load it and calculate z value.
     this->calculateZ();
 
     // All cases (models) are wrapped in this switch instruction.
-    switch(Config::modelType) {
+    switch(ConfigWfesSingle::modelType) {
         case ModelType::ABSORPTION:
             return this->absorption();
         case ModelType::FIXATION:
@@ -78,16 +78,16 @@ ResultsWfesSingle *wfes_single::absorption()
     //Notify building matrix.
     this->notify(ExecutionStatus::BUILDING_MATRICES);
 
-    wrightfisher::Matrix W = wrightfisher::Single(Config::population_size, Config::population_size, wrightfisher::BOTH_ABSORBING, Config::s, Config::h, Config::u, Config::v,
-                              Config::rem, Config::a, Config::verbose, Config::b, Config::library);
+    wrightfisher::Matrix W = wrightfisher::Single(ConfigWfesSingle::population_size, ConfigWfesSingle::population_size, wrightfisher::BOTH_ABSORBING, ConfigWfesSingle::s, ConfigWfesSingle::h, ConfigWfesSingle::u, ConfigWfesSingle::v,
+                              ConfigWfesSingle::rem, ConfigWfesSingle::a, ConfigWfesSingle::verbose, ConfigWfesSingle::b, ConfigWfesSingle::library);
 
     //Notify saving data.
     this->notify(ExecutionStatus::SAVING_DATA);
 
-    if (Config::output_Q)
-        W.Q->saveMarket(Config::path_output_Q);
-    if (Config::output_R)
-        utils::writeMatrixToFile(W.R, Config::path_output_R);
+    if (ConfigWfesSingle::output_Q)
+        W.Q->saveMarket(ConfigWfesSingle::path_output_Q);
+    if (ConfigWfesSingle::output_R)
+        utils::writeMatrixToFile(W.R, ConfigWfesSingle::path_output_R);
 
     time_point t_start2 = std::chrono::system_clock::now();
 
@@ -96,9 +96,9 @@ ResultsWfesSingle *wfes_single::absorption()
 
     W.Q->subtractIdentity();
 
-    llong size = (2 * Config::population_size) - 1;
+    llong size = (2 * ConfigWfesSingle::population_size) - 1;
 
-    Solver* solver = SolverFactory::createSolver(Config::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, Config::vienna_solver);
+    Solver* solver = SolverFactory::createSolver(ConfigWfesSingle::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, ConfigWfesSingle::vienna_solver);
 
     solver->preprocess();
 
@@ -122,7 +122,7 @@ ResultsWfesSingle *wfes_single::absorption()
     dmat E_ext_mat(z, size);
     dmat E_fix_mat(z, size);
     dmat N2_mat(z, size);
-    if (!Config::starting_copies) {
+    if (!ConfigWfesSingle::starting_copies) {
         for (llong i = 0; i < z; i++) {
             double p_i = starting_copies_p(i);
             id.setZero();
@@ -157,7 +157,7 @@ ResultsWfesSingle *wfes_single::absorption()
     } else {
         // TODO: combine this with the previous clause
         id.setZero();
-        id(Config::starting_copies) = 1;
+        id(ConfigWfesSingle::starting_copies) = 1;
         N_mat.row(0) = solver->solve(id, true);
         dvec N1 = N_mat.row(0);
         N2_mat.row(0) = solver->solve(N1, true);
@@ -166,17 +166,17 @@ ResultsWfesSingle *wfes_single::absorption()
         T_abs = N1.sum();
         T_abs_var = (2 * N2.sum() - N1.sum()) - pow(N1.sum(), 2);
 
-        P_ext = B_ext(Config::starting_copies);
-        dvec E_ext = B_ext.array() * N1.array() / B_ext(Config::starting_copies);
+        P_ext = B_ext(ConfigWfesSingle::starting_copies);
+        dvec E_ext = B_ext.array() * N1.array() / B_ext(ConfigWfesSingle::starting_copies);
         E_ext_mat.row(0) = E_ext;
-        dvec E_ext_var = B_ext.array() * N2.array() / B_ext(Config::starting_copies);
+        dvec E_ext_var = B_ext.array() * N2.array() / B_ext(ConfigWfesSingle::starting_copies);
         T_ext = E_ext.sum();
         T_ext_var = (2 * E_ext_var.sum() - E_ext.sum()) - pow(E_ext.sum(), 2);
 
-        P_fix = B_fix(Config::starting_copies);
-        dvec E_fix = B_fix.array() * N1.array() / B_fix(Config::starting_copies);
+        P_fix = B_fix(ConfigWfesSingle::starting_copies);
+        dvec E_fix = B_fix.array() * N1.array() / B_fix(ConfigWfesSingle::starting_copies);
         E_fix_mat.row(0) = E_fix;
-        dvec E_fix_var = B_fix.array() * N2.array() / B_fix(Config::starting_copies);
+        dvec E_fix_var = B_fix.array() * N2.array() / B_fix(ConfigWfesSingle::starting_copies);
         T_fix = E_fix.sum();
         T_fix_var = (2 * E_fix_var.sum() - E_fix.sum()) - pow(E_fix.sum(), 2);
 
@@ -190,23 +190,23 @@ ResultsWfesSingle *wfes_single::absorption()
     double T_ext_std = sqrt(T_ext_var);
     double T_fix_std = sqrt(T_fix_var);
 
-    N_ext /= (1 / (2 * Config::population_size * Config::v)) + T_ext;
+    N_ext /= (1 / (2 * ConfigWfesSingle::population_size * ConfigWfesSingle::v)) + T_ext;
 
     //Notify saving data.
     this->notify(ExecutionStatus::SAVING_DATA);
 
     //Save data into file.
     dmat B(size, 2);
-    if (Config::output_N)
-        utils::writeMatrixToFile(N_mat, Config::path_output_N);
-    if (Config::output_N_ext)
-        utils::writeMatrixToFile(E_ext_mat, Config::path_output_N_ext);
-    if (Config::output_N_fix)
-        utils::writeMatrixToFile(E_fix_mat, Config::path_output_N_fix);
-    if (Config::output_B) {
+    if (ConfigWfesSingle::output_N)
+        utils::writeMatrixToFile(N_mat, ConfigWfesSingle::path_output_N);
+    if (ConfigWfesSingle::output_N_ext)
+        utils::writeMatrixToFile(E_ext_mat, ConfigWfesSingle::path_output_N_ext);
+    if (ConfigWfesSingle::output_N_fix)
+        utils::writeMatrixToFile(E_fix_mat, ConfigWfesSingle::path_output_N_fix);
+    if (ConfigWfesSingle::output_B) {
         B.col(0) = B_ext;
         B.col(1) = B_fix;
-        utils::writeMatrixToFile(B, Config::path_output_B);
+        utils::writeMatrixToFile(B, ConfigWfesSingle::path_output_B);
     }
 
     delete solver;
@@ -221,41 +221,41 @@ ResultsWfesSingle *wfes_single::absorption()
 
     // Generate images from matrices and save to file.
     QImage *imageI = nullptr, *imageQ = nullptr, *imageR = nullptr, *imageN = nullptr, *imageNExt = nullptr, *imageNFix = nullptr, *imageB = nullptr;
-    if(Config::saveImageI) {
+    if(ConfigWfesSingle::saveImageI) {
         imageI = utils::generateImage(starting_copies_p);
         utils::saveImage(imageI, "Image_I");
     }
-    if(Config::saveImageQ) {
+    if(ConfigWfesSingle::saveImageQ) {
         imageQ = utils::generateImage(W.Q->dense());
         utils::saveImage(imageQ, "Image_Q");
     }
-    if(Config::saveImageR) {
+    if(ConfigWfesSingle::saveImageR) {
         imageR = utils::generateImage(W.R);
         utils::saveImage(imageR, "Image_R");
     }
-    if(Config::saveImageN) {
+    if(ConfigWfesSingle::saveImageN) {
         imageN = utils::generateImage(N_mat);
         utils::saveImage(imageN, "Image_N");
     }
-    if(Config::saveImageNExt) {
+    if(ConfigWfesSingle::saveImageNExt) {
         imageNExt = utils::generateImage(E_ext_mat);
         utils::saveImage(imageNExt, "Image_NExt");
     }
-    if(Config::saveImageNFix) {
+    if(ConfigWfesSingle::saveImageNFix) {
         imageNFix = utils::generateImage(E_fix_mat);
         utils::saveImage(imageNFix, "Image_NFix");
     }
-    if(Config::saveImageB) {
+    if(ConfigWfesSingle::saveImageB) {
         B.col(0) = B_ext;
         B.col(1) = B_fix;
         imageB = utils::generateImage(B);
         utils::saveImage(imageB, "Image_B");
     }
 
-    ResultsWfesSingle* res = new ResultsWfesSingle(Config::modelType, P_ext, P_fix, T_abs, T_abs_std, T_ext, T_ext_std, N_ext, T_fix, T_fix_std, dt.count(), imageI, imageQ, imageR, imageN, imageNExt, imageNFix, imageB);
+    ResultsWfesSingle* res = new ResultsWfesSingle(ConfigWfesSingle::modelType, P_ext, P_fix, T_abs, T_abs_std, T_ext, T_ext_std, N_ext, T_fix, T_fix_std, dt.count(), imageI, imageQ, imageR, imageN, imageNExt, imageNFix, imageB);
 
-    if(Config::output_Res)
-       res->writeResultsToFile(res, Config::path_output_Res);
+    if(ConfigWfesSingle::output_Res)
+       res->writeResultsToFile(res, ConfigWfesSingle::path_output_Res);
 
     //Notify done.
     this->notify(ExecutionStatus::DONE);
@@ -268,25 +268,25 @@ ResultsWfesSingle *wfes_single::fixation()
     //Notify building matrix.
     this->notify(ExecutionStatus::BUILDING_MATRICES);
 
-    wrightfisher::Matrix W = wrightfisher::Single(Config::population_size, Config::population_size, wrightfisher::FIXATION_ONLY, Config::s, Config::h, Config::u, Config::v,
-                              Config::rem, Config::a, Config::verbose, Config::b, Config::library);
+    wrightfisher::Matrix W = wrightfisher::Single(ConfigWfesSingle::population_size, ConfigWfesSingle::population_size, wrightfisher::FIXATION_ONLY, ConfigWfesSingle::s, ConfigWfesSingle::h, ConfigWfesSingle::u, ConfigWfesSingle::v,
+                              ConfigWfesSingle::rem, ConfigWfesSingle::a, ConfigWfesSingle::verbose, ConfigWfesSingle::b, ConfigWfesSingle::library);
 
     //Notify saving data.
     this->notify(ExecutionStatus::SAVING_DATA);
 
-    if (Config::output_Q)
-        W.Q->saveMarket(Config::path_output_Q);
-    if (Config::output_R)
-        utils::writeMatrixToFile(W.R, Config::path_output_R);
+    if (ConfigWfesSingle::output_Q)
+        W.Q->saveMarket(ConfigWfesSingle::path_output_Q);
+    if (ConfigWfesSingle::output_R)
+        utils::writeMatrixToFile(W.R, ConfigWfesSingle::path_output_R);
 
     //Notify solving
     this->notify(ExecutionStatus::SOLVING_MATRICES);
 
     W.Q->subtractIdentity();
 
-    llong size = (2 * Config::population_size);
+    llong size = (2 * ConfigWfesSingle::population_size);
 
-    Solver *solver = wfes::solver::SolverFactory::createSolver(Config::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, Config::vienna_solver);
+    Solver *solver = wfes::solver::SolverFactory::createSolver(ConfigWfesSingle::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, ConfigWfesSingle::vienna_solver);
 
     solver->preprocess();
 
@@ -294,7 +294,7 @@ ResultsWfesSingle *wfes_single::fixation()
     dmat N_mat(1, size);
 
     id.setZero();
-    id(Config::starting_copies) = 1;
+    id(ConfigWfesSingle::starting_copies) = 1;
     N_mat.row(0) = solver->solve(id, true);
     dvec N1 = N_mat.row(0);
     dvec N2 = solver->solve(N1, true);
@@ -309,10 +309,10 @@ ResultsWfesSingle *wfes_single::fixation()
 
     //Save data into file.
     dvec B = dvec::Ones(size);
-    if (Config::output_N)
-        utils::writeMatrixToFile(N_mat, Config::path_output_N);
-    if (Config::output_B) {
-        utils::writeVectorToFile(B, Config::path_output_B);
+    if (ConfigWfesSingle::output_N)
+        utils::writeMatrixToFile(N_mat, ConfigWfesSingle::path_output_N);
+    if (ConfigWfesSingle::output_B) {
+        utils::writeVectorToFile(B, ConfigWfesSingle::path_output_B);
     }
 
     delete solver;
@@ -326,30 +326,30 @@ ResultsWfesSingle *wfes_single::fixation()
 
     // Generate images from matrices and save to file.
     QImage *imageI = nullptr, *imageQ = nullptr, *imageR = nullptr, *imageN = nullptr, *imageB = nullptr;
-    if(Config::saveImageI) {
+    if(ConfigWfesSingle::saveImageI) {
         imageI = utils::generateImage(starting_copies_p);
         utils::saveImage(imageI, "Image_I");
     }
-    if(Config::saveImageQ) {
+    if(ConfigWfesSingle::saveImageQ) {
         imageQ = utils::generateImage(W.Q->dense());
         utils::saveImage(imageQ, "Image_Q");
     }
-    if(Config::saveImageR) {
+    if(ConfigWfesSingle::saveImageR) {
         imageR = utils::generateImage(W.R);
         utils::saveImage(imageR, "Image_R");
     }
-    if(Config::saveImageN) {
+    if(ConfigWfesSingle::saveImageN) {
         imageN = utils::generateImage(N_mat);
         utils::saveImage(imageN, "Image_N");
     }
-    if(Config::saveImageB) {
+    if(ConfigWfesSingle::saveImageB) {
         imageB = utils::generateImage(B);
         utils::saveImage(imageB, "Image_B");
     }
-    ResultsWfesSingle* res = new ResultsWfesSingle(Config::modelType, T_fix, T_std, rate, dt.count(), imageI, imageQ, imageR, imageN, imageB);
+    ResultsWfesSingle* res = new ResultsWfesSingle(ConfigWfesSingle::modelType, T_fix, T_std, rate, dt.count(), imageI, imageQ, imageR, imageN, imageB);
 
-    if(Config::output_Res)
-       res->writeResultsToFile(res, Config::path_output_Res);
+    if(ConfigWfesSingle::output_Res)
+       res->writeResultsToFile(res, ConfigWfesSingle::path_output_Res);
 
     //Notify done.
     this->notify(ExecutionStatus::DONE);
@@ -363,24 +363,24 @@ ResultsWfesSingle *wfes_single::fundamental()
     //Notify building matrix.
     this->notify(ExecutionStatus::BUILDING_MATRICES);
 
-    llong size = (2 * Config::population_size) - 1;
-    wrightfisher::Matrix W = wrightfisher::Single(Config::population_size, Config::population_size, wrightfisher::BOTH_ABSORBING, Config::s, Config::h, Config::u, Config::v,
-                              Config::rem, Config::a, Config::verbose, Config::b, Config::library);
+    llong size = (2 * ConfigWfesSingle::population_size) - 1;
+    wrightfisher::Matrix W = wrightfisher::Single(ConfigWfesSingle::population_size, ConfigWfesSingle::population_size, wrightfisher::BOTH_ABSORBING, ConfigWfesSingle::s, ConfigWfesSingle::h, ConfigWfesSingle::u, ConfigWfesSingle::v,
+                              ConfigWfesSingle::rem, ConfigWfesSingle::a, ConfigWfesSingle::verbose, ConfigWfesSingle::b, ConfigWfesSingle::library);
 
     //Notify saving data.
     this->notify(ExecutionStatus::SAVING_DATA);
 
-    if (Config::output_Q)
-        W.Q->saveMarket(Config::path_output_Q);
-    if (Config::output_R)
-        utils::writeMatrixToFile(W.R, Config::path_output_R);
+    if (ConfigWfesSingle::output_Q)
+        W.Q->saveMarket(ConfigWfesSingle::path_output_Q);
+    if (ConfigWfesSingle::output_R)
+        utils::writeMatrixToFile(W.R, ConfigWfesSingle::path_output_R);
 
     //Notify solving
     this->notify(ExecutionStatus::SOLVING_MATRICES);
 
     W.Q->subtractIdentity();
 
-    Solver* solver = SolverFactory::createSolver(Config::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, Config::vienna_solver);
+    Solver* solver = SolverFactory::createSolver(ConfigWfesSingle::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, ConfigWfesSingle::vienna_solver);
 
     solver->preprocess();
     dmat N(size, size);
@@ -396,14 +396,14 @@ ResultsWfesSingle *wfes_single::fundamental()
 
     //Save data into file.
     dmat V;
-    if (Config::output_N)
-        utils::writeMatrixToFile(N, Config::path_output_N);
-    if (Config::output_V) {
+    if (ConfigWfesSingle::output_N)
+        utils::writeMatrixToFile(N, ConfigWfesSingle::path_output_N);
+    if (ConfigWfesSingle::output_V) {
         dvec Ndg = (2 * N.diagonal().array()) - 1;
         dmat Nsq = N.array().square();
         V = (N * diagmat(Ndg)) - Nsq;
 
-        utils::writeMatrixToFile(V, Config::path_output_V);
+        utils::writeMatrixToFile(V, ConfigWfesSingle::path_output_V);
     }
     delete solver;
 
@@ -416,23 +416,23 @@ ResultsWfesSingle *wfes_single::fundamental()
 
     // Generate images from matrices and save to file.
     QImage *imageI = nullptr, *imageQ = nullptr, *imageR = nullptr, *imageN = nullptr, *imageV = nullptr;
-    if(Config::saveImageI) {
+    if(ConfigWfesSingle::saveImageI) {
         imageI = utils::generateImage(starting_copies_p);
         utils::saveImage(imageI, "Image_I");
     }
-    if (Config::saveImageQ) {
+    if (ConfigWfesSingle::saveImageQ) {
         imageQ = utils::generateImage(W.Q->dense());
         utils::saveImage(imageQ, "Image_Q");
     }
-    if (Config::saveImageR) {
+    if (ConfigWfesSingle::saveImageR) {
         imageR = utils::generateImage(W.R);
         utils::saveImage(imageR, "Image_R");
     }
-    if(Config::saveImageN) {
+    if(ConfigWfesSingle::saveImageN) {
         imageN = utils::generateImage(N);
         utils::saveImage(imageN, "Image_N");
     }
-    if(Config::saveImageV) {
+    if(ConfigWfesSingle::saveImageV) {
         dvec Ndg = (2 * N.diagonal().array()) - 1;
         dmat Nsq = N.array().square();
         V = (N * diagmat(Ndg)) - Nsq;
@@ -440,7 +440,7 @@ ResultsWfesSingle *wfes_single::fundamental()
         utils::saveImage(imageV, "Image_V");
     }
 
-    return new ResultsWfesSingle(Config::modelType, dt.count(), imageI, imageQ, imageR, imageN, imageV);
+    return new ResultsWfesSingle(ConfigWfesSingle::modelType, dt.count(), imageI, imageQ, imageR, imageN, imageV);
 }
 
 ResultsWfesSingle *wfes_single::equilibrium()
@@ -448,11 +448,11 @@ ResultsWfesSingle *wfes_single::equilibrium()
     //Notify building matrix.
     this->notify(ExecutionStatus::BUILDING_MATRICES);
 
-    llong size = (2 * Config::population_size) + 1;
-    wrightfisher::Matrix W = wrightfisher::EquilibriumSolvingMatrix(Config::population_size, Config::s, Config::h, Config::u, Config::v,
-                                                                    Config::a, Config::verbose, Config::b, Config::library);
+    llong size = (2 * ConfigWfesSingle::population_size) + 1;
+    wrightfisher::Matrix W = wrightfisher::EquilibriumSolvingMatrix(ConfigWfesSingle::population_size, ConfigWfesSingle::s, ConfigWfesSingle::h, ConfigWfesSingle::u, ConfigWfesSingle::v,
+                                                                    ConfigWfesSingle::a, ConfigWfesSingle::verbose, ConfigWfesSingle::b, ConfigWfesSingle::library);
 
-    Solver* solver = SolverFactory::createSolver(Config::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, Config::vienna_solver);
+    Solver* solver = SolverFactory::createSolver(ConfigWfesSingle::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, ConfigWfesSingle::vienna_solver);
 
     //Notify solving
     this->notify(ExecutionStatus::SOLVING_MATRICES);
@@ -467,8 +467,8 @@ ResultsWfesSingle *wfes_single::equilibrium()
     this->notify(ExecutionStatus::SAVING_DATA);
 
     //Save data into file.
-    if (Config::output_E) {
-        utils::writeVectorToFile(pi, Config::path_output_E);
+    if (ConfigWfesSingle::output_E) {
+        utils::writeVectorToFile(pi, ConfigWfesSingle::path_output_E);
     }
 
     //Notify solving
@@ -489,21 +489,21 @@ ResultsWfesSingle *wfes_single::equilibrium()
 
     // Generate images from matrices and save to file.
     QImage *imageI = nullptr, *imageE = nullptr;
-    if(Config::saveImageI) {
+    if(ConfigWfesSingle::saveImageI) {
         imageI = utils::generateImage(starting_copies_p);
         utils::saveImage(imageI, "Image_I");
     }
-    if(Config::saveImageE) {
+    if(ConfigWfesSingle::saveImageE) {
         imageE = utils::generateImage(pi);
         utils::saveImage(imageE, "Image_E");
     }
-    ResultsWfesSingle* res = new ResultsWfesSingle(Config::modelType, e_freq, (1.0 - e_freq), dt.count(), imageI, imageE);
+    ResultsWfesSingle* res = new ResultsWfesSingle(ConfigWfesSingle::modelType, e_freq, (1.0 - e_freq), dt.count(), imageI, imageE);
 
     //Notify saving data.
     this->notify(ExecutionStatus::SAVING_DATA);
 
-    if(Config::output_Res)
-       res->writeResultsToFile(res, Config::path_output_Res);
+    if(ConfigWfesSingle::output_Res)
+       res->writeResultsToFile(res, ConfigWfesSingle::path_output_Res);
 
     //Notify done.
     this->notify(ExecutionStatus::DONE);
@@ -518,17 +518,17 @@ ResultsWfesSingle *wfes_single::establishment()
     this->notify(ExecutionStatus::BUILDING_MATRICES);
 
     // Full Wright-Fisher
-    wrightfisher::Matrix W_full = wrightfisher::Single(Config::population_size, Config::population_size, wrightfisher::BOTH_ABSORBING, Config::s, Config::h,
-                                   Config::u, Config::v, Config::rem, Config::a, Config::verbose, Config::b, Config::library);
+    wrightfisher::Matrix W_full = wrightfisher::Single(ConfigWfesSingle::population_size, ConfigWfesSingle::population_size, wrightfisher::BOTH_ABSORBING, ConfigWfesSingle::s, ConfigWfesSingle::h,
+                                   ConfigWfesSingle::u, ConfigWfesSingle::v, ConfigWfesSingle::rem, ConfigWfesSingle::a, ConfigWfesSingle::verbose, ConfigWfesSingle::b, ConfigWfesSingle::library);
 
     //Notify solving
     this->notify(ExecutionStatus::SOLVING_MATRICES);
 
     W_full.Q->subtractIdentity();
 
-    llong size = (2 * Config::population_size) - 1;
+    llong size = (2 * ConfigWfesSingle::population_size) - 1;
 
-    Solver* solver_full = SolverFactory::createSolver(Config::library, *(W_full.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, Config::vienna_solver);
+    Solver* solver_full = SolverFactory::createSolver(ConfigWfesSingle::library, *(W_full.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, ConfigWfesSingle::vienna_solver);
 
     solver_full->preprocess();
 
@@ -541,7 +541,7 @@ ResultsWfesSingle *wfes_single::establishment()
     llong est_idx = 0;
     // find closest to k / (1 + k)
     // cout << odds_ratio / (1 + odds_ratio) << endl;
-    dvec B_est_closest = B_full_fix - dvec::Constant(size, Config::odds_ratio / (1 + Config::odds_ratio));
+    dvec B_est_closest = B_full_fix - dvec::Constant(size, ConfigWfesSingle::odds_ratio / (1 + ConfigWfesSingle::odds_ratio));
     B_est_closest.array().abs().minCoeff(&est_idx);
 
     if (est_idx == 1) {
@@ -554,7 +554,7 @@ ResultsWfesSingle *wfes_single::establishment()
     // Since the B indexes begin at 1
     est_idx++;
     // cout << est_idx << endl;
-    double est_freq = (double)(est_idx) / (2 * Config::population_size);
+    double est_freq = (double)(est_idx) / (2 * ConfigWfesSingle::population_size);
 
     // post-establishment time before absorption
     id_full.setZero();
@@ -582,17 +582,17 @@ ResultsWfesSingle *wfes_single::establishment()
     double T_seg_fix_std = sqrt(T_seg_fix_var);
 
     // Truncated model
-    wrightfisher::Matrix W_tr = wrightfisher::Truncated(Config::population_size, Config::population_size, est_idx, Config::s, Config::h, Config::u, Config::v, Config::rem,
-                                    Config::a, Config::verbose, Config::b, Config::library);
+    wrightfisher::Matrix W_tr = wrightfisher::Truncated(ConfigWfesSingle::population_size, ConfigWfesSingle::population_size, est_idx, ConfigWfesSingle::s, ConfigWfesSingle::h, ConfigWfesSingle::u, ConfigWfesSingle::v, ConfigWfesSingle::rem,
+                                    ConfigWfesSingle::a, ConfigWfesSingle::verbose, ConfigWfesSingle::b, ConfigWfesSingle::library);
 
     //Notify saving data.
     this->notify(ExecutionStatus::SAVING_DATA);
 
     //Save data into file.
-    if (Config::output_Q)
-        W_tr.Q->saveMarket(Config::path_output_Q);
-    if (Config::output_R)
-        utils::writeMatrixToFile(W_tr.R, Config::path_output_R);
+    if (ConfigWfesSingle::output_Q)
+        W_tr.Q->saveMarket(ConfigWfesSingle::path_output_Q);
+    if (ConfigWfesSingle::output_R)
+        utils::writeMatrixToFile(W_tr.R, ConfigWfesSingle::path_output_R);
 
     //Notify solving
     this->notify(ExecutionStatus::SOLVING_MATRICES);
@@ -603,7 +603,7 @@ ResultsWfesSingle *wfes_single::establishment()
 
     W_tr.Q->subtractIdentity();
 
-    Solver* solver_tr = SolverFactory::createSolver(Config::library, *(W_tr.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, Config::vienna_solver);
+    Solver* solver_tr = SolverFactory::createSolver(ConfigWfesSingle::library, *(W_tr.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, ConfigWfesSingle::vienna_solver);
 
     solver_tr->preprocess();
 
@@ -625,7 +625,7 @@ ResultsWfesSingle *wfes_single::establishment()
     dmat N2_mat(z, est_idx - 1);
 
     dvec id(est_idx);
-    if (!Config::starting_copies) {
+    if (!ConfigWfesSingle::starting_copies) {
         for (llong i = 0; i < z; i++) {
             double p_i = starting_copies_p(i);
             id.setZero();
@@ -655,23 +655,23 @@ ResultsWfesSingle *wfes_single::establishment()
     } else {
         // TODO: combine this with the previous clause
         id.setZero();
-        id(Config::starting_copies) = 1;
+        id(ConfigWfesSingle::starting_copies) = 1;
         N_mat.row(0) = solver_tr->solve(id, true);
         dvec N1 = N_mat.row(0);
         N2_mat.row(0) = solver_tr->solve(N1, true);
         dvec N2 = N2_mat.row(0);
 
-        P_ext = B_ext(Config::starting_copies);
-        dvec E_ext = B_ext.array() * N1.array() / B_ext(Config::starting_copies);
+        P_ext = B_ext(ConfigWfesSingle::starting_copies);
+        dvec E_ext = B_ext.array() * N1.array() / B_ext(ConfigWfesSingle::starting_copies);
         E_ext_mat.row(0) = E_ext;
-        dvec E_ext_var = B_ext.array() * N2.array() / B_ext(Config::starting_copies);
+        dvec E_ext_var = B_ext.array() * N2.array() / B_ext(ConfigWfesSingle::starting_copies);
         T_ext = E_ext.sum();
         T_ext_var = (2 * E_ext_var.sum() - E_ext.sum()) - pow(E_ext.sum(), 2);
 
-        P_est = B_est(Config::starting_copies);
-        dvec E_est = B_est.array() * N1.array() / B_est(Config::starting_copies);
+        P_est = B_est(ConfigWfesSingle::starting_copies);
+        dvec E_est = B_est.array() * N1.array() / B_est(ConfigWfesSingle::starting_copies);
         E_est_mat.row(0) = E_est;
-        dvec E_est_var = B_est.array() * N2.array() / B_est(Config::starting_copies);
+        dvec E_est_var = B_est.array() * N2.array() / B_est(ConfigWfesSingle::starting_copies);
         T_est = E_est.sum();
         T_est_var = (2 * E_est_var.sum() - E_est.sum()) - pow(E_est.sum(), 2);
     }
@@ -686,27 +686,27 @@ ResultsWfesSingle *wfes_single::establishment()
 
     // Generate images from matrices and save to file.
     QImage *imageI = nullptr, *imageQ = nullptr, *imageR = nullptr;
-    if(Config::saveImageI) {
+    if(ConfigWfesSingle::saveImageI) {
         imageI = utils::generateImage(starting_copies_p);
         utils::saveImage(imageI, "Image_I");
     }
-    if(Config::saveImageQ) {
+    if(ConfigWfesSingle::saveImageQ) {
         imageQ = utils::generateImage(W_tr.Q->dense());
         utils::saveImage(imageQ, "Image_Q");
     }
-    if(Config::saveImageR) {
+    if(ConfigWfesSingle::saveImageR) {
         imageR = utils::generateImage(W_tr.R);
         utils::saveImage(imageR, "Image_R");
     }
 
-    ResultsWfesSingle* res = new ResultsWfesSingle(Config::modelType, est_freq, P_est, T_seg, T_seg_std,
+    ResultsWfesSingle* res = new ResultsWfesSingle(ConfigWfesSingle::modelType, est_freq, P_est, T_seg, T_seg_std,
                                T_seg_ext, T_seg_ext_std, T_seg_fix, T_seg_fix_std, T_est, T_est_std, dt.count(), imageI, imageQ, imageR);
 
     //Notify saving data.
     this->notify(ExecutionStatus::SAVING_DATA);
 
-    if(Config::output_Res)
-       res->writeResultsToFile(res, Config::path_output_Res);
+    if(ConfigWfesSingle::output_Res)
+       res->writeResultsToFile(res, ConfigWfesSingle::path_output_Res);
 
     //Notify done.
     this->notify(ExecutionStatus::DONE);
@@ -719,29 +719,29 @@ ResultsWfesSingle *wfes_single::alleleAge()
     //Notify building matrix.
     this->notify(ExecutionStatus::BUILDING_MATRICES);
 
-    if (Config::observed_copies < 1 || Config::observed_copies > Config::population_size) {
+    if (ConfigWfesSingle::observed_copies < 1 || ConfigWfesSingle::observed_copies > ConfigWfesSingle::population_size) {
         throw wfes::exception::Error("x (observed copies) must be between 1 and N");
     }
-    llong x = Config::observed_copies - 1;
+    llong x = ConfigWfesSingle::observed_copies - 1;
 
-    llong size = (2 * Config::population_size) - 1;
-    wrightfisher::Matrix W = wrightfisher::Single(Config::population_size, Config::population_size, wrightfisher::BOTH_ABSORBING, Config::s, Config::h, Config::u, Config::v,
-                              Config::rem, Config::a, Config::verbose, Config::b, Config::library);
+    llong size = (2 * ConfigWfesSingle::population_size) - 1;
+    wrightfisher::Matrix W = wrightfisher::Single(ConfigWfesSingle::population_size, ConfigWfesSingle::population_size, wrightfisher::BOTH_ABSORBING, ConfigWfesSingle::s, ConfigWfesSingle::h, ConfigWfesSingle::u, ConfigWfesSingle::v,
+                              ConfigWfesSingle::rem, ConfigWfesSingle::a, ConfigWfesSingle::verbose, ConfigWfesSingle::b, ConfigWfesSingle::library);
 
     //Notify saving data.
     this->notify(ExecutionStatus::SAVING_DATA);
 
-    if (Config::output_Q)
-        W.Q->saveMarket(Config::path_output_Q);
-    if (Config::output_R)
-        utils::writeMatrixToFile(W.R, Config::path_output_R);
+    if (ConfigWfesSingle::output_Q)
+        W.Q->saveMarket(ConfigWfesSingle::path_output_Q);
+    if (ConfigWfesSingle::output_R)
+        utils::writeMatrixToFile(W.R, ConfigWfesSingle::path_output_R);
     dvec Q_x = W.Q-> getColCopy(x);
     W.Q->subtractIdentity();
 
     //Notify solving
     this->notify(ExecutionStatus::SOLVING_MATRICES);
 
-    Solver* solver = SolverFactory::createSolver(Config::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, Config::vienna_solver);
+    Solver* solver = SolverFactory::createSolver(ConfigWfesSingle::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, ConfigWfesSingle::vienna_solver);
 
     solver->preprocess();
 
@@ -752,7 +752,7 @@ ResultsWfesSingle *wfes_single::alleleAge()
 
     double E_allele_age = 0;
     double S_allele_age = 0;
-    if (!Config::starting_copies) {
+    if (!ConfigWfesSingle::starting_copies) {
         // Iterate over starting states
         for (llong i = 0; i < z; i++) {
             dvec e_p = dvec::Zero(size);
@@ -772,7 +772,7 @@ ResultsWfesSingle *wfes_single::alleleAge()
         }
     } else {
         dvec e_p = dvec::Zero(size);
-        e_p(Config::starting_copies) = 1;
+        e_p(ConfigWfesSingle::starting_copies) = 1;
 
         dvec M1 = solver->solve(e_p, true);
         dvec M2 = solver->solve(M1, true);
@@ -789,26 +789,26 @@ ResultsWfesSingle *wfes_single::alleleAge()
 
     // Generate images from matrices and save to file.
     QImage *imageI = nullptr, *imageQ = nullptr, *imageR = nullptr;
-    if(Config::saveImageI) {
+    if(ConfigWfesSingle::saveImageI) {
         imageI = utils::generateImage(starting_copies_p);
         utils::saveImage(imageI, "Image_I");
     }
-    if(Config::saveImageQ) {
+    if(ConfigWfesSingle::saveImageQ) {
         imageQ = utils::generateImage(W.Q->dense());
         utils::saveImage(imageQ, "Image_Q");
     }
-    if(Config::saveImageR) {
+    if(ConfigWfesSingle::saveImageR) {
         imageR = utils::generateImage(W.R);
         utils::saveImage(imageR, "Image_R");
     }
 
-    ResultsWfesSingle* res = new ResultsWfesSingle(Config::modelType, E_allele_age, S_allele_age, true, dt.count(), imageI, imageQ, imageR);
+    ResultsWfesSingle* res = new ResultsWfesSingle(ConfigWfesSingle::modelType, E_allele_age, S_allele_age, true, dt.count(), imageI, imageQ, imageR);
 
     //Notify saving data.
     this->notify(ExecutionStatus::SAVING_DATA);
 
-    if(Config::output_Res)
-       res->writeResultsToFile(res, Config::path_output_Res);
+    if(ConfigWfesSingle::output_Res)
+       res->writeResultsToFile(res, ConfigWfesSingle::path_output_Res);
 
     delete solver;
 
@@ -823,15 +823,15 @@ ResultsWfesSingle *wfes_single::nonAbsorbing()
     //Notify building matrix.
     this->notify(ExecutionStatus::BUILDING_MATRICES);
 
-    wrightfisher::Matrix W = wrightfisher::Single(Config::population_size, Config::population_size, wrightfisher::NON_ABSORBING, Config::s, Config::h, Config::u, Config::v,
-                              Config::rem, Config::a, Config::verbose, Config::b, Config::library);
+    wrightfisher::Matrix W = wrightfisher::Single(ConfigWfesSingle::population_size, ConfigWfesSingle::population_size, wrightfisher::NON_ABSORBING, ConfigWfesSingle::s, ConfigWfesSingle::h, ConfigWfesSingle::u, ConfigWfesSingle::v,
+                              ConfigWfesSingle::rem, ConfigWfesSingle::a, ConfigWfesSingle::verbose, ConfigWfesSingle::b, ConfigWfesSingle::library);
 
     //Notify saving data.
     this->notify(ExecutionStatus::SAVING_DATA);
 
     //Save data into file.
-    if (Config::output_Q)
-        W.Q->saveMarket(Config::path_output_Q);
+    if (ConfigWfesSingle::output_Q)
+        W.Q->saveMarket(ConfigWfesSingle::path_output_Q);
 
     //Calculate time.
     t_end = std::chrono::system_clock::now();
@@ -843,38 +843,38 @@ ResultsWfesSingle *wfes_single::nonAbsorbing()
     // Generate images from matrices and save to file.
     //TODO Set if show and print from GUI.
     QImage *imageI = nullptr, *imageQ = nullptr;
-    if(Config::saveImageI) {
+    if(ConfigWfesSingle::saveImageI) {
         imageI = utils::generateImage(starting_copies_p);
         utils::saveImage(imageI, "Image_I");
     }
-    if(Config::saveImageQ) {
+    if(ConfigWfesSingle::saveImageQ) {
         imageQ = utils::generateImage(W.Q->dense());
         utils::saveImage(imageQ, "Image_Q");
     }
 
-    return new ResultsWfesSingle(Config::modelType, true, dt.count(), imageI, imageQ);
+    return new ResultsWfesSingle(ConfigWfesSingle::modelType, true, dt.count(), imageI, imageQ);
 }
 
 void wfes_single::force()
 {
-    if (!Config::force) {
-        if (Config::population_size > 500000) {
+    if (!ConfigWfesSingle::force) {
+        if (ConfigWfesSingle::population_size > 500000) {
             // TODO Show as dialog.
             throw exception::Error("Population size is quite large - the computations will take a long "
                               "time. Use --force to ignore");
         }
-        double max_mu = std::max(Config::u, Config::v);
-        if ((4 * Config::population_size * max_mu) > 1) {
+        double max_mu = std::max(ConfigWfesSingle::u, ConfigWfesSingle::v);
+        if ((4 * ConfigWfesSingle::population_size * max_mu) > 1) {
             // TODO Show as dialog.
             throw exception::Error("The mutation rate might violate the Wright-Fisher assumptions. Use "
                               "--force to ignore");
         }
-        if ((2 * Config::population_size * Config::s) <= -100) {
+        if ((2 * ConfigWfesSingle::population_size * ConfigWfesSingle::s) <= -100) {
             // TODO Show as dialog.
             throw exception::Error("The selection coefficient is quite negative. Fixations might be "
                               "impossible. Use --force to ignore");
         }
-        if (Config::a > 1e-5) {
+        if (ConfigWfesSingle::a > 1e-5) {
             // TODO Show as dialog.
             throw exception::Error("Zero cutoff value is quite high. This might produce inaccurate "
                               "results. Use --force to ignore");
@@ -885,13 +885,13 @@ void wfes_single::force()
 
 void wfes_single::calculateStartingCopies()
 {
-    if (Config::initial_distribution_csv.compare("") != 0) {
+    if (ConfigWfesSingle::initial_distribution_csv.compare("") != 0) {
         // TODO Show as dialog.
         // cout << "Reading initial from file" << args::get(initial_distributon_csv_f) << "" <<
         // endl;
-        starting_copies_p = load_csv_col_vector(Config::initial_distribution_csv);
+        starting_copies_p = load_csv_col_vector(ConfigWfesSingle::initial_distribution_csv);
     } else {
-        dvec first_row = wrightfisher::binom_row(2 * Config::population_size, wrightfisher::psi_diploid(0, Config::population_size, Config::s, Config::h, Config::u, Config::v), Config::a).Q;
+        dvec first_row = wrightfisher::binom_row(2 * ConfigWfesSingle::population_size, wrightfisher::psi_diploid(0, ConfigWfesSingle::population_size, ConfigWfesSingle::s, ConfigWfesSingle::h, ConfigWfesSingle::u, ConfigWfesSingle::v), ConfigWfesSingle::a).Q;
         starting_copies_p = first_row.tail(first_row.size() - 1); // renormalize
         starting_copies_p /= 1 - first_row(0);
     }
@@ -902,20 +902,20 @@ void wfes_single::calculateZ()
     // Set value of z if the user has provided an initial distribution,
     // load it and calculate z value.
     z = 0;
-    if (Config::initial_distribution_csv.compare("") != 0) {
+    if (ConfigWfesSingle::initial_distribution_csv.compare("") != 0) {
         z = starting_copies_p.size();
-    } else if (Config::integration_cutoff <= 0 || Config::v == 0) { // no integration
+    } else if (ConfigWfesSingle::integration_cutoff <= 0 || ConfigWfesSingle::v == 0) { // no integration
         z = 1;
         starting_copies_p[0] = 1;
     } else {
         int i = 0;
         while(i < starting_copies_p.size()) {
-            if(starting_copies_p(i) > Config::integration_cutoff)
+            if(starting_copies_p(i) > ConfigWfesSingle::integration_cutoff)
                 z++;
             else break;
             i++;
         }
     }
-    if (Config::starting_copies)
+    if (ConfigWfesSingle::starting_copies)
         z = 1;
 }

@@ -2,64 +2,87 @@
 
 using namespace wfes::config;
 
-std::string Config::library = "ViennaCL";
-std::string Config::vienna_solver = "BicGStab";
-ModelType Config::modelType = ModelType::ABSORPTION;
-int Config::population_size = 10000;
-double Config::s = 0.005;
-double Config::h = 0.5;
-double Config::u = 1.2e-8;
-double Config::v = 1.2e-8;
-bool Config::no_rem = false;
-bool Config::rem = !Config::no_rem;
-double Config::a = 1e-20;
-double Config::odds_ratio = 1.0;
-int Config::b = 100;
-int Config::n_threads = 1;
-double Config::integration_cutoff = 1e-10;
-int Config::starting_copies = 0;
+std::string ConfigWfesSingle::library = "ViennaCL";
+std::string ConfigWfesSingle::vienna_solver = "BicGStab";
+ModelType ConfigWfesSingle::modelType = ModelType::ABSORPTION;
+int ConfigWfesSingle::population_size = 10000;
+double ConfigWfesSingle::s = 0.005;
+double ConfigWfesSingle::h = 0.5;
+double ConfigWfesSingle::u = 1.2e-8;
+double ConfigWfesSingle::v = 1.2e-8;
+bool ConfigWfesSingle::no_rem = false;
+bool ConfigWfesSingle::rem = !ConfigWfesSingle::no_rem;
+double ConfigWfesSingle::a = 1e-20;
+double ConfigWfesSingle::odds_ratio = 1.0;
+int ConfigWfesSingle::b = 100;
+int ConfigWfesSingle::n_threads = 1;
+double ConfigWfesSingle::integration_cutoff = 1e-10;
+int ConfigWfesSingle::starting_copies = 0;
 
-int Config::observed_copies = 1;
+int ConfigWfesSingle::observed_copies = 1;
 
-std::string Config::initial_distribution_csv = "";
-std::string Config::path_output_Q = "output_Q.csv";
-std::string Config::path_output_R = "output_R.csv";
-std::string Config::path_output_N = "output_N.csv";
-std::string Config::path_output_N_ext = "output_N_ext.csv";
-std::string Config::path_output_N_fix = "output_N_fix.csv";
-std::string Config::path_output_B = "output_B.csv";
-std::string Config::path_output_I = "output_I.csv";
-std::string Config::path_output_E = "output_E.csv";
-std::string Config::path_output_V = "output_V.csv";
-std::string Config::path_output_Res = "output_Res.csv";
+std::string ConfigWfesSingle::initial_distribution_csv = "";
+std::string ConfigWfesSingle::path_output_Q = "output_Q.csv";
+std::string ConfigWfesSingle::path_output_R = "output_R.csv";
+std::string ConfigWfesSingle::path_output_N = "output_N.csv";
+std::string ConfigWfesSingle::path_output_N_ext = "output_N_ext.csv";
+std::string ConfigWfesSingle::path_output_N_fix = "output_N_fix.csv";
+std::string ConfigWfesSingle::path_output_B = "output_B.csv";
+std::string ConfigWfesSingle::path_output_I = "output_I.csv";
+std::string ConfigWfesSingle::path_output_E = "output_E.csv";
+std::string ConfigWfesSingle::path_output_V = "output_V.csv";
+std::string ConfigWfesSingle::path_output_Res = "output_Res.csv";
 
-bool Config::output_Q = false;
-bool Config::output_R = false;
-bool Config::output_N = false;
-bool Config::output_N_ext = false;
-bool Config::output_N_fix = false;
-bool Config::output_B = false;
-bool Config::output_I = false;
-bool Config::output_E = false;
-bool Config::output_V = false;
-bool Config::output_Res = true;
+bool ConfigWfesSingle::output_Q = false;
+bool ConfigWfesSingle::output_R = false;
+bool ConfigWfesSingle::output_N = false;
+bool ConfigWfesSingle::output_N_ext = false;
+bool ConfigWfesSingle::output_N_fix = false;
+bool ConfigWfesSingle::output_B = false;
+bool ConfigWfesSingle::output_I = false;
+bool ConfigWfesSingle::output_E = false;
+bool ConfigWfesSingle::output_V = false;
+bool ConfigWfesSingle::output_Res = true;
 
-bool Config::force = false;
-bool Config::verbose = false;
-bool Config::help = false;
+bool ConfigWfesSingle::force = false;
+bool ConfigWfesSingle::verbose = false;
+bool ConfigWfesSingle::help = false;
 
-bool Config::saveImageI = false;
-bool Config::saveImageQ = false;
-bool Config::saveImageR = false;
-bool Config::saveImageN = false;
-bool Config::saveImageNExt = false;
-bool Config::saveImageNFix = false;
-bool Config::saveImageB = false;
-bool Config::saveImageV = false;
-bool Config::saveImageE = false;
+bool ConfigWfesSingle::saveImageI = false;
+bool ConfigWfesSingle::saveImageQ = false;
+bool ConfigWfesSingle::saveImageR = false;
+bool ConfigWfesSingle::saveImageN = false;
+bool ConfigWfesSingle::saveImageNExt = false;
+bool ConfigWfesSingle::saveImageNFix = false;
+bool ConfigWfesSingle::saveImageB = false;
+bool ConfigWfesSingle::saveImageV = false;
+bool ConfigWfesSingle::saveImageE = false;
 
-std::string Config::error = "";
+std::string ConfigWfesSingle::error = "";
 
-Config::Config() {
+ConfigWfesSingle::ConfigWfesSingle() {
+}
+
+
+int ConfigWfesSingle::ModelTypeWfesSingleToInt(ModelType modelType){
+    switch(modelType){
+    case ModelType::ABSORPTION:
+        return 1;
+    case ModelType::FIXATION:
+        return 2;
+    case ModelType::ESTABLISHMENT:
+        return 3;
+    case ModelType::FUNDAMENTAL:
+        return 4;
+    case ModelType::EQUILIBRIUM:
+        return 5;
+    case ModelType::NON_ABSORBING:
+        return 6;
+    case ModelType::ALLELE_AGE:
+        return 7;
+    case ModelType::NONE:
+    default:
+        return 0;
+    }
 }
 

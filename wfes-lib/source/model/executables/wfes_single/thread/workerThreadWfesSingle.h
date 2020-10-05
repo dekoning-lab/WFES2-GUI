@@ -19,7 +19,7 @@
 #include "source/model/executables/wfes_single/config/configWfesSingle.h"
 
 
-class WorkerThread : public QThread, public Observer
+class WorkerThreadWfesSingle : public QThread, public Observer
 {
     Q_OBJECT
 
@@ -31,9 +31,9 @@ class WorkerThread : public QThread, public Observer
 
         bool done = false;
 
-        explicit WorkerThread(QObject* parent = nullptr);
+        explicit WorkerThreadWfesSingle(QObject* parent = nullptr);
 
-        ~WorkerThread();
+        ~WorkerThreadWfesSingle();
 
         void run() override;
 

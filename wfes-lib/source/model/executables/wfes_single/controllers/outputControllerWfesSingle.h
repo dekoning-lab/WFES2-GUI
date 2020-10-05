@@ -18,7 +18,7 @@
 
 #include "source/model/executables/wfes_single/config/configWfesSingle.h"
 
-#include "source/model/executables/wfes_single/thread/threadwfessingle.h"
+#include "source/model/executables/wfes_single/thread/workerThreadWfesSingle.h"
 
 namespace wfes {
     namespace controllers {
@@ -67,7 +67,7 @@ namespace wfes {
 
                 bool executing;
 
-                WorkerThread* worker;
+                WorkerThreadWfesSingle* worker;
 
                 QString progress = "";
 

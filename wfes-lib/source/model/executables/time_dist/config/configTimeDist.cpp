@@ -4,6 +4,7 @@ using namespace wfes::config;
 
 ConfigTimeDist::ConfigTimeDist() {}
 
+ModelTypeTimeDist ConfigTimeDist::modelType = ModelTypeTimeDist::TIME_DIST;
 int ConfigTimeDist::population_size = 10000;
 double ConfigTimeDist::s = 0.005;
 double ConfigTimeDist::h = 0.5;

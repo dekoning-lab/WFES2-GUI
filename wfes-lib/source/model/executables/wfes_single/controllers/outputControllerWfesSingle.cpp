@@ -11,9 +11,9 @@ OutputController::~OutputController()
 QString OutputController::execute()
 {
     executing = true;
-    qRegisterMetaType<ResultsWfesSingle>("Results");
+    qRegisterMetaType<ResultsWfesSingle>("ResultsWfesSingle");
 
-    worker = new WorkerThread();
+    worker = new WorkerThreadWfesSingle();
     connect(worker, SIGNAL(resultReady(ResultsWfesSingle)), this, SLOT(handleResults(ResultsWfesSingle)));
     connect(worker, SIGNAL(updateProgress(int)), this, SLOT(handleProgress(int)));
     connect(worker, SIGNAL(finished()), worker, SLOT(deleteLater()));
@@ -275,12 +275,12 @@ QString OutputController::get_s_a() const
 
 QString OutputController::get_error_message() const
 {
-    return QString::fromStdString(wfes::config::Config::error);
+    return QString::fromStdString(wfes::config::ConfigWfesSingle::error);
 }
 
 QString OutputController::reset_error() const
 {
-    wfes::config::Config::error = "";
+    wfes::config::ConfigWfesSingle::error = "";
     return QString();
 }
 

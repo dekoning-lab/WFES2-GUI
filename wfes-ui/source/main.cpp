@@ -5,7 +5,6 @@
 
 #include <source/model/executables/wfes_single/controllers/outputControllerWfesSingle.h>
 #include <source/model/executables/wfes_single/controllers/inputControllerWfesSingle.h>
-#include <model/executables/wfes_single/results/resultsWfesSingle.h>
 #include <source/model/executables/wfes_single/config/configWfesSingle.h>
 
 int main(int argc, char *argv[])

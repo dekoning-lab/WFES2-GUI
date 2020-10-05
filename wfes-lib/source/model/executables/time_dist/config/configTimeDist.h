@@ -1,4 +1,4 @@
-#ifndef CONFIGTIMEDIST_H
+﻿#ifndef CONFIGTIMEDIST_H
 #define CONFIGTIMEDIST_H
 
 #include <string>
@@ -11,8 +11,13 @@ namespace wfes {
          * @brief Enumeration containing possible model types and NONE as special absent type.
          */
         enum class ModelTypeTimeDist{
-            NONE, TIME_DIST, TIME_DIST_SGV, TIME_DIST_SKIP, TIME_DIST_DUAL
+            NONE = 0, TIME_DIST = 1, TIME_DIST_SGV = 2, TIME_DIST_SKIP = 3, TIME_DIST_DUAL = 4
         };
+
+        /**
+         * @brief Model Type Names as string, same order as enumeration above to obtain the name of a given enumeration value.
+         */
+        static const char* ModelTypeTimeDistNames[] = { "None", "Time Dist.", "Time Dist. SGV", "Time Dist. Skip", "Time Dist. Dual"};
 
         class ConfigTimeDist
         {
@@ -21,6 +26,11 @@ namespace wfes {
              * @brief Default constructor for class ConfigTimeDist.
              */
             ConfigTimeDist();
+
+            /**
+             * @brief Type of model used. (e.g. TimeDist, TimeDistDual...).
+             */
+            static ModelTypeTimeDist modelType;
 
             /**
              * @brief Size of the population in the Wright Fisher Model (N).

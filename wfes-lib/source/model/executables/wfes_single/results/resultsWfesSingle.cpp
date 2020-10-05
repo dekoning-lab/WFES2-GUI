@@ -2,7 +2,7 @@
 
 // Empty constructor
 ResultsWfesSingle::ResultsWfesSingle() :
-    modelType(wfes::config::NONE), pExt(std::nan("")), pFix(std::nan("")), tAbs(std::nan("")),
+    modelType(wfes::config::ModelType::NONE), pExt(std::nan("")), pFix(std::nan("")), tAbs(std::nan("")),
       tAbsStd(std::nan("")), tExt(std::nan("")), tExtStd(std::nan("")), nExt(std::nan("")),
       tFix(std::nan("")), tFixStd(std::nan("")), rate(std::nan("")),
 
@@ -20,7 +20,7 @@ ResultsWfesSingle::ResultsWfesSingle() :
 
 // Empty constructor with time
 ResultsWfesSingle::ResultsWfesSingle(double time)  :
-    modelType(wfes::config::NONE), pExt(std::nan("")), pFix(std::nan("")), tAbs(std::nan("")),
+    modelType(wfes::config::ModelType::NONE), pExt(std::nan("")), pFix(std::nan("")), tAbs(std::nan("")),
       tAbsStd(std::nan("")), tExt(std::nan("")), tExtStd(std::nan("")), nExt(std::nan("")),
       tFix(std::nan("")), tFixStd(std::nan("")), rate(std::nan("")),
 
