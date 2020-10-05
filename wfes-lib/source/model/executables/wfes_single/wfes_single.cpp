@@ -78,7 +78,7 @@ Results *wfes_single::absorption()
     this->notify(ExecutionStatus::BUILDING_MATRICES);
 
     wrightfisher::Matrix W = wrightfisher::Single(Config::population_size, Config::population_size, wrightfisher::BOTH_ABSORBING, Config::s, Config::h, Config::u, Config::v,
-                              Config::rem, Config::a, Config::verbose, Config::b);
+                              Config::rem, Config::a, Config::verbose, Config::b, Config::library);
 
     //Notify saving data.
     this->notify(ExecutionStatus::SAVING_DATA);
@@ -268,7 +268,7 @@ Results *wfes_single::fixation()
     this->notify(ExecutionStatus::BUILDING_MATRICES);
 
     wrightfisher::Matrix W = wrightfisher::Single(Config::population_size, Config::population_size, wrightfisher::FIXATION_ONLY, Config::s, Config::h, Config::u, Config::v,
-                              Config::rem, Config::a, Config::verbose, Config::b);
+                              Config::rem, Config::a, Config::verbose, Config::b, Config::library);
 
     //Notify saving data.
     this->notify(ExecutionStatus::SAVING_DATA);
@@ -364,7 +364,7 @@ Results *wfes_single::fundamental()
 
     llong size = (2 * Config::population_size) - 1;
     wrightfisher::Matrix W = wrightfisher::Single(Config::population_size, Config::population_size, wrightfisher::BOTH_ABSORBING, Config::s, Config::h, Config::u, Config::v,
-                              Config::rem, Config::a, Config::verbose, Config::b);
+                              Config::rem, Config::a, Config::verbose, Config::b, Config::library);
 
     //Notify saving data.
     this->notify(ExecutionStatus::SAVING_DATA);
@@ -448,7 +448,8 @@ Results *wfes_single::equilibrium()
     this->notify(ExecutionStatus::BUILDING_MATRICES);
 
     llong size = (2 * Config::population_size) + 1;
-    wrightfisher::Matrix W = wrightfisher::EquilibriumSolvingMatrix(Config::population_size, Config::s, Config::h, Config::u, Config::v, Config::a, Config::verbose, Config::b);
+    wrightfisher::Matrix W = wrightfisher::EquilibriumSolvingMatrix(Config::population_size, Config::s, Config::h, Config::u, Config::v,
+                                                                    Config::a, Config::verbose, Config::b, Config::library);
 
     Solver* solver = SolverFactory::createSolver(Config::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, Config::vienna_solver);
 
@@ -517,7 +518,7 @@ Results *wfes_single::establishment()
 
     // Full Wright-Fisher
     wrightfisher::Matrix W_full = wrightfisher::Single(Config::population_size, Config::population_size, wrightfisher::BOTH_ABSORBING, Config::s, Config::h,
-                                   Config::u, Config::v, Config::rem, Config::a, Config::verbose, Config::b);
+                                   Config::u, Config::v, Config::rem, Config::a, Config::verbose, Config::b, Config::library);
 
     //Notify solving
     this->notify(ExecutionStatus::SOLVING_MATRICES);
@@ -581,7 +582,7 @@ Results *wfes_single::establishment()
 
     // Truncated model
     wrightfisher::Matrix W_tr = wrightfisher::Truncated(Config::population_size, Config::population_size, est_idx, Config::s, Config::h, Config::u, Config::v, Config::rem,
-                                    Config::a, Config::verbose, Config::b);
+                                    Config::a, Config::verbose, Config::b, Config::library);
 
     //Notify saving data.
     this->notify(ExecutionStatus::SAVING_DATA);
@@ -724,7 +725,7 @@ Results *wfes_single::alleleAge()
 
     llong size = (2 * Config::population_size) - 1;
     wrightfisher::Matrix W = wrightfisher::Single(Config::population_size, Config::population_size, wrightfisher::BOTH_ABSORBING, Config::s, Config::h, Config::u, Config::v,
-                              Config::rem, Config::a, Config::verbose, Config::b);
+                              Config::rem, Config::a, Config::verbose, Config::b, Config::library);
 
     //Notify saving data.
     this->notify(ExecutionStatus::SAVING_DATA);
@@ -822,7 +823,7 @@ Results *wfes_single::nonAbsorbing()
     this->notify(ExecutionStatus::BUILDING_MATRICES);
 
     wrightfisher::Matrix W = wrightfisher::Single(Config::population_size, Config::population_size, wrightfisher::NON_ABSORBING, Config::s, Config::h, Config::u, Config::v,
-                              Config::rem, Config::a, Config::verbose, Config::b);
+                              Config::rem, Config::a, Config::verbose, Config::b, Config::library);
 
     //Notify saving data.
     this->notify(ExecutionStatus::SAVING_DATA);

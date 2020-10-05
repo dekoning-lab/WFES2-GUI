@@ -65,13 +65,13 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::EquilibriumSolvingMatrix(const in
                                                             const double h, const double u,
                                                             const double v, const double alpha,
                                                             const bool verbose,
-                                                            const int block_size) {
+                                                            const int block_size, std::string library) {
     time_point t_start, t_end;
     if (verbose)
         t_start = std::chrono::system_clock::now();
     int N2 = 2 * N;
     int size = N2 + 1;
-    wfes::wrightfisher::Matrix W(Config::library, size, size, n_absorbing(wfes::wrightfisher::NON_ABSORBING));
+    wfes::wrightfisher::Matrix W(library, size, size, n_absorbing(wfes::wrightfisher::NON_ABSORBING));
     for (int block_row = 0; block_row < size; block_row += block_size) {
         int block_length = (block_row + block_size) < size ? block_size : size - block_row;
         std::deque<Row> buffer(block_length);
@@ -124,12 +124,12 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::EquilibriumSolvingMatrix(const in
 }
 
 dmat wfes::wrightfisher::Equilibrium(int N, double s, double h, double u, double v, double alpha,
-                               bool verbose) {
+                               bool verbose, std::string library) {
     Matrix wf_eq = EquilibriumSolvingMatrix(N, s, h, u, v, alpha, verbose);
 
     int msg_level = verbose ? MKL_PARDISO_MSG_VERBOSE : MKL_PARDISO_MSG_QUIET;
 
-    wfes::solver::Solver* solver = wfes::solver::SolverFactory::createSolver(Config::library, (*wf_eq.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level);
+    wfes::solver::Solver* solver = wfes::solver::SolverFactory::createSolver(library, (*wf_eq.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level);
 
     solver->preprocess();
 
@@ -147,7 +147,7 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::Single(const int Nx, const int Ny
                                           const absorption_type abs_t, const double s,
                                           const double h, const double u, const double v,
                                           bool recurrent_mutation, const double alpha,
-                                          const bool verbose, const int block_size) {
+                                          const bool verbose, const int block_size, std::string library) {
     time_point t_start, t_end;
     if (verbose)
         t_start = std::chrono::system_clock::now();
@@ -158,7 +158,7 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::Single(const int Nx, const int Ny
 
     int n_abs = n_absorbing(abs_t);
 
-    Matrix *W = new Matrix(Config::library, Nx2 + 1 - n_abs, Ny2 + 1 - n_abs, n_abs);
+    Matrix *W = new Matrix(library, Nx2 + 1 - n_abs, Ny2 + 1 - n_abs, n_abs);
 
     for (int block_row = 0; block_row <= Nx2; block_row += block_size) {
         int block_length = (block_row + block_size) < size ? block_size : size - block_row;
@@ -257,7 +257,7 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::Single(const int Nx, const int Ny
 wfes::wrightfisher::Matrix wfes::wrightfisher::Bounce(const int Nx, const int Ny, const double s,
                                           const double h, const double u, const double v,
                                           bool recurrent_mutation, const double alpha,
-                                          const bool verbose, const int block_size) {
+                                          const bool verbose, const int block_size, std::string library) {
     time_point t_start, t_end;
     if (verbose)
         t_start = std::chrono::system_clock::now();
@@ -266,7 +266,7 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::Bounce(const int Nx, const int Ny
     int Ny2 = 2 * Ny;
     int size = Nx2 + 1;
 
-    Matrix *W = new Matrix(Config::library, Nx2 - 1, Ny2 - 1, 1);
+    Matrix *W = new Matrix(library, Nx2 - 1, Ny2 - 1, 1);
 
     for (int block_row = 0; block_row <= Nx2; block_row += block_size) {
         int block_length = (block_row + block_size) < size ? block_size : size - block_row;
@@ -329,7 +329,7 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::Bounce(const int Nx, const int Ny
 wfes::wrightfisher::Matrix wfes::wrightfisher::DualMutation(const int Nx, const int Ny, const double s,
                                                 const double h, const double u, const double v,
                                                 bool recurrent_mutation, const double alpha,
-                                                const bool verbose, const int block_size) {
+                                                const bool verbose, const int block_size, std::string library) {
     time_point t_start, t_end;
     if (verbose)
         t_start = std::chrono::system_clock::now();
@@ -338,7 +338,7 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::DualMutation(const int Nx, const 
     int Ny2 = 2 * Ny;
     int size = Nx2 + 1;
 
-    Matrix *W = new Matrix(Config::library, Nx2, Ny2, 2);
+    Matrix *W = new Matrix(library, Nx2, Ny2, 2);
 
     for (int block_row = 0; block_row <= Nx2; block_row += block_size) {
         int block_length = (block_row + block_size) < size ? block_size : size - block_row;
@@ -403,7 +403,7 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::Truncated(const int Nx, const int
                                              const double s, const double h, const double u,
                                              const double v, bool recurrent_mutation,
                                              const double alpha, const bool verbose,
-                                             const int block_size) {
+                                             const int block_size, std::string library) {
     time_point t_start, t_end;
     if (verbose)
         t_start = std::chrono::system_clock::now();
@@ -412,7 +412,7 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::Truncated(const int Nx, const int
     // int Ny2 = 2 * Ny;
     // int size = Nx2 + 1;
 
-    Matrix *W = new Matrix(Config::library, t - 1, t - 1, 2);
+    Matrix *W = new Matrix(library, t - 1, t - 1, 2);
 
     for (int block_row = 0; block_row <= t; block_row += block_size) {
         int block_length = (block_row + block_size) < t ? block_size : t - block_row;
@@ -497,7 +497,7 @@ std::deque<std::pair<int, int>> submatrix_indeces(const lvec &sizes) {
 wfes::wrightfisher::Matrix wfes::wrightfisher::Switching(const lvec &N, const absorption_type abs_t,
                                              const dvec &s, const dvec &h, const dvec &u,
                                              const dvec &v, const dmat &switching, double alpha,
-                                             const bool verbose, const int block_size) {
+                                             const bool verbose, const int block_size, std::string library) {
     time_point t_start, t_end;
     if (verbose)
         t_start = std::chrono::system_clock::now();
@@ -520,7 +520,7 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::Switching(const lvec &N, const ab
     lvec sizes = 2 * N + lvec::Ones(k);
     int size = sizes.sum();
 
-    Matrix *W = new Matrix(Config::library, size - n_abs_total, size - n_abs_total, n_abs_total);
+    Matrix *W = new Matrix(library, size - n_abs_total, size - n_abs_total, n_abs_total);
     std::deque<std::pair<int, int>> index = submatrix_indeces(sizes);
 
     for (int block_row = 0; block_row <= size; block_row += block_size) {
@@ -635,7 +635,7 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::Switching(const lvec &N, const ab
 wfes::wrightfisher::Matrix
 wfes::wrightfisher::NonAbsorbingToFixationOnly(const int N, const dvec &s, const dvec &h, const dvec &u,
                                          const dvec &v, const dmat &switching, const double alpha,
-                                         const bool verbose, const int block_size) {
+                                         const bool verbose, const int block_size, std::string library) {
     time_point t_start, t_end;
     if (verbose)
         t_start = std::chrono::system_clock::now();
@@ -650,7 +650,7 @@ wfes::wrightfisher::NonAbsorbingToFixationOnly(const int N, const dvec &s, const
     sizes << (2 * N) + 1, 2 * N;
     int size = sizes.sum();
 
-    Matrix *W = new Matrix(Config::library, size, size, 1);
+    Matrix *W = new Matrix(library, size, size, 1);
     std::deque<std::pair<int, int>> index = submatrix_indeces(sizes);
 
     for (int block_row = 0; block_row < size; block_row += block_size) {
@@ -699,7 +699,7 @@ wfes::wrightfisher::NonAbsorbingToFixationOnly(const int N, const dvec &s, const
 
 wfes::wrightfisher::Matrix wfes::wrightfisher::NonAbsorbingToBothAbsorbing(
     const int N, const dvec &s, const dvec &h, const dvec &u, const dvec &v,
-    const dmat &switching, const double alpha, const bool verbose, const int block_size) {
+    const dmat &switching, const double alpha, const bool verbose, const int block_size, std::string library) {
     time_point t_start, t_end;
     if (verbose)
         t_start = std::chrono::system_clock::now();
@@ -714,7 +714,7 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::NonAbsorbingToBothAbsorbing(
     sizes << (2 * N) + 1, (2 * N) - 1;
     int size = sizes.sum();
 
-    Matrix *W = new Matrix(Config::library, size, size, 2);
+    Matrix *W = new Matrix(library, size, size, 2);
     std::deque<std::pair<int, int>> index = submatrix_indeces(sizes);
 
     for (int block_row = 0; block_row < size; block_row += block_size) {

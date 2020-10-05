@@ -120,47 +120,47 @@ namespace wfes{
         Matrix EquilibriumSolvingMatrix(const int N, const double s = 0, const double h = 0.5,
                                         const double u = 1e-9, const double v = 1e-9,
                                         const double alpha = 1e-20, const bool verbose = false,
-                                        const int block_size = 100);
+                                        const int block_size = 100, std::string library = "Pardiso");
         dmat Equilibrium(int N, double s = 0, double h = 0.5, double u = 1e-9, double v = 1e-9,
-                         double alpha = 1e-20, bool verbose = false);
+                         double alpha = 1e-20, bool verbose = false, std::string library = "Pardiso");
 
         // Single - one matrix of a given absorption type
         Matrix Single(const int Nx, const int Ny, const absorption_type a_t, const double s = 0,
                       const double h = 0.5, const double u = 1e-9, const double v = 1e-9,
                       const bool recurrent_mutation = true, const double alpha = 1e-20,
-                      const bool verbose = false, const int block_size = 100);
+                      const bool verbose = false, const int block_size = 100, std::string library = "Pardiso");
 
         // Bounce - mutation return to a non-zero count
         Matrix Bounce(const int Nx, const int Ny, const double s = 0, const double h = 0.5,
                       const double u = 1e-9, const double v = 1e-9, const bool recurrent_mutation = true,
-                      const double alpha = 1e-20, const bool verbose = false, const int block_size = 100);
+                      const double alpha = 1e-20, const bool verbose = false, const int block_size = 100, std::string library = "Pardiso");
 
         // Dual mutation - 0 copies only absorbing after the first mutation
         Matrix DualMutation(const int Nx, const int Ny, const double s = 0, const double h = 0.5,
                             const double u = 1e-9, const double v = 1e-9,
                             const bool recurrent_mutation = true, const double alpha = 1e-20,
-                            const bool verbose = false, const int block_size = 100);
+                            const bool verbose = false, const int block_size = 100, std::string library = "Pardiso");
 
         // Single but with entries larger than `t` summed into the fixation state
         Matrix Truncated(const int Nx, const int Ny, const int t, const double s, const double h,
                          const double u, const double v, bool recurrent_mutation = true,
                          const double alpha = 1e-20, const bool verbose = false,
-                         const int block_size = 100);
+                         const int block_size = 100, std::string library = "Pardiso");
 
         // Switching - each sub-model is of the same absorbing type
         Matrix Switching(const lvec &N, const absorption_type a_t, const dvec &s, const dvec &h,
                          const dvec &u, const dvec &v, const dmat &switching, const double alpha = 1e-20,
-                         const bool verbose = false, const int block_size = 100);
+                         const bool verbose = false, const int block_size = 100, std::string library = "Pardiso");
 
         // Two-model Switching: A is of type `NON_ABSORBING`, B is of type `FIXATION_ONLY`
         Matrix NonAbsorbingToFixationOnly(const int N, const dvec &s, const dvec &h, const dvec &u,
                                           const dvec &v, const dmat &switching, const double alpha = 1e-20,
-                                          const bool verbose = false, const int block_size = 100);
+                                          const bool verbose = false, const int block_size = 100, std::string library = "Pardiso");
 
         // Two-model Switching: A is of type `NON_ABSORBING`, B is of type `BOTH_ABSORBING`
         Matrix NonAbsorbingToBothAbsorbing(const int N, const dvec &s, const dvec &h, const dvec &u,
                                            const dvec &v, const dmat &switching, const double alpha = 1e-20,
-                                           const bool verbose = false, const int block_size = 100);
+                                           const bool verbose = false, const int block_size = 100, std::string library = "Pardiso");
 
     }
 }

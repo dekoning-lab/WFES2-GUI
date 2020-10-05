@@ -6,10 +6,11 @@ using namespace wfes::vienna;
 SolverViennaCL::SolverViennaCL(SparseMatrixViennaCL &A, std::string solver, std::string preconditioner) : Solver(A), solver(solver), preconditioner(preconditioner)
 {
 
+/*
 #ifdef VIENNACL_WITH_OPENMP
     omp_set_num_threads(wfes::config::Config::n_threads);
 #endif
-/*
+
 #ifdef VIENNACL_WITH_OPENCL
     qDebug() << QString::fromStdString(viennacl::ocl::current_device().info());
 #endif
