@@ -883,7 +883,7 @@ ApplicationWindow {
                                         id: fileDialog
                                         title: "Please choose a csv file"
                                         folder: shortcuts.home
-                                        nameFilters: [ "csv files (*.csv *.png)" ]
+                                        nameFilters: [ "csv files (*.csv)" ]
                                         onAccepted: {
                                             var path = fileDialog.fileUrl.toString()
                                             path = path.replace(/^(file:\/{2})/,"");

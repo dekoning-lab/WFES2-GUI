@@ -38,9 +38,15 @@ Item {
                 top: row1.bottom
                 topMargin: 30
             }
-            ChangeStackViewButton {
+            Button {
                 text: "Time Dist."
-                view: "qrc:/views/mainview/stackbuttons/timeDistButtons.qml"
+                onClicked: {
+                    var component = Qt.createComponent("qrc:/views/executionviews/timeDistView.qml")
+                    var window    = component.createObject()
+                    window.show()
+                }
+                Layout.alignment: Qt.AlignHCenter
+                Layout.preferredWidth: 160
             }
             ChangeStackViewButton {
                 text: "Phase Type"

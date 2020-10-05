@@ -6,7 +6,6 @@
 
 #include "model/pardiso/sparseMatrixPardiso.h"
 #include "testsuite.h"
-#include "wfesLib.h"
 
 namespace wfes {
     namespace pardiso {

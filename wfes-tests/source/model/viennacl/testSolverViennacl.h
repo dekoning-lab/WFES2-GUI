@@ -9,7 +9,6 @@
 #include "model/viennacl/solverViennaCL.h"
 #include "model/viennacl/sparseMatrixViennacl.h"
 #include "testsuite.h"
-#include "wfesLib.h"
 
 #include <utils/types.h>
 
