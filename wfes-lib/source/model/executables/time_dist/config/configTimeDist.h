@@ -27,6 +27,17 @@ namespace wfes {
              */
             ConfigTimeDist();
 
+            static int ModelTypeTimeDistToInt(ModelTypeTimeDist modelType);
+            /**
+             * @brief Library used for solving matrix systems (e.g. pardiso, viennacl...).
+             */
+            static std::string library;
+
+            /**
+             * @brief Solver used in viennacl. (e.g. biCGStab, GMRes...).
+             */
+            static std::string vienna_solver;
+
             /**
              * @brief Type of model used. (e.g. TimeDist, TimeDistDual...).
              */
@@ -56,6 +67,11 @@ namespace wfes {
              * @brief Forward mutation rate (v).
              */
             static double v;
+
+            /**
+             * TODO.
+             */
+            static double l;
 
             /**
              * @brief No recurrent mutation (m).
@@ -136,6 +152,12 @@ namespace wfes {
              * @brief Verbose solver output (TODO Not Used In GUI.)
              */
             static bool verbose;
+
+            /**
+             * @brief Error messages to show if there is an error.
+             */
+            static std::string error;
+
         };
     }
 }

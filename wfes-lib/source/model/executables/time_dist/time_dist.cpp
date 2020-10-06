@@ -1,7 +1,5 @@
 #include "time_dist.h"
 
-#include <model/executables/time_dist/config/configTimeDist.h>
-
 using namespace wfes::wrightfisher;
 using namespace wfes::utils;
 using namespace wfes::config;
