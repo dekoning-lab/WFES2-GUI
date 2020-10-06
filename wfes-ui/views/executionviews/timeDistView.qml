@@ -84,7 +84,7 @@ ApplicationWindow {
 
                             RadioButton {
                                 id: radioButtonTimeDist
-                                checked: true
+                                checked: inputControllerTimeDist.ui_modelType == "Time Dist."
                                 text: qsTr("Time Dist.")
 
                                 ToolTip.visible: hovered
@@ -98,6 +98,7 @@ ApplicationWindow {
                             }
                             RadioButton {
                                 id: radioButtonTimeDistSGV
+                                checked: inputControllerTimeDist.ui_modelType == "Time Dist. SGV"
                                 text: qsTr("Time Dist. SGV")
 
                                 ToolTip.visible: hovered
@@ -112,6 +113,7 @@ ApplicationWindow {
 
                             RadioButton {
                                 id: radioButtonTimeDistSkip
+                                checked: inputControllerTimeDist.ui_modelType == "Time Dist. Skip"
                                 text: qsTr("Time Dist. Skip")
 
                                 ToolTip.visible: hovered
@@ -125,6 +127,7 @@ ApplicationWindow {
                             }
                             RadioButton {
                                 id: radioButtonTimeDistDual
+                                checked: inputControllerTimeDist.ui_modelType == "Time Dist. Dual"
                                 text: qsTr("Time Dist. Dual")
 
                                 ToolTip.visible: hovered
@@ -357,7 +360,7 @@ ApplicationWindow {
                                     id: inputWriteQ
                                     text: "Q: "
                                     toolTipText: "Output Q as CSV file."
-                                    //checked: //TODO
+                                    checked: inputControllerTimeDist.ui_output_Q
                                     //enabled: //TODO
 
                                 }
@@ -366,7 +369,7 @@ ApplicationWindow {
                                     id: inputWriteR
                                     text: "R: "
                                     toolTipText: "Output R as CSV file."
-                                    //checked: //TODO
+                                    checked: inputControllerTimeDist.ui_output_R
                                     //enabled: //TODO
                                 }
 
@@ -374,7 +377,7 @@ ApplicationWindow {
                                     id: inputWriteP
                                     text: "P: "
                                     toolTipText: "TODO."
-                                    //checked: //TODO
+                                    checked: inputControllerTimeDist.ui_output_P
                                     //enabled: //TODO
                                 }
 

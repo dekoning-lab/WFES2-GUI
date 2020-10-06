@@ -21,7 +21,7 @@ int ConfigTimeDist::ModelTypeTimeDistToInt(ModelTypeTimeDist modelType)
     }
 }
 
-ModelTypeTimeDist ConfigTimeDist::modelType = ModelTypeTimeDist::TIME_DIST_SGV;
+ModelTypeTimeDist ConfigTimeDist::modelType = ModelTypeTimeDist::TIME_DIST;
 std::string ConfigTimeDist::library = "ViennaCL";
 std::string ConfigTimeDist::vienna_solver = "BicGStab";
 int ConfigTimeDist::population_size = 10000;
