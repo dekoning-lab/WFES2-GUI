@@ -472,12 +472,12 @@ ApplicationWindow {
                             Binding {
                                 target: stopButton
                                 property: "enabled"
-                                value: !outputController.ui_get_not_exec
+                                value: !outputControllerTimeDist.ui_get_not_exec
 
                             }
 
                             onClicked: {
-                                outputController.ui_stop
+                                outputControllerTimeDist.ui_stop
                                 stopButton.enabled = false
                                 executeButton.enabled = true
                             }
@@ -492,13 +492,49 @@ ApplicationWindow {
                             Binding {
                                 target: executeButton
                                 property: "enabled"
-                                //TODO
-                                //value: outputController.ui_get_not_exec
+                                value: outputControllerTimeDist.ui_get_not_exec
                             }
 
                             // All changes made in backend from GUI are done here.
                             onClicked: {
-                                //TODO
+                                if(radioButtonTimeDist.checked)
+                                    inputControllerTimeDist.ui_modelType == "Time Dist."
+                                if(radioButtonTimeDistSGV.checked)
+                                    inputControllerTimeDist.ui_modelType == "Time Dist. SGV"
+                                if(radioButtonTimeDistSkip.checked)
+                                    inputControllerTimeDist.ui_modelType == "Time Dist. Skip"
+                                if(radioButtonTimeDistDual.checked)
+                                    inputControllerTimeDist.ui_modelType == "Time Dist. Dual"
+
+                                inputControllerTimeDist.ui_n = inputN.textFieldText
+                                inputControllerTimeDist.ui_a = inputA.textFieldText
+                                inputControllerTimeDist.ui_l = inputL.textFieldText
+                                inputControllerTimeDist.ui_c = inputC.textFieldText
+                                inputControllerTimeDist.ui_m = inputM.textFieldText
+                                inputControllerTimeDist.ui_u = inputU.textFieldText
+                                inputControllerTimeDist.ui_v = inputV.textFieldText
+                                inputControllerTimeDist.ui_r = inputR.checked
+                                inputControllerTimeDist.ui_s = inputS.textFieldText
+                                inputControllerTimeDist.ui_h = inputH.textFieldText
+
+                                inputControllerTimeDist.ui_output_P = inputWriteP.checked
+                                inputControllerTimeDist.ui_output_Q = inputWriteQ.checked
+                                inputControllerTimeDist.ui_output_R = inputWriteR.checked
+
+                                inputControllerTimeDist.ui_t = inputT.textFieldText
+
+                                inputControllerTimeDist.ui_library = comboBoxLibrary.currentText;
+                                inputControllerTimeDist.ui_solver = comboBoxSolver.currentText;
+
+                                if(outputControllerTimeDist.ui_get_error_message === "") {
+                                    executeButton.enabled = false
+                                    stopButton.enabled = true
+                                    outputControllerTimeDist.ui_execute
+                                } else {
+                                    messageDialog.text = outputControllerTimeDist.ui_get_error_message
+                                    messageDialog.open()
+                                }
+                                outputControllerWfesSingle.ui_reset_error
                             }
 
                         }
