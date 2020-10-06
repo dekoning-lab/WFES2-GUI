@@ -444,7 +444,7 @@ ApplicationWindow {
                                         id: comboBoxSolver
                                         text: "Solver:"
                                         toolTipText: "Solver used by viennacl."
-                                        model: ["MixedCG", "CG", "BicGStab", "GMRes"]
+                                        model: ["GMRes", "BicGStab"]
                                         enabled: (comboBoxLibrary.currentText === "ViennaCL")
                                     }
 

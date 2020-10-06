@@ -84,7 +84,7 @@ ApplicationWindow {
 
                             RadioButton {
                                 id: radioButtonAbsorption
-                                checked: true
+                                checked: inputControllerWfesSingle.ui_modelType === "Absorption"
                                 text: qsTr("Absorption")
 
                                 ToolTip.visible: hovered
@@ -138,6 +138,7 @@ ApplicationWindow {
                             }
                             RadioButton {
                                 id: radioButtonFixation
+                                checked: inputControllerWfesSingle.ui_modelType === "Fixation"
                                 text: qsTr("Fixation")
 
                                 ToolTip.visible: hovered
@@ -191,6 +192,7 @@ ApplicationWindow {
 
                             RadioButton {
                                 id: radioButtonEstablishment
+                                checked: inputControllerWfesSingle.ui_modelType === "Establishment"
                                 text: qsTr("Establishment")
 
                                 ToolTip.visible: hovered
@@ -243,6 +245,7 @@ ApplicationWindow {
                             }
                             RadioButton {
                                 id: radioButtonFundamental
+                                checked: inputControllerWfesSingle.ui_modelType === "Fundamental"
                                 text: qsTr("Fundamental")
 
                                 ToolTip.visible: hovered
@@ -295,6 +298,7 @@ ApplicationWindow {
                             }
                             RadioButton {
                                 id: radioButtonNonAbsorbing
+                                checked: inputControllerWfesSingle.ui_modelType === "Non Absorbing"
                                 text: qsTr("Non Absorbing")
 
                                 ToolTip.visible: hovered
@@ -348,6 +352,7 @@ ApplicationWindow {
 
                             RadioButton {
                                 id: radioButtonEquilibrium
+                                checked: inputControllerWfesSingle.ui_modelType === "Equilibrium"
                                 text: qsTr("Equilibrium")
 
                                 ToolTip.visible: hovered
@@ -400,6 +405,7 @@ ApplicationWindow {
                             }
                             RadioButton {
                                 id: radioButtonAlleleAge
+                                checked: inputControllerWfesSingle.ui_modelType === "Allele Age"
                                 text: qsTr("Allele Age")
 
                                 ToolTip.visible: hovered
@@ -852,15 +858,7 @@ ApplicationWindow {
                                         id: comboBoxSolver
                                         text: "Solver:"
                                         toolTipText: "Solver used by viennacl."
-                                        model: ["MixedCG", "CG", "BicGStab", "GMRes"]
-                                        enabled: (comboBoxLibrary.currentText === "ViennaCL")
-                                    }
-
-                                    LabeledComboBox {
-                                        id: comboBoxBackend
-                                        text: "Backend:"
-                                        toolTipText: "Backend used by ViennaCL."
-                                        model: [ "OpenCL", "OpenMP", "CUDA" ]
+                                        model: ["GMRes", "BicGStab"]
                                         enabled: (comboBoxLibrary.currentText === "ViennaCL")
                                     }
 
