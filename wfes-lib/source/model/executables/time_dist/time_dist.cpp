@@ -102,15 +102,15 @@ ResultsTimeDist *time_dist::timeDist()
 
 ResultsTimeDist *time_dist::timeDistSGV()
 {
-
+    return new ResultsTimeDist();
 }
 
 ResultsTimeDist *time_dist::timeDistSkip()
 {
-
+    return new ResultsTimeDist();
 }
 
 ResultsTimeDist *time_dist::timeDistDual()
 {
-
+    return new ResultsTimeDist();
 }

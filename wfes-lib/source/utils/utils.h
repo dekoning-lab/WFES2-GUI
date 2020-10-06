@@ -24,7 +24,7 @@ namespace wfes{
         /**
          * @brief Format for CSV in input and output.
          */
-        const static Eigen::IOFormat CSVFormat(Eigen::FullPrecision, Eigen::DontAlignCols, ", ", "/n");
+        const static Eigen::IOFormat CSVFormat(Eigen::FullPrecision, Eigen::DontAlignCols, ", ", "\r\n");
 
         /**
          * @brief Format for a row of a CSV in input and output.
