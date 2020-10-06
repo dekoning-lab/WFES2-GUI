@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
     wfes::controllers::OutputControllerWfesSingle outputControllerWfesSingle;
     wfes::controllers::InputControllerWfesSingle inputControllerWfesSingle;
 
-    wfes::controllers::InputControllerWfesSingle inputControllerTimeDist;
+    wfes::controllers::InputControllerTimeDist inputControllerTimeDist;
 
     QQmlApplicationEngine engine;
     engine.addImportPath("qrc:/");

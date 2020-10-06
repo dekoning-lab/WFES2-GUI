@@ -83,7 +83,7 @@ ApplicationWindow {
                             }
 
                             RadioButton {
-                                id: radioButtonAbsorption
+                                id: radioButtonTimeDist
                                 checked: true
                                 text: qsTr("Time Dist.")
 
@@ -97,7 +97,7 @@ ApplicationWindow {
                                 }
                             }
                             RadioButton {
-                                id: radioButtonFixation
+                                id: radioButtonTimeDistSGV
                                 text: qsTr("Time Dist. SGV")
 
                                 ToolTip.visible: hovered
@@ -111,7 +111,7 @@ ApplicationWindow {
                             }
 
                             RadioButton {
-                                id: radioButtonEstablishment
+                                id: radioButtonTimeDistSkip
                                 text: qsTr("Time Dist. Skip")
 
                                 ToolTip.visible: hovered
@@ -124,7 +124,7 @@ ApplicationWindow {
                                 }
                             }
                             RadioButton {
-                                id: radioButtonFundamental
+                                id: radioButtonTimeDistDual
                                 text: qsTr("Time Dist. Dual")
 
                                 ToolTip.visible: hovered
@@ -185,7 +185,7 @@ ApplicationWindow {
                             }
 
                             LabeledTextField {
-                                id: inputp
+                                id: inputL
                                 text: "l: "
                                 toolTipText: "TODO."
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
@@ -194,7 +194,7 @@ ApplicationWindow {
                             }
 
                             LabeledTextField {
-                                id: inputc
+                                id: inputC
                                 text: "c: "
                                 toolTipText: "TODO."
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
@@ -202,7 +202,7 @@ ApplicationWindow {
                             }
 
                             LabeledTextField {
-                                id: inputX
+                                id: inputM
                                 text: "m: "
                                 toolTipText: "TODO."
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
@@ -259,10 +259,10 @@ ApplicationWindow {
                             }
 
                             LabeledCheckBox {
-                                id: inputM
+                                id: inputR
                                 text: "r: "
                                 toolTipText: "TODO."
-                                //checked: //TODO
+                                checked: inputControllerTimeDist.ui_r
                                 //enabled: //TODO
                             }
                         }
@@ -371,7 +371,7 @@ ApplicationWindow {
                                 }
 
                                 LabeledCheckBox {
-                                    id: inputWriteB
+                                    id: inputWriteP
                                     text: "P: "
                                     toolTipText: "TODO."
                                     //checked: //TODO
