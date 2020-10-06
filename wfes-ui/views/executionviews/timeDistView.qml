@@ -93,7 +93,22 @@ ApplicationWindow {
                                 ToolTip.text: qsTr("TODO.")
 
                                 onCheckedChanged: {
-                                    //TODO
+                                    inputN.enabled = checked;
+                                    inputA.enabled = checked;
+                                    inputL.enabled = !checked;
+                                    inputC.enabled = checked;
+                                    inputM.enabled = checked;
+
+                                    inputU.enabled = checked;
+                                    inputV.enabled = checked;
+                                    inputR.enabled = checked;
+
+                                    inputS.enabled = checked;
+                                    inputH.enabled = checked;
+
+                                    inputWriteQ.enabled = checked;
+                                    inputWriteR.enabled = checked;
+                                    inputWriteP.enabled = checked;
                                 }
                             }
                             RadioButton {
@@ -107,7 +122,22 @@ ApplicationWindow {
                                 ToolTip.text: qsTr("TODO.")
 
                                 onCheckedChanged: {
-                                    //TODO
+                                    inputN.enabled = checked;
+                                    inputA.enabled = checked;
+                                    inputL.enabled = checked;
+                                    inputC.enabled = checked;
+                                    inputM.enabled = checked;
+
+                                    inputU.enabled = checked;
+                                    inputV.enabled = checked;
+                                    inputR.enabled = checked;
+
+                                    inputS.enabled = checked;
+                                    inputH.enabled = checked;
+
+                                    inputWriteQ.enabled = checked;
+                                    inputWriteR.enabled = checked;
+                                    inputWriteP.enabled = checked;
                                 }
                             }
 
@@ -122,7 +152,22 @@ ApplicationWindow {
                                 ToolTip.text: qsTr("TODO.")
 
                                 onCheckedChanged: {
-                                    //TODO
+                                    inputN.enabled = checked;
+                                    inputA.enabled = checked;
+                                    inputL.enabled = !checked;
+                                    inputC.enabled = checked;
+                                    inputM.enabled = checked;
+
+                                    inputU.enabled = checked;
+                                    inputV.enabled = checked;
+                                    inputR.enabled = checked;
+
+                                    inputS.enabled = checked;
+                                    inputH.enabled = checked;
+
+                                    inputWriteQ.enabled = checked;
+                                    inputWriteR.enabled = checked;
+                                    inputWriteP.enabled = checked;
                                 }
                             }
                             RadioButton {
@@ -136,7 +181,22 @@ ApplicationWindow {
                                 ToolTip.text: qsTr("TODO.")
 
                                 onCheckedChanged: {
-                                    //TODO
+                                    inputN.enabled = checked;
+                                    inputA.enabled = checked;
+                                    inputL.enabled = !checked;
+                                    inputC.enabled = checked;
+                                    inputM.enabled = checked;
+
+                                    inputU.enabled = checked;
+                                    inputV.enabled = checked;
+                                    inputR.enabled = checked;
+
+                                    inputS.enabled = checked;
+                                    inputH.enabled = checked;
+
+                                    inputWriteQ.enabled = checked;
+                                    inputWriteR.enabled = checked;
+                                    inputWriteP.enabled = checked;
                                 }
                             }
 
@@ -193,7 +253,7 @@ ApplicationWindow {
                                 toolTipText: "TODO."
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
                                 textFieldText: inputControllerTimeDist.ui_l
-                                //enabled: //TODO
+                                enabled: (inputControllerTimeDist.ui_modelType == "Time Dist. SGV")
                             }
 
                             LabeledTextField {

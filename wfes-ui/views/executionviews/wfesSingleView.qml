@@ -93,7 +93,7 @@ ApplicationWindow {
                                 ToolTip.text: qsTr("Both fixation and extinction states are absorbing.")
 
                                 onCheckedChanged: {
-                                    outputPExt.visible = checked
+                                    outputPExt.visible = checked;
                                     outputPFix.visible = checked;
                                     outputTAbs.visible = checked;
                                     outputTAbsStd.visible = checked;

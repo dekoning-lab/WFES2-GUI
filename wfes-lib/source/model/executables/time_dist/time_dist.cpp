@@ -86,12 +86,6 @@ ResultsTimeDist *time_dist::timeDist()
         utils::writeMatrixToFile(PH, ConfigTimeDist::path_output_P);
     }
 
-    if (ConfigTimeDist::verbose) {
-        t_end = std::chrono::system_clock::now();
-        time_diff dt = t_end - t_start;
-        std::cout << "Total runtime: " << dt.count() << " s" << std::endl;
-    }
-
     //Calculate time.
     t_end = std::chrono::system_clock::now();
     time_diff dt = t_end - t_start;
@@ -107,7 +101,46 @@ ResultsTimeDist *time_dist::timeDistSGV()
 
 ResultsTimeDist *time_dist::timeDistSkip()
 {
-    return new ResultsTimeDist();
+    wrightfisher::Matrix wf = wrightfisher::Bounce(ConfigTimeDist::population_size, ConfigTimeDist::population_size,
+                                                   ConfigTimeDist::s, ConfigTimeDist::h, ConfigTimeDist::u, ConfigTimeDist::v,
+                                                   ConfigTimeDist::rem, ConfigTimeDist::a, ConfigTimeDist::verbose, ConfigTimeDist::b);
+
+    //Notify saving data.
+    this->notify(ExecutionStatus::SAVING_DATA);
+
+    if (ConfigTimeDist::output_Q)
+        wf.Q->saveMarket(ConfigTimeDist::path_output_Q);
+    if (ConfigTimeDist::output_R)
+        utils::writeMatrixToFile(wf.R, ConfigTimeDist::path_output_R);
+
+    dmat PH(ConfigTimeDist::max_t, 3);
+    dvec c = dvec::Zero(2 * ConfigTimeDist::population_size - 1);
+    c(0) = 1;
+
+    double cdf = 0;
+
+    llong i;
+    for (i = 0; cdf < ConfigTimeDist::integration_cutoff && i < ConfigTimeDist::max_t; i++) {
+
+        double P_abs_t = wf.R.col(0).dot(c);
+        cdf += P_abs_t;
+
+        PH(i, 0) = i + 1;
+        PH(i, 1) = P_abs_t;
+        PH(i, 2) = cdf;
+        c = wf.Q->multiply(c, true);
+    }
+    PH.conservativeResize(i, 3);
+
+    if (ConfigTimeDist::output_P) {
+        utils::writeMatrixToFile(PH, ConfigTimeDist::path_output_P);
+    }
+
+    //Calculate time.
+    t_end = std::chrono::system_clock::now();
+    time_diff dt = t_end - t_start;
+
+    return new ResultsTimeDist(dt.count());
 }
 
 ResultsTimeDist *time_dist::timeDistDual()
