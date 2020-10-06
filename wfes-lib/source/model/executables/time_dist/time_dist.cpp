@@ -120,6 +120,7 @@ ResultsTimeDist *time_dist::timeDistSkip()
     double cdf = 0;
 
     llong i;
+
     for (i = 0; cdf < ConfigTimeDist::integration_cutoff && i < ConfigTimeDist::max_t; i++) {
 
         double P_abs_t = wf.R.col(0).dot(c);
@@ -145,5 +146,46 @@ ResultsTimeDist *time_dist::timeDistSkip()
 
 ResultsTimeDist *time_dist::timeDistDual()
 {
-    return new ResultsTimeDist();
+    wrightfisher::Matrix wf = wrightfisher::DualMutation(ConfigTimeDist::population_size, ConfigTimeDist::population_size, ConfigTimeDist::s, ConfigTimeDist::h, ConfigTimeDist::u, ConfigTimeDist::v, ConfigTimeDist::rem, ConfigTimeDist::a, ConfigTimeDist::verbose, ConfigTimeDist::b);
+
+    //Notify saving data.
+    this->notify(ExecutionStatus::SAVING_DATA);
+
+    if (ConfigTimeDist::output_Q)
+        wf.Q->saveMarket(ConfigTimeDist::path_output_Q);
+    if (ConfigTimeDist::output_R)
+        utils::writeMatrixToFile(wf.R, ConfigTimeDist::path_output_R);
+
+    dmat PH(ConfigTimeDist::max_t, 5);
+
+    dvec c = dvec::Zero(2 * ConfigTimeDist::population_size);
+    c(0) = 1;
+
+    double cdf = 0;
+    llong i;
+    for (i = 0; cdf < ConfigTimeDist::integration_cutoff && i < ConfigTimeDist::max_t; i++) {
+
+        double P_ext_t = wf.R.col(0).dot(c);
+        double P_fix_t = wf.R.col(1).dot(c);
+        cdf += P_fix_t + P_ext_t;
+
+        PH(i, 0) = i + 1;
+        PH(i, 1) = P_ext_t;
+        PH(i, 2) = P_fix_t;
+        PH(i, 3) = P_ext_t + P_fix_t;
+        PH(i, 4) = cdf;
+
+        c = wf.Q->multiply(c, true);
+    }
+    PH.conservativeResize(i, 5);
+
+    if (ConfigTimeDist::output_P) {
+        utils::writeMatrixToFile(PH, ConfigTimeDist::path_output_P);
+    }
+
+    //Calculate time.
+    t_end = std::chrono::system_clock::now();
+    time_diff dt = t_end - t_start;
+
+    return new ResultsTimeDist(dt.count());
 }
