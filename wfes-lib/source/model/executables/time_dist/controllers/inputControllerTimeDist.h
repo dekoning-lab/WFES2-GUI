@@ -12,7 +12,7 @@
 namespace wfes {
     namespace controllers {
 
-        class InputControllerTimeDist : public QObject {
+        class WFESLIBSHARED_EXPORT InputControllerTimeDist : public QObject {
             Q_OBJECT
             Q_PROPERTY(QString ui_n READ get_n WRITE set_n NOTIFY input_changed)
             Q_PROPERTY(QString ui_a READ get_a WRITE set_a NOTIFY input_changed)
