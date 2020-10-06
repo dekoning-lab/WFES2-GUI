@@ -24,7 +24,7 @@ namespace wfes {
          * It has methods for setting GUI values from backend (for example, when starting the application and loading a previous configuration),
          * or getting input values set by the user in the GUI.
          */
-        class WFESLIBSHARED_EXPORT InputController : public QObject
+        class WFESLIBSHARED_EXPORT InputControllerWfesSingle : public QObject
         {
             Q_OBJECT
             Q_PROPERTY(QString ui_n READ get_n WRITE set_n NOTIFY input_changed)
@@ -61,13 +61,13 @@ namespace wfes {
                  * @brief InputController Constructor.
                  * @param parent To be used by Qt.
                  */
-                explicit InputController(QObject* parent = nullptr);
+                explicit InputControllerWfesSingle(QObject* parent = nullptr);
 
 
                 /**
                  * @brief InputController Destructor.
                  */
-                ~InputController();
+                ~InputControllerWfesSingle();
 
                 /**
                  * @brief Send N to GUI.

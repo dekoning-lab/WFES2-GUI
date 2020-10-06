@@ -77,7 +77,7 @@ void InputControllerTimeDist::set_l(QString l) const
     std::string l_str = l.toStdString();
     try {
         double l_d = boost::lexical_cast<double>(l_str);
-        wfes::config::ConfigTimeDist::integration_cutoff = l_d;
+        wfes::config::ConfigTimeDist::l = l_d;
     } catch(boost::exception const&  ex) {
         std::string errorMessage = "";
         //TODO Descriptive error.
@@ -132,7 +132,7 @@ void InputControllerTimeDist::set_m(QString m) const
     std::string m_str = m.toStdString();
     try {
         double m_d = boost::lexical_cast<double>(m_str);
-        wfes::config::ConfigTimeDist::n_threads = m_d;
+        wfes::config::ConfigTimeDist::max_t = m_d;
     } catch(boost::exception const&  ex) {
         std::string errorMessage = "";
         if(m_str.compare("") == 0) {

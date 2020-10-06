@@ -26,7 +26,7 @@ namespace wfes {
         /**
          * @brief The OutputController class contains output values of the application, e.g., the results of an execution.
          */
-        class WFESLIBSHARED_EXPORT OutputController : public QObject
+        class WFESLIBSHARED_EXPORT OutputControllerWfesSingle : public QObject
         {
             Q_OBJECT
             Q_PROPERTY(QString ui_execute READ execute CONSTANT)
@@ -75,12 +75,12 @@ namespace wfes {
                  * @brief OutputController .Constructor
                  * @param parent To be used by Qt.
                  */
-                explicit OutputController(QObject* parent = nullptr);
+                explicit OutputControllerWfesSingle(QObject* parent = nullptr);
 
                 /**
                  * @brief InputController Destructor.
                  */
-                ~OutputController();
+                ~OutputControllerWfesSingle();
 
                 /**
                  * @brief Execute wfes_single and get results.

@@ -3,6 +3,8 @@
 
 #include <QObject>
 
+#include <wfes-lib_global.h>
+
 #include <model/executables/time_dist/config/configTimeDist.h>
 
 
@@ -16,7 +18,7 @@ namespace wfes {
             Q_OBJECT
             Q_PROPERTY(QString ui_n READ get_n WRITE set_n NOTIFY input_changed)
             Q_PROPERTY(QString ui_a READ get_a WRITE set_a NOTIFY input_changed)
-            Q_PROPERTY(QString ui_p READ get_l WRITE set_l NOTIFY input_changed)
+            Q_PROPERTY(QString ui_l READ get_l WRITE set_l NOTIFY input_changed)
             Q_PROPERTY(QString ui_c READ get_c WRITE set_c NOTIFY input_changed)
             Q_PROPERTY(QString ui_m READ get_m WRITE set_m NOTIFY input_changed)
             Q_PROPERTY(QString ui_u READ get_u WRITE set_u NOTIFY input_changed)
@@ -27,7 +29,7 @@ namespace wfes {
             Q_PROPERTY(bool ui_output_P READ get_output_P WRITE set_output_P NOTIFY input_changed)
             Q_PROPERTY(bool ui_output_Q READ get_output_Q WRITE set_output_Q NOTIFY input_changed)
             Q_PROPERTY(bool ui_output_R READ get_output_R WRITE set_output_R NOTIFY input_changed)
-            Q_PROPERTY(bool ui__r READ get_r WRITE set_r NOTIFY input_changed)
+            Q_PROPERTY(bool ui_r READ get_r WRITE set_r NOTIFY input_changed)
             Q_PROPERTY(QString ui_modelType READ get_model_type WRITE set_model_type NOTIFY input_changed)
             Q_PROPERTY(QString ui_library READ get_library WRITE set_library NOTIFY input_changed)
             Q_PROPERTY(QString ui_solver READ get_solver WRITE set_solver NOTIFY input_changed)
@@ -73,6 +75,7 @@ namespace wfes {
              * @return QString containing l.
              */
             QString get_l() const;
+
             /**
              * @brief Set l from  GUI.
              * @param l value in GUI.

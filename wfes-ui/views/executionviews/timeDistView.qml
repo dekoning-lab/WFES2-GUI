@@ -173,7 +173,7 @@ ApplicationWindow {
                                 text: "N: "
                                 toolTipText: "Size of the population in the Wright Fisher Model."
                                 validator: DoubleValidator {bottom: 2; top: 50000;}
-                                //textFieldText: //TODO
+                                textFieldText: inputControllerTimeDist.ui_n
                             }
 
                             LabeledTextField {
@@ -181,7 +181,7 @@ ApplicationWindow {
                                 text: "a: "
                                 toolTipText: "Tail truncation weight."
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
-                                //textFieldText: //TODO
+                                textFieldText: inputControllerTimeDist.ui_a
                             }
 
                             LabeledTextField {
@@ -189,7 +189,7 @@ ApplicationWindow {
                                 text: "l: "
                                 toolTipText: "TODO."
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
-                                //textFieldText: //TODO
+                                textFieldText: inputControllerTimeDist.ui_l
                                 //enabled: //TODO
                             }
 
@@ -198,7 +198,7 @@ ApplicationWindow {
                                 text: "c: "
                                 toolTipText: "TODO."
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
-                                //textFieldText: //TODO
+                                textFieldText: inputControllerTimeDist.ui_c
                             }
 
                             LabeledTextField {
@@ -206,7 +206,7 @@ ApplicationWindow {
                                 text: "m: "
                                 toolTipText: "TODO."
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
-                                //textFieldText: //TODO
+                                textFieldText: inputControllerTimeDist.ui_m
                                 //enabled: //TODO
                             }
 
@@ -247,7 +247,7 @@ ApplicationWindow {
                                 text: "u: "
                                 toolTipText: "Backward mutation rate."
                                 validator: DoubleValidator {bottom: 2; top: 50000;}
-                                //textFieldText: //TODO
+                                textFieldText: inputControllerTimeDist.ui_u
                             }
 
                             LabeledTextField {
@@ -255,7 +255,7 @@ ApplicationWindow {
                                 text: "v: "
                                 toolTipText: "Forward mutation rate."
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
-                                //textFieldText: //TODO
+                                textFieldText: inputControllerTimeDist.ui_v
                             }
 
                             LabeledCheckBox {
@@ -300,7 +300,7 @@ ApplicationWindow {
                                 text: "s: "
                                 toolTipText: "Selection coefficient."
                                 validator: DoubleValidator {bottom: 2; top: 50000;}
-                                //textFieldText: //TODO
+                                textFieldText: inputControllerTimeDist.ui_s
                             }
 
                             LabeledTextField {
@@ -308,7 +308,7 @@ ApplicationWindow {
                                 text: "h: "
                                 toolTipText: "Dominance coefficient."
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
-                                //textFieldText: //TODO
+                                textFieldText: inputControllerTimeDist.ui_h
                             }
 
                         }
@@ -411,20 +411,13 @@ ApplicationWindow {
                                 RowLayout {
                                     width: childrenRect.width
 
-                                    LabeledCheckBox {
-                                        id: inputForce
-                                        toolTipText: "Do not perform parameter checks."
-                                        text: "Force: "
-                                        checked: inputController.ui_force
-                                    }
-
                                     LabeledTextField {
                                         id: inputT
                                         text: "t: "
                                         textFieldPreferredWidth: 100
                                         toolTipText: "Number of threads for OpenMP."
                                         validator: DoubleValidator {bottom: 2; top: 50000;}
-                                        textFieldText: inputController.ui_t
+                                        textFieldText: inputControllerTimeDist.ui_t
                                     }
                                 }
 
@@ -455,37 +448,6 @@ ApplicationWindow {
                                         enabled: (comboBoxLibrary.currentText === "ViennaCL")
                                     }
 
-                                    LabeledTextField {
-                                        id: inputI
-                                        text: "I. Dist.: "
-                                        toolTipText: "Path to initial probability distribution CSV file."
-                                        labelPreferredWidth: 75
-                                        textFieldPreferredWidth: 185
-                                        textFieldText: inputController.ui_initial_distribution
-                                    }
-
-                                    Button{
-                                        text: "Search"
-
-                                        onClicked: {
-                                            fileDialogTimeDist.open()
-                                        }
-                                    }
-
-
-                                    FileDialog {
-                                        id: fileDialogTimeDist
-                                        title: "Please choose a csv file"
-                                        nameFilters: [ "csv files (*.csv)" ]
-                                        onAccepted: {
-                                            var path = fileDialogTimeDist.fileUrl.toString()
-                                            path = path.replace(/^(file:\/{2})/,"");
-                                            inputI.textFieldText = path
-                                        }
-                                        onRejected: {
-                                            console.log("Canceled.")
-                                        }
-                                    }
                                 }
 
                             }
