@@ -68,10 +68,6 @@ namespace wfes {
              */
             static double v;
 
-            /**
-             * TODO.
-             */
-            static double l;
 
             /**
              * @brief No recurrent mutation (m).

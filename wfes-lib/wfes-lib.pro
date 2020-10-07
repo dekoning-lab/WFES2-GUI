@@ -31,6 +31,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 HEADERS += \
     source/model/executables/time_dist/config/configTimeDist.h \
+    source/model/executables/time_dist/config/configTimeDistSGV.h \
     source/model/executables/time_dist/controllers/inputControllerTimeDist.h \
     source/model/executables/time_dist/controllers/outputControllerTimeDist.h \
     source/model/executables/time_dist/results/resultsTimeDist.h \
@@ -63,6 +64,7 @@ HEADERS += \
 
 SOURCES += \
     source/model/executables/time_dist/config/configTimeDist.cpp \
+    source/model/executables/time_dist/config/configTimeDistSGV.cpp \
     source/model/executables/time_dist/controllers/inputControllerTimeDist.cpp \
     source/model/executables/time_dist/controllers/outputControllerTimeDist.cpp \
     source/model/executables/time_dist/results/resultsTimeDist.cpp \

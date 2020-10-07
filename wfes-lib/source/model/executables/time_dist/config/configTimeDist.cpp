@@ -29,7 +29,6 @@ double ConfigTimeDist::s = 0;
 double ConfigTimeDist::h = 0.5;
 double ConfigTimeDist::u = 1e-9;
 double ConfigTimeDist::v = 1e-9;
-double ConfigTimeDist::l = 1e-20;
 bool ConfigTimeDist::no_rem = false;
 bool ConfigTimeDist::rem = !ConfigTimeDist::no_rem;
 double ConfigTimeDist::a = 1e-20;

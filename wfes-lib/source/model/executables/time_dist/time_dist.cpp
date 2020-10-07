@@ -96,8 +96,72 @@ ResultsTimeDist *time_dist::timeDist()
 
 ResultsTimeDist *time_dist::timeDistSGV()
 {
-    return new ResultsTimeDist();
+
+    // TODO Show as dialog.
+    if(ConfigTimeDistSGV::s.size() != 2)  throw exception::Error("Selection coefficient vector should be longer than 2");
+
+    if (ConfigTimeDistSGV::force) {
+        if (ConfigTimeDist::population_size > 500000) {
+            // TODO Show as dialog.
+            throw exception::Error("Population size is quite large - the computations will take a long time. Use --force to ignore");
+        }
+        double max_mu = std::max(ConfigTimeDistSGV::u.maxCoeff(), ConfigTimeDistSGV::v.maxCoeff());
+        if (4 * ConfigTimeDist::population_size * max_mu > 1) {
+            // TODO Show as dialog.
+            throw exception::Error("The mutation rate might violate the Wright-Fisher assumptions. Use --force to ignore");
+        }
+        if (ConfigTimeDistSGV::s.minCoeff() <= -1) {
+            // TODO Show as dialog.
+            throw exception::Error("The selection coefficient is quite negative. Fixations might be impossible. Use --force to ignore");
+        }
+        if (ConfigTimeDist::a > 1e-5) {
+            // TODO Show as dialog.
+            throw exception::Error("Zero cutoff value is quite high. This might produce inaccurate results. Use --force to ignore");
+        }
+    }
+
+    dmat switching(2, 2); switching << 1 - ConfigTimeDistSGV::l, ConfigTimeDistSGV::l, 0, 1;
+
+    wrightfisher::Matrix wf = wrightfisher::NonAbsorbingToFixationOnly(ConfigTimeDist::population_size, ConfigTimeDistSGV::s, ConfigTimeDistSGV::h, ConfigTimeDistSGV::u, ConfigTimeDistSGV::v, switching, ConfigTimeDist::a, ConfigTimeDist::verbose, ConfigTimeDist::b);
+
+    if (ConfigTimeDist::output_Q)
+        wf.Q->saveMarket(ConfigTimeDist::path_output_Q);
+    if (ConfigTimeDist::output_R)
+        utils::writeMatrixToFile(wf.R, ConfigTimeDist::path_output_R);
+
+    dmat PH(ConfigTimeDist::max_t, 3);
+
+    dvec c = dvec::Zero(4 * ConfigTimeDist::population_size + 1);
+    c(0) = 1;
+    dvec R = wf.R.col(0);
+
+    double cdf = 0;
+    llong i;
+    for (i = 0; cdf < ConfigTimeDist::integration_cutoff && i < ConfigTimeDist::max_t; i++) {
+
+    double P_abs_t = R.dot(c);
+        cdf += P_abs_t;
+
+        PH(i, 0) = i + 1;
+        PH(i, 1) = P_abs_t;
+        PH(i, 2) = cdf;
+
+        c = wf.Q->multiply(c, true);
+    }
+    PH.conservativeResize(i, 3);
+
+    if (ConfigTimeDist::output_P) {
+        utils::writeMatrixToFile(PH, ConfigTimeDist::path_output_P);
+    }
+
+    //Calculate time.
+    t_end = std::chrono::system_clock::now();
+    time_diff dt = t_end - t_start;
+
+    return new ResultsTimeDist(dt.count());
+
 }
+
 
 ResultsTimeDist *time_dist::timeDistSkip()
 {

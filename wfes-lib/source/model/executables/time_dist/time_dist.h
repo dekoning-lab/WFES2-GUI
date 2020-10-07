@@ -13,6 +13,7 @@
 #include <model/executables/time_dist/results/resultsTimeDist.h>
 
 #include <model/executables/time_dist/config/configTimeDist.h>
+#include <model/executables/time_dist/config/configTimeDistSGV.h>
 
 
 class time_dist : public Subject{
