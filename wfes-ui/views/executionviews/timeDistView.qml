@@ -58,7 +58,6 @@ ApplicationWindow {
                 ColumnLayout {
                     id: column1
                     width: childrenRect.width
-                    height: childrenRect.height
 
                     Layout.margins: 10
                     Layout.alignment: Qt.AlignTop
@@ -112,6 +111,7 @@ ApplicationWindow {
                                     inputWriteP.enabled = checked;
 
                                     timeDistSGVSection.visible = !checked
+                                    timeDistSGVCommonSection.visible = !checked
                                     populationSection.visible = checked
                                     mutationSection.visible = checked
                                     selectionSection.visible = checked
@@ -150,12 +150,13 @@ ApplicationWindow {
                                     inputWriteP.enabled = checked;
 
                                     timeDistSGVSection.visible = checked
+                                    timeDistSGVCommonSection.visible = checked
                                     populationSection.visible = !checked
                                     mutationSection.visible = !checked
                                     selectionSection.visible = !checked
 
                                     separator1column1.visible = checked
-                                    separator2column1.visible = !checked
+                                    separator2column1.visible = checked
                                     separator3column1.visible = !checked
                                 }
                             }
@@ -189,6 +190,7 @@ ApplicationWindow {
                                     inputWriteP.enabled = checked;
 
                                     timeDistSGVSection.visible = !checked
+                                    timeDistSGVCommonSection.visible = !checked
                                     populationSection.visible = checked
                                     mutationSection.visible = checked
                                     selectionSection.visible = checked
@@ -227,6 +229,7 @@ ApplicationWindow {
                                     inputWriteP.enabled = checked;
 
                                     timeDistSGVSection.visible = !checked
+                                    timeDistSGVCommonSection.visible = !checked
                                     populationSection.visible = checked
                                     mutationSection.visible = checked
                                     selectionSection.visible = checked
@@ -251,10 +254,11 @@ ApplicationWindow {
                     Rectangle {
                         id: timeDistSGVSection
                         width: modeSection.width
+                        height: childrenRect.height
                         visible: (inputControllerTimeDist.ui_modelType == "Time Dist. SGV")
                         color: "transparent"
 
-                        Layout.alignment: Qt.alignTop
+                        Layout.alignment: Qt.AlignTop
 
                         TabView {
                             id: timeDistSGVSectionTabView
@@ -302,7 +306,7 @@ ApplicationWindow {
 
                                             LabeledTextField {
                                                 id: inputU1
-                                                text: "u: "
+                                                text: "u1: "
                                                 toolTipText: "Backward mutation rate."
                                                 validator: DoubleValidator {bottom: 2; top: 50000;}
                                                 textFieldText: inputControllerTimeDist.ui_u
@@ -310,7 +314,7 @@ ApplicationWindow {
 
                                             LabeledTextField {
                                                 id: inputV1
-                                                text: "v: "
+                                                text: "v1: "
                                                 toolTipText: "Forward mutation rate."
                                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
                                                 textFieldText: inputControllerTimeDist.ui_v
@@ -349,7 +353,7 @@ ApplicationWindow {
 
                                             LabeledTextField {
                                                 id: inputS1
-                                                text: "s: "
+                                                text: "s1: "
                                                 toolTipText: "Selection coefficient."
                                                 validator: DoubleValidator {bottom: 2; top: 50000;}
                                                 textFieldText: inputControllerTimeDist.ui_s
@@ -357,7 +361,7 @@ ApplicationWindow {
 
                                             LabeledTextField {
                                                 id: inputH1
-                                                text: "h: "
+                                                text: "h1: "
                                                 toolTipText: "Dominance coefficient."
                                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
                                                 textFieldText: inputControllerTimeDist.ui_h
@@ -410,7 +414,7 @@ ApplicationWindow {
 
                                             LabeledTextField {
                                                 id: inputU2
-                                                text: "u: "
+                                                text: "u2: "
                                                 toolTipText: "Backward mutation rate."
                                                 validator: DoubleValidator {bottom: 2; top: 50000;}
                                                 textFieldText: inputControllerTimeDist.ui_u
@@ -418,7 +422,7 @@ ApplicationWindow {
 
                                             LabeledTextField {
                                                 id: inputV2
-                                                text: "v: "
+                                                text: "v2: "
                                                 toolTipText: "Forward mutation rate."
                                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
                                                 textFieldText: inputControllerTimeDist.ui_v
@@ -457,7 +461,7 @@ ApplicationWindow {
 
                                             LabeledTextField {
                                                 id: inputS2
-                                                text: "s: "
+                                                text: "s2: "
                                                 toolTipText: "Selection coefficient."
                                                 validator: DoubleValidator {bottom: 2; top: 50000;}
                                                 textFieldText: inputControllerTimeDist.ui_s
@@ -465,7 +469,7 @@ ApplicationWindow {
 
                                             LabeledTextField {
                                                 id: inputH2
-                                                text: "h: "
+                                                text: "h2: "
                                                 toolTipText: "Dominance coefficient."
                                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
                                                 textFieldText: inputControllerTimeDist.ui_h
@@ -554,6 +558,80 @@ ApplicationWindow {
                         height: 1
                         width: populationSectionGrid.width
                         color: Universal.baseHighColor
+                    }
+
+                    Rectangle {
+                        id: timeDistSGVCommonSection
+                        width: timeDistSGVSection.width
+                        height: childrenRect.height
+
+                        visible: (inputControllerTimeDist.ui_modelType == "Time Dist. SGV")
+                        color: "transparent"
+
+                        Label {
+                            id: labelCommonParameters
+                            text: "Common Parameters"
+                        }
+
+                        GridLayout {
+                            id: timeDistSGVCommonSectionGrid
+                            columns: 2
+                            anchors {
+                                top: labelCommonParameters.bottom
+                                left: parent.left
+                                margins: 10
+                            }
+
+                            LabeledTextField {
+                                id: inputN1
+                                text: "N: "
+                                toolTipText: "Size of the population in the Wright Fisher Model."
+                                validator: DoubleValidator {bottom: 2; top: 50000;}
+                                textFieldText: inputControllerTimeDist.ui_n
+                            }
+
+                            LabeledTextField {
+                                id: inputA1
+                                text: "a: "
+                                toolTipText: "Tail truncation weight."
+                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
+                                textFieldText: inputControllerTimeDist.ui_a
+                            }
+
+                            LabeledTextField {
+                                id: inputL1
+                                text: "l: "
+                                toolTipText: "TODO."
+                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
+                                textFieldText: inputControllerTimeDist.ui_l
+                                enabled: (inputControllerTimeDist.ui_modelType == "Time Dist. SGV")
+                            }
+
+                            LabeledTextField {
+                                id: inputC1
+                                text: "c: "
+                                toolTipText: "TODO."
+                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
+                                textFieldText: inputControllerTimeDist.ui_c
+                            }
+
+                            LabeledTextField {
+                                id: inputM1
+                                text: "m: "
+                                toolTipText: "TODO."
+                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
+                                textFieldText: inputControllerTimeDist.ui_m
+                                //enabled: //TODO
+                            }
+
+                            LabeledCheckBox {
+                                id: inputR1
+                                text: "r: "
+                                toolTipText: "TODO."
+                                checked: inputControllerTimeDist.ui_r
+                                //enabled: //TODO
+                            }
+                        }
                     }
 
                     Rectangle {
@@ -665,7 +743,7 @@ ApplicationWindow {
 
                 ColumnLayout {
                     id: column2
-                    Layout.preferredHeight: parent.height
+                    Layout.preferredHeight: root.height - upperMenu.height
 
                     ColumnLayout {
                         Layout.alignment: Qt.AlignTop
