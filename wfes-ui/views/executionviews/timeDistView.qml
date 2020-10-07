@@ -2,6 +2,7 @@ import QtQuick 2.9
 import QtQuick.Window 2.3
 import QtQuick.Dialogs 1.1
 import QtQuick.Layouts 1.3
+import QtQuick.Controls 1.4
 import QtQuick.Controls 2.5
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Controls.Universal 2.3
@@ -109,6 +110,15 @@ ApplicationWindow {
                                     inputWriteQ.enabled = checked;
                                     inputWriteR.enabled = checked;
                                     inputWriteP.enabled = checked;
+
+                                    timeDistSGVSection.visible = !checked
+                                    populationSection.visible = checked
+                                    mutationSection.visible = checked
+                                    selectionSection.visible = checked
+
+                                    separator1column1.visible = checked
+                                    separator2column1.visible = checked
+                                    separator3column1.visible = checked
                                 }
                             }
                             RadioButton {
@@ -138,6 +148,15 @@ ApplicationWindow {
                                     inputWriteQ.enabled = checked;
                                     inputWriteR.enabled = checked;
                                     inputWriteP.enabled = checked;
+
+                                    timeDistSGVSection.visible = checked
+                                    populationSection.visible = !checked
+                                    mutationSection.visible = !checked
+                                    selectionSection.visible = !checked
+
+                                    separator1column1.visible = checked
+                                    separator2column1.visible = !checked
+                                    separator3column1.visible = !checked
                                 }
                             }
 
@@ -168,6 +187,15 @@ ApplicationWindow {
                                     inputWriteQ.enabled = checked;
                                     inputWriteR.enabled = checked;
                                     inputWriteP.enabled = checked;
+
+                                    timeDistSGVSection.visible = !checked
+                                    populationSection.visible = checked
+                                    mutationSection.visible = checked
+                                    selectionSection.visible = checked
+
+                                    separator1column1.visible = checked
+                                    separator2column1.visible = checked
+                                    separator3column1.visible = checked
                                 }
                             }
                             RadioButton {
@@ -197,6 +225,15 @@ ApplicationWindow {
                                     inputWriteQ.enabled = checked;
                                     inputWriteR.enabled = checked;
                                     inputWriteP.enabled = checked;
+
+                                    timeDistSGVSection.visible = !checked
+                                    populationSection.visible = checked
+                                    mutationSection.visible = checked
+                                    selectionSection.visible = checked
+
+                                    separator1column1.visible = checked
+                                    separator2column1.visible = checked
+                                    separator3column1.visible = checked
                                 }
                             }
 
@@ -205,9 +242,243 @@ ApplicationWindow {
                     }
 
                     Rectangle {
+                        id: separator1column1
                         height: 1
                         width: modeSectionGrid.width
                         color: Universal.baseHighColor
+                    }
+
+                    Rectangle {
+                        id: timeDistSGVSection
+                        width: modeSection.width
+                        visible: (inputControllerTimeDist.ui_modelType == "Time Dist. SGV")
+                        color: "transparent"
+
+                        Layout.alignment: Qt.alignTop
+
+                        TabView {
+                            id: timeDistSGVSectionTabView
+                            width: parent.width
+                            height: 170
+                            Tab {
+                                id: comp1
+                                title: "Comp. 1"
+                                height: parent.height
+                                GridLayout {
+                                    id: tabGrid1
+                                    columns: 1
+                                    anchors {
+                                        top: parent.top
+                                        left: parent.left
+                                    }
+
+                                    Rectangle {
+                                        id: mutationSection1
+                                        width: parent.width
+                                        height: childrenRect.height
+
+                                        color: "transparent"
+
+                                        Label {
+                                            id: labelMutation1
+                                            text: "Mutation:"
+                                            anchors {
+                                                left: parent.left
+                                                margins: {
+                                                    left: 5
+                                                }
+                                            }
+                                        }
+
+                                        GridLayout {
+                                            id: mutationSectionGrid1
+                                            columns: 2
+                                            anchors {
+                                                top: labelMutation1.bottom
+                                                left: parent.left
+                                                margins: 10
+                                            }
+
+
+                                            LabeledTextField {
+                                                id: inputU1
+                                                text: "u: "
+                                                toolTipText: "Backward mutation rate."
+                                                validator: DoubleValidator {bottom: 2; top: 50000;}
+                                                textFieldText: inputControllerTimeDist.ui_u
+                                            }
+
+                                            LabeledTextField {
+                                                id: inputV1
+                                                text: "v: "
+                                                toolTipText: "Forward mutation rate."
+                                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
+                                                textFieldText: inputControllerTimeDist.ui_v
+                                            }
+
+                                        }
+                                    }
+
+                                    Rectangle {
+                                        id: selectionSection1
+                                        width: parent.width
+                                        height: childrenRect.height
+
+                                        color: "transparent"
+
+
+                                        Label {
+                                            id: labelSelection1
+                                            text: "Selection:"
+                                            anchors {
+                                                left: parent.left
+                                                margins: {
+                                                    left: 5
+                                                }
+                                            }
+                                        }
+
+                                        GridLayout {
+                                            id: selectionSectionGrid1
+                                            columns: 4
+                                            anchors {
+                                                top: labelSelection1.bottom
+                                                left: parent.left
+                                                margins: 10
+                                            }
+
+                                            LabeledTextField {
+                                                id: inputS1
+                                                text: "s: "
+                                                toolTipText: "Selection coefficient."
+                                                validator: DoubleValidator {bottom: 2; top: 50000;}
+                                                textFieldText: inputControllerTimeDist.ui_s
+                                            }
+
+                                            LabeledTextField {
+                                                id: inputH1
+                                                text: "h: "
+                                                toolTipText: "Dominance coefficient."
+                                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
+                                                textFieldText: inputControllerTimeDist.ui_h
+                                            }
+
+                                        }
+                                    }
+
+                                }
+                            }
+                            Tab {
+                                id: comp2
+                                title: "Comp. 2"
+                                height: parent.height
+                                GridLayout {
+                                    id: tabGrid2
+                                    columns: 1
+                                    anchors {
+                                        top: parent.top
+                                        left: parent.left
+                                    }
+
+                                    Rectangle {
+                                        id: mutationSection2
+                                        width: parent.width
+                                        height: childrenRect.height
+
+                                        color: "transparent"
+
+                                        Label {
+                                            id: labelMutation2
+                                            text: "Mutation:"
+                                            anchors {
+                                                left: parent.left
+                                                margins: {
+                                                    left: 5
+                                                }
+                                            }
+                                        }
+
+                                        GridLayout {
+                                            id: mutationSectionGrid2
+                                            columns: 2
+                                            anchors {
+                                                top: labelMutation2.bottom
+                                                left: parent.left
+                                                margins: 10
+                                            }
+
+
+                                            LabeledTextField {
+                                                id: inputU2
+                                                text: "u: "
+                                                toolTipText: "Backward mutation rate."
+                                                validator: DoubleValidator {bottom: 2; top: 50000;}
+                                                textFieldText: inputControllerTimeDist.ui_u
+                                            }
+
+                                            LabeledTextField {
+                                                id: inputV2
+                                                text: "v: "
+                                                toolTipText: "Forward mutation rate."
+                                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
+                                                textFieldText: inputControllerTimeDist.ui_v
+                                            }
+
+                                        }
+                                    }
+
+                                    Rectangle {
+                                        id: selectionSection2
+                                        width: parent.width
+                                        height: childrenRect.height
+
+                                        color: "transparent"
+
+
+                                        Label {
+                                            id: labelSelection2
+                                            text: "Selection:"
+                                            anchors {
+                                                left: parent.left
+                                                margins: {
+                                                    left: 5
+                                                }
+                                            }
+                                        }
+
+                                        GridLayout {
+                                            id: selectionSectionGrid2
+                                            columns: 4
+                                            anchors {
+                                                top: labelSelection2.bottom
+                                                left: parent.left
+                                                margins: 10
+                                            }
+
+                                            LabeledTextField {
+                                                id: inputS2
+                                                text: "s: "
+                                                toolTipText: "Selection coefficient."
+                                                validator: DoubleValidator {bottom: 2; top: 50000;}
+                                                textFieldText: inputControllerTimeDist.ui_s
+                                            }
+
+                                            LabeledTextField {
+                                                id: inputH2
+                                                text: "h: "
+                                                toolTipText: "Dominance coefficient."
+                                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
+                                                textFieldText: inputControllerTimeDist.ui_h
+                                            }
+
+                                        }
+                                    }
+
+                                }
+
+                            }
+                        }
+
                     }
 
                     Rectangle {
@@ -215,6 +486,7 @@ ApplicationWindow {
                         width: modeSection.width
                         height: childrenRect.height
 
+                        visible: (inputControllerTimeDist.ui_modelType != "Time Dist. SGV")
                         color: "transparent"
 
                         Label {
@@ -278,6 +550,7 @@ ApplicationWindow {
                     }
 
                     Rectangle {
+                        id: separator2column1
                         height: 1
                         width: populationSectionGrid.width
                         color: Universal.baseHighColor
@@ -288,6 +561,7 @@ ApplicationWindow {
                         width: populationSection.width
                         height: childrenRect.height
 
+                        visible: (inputControllerTimeDist.ui_modelType != "Time Dist. SGV")
                         color: "transparent"
 
                         Label {
@@ -332,6 +606,7 @@ ApplicationWindow {
                     }
 
                     Rectangle {
+                        id: separator3column1
                         height: 1
                         width: mutationSectionGrid.width
                         color: Universal.baseHighColor
@@ -342,6 +617,7 @@ ApplicationWindow {
                         width: mutationSection.width
                         height: childrenRect.height
 
+                        visible: (inputControllerTimeDist.ui_modelType != "Time Dist. SGV")
                         color: "transparent"
 
                         Label {
