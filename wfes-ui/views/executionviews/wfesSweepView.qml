@@ -1,6 +1,6 @@
 import QtQuick 2.9
 import QtQuick.Window 2.3
-import QtQuick.Dialogs 1.1
+import QtQuick.Dialogs 1.2
 import QtQuick.Layouts 1.3
 import QtQuick.Controls 1.4
 import QtQuick.Controls 2.5
@@ -11,18 +11,18 @@ import components 1.0
 //TODO Implement value validators and return exceptions.
 Window {
     id: root
-    title: qsTr("WFES - Wright-Fisher Exact Solver (Time Dist.)")
+    title: qsTr("WFES - Wright-Fisher Exact Solver (WFES Sweep)")
 
     color: Universal.chromeLowColor
 
     visible: true
 
-    width: 640
-    minimumWidth: 640
-    height: 465
-    minimumHeight: 465
-    maximumWidth: 640
-    maximumHeight: 465
+    width: 955
+    minimumWidth: 955
+    height: 510
+    minimumHeight: 510
+    maximumWidth: 955
+    maximumHeight: 510
 
     // Select theme for the application.
     Universal.theme: Universal.Light
@@ -58,6 +58,7 @@ Window {
                 ColumnLayout {
                     id: column1
                     width: childrenRect.width
+                    height: childrenRect.height
 
                     Layout.margins: 10
                     Layout.alignment: Qt.AlignTop
@@ -81,162 +82,57 @@ Window {
                                 left: parent.left
                                 margins: 10
                             }
-
                             RadioButton {
-                                id: radioButtonTimeDist
-                                checked: inputControllerTimeDist.ui_modelType == "Time Dist."
-                                text: qsTr("Time Dist.")
+                                id: radioButtonFixation
+                                checked: true
+                                text: qsTr("Fixation")
 
                                 ToolTip.visible: hovered
                                 ToolTip.delay: 1000
                                 ToolTip.timeout: 5000
-                                ToolTip.text: qsTr("TODO.")
+                                ToolTip.text: qsTr("Only fixation state is absorbing.")
 
                                 onCheckedChanged: {
-                                    inputN.enabled = checked;
-                                    inputA.enabled = checked;
-                                    inputL.enabled = !checked;
-                                    inputC.enabled = checked;
+                                    outputPExt.visible = !checked
+                                    outputPFix.visible = !checked;
+                                    outputTAbs.visible = !checked;
+                                    outputTAbsStd.visible = !checked;
+                                    outputText.visible = !checked;
+                                    outputTextStd.visible = !checked;
+                                    outputNext.visible = !checked;
+                                    outputTFix.visible = checked;
+                                    outputTFixStd.visible = checked;
+                                    outputRate.visible = checked;
+                                    outputEFreqMut.visible = !checked;
+                                    outputEFreqWt.visible = !checked;
+                                    outputFEst.visible = !checked;
+                                    outputPEst.visible = !checked;
+                                    outputTSeg.visible = !checked;
+                                    outputTSegStd.visible = !checked;
+                                    outputTSegEst.visible = !checked;
+                                    outputTSegEstStd.visible = !checked;
+                                    outputTSegFix.visible = !checked;
+                                    outputTSegFixStd.visible = !checked;
+                                    outputTEst.visible = !checked;
+                                    outputTEstStd.visible = !checked;
+                                    outputEA.visible = !checked;
+                                    outputSA.visible = !checked;
+
+                                    inputX.enabled = !checked;
                                     inputM.enabled = checked;
-
-                                    inputU.enabled = checked;
-                                    inputV.enabled = checked;
-                                    inputR.enabled = checked;
-
-                                    inputS.enabled = checked;
-                                    inputH.enabled = checked;
-
+                                    inputp.enabled = checked;
+                                    inputX.enabled = !checked;
+                                    inputK.enabled = !checked;
+                                    inputWriteE.enabled = !checked;
+                                    inputWriteV.enabled = !checked;
                                     inputWriteQ.enabled = checked;
                                     inputWriteR.enabled = checked;
-                                    inputWriteP.enabled = checked;
-
-                                    timeDistSGVSection.visible = !checked
-                                    timeDistSGVCommonSection.visible = !checked
-                                    populationSection.visible = checked
-                                    mutationSection.visible = checked
-                                    selectionSection.visible = checked
-
-                                    separator1column1.visible = checked
-                                    separator2column1.visible = checked
-                                    separator3column1.visible = checked
-                                }
-                            }
-                            RadioButton {
-                                id: radioButtonTimeDistSGV
-                                checked: inputControllerTimeDist.ui_modelType == "Time Dist. SGV"
-                                text: qsTr("Time Dist. SGV")
-
-                                ToolTip.visible: hovered
-                                ToolTip.delay: 1000
-                                ToolTip.timeout: 5000
-                                ToolTip.text: qsTr("TODO.")
-
-                                onCheckedChanged: {
-                                    inputN.enabled = checked;
-                                    inputA.enabled = checked;
-                                    inputL.enabled = checked;
-                                    inputC.enabled = checked;
-                                    inputM.enabled = checked;
-
-                                    inputU.enabled = checked;
-                                    inputV.enabled = checked;
-                                    inputR.enabled = checked;
-
-                                    inputS.enabled = checked;
-                                    inputH.enabled = checked;
-
-                                    inputWriteQ.enabled = checked;
-                                    inputWriteR.enabled = checked;
-                                    inputWriteP.enabled = checked;
-
-                                    timeDistSGVSection.visible = checked
-                                    timeDistSGVCommonSection.visible = checked
-                                    populationSection.visible = !checked
-                                    mutationSection.visible = !checked
-                                    selectionSection.visible = !checked
-
-                                    separator1column1.visible = checked
-                                    separator2column1.visible = checked
-                                    separator3column1.visible = !checked
-                                }
-                            }
-
-                            RadioButton {
-                                id: radioButtonTimeDistSkip
-                                checked: inputControllerTimeDist.ui_modelType == "Time Dist. Skip"
-                                text: qsTr("Time Dist. Skip")
-
-                                ToolTip.visible: hovered
-                                ToolTip.delay: 1000
-                                ToolTip.timeout: 5000
-                                ToolTip.text: qsTr("TODO.")
-
-                                onCheckedChanged: {
-                                    inputN.enabled = checked;
-                                    inputA.enabled = checked;
-                                    inputL.enabled = !checked;
-                                    inputC.enabled = checked;
-                                    inputM.enabled = checked;
-
-                                    inputU.enabled = checked;
-                                    inputV.enabled = checked;
-                                    inputR.enabled = checked;
-
-                                    inputS.enabled = checked;
-                                    inputH.enabled = checked;
-
-                                    inputWriteQ.enabled = checked;
-                                    inputWriteR.enabled = checked;
-                                    inputWriteP.enabled = checked;
-
-                                    timeDistSGVSection.visible = !checked
-                                    timeDistSGVCommonSection.visible = !checked
-                                    populationSection.visible = checked
-                                    mutationSection.visible = checked
-                                    selectionSection.visible = checked
-
-                                    separator1column1.visible = checked
-                                    separator2column1.visible = checked
-                                    separator3column1.visible = checked
-                                }
-                            }
-                            RadioButton {
-                                id: radioButtonTimeDistDual
-                                checked: inputControllerTimeDist.ui_modelType == "Time Dist. Dual"
-                                text: qsTr("Time Dist. Dual")
-
-                                ToolTip.visible: hovered
-                                ToolTip.delay: 1000
-                                ToolTip.timeout: 5000
-                                ToolTip.text: qsTr("TODO.")
-
-                                onCheckedChanged: {
-                                    inputN.enabled = checked;
-                                    inputA.enabled = checked;
-                                    inputL.enabled = !checked;
-                                    inputC.enabled = checked;
-                                    inputM.enabled = checked;
-
-                                    inputU.enabled = checked;
-                                    inputV.enabled = checked;
-                                    inputR.enabled = checked;
-
-                                    inputS.enabled = checked;
-                                    inputH.enabled = checked;
-
-                                    inputWriteQ.enabled = checked;
-                                    inputWriteR.enabled = checked;
-                                    inputWriteP.enabled = checked;
-
-                                    timeDistSGVSection.visible = !checked
-                                    timeDistSGVCommonSection.visible = !checked
-                                    populationSection.visible = checked
-                                    mutationSection.visible = checked
-                                    selectionSection.visible = checked
-
-                                    separator1column1.visible = checked
-                                    separator2column1.visible = checked
-                                    separator3column1.visible = checked
+                                    inputWriteN.enabled = checked;
+                                    inputWriteNExt.enabled = !checked;
+                                    inputWriteNFix.enabled = !checked;
+                                    inputWriteE.enabled = !checked;
+                                    inputWriteB.enabled = checked;
+                                    inputWriteRes.enabled = checked;
                                 }
                             }
 
@@ -245,7 +141,6 @@ Window {
                     }
 
                     Rectangle {
-                        id: separator1column1
                         height: 1
                         width: modeSectionGrid.width
                         color: Universal.baseHighColor
@@ -253,9 +148,9 @@ Window {
 
                     Rectangle {
                         id: timeDistSGVSection
-                        width: modeSection.width
+                        width: timeDistSGVCommonSection.width + 10
                         height: childrenRect.height
-                        visible: (inputControllerTimeDist.ui_modelType === "Time Dist. SGV")
+
                         color: "transparent"
 
                         Layout.alignment: Qt.AlignTop
@@ -263,7 +158,7 @@ Window {
                         TabView {
                             id: timeDistSGVSectionTabView
                             width: parent.width
-                            height: 170
+                            height: 240
                             Tab {
                                 id: comp1
                                 title: "Comp. 1"
@@ -277,11 +172,59 @@ Window {
                                     }
 
                                     Rectangle {
+                                        id: populationSection1
+                                        width: parent.width
+                                        height: childrenRect.height
+
+                                        color: "transparent"
+
+                                        Label {
+                                            id: labelPopulation1
+                                            text: "Population:"
+                                            anchors {
+                                                left: parent.left
+                                                margins: {
+                                                    left: 5
+                                                }
+                                            }
+                                        }
+
+                                        GridLayout {
+                                            id: populationSectionGrid1
+                                            columns: 2
+                                            anchors {
+                                                top: labelPopulation1.bottom
+                                                left: parent.left
+                                                margins: 10
+                                            }
+
+
+                                            LabeledTextField {
+                                                id: inputN1
+                                                text: "N1: "
+                                                toolTipText: "Size of the population in the Wright Fisher Model."
+                                                validator: DoubleValidator {bottom: 2; top: 50000;}
+                                                textFieldText: inputControllerWfesSingle.ui_n
+                                            }
+
+                                            LabeledTextField {
+                                                id: inputP1
+                                                text: "p1: "
+                                                toolTipText: "Starting number of copies - no integration."
+                                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
+                                                textFieldText: inputControllerWfesSingle.ui_p
+                                            }
+
+                                        }
+                                    }
+
+                                    Rectangle {
                                         id: mutationSection1
                                         width: parent.width
                                         height: childrenRect.height
 
                                         color: "transparent"
+
 
                                         Label {
                                             id: labelMutation1
@@ -296,23 +239,19 @@ Window {
 
                                         GridLayout {
                                             id: mutationSectionGrid1
-                                            columns: 2
+                                            columns: 4
                                             anchors {
                                                 top: labelMutation1.bottom
                                                 left: parent.left
                                                 margins: 10
                                             }
 
-
                                             LabeledTextField {
                                                 id: inputU1
                                                 text: "u1: "
                                                 toolTipText: "Backward mutation rate."
                                                 validator: DoubleValidator {bottom: 2; top: 50000;}
-                                                textFieldText: {
-                                                    var u_vec = inputControllerTimeDist.ui_u_vec
-                                                    return u_vec[0]
-                                                }
+                                                textFieldText: inputControllerWfesSingle.ui_u
                                             }
 
                                             LabeledTextField {
@@ -320,14 +259,13 @@ Window {
                                                 text: "v1: "
                                                 toolTipText: "Forward mutation rate."
                                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
-                                                textFieldText: {
-                                                    var v_vec = inputControllerTimeDist.ui_v_vec
-                                                    return v_vec[0]
-                                                }
+                                                textFieldText: inputControllerWfesSingle.ui_v
                                             }
+
 
                                         }
                                     }
+
 
                                     Rectangle {
                                         id: selectionSection1
@@ -362,10 +300,7 @@ Window {
                                                 text: "s1: "
                                                 toolTipText: "Selection coefficient."
                                                 validator: DoubleValidator {bottom: 2; top: 50000;}
-                                                textFieldText: {
-                                                    var s_vec = inputControllerTimeDist.ui_s_vec
-                                                    return s_vec[0]
-                                                }
+                                                textFieldText: inputControllerWfesSingle.ui_s
                                             }
 
                                             LabeledTextField {
@@ -373,17 +308,15 @@ Window {
                                                 text: "h1: "
                                                 toolTipText: "Dominance coefficient."
                                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
-                                                textFieldText: {
-                                                    var h_vec = inputControllerTimeDist.ui_h_vec
-                                                    return h_vec[0]
-                                                }
+                                                textFieldText: inputControllerWfesSingle.ui_h
                                             }
+
 
                                         }
                                     }
-
                                 }
                             }
+
                             Tab {
                                 id: comp2
                                 title: "Comp. 2"
@@ -397,11 +330,59 @@ Window {
                                     }
 
                                     Rectangle {
+                                        id: populationSection2
+                                        width: parent.width
+                                        height: childrenRect.height
+
+                                        color: "transparent"
+
+                                        Label {
+                                            id: labelPopulation2
+                                            text: "Population:"
+                                            anchors {
+                                                left: parent.left
+                                                margins: {
+                                                    left: 5
+                                                }
+                                            }
+                                        }
+
+                                        GridLayout {
+                                            id: populationSectionGrid2
+                                            columns: 2
+                                            anchors {
+                                                top: labelPopulation2.bottom
+                                                left: parent.left
+                                                margins: 10
+                                            }
+
+
+                                            LabeledTextField {
+                                                id: inputN2
+                                                text: "N2: "
+                                                toolTipText: "Size of the population in the Wright Fisher Model."
+                                                validator: DoubleValidator {bottom: 2; top: 50000;}
+                                                textFieldText: inputControllerWfesSingle.ui_n
+                                            }
+
+                                            LabeledTextField {
+                                                id: inputP2
+                                                text: "p2: "
+                                                toolTipText: "Starting number of copies - no integration."
+                                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
+                                                textFieldText: inputControllerWfesSingle.ui_p
+                                            }
+
+                                        }
+                                    }
+
+                                    Rectangle {
                                         id: mutationSection2
                                         width: parent.width
                                         height: childrenRect.height
 
                                         color: "transparent"
+
 
                                         Label {
                                             id: labelMutation2
@@ -416,23 +397,19 @@ Window {
 
                                         GridLayout {
                                             id: mutationSectionGrid2
-                                            columns: 2
+                                            columns: 4
                                             anchors {
                                                 top: labelMutation2.bottom
                                                 left: parent.left
                                                 margins: 10
                                             }
 
-
                                             LabeledTextField {
                                                 id: inputU2
                                                 text: "u2: "
                                                 toolTipText: "Backward mutation rate."
                                                 validator: DoubleValidator {bottom: 2; top: 50000;}
-                                                textFieldText: {
-                                                    var u_vec = inputControllerTimeDist.ui_u_vec
-                                                    return u_vec[1]
-                                                }
+                                                textFieldText: inputControllerWfesSingle.ui_u
                                             }
 
                                             LabeledTextField {
@@ -440,14 +417,13 @@ Window {
                                                 text: "v2: "
                                                 toolTipText: "Forward mutation rate."
                                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
-                                                textFieldText: {
-                                                    var v_vec = inputControllerTimeDist.ui_v_vec
-                                                    return v_vec[1]
-                                                }
+                                                textFieldText: inputControllerWfesSingle.ui_v
                                             }
+
 
                                         }
                                     }
+
 
                                     Rectangle {
                                         id: selectionSection2
@@ -482,10 +458,7 @@ Window {
                                                 text: "s2: "
                                                 toolTipText: "Selection coefficient."
                                                 validator: DoubleValidator {bottom: 2; top: 50000;}
-                                                textFieldText: {
-                                                    var s_vec = inputControllerTimeDist.ui_s_vec
-                                                    return s_vec[1]
-                                                }
+                                                textFieldText: inputControllerWfesSingle.ui_s
                                             }
 
                                             LabeledTextField {
@@ -493,83 +466,19 @@ Window {
                                                 text: "h2: "
                                                 toolTipText: "Dominance coefficient."
                                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
-                                                textFieldText: {
-                                                    var h_vec = inputControllerTimeDist.ui_h_vec
-                                                    return h_vec[1]
-                                                }
+                                                textFieldText: inputControllerWfesSingle.ui_h
                                             }
+
 
                                         }
                                     }
-
                                 }
-
                             }
                         }
 
                     }
 
                     Rectangle {
-                        id: populationSection
-                        width: modeSection.width
-                        height: childrenRect.height
-
-                        visible: (inputControllerTimeDist.ui_modelType != "Time Dist. SGV")
-                        color: "transparent"
-
-                        Label {
-                            id: labelPopulation
-                            text: "Population:"
-                        }
-
-                        GridLayout {
-                            id: populationSectionGrid
-                            columns: 2
-                            anchors {
-                                top: labelPopulation.bottom
-                                left: parent.left
-                                margins: 10
-                            }
-
-                            LabeledTextField {
-                                id: inputN
-                                text: "N: "
-                                toolTipText: "Size of the population in the Wright Fisher Model."
-                                validator: DoubleValidator {bottom: 2; top: 50000;}
-                                textFieldText: inputControllerTimeDist.ui_n
-                            }
-
-                            LabeledTextField {
-                                id: inputA
-                                text: "a: "
-                                toolTipText: "Tail truncation weight."
-                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
-                                textFieldText: inputControllerTimeDist.ui_a
-                            }
-
-                            LabeledTextField {
-                                id: inputC
-                                text: "c: "
-                                toolTipText: "TODO."
-                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
-                                textFieldText: inputControllerTimeDist.ui_c
-                            }
-
-                            LabeledTextField {
-                                id: inputM
-                                text: "m: "
-                                toolTipText: "TODO."
-                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
-                                textFieldText: inputControllerTimeDist.ui_m
-                                //enabled: //TODO
-                            }
-
-                        }
-
-                    }
-
-                    Rectangle {
-                        id: separator2column1
                         height: 1
                         width: populationSectionGrid.width
                         color: Universal.baseHighColor
@@ -577,10 +486,9 @@ Window {
 
                     Rectangle {
                         id: timeDistSGVCommonSection
-                        width: timeDistSGVSection.width
+                        width: childrenRect.width
                         height: childrenRect.height
 
-                        visible: (inputControllerTimeDist.ui_modelType == "Time Dist. SGV")
                         color: "transparent"
 
                         Label {
@@ -649,102 +557,6 @@ Window {
                         }
                     }
 
-                    Rectangle {
-                        id: mutationSection
-                        width: populationSection.width
-                        height: childrenRect.height
-
-                        visible: (inputControllerTimeDist.ui_modelType != "Time Dist. SGV")
-                        color: "transparent"
-
-                        Label {
-                            id: labelMutation
-                            text: "Mutation:"
-                        }
-
-                        GridLayout {
-                            id: mutationSectionGrid
-                            columns: 2
-                            anchors {
-                                top: labelMutation.bottom
-                                left: parent.left
-                                margins: 10
-                            }
-
-
-                            LabeledTextField {
-                                id: inputU
-                                text: "u: "
-                                toolTipText: "Backward mutation rate."
-                                validator: DoubleValidator {bottom: 2; top: 50000;}
-                                textFieldText: inputControllerTimeDist.ui_u
-                            }
-
-                            LabeledTextField {
-                                id: inputV
-                                text: "v: "
-                                toolTipText: "Forward mutation rate."
-                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
-                                textFieldText: inputControllerTimeDist.ui_v
-                            }
-
-                            LabeledCheckBox {
-                                id: inputR
-                                text: "r: "
-                                toolTipText: "TODO."
-                                checked: inputControllerTimeDist.ui_r
-                                //enabled: //TODO
-                            }
-                        }
-                    }
-
-                    Rectangle {
-                        id: separator3column1
-                        height: 1
-                        width: mutationSectionGrid.width
-                        color: Universal.baseHighColor
-                    }
-
-                    Rectangle {
-                        id: selectionSection
-                        width: mutationSection.width
-                        height: childrenRect.height
-
-                        visible: (inputControllerTimeDist.ui_modelType != "Time Dist. SGV")
-                        color: "transparent"
-
-                        Label {
-                            id: labelSelection
-                            text: "Selection:"
-                        }
-
-                        GridLayout {
-                            id: selectionSectionGrid
-                            columns: 4
-                            anchors {
-                                top: labelSelection.bottom
-                                left: parent.left
-                                margins: 10
-                            }
-
-                            LabeledTextField {
-                                id: inputS
-                                text: "s: "
-                                toolTipText: "Selection coefficient."
-                                validator: DoubleValidator {bottom: 2; top: 50000;}
-                                textFieldText: inputControllerTimeDist.ui_s
-                            }
-
-                            LabeledTextField {
-                                id: inputH
-                                text: "h: "
-                                toolTipText: "Dominance coefficient."
-                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
-                                textFieldText: inputControllerTimeDist.ui_h
-                            }
-
-                        }
-                    }
                 }
 
                 Rectangle {
@@ -758,7 +570,7 @@ Window {
 
                 ColumnLayout {
                     id: column2
-                    Layout.preferredHeight: root.height - upperMenu.height
+                    Layout.preferredHeight: parent.height
 
                     ColumnLayout {
                         Layout.alignment: Qt.AlignTop
@@ -789,8 +601,13 @@ Window {
                                     id: inputWriteQ
                                     text: "Q: "
                                     toolTipText: "Output Q as CSV file."
-                                    checked: inputControllerTimeDist.ui_output_Q
-                                    //enabled: //TODO
+                                    checked: inputControllerWfesSingle.ui_output_Q
+                                    enabled: (inputControllerWfesSingle.ui_modelType == "Fixation" ||
+                                              inputControllerWfesSingle.ui_modelType == "Absorption" ||
+                                              inputControllerWfesSingle.ui_modelType == "Fundamental" ||
+                                              inputControllerWfesSingle.ui_modelType == "Establishment" ||
+                                              inputControllerWfesSingle.ui_modelType == "Allele Age" ||
+                                              inputControllerWfesSingle.ui_modelType == "Non Absorbing")
 
                                 }
 
@@ -798,16 +615,50 @@ Window {
                                     id: inputWriteR
                                     text: "R: "
                                     toolTipText: "Output R as CSV file."
-                                    checked: inputControllerTimeDist.ui_output_R
-                                    //enabled: //TODO
+                                    checked: inputControllerWfesSingle.ui_output_R
+                                    enabled: (inputControllerWfesSingle.ui_modelType == "Fixation" ||
+                                              inputControllerWfesSingle.ui_modelType == "Absorption" ||
+                                              inputControllerWfesSingle.ui_modelType == "Fundamental" ||
+                                              inputControllerWfesSingle.ui_modelType == "Establishment" ||
+                                              inputControllerWfesSingle.ui_modelType == "Allele Age")
                                 }
 
                                 LabeledCheckBox {
-                                    id: inputWriteP
-                                    text: "P: "
-                                    toolTipText: "TODO."
-                                    checked: inputControllerTimeDist.ui_output_P
-                                    //enabled: //TODO
+                                    id: inputWriteB
+                                    text: "B: "
+                                    toolTipText: "Output B as CSV file."
+                                    checked: inputControllerWfesSingle.ui_output_B
+                                    enabled: (inputControllerWfesSingle.ui_modelType == "Fixation" ||
+                                              inputControllerWfesSingle.ui_modelType == "Absorption")
+                                }
+
+                                LabeledCheckBox {
+                                    id: inputWriteN
+                                    text: "N: "
+                                    toolTipText: "Output N as CSV file."
+                                    checked: inputControllerWfesSingle.ui_output_N
+                                    enabled: (inputControllerWfesSingle.ui_modelType == "Fixation" ||
+                                              inputControllerWfesSingle.ui_modelType == "Absorption" ||
+                                              inputControllerWfesSingle.ui_modelType == "Fundamental")
+                                }
+
+                                LabeledCheckBox {
+                                    id: inputWriteI
+                                    text: "I: "
+                                    toolTipText: "Output I (Initial probability distribution) as CSV file."
+                                    checked: inputControllerWfesSingle.ui_output_I
+                                }
+
+                                LabeledCheckBox {
+                                    id: inputWriteRes
+                                    text: "Res: "
+                                    toolTipText: "Output Res (Generated results at right side) as CSV file."
+                                    checked: inputControllerWfesSingle.ui_output_Res
+                                    enabled: (inputControllerWfesSingle.ui_modelType == "Fixation" ||
+                                              inputControllerWfesSingle.ui_modelType == "Absorption" ||
+                                              inputControllerWfesSingle.ui_modelType == "Equilibrium" ||
+                                              inputControllerWfesSingle.ui_modelType == "Establishment" ||
+                                              inputControllerWfesSingle.ui_modelType == "Allele Age")
                                 }
 
                             }
@@ -843,13 +694,19 @@ Window {
                                 RowLayout {
                                     width: childrenRect.width
 
+                                    LabeledCheckBox {
+                                        id: inputForce
+                                        toolTipText: "Do not perform parameter checks."
+                                        text: "Force: "
+                                        checked: inputControllerWfesSingle.ui_force
+                                    }
+
                                     LabeledTextField {
                                         id: inputT
                                         text: "t: "
-                                        textFieldPreferredWidth: 100
                                         toolTipText: "Number of threads for OpenMP."
                                         validator: DoubleValidator {bottom: 2; top: 50000;}
-                                        textFieldText: inputControllerTimeDist.ui_t
+                                        textFieldText: inputControllerWfesSingle.ui_t
                                     }
                                 }
 
@@ -880,6 +737,32 @@ Window {
                                         enabled: (comboBoxLibrary.currentText === "ViennaCL")
                                     }
 
+                                    LabeledTextField {
+                                        id: inputI
+                                        text: "I. Dist.: "
+                                        toolTipText: "Path to initial probability distribution CSV file."
+                                        labelPreferredWidth: 75
+                                        textFieldPreferredWidth: 185
+                                        textFieldText: inputControllerWfesSingle.ui_initial_distribution
+                                    }
+
+                                    Button{
+                                        text: "Search"
+                                        onClicked: fileDialog.open()
+                                    }
+
+
+                                    FileDialog {
+                                        id: fileDialog
+                                        title: "Please choose a csv file"
+                                        nameFilters: [ "csv files (*.csv)" ]
+                                        onAccepted: {
+                                            var path = fileDialog.fileUrl.toString()
+                                            path = path.replace(/^(file:\/{2})/,"");
+                                            inputI.textFieldText = path
+                                        }
+                                    }
+
                                 }
 
                             }
@@ -901,12 +784,12 @@ Window {
                             Binding {
                                 target: stopButton
                                 property: "enabled"
-                                value: !outputControllerTimeDist.ui_get_not_exec
+                                value: !outputControllerWfesSingle.ui_get_not_exec
 
                             }
 
                             onClicked: {
-                                outputControllerTimeDist.ui_stop
+                                outputControllerWfesSingle.ui_stop
                                 stopButton.enabled = false
                                 executeButton.enabled = true
                             }
@@ -921,74 +804,68 @@ Window {
                             Binding {
                                 target: executeButton
                                 property: "enabled"
-                                value: outputControllerTimeDist.ui_get_not_exec
+                                value: outputControllerWfesSingle.ui_get_not_exec
+
                             }
 
                             // All changes made in backend from GUI are done here.
                             onClicked: {
-                                if(radioButtonTimeDist.checked)
-                                    inputControllerTimeDist.ui_modelType === "Time Dist."
-                                if(radioButtonTimeDistSGV.checked)
-                                    inputControllerTimeDist.ui_modelType === "Time Dist. SGV"
-                                if(radioButtonTimeDistSkip.checked)
-                                    inputControllerTimeDist.ui_modelType === "Time Dist. Skip"
-                                if(radioButtonTimeDistDual.checked)
-                                    inputControllerTimeDist.ui_modelType === "Time Dist. Dual"
+                                    // Set mode in backend.
+                                    if(radioButtonAbsorption.checked)
+                                        inputControllerWfesSingle.ui_modelType = "Absorption"
+                                    else if (radioButtonFixation.checked)
+                                        inputControllerWfesSingle.ui_modelType = "Fixation"
+                                    else if (radioButtonEstablishment.checked)
+                                        inputControllerWfesSingle.ui_modelType = "Establishment"
+                                    else if (radioButtonFundamental.checked)
+                                        inputControllerWfesSingle.ui_modelType = "Fundamental"
+                                    else if (radioButtonNonAbsorbing.checked)
+                                        inputControllerWfesSingle.ui_modelType = "Non Absorbing"
+                                    else if (radioButtonEquilibrium.checked)
+                                        inputControllerWfesSingle.ui_modelType = "Equilibrium"
+                                    else if (radioButtonAlleleAge.checked)
+                                        inputControllerWfesSingle.ui_modelType = "Allele Age"
 
-                                if(!radioButtonTimeDistSGV.checked) {
-                                    inputControllerTimeDist.ui_n = inputN.textFieldText
-                                    inputControllerTimeDist.ui_a = inputA.textFieldText
-                                    inputControllerTimeDist.ui_l = inputL.textFieldText
-                                    inputControllerTimeDist.ui_c = inputC.textFieldText
-                                    inputControllerTimeDist.ui_m = inputM.textFieldText
-                                    inputControllerTimeDist.ui_u = inputU.textFieldText
-                                    inputControllerTimeDist.ui_v = inputV.textFieldText
-                                    inputControllerTimeDist.ui_r = inputR.checked
-                                    inputControllerTimeDist.ui_s = inputS.textFieldText
-                                    inputControllerTimeDist.ui_h = inputH.textFieldText
-                                } else {
-                                    inputControllerTimeDist.ui_n = inputN1.textFieldText
-                                    inputControllerTimeDist.ui_a = inputA1.textFieldText
-                                    inputControllerTimeDist.ui_l = inputL1.textFieldText
-                                    inputControllerTimeDist.ui_c = inputC1.textFieldText
-                                    inputControllerTimeDist.ui_m = inputM1.textFieldText
-                                    var u_vec = []
-                                    var v_vec = []
-                                    var s_vec = []
-                                    var h_vec = []
-                                    for(var i = 0; i < 2; i++) {
-                                        timeDistSGVSectionTabView.getTab(i).active = true
-                                        var u = timeDistSGVSectionTabView.getTab(i).item.children[0].children[1].children[0].textFieldText
-                                        var v = timeDistSGVSectionTabView.getTab(i).item.children[0].children[1].children[1].textFieldText
-                                        var s = timeDistSGVSectionTabView.getTab(i).item.children[1].children[1].children[0].textFieldText
-                                        var h = timeDistSGVSectionTabView.getTab(i).item.children[1].children[1].children[1].textFieldText
-                                        u_vec.push(u)
-                                        v_vec.push(v)
-                                        s_vec.push(s)
-                                        h_vec.push(h)
-                                    }
-                                    inputControllerTimeDist.ui_u_vec = u_vec
-                                    inputControllerTimeDist.ui_v_vec = v_vec
-                                    inputControllerTimeDist.ui_s_vec = s_vec
-                                    inputControllerTimeDist.ui_h_vec = h_vec
+                                    inputControllerWfesSingle.ui_n = inputN.textFieldText
+                                    inputControllerWfesSingle.ui_a = inputA.textFieldText
+                                    if(inputControllerWfesSingle.ui_modelType == "Fixation" || inputControllerWfesSingle.ui_modelType == "Absorption" || inputControllerWfesSingle.ui_modelType == "Establishment" || inputControllerWfesSingle.ui_modelType == "Allele Age")
+                                        inputControllerWfesSingle.ui_p = inputp.textFieldText
+                                    inputControllerWfesSingle.ui_c = inputc.textFieldText
+                                    if(inputControllerWfesSingle.ui_modelType == "Allele Age")
+                                        inputControllerWfesSingle.ui_x = inputX.textFieldText
+                                    if(inputControllerWfesSingle.ui_modelType == "Establishment")
+                                        inputControllerWfesSingle.ui_k = inputK.textFieldText
+                                    inputControllerWfesSingle.ui_u = inputU.textFieldText
+                                    inputControllerWfesSingle.ui_v = inputV.textFieldText
+                                    inputControllerWfesSingle.ui_m = inputM.checked
+                                    inputControllerWfesSingle.ui_s = inputS.textFieldText
+                                    inputControllerWfesSingle.ui_h = inputH.textFieldText
 
-                                }
+                                    inputControllerWfesSingle.ui_output_Q = inputWriteQ.checked
+                                    inputControllerWfesSingle.ui_output_R = inputWriteR.checked
+                                    inputControllerWfesSingle.ui_output_B = inputWriteB.checked
+                                    inputControllerWfesSingle.ui_output_N = inputWriteN.checked
+                                    inputControllerWfesSingle.ui_output_NExt = inputWriteNExt.checked
+                                    inputControllerWfesSingle.ui_output_NFix = inputWriteNFix.checked
+                                    inputControllerWfesSingle.ui_output_I = inputWriteI.checked
+                                    inputControllerWfesSingle.ui_output_E = inputWriteE.checked
+                                    inputControllerWfesSingle.ui_output_V = inputWriteV.checked
+                                    inputControllerWfesSingle.ui_output_Res = inputWriteRes.checked
 
-                                inputControllerTimeDist.ui_output_P = inputWriteP.checked
-                                inputControllerTimeDist.ui_output_Q = inputWriteQ.checked
-                                inputControllerTimeDist.ui_output_R = inputWriteR.checked
+                                    inputControllerWfesSingle.ui_force = inputForce.checked
+                                    inputControllerWfesSingle.ui_t = inputT.textFieldText
 
-                                inputControllerTimeDist.ui_t = inputT.textFieldText
+                                    inputControllerWfesSingle.ui_initial_distribution = inputI.textFieldText
 
-                                inputControllerTimeDist.ui_library = comboBoxLibrary.currentText;
-                                inputControllerTimeDist.ui_solver = comboBoxSolver.currentText;
+                                    inputControllerWfesSingle.ui_library = comboBoxLibrary.currentText;
+                                    inputControllerWfesSingle.ui_solver = comboBoxSolver.currentText;
 
-                                if(outputControllerTimeDist.ui_get_error_message === "") {
+                                if(outputControllerWfesSingle.ui_get_error_message == "") {
                                     executeButton.enabled = false
                                     stopButton.enabled = true
-                                    outputControllerTimeDist.ui_execute
+                                    outputControllerWfesSingle.ui_execute
                                 } else {
-                                    messageDialog.text = outputControllerTimeDist.ui_get_error_message
+                                    messageDialog.text = outputControllerWfesSingle.ui_get_error_message
                                     messageDialog.open()
                                 }
                                 outputControllerWfesSingle.ui_reset_error
@@ -1006,6 +883,83 @@ Window {
                     icon: StandardIcon.Warning
                 }
 
+                Rectangle {
+                    id: separator2
+                    width: 1
+                    Layout.fillHeight: true
+                    color: Universal.baseHighColor
+                    Layout.topMargin: 10
+                    Layout.bottomMargin:10
+                }
+
+                ColumnLayout {
+                    id: column3
+                    Layout.margins: 10
+                    Layout.alignment: Qt.AlignTop
+
+                    Rectangle {
+                        id: finalOutputSection
+                        color: "transparent"
+                        height: childrenRect.height
+                        width: childrenRect.width
+
+                        Label {
+                            id: labelFinalOutput
+                            text: "Output:"
+                        }
+
+                        ColumnLayout {
+
+                            anchors {
+                                top: labelFinalOutput.bottom
+                                left: parent.left
+                                margins: 10
+                            }
+
+                            LabeledTextField {
+                                id: outputTFix
+                                labelPreferredWidth: 100
+                                textFieldPreferredWidth: 180
+                                text: "T fix.: "
+                                toolTipText: "Fixation time."
+                                textFieldText: outputControllerWfesSingle.ui_get_t_fix
+                                readOnly: true
+                                visible: radioButtonFixation.checked || radioButtonAbsorption.checked
+                            }
+
+                            LabeledTextField {
+                                id: outputRate
+                                labelPreferredWidth: 100
+                                textFieldPreferredWidth: 180
+                                text: "Rate: "
+                                toolTipText: "Rate."
+                                textFieldText: outputControllerWfesSingle.ui_get_rate
+                                readOnly: true
+                                visible: radioButtonFixation.checked
+                            }
+
+                            LabeledTextField {
+                                id: outputTime
+                                labelPreferredWidth: 100
+                                textFieldPreferredWidth: 180
+                                text: "Time (s): "
+                                toolTipText: "Execution time in seconds."
+                                textFieldText: outputControllerWfesSingle.ui_get_time
+                                readOnly: true
+                            }
+
+                            LabeledTextField {
+                                id: prueba
+                                labelPreferredWidth: 100
+                                textFieldPreferredWidth: 180
+                                text: "Status: "
+                                toolTipText: "Status of the current execution."
+                                readOnly: true
+                                textFieldText: outputControllerWfesSingle.ui_progress
+                            }
+                        }
+                    }
+                }
             }
         }
     }

@@ -23,9 +23,15 @@ Item {
                 Layout.alignment: Qt.AlignHCenter
                 Layout.preferredWidth: 160
             }
-            LaunchViewButton {
+            Button {
                 text: "WFES Sweep"
-                view: "WFES Sweep has not been implemented yet."
+                onClicked: {
+                    var component = Qt.createComponent("qrc:/views/executionviews/wfesSweepView.qml")
+                    var window    = component.createObject()
+                    window.show()
+                }
+                Layout.alignment: Qt.AlignHCenter
+                Layout.preferredWidth: 160
             }
         }
 

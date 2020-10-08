@@ -13,6 +13,7 @@ ApplicationWindow {
 
     visible: true
 
+
     width: 600
     minimumWidth: 600
     maximumWidth: 600

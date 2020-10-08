@@ -8,9 +8,9 @@ import QtQuick.Controls.Universal 2.3
 import components 1.0
 
 //TODO Implement value validators and return exceptions.
-ApplicationWindow {
+Window {
     id: root
-    title: qsTr("WFES - Wright-Fisher Exact Solver (wfes_single)")
+    title: qsTr("WFES - Wright-Fisher Exact Solver (WFES Single)")
 
     color: Universal.chromeLowColor
 
