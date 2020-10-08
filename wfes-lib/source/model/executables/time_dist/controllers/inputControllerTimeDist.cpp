@@ -64,9 +64,9 @@ void InputControllerTimeDist::set_a(QString a) const
 
 QString InputControllerTimeDist::get_l() const
 {
-    boost::format fmt = boost::format(DPFS) % (wfes::config::ConfigTimeDist::l);
+    boost::format fmt = boost::format(DPFS) % (wfes::config::ConfigTimeDistSGV::l);
 
-    if((boost::math::isnan)(wfes::config::ConfigTimeDist::l))
+    if((boost::math::isnan)(wfes::config::ConfigTimeDistSGV::l))
         return "Error";
     else
         return QString::fromStdString(fmt.str());
@@ -77,7 +77,7 @@ void InputControllerTimeDist::set_l(QString l) const
     std::string l_str = l.toStdString();
     try {
         double l_d = boost::lexical_cast<double>(l_str);
-        wfes::config::ConfigTimeDist::l = l_d;
+        wfes::config::ConfigTimeDistSGV::l = l_d;
     } catch(boost::exception const&  ex) {
         std::string errorMessage = "";
         //TODO Descriptive error.
@@ -359,4 +359,64 @@ QString InputControllerTimeDist::get_solver() const
 void InputControllerTimeDist::set_solver(QString solver) const
 {
     wfes::config::ConfigTimeDist::vienna_solver = solver.toStdString();
+}
+
+QList<double> InputControllerTimeDist::get_u_vec() const
+{
+    std::vector<double> temp_std_u = std::vector<double>(wfes::config::ConfigTimeDistSGV::u.data(), wfes::config::ConfigTimeDistSGV::u.data() + wfes::config::ConfigTimeDistSGV::num_comp);
+    return QList<double>::fromVector(QVector<double>(temp_std_u.begin(), temp_std_u.end()));
+}
+
+void InputControllerTimeDist::set_u_vec(QList<double> u) const
+{
+    std::vector<double> temp_std_u = std::vector<double>(u.begin(), u.end());
+    dvec temp_u(2);
+    temp_u[0] = temp_std_u[0];
+    temp_u[1] = temp_std_u[1];
+    wfes::config::ConfigTimeDistSGV::u = temp_u;
+}
+
+QList<double> InputControllerTimeDist::get_v_vec() const
+{
+    std::vector<double> temp_std_v = std::vector<double>(wfes::config::ConfigTimeDistSGV::v.data(), wfes::config::ConfigTimeDistSGV::v.data() + wfes::config::ConfigTimeDistSGV::num_comp);
+    return QList<double>::fromVector(QVector<double>(temp_std_v.begin(), temp_std_v.end()));
+}
+
+void InputControllerTimeDist::set_v_vec(QList<double> v) const
+{
+    std::vector<double> temp_std_v = std::vector<double>(v.begin(), v.end());
+    dvec temp_v(2);
+    temp_v[0] = temp_std_v[0];
+    temp_v[1] = temp_std_v[1];
+    wfes::config::ConfigTimeDistSGV::v = temp_v;
+}
+
+QList<double> InputControllerTimeDist::get_s_vec() const
+{
+    std::vector<double> temp_std_s = std::vector<double>(wfes::config::ConfigTimeDistSGV::s.data(), wfes::config::ConfigTimeDistSGV::s.data() + wfes::config::ConfigTimeDistSGV::num_comp);
+    return QList<double>::fromVector(QVector<double>(temp_std_s.begin(), temp_std_s.end()));
+}
+
+void InputControllerTimeDist::set_s_vec(QList<double> s) const
+{
+    std::vector<double> temp_std_s = std::vector<double>(s.begin(), s.end());
+    dvec temp_s(2);
+    temp_s[0] = temp_std_s[0];
+    temp_s[1] = temp_std_s[1];
+    wfes::config::ConfigTimeDistSGV::s = temp_s;
+}
+
+QList<double> InputControllerTimeDist::get_h_vec() const
+{
+    std::vector<double> temp_std_h = std::vector<double>(wfes::config::ConfigTimeDistSGV::h.data(), wfes::config::ConfigTimeDistSGV::h.data() + wfes::config::ConfigTimeDistSGV::num_comp);
+    return QList<double>::fromVector(QVector<double>(temp_std_h.begin(), temp_std_h.end()));
+}
+
+void InputControllerTimeDist::set_h_vec(QList<double> h) const
+{
+    std::vector<double> temp_std_h = std::vector<double>(h.begin(), h.end());
+    dvec temp_h(2);
+    temp_h[0] = temp_std_h[0];
+    temp_h[1] = temp_std_h[1];
+    wfes::config::ConfigTimeDistSGV::h = temp_h;
 }

@@ -29,6 +29,8 @@ dvec ConfigTimeDistSGV::h = [] {
 
 double ConfigTimeDistSGV::l = 1e-20;
 
+int ConfigTimeDistSGV::num_comp = 2;
+
 bool ConfigTimeDistSGV::force = false;
 
 ConfigTimeDistSGV::ConfigTimeDistSGV(){}

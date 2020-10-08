@@ -67,7 +67,6 @@ ResultsTimeDist *time_dist::timeDist()
     double cdf = 0;
     llong i;
     for (i = 0; cdf < ConfigTimeDist::integration_cutoff && i < ConfigTimeDist::max_t; i++) {
-
         double P_ext_t = wf.R.col(0).dot(c);
         double P_fix_t = wf.R.col(1).dot(c);
         cdf += P_fix_t + P_ext_t;
@@ -139,7 +138,7 @@ ResultsTimeDist *time_dist::timeDistSGV()
     llong i;
     for (i = 0; cdf < ConfigTimeDist::integration_cutoff && i < ConfigTimeDist::max_t; i++) {
 
-    double P_abs_t = R.dot(c);
+        double P_abs_t = R.dot(c);
         cdf += P_abs_t;
 
         PH(i, 0) = i + 1;

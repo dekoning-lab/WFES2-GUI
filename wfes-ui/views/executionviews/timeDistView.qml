@@ -255,7 +255,7 @@ ApplicationWindow {
                         id: timeDistSGVSection
                         width: modeSection.width
                         height: childrenRect.height
-                        visible: (inputControllerTimeDist.ui_modelType == "Time Dist. SGV")
+                        visible: (inputControllerTimeDist.ui_modelType === "Time Dist. SGV")
                         color: "transparent"
 
                         Layout.alignment: Qt.AlignTop
@@ -309,7 +309,10 @@ ApplicationWindow {
                                                 text: "u1: "
                                                 toolTipText: "Backward mutation rate."
                                                 validator: DoubleValidator {bottom: 2; top: 50000;}
-                                                textFieldText: inputControllerTimeDist.ui_u
+                                                textFieldText: {
+                                                    var u_vec = inputControllerTimeDist.ui_u_vec
+                                                    return u_vec[0]
+                                                }
                                             }
 
                                             LabeledTextField {
@@ -317,7 +320,10 @@ ApplicationWindow {
                                                 text: "v1: "
                                                 toolTipText: "Forward mutation rate."
                                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
-                                                textFieldText: inputControllerTimeDist.ui_v
+                                                textFieldText: {
+                                                    var v_vec = inputControllerTimeDist.ui_v_vec
+                                                    return v_vec[0]
+                                                }
                                             }
 
                                         }
@@ -356,7 +362,10 @@ ApplicationWindow {
                                                 text: "s1: "
                                                 toolTipText: "Selection coefficient."
                                                 validator: DoubleValidator {bottom: 2; top: 50000;}
-                                                textFieldText: inputControllerTimeDist.ui_s
+                                                textFieldText: {
+                                                    var s_vec = inputControllerTimeDist.ui_s_vec
+                                                    return s_vec[0]
+                                                }
                                             }
 
                                             LabeledTextField {
@@ -364,7 +373,10 @@ ApplicationWindow {
                                                 text: "h1: "
                                                 toolTipText: "Dominance coefficient."
                                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
-                                                textFieldText: inputControllerTimeDist.ui_h
+                                                textFieldText: {
+                                                    var h_vec = inputControllerTimeDist.ui_h_vec
+                                                    return h_vec[0]
+                                                }
                                             }
 
                                         }
@@ -417,7 +429,10 @@ ApplicationWindow {
                                                 text: "u2: "
                                                 toolTipText: "Backward mutation rate."
                                                 validator: DoubleValidator {bottom: 2; top: 50000;}
-                                                textFieldText: inputControllerTimeDist.ui_u
+                                                textFieldText: {
+                                                    var u_vec = inputControllerTimeDist.ui_u_vec
+                                                    return u_vec[1]
+                                                }
                                             }
 
                                             LabeledTextField {
@@ -425,7 +440,10 @@ ApplicationWindow {
                                                 text: "v2: "
                                                 toolTipText: "Forward mutation rate."
                                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
-                                                textFieldText: inputControllerTimeDist.ui_v
+                                                textFieldText: {
+                                                    var v_vec = inputControllerTimeDist.ui_v_vec
+                                                    return v_vec[1]
+                                                }
                                             }
 
                                         }
@@ -464,7 +482,10 @@ ApplicationWindow {
                                                 text: "s2: "
                                                 toolTipText: "Selection coefficient."
                                                 validator: DoubleValidator {bottom: 2; top: 50000;}
-                                                textFieldText: inputControllerTimeDist.ui_s
+                                                textFieldText: {
+                                                    var s_vec = inputControllerTimeDist.ui_s_vec
+                                                    return s_vec[1]
+                                                }
                                             }
 
                                             LabeledTextField {
@@ -472,7 +493,10 @@ ApplicationWindow {
                                                 text: "h2: "
                                                 toolTipText: "Dominance coefficient."
                                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
-                                                textFieldText: inputControllerTimeDist.ui_h
+                                                textFieldText: {
+                                                    var h_vec = inputControllerTimeDist.ui_h_vec
+                                                    return h_vec[1]
+                                                }
                                             }
 
                                         }
@@ -912,24 +936,52 @@ ApplicationWindow {
                             // All changes made in backend from GUI are done here.
                             onClicked: {
                                 if(radioButtonTimeDist.checked)
-                                    inputControllerTimeDist.ui_modelType == "Time Dist."
+                                    inputControllerTimeDist.ui_modelType === "Time Dist."
                                 if(radioButtonTimeDistSGV.checked)
-                                    inputControllerTimeDist.ui_modelType == "Time Dist. SGV"
+                                    inputControllerTimeDist.ui_modelType === "Time Dist. SGV"
                                 if(radioButtonTimeDistSkip.checked)
-                                    inputControllerTimeDist.ui_modelType == "Time Dist. Skip"
+                                    inputControllerTimeDist.ui_modelType === "Time Dist. Skip"
                                 if(radioButtonTimeDistDual.checked)
-                                    inputControllerTimeDist.ui_modelType == "Time Dist. Dual"
+                                    inputControllerTimeDist.ui_modelType === "Time Dist. Dual"
 
-                                inputControllerTimeDist.ui_n = inputN.textFieldText
-                                inputControllerTimeDist.ui_a = inputA.textFieldText
-                                inputControllerTimeDist.ui_l = inputL.textFieldText
-                                inputControllerTimeDist.ui_c = inputC.textFieldText
-                                inputControllerTimeDist.ui_m = inputM.textFieldText
-                                inputControllerTimeDist.ui_u = inputU.textFieldText
-                                inputControllerTimeDist.ui_v = inputV.textFieldText
-                                inputControllerTimeDist.ui_r = inputR.checked
-                                inputControllerTimeDist.ui_s = inputS.textFieldText
-                                inputControllerTimeDist.ui_h = inputH.textFieldText
+                                if(!radioButtonTimeDistSGV.checked) {
+                                    inputControllerTimeDist.ui_n = inputN.textFieldText
+                                    inputControllerTimeDist.ui_a = inputA.textFieldText
+                                    inputControllerTimeDist.ui_l = inputL.textFieldText
+                                    inputControllerTimeDist.ui_c = inputC.textFieldText
+                                    inputControllerTimeDist.ui_m = inputM.textFieldText
+                                    inputControllerTimeDist.ui_u = inputU.textFieldText
+                                    inputControllerTimeDist.ui_v = inputV.textFieldText
+                                    inputControllerTimeDist.ui_r = inputR.checked
+                                    inputControllerTimeDist.ui_s = inputS.textFieldText
+                                    inputControllerTimeDist.ui_h = inputH.textFieldText
+                                } else {
+                                    inputControllerTimeDist.ui_n = inputN1.textFieldText
+                                    inputControllerTimeDist.ui_a = inputA1.textFieldText
+                                    inputControllerTimeDist.ui_l = inputL1.textFieldText
+                                    inputControllerTimeDist.ui_c = inputC1.textFieldText
+                                    inputControllerTimeDist.ui_m = inputM1.textFieldText
+                                    var u_vec = []
+                                    var v_vec = []
+                                    var s_vec = []
+                                    var h_vec = []
+                                    for(var i = 0; i < 2; i++) {
+                                        timeDistSGVSectionTabView.getTab(i).active = true
+                                        var u = timeDistSGVSectionTabView.getTab(i).item.children[0].children[1].children[0].textFieldText
+                                        var v = timeDistSGVSectionTabView.getTab(i).item.children[0].children[1].children[1].textFieldText
+                                        var s = timeDistSGVSectionTabView.getTab(i).item.children[1].children[1].children[0].textFieldText
+                                        var h = timeDistSGVSectionTabView.getTab(i).item.children[1].children[1].children[1].textFieldText
+                                        u_vec.push(u)
+                                        v_vec.push(v)
+                                        s_vec.push(s)
+                                        h_vec.push(h)
+                                    }
+                                    inputControllerTimeDist.ui_u_vec = u_vec
+                                    inputControllerTimeDist.ui_v_vec = v_vec
+                                    inputControllerTimeDist.ui_s_vec = s_vec
+                                    inputControllerTimeDist.ui_h_vec = h_vec
+
+                                }
 
                                 inputControllerTimeDist.ui_output_P = inputWriteP.checked
                                 inputControllerTimeDist.ui_output_Q = inputWriteQ.checked

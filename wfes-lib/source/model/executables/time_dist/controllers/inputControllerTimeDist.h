@@ -6,6 +6,7 @@
 #include <wfes-lib_global.h>
 
 #include <model/executables/time_dist/config/configTimeDist.h>
+#include <model/executables/time_dist/config/configTimeDistSGV.h>
 
 
 #include <boost/format.hpp>
@@ -33,6 +34,12 @@ namespace wfes {
             Q_PROPERTY(QString ui_modelType READ get_model_type WRITE set_model_type NOTIFY input_changed)
             Q_PROPERTY(QString ui_library READ get_library WRITE set_library NOTIFY input_changed)
             Q_PROPERTY(QString ui_solver READ get_solver WRITE set_solver NOTIFY input_changed)
+            Q_PROPERTY(QList<double> ui_u_vec READ get_u_vec WRITE set_u_vec NOTIFY input_changed)
+            Q_PROPERTY(QList<double> ui_v_vec READ get_v_vec WRITE set_v_vec NOTIFY input_changed)
+            Q_PROPERTY(QList<double> ui_s_vec READ get_s_vec WRITE set_s_vec NOTIFY input_changed)
+            Q_PROPERTY(QList<double> ui_h_vec READ get_h_vec WRITE set_h_vec NOTIFY input_changed)
+
+
 
         public:
 
@@ -240,6 +247,50 @@ namespace wfes {
              * @param solver value of solver in GUI.
              */
             void set_solver(QString solver) const;
+
+            /**
+             * @brief Send vector of u to GUI.
+             * @return QList<double> containing u.
+             */
+            QList<double> get_u_vec() const;
+            /**
+             * @brief Set vector of u from  GUI.
+             * @param u value in GUI.
+             */
+            void set_u_vec(QList<double> u) const;
+
+            /**
+             * @brief Send vector of v to GUI.
+             * @return QList<double> containing v.
+             */
+            QList<double> get_v_vec() const;
+            /**
+             * @brief Set vector of v from  GUI.
+             * @param v value in GUI.
+             */
+            void set_v_vec(QList<double> v) const;
+
+            /**
+             * @brief Send vector of s to GUI.
+             * @return QList<double> containing s.
+             */
+            QList<double> get_s_vec() const;
+            /**
+             * @brief Set vector of s from  GUI.
+             * @param s value in GUI.
+             */
+            void set_s_vec(QList<double> s) const;
+
+            /**
+             * @brief Send vector of h to GUI.
+             * @return QList<double> containing h.
+             */
+            QList<double> get_h_vec() const;
+            /**
+             * @brief Set vector of h from  GUI.
+             * @param h value in GUI.
+             */
+            void set_h_vec(QList<double> h) const;
 
         signals:
             /**

@@ -29,6 +29,11 @@ namespace wfes {
                 static dvec h;
 
                 /**
+                 * @brief Number of components.
+                 */
+                static int num_comp;
+
+                /**
                  * TODO.
                  */
                 static double l;
