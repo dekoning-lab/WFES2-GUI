@@ -4,13 +4,13 @@
 using namespace wfes::config;
 
 ivec ConfigWfesSweep::population_sizes = [] {
-    dvec tmp(2);
+    ivec tmp(2);
     tmp << 10000, 10000;
     return tmp;
 }();
 
 ivec ConfigWfesSweep::starting_copies = [] {
-    dvec tmp(2);
+    ivec tmp(2);
     tmp << 0, 0;
     return tmp;
 }();
