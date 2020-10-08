@@ -998,6 +998,8 @@ Window {
                                 inputControllerTimeDist.ui_library = comboBoxLibrary.currentText;
                                 inputControllerTimeDist.ui_solver = comboBoxSolver.currentText;
 
+                                inputControllerTimeDist.ui_force = inputForce.checked
+
                                 if(outputControllerTimeDist.ui_get_error_message === "") {
                                     executeButton.enabled = false
                                     stopButton.enabled = true
