@@ -830,6 +830,7 @@ Window {
                                         id: inputT
                                         text: "t: "
                                         toolTipText: "Number of threads for OpenMP."
+                                        labelPreferredWidth: 10
                                         validator: DoubleValidator {bottom: 2; top: 50000;}
                                         textFieldText: inputControllerWfesSingle.ui_t
                                     }

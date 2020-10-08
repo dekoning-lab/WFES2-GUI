@@ -41,6 +41,7 @@ HEADERS += \
     source/model/executables/wfes_single/controllers/inputControllerWfesSingle.h \
     source/model/executables/wfes_single/controllers/outputControllerWfesSingle.h \
     source/model/executables/wfes_single/thread/workerThreadWfesSingle.h \
+    source/model/executables/wfes_sweep/config/configWfesSweep.h \
     source/model/solver/pardiso/MKL_Consts.h \
     source/model/solver/pardiso/solverPardiso.h \
     source/model/solver/solver.h \
@@ -74,6 +75,7 @@ SOURCES += \
     source/model/executables/wfes_single/controllers/inputControllerWfesSingle.cpp \
     source/model/executables/wfes_single/controllers/outputControllerWfesSingle.cpp \
     source/model/executables/wfes_single/thread/workerThreadWfesSingle.cpp \
+    source/model/executables/wfes_sweep/config/configWfesSweep.cpp \
     source/model/solver/pardiso/solverPardiso.cpp \
     source/model/solver/solver.cpp \
     source/model/solver/solverFactory.cpp \

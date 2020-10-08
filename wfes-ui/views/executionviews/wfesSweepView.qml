@@ -142,7 +142,7 @@ Window {
 
                     Rectangle {
                         height: 1
-                        width: modeSectionGrid.width
+                        width: timeDistSGVSection.width
                         color: Universal.baseHighColor
                     }
 
@@ -480,7 +480,7 @@ Window {
 
                     Rectangle {
                         height: 1
-                        width: populationSectionGrid.width
+                        width: timeDistSGVSection.width
                         color: Universal.baseHighColor
                     }
 
@@ -704,6 +704,7 @@ Window {
                                     LabeledTextField {
                                         id: inputT
                                         text: "t: "
+                                        labelPreferredWidth: 10
                                         toolTipText: "Number of threads for OpenMP."
                                         validator: DoubleValidator {bottom: 2; top: 50000;}
                                         textFieldText: inputControllerWfesSingle.ui_t
