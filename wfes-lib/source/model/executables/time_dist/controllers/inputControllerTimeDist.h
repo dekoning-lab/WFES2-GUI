@@ -34,12 +34,11 @@ namespace wfes {
             Q_PROPERTY(QString ui_modelType READ get_model_type WRITE set_model_type NOTIFY input_changed)
             Q_PROPERTY(QString ui_library READ get_library WRITE set_library NOTIFY input_changed)
             Q_PROPERTY(QString ui_solver READ get_solver WRITE set_solver NOTIFY input_changed)
+            Q_PROPERTY(bool ui_force READ get_force WRITE set_force NOTIFY input_changed)
             Q_PROPERTY(QList<double> ui_u_vec READ get_u_vec WRITE set_u_vec NOTIFY input_changed)
             Q_PROPERTY(QList<double> ui_v_vec READ get_v_vec WRITE set_v_vec NOTIFY input_changed)
             Q_PROPERTY(QList<double> ui_s_vec READ get_s_vec WRITE set_s_vec NOTIFY input_changed)
             Q_PROPERTY(QList<double> ui_h_vec READ get_h_vec WRITE set_h_vec NOTIFY input_changed)
-
-
 
         public:
 
@@ -247,6 +246,19 @@ namespace wfes {
              * @param solver value of solver in GUI.
              */
             void set_solver(QString solver) const;
+
+
+            /**
+             * @brief Send if output R to GUI.
+             * @return boolean containing if output R.
+             */
+            bool get_force() const;
+            /**
+             * @brief Get if output R from GUI.
+             * @param output_R value of output R in GUI.
+             */
+            void set_force(bool output_R) const;
+
 
             /**
              * @brief Send vector of u to GUI.

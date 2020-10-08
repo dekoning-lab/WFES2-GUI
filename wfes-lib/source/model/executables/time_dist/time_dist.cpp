@@ -99,7 +99,7 @@ ResultsTimeDist *time_dist::timeDistSGV()
     // TODO Show as dialog.
     if(ConfigTimeDistSGV::s.size() != 2)  throw exception::Error("Selection coefficient vector should be longer than 2");
 
-    if (ConfigTimeDistSGV::force) {
+    if (!ConfigTimeDistSGV::force) {
         if (ConfigTimeDist::population_size > 500000) {
             // TODO Show as dialog.
             throw exception::Error("Population size is quite large - the computations will take a long time. Use --force to ignore");

@@ -361,6 +361,16 @@ void InputControllerTimeDist::set_solver(QString solver) const
     wfes::config::ConfigTimeDist::vienna_solver = solver.toStdString();
 }
 
+bool InputControllerTimeDist::get_force() const
+{
+    return wfes::config::ConfigTimeDistSGV::force;
+}
+
+void InputControllerTimeDist::set_force(bool force) const
+{
+    wfes::config::ConfigTimeDistSGV::force = force;
+}
+
 QList<double> InputControllerTimeDist::get_u_vec() const
 {
     std::vector<double> temp_std_u = std::vector<double>(wfes::config::ConfigTimeDistSGV::u.data(), wfes::config::ConfigTimeDistSGV::u.data() + wfes::config::ConfigTimeDistSGV::num_comp);

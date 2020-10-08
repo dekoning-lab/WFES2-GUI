@@ -110,6 +110,8 @@ Window {
                                     inputWriteR.enabled = checked;
                                     inputWriteP.enabled = checked;
 
+                                    inputForce.enabled = !checked
+
                                     timeDistSGVSection.visible = !checked
                                     timeDistSGVCommonSection.visible = !checked
                                     populationSection.visible = checked
@@ -148,6 +150,8 @@ Window {
                                     inputWriteQ.enabled = checked;
                                     inputWriteR.enabled = checked;
                                     inputWriteP.enabled = checked;
+
+                                    inputForce.enabled = checked
 
                                     timeDistSGVSection.visible = checked
                                     timeDistSGVCommonSection.visible = checked
@@ -189,6 +193,8 @@ Window {
                                     inputWriteR.enabled = checked;
                                     inputWriteP.enabled = checked;
 
+                                    inputForce.enabled = checked
+
                                     timeDistSGVSection.visible = !checked
                                     timeDistSGVCommonSection.visible = !checked
                                     populationSection.visible = checked
@@ -227,6 +233,8 @@ Window {
                                     inputWriteQ.enabled = checked;
                                     inputWriteR.enabled = checked;
                                     inputWriteP.enabled = checked;
+
+                                    inputForce.enabled = checked
 
                                     timeDistSGVSection.visible = !checked
                                     timeDistSGVCommonSection.visible = !checked
@@ -843,6 +851,14 @@ Window {
                                 RowLayout {
                                     width: childrenRect.width
 
+                                    LabeledCheckBox {
+                                        id: inputForce
+                                        toolTipText: "Do not perform parameter checks."
+                                        text: "Force: "
+                                        checked: inputControllerTimeDist.ui_force
+                                        enabled: (inputControllerTimeDist.ui_modelType == "Time Dist. SGV")
+                                    }
+
                                     LabeledTextField {
                                         id: inputT
                                         text: "t: "
@@ -927,18 +943,17 @@ Window {
                             // All changes made in backend from GUI are done here.
                             onClicked: {
                                 if(radioButtonTimeDist.checked)
-                                    inputControllerTimeDist.ui_modelType === "Time Dist."
+                                    inputControllerTimeDist.ui_modelType = "Time Dist."
                                 if(radioButtonTimeDistSGV.checked)
-                                    inputControllerTimeDist.ui_modelType === "Time Dist. SGV"
+                                    inputControllerTimeDist.ui_modelType = "Time Dist. SGV"
                                 if(radioButtonTimeDistSkip.checked)
-                                    inputControllerTimeDist.ui_modelType === "Time Dist. Skip"
+                                    inputControllerTimeDist.ui_modelType = "Time Dist. Skip"
                                 if(radioButtonTimeDistDual.checked)
-                                    inputControllerTimeDist.ui_modelType === "Time Dist. Dual"
+                                    inputControllerTimeDist.ui_modelType = "Time Dist. Dual"
 
                                 if(!radioButtonTimeDistSGV.checked) {
                                     inputControllerTimeDist.ui_n = inputN.textFieldText
                                     inputControllerTimeDist.ui_a = inputA.textFieldText
-                                    inputControllerTimeDist.ui_l = inputL.textFieldText
                                     inputControllerTimeDist.ui_c = inputC.textFieldText
                                     inputControllerTimeDist.ui_m = inputM.textFieldText
                                     inputControllerTimeDist.ui_u = inputU.textFieldText
@@ -949,7 +964,7 @@ Window {
                                 } else {
                                     inputControllerTimeDist.ui_n = inputN1.textFieldText
                                     inputControllerTimeDist.ui_a = inputA1.textFieldText
-                                    inputControllerTimeDist.ui_l = inputL1.textFieldText
+                                    inputControllerTimeDist.ui_l = inputL.textFieldText
                                     inputControllerTimeDist.ui_c = inputC1.textFieldText
                                     inputControllerTimeDist.ui_m = inputM1.textFieldText
                                     var u_vec = []
