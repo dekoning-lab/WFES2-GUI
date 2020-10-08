@@ -548,15 +548,6 @@ ApplicationWindow {
                             }
 
                             LabeledTextField {
-                                id: inputL
-                                text: "l: "
-                                toolTipText: "TODO."
-                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
-                                textFieldText: inputControllerTimeDist.ui_l
-                                enabled: (inputControllerTimeDist.ui_modelType == "Time Dist. SGV")
-                            }
-
-                            LabeledTextField {
                                 id: inputC
                                 text: "c: "
                                 toolTipText: "TODO."
@@ -623,7 +614,7 @@ ApplicationWindow {
                             }
 
                             LabeledTextField {
-                                id: inputL1
+                                id: inputL
                                 text: "l: "
                                 toolTipText: "TODO."
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
