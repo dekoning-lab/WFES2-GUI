@@ -90,7 +90,7 @@ Window {
                                 ToolTip.visible: hovered
                                 ToolTip.delay: 1000
                                 ToolTip.timeout: 5000
-                                ToolTip.text: qsTr("TODO.")
+                                ToolTip.text: qsTr("Distribution of time to fixation / extinction.")
 
                                 onCheckedChanged: {
                                     inputN.enabled = checked;
@@ -131,7 +131,7 @@ Window {
                                 ToolTip.visible: hovered
                                 ToolTip.delay: 1000
                                 ToolTip.timeout: 5000
-                                ToolTip.text: qsTr("TODO.")
+                                ToolTip.text: qsTr("Time distribution of fixation with standing genetics variation.")
 
                                 onCheckedChanged: {
                                     inputN.enabled = checked;
@@ -173,7 +173,7 @@ Window {
                                 ToolTip.visible: hovered
                                 ToolTip.delay: 1000
                                 ToolTip.timeout: 5000
-                                ToolTip.text: qsTr("TODO.")
+                                ToolTip.text: qsTr("Distribution of time to absorption, excluding mutation time.")
 
                                 onCheckedChanged: {
                                     inputN.enabled = checked;
@@ -558,7 +558,7 @@ Window {
                             LabeledTextField {
                                 id: inputC
                                 text: "c: "
-                                toolTipText: "TODO."
+                                toolTipText: "Stop once this probability mass is reached."
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
                                 textFieldText: inputControllerTimeDist.ui_c
                             }
@@ -566,10 +566,9 @@ Window {
                             LabeledTextField {
                                 id: inputM
                                 text: "m: "
-                                toolTipText: "TODO."
+                                toolTipText: "Maximum number of generations."
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
                                 textFieldText: inputControllerTimeDist.ui_m
-                                //enabled: //TODO
                             }
 
                         }
@@ -624,7 +623,7 @@ Window {
                             LabeledTextField {
                                 id: inputL
                                 text: "l: "
-                                toolTipText: "TODO."
+                                toolTipText: "Transition probability."
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
                                 textFieldText: inputControllerTimeDist.ui_l
                                 enabled: (inputControllerTimeDist.ui_modelType == "Time Dist. SGV")
@@ -633,7 +632,7 @@ Window {
                             LabeledTextField {
                                 id: inputC1
                                 text: "c: "
-                                toolTipText: "TODO."
+                                toolTipText: "Stop once this probability mass is reached."
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
                                 textFieldText: inputControllerTimeDist.ui_c
                             }
@@ -641,18 +640,16 @@ Window {
                             LabeledTextField {
                                 id: inputM1
                                 text: "m: "
-                                toolTipText: "TODO."
+                                toolTipText: "Maximum number of generations."
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
                                 textFieldText: inputControllerTimeDist.ui_m
-                                //enabled: //TODO
                             }
 
                             LabeledCheckBox {
                                 id: inputR1
                                 text: "r: "
-                                toolTipText: "TODO."
+                                toolTipText: "Exclude recurrent mutation."
                                 checked: inputControllerTimeDist.ui_r
-                                //enabled: //TODO
                             }
                         }
                     }
@@ -699,9 +696,8 @@ Window {
                             LabeledCheckBox {
                                 id: inputR
                                 text: "r: "
-                                toolTipText: "TODO."
+                                toolTipText: "Exclude recurrent mutation."
                                 checked: inputControllerTimeDist.ui_r
-                                //enabled: //TODO
                             }
                         }
                     }

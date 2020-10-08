@@ -34,7 +34,7 @@ namespace wfes {
                 static int num_comp;
 
                 /**
-                 * TODO.
+                 * Transition probability (l).
                  */
                 static double l;
 

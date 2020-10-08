@@ -27,7 +27,13 @@ namespace wfes {
              */
             ConfigTimeDist();
 
+            /**
+             * @brief Get integer position of the enumeration value.
+             * @param modelType Modeltype to test position.
+             * @return Position of modelType in enumaration.
+             */
             static int ModelTypeTimeDistToInt(ModelTypeTimeDist modelType);
+
             /**
              * @brief Library used for solving matrix systems (e.g. pardiso, viennacl...).
              */
