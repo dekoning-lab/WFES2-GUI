@@ -10,7 +10,7 @@ namespace wfes {
         /**
          * @brief Enumeration containing possible model types and NONE as special absent type.
          */
-        enum class ModelType{
+        enum class ModelTypeWfesSingle{
             NONE = 0, ABSORPTION = 1, FIXATION = 2, ESTABLISHMENT = 3, FUNDAMENTAL = 4, EQUILIBRIUM = 5, NON_ABSORBING = 6, ALLELE_AGE = 7
         };
 
@@ -26,7 +26,7 @@ namespace wfes {
                  */
                 ConfigWfesSingle();
 
-                static int ModelTypeWfesSingleToInt(ModelType modelType);
+                static int ModelTypeWfesSingleToInt(ModelTypeWfesSingle modelType);
                 /**
                  * @brief Library used for solving matrix systems (e.g. pardiso, viennacl...).
                  */
@@ -40,7 +40,7 @@ namespace wfes {
                 /**
                  * @brief Type of model used. (e.g. Fixation, Absorption...).
                  */
-                static ModelType modelType;
+                static ModelTypeWfesSingle modelType;
 
                 /**
                  * @brief Size of the population in the Wright Fisher Model (N).

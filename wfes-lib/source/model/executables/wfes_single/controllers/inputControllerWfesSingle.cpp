@@ -433,22 +433,22 @@ QString InputControllerWfesSingle::get_model_type() const
 
 void InputControllerWfesSingle::set_model_type(QString model_type) const
 {
-    if(model_type.compare(wfes::config::ModelTypeNames[wfes::config::ConfigWfesSingle::ModelTypeWfesSingleToInt(wfes::config::ModelType::NONE)]) == 0)
-        wfes::config::ConfigWfesSingle::modelType = wfes::config::ModelType::NONE;
-    if(model_type.compare(wfes::config::ModelTypeNames[wfes::config::ConfigWfesSingle::ModelTypeWfesSingleToInt(wfes::config::ModelType::FIXATION)]) == 0)
-        wfes::config::ConfigWfesSingle::modelType = wfes::config::ModelType::FIXATION;
-    if(model_type.compare(wfes::config::ModelTypeNames[wfes::config::ConfigWfesSingle::ModelTypeWfesSingleToInt(wfes::config::ModelType::ABSORPTION)]) == 0)
-        wfes::config::ConfigWfesSingle::modelType = wfes::config::ModelType::ABSORPTION;
-    if(model_type.compare(wfes::config::ModelTypeNames[wfes::config::ConfigWfesSingle::ModelTypeWfesSingleToInt(wfes::config::ModelType::ESTABLISHMENT)]) == 0)
-        wfes::config::ConfigWfesSingle::modelType = wfes::config::ModelType::ESTABLISHMENT;
-    if(model_type.compare(wfes::config::ModelTypeNames[wfes::config::ConfigWfesSingle::ModelTypeWfesSingleToInt(wfes::config::ModelType::FUNDAMENTAL)]) == 0)
-        wfes::config::ConfigWfesSingle::modelType = wfes::config::ModelType::FUNDAMENTAL;
-    if(model_type.compare(wfes::config::ModelTypeNames[wfes::config::ConfigWfesSingle::ModelTypeWfesSingleToInt(wfes::config::ModelType::EQUILIBRIUM)]) == 0)
-        wfes::config::ConfigWfesSingle::modelType = wfes::config::ModelType::EQUILIBRIUM;
-    if(model_type.compare(wfes::config::ModelTypeNames[wfes::config::ConfigWfesSingle::ModelTypeWfesSingleToInt(wfes::config::ModelType::NON_ABSORBING)]) == 0)
-        wfes::config::ConfigWfesSingle::modelType = wfes::config::ModelType::NON_ABSORBING;
-    if(model_type.compare(wfes::config::ModelTypeNames[wfes::config::ConfigWfesSingle::ModelTypeWfesSingleToInt(wfes::config::ModelType::ALLELE_AGE)]) == 0)
-        wfes::config::ConfigWfesSingle::modelType = wfes::config::ModelType::ALLELE_AGE;
+    if(model_type.compare(wfes::config::ModelTypeNames[wfes::config::ConfigWfesSingle::ModelTypeWfesSingleToInt(wfes::config::ModelTypeWfesSingle::NONE)]) == 0)
+        wfes::config::ConfigWfesSingle::modelType = wfes::config::ModelTypeWfesSingle::NONE;
+    if(model_type.compare(wfes::config::ModelTypeNames[wfes::config::ConfigWfesSingle::ModelTypeWfesSingleToInt(wfes::config::ModelTypeWfesSingle::FIXATION)]) == 0)
+        wfes::config::ConfigWfesSingle::modelType = wfes::config::ModelTypeWfesSingle::FIXATION;
+    if(model_type.compare(wfes::config::ModelTypeNames[wfes::config::ConfigWfesSingle::ModelTypeWfesSingleToInt(wfes::config::ModelTypeWfesSingle::ABSORPTION)]) == 0)
+        wfes::config::ConfigWfesSingle::modelType = wfes::config::ModelTypeWfesSingle::ABSORPTION;
+    if(model_type.compare(wfes::config::ModelTypeNames[wfes::config::ConfigWfesSingle::ModelTypeWfesSingleToInt(wfes::config::ModelTypeWfesSingle::ESTABLISHMENT)]) == 0)
+        wfes::config::ConfigWfesSingle::modelType = wfes::config::ModelTypeWfesSingle::ESTABLISHMENT;
+    if(model_type.compare(wfes::config::ModelTypeNames[wfes::config::ConfigWfesSingle::ModelTypeWfesSingleToInt(wfes::config::ModelTypeWfesSingle::FUNDAMENTAL)]) == 0)
+        wfes::config::ConfigWfesSingle::modelType = wfes::config::ModelTypeWfesSingle::FUNDAMENTAL;
+    if(model_type.compare(wfes::config::ModelTypeNames[wfes::config::ConfigWfesSingle::ModelTypeWfesSingleToInt(wfes::config::ModelTypeWfesSingle::EQUILIBRIUM)]) == 0)
+        wfes::config::ConfigWfesSingle::modelType = wfes::config::ModelTypeWfesSingle::EQUILIBRIUM;
+    if(model_type.compare(wfes::config::ModelTypeNames[wfes::config::ConfigWfesSingle::ModelTypeWfesSingleToInt(wfes::config::ModelTypeWfesSingle::NON_ABSORBING)]) == 0)
+        wfes::config::ConfigWfesSingle::modelType = wfes::config::ModelTypeWfesSingle::NON_ABSORBING;
+    if(model_type.compare(wfes::config::ModelTypeNames[wfes::config::ConfigWfesSingle::ModelTypeWfesSingleToInt(wfes::config::ModelTypeWfesSingle::ALLELE_AGE)]) == 0)
+        wfes::config::ConfigWfesSingle::modelType = wfes::config::ModelTypeWfesSingle::ALLELE_AGE;
 
 }
 

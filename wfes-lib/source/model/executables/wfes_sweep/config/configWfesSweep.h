@@ -10,7 +10,7 @@ namespace wfes {
          * @brief Enumeration containing possible model types and NONE as special absent type.
          */
         enum class ModelTypeWfesSweep{
-            NONE = 0, FIXATION = 1, TIME_DIST_SGV = 2, TIME_DIST_SKIP = 3, TIME_DIST_DUAL = 4
+            NONE = 0, FIXATION = 1
         };
 
         /**
@@ -51,7 +51,7 @@ namespace wfes {
                 /**
                  * @brief Size of the population in the Wright Fisher Model (N).
                  */
-                static ivec population_sizes;
+                static int population_size;
 
                 /**
                  * @brief Starting number of copies - no integration (p).
@@ -109,6 +109,36 @@ namespace wfes {
                 static std::string initial_distribution_csv;
 
                 /**
+                 * @brief Output Q.
+                 */
+                static bool output_Q;
+
+                /**
+                 * @brief Output R.
+                 */
+                static bool output_R;
+
+                /**
+                 * @brief Output N.
+                 */
+                static bool output_N;
+
+                /**
+                 * @brief Output B.
+                 */
+                static bool output_B;
+
+                /**
+                 * @brief Output I (Initial probability distribution).
+                 */
+                static bool output_I;
+
+                /**
+                 * @brief Output Res (Generated results).
+                 */
+                static bool output_Res;
+
+                /**
                  * @brief Path output Q.
                  */
                 static std::string path_output_Q;
@@ -142,6 +172,11 @@ namespace wfes {
                  * @brief Do not perform parameter checks.
                  */
                 static bool force;
+
+                /**
+                 * @brief Verbose solver output (TODO Not Used In GUI.)
+                 */
+                static bool verbose;
 
 
         };

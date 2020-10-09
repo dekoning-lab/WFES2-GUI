@@ -13,7 +13,7 @@
 class ResultsWfesSingle
 {
 public:
-    wfes::config::ModelType modelType;
+    wfes::config::ModelTypeWfesSingle modelType;
     double pExt;
     double pFix;
     double tAbs;
@@ -56,35 +56,35 @@ public:
     ResultsWfesSingle(double time);
 
     // Absorption
-    ResultsWfesSingle(wfes::config::ModelType modelType, double pExt,
+    ResultsWfesSingle(wfes::config::ModelTypeWfesSingle modelType, double pExt,
             double pFix, double tAbs, double tAbsStd, double tExt,
             double tExtStd, double nExt, double tFix, double tFixStd, double time,
             QImage* imageI, QImage* imageQ, QImage* imageR, QImage* imageN, QImage* imageNExt, QImage* imageNFix, QImage* imageB);
 
     // Fixation
-    ResultsWfesSingle(wfes::config::ModelType modelType, double tFix, double tFixStd, double rate, double time,
+    ResultsWfesSingle(wfes::config::ModelTypeWfesSingle modelType, double tFix, double tFixStd, double rate, double time,
             QImage* imageI, QImage* imageQ, QImage* imageR, QImage* imageN, QImage* imageB);
 
     // Fundamental
-    ResultsWfesSingle(wfes::config::ModelType modelType, double time,
+    ResultsWfesSingle(wfes::config::ModelTypeWfesSingle modelType, double time,
             QImage* imageI, QImage* imageQ, QImage* imageR, QImage* imageN, QImage* imageV);
 
     // Equilibrium
-    ResultsWfesSingle(wfes::config::ModelType modelType, double freqMut, double freqWt, double time,
+    ResultsWfesSingle(wfes::config::ModelTypeWfesSingle modelType, double freqMut, double freqWt, double time,
             QImage* imageI, QImage* imageE);
 
     // Establishment
-    ResultsWfesSingle(wfes::config::ModelType modelType, double fEst, double pEst, double tSeg, double tSegStd,
+    ResultsWfesSingle(wfes::config::ModelTypeWfesSingle modelType, double fEst, double pEst, double tSeg, double tSegStd,
             double tSegExt, double tSegExtStd, double tSegFix,
             double tSegFixStd, double tEst, double tEstStd, double time,
             QImage* imageI, QImage* imageQ, QImage* imageR);
 
     // Allele Age.
-    ResultsWfesSingle(wfes::config::ModelType modelType, double eAlleleAge, double sAlleleAge, bool alelle, double time,
+    ResultsWfesSingle(wfes::config::ModelTypeWfesSingle modelType, double eAlleleAge, double sAlleleAge, bool alelle, double time,
             QImage* imageI, QImage* imageQ, QImage* imageR);
 
     // Non absorbing.
-    ResultsWfesSingle(wfes::config::ModelType modelType, bool nonAbsorbing, double time,
+    ResultsWfesSingle(wfes::config::ModelTypeWfesSingle modelType, bool nonAbsorbing, double time,
             QImage* imageI, QImage* imageQ);
 
     /**

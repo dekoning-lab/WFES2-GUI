@@ -4,7 +4,7 @@ using namespace wfes::config;
 
 std::string ConfigWfesSingle::library = "ViennaCL";
 std::string ConfigWfesSingle::vienna_solver = "BicGStab";
-ModelType ConfigWfesSingle::modelType = ModelType::ABSORPTION;
+ModelTypeWfesSingle ConfigWfesSingle::modelType = ModelTypeWfesSingle::ABSORPTION;
 int ConfigWfesSingle::population_size = 10000;
 double ConfigWfesSingle::s = 0.005;
 double ConfigWfesSingle::h = 0.5;
@@ -64,23 +64,23 @@ ConfigWfesSingle::ConfigWfesSingle() {
 }
 
 
-int ConfigWfesSingle::ModelTypeWfesSingleToInt(ModelType modelType){
+int ConfigWfesSingle::ModelTypeWfesSingleToInt(ModelTypeWfesSingle modelType){
     switch(modelType){
-    case ModelType::ABSORPTION:
+    case ModelTypeWfesSingle::ABSORPTION:
         return 1;
-    case ModelType::FIXATION:
+    case ModelTypeWfesSingle::FIXATION:
         return 2;
-    case ModelType::ESTABLISHMENT:
+    case ModelTypeWfesSingle::ESTABLISHMENT:
         return 3;
-    case ModelType::FUNDAMENTAL:
+    case ModelTypeWfesSingle::FUNDAMENTAL:
         return 4;
-    case ModelType::EQUILIBRIUM:
+    case ModelTypeWfesSingle::EQUILIBRIUM:
         return 5;
-    case ModelType::NON_ABSORBING:
+    case ModelTypeWfesSingle::NON_ABSORBING:
         return 6;
-    case ModelType::ALLELE_AGE:
+    case ModelTypeWfesSingle::ALLELE_AGE:
         return 7;
-    case ModelType::NONE:
+    case ModelTypeWfesSingle::NONE:
     default:
         return 0;
     }

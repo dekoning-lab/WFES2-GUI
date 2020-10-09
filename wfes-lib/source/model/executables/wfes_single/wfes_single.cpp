@@ -19,9 +19,6 @@ ResultsWfesSingle* wfes_single::execute()
     // Select verbose level for Intel MKL Pardiso.
     msg_level = ConfigWfesSingle::verbose ? MKL_PARDISO_MSG_VERBOSE : MKL_PARDISO_MSG_QUIET;
 
-    // If force is not activated, show error when values are not in expected ranges.
-    this->force();
-
     // Set number of threads for intel MKL Pardiso.
     #ifdef OMP
         omp_set_num_threads(Config::n_threads);
@@ -30,6 +27,9 @@ ResultsWfesSingle* wfes_single::execute()
 
     //Notify starting.
     this->notify(ExecutionStatus::STARTING);
+
+    // If force is not activated, show error when values are not in expected ranges.
+    this->force();
 
     // Set value for starting copies if the user has provided an initial distribution,
     // load it and calculate starting copies p.
@@ -45,24 +45,24 @@ ResultsWfesSingle* wfes_single::execute()
 
     // All cases (models) are wrapped in this switch instruction.
     switch(ConfigWfesSingle::modelType) {
-        case ModelType::ABSORPTION:
+        case ModelTypeWfesSingle::ABSORPTION:
             return this->absorption();
-        case ModelType::FIXATION:
+        case ModelTypeWfesSingle::FIXATION:
             return this->fixation();
-        case ModelType::FUNDAMENTAL:
+        case ModelTypeWfesSingle::FUNDAMENTAL:
             return this->fundamental();
-        case ModelType::EQUILIBRIUM:
+        case ModelTypeWfesSingle::EQUILIBRIUM:
             return this->equilibrium();
-        case ModelType::ESTABLISHMENT:
+        case ModelTypeWfesSingle::ESTABLISHMENT:
             return this->establishment();
-        case ModelType::ALLELE_AGE:
+        case ModelTypeWfesSingle::ALLELE_AGE:
             return this->alleleAge();
-        case ModelType::NON_ABSORBING:
+        case ModelTypeWfesSingle::NON_ABSORBING:
             return this->nonAbsorbing();
 
         // If for some reason there is an error and the selected model type is none, or any of the previous one,
         // return default results, which is formed by nan values, so the GUI does not show anything.
-        case ModelType::NONE:
+        case ModelTypeWfesSingle::NONE:
         default:
             // TODO Show error as dialog.
             return new ResultsWfesSingle();

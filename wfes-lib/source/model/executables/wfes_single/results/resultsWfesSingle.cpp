@@ -2,7 +2,7 @@
 
 // Empty constructor
 ResultsWfesSingle::ResultsWfesSingle() :
-    modelType(wfes::config::ModelType::NONE), pExt(std::nan("")), pFix(std::nan("")), tAbs(std::nan("")),
+    modelType(wfes::config::ModelTypeWfesSingle::NONE), pExt(std::nan("")), pFix(std::nan("")), tAbs(std::nan("")),
       tAbsStd(std::nan("")), tExt(std::nan("")), tExtStd(std::nan("")), nExt(std::nan("")),
       tFix(std::nan("")), tFixStd(std::nan("")), rate(std::nan("")),
 
@@ -20,7 +20,7 @@ ResultsWfesSingle::ResultsWfesSingle() :
 
 // Empty constructor with time
 ResultsWfesSingle::ResultsWfesSingle(double time)  :
-    modelType(wfes::config::ModelType::NONE), pExt(std::nan("")), pFix(std::nan("")), tAbs(std::nan("")),
+    modelType(wfes::config::ModelTypeWfesSingle::NONE), pExt(std::nan("")), pFix(std::nan("")), tAbs(std::nan("")),
       tAbsStd(std::nan("")), tExt(std::nan("")), tExtStd(std::nan("")), nExt(std::nan("")),
       tFix(std::nan("")), tFixStd(std::nan("")), rate(std::nan("")),
 
@@ -37,7 +37,7 @@ ResultsWfesSingle::ResultsWfesSingle(double time)  :
       imageI(nullptr), imageQ(nullptr), imageR(nullptr), imageN(nullptr), imageNExt(nullptr), imageNFix(nullptr), imageB(nullptr), imageV(nullptr), imageE(nullptr){}
 
 // Absorption
-ResultsWfesSingle::ResultsWfesSingle(wfes::config::ModelType modelType, double pExt,
+ResultsWfesSingle::ResultsWfesSingle(wfes::config::ModelTypeWfesSingle modelType, double pExt,
                  double pFix, double tAbs, double tAbsStd, double tExt,
                  double tExtStd, double nExt, double tFix, double tFixStd, double time,
                  QImage* imageI, QImage* imageQ, QImage* imageR, QImage* imageN, QImage* imageNExt, QImage* imageNFix, QImage* imageB) :
@@ -57,7 +57,7 @@ ResultsWfesSingle::ResultsWfesSingle(wfes::config::ModelType modelType, double p
     imageI(imageI), imageQ(imageQ), imageR(imageR), imageN(imageN), imageNExt(imageNExt), imageNFix(imageNFix), imageB(imageB), imageV(nullptr), imageE(nullptr){}
 
 // Fixation
-ResultsWfesSingle::ResultsWfesSingle(wfes::config::ModelType modelType, double tFix, double tFixStd, double rate, double time, QImage* imageI, QImage* imageQ, QImage* imageR, QImage* imageN, QImage* imageB) :
+ResultsWfesSingle::ResultsWfesSingle(wfes::config::ModelTypeWfesSingle modelType, double tFix, double tFixStd, double rate, double time, QImage* imageI, QImage* imageQ, QImage* imageR, QImage* imageN, QImage* imageB) :
     modelType(modelType), pExt(std::nan("")), pFix(std::nan("")), tAbs(std::nan("")),
       tAbsStd(std::nan("")), tExt(std::nan("")), tExtStd(std::nan("")), nExt(std::nan("")),
       tFix(tFix), tFixStd(tFixStd), rate(rate),
@@ -75,7 +75,7 @@ ResultsWfesSingle::ResultsWfesSingle(wfes::config::ModelType modelType, double t
       imageI(imageI), imageQ(imageQ), imageR(imageR), imageN(imageN), imageNExt(nullptr), imageNFix(nullptr), imageB(imageB), imageV(nullptr), imageE(nullptr){}
 
 // Fundamental
-ResultsWfesSingle::ResultsWfesSingle(wfes::config::ModelType modelType, double time, QImage* imageI, QImage* imageQ, QImage* imageR, QImage* imageN, QImage* imageV) :
+ResultsWfesSingle::ResultsWfesSingle(wfes::config::ModelTypeWfesSingle modelType, double time, QImage* imageI, QImage* imageQ, QImage* imageR, QImage* imageN, QImage* imageV) :
     modelType(modelType), pExt(std::nan("")), pFix(std::nan("")), tAbs(std::nan("")),
       tAbsStd(std::nan("")), tExt(std::nan("")), tExtStd(std::nan("")), nExt(std::nan("")),
       tFix(std::nan("")), tFixStd(std::nan("")), rate(std::nan("")),
@@ -93,7 +93,7 @@ ResultsWfesSingle::ResultsWfesSingle(wfes::config::ModelType modelType, double t
       imageI(imageI), imageQ(imageQ), imageR(imageR), imageN(imageN), imageNExt(nullptr), imageNFix(nullptr), imageB(nullptr), imageV(imageV), imageE(nullptr){}
 
 // Equilibrium
-ResultsWfesSingle::ResultsWfesSingle(wfes::config::ModelType modelType, double freqMut, double freqWt, double time, QImage* imageI, QImage* imageE) :
+ResultsWfesSingle::ResultsWfesSingle(wfes::config::ModelTypeWfesSingle modelType, double freqMut, double freqWt, double time, QImage* imageI, QImage* imageE) :
     modelType(modelType), pExt(std::nan("")), pFix(std::nan("")), tAbs(std::nan("")),
     tAbsStd(std::nan("")), tExt(std::nan("")), tExtStd(std::nan("")), nExt(std::nan("")),
     tFix(std::nan("")), tFixStd(std::nan("")), rate(std::nan("")),
@@ -111,7 +111,7 @@ ResultsWfesSingle::ResultsWfesSingle(wfes::config::ModelType modelType, double f
     imageI(imageI), imageQ(nullptr), imageR(nullptr), imageN(nullptr), imageNExt(nullptr), imageNFix(nullptr), imageB(nullptr), imageV(nullptr), imageE(imageE){}
 
 // Establishment
-ResultsWfesSingle::ResultsWfesSingle(wfes::config::ModelType modelType, double fEst, double pEst, double tSeg, double tSegStd, double tSegExt, double tSegExtStd, double tSegFix, double tSegFixStd, double tEst, double tEstStd, double time, QImage* imageI, QImage* imageQ, QImage* imageR) :
+ResultsWfesSingle::ResultsWfesSingle(wfes::config::ModelTypeWfesSingle modelType, double fEst, double pEst, double tSeg, double tSegStd, double tSegExt, double tSegExtStd, double tSegFix, double tSegFixStd, double tEst, double tEstStd, double time, QImage* imageI, QImage* imageQ, QImage* imageR) :
       modelType(modelType), pExt(std::nan("")), pFix(std::nan("")), tAbs(std::nan("")),
       tAbsStd(std::nan("")), tExt(std::nan("")), tExtStd(std::nan("")), nExt(std::nan("")),
       tFix(std::nan("")), tFixStd(std::nan("")), rate(std::nan("")),
@@ -129,7 +129,7 @@ ResultsWfesSingle::ResultsWfesSingle(wfes::config::ModelType modelType, double f
       imageI(imageI), imageQ(imageQ), imageR(imageR), imageN(nullptr), imageNExt(nullptr), imageNFix(nullptr), imageB(nullptr), imageV(nullptr), imageE(nullptr){}
 
 // Allele Age
-ResultsWfesSingle::ResultsWfesSingle(wfes::config::ModelType modelType, double eAlleleAge, double sAlleleAge, bool allele, double time, QImage* imageI, QImage* imageQ, QImage* imageR) :
+ResultsWfesSingle::ResultsWfesSingle(wfes::config::ModelTypeWfesSingle modelType, double eAlleleAge, double sAlleleAge, bool allele, double time, QImage* imageI, QImage* imageQ, QImage* imageR) :
     modelType(modelType), pExt(std::nan("")), pFix(std::nan("")), tAbs(std::nan("")),
       tAbsStd(std::nan("")), tExt(std::nan("")), tExtStd(std::nan("")), nExt(std::nan("")),
       tFix(std::nan("")), tFixStd(std::nan("")), rate(std::nan("")),
@@ -147,7 +147,7 @@ ResultsWfesSingle::ResultsWfesSingle(wfes::config::ModelType modelType, double e
       imageI(imageI), imageQ(imageQ), imageR(imageR), imageN(nullptr), imageNExt(nullptr), imageNFix(nullptr), imageB(nullptr), imageV(nullptr), imageE(nullptr){}
 
 // Non absorbing
-ResultsWfesSingle::ResultsWfesSingle(wfes::config::ModelType modelType, bool nonAbsorbing, double time, QImage* imageI, QImage* imageQ) :
+ResultsWfesSingle::ResultsWfesSingle(wfes::config::ModelTypeWfesSingle modelType, bool nonAbsorbing, double time, QImage* imageI, QImage* imageQ) :
     modelType(modelType), pExt(std::nan("")), pFix(std::nan("")), tAbs(std::nan("")),
       tAbsStd(std::nan("")), tExt(std::nan("")), tExtStd(std::nan("")), nExt(std::nan("")),
       tFix(std::nan("")), tFixStd(std::nan("")), rate(std::nan("")),

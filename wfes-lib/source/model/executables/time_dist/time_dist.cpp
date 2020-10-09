@@ -97,7 +97,7 @@ ResultsTimeDist *time_dist::timeDistSGV()
 {
 
     // TODO Show as dialog.
-    if(ConfigTimeDistSGV::s.size() != 2)  throw exception::Error("Selection coefficient vector should be longer than 2");
+    if(ConfigTimeDistSGV::s.size() != 2)  throw exception::Error("Selection coefficient vector should be of length 2");
 
     if (!ConfigTimeDistSGV::force) {
         if (ConfigTimeDist::population_size > 500000) {
@@ -121,7 +121,7 @@ ResultsTimeDist *time_dist::timeDistSGV()
 
     dmat switching(2, 2); switching << 1 - ConfigTimeDistSGV::l, ConfigTimeDistSGV::l, 0, 1;
 
-    wrightfisher::Matrix wf = wrightfisher::NonAbsorbingToFixationOnly(ConfigTimeDist::population_size, ConfigTimeDistSGV::s, ConfigTimeDistSGV::h, ConfigTimeDistSGV::u, ConfigTimeDistSGV::v, switching, ConfigTimeDist::a, ConfigTimeDist::verbose, ConfigTimeDist::b);
+    wrightfisher::Matrix wf = wrightfisher::NonAbsorbingToFixationOnly(ConfigTimeDist::population_size, ConfigTimeDistSGV::s, ConfigTimeDistSGV::h, ConfigTimeDistSGV::u, ConfigTimeDistSGV::v, switching, ConfigTimeDist::a, msg_level, ConfigTimeDist::b);
 
     if (ConfigTimeDist::output_Q)
         wf.Q->saveMarket(ConfigTimeDist::path_output_Q);
@@ -166,7 +166,7 @@ ResultsTimeDist *time_dist::timeDistSkip()
 {
     wrightfisher::Matrix wf = wrightfisher::Bounce(ConfigTimeDist::population_size, ConfigTimeDist::population_size,
                                                    ConfigTimeDist::s, ConfigTimeDist::h, ConfigTimeDist::u, ConfigTimeDist::v,
-                                                   ConfigTimeDist::rem, ConfigTimeDist::a, ConfigTimeDist::verbose, ConfigTimeDist::b);
+                                                   ConfigTimeDist::rem, ConfigTimeDist::a, msg_level, ConfigTimeDist::b);
 
     //Notify saving data.
     this->notify(ExecutionStatus::SAVING_DATA);
@@ -209,7 +209,7 @@ ResultsTimeDist *time_dist::timeDistSkip()
 
 ResultsTimeDist *time_dist::timeDistDual()
 {
-    wrightfisher::Matrix wf = wrightfisher::DualMutation(ConfigTimeDist::population_size, ConfigTimeDist::population_size, ConfigTimeDist::s, ConfigTimeDist::h, ConfigTimeDist::u, ConfigTimeDist::v, ConfigTimeDist::rem, ConfigTimeDist::a, ConfigTimeDist::verbose, ConfigTimeDist::b);
+    wrightfisher::Matrix wf = wrightfisher::DualMutation(ConfigTimeDist::population_size, ConfigTimeDist::population_size, ConfigTimeDist::s, ConfigTimeDist::h, ConfigTimeDist::u, ConfigTimeDist::v, ConfigTimeDist::rem, ConfigTimeDist::a, msg_level, ConfigTimeDist::b);
 
     //Notify saving data.
     this->notify(ExecutionStatus::SAVING_DATA);
