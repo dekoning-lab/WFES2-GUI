@@ -873,23 +873,6 @@ Window {
                                         text: "Library:"
                                         model: ["Pardiso", "ViennaCL"]
                                         toolTipText: "Library used for solving matrix systems."
-                                        onTextChanged: {
-                                            if(comboBoxLibrary.currentText === "Pardiso") {
-                                                comboBoxBackend.enabled = false
-                                                comboBoxSolver.enabled = false
-                                            }else if (comboBoxLibrary.currentText === "ViennaCL"){
-                                                comboBoxBackend.enabled = true
-                                                comboBoxSolver.enabled = true
-                                            }
-                                        }
-                                    }
-
-                                    LabeledComboBox {
-                                        id: comboBoxSolver
-                                        text: "Solver:"
-                                        toolTipText: "Solver used by viennacl."
-                                        model: ["GMRes", "BicGStab"]
-                                        enabled: (comboBoxLibrary.currentText === "ViennaCL")
                                     }
 
                                 }
@@ -992,7 +975,6 @@ Window {
                                 inputControllerTimeDist.ui_t = inputT.textFieldText
 
                                 inputControllerTimeDist.ui_library = comboBoxLibrary.currentText;
-                                inputControllerTimeDist.ui_solver = comboBoxSolver.currentText;
 
                                 inputControllerTimeDist.ui_force = inputForce.checked
 
