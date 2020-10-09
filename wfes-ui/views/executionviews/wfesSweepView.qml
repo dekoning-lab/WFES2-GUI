@@ -103,13 +103,13 @@ Window {
 
                     Rectangle {
                         height: 1
-                        width: timeDistSGVSection.width
+                        width: componentsSection.width
                         color: Universal.baseHighColor
                     }
 
                     Rectangle {
-                        id: timeDistSGVSection
-                        width: timeDistSGVCommonSection.width + 10
+                        id: componentsSection
+                        width: commonSection.width + 10
                         height: childrenRect.height
 
                         color: "transparent"
@@ -117,7 +117,7 @@ Window {
                         Layout.alignment: Qt.AlignTop
 
                         TabView {
-                            id: timeDistSGVSectionTabView
+                            id: componentsSectionTabView
                             width: parent.width
                             height: 170
                             Tab {
@@ -371,12 +371,12 @@ Window {
 
                     Rectangle {
                         height: 1
-                        width: timeDistSGVSection.width
+                        width: commonSection.width
                         color: Universal.baseHighColor
                     }
 
                     Rectangle {
-                        id: timeDistSGVCommonSection
+                        id: commonSection
                         width: childrenRect.width
                         height: childrenRect.height
 
@@ -388,7 +388,7 @@ Window {
                         }
 
                         GridLayout {
-                            id: timeDistSGVCommonSectionGrid
+                            id: commonSectionGrid
                             columns: 2
                             anchors {
                                 top: labelCommonParameters.bottom
@@ -421,7 +421,7 @@ Window {
                             }
 
                             LabeledTextField {
-                                id: inputC1
+                                id: inputC
                                 text: "c: "
                                 toolTipText: "TODO."
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
@@ -674,6 +674,42 @@ Window {
                             onClicked: {
                                 if (radioButtonFixation.checked)
                                     outputControllerWfesSweep.ui_modelType = "Fixation"
+
+                                inputControllerWfesSweep.ui_n = inputN.textFieldText
+                                inputControllerWfesSweep.ui_a = inputA.textFieldText
+                                inputControllerWfesSweep.ui_l = inputL.textFieldText
+                                inputControllerWfesSweep.ui_c = inputC.textFieldText
+                                inputControllerWfesSweep.ui_p - inputP.textFieldText
+                                var u_vec = []
+                                var v_vec = []
+                                var s_vec = []
+                                var h_vec = []
+                                for(var i = 0; i < 2; i++) {
+                                    componentsSectionTabView.getTab(i).active = true
+                                    var u = componentsSectionTabView.getTab(i).item.children[0].children[1].children[0].textFieldText
+                                    var v = componentsSectionTabView.getTab(i).item.children[0].children[1].children[1].textFieldText
+                                    var s = componentsSectionTabView.getTab(i).item.children[1].children[1].children[0].textFieldText
+                                    var h = componentsSectionTabView.getTab(i).item.children[1].children[1].children[1].textFieldText
+                                    u_vec.push(u)
+                                    v_vec.push(v)
+                                    s_vec.push(s)
+                                    h_vec.push(h)
+                                }
+                                inputControllerWfesSweep.ui_u_vec = u_vec
+                                inputControllerWfesSweep.ui_v_vec = v_vec
+                                inputControllerWfesSweep.ui_s_vec = s_vec
+                                inputControllerWfesSweep.ui_h_vec = h_vec
+
+                                inputControllerWfesSweep.ui_output_Q = inputWriteQ.checked
+                                inputControllerWfesSweep.ui_output_R = inputWriteR.checked
+                                inputControllerWfesSweep.ui_output_B = inputWriteB.checked
+                                inputControllerWfesSweep.ui_output_N = inputWriteN.checked
+                                inputControllerWfesSweep.ui_output_I = inputWriteI.checked
+                                inputControllerWfesSweep.ui_output_Res = inputWriteRes.checked
+
+                                inputControllerWfesSweep.ui_t = inputT.textFieldText
+                                inputControllerWfesSweep.ui_library = comboBoxLibrary.currentText;
+                                inputControllerWfesSweep.ui_force = inputForce.checked
 
                                 if(outputControllerWfesSweep.ui_get_error_message === "") {
                                     executeButton.enabled = false
