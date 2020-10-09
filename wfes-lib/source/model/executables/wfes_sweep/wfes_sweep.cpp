@@ -149,7 +149,7 @@ void wfes_sweep::calculateZ()
     } else {
         for(llong i = 0; starting_copies_p(i) > ConfigWfesSweep::integration_cutoff; i++, z++);
     }
-    if(ConfigWfesSweep::starting_copies.minCoeff() != 0 || ConfigWfesSweep::starting_copies.maxCoeff() != 0) z = 1;
+    if(ConfigWfesSweep::starting_copies != 0) z = 1;
 
 
 }

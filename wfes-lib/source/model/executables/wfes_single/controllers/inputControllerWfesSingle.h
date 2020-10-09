@@ -58,7 +58,7 @@ namespace wfes {
             public:
 
                 /**
-                 * @brief InputController Constructor.
+                 * @brief InputControllerWfesSingle Constructor.
                  * @param parent To be used by Qt.
                  */
                 explicit InputControllerWfesSingle(QObject* parent = nullptr);

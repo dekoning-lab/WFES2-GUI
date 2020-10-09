@@ -56,7 +56,7 @@ namespace wfes {
                 /**
                  * @brief Starting number of copies - no integration (p).
                  */
-                static ivec starting_copies;
+                static int starting_copies;
 
                 /**
                  * @brief Backward mutation rates for each component (u).
@@ -178,6 +178,15 @@ namespace wfes {
                  */
                 static bool verbose;
 
+                /**
+                 * @brief Error messages to show if there is an error.
+                 */
+                static std::string error;
+
+                /**
+                 * @brief Number of components used.
+                 */
+                static int num_comp;
 
         };
     }

@@ -8,6 +8,7 @@
 #include <source/model/executables/wfes_single/config/configWfesSingle.h>
 #include <source/model/executables/time_dist/controllers/inputControllerTimeDist.h>
 #include <source/model/executables/time_dist/controllers/outputControllerTimeDist.h>
+#include <model/executables/wfes_sweep/controllers/inputControllerWfesSweep.h>
 
 int main(int argc, char *argv[])
 {
@@ -25,10 +26,14 @@ int main(int argc, char *argv[])
     qmlRegisterType<wfes::controllers::OutputControllerTimeDist>("WFES", 1, 0, "OutputControllerTimeDist");
     qmlRegisterType<wfes::controllers::InputControllerTimeDist>("WFES", 1, 0, "InputControllerTimeDist");
 
+    qmlRegisterType<wfes::controllers::InputControllerWfesSweep>("WFES", 1, 0, "InputControllerWfesSweep");
+
     wfes::controllers::OutputControllerWfesSingle outputControllerWfesSingle;
     wfes::controllers::InputControllerWfesSingle inputControllerWfesSingle;
     wfes::controllers::OutputControllerTimeDist outputControllerTimeDist;
     wfes::controllers::InputControllerTimeDist inputControllerTimeDist;
+
+    wfes::controllers::InputControllerWfesSweep inputControllerWfesSweep;
 
     QQmlApplicationEngine engine;
     engine.addImportPath("qrc:/");
@@ -37,6 +42,8 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("inputControllerWfesSingle", &inputControllerWfesSingle);
     engine.rootContext()->setContextProperty("outputControllerTimeDist", &outputControllerTimeDist);
     engine.rootContext()->setContextProperty("inputControllerTimeDist", &inputControllerTimeDist);
+
+    engine.rootContext()->setContextProperty("inputControllerWfesSweep", &inputControllerWfesSweep);
 
     const QUrl url(QStringLiteral("qrc:/views/mainview/MainView.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,

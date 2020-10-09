@@ -21,6 +21,7 @@ std::string ConfigWfesSweep::library = "ViennaCL";
 std::string ConfigWfesSweep::vienna_solver = "BicGStab";
 double ConfigWfesSweep::a = 1e-20;
 int ConfigWfesSweep::b = 100;
+int ConfigWfesSweep::starting_copies = 0;
 int ConfigWfesSweep::n_threads = 1;
 double ConfigWfesSweep::integration_cutoff = 1 - 1e-8;
 double ConfigWfesSweep::l = 1e-20;
@@ -42,14 +43,9 @@ std::string ConfigWfesSweep::path_output_Res = "output_Res.csv";
 
 bool ConfigWfesSweep::force = false;
 bool ConfigWfesSweep::verbose = false;
-
+std::string ConfigWfesSweep::error = "";
+int ConfigWfesSweep::num_comp = 2;
 int ConfigWfesSweep::population_size = 10000;
-
-ivec ConfigWfesSweep::starting_copies = [] {
-    ivec tmp(2);
-    tmp << 0, 0;
-    return tmp;
-}();
 
 dvec ConfigWfesSweep::u = [] {
     dvec tmp(2);
