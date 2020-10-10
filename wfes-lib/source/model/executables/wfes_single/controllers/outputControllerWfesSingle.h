@@ -72,13 +72,13 @@ namespace wfes {
                 QString progress = "";
 
                 /**
-                 * @brief OutputController .Constructor
+                 * @brief OutputControllerWfesSingle constructor
                  * @param parent To be used by Qt.
                  */
                 explicit OutputControllerWfesSingle(QObject* parent = nullptr);
 
                 /**
-                 * @brief InputController Destructor.
+                 * @brief OutputControllerWfesSingle Destructor.
                  */
                 ~OutputControllerWfesSingle();
 

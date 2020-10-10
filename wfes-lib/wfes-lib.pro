@@ -43,6 +43,7 @@ HEADERS += \
     source/model/executables/wfes_single/thread/workerThreadWfesSingle.h \
     source/model/executables/wfes_sweep/config/configWfesSweep.h \
     source/model/executables/wfes_sweep/controllers/inputControllerWfesSweep.h \
+    source/model/executables/wfes_sweep/controllers/outputControllerWfesSweep.h \
     source/model/executables/wfes_sweep/results/resultsWfesSweep.h \
     source/model/executables/wfes_sweep/thread/workerThreadWfesSweep.h \
     source/model/executables/wfes_sweep/wfes_sweep.h \
@@ -81,6 +82,7 @@ SOURCES += \
     source/model/executables/wfes_single/thread/workerThreadWfesSingle.cpp \
     source/model/executables/wfes_sweep/config/configWfesSweep.cpp \
     source/model/executables/wfes_sweep/controllers/inputControllerWfesSweep.cpp \
+    source/model/executables/wfes_sweep/controllers/outputControllerWfesSweep.cpp \
     source/model/executables/wfes_sweep/results/resultsWfesSweep.cpp \
     source/model/executables/wfes_sweep/thread/workerThreadWfesSweep.cpp \
     source/model/executables/wfes_sweep/wfes_sweep.cpp \

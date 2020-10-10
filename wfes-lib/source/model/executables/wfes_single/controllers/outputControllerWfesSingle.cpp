@@ -4,9 +4,7 @@ using namespace wfes::controllers;
 
 OutputControllerWfesSingle::OutputControllerWfesSingle(QObject* parent): QObject(parent), executing(false){}
 
-OutputControllerWfesSingle::~OutputControllerWfesSingle()
-{
-}
+OutputControllerWfesSingle::~OutputControllerWfesSingle() {}
 
 QString OutputControllerWfesSingle::execute()
 {
