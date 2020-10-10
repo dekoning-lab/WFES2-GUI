@@ -12,6 +12,7 @@
 
 #include <model/executables/wfes_sweep/thread/workerThreadWfesSweep.h>
 
+#include <model/executables/wfes_sweep/config/configWfesSweep.h>
 namespace wfes {
     namespace controllers {
 

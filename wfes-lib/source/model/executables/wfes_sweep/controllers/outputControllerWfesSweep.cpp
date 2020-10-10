@@ -1,6 +1,7 @@
 #include "outputControllerWfesSweep.h"
 
 using namespace wfes::controllers;
+using namespace wfes::config;
 
 OutputControllerWfesSweep::OutputControllerWfesSweep(QObject *parent): QObject(parent), executing(false){}
 
@@ -49,4 +50,10 @@ QString OutputControllerWfesSweep::get_rate() const
         return "";
     else
         return QString::fromStdString(fmt.str());
+}
+
+QString OutputControllerWfesSweep::get_error_message() const
+{
+
+    return QString::fromStdString(ConfigWfesSweep::error);
 }
