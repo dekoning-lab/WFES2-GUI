@@ -17,7 +17,7 @@ int ConfigWfesSweep::ModelTypeWfesSweepToInt(ModelTypeWfesSweep modelType)
 }
 
 ModelTypeWfesSweep ConfigWfesSweep::modelType = ModelTypeWfesSweep::FIXATION;
-std::string ConfigWfesSweep::library = "ViennaCL";
+std::string ConfigWfesSweep::library = "Pardiso";
 std::string ConfigWfesSweep::vienna_solver = "BicGStab";
 double ConfigWfesSweep::a = 1e-20;
 int ConfigWfesSweep::b = 100;

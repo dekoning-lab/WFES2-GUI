@@ -43,53 +43,50 @@ ResultsWfesSweep *wfes_sweep::execute()
             return new ResultsWfesSweep();
     }
 
-    if(ConfigWfesSweep::modelType == ModelTypeWfesSweep::FIXATION) {
-
-    }
 }
 
 ResultsWfesSweep *wfes_sweep::fixation()
 {
-
 
     //Notify building matrix.
     this->notify(ExecutionStatus::BUILDING_MATRICES);
 
     dmat switching(2, 2); switching << 1 - ConfigWfesSweep::l, ConfigWfesSweep::l, 0, 1;
 
-    wrightfisher::Matrix wf = wrightfisher::NonAbsorbingToFixationOnly(ConfigWfesSweep::population_size, ConfigWfesSweep::s, ConfigWfesSweep::h, ConfigWfesSweep::u, ConfigWfesSweep::v, switching, ConfigWfesSweep::a, msg_level);
+    wrightfisher::Matrix wf = wrightfisher::NonAbsorbingToFixationOnly(ConfigWfesSweep::population_size, ConfigWfesSweep::s, ConfigWfesSweep::h, ConfigWfesSweep::u, ConfigWfesSweep::v, switching, ConfigWfesSweep::a, msg_level, ConfigWfesSweep::b, ConfigWfesSweep::library);
 
     //Notify saving data.
     this->notify(ExecutionStatus::SAVING_DATA);
 
     //Save data into file.
-    if (ConfigWfesSingle::output_Q)
-        wf.Q->saveMarket(ConfigWfesSingle::path_output_Q);
+    if (ConfigWfesSweep::output_Q)
+        wf.Q->saveMarket(ConfigWfesSweep::path_output_Q);
 
     //Notify solving
     this->notify(ExecutionStatus::SOLVING_MATRICES);
 
     wf.Q->subtractIdentity();
 
-    Solver* solver = SolverFactory::createSolver(ConfigWfesSingle::library, *(wf.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, ConfigWfesSingle::vienna_solver);
+    Solver* solver = SolverFactory::createSolver(ConfigWfesSweep::library, *(wf.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, ConfigWfesSweep::vienna_solver);
 
     solver->preprocess();
 
     dvec id(wf.Q->num_rows);
     id.setZero();
-    id(ConfigWfesSingle::starting_copies) = 1;
+    id(ConfigWfesSweep::starting_copies) = 1;
 
     dvec N(wf.Q->num_rows);
     N = solver->solve(id, true);
 
-    double T_fix = N.tail(2 * ConfigWfesSingle::population_size).sum();
+    double T_fix = N.tail(2 * ConfigWfesSweep::population_size).sum();
+    qDebug() << "Fixation";
     double rate = 1.0 / T_fix;
 
     //Notify saving data.
     this->notify(ExecutionStatus::SAVING_DATA);
 
-    if (ConfigWfesSingle::output_N)
-        utils::writeMatrixToFile(N, ConfigWfesSingle::path_output_N);
+    if (ConfigWfesSweep::output_N)
+        utils::writeMatrixToFile(N, ConfigWfesSweep::path_output_N);
 
     delete solver;
 
@@ -134,6 +131,7 @@ void wfes_sweep::force()
 
 void wfes_sweep::calculateStartingCopies()
 {
+    ConfigWfesSweep s;
     dvec first_row = wrightfisher::binom_row(2 * ConfigWfesSweep::population_size, wrightfisher::psi_diploid(0, ConfigWfesSweep::population_size, ConfigWfesSweep::s(0), ConfigWfesSweep::h(0), ConfigWfesSweep::u(0), ConfigWfesSweep::v(0)), ConfigWfesSweep::a).Q;
     starting_copies_p = first_row.tail(first_row.size() - 1); // renormalize
     starting_copies_p /= 1 - first_row(0);

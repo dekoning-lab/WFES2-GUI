@@ -57,3 +57,29 @@ QString OutputControllerWfesSweep::get_error_message() const
 
     return QString::fromStdString(ConfigWfesSweep::error);
 }
+
+QString OutputControllerWfesSweep::reset_error() const
+{
+    ConfigWfesSweep::error = "";
+    return QString();
+}
+
+QString OutputControllerWfesSweep::get_time() const
+{
+    boost::format fmt = boost::format("%1$.2f") % (this->results.time);
+
+    if((boost::math::isnan)(this->results.time))
+        return "";
+    else
+        return QString::fromStdString(fmt.str());
+}
+
+bool OutputControllerWfesSweep::get_not_exec() const
+{
+    return !executing;
+}
+
+QString OutputControllerWfesSweep::get_progress() const
+{
+    return this->progress;
+}

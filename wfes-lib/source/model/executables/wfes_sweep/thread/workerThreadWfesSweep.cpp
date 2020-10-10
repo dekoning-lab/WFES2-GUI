@@ -19,9 +19,9 @@ WorkerThreadWfesSweep::~WorkerThreadWfesSweep()
 void WorkerThreadWfesSweep::run()
 {
     QString result;
-    wfes_sweep single = wfes_sweep();
-    single.addObserver(this);
-    results = *single.execute();
+    wfes_sweep sweep = wfes_sweep();
+    sweep.addObserver(this);
+    results = *sweep.execute();
 
     done = true;
     emit resultReady(results);

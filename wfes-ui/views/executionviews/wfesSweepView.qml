@@ -711,6 +711,7 @@ Window {
                                 inputControllerWfesSweep.ui_library = comboBoxLibrary.currentText;
                                 inputControllerWfesSweep.ui_force = inputForce.checked
 
+                                console.log(outputControllerWfesSweep.ui_get_error_message)
                                 if(outputControllerWfesSweep.ui_get_error_message === "") {
                                     executeButton.enabled = false
                                     stopButton.enabled = true

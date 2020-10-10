@@ -1,4 +1,4 @@
-#ifndef OUTPUTCONTROLLERWFESSWEEP_H
+﻿#ifndef OUTPUTCONTROLLERWFESSWEEP_H
 #define OUTPUTCONTROLLERWFESSWEEP_H
 
 #include <QObject>
@@ -13,12 +13,23 @@
 #include <model/executables/wfes_sweep/thread/workerThreadWfesSweep.h>
 
 #include <model/executables/wfes_sweep/config/configWfesSweep.h>
+
 namespace wfes {
     namespace controllers {
 
         class WFESLIBSHARED_EXPORT OutputControllerWfesSweep: public QObject
         {
             Q_OBJECT
+            Q_PROPERTY(QString ui_execute READ execute CONSTANT)
+            Q_PROPERTY(QString ui_stop READ stop CONSTANT)
+            Q_PROPERTY(QString ui_get_t_fix READ get_t_fix NOTIFY results_changed)
+            Q_PROPERTY(QString ui_get_rate READ get_rate NOTIFY results_changed)
+            Q_PROPERTY(QString ui_get_error_message READ get_error_message NOTIFY results_changed)
+            Q_PROPERTY(QString ui_reset_error READ reset_error NOTIFY results_changed)
+            Q_PROPERTY(QString ui_get_time READ get_time NOTIFY results_changed)
+            Q_PROPERTY(bool ui_get_not_exec READ get_not_exec NOTIFY results_changed)
+            Q_PROPERTY(QString ui_progress READ get_progress NOTIFY updateProgress)
+
         public:
             ResultsWfesSweep results;
 

@@ -22,7 +22,7 @@ int ConfigTimeDist::ModelTypeTimeDistToInt(ModelTypeTimeDist modelType)
 }
 
 ModelTypeTimeDist ConfigTimeDist::modelType = ModelTypeTimeDist::TIME_DIST;
-std::string ConfigTimeDist::library = "ViennaCL";
+std::string ConfigTimeDist::library = "Pardiso";
 std::string ConfigTimeDist::vienna_solver = "BicGStab";
 int ConfigTimeDist::population_size = 10000;
 double ConfigTimeDist::s = 0;

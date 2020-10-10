@@ -2,7 +2,7 @@
 
 using namespace wfes::config;
 
-std::string ConfigWfesSingle::library = "ViennaCL";
+std::string ConfigWfesSingle::library = "Pardiso";
 std::string ConfigWfesSingle::vienna_solver = "BicGStab";
 ModelTypeWfesSingle ConfigWfesSingle::modelType = ModelTypeWfesSingle::ABSORPTION;
 int ConfigWfesSingle::population_size = 10000;
