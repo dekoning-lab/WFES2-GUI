@@ -51,7 +51,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 
-unix {
+unix: !macx {
 
     # TODO Change for compatibility with mac and windows
     LIBS +=  -L$$PWD/../dependencies/unix/intel/mkl/lib/intel64 -Wl,--no-as-needed -lmkl_intel_ilp64 -lmkl_intel_thread -lmkl_core -lpthread -lm -ldl
@@ -65,6 +65,22 @@ unix {
 
     DEPENDPATH += $$PWD/../dependencies/unix/CL
 }
+
+
+macx {
+    INCLUDEPATH += $$PWD/source/
+    INCLUDEPATH += $$PWD/../dependencies/mac/
+
+    # Intel MKL
+    LIBS += -L$$PWD/../dependencies/mac/intel/mkl/lib/ -lmkl_core
+    LIBS += -L$$PWD/../dependencies/mac/intel/mkl/lib/ -lmkl_intel_ilp64
+    LIBS += -L$$PWD/../dependencies/mac/intel/mkl/lib/ -lmkl_intel_thread
+    LIBS += -L$$PWD/../dependencies/mac/intel/lib/ -liomp5
+    LIBS +=  -lpthread -lm -ldl -framework OpenCL
+    INCLUDEPATH += $$PWD/../dependencies/mac/intel/mkl/include
+    DEPENDPATH += $$PWD/../dependencies/mac/intel/mkl/include
+}
+
 
 win32 {
 

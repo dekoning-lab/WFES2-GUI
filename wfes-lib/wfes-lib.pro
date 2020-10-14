@@ -104,13 +104,27 @@ SOURCES += \
     source/utils/utils.cpp
 
 # Default rules for deployment.
-unix {
+unix: !macx {
     target.path = /usr/lib
 
     INCLUDEPATH += source \
         $$PWD/../dependencies/unix \
         $$PWD/../dependencies/unix/intel/mkl/include
 
+}
+
+macx {
+    INCLUDEPATH += $$PWD/source/
+    INCLUDEPATH += $$PWD/../dependencies/mac/
+
+    # Intel MKL
+    LIBS += -L$$PWD/../dependencies/mac/intel/mkl/lib/ -lmkl_core
+    LIBS += -L$$PWD/../dependencies/mac/intel/mkl/lib/ -lmkl_intel_ilp64
+    LIBS += -L$$PWD/../dependencies/mac/intel/mkl/lib/ -lmkl_intel_thread
+    LIBS += -L$$PWD/../dependencies/mac/intel/lib/ -liomp5
+    LIBS +=  -lpthread -lm -ldl -framework OpenCL
+    INCLUDEPATH += $$PWD/../dependencies/mac/intel/mkl/include
+    DEPENDPATH += $$PWD/../dependencies/mac/intel/mkl/include
 }
 
 win32 {

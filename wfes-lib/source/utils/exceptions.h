@@ -3,6 +3,7 @@
 
 #include <iterator>
 #include <exception>
+#include <stdexcept>
 
 namespace wfes {
     namespace exception{
