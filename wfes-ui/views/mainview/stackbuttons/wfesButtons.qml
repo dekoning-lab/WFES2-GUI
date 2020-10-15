@@ -3,6 +3,8 @@ import QtQuick.Controls 2.5
 import QtQuick.Layouts 1.15
 import components 1.0
 
+
+
 Item {
 
     Rectangle {
@@ -16,9 +18,16 @@ Item {
             Button {
                 text: "WFES Single"
                 onClicked: {
-                    var component = Qt.createComponent("qrc:/views/executionviews/wfesSingleView.qml")
-                    var window    = component.createObject()
-                    window.show()
+                    var componentWfesSingle = Qt.createComponent("qrc:/views/executionviews/wfesSingleView.qml")
+                    if( componentWfesSingle.status !== Component.Ready )
+                    {
+                        if( componentWfesSingle.status === Component.Error )
+                            console.debug("Error:"+ componentWfesSingle.errorString() );
+                        return; // or maybe throw
+                    }
+                    var windowWfesSingle    = componentWfesSingle.createObject(root, {})
+                    //windowWfesSingle.show()
+                    root.visible = false;
                 }
                 Layout.alignment: Qt.AlignHCenter
                 Layout.preferredWidth: 160
@@ -26,9 +35,16 @@ Item {
             Button {
                 text: "WFES Sweep"
                 onClicked: {
-                    var component = Qt.createComponent("qrc:/views/executionviews/wfesSweepView.qml")
-                    var window    = component.createObject()
-                    window.show()
+                    var componentWfesSweep = Qt.createComponent("qrc:/views/executionviews/wfesSweepView.qml")
+                    if( componentWfesSweep.status !== Component.Ready )
+                    {
+                        if( componentWfesSweep.status === Component.Error )
+                            console.debug("Error:"+ componentWfesSweep.errorString() );
+                        return; // or maybe throw
+                    }
+                    var windowWfesSweep    = componentWfesSweep.createObject(root, {})
+                    //windowWfesSweep.show()
+                    root.visible = false;
                 }
                 Layout.alignment: Qt.AlignHCenter
                 Layout.preferredWidth: 160

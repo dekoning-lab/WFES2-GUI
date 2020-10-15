@@ -41,9 +41,16 @@ Item {
             Button {
                 text: "Time Dist."
                 onClicked: {
-                    var component = Qt.createComponent("qrc:/views/executionviews/timeDistView.qml")
-                    var window    = component.createObject()
-                    window.show()
+                    var componentTimeDist = Qt.createComponent("qrc:/views/executionviews/timeDistView.qml")
+                    if( componentTimeDist.status !== Component.Ready )
+                    {
+                        if( componentTimeDist.status === Component.Error )
+                            console.debug("Error:"+ componentTimeDist.errorString() );
+                        return; // or maybe throw
+                    }
+                    var windowTimeDist    = componentTimeDist.createObject(root, {})
+                    //windowTimeDist.show()
+                    root.visible = false;
                 }
                 Layout.alignment: Qt.AlignHCenter
                 Layout.preferredWidth: 160

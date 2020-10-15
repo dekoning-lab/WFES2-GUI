@@ -1,2 +1,3 @@
 module components
 UpperMenu 1.0 menus/UpperMenu.qml
+WfesSingle 1.0 WfesSingle.qml

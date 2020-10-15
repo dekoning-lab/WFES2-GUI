@@ -9,8 +9,8 @@ import QtQuick.Controls.Universal 2.3
 import components 1.0
 
 //TODO Implement value validators and return exceptions.
-Window {
-    id: root
+ApplicationWindow {
+    id: rootWfesSweep
     title: qsTr("WFES - Wright-Fisher Exact Solver (WFES Sweep)")
 
     color: Universal.chromeLowColor
@@ -26,6 +26,11 @@ Window {
 
     // Select theme for the application.
     Universal.theme: Universal.Light
+
+    onClosing: {
+        rootWfesSweep.destroy();
+        root.visible = true;
+    }
 
     // Center window in screen.
     Component.onCompleted: {
