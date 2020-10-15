@@ -23,10 +23,9 @@ Item {
                     {
                         if( componentWfesSingle.status === Component.Error )
                             console.debug("Error:"+ componentWfesSingle.errorString() );
-                        return; // or maybe throw
+                        return;
                     }
                     var windowWfesSingle    = componentWfesSingle.createObject(root, {})
-                    //windowWfesSingle.show()
                     root.visible = false;
                 }
                 Layout.alignment: Qt.AlignHCenter
@@ -40,10 +39,9 @@ Item {
                     {
                         if( componentWfesSweep.status === Component.Error )
                             console.debug("Error:"+ componentWfesSweep.errorString() );
-                        return; // or maybe throw
+                        return;
                     }
                     var windowWfesSweep    = componentWfesSweep.createObject(root, {})
-                    //windowWfesSweep.show()
                     root.visible = false;
                 }
                 Layout.alignment: Qt.AlignHCenter

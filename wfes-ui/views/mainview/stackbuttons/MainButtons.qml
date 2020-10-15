@@ -46,10 +46,9 @@ Item {
                     {
                         if( componentTimeDist.status === Component.Error )
                             console.debug("Error:"+ componentTimeDist.errorString() );
-                        return; // or maybe throw
+                        return;
                     }
                     var windowTimeDist    = componentTimeDist.createObject(root, {})
-                    //windowTimeDist.show()
                     root.visible = false;
                 }
                 Layout.alignment: Qt.AlignHCenter
