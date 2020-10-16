@@ -1,47 +1,85 @@
 #include "utils.h"
 
 
-void wfes::utils::writeMatrixToFile(const dmat &A, std::string path, bool append)
+void wfes::utils::writeMatrixToFile(const dmat &A, std::string name, bool append)
 {
-    if (path == "stdout") {
-        std::cout << A.format(CSVFormat) << std::endl;
-    } else {
-        std::ios_base::openmode mode = append ? std::ios_base::app : std::ios_base::out;
-        std::ofstream file(path, mode);
-        if (file.is_open()) file << A.format(CSVFormat) << std::endl;
+    //TODO put outputPath in global configuration.
+    QString outputPath(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/Wfes/");
+    QDir dir;
+
+    if(!dir.exists(outputPath))
+        dir.mkpath(outputPath);
+
+    QFile file(outputPath + QString::fromStdString(name));
+    file.open(QIODevice::WriteOnly);
+
+    if(!file.isOpen()) {
+        qDebug() << "The file is not open.";
     }
+
+    QTextStream outStream(&file);
+    std::stringstream stream;
+    stream << A.format(CSVFormat);
+    outStream << QString::fromStdString(stream.str());
+
+    file.close();
 }
 
-void wfes::utils::writeVectorMapToFile(const std::map<llong, dvec> &A, std::string path, bool append)
+void wfes::utils::writeVectorMapToFile(const std::map<llong, dvec> &A, std::string name, bool append)
 {
-    if (path == "stdout") {
-        for(auto const &item : A) {
-            llong key = item.first;
-            dvec value = item.second;
-            std::cout << key << ", " << value.format(CSVRowFormat) << std::endl;
-        }
-    } else {
-        std::ios_base::openmode mode = append ? std::ios_base::app : std::ios_base::out;
-        std::ofstream file(path, mode);
-        if (file.is_open()) {
-            for(auto const &item : A) {
-                llong key = item.first;
-                dvec value = item.second;
-                file << key << ", " << value.format(CSVRowFormat) << std::endl;
-            }
-        }
+
+    //TODO put outputPath in global configuration.
+    QString outputPath(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/Wfes/");
+    QDir dir;
+
+    if (!dir.exists(outputPath))
+        dir.mkpath(outputPath);
+
+    QFile file(outputPath + QString::fromStdString(name));
+    file.open(QIODevice::WriteOnly);
+
+    if(!file.isOpen()) {
+        qDebug() << "The file is not open.";
     }
+
+    QTextStream outStream(&file);
+    std::stringstream stream;
+
+    for(auto const &item : A) {
+        llong key = item.first;
+        dvec value = item.second;
+        stream << key<< ", " << value.format(CSVRowFormat) << std::endl;
+    }
+
+    outStream << QString::fromStdString(stream.str());
+
+    file.close();
+
 }
 
-void wfes::utils::writeVectorToFile(const dvec &A, std::string path, bool append)
+void wfes::utils::writeVectorToFile(const dvec &A, std::string name, bool append)
 {
-    if (path == "stdout") {
-        std::cout << A.format(CSVRowFormat) << std::endl;
-    } else {
-        std::ios_base::openmode mode = append ? std::ios_base::app : std::ios_base::out;
-        std::ofstream file(path, mode);
-        if (file.is_open()) file << A.format(CSVRowFormat) << std::endl;
+    //TODO put outputPath in global configuration.
+    QString outputPath(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/Wfes/");
+    QDir dir;
+
+    if (!dir.exists(outputPath))
+        dir.mkpath(outputPath);
+
+    QFile file(outputPath + QString::fromStdString(name));
+    file.open(QIODevice::WriteOnly);
+
+    if(!file.isOpen()) {
+        qDebug() << "The file is not open.";
     }
+
+    QTextStream outStream(&file);
+    std::stringstream stream;
+    stream << A.format(CSVRowFormat);
+
+    outStream << QString::fromStdString(stream.str());
+
+    file.close();
 }
 
 void wfes::utils::printVector(const dvec &src, const char *prefix, const char *postfix, const char *delim)

@@ -94,10 +94,16 @@ ResultsWfesSweep *wfes_sweep::fixation()
     t_end = std::chrono::system_clock::now();
     time_diff dt = t_end - t_start;
 
+    ResultsWfesSweep* res = new ResultsWfesSweep(T_fix, rate, dt.count());
+
+
     //Notify done.
     this->notify(ExecutionStatus::DONE);
 
-    return new ResultsWfesSweep(T_fix, rate, dt.count());
+    if(ConfigWfesSingle::output_Res)
+       res->writeResultsToFile(res, ConfigWfesSingle::path_output_Res);
+
+    return res;
 }
 
 void wfes_sweep::force()

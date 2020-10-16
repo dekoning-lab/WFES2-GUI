@@ -166,98 +166,109 @@ ResultsWfesSingle::ResultsWfesSingle(wfes::config::ModelTypeWfesSingle modelType
 
 
 
-void ResultsWfesSingle::writeResultsToFile(ResultsWfesSingle *results, std::string path)
+void ResultsWfesSingle::writeResultsToFile(ResultsWfesSingle *results, std::string name)
 {
-
-
     time_t t = std::time(0);   // get time now
     struct tm * now = localtime(&t);
     std::stringstream sstm;
     sstm << (now->tm_hour) << '-' << (now->tm_min) << '-' << now->tm_sec;
     std::string s = sstm.str();
 
+    //TODO put outputPath in global configuration.
+    QString outputPath(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/Wfes/");
+    QDir dir;
 
-    std::ofstream myfile;
-    myfile.open (s + "_Res");
-    myfile << "Result, Value" << "\n";
+    if (!dir.exists(outputPath))
+        dir.mkpath(outputPath);
+
+    QFile file(outputPath + QString::fromStdString("Wfes_Single_-_" + s + "_" + name));
+    file.open(QIODevice::WriteOnly);
+
+    if(!file.isOpen()) {
+        qDebug() << "The file is not open.";
+    }
+
+    QTextStream outStream(&file);
+
+    outStream << "Result, Value" << "\n";
 
     if(!(boost::math::isnan)(results->pExt))
-        myfile << "P_ext, " << results->pExt << "\n";
+        outStream << "P_ext, " << results->pExt << "\n";
 
     if(!(boost::math::isnan)(results->pFix))
-        myfile << "P_fix, " << results->pFix << "\n";
+        outStream << "P_fix, " << results->pFix << "\n";
 
     if(!(boost::math::isnan)(results->tAbs))
-        myfile << "T_abs, " << results->tAbs << "\n";
+        outStream << "T_abs, " << results->tAbs << "\n";
 
     if(!(boost::math::isnan)(results->tAbsStd))
-        myfile << "T_abs_std, " << results->tAbsStd << "\n";
+        outStream << "T_abs_std, " << results->tAbsStd << "\n";
 
     if(!(boost::math::isnan)(results->tExt))
-        myfile << "T_ext, " << results->tExt << "\n";
+        outStream << "T_ext, " << results->tExt << "\n";
 
     if(!(boost::math::isnan)(results->tExtStd))
-        myfile << "T_ext_std, " << results->tExtStd << "\n";
+        outStream << "T_ext_std, " << results->tExtStd << "\n";
 
     if(!(boost::math::isnan)(results->nExt))
-        myfile << "N_ext, " << results->nExt << "\n";
+        outStream << "N_ext, " << results->nExt << "\n";
 
     if(!(boost::math::isnan)(results->tFix))
-        myfile << "T_fix, " << results->tFix << "\n";
+        outStream << "T_fix, " << results->tFix << "\n";
 
     if(!(boost::math::isnan)(results->tFixStd))
-        myfile << "T_fix_std, " << results->tFixStd << "\n";
+        outStream << "T_fix_std, " << results->tFixStd << "\n";
 
     if(!(boost::math::isnan)(results->rate))
-        myfile << "Rate, " << results->rate << "\n";
+        outStream << "Rate, " << results->rate << "\n";
 
     if(!(boost::math::isnan)(results->freqMut))
-        myfile << "E[freq mut], " << results->freqMut << "\n";
+        outStream << "E[freq mut], " << results->freqMut << "\n";
 
     if(!(boost::math::isnan)(results->freqWt))
-        myfile << "E[freq  wt], " << results->freqWt << "\n";
+        outStream << "E[freq  wt], " << results->freqWt << "\n";
 
     if(!(boost::math::isnan)(results->fEst))
-        myfile << "F_est, " << results->fEst << "\n";
+        outStream << "F_est, " << results->fEst << "\n";
 
     if(!(boost::math::isnan)(results->pEst))
-        myfile << "P_est, " << results->fEst << "\n";
+        outStream << "P_est, " << results->fEst << "\n";
 
     if(!(boost::math::isnan)(results->tSeg))
-        myfile << "T_seg, " << results->tSeg << "\n";
+        outStream << "T_seg, " << results->tSeg << "\n";
 
     if(!(boost::math::isnan)(results->tSegStd))
-        myfile << "T_seg_std, " << results->tSegStd << "\n";
+        outStream << "T_seg_std, " << results->tSegStd << "\n";
 
     if(!(boost::math::isnan)(results->tSegExt))
-        myfile << "T_seg_ext, " << results->tSegExt << "\n";
+        outStream << "T_seg_ext, " << results->tSegExt << "\n";
 
     if(!(boost::math::isnan)(results->tSegExtStd))
-        myfile << "T_seg_ext_std, " << results->tSegExtStd << "\n";
+        outStream << "T_seg_ext_std, " << results->tSegExtStd << "\n";
 
     if(!(boost::math::isnan)(results->tSegFix))
-        myfile << "T_seg_fix, " << results->tSegFix << "\n";
+        outStream << "T_seg_fix, " << results->tSegFix << "\n";
 
     if(!(boost::math::isnan)(results->tSegFixStd))
-        myfile << "T_seg_fix_std, " << results->tSegFixStd << "\n";
+        outStream << "T_seg_fix_std, " << results->tSegFixStd << "\n";
 
     if(!(boost::math::isnan)(results->tEst))
-        myfile << "T_est, " << results->tEst << "\n";
+        outStream << "T_est, " << results->tEst << "\n";
 
     if(!(boost::math::isnan)(results->tEstStd))
-        myfile << "T_est_std, " << results->tEstStd << "\n";
+        outStream << "T_est_std, " << results->tEstStd << "\n";
 
     if(!(boost::math::isnan)(results->eAlleleAge))
-        myfile << "E(A), " << results->eAlleleAge << "\n";
+        outStream << "E(A), " << results->eAlleleAge << "\n";
 
     if(!(boost::math::isnan)(results->sAlleleAge))
-        myfile << "S(A), " << results->sAlleleAge << "\n";
+        outStream << "S(A), " << results->sAlleleAge << "\n";
 
 
     if(!(boost::math::isnan)(results->time))
-        myfile << "Time, " << results->time << "\n";
+        outStream << "Time, " << results->time << "\n";
 
 
-    myfile.close();
+    file.close();
 }
 

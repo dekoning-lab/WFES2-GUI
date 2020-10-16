@@ -54,6 +54,8 @@ ResultsTimeDist *time_dist::timeDist()
     //Notify saving data.
     this->notify(ExecutionStatus::SAVING_DATA);
 
+
+    qDebug() << QString::fromStdString(ConfigTimeDist::path_output_P);
     if (ConfigTimeDist::output_Q)
         wf.Q->saveMarket(ConfigTimeDist::path_output_Q);
     if (ConfigTimeDist::output_R)

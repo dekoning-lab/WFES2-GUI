@@ -9,6 +9,9 @@
 
 #include <QtGui/QImage>
 
+#include <QDir>
+#include <QStandardPaths>
+#include <QDebug>
 
 class ResultsWfesSingle
 {
@@ -90,9 +93,9 @@ public:
     /**
      * @brief Write results in a CSV file.
      * @param results results to be printed in a CSV file.
-     * @param path Path of the file.
+     * @param name Name of the file.
      */
-    void writeResultsToFile(ResultsWfesSingle *results, std::string path);
+    void writeResultsToFile(ResultsWfesSingle *results, std::string name);
 
 };
 

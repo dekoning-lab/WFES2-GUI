@@ -4,6 +4,9 @@
 #include <string>
 #include "utils/types.h"
 
+#include <QDir>
+
+#include <QStandardPaths>
 namespace wfes {
     namespace config {
 

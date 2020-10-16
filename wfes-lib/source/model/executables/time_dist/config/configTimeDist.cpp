@@ -1,5 +1,6 @@
 #include "configTimeDist.h"
 
+
 using namespace wfes::config;
 
 ConfigTimeDist::ConfigTimeDist() {}

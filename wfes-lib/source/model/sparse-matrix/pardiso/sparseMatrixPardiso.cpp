@@ -310,22 +310,35 @@ void SparseMatrixPardiso::setValue(double x, int i, int j)
     //TODO Implementation (Not used).
 }
 
-void SparseMatrixPardiso::saveMarket(std::string path)
+void SparseMatrixPardiso::saveMarket(std::string name)
 {
-    FILE* out = fopen(path.c_str(), "w");
-    fprintf(out, "%%%%MatrixMarket matrix coordinate real general\n");
+    //TODO put outputPath in global configuration.
+    QString outputPath(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/Wfes/");
+    QDir dir;
 
+    if (!dir.exists(outputPath))
+        dir.mkpath(outputPath);
+
+    QFile file(outputPath + QString::fromStdString(name));
+    file.open(QIODevice::WriteOnly);
+
+    if(!file.isOpen()) {
+        qDebug() << "The file is not open.";
+    }
+
+    QTextStream outStream(&file);
+    outStream << "%%%%MatrixMarket matrix coordinate real general\n";
 
     llong num_rows_l = (llong)num_rows;
     llong num_cols_l = (llong)num_cols;
     llong num_non_zeros_l = (llong)num_non_zeros;
 
-    fprintf(out, LPF "\t" LPF "\t" LPF "\n", num_rows_l, num_cols_l, num_non_zeros_l);
+    outStream << num_rows_l << "\t" << num_cols_l << "\t" << num_non_zeros_l << "\n";
 
     for (llong i = 0; i < num_rows; ++i) {
         for (llong j = row_index[i]; j < row_index[i + 1]; ++j) {
-            fprintf(out, LPF "\t" LPF "\t" DPF "\n", i + 1, cols[j] + 1, data[j]);
+            outStream << i+1 << "\t" << cols[j] + 1 << "\t" << data[j] << "\n";
         }
     }
-    fclose(out);
+    file.close();
 }

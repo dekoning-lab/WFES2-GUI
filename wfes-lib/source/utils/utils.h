@@ -12,6 +12,10 @@
 #include <QDebug>
 #include <QtGui/QImage>
 
+
+#include <QStandardPaths>
+#include <QDir>
+
 namespace wfes{
     namespace utils{
 
@@ -34,24 +38,24 @@ namespace wfes{
         /**
          * @brief Write a matrix A into a file.
          * @param A Matrix to be writted.
-         * @param path Path of the file.
+         * @param name Name of the file.
          * @param append Append to an existing file.
          */
-        void writeMatrixToFile(const dmat& A, std::string path, bool append = false);
+        void writeMatrixToFile(const dmat& A, std::string name, bool append = false);
         /**
          * @brief writeVectorMapToFile Write a map of vectors A into a file.
          * @param A Map of vectors to be writted.
-         * @param path Path of the file.
+         * @param name Name of the file.
          * @param append Append to an existing file.
          */
-        void writeVectorMapToFile(const std::map<llong, dvec>& A, std::string path, bool append = false);
+        void writeVectorMapToFile(const std::map<llong, dvec>& A, std::string name, bool append = false);
         /**
          * @brief Write a vector A into a file.
          * @param A Vector to be writted.
-         * @param path Path of the file.
+         * @param name Name of the file.
          * @param append Append to an existing file.
          */
-        void writeVectorToFile(const dvec& A, std::string path, bool append = false);
+        void writeVectorToFile(const dvec& A, std::string name, bool append = false);
 
         /**
          * @brief Print a vector of doubles.
