@@ -61,6 +61,8 @@ ResultsWfesSweep *wfes_sweep::fixation()
     //Save data into file.
     if (ConfigWfesSweep::output_Q)
         wf.Q->saveMarket(ConfigWfesSweep::path_output_Q);
+    if (ConfigWfesSweep::output_R)
+        utils::writeMatrixToFile(wf.R, ConfigWfesSweep::path_output_R);
 
     //Notify solving
     this->notify(ExecutionStatus::SOLVING_MATRICES);
@@ -85,9 +87,21 @@ ResultsWfesSweep *wfes_sweep::fixation()
     //Notify saving data.
     this->notify(ExecutionStatus::SAVING_DATA);
 
+    llong size = ((2 * ConfigWfesSweep::population_size) + 1) + (2 * ConfigWfesSweep::population_size);
+
+    dvec R_ext = wf.R.col(0);
+    dvec B_ext = solver->solve(R_ext, false);
+    dvec B_fix = dvec::Ones(size) - B_ext;
+
+    //Save data into file.
+    dmat B(size, 2);
     if (ConfigWfesSweep::output_N)
         utils::writeMatrixToFile(N, ConfigWfesSweep::path_output_N);
-
+    if (ConfigWfesSweep::output_B) {
+        B.col(0) = B_ext;
+        B.col(1) = B_fix;
+        utils::writeMatrixToFile(B, ConfigWfesSweep::path_output_B);
+    }
     delete solver;
 
     //Calculate time.
