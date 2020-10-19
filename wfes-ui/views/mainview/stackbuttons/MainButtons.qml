@@ -54,9 +54,21 @@ Item {
                 Layout.alignment: Qt.AlignHCenter
                 Layout.preferredWidth: 160
             }
-            ChangeStackViewButton {
+            Button {
                 text: "Phase Type"
-                view: "qrc:/views/mainview/stackbuttons/phaseTypeButtons.qml"
+                onClicked: {
+                    var componentPhaseType = Qt.createComponent("qrc:/views/executionviews/phaseTypeView.qml")
+                    if( componentPhaseType.status !== Component.Ready )
+                    {
+                        if( componentPhaseType.status === Component.Error )
+                            console.debug("Error:"+ componentPhaseType.errorString() );
+                        return;
+                    }
+                    var windowTimeDist    = componentPhaseType.createObject(root, {})
+                    root.visible = false;
+                }
+                Layout.alignment: Qt.AlignHCenter
+                Layout.preferredWidth: 160
             }
         }
 
