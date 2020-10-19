@@ -30,6 +30,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 HEADERS += \
+    source/model/executables/phase_type/config/configPhaseType.h \
+    source/model/executables/phase_type/controllers/inputControllerPhaseType.h \
+    source/model/executables/phase_type/controllers/outputControllerPhaseType.h \
+    source/model/executables/phase_type/phase_type.h \
+    source/model/executables/phase_type/results/resultsPhaseType.h \
+    source/model/executables/phase_type/thread/workerThreadPhaseType.h \
     source/model/executables/time_dist/config/configTimeDist.h \
     source/model/executables/time_dist/config/configTimeDistSGV.h \
     source/model/executables/time_dist/controllers/inputControllerTimeDist.h \
@@ -69,6 +75,12 @@ HEADERS += \
     wfes-lib_global.h
 
 SOURCES += \
+    source/model/executables/phase_type/config/configPhaseType.cpp \
+    source/model/executables/phase_type/controllers/inputControllerPhaseType.cpp \
+    source/model/executables/phase_type/controllers/outputControllerPhaseType.cpp \
+    source/model/executables/phase_type/phase_type.cpp \
+    source/model/executables/phase_type/results/resultsPhaseType.cpp \
+    source/model/executables/phase_type/thread/workerThreadPhaseType.cpp \
     source/model/executables/time_dist/config/configTimeDist.cpp \
     source/model/executables/time_dist/config/configTimeDistSGV.cpp \
     source/model/executables/time_dist/controllers/inputControllerTimeDist.cpp \
