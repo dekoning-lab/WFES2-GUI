@@ -18,10 +18,10 @@ ApplicationWindow {
 
     width: 945
     minimumWidth: 945
-    height: 570
-    minimumHeight: 570
     maximumWidth: 945
-    maximumHeight: 570
+    height: 560
+    minimumHeight: 560
+    maximumHeight: 560
 
     // Select theme for the application.
     Universal.theme: Universal.Light
@@ -46,7 +46,8 @@ ApplicationWindow {
         }
 
         Rectangle {
-            height: parent.height
+            id: content
+            height: childrenRect.height
             width: parent.width
             color: "transparent"
 
@@ -941,6 +942,8 @@ ApplicationWindow {
 
                             // All changes made in backend from GUI are done here.
                             onClicked: {
+                                    bottomMenu.visibleProgressBar = true
+
                                     // Set mode in backend.
                                     if(radioButtonAbsorption.checked)
                                         inputControllerWfesSingle.ui_modelType = "Absorption"
@@ -1320,6 +1323,37 @@ ApplicationWindow {
                         }
                     }
                 }
+            }
+        }
+
+        Rectangle {
+            height: 1
+            width: parent.width
+            color: Universal.baseHighColor
+            anchors {
+                top: content.bottom
+                left: parent.left
+            }
+        }
+
+        Binding {
+            target: bottomMenu
+            property: "visibleProgressBar"
+            value: !outputControllerWfesSingle.ui_get_not_exec
+
+        }
+
+        BottomMenuExecutionView {
+            id: bottomMenu
+            width: parent.width
+            executionProgress: outputControllerWfesSingle.ui_progress
+
+            executionTime: {
+                outputControllerWfesSingle.ui_get_time == "" ? "" : outputControllerWfesSingle.ui_get_time + "s"
+            }
+            anchors {
+                top: content.bottom
+                left: parent.left
             }
         }
     }
