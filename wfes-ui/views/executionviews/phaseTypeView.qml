@@ -18,10 +18,10 @@ ApplicationWindow {
 
     width: 945
     minimumWidth: 945
-    height: 500
-    minimumHeight: 500
     maximumWidth: 945
-    maximumHeight: 500
+    height: 490
+    minimumHeight: 490
+    maximumHeight: 490
 
     // Select theme for the application.
     Universal.theme: Universal.Light
@@ -37,6 +37,7 @@ ApplicationWindow {
         setY(Screen.height / 2 - height / 2);
     }
 
+
     Rectangle {
         anchors.fill: parent
         color: "transparent"
@@ -46,7 +47,8 @@ ApplicationWindow {
         }
 
         Rectangle {
-            height: parent.height
+            id: content
+            height: childrenRect.height
             width: parent.width
             color: "transparent"
 
@@ -523,6 +525,8 @@ ApplicationWindow {
 
                             // All changes made in backend from GUI are done here.
                             onClicked: {
+                                BottomMenuExecutionView.visibleProgressBar = true
+
                                 // Set mode in backend.
                                 if(radioButtonPhaseTypeDist.checked)
                                     inputControllerPhaseType.ui_modelType = "Phase Type Dist."
@@ -671,11 +675,8 @@ ApplicationWindow {
                         border.width: 1
                         enabled: radioButtonPhaseTypeMoments.checked
 
-                        anchors {
-                            top: labelMoments.bottom
-                            left: parent.left
-                            margins: 10
-                        }
+                        Layout.alignment: Qt.AlignTop
+                        Layout.margins: 10
 
                         ScrollView {
                             width: parent.width - 1
@@ -706,6 +707,33 @@ ApplicationWindow {
 
                     }
                 }
+            }
+        }
+
+        Rectangle {
+            height: 1
+            width: parent.width
+            color: Universal.baseHighColor
+            anchors {
+                top: content.bottom
+                left: parent.left
+            }
+        }
+
+
+        BottomMenuExecutionView {
+            id: bottomMenu
+            width: parent.width
+            executionProgress: outputControllerPhaseType.ui_progress
+
+            visibleProgressBar: !outputControllerPhaseType.ui_get_not_exec
+
+            executionTime: {
+                outputControllerPhaseType.ui_get_time == "" ? "" : outputControllerPhaseType.ui_get_time + "s"
+            }
+            anchors {
+                top: content.bottom
+                left: parent.left
             }
         }
     }
