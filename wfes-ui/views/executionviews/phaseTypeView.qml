@@ -89,30 +89,60 @@ ApplicationWindow {
 
                             RadioButton {
                                 id: radioButtonPhaseTypeDist
-                                checked: inputControllerWfesSingle.ui_modelType === "TODO"
+                                checked: inputControllerPhaseType.ui_modelType === "Phase Type Dist."
                                 text: qsTr("Phase Type Dist.")
 
                                 ToolTip.visible: hovered
                                 ToolTip.delay: 1000
                                 ToolTip.timeout: 5000
-                                ToolTip.text: qsTr("TODO.")
+                                ToolTip.text: qsTr("Calculate distribution of absorption times for a fixation-only model.")
 
                                 onCheckedChanged: {
-                                    //TODO
+                                    inputN.enabled = checked
+                                    inputS.enabled = checked
+                                    inputH.enabled = checked
+                                    inputU.enabled = checked
+                                    inputV.enabled = checked
+                                    inputA.enabled = checked
+                                    inputT.enabled = checked
+                                    inputK.enabled = !checked
+                                    inputC.enabled = checked
+                                    inputM.enabled = checked
+                                    inputR.enabled = checked
+
+                                    inputWriteQ.enabled = checked
+                                    inputWriteP.enabled = checked
+                                    inputWriteR.enabled = checked
+                                    inputWriteRes.enabled = !checked
                                 }
                             }
                             RadioButton {
-                                id: radioButtonFixation
-                                checked: inputControllerWfesSingle.ui_modelType === "TODO"
-                                text: qsTr("Phase Type Moment")
+                                id: radioButtonPhaseTypeMoments
+                                checked: inputControllerPhaseType.ui_modelType === "Phase Type Moments"
+                                text: qsTr("Phase Type Moments")
 
                                 ToolTip.visible: hovered
                                 ToolTip.delay: 1000
                                 ToolTip.timeout: 5000
-                                ToolTip.text: qsTr("TODO.")
+                                ToolTip.text: qsTr("Calculate moments of absorption times for a fixation-only model.")
 
                                 onCheckedChanged: {
-                                    //TODO.
+                                    inputN.enabled = checked
+                                    inputS.enabled = checked
+                                    inputH.enabled = checked
+                                    inputU.enabled = checked
+                                    inputV.enabled = checked
+                                    inputA.enabled = checked
+                                    inputT.enabled = checked
+                                    inputK.enabled = checked
+                                    inputC.enabled = !checked
+                                    inputM.enabled = !checked
+                                    inputR.enabled = !checked
+
+                                    inputWriteQ.enabled = checked
+                                    inputWriteP.enabled = !checked
+                                    inputWriteR.enabled = checked
+                                    inputWriteRes.enabled = checked
                                 }
                             }
 
@@ -152,7 +182,7 @@ ApplicationWindow {
                                 text: "N: "
                                 toolTipText: "Size of the population in the Wright Fisher Model."
                                 validator: DoubleValidator {bottom: 2; top: 50000;}
-                                textFieldText: inputControllerWfesSingle.ui_n
+                                textFieldText: inputControllerPhaseType.ui_n
                             }
 
                             LabeledTextField {
@@ -160,24 +190,16 @@ ApplicationWindow {
                                 text: "a: "
                                 toolTipText: "Tail truncation weight."
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
-                                textFieldText: inputControllerWfesSingle.ui_a
+                                textFieldText: inputControllerPhaseType.ui_a
                             }
 
                             LabeledTextField {
-                                id: inputl
-                                text: "l: "
-                                toolTipText: "TODO."
-                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
-                                textFieldText: inputControllerWfesSingle.ui_l
-                                //enabled: //TODO
-                            }
-
-                            LabeledTextField {
-                                id: inputc
+                                id: inputC
                                 text: "c: "
                                 toolTipText: "Starting number of copies integration cutoff."
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
-                                textFieldText: inputControllerWfesSingle.ui_c
+                                textFieldText: inputControllerPhaseType.ui_c
+                                enabled: inputControllerPhaseType.ui_modelType == "Phase Type Dist."
                             }
 
                             LabeledTextField {
@@ -185,8 +207,8 @@ ApplicationWindow {
                                 text: "m: "
                                 toolTipText: "TODO."
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
-                                textFieldText: inputControllerWfesSingle.ui_m
-                                //enabled: //TODO
+                                textFieldText: inputControllerPhaseType.ui_m
+                                enabled: inputControllerPhaseType.ui_modelType == "Phase Type Dist."
                             }
 
                             LabeledTextField {
@@ -194,8 +216,8 @@ ApplicationWindow {
                                 text: "k: "
                                 toolTipText: "Odds ratio (--establishment only)."
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
-                                textFieldText: inputControllerWfesSingle.ui_k
-                                //enabled: //TODO
+                                textFieldText: inputControllerPhaseType.ui_k
+                                enabled: inputControllerPhaseType.ui_modelType == "Phase Type Moments"
                             }
                         }
 
@@ -234,7 +256,7 @@ ApplicationWindow {
                                 text: "u: "
                                 toolTipText: "Backward mutation rate."
                                 validator: DoubleValidator {bottom: 2; top: 50000;}
-                                textFieldText: inputControllerWfesSingle.ui_u
+                                textFieldText: inputControllerPhaseType.ui_u
                             }
 
                             LabeledTextField {
@@ -242,15 +264,15 @@ ApplicationWindow {
                                 text: "v: "
                                 toolTipText: "Forward mutation rate."
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
-                                textFieldText: inputControllerWfesSingle.ui_v
+                                textFieldText: inputControllerPhaseType.ui_v
                             }
 
                             LabeledCheckBox {
                                 id: inputR
                                 text: "r: "
                                 toolTipText: "No recurrent mutation."
-                                checked: inputControllerWfesSingle.ui_r
-                                //enabled: //TODO
+                                checked: inputControllerPhaseType.ui_r
+                                enabled: inputControllerPhaseType.ui_modelType == "Phase Type Moments"
                             }
                         }
                     }
@@ -287,7 +309,7 @@ ApplicationWindow {
                                 text: "s: "
                                 toolTipText: "Selection coefficient."
                                 validator: DoubleValidator {bottom: 2; top: 50000;}
-                                textFieldText: inputControllerWfesSingle.ui_s
+                                textFieldText: inputControllerPhaseType.ui_s
                             }
 
                             LabeledTextField {
@@ -295,7 +317,7 @@ ApplicationWindow {
                                 text: "h: "
                                 toolTipText: "Dominance coefficient."
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
-                                textFieldText: inputControllerWfesSingle.ui_h
+                                textFieldText: inputControllerPhaseType.ui_h
                             }
 
                         }
@@ -344,7 +366,7 @@ ApplicationWindow {
                                     id: inputWriteQ
                                     text: "Q: "
                                     toolTipText: "Output Q as CSV file."
-                                    checked: inputControllerWfesSingle.ui_output_Q
+                                    checked: inputControllerPhaseType.ui_output_Q
                                     //enabled: //TODO
 
                                 }
@@ -353,7 +375,7 @@ ApplicationWindow {
                                     id: inputWriteR
                                     text: "R: "
                                     toolTipText: "Output R as CSV file."
-                                    checked: inputControllerWfesSingle.ui_output_R
+                                    checked: inputControllerPhaseType.ui_output_R
                                     //enabled: //TODO
                                 }
 
@@ -361,16 +383,17 @@ ApplicationWindow {
                                     id: inputWriteP
                                     text: "P: "
                                     toolTipText: "Output P as CSV file."
-                                    checked: inputControllerWfesSingle.ui_output_P
-                                    //enabled: //TODO
+                                    checked: inputControllerPhaseType.ui_output_P
+                                    enabled: inputControllerPhaseType.ui_modelType == "Phase Type Dist."
+
                                 }
 
                                 LabeledCheckBox {
                                     id: inputWriteRes
                                     text: "Res: "
                                     toolTipText: "Output Res (Generated results at right side) as CSV file."
-                                    checked: inputControllerWfesSingle.ui_output_Res
-                                    //enabled: //TODO
+                                    checked: inputControllerPhaseType.ui_output_Res
+                                    enabled: inputControllerPhaseType.ui_modelType == "Phase Type Moments"
                                 }
 
                             }
@@ -406,20 +429,13 @@ ApplicationWindow {
                                 RowLayout {
                                     width: childrenRect.width
 
-                                    LabeledCheckBox {
-                                        id: inputForce
-                                        toolTipText: "Do not perform parameter checks."
-                                        text: "Force: "
-                                        checked: inputControllerWfesSingle.ui_force
-                                    }
-
                                     LabeledTextField {
                                         id: inputT
                                         text: "t: "
                                         toolTipText: "Number of threads for OpenMP."
                                         labelPreferredWidth: 10
                                         validator: DoubleValidator {bottom: 2; top: 50000;}
-                                        textFieldText: inputControllerWfesSingle.ui_t
+                                        textFieldText: inputControllerPhaseType.ui_t
                                     }
                                 }
 
@@ -450,32 +466,6 @@ ApplicationWindow {
                                         enabled: (comboBoxLibrary.currentText === "ViennaCL")
                                     }
 
-                                    LabeledTextField {
-                                        id: inputI
-                                        text: "I. Dist.: "
-                                        toolTipText: "Path to initial probability distribution CSV file."
-                                        labelPreferredWidth: 75
-                                        textFieldPreferredWidth: 185
-                                        textFieldText: inputControllerWfesSingle.ui_initial_distribution
-                                    }
-
-                                    Button{
-                                        text: "Search"
-                                        onClicked: fileDialog.open()
-                                    }
-
-
-                                    FileDialog {
-                                        id: fileDialog
-                                        title: "Please choose a csv file"
-                                        nameFilters: [ "csv files (*.csv)" ]
-                                        onAccepted: {
-                                            var path = fileDialog.fileUrl.toString()
-                                            path = path.replace(/^(file:\/{2})/,"");
-                                            inputI.textFieldText = path
-                                        }
-                                    }
-
                                 }
 
                             }
@@ -497,12 +487,12 @@ ApplicationWindow {
                             Binding {
                                 target: stopButton
                                 property: "enabled"
-                                value: !outputControllerWfesSingle.ui_get_not_exec
+                                value: !outputControllerPhaseType.ui_get_not_exec
 
                             }
 
                             onClicked: {
-                                outputControllerWfesSingle.ui_stop
+                                outputControllerPhaseType.ui_stop
                                 stopButton.enabled = false
                                 executeButton.enabled = true
                             }
@@ -517,71 +507,54 @@ ApplicationWindow {
                             Binding {
                                 target: executeButton
                                 property: "enabled"
-                                value: outputControllerWfesSingle.ui_get_not_exec
+                                value: outputControllerPhaseType.ui_get_not_exec
 
                             }
 
                             // All changes made in backend from GUI are done here.
                             onClicked: {
-                                    /*// Set mode in backend.
-                                    if(radioButtonAbsorption.checked)
-                                        inputControllerWfesSingle.ui_modelType = "Absorption"
-                                    else if (radioButtonFixation.checked)
-                                        inputControllerWfesSingle.ui_modelType = "Fixation"
-                                    else if (radioButtonEstablishment.checked)
-                                        inputControllerWfesSingle.ui_modelType = "Establishment"
-                                    else if (radioButtonFundamental.checked)
-                                        inputControllerWfesSingle.ui_modelType = "Fundamental"
-                                    else if (radioButtonNonAbsorbing.checked)
-                                        inputControllerWfesSingle.ui_modelType = "Non Absorbing"
-                                    else if (radioButtonEquilibrium.checked)
-                                        inputControllerWfesSingle.ui_modelType = "Equilibrium"
-                                    else if (radioButtonAlleleAge.checked)
-                                        inputControllerWfesSingle.ui_modelType = "Allele Age"
+                                // Set mode in backend.
+                                if(radioButtonPhaseTypeDist.checked)
+                                    inputControllerPhaseType.ui_modelType = "Phase Type Dist."
+                                if(radioButtonPhaseTypeMoments.checked)
+                                    inputControllerPhaseType.ui_modelType = "Phase Type Moments"
 
-                                    inputControllerWfesSingle.ui_n = inputN.textFieldText
-                                    inputControllerWfesSingle.ui_a = inputA.textFieldText
-                                    if(inputControllerWfesSingle.ui_modelType == "Fixation" || inputControllerWfesSingle.ui_modelType == "Absorption" || inputControllerWfesSingle.ui_modelType == "Establishment" || inputControllerWfesSingle.ui_modelType == "Allele Age")
-                                        inputControllerWfesSingle.ui_p = inputp.textFieldText
-                                    inputControllerWfesSingle.ui_c = inputc.textFieldText
-                                    if(inputControllerWfesSingle.ui_modelType == "Allele Age")
-                                        inputControllerWfesSingle.ui_x = inputX.textFieldText
-                                    if(inputControllerWfesSingle.ui_modelType == "Establishment")
-                                        inputControllerWfesSingle.ui_k = inputK.textFieldText
-                                    inputControllerWfesSingle.ui_u = inputU.textFieldText
-                                    inputControllerWfesSingle.ui_v = inputV.textFieldText
-                                    inputControllerWfesSingle.ui_m = inputM.checked
-                                    inputControllerWfesSingle.ui_s = inputS.textFieldText
-                                    inputControllerWfesSingle.ui_h = inputH.textFieldText
+                                inputControllerPhaseType.ui_n = inputN.textFieldText
+                                inputControllerPhaseType.ui_s = inputS.textFieldText
+                                inputControllerPhaseType.ui_h = inputH.textFieldText
+                                inputControllerPhaseType.ui_u = inputU.textFieldText
+                                inputControllerPhaseType.ui_v = inputV.textFieldText
+                                inputControllerPhaseType.ui_a = inputA.textFieldText
+                                inputControllerPhaseType.ui_t = inputT.textFieldText
+                                if(inputControllerPhaseType.ui_modelType == "Phase Type Moments")
+                                    inputControllerPhaseType.ui_k = inputK.textFieldText
+                                if(inputControllerPhaseType.ui_modelType == "Phase Type Dist.") {
+                                    inputControllerPhaseType.ui_c = inputC.textFieldText
+                                    inputControllerPhaseType.ui_m = inputM.textFieldText
+                                    inputControllerPhaseType.ui_r = inputR.checked
+                                }
 
-                                    inputControllerWfesSingle.ui_output_Q = inputWriteQ.checked
-                                    inputControllerWfesSingle.ui_output_R = inputWriteR.checked
-                                    inputControllerWfesSingle.ui_output_B = inputWriteB.checked
-                                    inputControllerWfesSingle.ui_output_N = inputWriteN.checked
-                                    inputControllerWfesSingle.ui_output_NExt = inputWriteNExt.checked
-                                    inputControllerWfesSingle.ui_output_NFix = inputWriteNFix.checked
-                                    inputControllerWfesSingle.ui_output_I = inputWriteI.checked
-                                    inputControllerWfesSingle.ui_output_E = inputWriteE.checked
-                                    inputControllerWfesSingle.ui_output_V = inputWriteV.checked
-                                    inputControllerWfesSingle.ui_output_Res = inputWriteRes.checked
+                                if(inputControllerPhaseType.ui_modelType == "Phase Type Dist.")
+                                    inputControllerPhaseType.ui_output_P = inputWriteP.checked
 
-                                    inputControllerWfesSingle.ui_force = inputForce.checked
-                                    inputControllerWfesSingle.ui_t = inputT.textFieldText
+                                inputControllerPhaseType.ui_output_Q = inputWriteQ.checked
+                                inputControllerPhaseType.ui_output_R = inputWriteR.checked
 
-                                    inputControllerWfesSingle.ui_initial_distribution = inputI.textFieldText
+                                if(inputControllerPhaseType.ui_modelType == "Phase Type Moments")
+                                    inputControllerPhaseType.ui_output_Res = inputWriteRes.checked
 
-                                    inputControllerWfesSingle.ui_library = comboBoxLibrary.currentText;
-                                    inputControllerWfesSingle.ui_solver = comboBoxSolver.currentText;
+                                inputControllerPhaseType.ui_library = comboBoxLibrary.currentText;
+                                inputControllerPhaseType.ui_solver = comboBoxSolver.currentText;
 
-                                if(outputControllerWfesSingle.ui_get_error_message == "") {
+                                if(outputControllerPhaseType.ui_get_error_message === "") {
                                     executeButton.enabled = false
                                     stopButton.enabled = true
-                                    outputControllerWfesSingle.ui_execute
+                                    outputControllerPhaseType.ui_execute
                                 } else {
-                                    messageDialog.text = outputControllerWfesSingle.ui_get_error_message
+                                    messageDialog.text = outputControllerPhaseType.ui_get_error_message
                                     messageDialog.open()
                                 }
-                                outputControllerWfesSingle.ui_reset_error*/
+                                outputControllerPhaseType.ui_reset_error
                             }
 
                         }
@@ -634,9 +607,9 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "Mean: "
-                                textFieldText: outputControllerWfesSingle.ui_get_mean
+                                textFieldText: outputControllerPhaseType.ui_get_mean
                                 readOnly: true
-                                // TODO visible: radioButtonAlleleAge.checked
+                                enabled: radioButtonPhaseTypeMoments.checked
                             }
 
                             LabeledTextField {
@@ -644,41 +617,9 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "Std: "
-                                textFieldText: outputControllerWfesSingle.ui_get_std
+                                textFieldText: outputControllerPhaseType.ui_get_std
                                 readOnly: true
-                                // TODO visible: radioButtonAlleleAge.checked
-                            }
-
-                            Label {
-                                id: labelMoments
-                                text: "Moments:"
-                            }
-
-                            Rectangle {
-                                width: prueba.width + 1
-                                height: childrenRect.height + 1
-                                color: "transparent"
-                                border.width: 1
-
-                                ScrollView {
-                                    width: prueba.width
-                                    height: 200
-                                    clip: true
-                                    topPadding: 1
-                                    ScrollBar.vertical.policy: ScrollBar.AlwaysOn
-                                    ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
-                                    contentHeight: 200
-                                    contentWidth: prueba.width
-
-                                    ListView {
-                                        model: 20
-                                        delegate: ItemDelegate {
-                                            text: "Item " + (index + 1)
-                                            width: prueba.width
-                                        }
-                                    }
-                                }
-
+                                enabled: radioButtonPhaseTypeMoments.checked
                             }
 
                             LabeledTextField {
@@ -687,7 +628,7 @@ ApplicationWindow {
                                 textFieldPreferredWidth: 180
                                 text: "Time (s): "
                                 toolTipText: "Execution time in seconds."
-                                textFieldText: outputControllerWfesSingle.ui_get_time
+                                textFieldText: outputControllerPhaseType.ui_get_time
                                 readOnly: true
                             }
 
@@ -698,10 +639,51 @@ ApplicationWindow {
                                 text: "Status: "
                                 toolTipText: "Status of the current execution."
                                 readOnly: true
-                                textFieldText: outputControllerWfesSingle.ui_progress
+                                textFieldText: outputControllerPhaseType.ui_progress
                             }
 
                         }
+
+                    }
+
+                    Label {
+                        id: labelMoments
+                        text: "Moments:"
+                        enabled: radioButtonPhaseTypeMoments.checked
+                    }
+
+                    Rectangle {
+                        width: prueba.width
+                        height: childrenRect.height + 1
+                        color: "transparent"
+                        border.width: 1
+                        enabled: radioButtonPhaseTypeMoments.checked
+
+                        anchors {
+                            top: labelMoments.bottom
+                            left: parent.left
+                            margins: 10
+                        }
+
+                        ScrollView {
+                            width: parent.width - 1
+                            height: 200
+                            clip: true
+                            topPadding: 1
+                            ScrollBar.vertical.policy: ScrollBar.AlwaysOn
+                            ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
+                            contentHeight: 200
+                            contentWidth: prueba.width
+
+                            ListView {
+                                model: 20
+                                delegate: ItemDelegate {
+                                    text: "Item " + (index + 1)
+                                    width: prueba.width
+                                }
+                            }
+                        }
+
                     }
                 }
             }
