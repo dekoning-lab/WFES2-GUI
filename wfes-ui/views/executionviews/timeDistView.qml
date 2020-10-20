@@ -1022,12 +1022,17 @@ ApplicationWindow {
             }
         }
 
+        Binding {
+            target: bottomMenu
+            property: "visibleProgressBar"
+            value: !outputControllerTimeDist.ui_get_not_exec
+
+        }
+
         BottomMenuExecutionView {
             id: bottomMenu
             width: parent.width
             executionProgress: outputControllerTimeDist.ui_progress
-
-            visibleProgressBar: !outputControllerTimeDist.ui_get_not_exec
 
             executionTime: {
                 outputControllerTimeDist.ui_get_time == "" ? "" : outputControllerTimeDist.ui_get_time + "s"

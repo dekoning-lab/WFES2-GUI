@@ -9,7 +9,6 @@ OutputControllerPhaseType::~OutputControllerPhaseType() {}
 QString OutputControllerPhaseType::execute()
 {
     executing = true;
-    emit results_changed();
     qRegisterMetaType<ResultsPhaseType>("ResultsPhaseType");
 
     worker = new WorkerThreadPhaseType();
