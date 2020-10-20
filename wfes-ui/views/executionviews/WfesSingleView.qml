@@ -1299,27 +1299,6 @@ ApplicationWindow {
                                 readOnly: true
                                 visible: radioButtonAlleleAge.checked
                             }
-
-
-                            LabeledTextField {
-                                id: outputTime
-                                labelPreferredWidth: 100
-                                textFieldPreferredWidth: 180
-                                text: "Time (s): "
-                                toolTipText: "Execution time in seconds."
-                                textFieldText: outputControllerWfesSingle.ui_get_time
-                                readOnly: true
-                            }
-
-                            LabeledTextField {
-                                id: prueba
-                                labelPreferredWidth: 100
-                                textFieldPreferredWidth: 180
-                                text: "Status: "
-                                toolTipText: "Status of the current execution."
-                                readOnly: true
-                                textFieldText: outputControllerWfesSingle.ui_progress
-                            }
                         }
                     }
                 }
