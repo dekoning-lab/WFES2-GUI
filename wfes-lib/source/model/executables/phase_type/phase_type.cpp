@@ -39,6 +39,9 @@ ResultsPhaseType *phase_type::execute()
 
 ResultsPhaseType *phase_type::phaseTypeDist()
 {
+    //Notify building matrix.
+    this->notify(ExecutionStatus::BUILDING_MATRICES);
+
     dmat PH(ConfigPhaseType::max_t, 3);
 
     dvec c = dvec::Zero(2 * ConfigPhaseType::population_size);
@@ -47,11 +50,17 @@ ResultsPhaseType *phase_type::phaseTypeDist()
     wrightfisher::Matrix wf = wrightfisher::Single(ConfigPhaseType::population_size, ConfigPhaseType::population_size, wrightfisher::FIXATION_ONLY, ConfigPhaseType::s, ConfigPhaseType::h, ConfigPhaseType::u, ConfigPhaseType::v, ConfigPhaseType::rem,
                                ConfigPhaseType::a, msg_level, ConfigPhaseType::b);
 
+    //Notify saving data.
+    this->notify(ExecutionStatus::SAVING_DATA);
+
     //Save data into file.
     if (ConfigPhaseType::output_Q)
         wf.Q->saveMarket(ConfigPhaseType::path_output_Q);
     if (ConfigPhaseType::output_R)
         utils::writeMatrixToFile(wf.R, ConfigPhaseType::path_output_R);
+
+    //Notify solving
+    this->notify(ExecutionStatus::SOLVING_MATRICES);
 
     dvec R = wf.R.col(0);
 
@@ -70,6 +79,9 @@ ResultsPhaseType *phase_type::phaseTypeDist()
     }
     PH.conservativeResize(i, 3);
 
+    //Notify saving data.
+    this->notify(ExecutionStatus::SAVING_DATA);
+
     if (ConfigPhaseType::output_P) {
         utils::writeMatrixToFile(PH, ConfigPhaseType::path_output_P);
     }
@@ -83,19 +95,30 @@ ResultsPhaseType *phase_type::phaseTypeDist()
     //Notify done.
     this->notify(ExecutionStatus::DONE);
 
+    //Notify done.
+    this->notify(ExecutionStatus::DONE);
+
     return res;
 }
 
 ResultsPhaseType *phase_type::phaseTypeMoment()
 {
+    //Notify building matrix.
+    this->notify(ExecutionStatus::BUILDING_MATRICES);
 
     wrightfisher::Matrix wf = wrightfisher::Single(ConfigPhaseType::population_size, ConfigPhaseType::population_size, wrightfisher::FIXATION_ONLY, ConfigPhaseType::s, ConfigPhaseType::h, ConfigPhaseType::u, ConfigPhaseType::v, true, ConfigPhaseType::a, msg_level, ConfigPhaseType::b);
+
+    //Notify saving data.
+    this->notify(ExecutionStatus::SAVING_DATA);
 
     //Save data into file.
     if (ConfigPhaseType::output_Q)
         wf.Q->saveMarket(ConfigPhaseType::path_output_Q);
     if (ConfigPhaseType::output_R)
         utils::writeMatrixToFile(wf.R, ConfigPhaseType::path_output_R);
+
+    //Notify solving
+    this->notify(ExecutionStatus::SOLVING_MATRICES);
 
     wf.Q->subtractIdentity();
 
@@ -136,6 +159,9 @@ ResultsPhaseType *phase_type::phaseTypeMoment()
     time_diff dt = t_end - t_start;
 
     ResultsPhaseType* res = new ResultsPhaseType(m1, sqrt(m2 - (m1 * m1)), m.row(0), dt.count());
+
+    //Notify saving data.
+    this->notify(ExecutionStatus::SAVING_DATA);
 
     //Print moments.
     if(ConfigPhaseType::output_Moments)
