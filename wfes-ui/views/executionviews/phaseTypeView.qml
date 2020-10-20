@@ -113,6 +113,7 @@ ApplicationWindow {
                                     inputWriteQ.enabled = checked
                                     inputWriteP.enabled = checked
                                     inputWriteR.enabled = checked
+                                    inputWriteMoments.enabled = !checked
                                     inputWriteRes.enabled = !checked
                                 }
                             }
@@ -142,6 +143,7 @@ ApplicationWindow {
                                     inputWriteQ.enabled = checked
                                     inputWriteP.enabled = !checked
                                     inputWriteR.enabled = checked
+                                    inputWriteMoments.enabled = checked
                                     inputWriteRes.enabled = checked
                                 }
                             }
@@ -389,6 +391,18 @@ ApplicationWindow {
                                 }
 
                                 LabeledCheckBox {
+                                    id: inputWriteMoments
+                                    text: "Moments: "
+                                    toolTipText: "//TODO."
+                                    checked: inputControllerPhaseType.ui_output_Moments
+                                    enabled: inputControllerPhaseType.ui_modelType == "Phase Type Moments"
+                                }
+
+                                Label {
+
+                                }
+
+                                LabeledCheckBox {
                                     id: inputWriteRes
                                     text: "Res: "
                                     toolTipText: "Output Res (Generated results at right side) as CSV file."
@@ -426,22 +440,18 @@ ApplicationWindow {
                                     left: parent.left
                                     margins: 10
                                 }
-                                RowLayout {
+                                ColumnLayout {
                                     width: childrenRect.width
 
                                     LabeledTextField {
                                         id: inputT
                                         text: "t: "
                                         toolTipText: "Number of threads for OpenMP."
-                                        labelPreferredWidth: 10
+                                        labelPreferredWidth: 75
+                                        textFieldPreferredWidth: 185
                                         validator: DoubleValidator {bottom: 2; top: 50000;}
                                         textFieldText: inputControllerPhaseType.ui_t
                                     }
-                                }
-
-                                ColumnLayout {
-                                    width: childrenRect.width
-
                                     LabeledComboBox {
                                         id: comboBoxLibrary
                                         text: "Library:"
@@ -540,8 +550,10 @@ ApplicationWindow {
                                 inputControllerPhaseType.ui_output_Q = inputWriteQ.checked
                                 inputControllerPhaseType.ui_output_R = inputWriteR.checked
 
-                                if(inputControllerPhaseType.ui_modelType == "Phase Type Moments")
+                                if(inputControllerPhaseType.ui_modelType == "Phase Type Moments") {
                                     inputControllerPhaseType.ui_output_Res = inputWriteRes.checked
+                                    inputControllerPhaseType.ui_output_Moments = inputWriteMoments.checked
+                                }
 
                                 inputControllerPhaseType.ui_library = comboBoxLibrary.currentText;
                                 inputControllerPhaseType.ui_solver = comboBoxSolver.currentText;

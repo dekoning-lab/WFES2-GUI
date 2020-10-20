@@ -34,6 +34,7 @@ namespace wfes {
             Q_PROPERTY(bool ui_output_P READ get_output_P WRITE set_output_P NOTIFY input_changed)
             Q_PROPERTY(bool ui_output_Q READ get_output_Q WRITE set_output_Q NOTIFY input_changed)
             Q_PROPERTY(bool ui_output_R READ get_output_R WRITE set_output_R NOTIFY input_changed)
+            Q_PROPERTY(bool ui_output_Moments READ get_output_Moments WRITE set_output_Moments NOTIFY input_changed)
             Q_PROPERTY(bool ui_output_Res READ get_output_Res WRITE set_output_Res NOTIFY input_changed)
             Q_PROPERTY(bool ui_r READ get_r WRITE set_r NOTIFY input_changed)
             Q_PROPERTY(bool ui_force READ get_force WRITE set_force NOTIFY input_changed)
@@ -199,6 +200,17 @@ namespace wfes {
                  * @param output_R value of output R in GUI.
                  */
                 void set_output_R(bool output_R) const;
+
+                /**
+                 * @brief Send if output Moments to GUI.
+                 * @return boolean containing if output Moments.
+                 */
+                bool get_output_Moments() const;
+                /**
+                 * @brief Get if output Moments from GUI.
+                 * @param output_Moments value of output Moments in GUI.
+                 */
+                void set_output_Moments(bool output_Moments) const;
 
                 /**
                  * @brief Send if output Res to GUI.

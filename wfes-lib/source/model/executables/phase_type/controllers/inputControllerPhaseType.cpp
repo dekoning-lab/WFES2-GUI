@@ -309,6 +309,16 @@ void InputControllerPhaseType::set_output_R(bool output_R) const
     ConfigPhaseType::output_R = output_R;
 }
 
+bool InputControllerPhaseType::get_output_Moments() const
+{
+    return ConfigPhaseType::output_Moments;
+}
+
+void InputControllerPhaseType::set_output_Moments(bool output_Moments) const
+{
+    ConfigPhaseType::output_Moments = output_Moments;
+}
+
 bool InputControllerPhaseType::get_output_Res() const
 {
     return ConfigPhaseType::output_Res;

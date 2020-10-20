@@ -128,6 +128,11 @@ namespace wfes {
                 static std::string path_output_R;
 
                 /**
+                 * @brief Path output Moments.
+                 */
+                static std::string path_output_Moments;
+
+                /**
                  * @brief Path output Res (Generated results).
                  */
                 static std::string path_output_Res;
@@ -146,6 +151,11 @@ namespace wfes {
                  * @brief Output R.
                  */
                 static bool output_R;
+
+                /**
+                 * @brief Output Moments.
+                 */
+                static bool output_Moments;
 
                 /**
                  * @brief Output Res (Generated results).

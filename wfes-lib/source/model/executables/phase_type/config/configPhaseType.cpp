@@ -35,6 +35,7 @@ double ConfigPhaseType::integration_cutoff = 1e-10;
 std::string ConfigPhaseType::path_output_P = "output_P.csv";
 std::string ConfigPhaseType::path_output_Q = "output_Q.csv";
 std::string ConfigPhaseType::path_output_R = "output_R.csv";
+std::string ConfigPhaseType::path_output_Moments = "output_Moments.csv";
 std::string ConfigPhaseType::path_output_Res = "output_Res.csv";
 int ConfigPhaseType::max_t = 100000;
 int ConfigPhaseType::k = 20;
@@ -42,6 +43,7 @@ int ConfigPhaseType::k = 20;
 bool ConfigPhaseType::output_P = false;
 bool ConfigPhaseType::output_Q = false;
 bool ConfigPhaseType::output_R = false;
+bool ConfigPhaseType::output_Moments = false;
 bool ConfigPhaseType::output_Res = true;
 
 bool ConfigPhaseType::force = false;

@@ -137,6 +137,9 @@ ResultsPhaseType *phase_type::phaseTypeMoment()
 
     ResultsPhaseType* res = new ResultsPhaseType(m1, sqrt(m2 - (m1 * m1)), dt.count());
 
+    //TODO Print moments
+    if(ConfigPhaseType::output_Moments)
+        utils::writeVectorToFile(m.row(0), ConfigPhaseType::path_output_Moments);
 
     //Notify done.
     this->notify(ExecutionStatus::DONE);
