@@ -84,14 +84,14 @@ ResultsWfesSweep *wfes_sweep::fixation()
     qDebug() << "Fixation";
     double rate = 1.0 / T_fix;
 
-    //Notify saving data.
-    this->notify(ExecutionStatus::SAVING_DATA);
-
     llong size = ((2 * ConfigWfesSweep::population_size) + 1) + (2 * ConfigWfesSweep::population_size);
 
     dvec R_ext = wf.R.col(0);
     dvec B_ext = solver->solve(R_ext, false);
     dvec B_fix = dvec::Ones(size) - B_ext;
+
+    //Notify saving data.
+    this->notify(ExecutionStatus::SAVING_DATA);
 
     //Save data into file.
     dmat B(size, 2);
@@ -110,12 +110,11 @@ ResultsWfesSweep *wfes_sweep::fixation()
 
     ResultsWfesSweep* res = new ResultsWfesSweep(T_fix, rate, dt.count());
 
+    if(ConfigWfesSweep::output_Res)
+       res->writeResultsToFile(res, ConfigWfesSweep::path_output_Res);
 
     //Notify done.
     this->notify(ExecutionStatus::DONE);
-
-    if(ConfigWfesSweep::output_Res)
-       res->writeResultsToFile(res, ConfigWfesSweep::path_output_Res);
 
     return res;
 }
