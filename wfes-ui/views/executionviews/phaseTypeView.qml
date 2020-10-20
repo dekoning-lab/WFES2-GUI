@@ -638,26 +638,6 @@ ApplicationWindow {
                                 enabled: radioButtonPhaseTypeMoments.checked
                             }
 
-                            LabeledTextField {
-                                id: outputTime
-                                labelPreferredWidth: 100
-                                textFieldPreferredWidth: 180
-                                text: "Time (s): "
-                                toolTipText: "Execution time in seconds."
-                                textFieldText: outputControllerPhaseType.ui_get_time
-                                readOnly: true
-                            }
-
-                            LabeledTextField {
-                                id: prueba
-                                labelPreferredWidth: 100
-                                textFieldPreferredWidth: 180
-                                text: "Status: "
-                                toolTipText: "Status of the current execution."
-                                readOnly: true
-                                textFieldText: outputControllerPhaseType.ui_progress
-                            }
-
                         }
 
                     }
@@ -669,7 +649,7 @@ ApplicationWindow {
                     }
 
                     Rectangle {
-                        width: prueba.width
+                        width: outputStd.width
                         height: childrenRect.height + 1
                         color: "transparent"
                         border.width: 1
@@ -686,14 +666,14 @@ ApplicationWindow {
                             ScrollBar.vertical.policy: ScrollBar.AlwaysOn
                             ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
                             contentHeight: 200
-                            contentWidth: prueba.width
+                            contentWidth: outputStd.width
                             enabled: radioButtonPhaseTypeMoments.checked
                             ListView {
                                 id: listViewMoments
                                 model: outputControllerPhaseType.ui_moments
                                 enabled: radioButtonPhaseTypeMoments.checked
                                 delegate: ItemDelegate {
-                                  width: prueba.width
+                                  width: outputStd.width
                                   height: 25
                                   Text {
                                       text: modelData;
