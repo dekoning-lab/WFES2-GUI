@@ -10,6 +10,8 @@
 #include <source/model/executables/time_dist/controllers/outputControllerTimeDist.h>
 #include <model/executables/wfes_sweep/controllers/inputControllerWfesSweep.h>
 #include <model/executables/wfes_sweep/controllers/outputControllerWfesSweep.h>
+#include <model/executables/phase_type/controllers/inputControllerPhaseType.h>
+#include <model/executables/phase_type/controllers/outputControllerPhaseType.h>
 
 int main(int argc, char *argv[])
 {
@@ -28,6 +30,8 @@ int main(int argc, char *argv[])
     qmlRegisterType<wfes::controllers::InputControllerTimeDist>("WFES", 1, 0, "InputControllerTimeDist");
     qmlRegisterType<wfes::controllers::OutputControllerWfesSweep>("WFES", 1, 0, "OutputControllerWfesSweep");
     qmlRegisterType<wfes::controllers::InputControllerWfesSweep>("WFES", 1, 0, "InputControllerWfesSweep");
+    qmlRegisterType<wfes::controllers::OutputControllerPhaseType>("WFES", 1, 0, "OutputControllerPhaseType");
+    qmlRegisterType<wfes::controllers::InputControllerPhaseType>("WFES", 1, 0, "InputControllerPhaseType");
 
     wfes::controllers::OutputControllerWfesSingle outputControllerWfesSingle;
     wfes::controllers::InputControllerWfesSingle inputControllerWfesSingle;
@@ -35,6 +39,8 @@ int main(int argc, char *argv[])
     wfes::controllers::InputControllerTimeDist inputControllerTimeDist;
     wfes::controllers::OutputControllerWfesSweep outputControllerWfesSweep;
     wfes::controllers::InputControllerWfesSweep inputControllerWfesSweep;
+    wfes::controllers::OutputControllerPhaseType outputControllerPhaseType;
+    wfes::controllers::InputControllerPhaseType inputControllerPhaseType;
 
     QQmlApplicationEngine engine;
     engine.addImportPath("qrc:/");
@@ -45,6 +51,8 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("inputControllerTimeDist", &inputControllerTimeDist);
     engine.rootContext()->setContextProperty("outputControllerWfesSweep", &outputControllerWfesSweep);
     engine.rootContext()->setContextProperty("inputControllerWfesSweep", &inputControllerWfesSweep);
+    engine.rootContext()->setContextProperty("outputControllerPhaseType", &outputControllerPhaseType);
+    engine.rootContext()->setContextProperty("inputControllerPhaseType", &inputControllerPhaseType);
 
     const QUrl url(QStringLiteral("qrc:/views/mainview/MainView.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,

@@ -11,5 +11,6 @@
         <file alias="executionviews/timeDistView.qml">views/executionviews/timeDistView.qml</file>
         <file alias="executionviews/menus/UpperMenu.qml">views/executionviews/menus/UpperMenu.qml</file>
         <file alias="executionviews/qmldir">views/executionviews/qmldir</file>
+        <file alias="executionviews/phaseTypeView.qml">views/executionviews/phaseTypeView.qml</file>
     </qresource>
 </RCC>

@@ -1,7 +1,5 @@
 #include "workerThreadWfesSweep.h"
 
-#include <model/executables/wfes_sweep/wfes_sweep.h>
-
 WorkerThreadWfesSweep::WorkerThreadWfesSweep(QObject *parent) : QThread(parent) {
     results = ResultsWfesSweep();
 }

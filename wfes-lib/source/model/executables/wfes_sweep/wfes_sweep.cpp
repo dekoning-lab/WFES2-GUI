@@ -114,8 +114,8 @@ ResultsWfesSweep *wfes_sweep::fixation()
     //Notify done.
     this->notify(ExecutionStatus::DONE);
 
-    if(ConfigWfesSingle::output_Res)
-       res->writeResultsToFile(res, ConfigWfesSingle::path_output_Res);
+    if(ConfigWfesSweep::output_Res)
+       res->writeResultsToFile(res, ConfigWfesSweep::path_output_Res);
 
     return res;
 }

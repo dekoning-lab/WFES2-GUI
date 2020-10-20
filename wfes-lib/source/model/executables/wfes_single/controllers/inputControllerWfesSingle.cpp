@@ -449,7 +449,6 @@ void InputControllerWfesSingle::set_model_type(QString model_type) const
         wfes::config::ConfigWfesSingle::modelType = wfes::config::ModelTypeWfesSingle::NON_ABSORBING;
     if(model_type.compare(wfes::config::ModelTypeNames[wfes::config::ConfigWfesSingle::ModelTypeWfesSingleToInt(wfes::config::ModelTypeWfesSingle::ALLELE_AGE)]) == 0)
         wfes::config::ConfigWfesSingle::modelType = wfes::config::ModelTypeWfesSingle::ALLELE_AGE;
-
 }
 
 QString InputControllerWfesSingle::get_library() const

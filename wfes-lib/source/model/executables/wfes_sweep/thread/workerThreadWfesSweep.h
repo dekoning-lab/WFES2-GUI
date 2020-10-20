@@ -8,6 +8,8 @@
 
 #include <model/executables/wfes_sweep/results/resultsWfesSweep.h>
 
+#include <model/executables/wfes_sweep/wfes_sweep.h>
+
 
 
 class WorkerThreadWfesSweep : public QThread, public Observer
