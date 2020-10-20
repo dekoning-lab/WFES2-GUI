@@ -19,10 +19,10 @@ ApplicationWindow {
 
     width: 640
     minimumWidth: 640
-    height: 465
-    minimumHeight: 465
     maximumWidth: 640
-    maximumHeight: 465
+    height: 450
+    minimumHeight: 450
+    maximumHeight: 450
 
     // Select theme for the application.
     Universal.theme: Universal.Light
@@ -47,7 +47,8 @@ ApplicationWindow {
         }
 
         Rectangle {
-            height: parent.height
+            id: content
+            height: childrenRect.height
             width: parent.width
             color: "transparent"
 
@@ -58,7 +59,6 @@ ApplicationWindow {
 
             RowLayout {
                 id: mainGrid
-                Layout.fillHeight: true
 
                 ColumnLayout {
                     id: column1
@@ -767,7 +767,7 @@ ApplicationWindow {
 
                 ColumnLayout {
                     id: column2
-                    Layout.preferredHeight: rootTimeDist.height - upperMenu.height
+                    Layout.preferredHeight: column1.height
 
                     ColumnLayout {
                         Layout.alignment: Qt.AlignTop
@@ -926,6 +926,8 @@ ApplicationWindow {
 
                             // All changes made in backend from GUI are done here.
                             onClicked: {
+                                bottomMenu.visibleProgressBar = true
+
                                 if(radioButtonTimeDist.checked)
                                     inputControllerTimeDist.ui_modelType = "Time Dist."
                                 if(radioButtonTimeDistSGV.checked)
@@ -1006,6 +1008,33 @@ ApplicationWindow {
                     icon: StandardIcon.Warning
                 }
 
+            }
+
+        }
+
+        Rectangle {
+            height: 1
+            width: parent.width
+            color: Universal.baseHighColor
+            anchors {
+                top: content.bottom
+                left: parent.left
+            }
+        }
+
+        BottomMenuExecutionView {
+            id: bottomMenu
+            width: parent.width
+            executionProgress: outputControllerTimeDist.ui_progress
+
+            visibleProgressBar: !outputControllerTimeDist.ui_get_not_exec
+
+            executionTime: {
+                outputControllerTimeDist.ui_get_time == "" ? "" : outputControllerTimeDist.ui_get_time + "s"
+            }
+            anchors {
+                top: content.bottom
+                left: parent.left
             }
         }
     }

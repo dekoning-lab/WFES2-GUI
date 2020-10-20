@@ -156,7 +156,7 @@ ApplicationWindow {
 
                     Rectangle {
                         height: 1
-                        width: modeSectionGrid.width
+                        width: populationSectionGrid.width
                         color: Universal.baseHighColor
                     }
 
@@ -525,7 +525,7 @@ ApplicationWindow {
 
                             // All changes made in backend from GUI are done here.
                             onClicked: {
-                                BottomMenuExecutionView.visibleProgressBar = true
+                                bottomMenu.visibleProgressBar = true
 
                                 // Set mode in backend.
                                 if(radioButtonPhaseTypeDist.checked)
@@ -719,7 +719,6 @@ ApplicationWindow {
                 left: parent.left
             }
         }
-
 
         BottomMenuExecutionView {
             id: bottomMenu

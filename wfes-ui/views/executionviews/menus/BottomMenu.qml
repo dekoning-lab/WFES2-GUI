@@ -16,25 +16,27 @@ Item {
             height: parent.height
 
             Rectangle {
-                width: parent.width/3
-                height: parent.height
+                Layout.preferredWidth: parent.width/3
+                Layout.preferredHeight: parent.height
                 Layout.alignment: Qt.AlignCenter
+                color: "transparent"
                 ProgressBar {
                     id: progressBar
+                    anchors.centerIn: parent
                     height: parent.height
                     indeterminate: true
                     visible: false
                 }
             }
             Rectangle {
-                width: parent.width/3
-                height: parent.height
-                color: "red"
+                Layout.preferredWidth: parent.width/3
+                Layout.preferredHeight: parent.height
+                color: "transparent"
                 Layout.alignment: Qt.AlignCenter
                 Layout.margins: 1
 
                 RowLayout {
-                    width: parent.width
+                    anchors.centerIn: parent
                     height: parent.height
 
                     Text {
@@ -44,20 +46,20 @@ Item {
 
                     Text {
                         id: status
-                        text: qsTr("1/5 - Building Matrices.")
+                        text: qsTr("Not executing.")
                     }
                 }
             }
 
             Rectangle {
-                width: parent.width/3
-                height: parent.height
+                Layout.preferredWidth: parent.width/3
+                Layout.preferredHeight: parent.height
                 color: "transparent"
                 Layout.alignment: Qt.AlignCenter
                 Layout.margins: 1
 
                 RowLayout {
-                    width: parent.width
+                    anchors.centerIn: parent
                     height: parent.height
 
                     Text {
@@ -67,7 +69,7 @@ Item {
 
                     Text {
                         id: time
-                        text: qsTr("10.5s")
+                        text: qsTr("0.0s")
                     }
                 }
             }

@@ -61,6 +61,9 @@ ResultsTimeDist *time_dist::timeDist()
     if (ConfigTimeDist::output_R)
         utils::writeMatrixToFile(wf.R, ConfigTimeDist::path_output_R);
 
+    //Notify solving
+    this->notify(ExecutionStatus::SOLVING_MATRICES);
+
     dmat PH(ConfigTimeDist::max_t, 5);
 
     dvec c = dvec::Zero(2 * ConfigTimeDist::population_size - 1);
@@ -83,6 +86,9 @@ ResultsTimeDist *time_dist::timeDist()
     }
     PH.conservativeResize(i, 5);
 
+    //Notify saving data.
+    this->notify(ExecutionStatus::SAVING_DATA);
+
     if (ConfigTimeDist::output_P) {
         utils::writeMatrixToFile(PH, ConfigTimeDist::path_output_P);
     }
@@ -90,6 +96,9 @@ ResultsTimeDist *time_dist::timeDist()
     //Calculate time.
     t_end = std::chrono::system_clock::now();
     time_diff dt = t_end - t_start;
+
+    //Notify done.
+    this->notify(ExecutionStatus::DONE);
 
     return new ResultsTimeDist(dt.count());
 
@@ -121,14 +130,23 @@ ResultsTimeDist *time_dist::timeDistSGV()
         }
     }
 
+    //Notify building matrix.
+    this->notify(ExecutionStatus::BUILDING_MATRICES);
+
     dmat switching(2, 2); switching << 1 - ConfigTimeDistSGV::l, ConfigTimeDistSGV::l, 0, 1;
 
     wrightfisher::Matrix wf = wrightfisher::NonAbsorbingToFixationOnly(ConfigTimeDist::population_size, ConfigTimeDistSGV::s, ConfigTimeDistSGV::h, ConfigTimeDistSGV::u, ConfigTimeDistSGV::v, switching, ConfigTimeDist::a, msg_level, ConfigTimeDist::b);
+
+    //Notify saving data.
+    this->notify(ExecutionStatus::SAVING_DATA);
 
     if (ConfigTimeDist::output_Q)
         wf.Q->saveMarket(ConfigTimeDist::path_output_Q);
     if (ConfigTimeDist::output_R)
         utils::writeMatrixToFile(wf.R, ConfigTimeDist::path_output_R);
+
+    //Notify solving
+    this->notify(ExecutionStatus::SOLVING_MATRICES);
 
     dmat PH(ConfigTimeDist::max_t, 3);
 
@@ -151,6 +169,9 @@ ResultsTimeDist *time_dist::timeDistSGV()
     }
     PH.conservativeResize(i, 3);
 
+    //Notify saving data.
+    this->notify(ExecutionStatus::SAVING_DATA);
+
     if (ConfigTimeDist::output_P) {
         utils::writeMatrixToFile(PH, ConfigTimeDist::path_output_P);
     }
@@ -159,6 +180,9 @@ ResultsTimeDist *time_dist::timeDistSGV()
     t_end = std::chrono::system_clock::now();
     time_diff dt = t_end - t_start;
 
+    //Notify done.
+    this->notify(ExecutionStatus::DONE);
+
     return new ResultsTimeDist(dt.count());
 
 }
@@ -166,6 +190,9 @@ ResultsTimeDist *time_dist::timeDistSGV()
 
 ResultsTimeDist *time_dist::timeDistSkip()
 {
+    //Notify building matrix.
+    this->notify(ExecutionStatus::BUILDING_MATRICES);
+
     wrightfisher::Matrix wf = wrightfisher::Bounce(ConfigTimeDist::population_size, ConfigTimeDist::population_size,
                                                    ConfigTimeDist::s, ConfigTimeDist::h, ConfigTimeDist::u, ConfigTimeDist::v,
                                                    ConfigTimeDist::rem, ConfigTimeDist::a, msg_level, ConfigTimeDist::b);
@@ -177,6 +204,9 @@ ResultsTimeDist *time_dist::timeDistSkip()
         wf.Q->saveMarket(ConfigTimeDist::path_output_Q);
     if (ConfigTimeDist::output_R)
         utils::writeMatrixToFile(wf.R, ConfigTimeDist::path_output_R);
+
+    //Notify solving
+    this->notify(ExecutionStatus::SOLVING_MATRICES);
 
     dmat PH(ConfigTimeDist::max_t, 3);
     dvec c = dvec::Zero(2 * ConfigTimeDist::population_size - 1);
@@ -198,6 +228,9 @@ ResultsTimeDist *time_dist::timeDistSkip()
     }
     PH.conservativeResize(i, 3);
 
+    //Notify saving data.
+    this->notify(ExecutionStatus::SAVING_DATA);
+
     if (ConfigTimeDist::output_P) {
         utils::writeMatrixToFile(PH, ConfigTimeDist::path_output_P);
     }
@@ -206,11 +239,17 @@ ResultsTimeDist *time_dist::timeDistSkip()
     t_end = std::chrono::system_clock::now();
     time_diff dt = t_end - t_start;
 
+    //Notify done.
+    this->notify(ExecutionStatus::DONE);
+
     return new ResultsTimeDist(dt.count());
 }
 
 ResultsTimeDist *time_dist::timeDistDual()
 {
+    //Notify building matrix.
+    this->notify(ExecutionStatus::BUILDING_MATRICES);
+
     wrightfisher::Matrix wf = wrightfisher::DualMutation(ConfigTimeDist::population_size, ConfigTimeDist::population_size, ConfigTimeDist::s, ConfigTimeDist::h, ConfigTimeDist::u, ConfigTimeDist::v, ConfigTimeDist::rem, ConfigTimeDist::a, msg_level, ConfigTimeDist::b);
 
     //Notify saving data.
@@ -220,6 +259,9 @@ ResultsTimeDist *time_dist::timeDistDual()
         wf.Q->saveMarket(ConfigTimeDist::path_output_Q);
     if (ConfigTimeDist::output_R)
         utils::writeMatrixToFile(wf.R, ConfigTimeDist::path_output_R);
+
+    //Notify solving
+    this->notify(ExecutionStatus::SOLVING_MATRICES);
 
     dmat PH(ConfigTimeDist::max_t, 5);
 
@@ -244,6 +286,9 @@ ResultsTimeDist *time_dist::timeDistDual()
     }
     PH.conservativeResize(i, 5);
 
+    //Notify saving data.
+    this->notify(ExecutionStatus::SAVING_DATA);
+
     if (ConfigTimeDist::output_P) {
         utils::writeMatrixToFile(PH, ConfigTimeDist::path_output_P);
     }
@@ -251,6 +296,9 @@ ResultsTimeDist *time_dist::timeDistDual()
     //Calculate time.
     t_end = std::chrono::system_clock::now();
     time_diff dt = t_end - t_start;
+
+    //Notify done.
+    this->notify(ExecutionStatus::DONE);
 
     return new ResultsTimeDist(dt.count());
 }
