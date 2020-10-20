@@ -317,9 +317,6 @@ ResultsWfesSingle *wfes_single::fixation()
 
     delete solver;
 
-    //Notify solving
-    this->notify(ExecutionStatus::SOLVING_MATRICES);
-
     //Calculate time.
     t_end = std::chrono::system_clock::now();
     time_diff dt = t_end - t_start;
@@ -411,9 +408,6 @@ ResultsWfesSingle *wfes_single::fundamental()
     t_end = std::chrono::system_clock::now();
     time_diff dt = t_end - t_start;
 
-    //Notify done.
-    this->notify(ExecutionStatus::DONE);
-
     // Generate images from matrices and save to file.
     QImage *imageI = nullptr, *imageQ = nullptr, *imageR = nullptr, *imageN = nullptr, *imageV = nullptr;
     if(ConfigWfesSingle::saveImageI) {
@@ -440,6 +434,9 @@ ResultsWfesSingle *wfes_single::fundamental()
         utils::saveImage(imageV, "Image_V");
     }
 
+    //Notify done.
+    this->notify(ExecutionStatus::DONE);
+
     return new ResultsWfesSingle(ConfigWfesSingle::modelType, dt.count(), imageI, imageQ, imageR, imageN, imageV);
 }
 
@@ -452,10 +449,10 @@ ResultsWfesSingle *wfes_single::equilibrium()
     wrightfisher::Matrix W = wrightfisher::EquilibriumSolvingMatrix(ConfigWfesSingle::population_size, ConfigWfesSingle::s, ConfigWfesSingle::h, ConfigWfesSingle::u, ConfigWfesSingle::v,
                                                                     ConfigWfesSingle::a, ConfigWfesSingle::verbose, ConfigWfesSingle::b, ConfigWfesSingle::library);
 
-    Solver* solver = SolverFactory::createSolver(ConfigWfesSingle::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, ConfigWfesSingle::vienna_solver);
-
     //Notify solving
     this->notify(ExecutionStatus::SOLVING_MATRICES);
+
+    Solver* solver = SolverFactory::createSolver(ConfigWfesSingle::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, ConfigWfesSingle::vienna_solver);
 
     solver->preprocess();
     dvec O = dvec::Zero(size);
@@ -837,9 +834,6 @@ ResultsWfesSingle *wfes_single::nonAbsorbing()
     t_end = std::chrono::system_clock::now();
     time_diff dt = t_end - t_start;
 
-    //Notify done.
-    this->notify(ExecutionStatus::DONE);
-
     // Generate images from matrices and save to file.
     //TODO Set if show and print from GUI.
     QImage *imageI = nullptr, *imageQ = nullptr;
@@ -851,6 +845,9 @@ ResultsWfesSingle *wfes_single::nonAbsorbing()
         imageQ = utils::generateImage(W.Q->dense());
         utils::saveImage(imageQ, "Image_Q");
     }
+
+    //Notify done.
+    this->notify(ExecutionStatus::DONE);
 
     return new ResultsWfesSingle(ConfigWfesSingle::modelType, true, dt.count(), imageI, imageQ);
 }
