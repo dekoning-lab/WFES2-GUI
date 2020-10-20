@@ -19,10 +19,10 @@ ApplicationWindow {
 
     width: 955
     minimumWidth: 955
-    height: 510
-    minimumHeight: 510
     maximumWidth: 955
-    maximumHeight: 510
+    height: 490
+    minimumHeight: 490
+    maximumHeight: 490
 
     // Select theme for the application.
     Universal.theme: Universal.Light
@@ -47,7 +47,8 @@ ApplicationWindow {
         }
 
         Rectangle {
-            height: parent.height
+            id: content
+            height: childrenRect.height
             width: parent.width
             color: "transparent"
 
@@ -677,6 +678,8 @@ ApplicationWindow {
 
                             // All changes made in backend from GUI are done here.
                             onClicked: {
+                                bottomMenu.visibleProgressBar = true
+
                                 if (radioButtonFixation.checked)
                                     outputControllerWfesSweep.ui_modelType = "Fixation"
 
@@ -819,6 +822,41 @@ ApplicationWindow {
                 }
             }
         }
+
+        Rectangle {
+            id: separatorBottomBar
+            height: 1
+            width: parent.width
+            color: Universal.baseHighColor
+            anchors {
+                top: content.bottom
+                left: parent.left
+                topMargin: 30
+            }
+        }
+
+        Binding {
+            target: bottomMenu
+            property: "visibleProgressBar"
+            value: !outputControllerWfesSweep.ui_get_not_exec
+
+        }
+
+        BottomMenuExecutionView {
+            id: bottomMenu
+            width: parent.width
+            executionProgress: outputControllerWfesSweep.ui_progress
+
+            executionTime: {
+                outputControllerWfesSweep.ui_get_time == "" ? "" : outputControllerWfesSweep.ui_get_time + "s"
+            }
+            anchors {
+                top: separatorBottomBar.bottom
+                left: parent.left
+            }
+        }
+
+
     }
 
 }

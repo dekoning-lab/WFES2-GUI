@@ -720,6 +720,7 @@ ApplicationWindow {
                 left: parent.left
             }
         }
+
     }
 
 }
