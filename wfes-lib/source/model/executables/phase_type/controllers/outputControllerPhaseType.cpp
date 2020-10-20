@@ -72,6 +72,21 @@ QString OutputControllerPhaseType::get_time() const
         return QString::fromStdString(fmt.str());
 }
 
+QStringList OutputControllerPhaseType::get_moments() const
+{
+    QStringList list;
+    for(int i = 0; i < this->results.moments.size(); i++) {
+        boost::format fmt = boost::format(DPF) % (this->results.moments(i));
+        QString str = "";
+        if((boost::math::isnan)(this->results.std))
+            str = "";
+        else
+            str = QString::fromStdString(fmt.str());
+        list.append(str);
+    }
+    return list;
+}
+
 bool OutputControllerPhaseType::get_not_exec() const
 {
     return !executing;

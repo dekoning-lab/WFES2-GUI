@@ -135,17 +135,17 @@ ResultsPhaseType *phase_type::phaseTypeMoment()
     t_end = std::chrono::system_clock::now();
     time_diff dt = t_end - t_start;
 
-    ResultsPhaseType* res = new ResultsPhaseType(m1, sqrt(m2 - (m1 * m1)), dt.count());
+    ResultsPhaseType* res = new ResultsPhaseType(m1, sqrt(m2 - (m1 * m1)), m.row(0), dt.count());
 
-    //TODO Print moments
+    //Print moments.
     if(ConfigPhaseType::output_Moments)
         utils::writeVectorToFile(m.row(0), ConfigPhaseType::path_output_Moments);
 
-    //Notify done.
-    this->notify(ExecutionStatus::DONE);
-
     if(ConfigPhaseType::output_Res)
        res->writeResultsToFile(res, ConfigPhaseType::path_output_Res);
+
+    //Notify done.
+    this->notify(ExecutionStatus::DONE);
 
     return res;
 }

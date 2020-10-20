@@ -23,6 +23,7 @@ namespace wfes {
             Q_PROPERTY(QString ui_get_time READ get_time NOTIFY results_changed)
             Q_PROPERTY(bool ui_get_not_exec READ get_not_exec NOTIFY results_changed)
             Q_PROPERTY(QString ui_progress READ get_progress NOTIFY updateProgress)
+            Q_PROPERTY(QStringList ui_moments READ get_moments NOTIFY results_changed)
 
             public:
 
@@ -86,6 +87,12 @@ namespace wfes {
                  * @return QString containing execution time.
                  */
                 QString get_time() const;
+
+                /**
+                 * @brief Send moments to GUI.
+                 * @return  QList containing moments.
+                 */
+                QStringList get_moments() const;
 
                 /**
                  * @brief Send if the background thread is executing.

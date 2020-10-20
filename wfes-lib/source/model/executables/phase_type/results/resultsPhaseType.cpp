@@ -1,10 +1,10 @@
 #include "resultsPhaseType.h"
 
 ResultsPhaseType::ResultsPhaseType() :
-    mean(std::nan("")), std(std::nan("")),time(std::nan("")) {}
+    mean(std::nan("")), std(std::nan("")), time(std::nan("")) {}
 
-ResultsPhaseType::ResultsPhaseType(double mean, double std, double time) :
-    mean(mean), std(std), time(time) {}
+ResultsPhaseType::ResultsPhaseType(double mean, double std, dvec moments, double time) :
+    mean(mean), std(std), time(time), moments(moments) {}
 
 ResultsPhaseType::ResultsPhaseType(double time) :
     mean(std::nan("")), std(std::nan("")), time(time) {}

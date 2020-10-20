@@ -399,7 +399,7 @@ ApplicationWindow {
                                 }
 
                                 Label {
-
+                                    // Empty, so Res is always at right.
                                 }
 
                                 LabeledCheckBox {
@@ -686,12 +686,20 @@ ApplicationWindow {
                             ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
                             contentHeight: 200
                             contentWidth: prueba.width
-
+                            enabled: radioButtonPhaseTypeMoments.checked
                             ListView {
-                                model: 20
+                                id: listViewMoments
+                                model: outputControllerPhaseType.ui_moments
+                                enabled: radioButtonPhaseTypeMoments.checked
                                 delegate: ItemDelegate {
-                                    text: "Item " + (index + 1)
-                                    width: prueba.width
+                                  width: prueba.width
+                                  height: 25
+                                  Text {
+                                      text: modelData;
+                                      width: parent.width;
+                                      height: parent.height;
+                                      enabled: radioButtonPhaseTypeMoments.checked
+                                  }
                                 }
                             }
                         }

@@ -14,10 +14,11 @@ public:
     double mean;
     double std;
     double time;
+    dvec moments;
 
     ResultsPhaseType();
 
-    ResultsPhaseType(double mean, double std, double time);
+    ResultsPhaseType(double mean, double std, dvec moments, double time);
 
     ResultsPhaseType(double time);
 
