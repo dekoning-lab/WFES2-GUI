@@ -111,14 +111,10 @@ ApplicationWindow {
                                 vector = inputControllerWfafle.ui_v_vec
                                 vector[num_comps] = inputControllerWfafle.ui_v_vec[num_comps-1]
                                 inputControllerWfafle.ui_v_vec = vector
-
-                                print(inputControllerWfafle.ui_h_vec)
                             }
                             onDelete: function(){
                                 var num_comps = inputControllerWfafle.ui_num_comp
                                 inputControllerWfafle.ui_num_comp = parseInt(num_comps) - 1
-
-                                print(inputControllerWfafle.ui_h_vec)
                             }
                         }
 
@@ -369,43 +365,45 @@ ApplicationWindow {
                             onClicked: {
                                 bottomMenu.visibleProgressBar = true
 
-                                /*
-                                inputControllerWfafle.ui_n = inputN.textFieldText
                                 inputControllerWfafle.ui_a = inputA.textFieldText
-                                inputControllerWfafle.ui_l = inputL.textFieldText
-                                inputControllerWfafle.ui_c = inputC.textFieldText
                                 inputControllerWfafle.ui_p - inputP.textFieldText
+                                var N_vec = []
+                                var G_vec = []
                                 var u_vec = []
                                 var v_vec = []
                                 var s_vec = []
                                 var h_vec = []
-                                for(var i = 0; i < 2; i++) {
-                                    componentsSectionTabView.getTab(i).active = true
-                                    var u = componentsSectionTabView.getTab(i).item.children[0].children[1].children[0].textFieldText
-                                    var v = componentsSectionTabView.getTab(i).item.children[0].children[1].children[1].textFieldText
-                                    var s = componentsSectionTabView.getTab(i).item.children[1].children[1].children[0].textFieldText
-                                    var h = componentsSectionTabView.getTab(i).item.children[1].children[1].children[1].textFieldText
+                                for(var i = 0; i < inputControllerWfafle.ui_num_comp; i++) {
+                                    componentsSectionTabView.children[0].getTab(i).active = true
+                                    var N = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[0].textFieldText
+                                    var G = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[1].textFieldText
+                                    var u = componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[0].textFieldText
+                                    var v = componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[1].textFieldText
+                                    var s = componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[0].textFieldText
+                                    var h = componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[1].textFieldText
+                                    N_vec.push(N)
+                                    G_vec.push(G)
                                     u_vec.push(u)
                                     v_vec.push(v)
                                     s_vec.push(s)
                                     h_vec.push(h)
                                 }
+                                inputControllerWfafle.ui_N_vec = N_vec
+                                inputControllerWfafle.ui_G_vec = G_vec
                                 inputControllerWfafle.ui_u_vec = u_vec
                                 inputControllerWfafle.ui_v_vec = v_vec
                                 inputControllerWfafle.ui_s_vec = s_vec
                                 inputControllerWfafle.ui_h_vec = h_vec
 
-                                inputControllerWfafle.ui_output_Q = inputWriteQ.checked
-                                inputControllerWfafle.ui_output_R = inputWriteR.checked
-                                inputControllerWfafle.ui_output_B = inputWriteB.checked
-                                inputControllerWfafle.ui_output_N = inputWriteN.checked
-                                inputControllerWfafle.ui_output_I = inputWriteI.checked
-                                inputControllerWfafle.ui_output_Res = inputWriteRes.checked
-
+                                inputControllerWfafle.ui_output_Dist = inputWriteDist.checked
                                 inputControllerWfafle.ui_t = inputT.textFieldText
-                                inputControllerWfafle.ui_library = comboBoxLibrary.currentText;
                                 inputControllerWfafle.ui_force = inputForce.checked
-*/
+
+                                inputControllerWfafle.ui_initial_distribution = inputI.textFieldText
+
+                                inputControllerWfafle.ui_library = comboBoxLibrary.currentText;
+                                inputControllerWfafle.ui_solver = comboBoxSolver.currentText;
+
                                 console.log(outputControllerWfafle.ui_get_error_message)
                                 if(outputControllerWfafle.ui_get_error_message === "") {
                                     executeButton.enabled = false
