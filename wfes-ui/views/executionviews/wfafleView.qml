@@ -170,7 +170,7 @@ ApplicationWindow {
                                     id: inputWriteDist
                                     text: "Dist: "
                                     toolTipText: "Output Allele freq. dist. as CSV file."
-                                    checked: inputControllerWfesSweep.ui_output_Q
+                                    checked: inputControllerWfafle.ui_output_Q
                                 }
 
                             }
@@ -210,7 +210,7 @@ ApplicationWindow {
                                         id: inputForce
                                         toolTipText: "Do not perform parameter checks."
                                         text: "Force: "
-                                        checked: inputControllerWfesSweep.ui_force
+                                        checked: inputControllerWfafle.ui_force
                                     }
 
                                     LabeledTextField {
@@ -219,7 +219,7 @@ ApplicationWindow {
                                         labelPreferredWidth: 10
                                         toolTipText: "Number of threads for OpenMP."
                                         validator: DoubleValidator {bottom: 2; top: 50000;}
-                                        textFieldText: inputControllerWfesSweep.ui_t
+                                        textFieldText: inputControllerWfafle.ui_t
                                     }
                                 }
 
@@ -256,7 +256,7 @@ ApplicationWindow {
                                         toolTipText: "Path to initial probability distribution CSV file."
                                         labelPreferredWidth: 75
                                         textFieldPreferredWidth: 185
-                                        textFieldText: inputControllerWfesSweep.ui_initial_distribution
+                                        textFieldText: inputControllerWfafle.ui_initial_distribution
                                     }
 
                                     Button{
@@ -317,7 +317,7 @@ ApplicationWindow {
                             Binding {
                                 target: executeButton
                                 property: "enabled"
-                                value: outputControllerWfesSweep.ui_get_not_exec
+                                value: outputControllerWfafle.ui_get_not_exec
 
                             }
 
@@ -325,14 +325,12 @@ ApplicationWindow {
                             onClicked: {
                                 bottomMenu.visibleProgressBar = true
 
-                                if (radioButtonFixation.checked)
-                                    outputControllerWfesSweep.ui_modelType = "Fixation"
-
-                                inputControllerWfesSweep.ui_n = inputN.textFieldText
-                                inputControllerWfesSweep.ui_a = inputA.textFieldText
-                                inputControllerWfesSweep.ui_l = inputL.textFieldText
-                                inputControllerWfesSweep.ui_c = inputC.textFieldText
-                                inputControllerWfesSweep.ui_p - inputP.textFieldText
+                                /*
+                                inputControllerWfafle.ui_n = inputN.textFieldText
+                                inputControllerWfafle.ui_a = inputA.textFieldText
+                                inputControllerWfafle.ui_l = inputL.textFieldText
+                                inputControllerWfafle.ui_c = inputC.textFieldText
+                                inputControllerWfafle.ui_p - inputP.textFieldText
                                 var u_vec = []
                                 var v_vec = []
                                 var s_vec = []
@@ -348,32 +346,32 @@ ApplicationWindow {
                                     s_vec.push(s)
                                     h_vec.push(h)
                                 }
-                                inputControllerWfesSweep.ui_u_vec = u_vec
-                                inputControllerWfesSweep.ui_v_vec = v_vec
-                                inputControllerWfesSweep.ui_s_vec = s_vec
-                                inputControllerWfesSweep.ui_h_vec = h_vec
+                                inputControllerWfafle.ui_u_vec = u_vec
+                                inputControllerWfafle.ui_v_vec = v_vec
+                                inputControllerWfafle.ui_s_vec = s_vec
+                                inputControllerWfafle.ui_h_vec = h_vec
 
-                                inputControllerWfesSweep.ui_output_Q = inputWriteQ.checked
-                                inputControllerWfesSweep.ui_output_R = inputWriteR.checked
-                                inputControllerWfesSweep.ui_output_B = inputWriteB.checked
-                                inputControllerWfesSweep.ui_output_N = inputWriteN.checked
-                                inputControllerWfesSweep.ui_output_I = inputWriteI.checked
-                                inputControllerWfesSweep.ui_output_Res = inputWriteRes.checked
+                                inputControllerWfafle.ui_output_Q = inputWriteQ.checked
+                                inputControllerWfafle.ui_output_R = inputWriteR.checked
+                                inputControllerWfafle.ui_output_B = inputWriteB.checked
+                                inputControllerWfafle.ui_output_N = inputWriteN.checked
+                                inputControllerWfafle.ui_output_I = inputWriteI.checked
+                                inputControllerWfafle.ui_output_Res = inputWriteRes.checked
 
-                                inputControllerWfesSweep.ui_t = inputT.textFieldText
-                                inputControllerWfesSweep.ui_library = comboBoxLibrary.currentText;
-                                inputControllerWfesSweep.ui_force = inputForce.checked
-
-                                console.log(outputControllerWfesSweep.ui_get_error_message)
-                                if(outputControllerWfesSweep.ui_get_error_message === "") {
+                                inputControllerWfafle.ui_t = inputT.textFieldText
+                                inputControllerWfafle.ui_library = comboBoxLibrary.currentText;
+                                inputControllerWfafle.ui_force = inputForce.checked
+*/
+                                console.log(outputControllerWfafle.ui_get_error_message)
+                                if(outputControllerWfafle.ui_get_error_message === "") {
                                     executeButton.enabled = false
                                     stopButton.enabled = true
-                                    outputControllerWfesSweep.ui_execute
+                                    outputControllerWfafle.ui_execute
                                 } else {
-                                    messageDialog.text = outputControllerWfesSweep.ui_get_error_message
+                                    messageDialog.text = outputControllerWfafle.ui_get_error_message
                                     messageDialog.open()
                                 }
-                                outputControllerWfesSweep.ui_reset_error
+                                outputControllerWfafle.ui_reset_error
                             }
 
                         }
@@ -436,11 +434,9 @@ ApplicationWindow {
                             ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
                             contentHeight: 200
                             contentWidth: parent.width
-                            enabled: radioButtonPhaseTypeMoments.checked
                             ListView {
                                 id: listViewMoments
-                                model: outputControllerPhaseType.ui_moments
-                                enabled: radioButtonPhaseTypeMoments.checked
+                                model: outputControllerWfafle.ui_moments
                                 delegate: ItemDelegate {
                                   width: parent.width
                                   height: 25
@@ -474,17 +470,17 @@ ApplicationWindow {
         Binding {
             target: bottomMenu
             property: "visibleProgressBar"
-            value: !outputControllerWfesSweep.ui_get_not_exec
+            value: !outputControllerWfafle.ui_get_not_exec
 
         }
 
         BottomMenuExecutionView {
             id: bottomMenu
             width: parent.width
-            executionProgress: outputControllerWfesSweep.ui_progress
+            executionProgress: outputControllerWfafle.ui_progress
 
             executionTime: {
-                outputControllerWfesSweep.ui_get_time == "" ? "" : outputControllerWfesSweep.ui_get_time + "s"
+                outputControllerWfafle.ui_get_time == "" ? "" : outputControllerWfafle.ui_get_time + "s"
             }
             anchors {
                 top: separatorBottomBar.bottom

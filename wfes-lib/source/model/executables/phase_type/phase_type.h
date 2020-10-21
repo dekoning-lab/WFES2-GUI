@@ -19,8 +19,6 @@
 
 #include <model/executables/phase_type/results/resultsPhaseType.h>
 
-#include <model/executables/wfes_sweep/results/resultsWfesSweep.h>
-
 #include <utils/observer/subject.h>
 
 #include <model/executables/phase_type/config/configPhaseType.h>
