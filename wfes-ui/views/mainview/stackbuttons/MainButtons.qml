@@ -23,9 +23,21 @@ Item {
                 text: "WFAS"
                 view: "wfas has not been implemented yet."
             }
-            LaunchViewButton {
+            Button {
                 text: "WFAFLE"
-                view: "wfafle has not been implemented yet."
+                onClicked: {
+                    var componentWfafle = Qt.createComponent("qrc:/views/executionviews/wfafleView.qml")
+                    if( componentWfafle.status !== Component.Ready )
+                    {
+                        if( componentWfafle.status === Component.Error )
+                            console.debug("Error:"+ componentWfafle.errorString() );
+                        return;
+                    }
+                    var windowWfafle    = componentWfafle.createObject(root, {})
+                    root.visible = false;
+                }
+                Layout.alignment: Qt.AlignHCenter
+                Layout.preferredWidth: 160
             }
 
         }
@@ -64,7 +76,7 @@ Item {
                             console.debug("Error:"+ componentPhaseType.errorString() );
                         return;
                     }
-                    var windowTimeDist    = componentPhaseType.createObject(root, {})
+                    var windowPhaseType    = componentPhaseType.createObject(root, {})
                     root.visible = false;
                 }
                 Layout.alignment: Qt.AlignHCenter
