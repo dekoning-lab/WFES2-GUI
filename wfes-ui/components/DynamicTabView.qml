@@ -4,9 +4,12 @@ import QtQuick.Controls 1.0
 Rectangle {
     property var widthTabView: 100
     property var heightTabView: 100
+    property var urlComponent
+    property var tabNames: "Tab"
     color: "transparent"
     width: widthTabView
     height: heightTabView
+
     TabView {
         id:tb
         width: parent.width
@@ -14,11 +17,15 @@ Rectangle {
 
         Tab {
             id:viewComp1
-            title: "Tab 1"
-            Rectangle{
-                width: parent.width
-                height: parent.height
-                color:"black"
+            title: tabNames + " 1"
+            component: {
+                var component = Qt.createComponent(urlComponent)
+                var object = component.createObject(tb, {})
+                return object
+            }
+            onLoaded: {
+                console.log(this.children[0].number)
+                this.children[0].number = 1
             }
         }
 
@@ -32,9 +39,12 @@ Rectangle {
             }
             onVisibleChanged: {
                 if(this.visible) {
-                    console.log(tb.count)
-                    tb.insertTab(tb.count-2, ("Tab " + (tb.count - 1)), viewComp)
+                    var component = Qt.createComponent(urlComponent)
+                    var object = component.createObject(tb, {})
+                    tb.insertTab(tb.count-2, (tabNames + " " + (tb.count - 1)), object)
                     tb.currentIndex = tb.count-3
+                    tb.getTab(tb.count-3).children[0].number = tb.count-2
+
                 }
             }
         }
