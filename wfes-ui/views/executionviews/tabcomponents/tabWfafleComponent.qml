@@ -14,7 +14,7 @@ Component{
     id:viewComp
     GridLayout {
         property var number: 0
-        id: tabGrid1
+        id: tabGrid
         columns: 1
         anchors {
             top: parent.top
@@ -22,7 +22,7 @@ Component{
         }
 
         Rectangle {
-            id: mutationSection1
+            id: mutationSection
             width: parent.width
             height: childrenRect.height
 
@@ -30,7 +30,7 @@ Component{
 
 
             Label {
-                id: labelMutation1
+                id: labelMutation
                 text: "Mutation:"
                 anchors {
                     left: parent.left
@@ -41,16 +41,16 @@ Component{
             }
 
             GridLayout {
-                id: mutationSectionGrid1
+                id: mutationSectionGrid
                 columns: 4
                 anchors {
-                    top: labelMutation1.bottom
+                    top: labelMutation.bottom
                     left: parent.left
                     margins: 10
                 }
 
                 LabeledTextField {
-                    id: inputU1
+                    id: inputU
                     text: "u" + number + ": "
                     toolTipText: "Backward mutation rate."
                     validator: DoubleValidator {bottom: 2; top: 50000;}
@@ -61,7 +61,7 @@ Component{
                 }
 
                 LabeledTextField {
-                    id: inputV1
+                    id: inputV
                     text: "v" + number + ": "
                     toolTipText: "Forward mutation rate."
                     validator: DoubleValidator {bottom: 0; top: 2e-10;}
@@ -77,7 +77,7 @@ Component{
 
 
         Rectangle {
-            id: selectionSection1
+            id: selectionSection
             width: parent.width
             height: childrenRect.height
 
@@ -85,7 +85,7 @@ Component{
 
 
             Label {
-                id: labelSelection1
+                id: labelSelection
                 text: "Selection:"
                 anchors {
                     left: parent.left
@@ -96,16 +96,16 @@ Component{
             }
 
             GridLayout {
-                id: selectionSectionGrid1
+                id: selectionSectionGrid
                 columns: 4
                 anchors {
-                    top: labelSelection1.bottom
+                    top: labelSelection.bottom
                     left: parent.left
                     margins: 10
                 }
 
                 LabeledTextField {
-                    id: inputS1
+                    id: inputS
                     text: "s" + number + ": "
                     toolTipText: "Selection coefficient."
                     validator: DoubleValidator {bottom: 2; top: 50000;}
@@ -116,7 +116,7 @@ Component{
                 }
 
                 LabeledTextField {
-                    id: inputH1
+                    id: inputH
                     text: "h" + number + ": "
                     toolTipText: "Dominance coefficient."
                     validator: DoubleValidator {bottom: 0; top: 2e-10;}

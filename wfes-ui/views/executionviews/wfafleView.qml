@@ -80,7 +80,7 @@ ApplicationWindow {
 
                         DynamicTabView {
                             id: componentsSectionTabView
-                            width: commonSection.width
+                            width: commonSection.width + 10
                             height: 200
                             tabNames: "Comp."
                             urlComponent: "qrc:/views/executionviews/tabcomponents/tabWfafleComponent.qml"
@@ -90,7 +90,7 @@ ApplicationWindow {
 
                     Rectangle {
                         height: 1
-                        width: commonSection.width
+                        width: componentsSectionTabView.width
                         color: Universal.baseHighColor
                     }
 
