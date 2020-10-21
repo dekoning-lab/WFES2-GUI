@@ -61,13 +61,13 @@ ResultsWfafle *wfafle::function()
     return new ResultsWfafle(d[k-1], dt.count());
 }
 
-void iterate_generations(dvec &x, llong N, llong t, double s, double h, double u, double v, double alpha, bool verbose) {
+void wfafle::iterate_generations(dvec &x, llong N, llong t, double s, double h, double u, double v, double alpha, bool verbose) {
     wrightfisher::Matrix wf = wrightfisher::Single(N, N, wrightfisher::NON_ABSORBING, s, h, u, v, true, alpha, verbose);
     wf.Q->multiplyInPlaceRep(x, t, true);
     x /= x.sum();
 }
 
-dvec switch_population_size(dvec &x, llong Nx, llong Ny, double s, double h, double u, double v, double alpha, bool verbose) {
+dvec wfafle::switch_population_size(dvec &x, llong Nx, llong Ny, double s, double h, double u, double v, double alpha, bool verbose) {
     wrightfisher::Matrix wf = wrightfisher::Single(Nx, Ny, wrightfisher::NON_ABSORBING, s, h, u, v, true, alpha, verbose);
     dvec next = wf.Q->multiply(x, true);
     next /= next.sum();

@@ -24,3 +24,8 @@ void WorkerThreadWfafle::run()
     done = true;
     emit resultReady(results);
 }
+
+void WorkerThreadWfafle::update(int value)
+{
+    emit updateProgress(value);
+}

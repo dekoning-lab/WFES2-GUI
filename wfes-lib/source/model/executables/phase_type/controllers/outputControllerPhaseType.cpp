@@ -53,12 +53,12 @@ QString OutputControllerPhaseType::get_std() const
 
 QString OutputControllerPhaseType::get_error_message() const
 {
-    return QString::fromStdString(wfes::config::ConfigWfesSingle::error);
+    return QString::fromStdString(wfes::config::ConfigPhaseType::error);
 }
 
 QString OutputControllerPhaseType::reset_error() const
 {
-    wfes::config::ConfigWfesSingle::error = "";
+    wfes::config::ConfigPhaseType::error = "";
     return QString();
 }
 
@@ -78,7 +78,7 @@ QStringList OutputControllerPhaseType::get_moments() const
     for(int i = 0; i < this->results.moments.size(); i++) {
         boost::format fmt = boost::format(DPF) % (this->results.moments(i));
         QString str = "";
-        if((boost::math::isnan)(this->results.std))
+        if((boost::math::isnan)(this->results.moments))
             str = "";
         else
             str = QString::fromStdString(fmt.str());

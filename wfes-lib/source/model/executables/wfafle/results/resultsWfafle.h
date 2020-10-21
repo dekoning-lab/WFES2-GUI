@@ -10,9 +10,9 @@
 #include <boost/math/special_functions/fpclassify.hpp>
 
 class ResultsWfafle {
-    double time;
-    dvec probs;
     public:
+        double time;
+        dvec probs;
         ResultsWfafle();
 
         ResultsWfafle(double time);
