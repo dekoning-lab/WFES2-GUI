@@ -54,7 +54,7 @@ namespace wfes {
                 /**
                  * @brief Output Res (Generated results).
                  */
-                static bool output_Res;
+                static bool output_Dist;
 
                 /**
                  * @brief Path output I (Initial probability distribution).

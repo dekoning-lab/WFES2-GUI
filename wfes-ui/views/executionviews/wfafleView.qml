@@ -84,6 +84,42 @@ ApplicationWindow {
                             height: 270
                             tabNames: "Comp."
                             urlComponent: "qrc:/views/executionviews/tabcomponents/tabWfafleComponent.qml"
+                            onAdd: function(){
+                                var num_comps = inputControllerWfafle.ui_num_comp
+                                inputControllerWfafle.ui_num_comp = parseInt(num_comps) + 1
+
+                                var vector = inputControllerWfafle.ui_N_vec
+                                vector[num_comps] = inputControllerWfafle.ui_N_vec[num_comps-1]
+                                inputControllerWfafle.ui_N_vec = vector
+
+                                vector = inputControllerWfafle.ui_G_vec
+                                vector[num_comps] = inputControllerWfafle.ui_G_vec[num_comps-1]
+                                inputControllerWfafle.ui_G_vec = vector
+
+                                vector = inputControllerWfafle.ui_s_vec
+                                vector[num_comps] = inputControllerWfafle.ui_s_vec[num_comps-1]
+                                inputControllerWfafle.ui_s_vec = vector
+
+                                vector = inputControllerWfafle.ui_h_vec
+                                vector[num_comps] = inputControllerWfafle.ui_h_vec[num_comps-1]
+                                inputControllerWfafle.ui_h_vec = vector
+
+                                vector = inputControllerWfafle.ui_u_vec
+                                vector[num_comps] = inputControllerWfafle.ui_u_vec[num_comps-1]
+                                inputControllerWfafle.ui_u_vec = vector
+
+                                vector = inputControllerWfafle.ui_v_vec
+                                vector[num_comps] = inputControllerWfafle.ui_v_vec[num_comps-1]
+                                inputControllerWfafle.ui_v_vec = vector
+
+                                print(inputControllerWfafle.ui_h_vec)
+                            }
+                            onDelete: function(){
+                                var num_comps = inputControllerWfafle.ui_num_comp
+                                inputControllerWfafle.ui_num_comp = parseInt(num_comps) - 1
+
+                                print(inputControllerWfafle.ui_h_vec)
+                            }
                         }
 
                     }
@@ -96,7 +132,7 @@ ApplicationWindow {
 
                     Rectangle {
                         id: commonSection
-                        width: childrenRect.width * 2
+                        width: childrenRect.width
                         height: childrenRect.height
 
                         color: "transparent"
@@ -121,6 +157,14 @@ ApplicationWindow {
                                 toolTipText: "Tail truncation weight."
                                 validator: DoubleValidator {bottom: 0; top: 2e-10;}
                                 textFieldText: inputControllerWfafle.ui_a
+                            }
+
+                            LabeledTextField {
+                                id: inputP
+                                text: "p: "
+                                toolTipText: "Initial allele count."
+                                validator: DoubleValidator {bottom: 2; top: 50000;}
+                                textFieldText: inputControllerWfafle.ui_p
                             }
 
                         }
@@ -170,7 +214,7 @@ ApplicationWindow {
                                     id: inputWriteDist
                                     text: "Dist: "
                                     toolTipText: "Output Allele freq. dist. as CSV file."
-                                    checked: inputControllerWfafle.ui_output_Q
+                                    checked: inputControllerWfafle.ui_output_Dist
                                 }
 
                             }
@@ -436,7 +480,7 @@ ApplicationWindow {
                             contentWidth: parent.width
                             ListView {
                                 id: listViewMoments
-                                model: outputControllerWfafle.ui_moments
+                                model: outputControllerWfafle.ui_probs
                                 delegate: ItemDelegate {
                                   width: parent.width
                                   height: 25

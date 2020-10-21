@@ -6,6 +6,8 @@ Rectangle {
     property var heightTabView: 100
     property var urlComponent
     property var tabNames: "Tab"
+    property var onAdd: function(){}
+    property var onDelete: function(){}
     color: "transparent"
     width: widthTabView
     height: heightTabView
@@ -39,12 +41,12 @@ Rectangle {
             }
             onVisibleChanged: {
                 if(this.visible) {
+                    onAdd()
                     var component = Qt.createComponent(urlComponent)
                     var object = component.createObject(tb, {})
                     tb.insertTab(tb.count-2, (tabNames + " " + (tb.count - 1)), object)
                     tb.currentIndex = tb.count-3
                     tb.getTab(tb.count-3).children[0].number = tb.count-2
-
                 }
             }
         }
@@ -60,6 +62,7 @@ Rectangle {
             onVisibleChanged: {
                 if(tb.count > 3) {
                     if(this.visible) {
+                        onDelete()
                         tb.currentIndex = tb.count-4
                         tb.removeTab(tb.count-3)
                     }
