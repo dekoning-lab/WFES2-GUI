@@ -52,7 +52,7 @@ bool ConfigWfafle::output_Dist = true;
 
 std::string ConfigWfafle::initial_distribution_csv = "";
 std::string ConfigWfafle::path_output_I = "output_I.csv";
-std::string ConfigWfafle::path_output_Res = "output_Res.csv";
+std::string ConfigWfafle::path_output_Dist = "output_Dist.csv";
 
 bool ConfigWfafle::force = false;
 bool ConfigWfafle::verbose = false;

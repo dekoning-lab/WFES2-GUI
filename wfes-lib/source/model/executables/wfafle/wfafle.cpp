@@ -29,6 +29,9 @@ ResultsWfafle *wfafle::execute()
 
 ResultsWfafle *wfafle::function()
 {
+    //Notify building matrix.
+    this->notify(ExecutionStatus::BUILDING_MATRICES);
+
     llong k = ConfigWfafle::N.size();
 
     std::deque<dvec> d;
@@ -51,12 +54,21 @@ ResultsWfafle *wfafle::function()
 
     iterate_generations(d[k - 1], ConfigWfafle::N(k - 1), ConfigWfafle::G(k - 1), ConfigWfafle::ConfigWfafle::s(k - 1), ConfigWfafle::h(k - 1), ConfigWfafle::u(k - 1), ConfigWfafle::v(k - 1), ConfigWfafle::a, msg_level);
 
+    //Notify saving data.
+    this->notify(ExecutionStatus::SAVING_DATA);
+
+    if(ConfigWfafle::output_Dist) {
+        utils::writeVectorToFile(d[k - 1], ConfigWfafle::path_output_Dist);
+    }
     // write_vector_to_file(d[k - 1], "stdout");
     std::cout << d[k - 1] << std::endl;
 
     //Calculate time.
     t_end = std::chrono::system_clock::now();
     time_diff dt = t_end - t_start;
+
+    //Notify done.
+    this->notify(ExecutionStatus::DONE);
 
     return new ResultsWfafle(d[k-1], dt.count());
 }

@@ -62,9 +62,9 @@ namespace wfes {
                 static std::string path_output_I;
 
                 /**
-                 * @brief Path output Res (Generated results).
+                 * @brief Path output Dist (Generated results).
                  */
-                static std::string path_output_Res;
+                static std::string path_output_Dist;
 
                 /**
                  * @brief Do not perform parameter checks.
