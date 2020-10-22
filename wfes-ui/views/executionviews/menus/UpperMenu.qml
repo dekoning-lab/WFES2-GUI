@@ -14,38 +14,7 @@ Rectangle {
     RowLayout {
         height: childrenRect.height
         spacing: 0
-        
-        Button {
-            id: fileButton
-            text: "File"
-            onClicked: menu.open()
-            
-            Menu {
-                id: menu
-                y: fileButton.height
-                
-                MenuItem {
-                    text: "New..."
-                    onClicked: {
-                        console.warn("WARNING: File->New... clicked - Not implemented yet.")
-                    }
-                }
-                MenuItem {
-                    text: "Open..."
-                    onClicked: {
-                        console.warn("WARNING: File->Open... clicked - Not implemented yet.")
-                    }
-                }
-                MenuItem {
-                    text: "Save..."
-                    onClicked: {
-                        console.warn("WARNING: File->Save... clicked - Not implemented yet.")
-                    }
-                }
-            }
-        }
-        
-        
+
         Button {
             id: settingsButton
             text: "Settings"
@@ -56,53 +25,64 @@ Rectangle {
                 y: settingsButton.height
                 
                 MenuItem {
-                    text: "New..."
+                    text: "Save Config..."
+                    onClicked: {
+                        console.warn("WARNING: Settings->Save Config... clicked - Not implemented yet.")
+                    }
+                }
+                MenuItem {
+                    text: "Load Config..."
+                    onClicked: {
+                        console.warn("WARNING: Help->Load Config... clicked - Not implemented yet.")
+                    }
+                }
+                MenuItem {
+                    text: "Global Settings"
+                    onClicked: {
+                        console.warn("WARNING: Settings->Global Settings clicked - Not implemented yet.")
+                    }
+                }
+            }
+        }
+
+        Button {
+            id: viewButton
+            text: "View"
+            onClicked: menu3.open()
+
+            Menu {
+                id: menu3
+                y: settingsButton.height
+
+                MenuItem {
+                    text: "Matrix Visualization"
                     onClicked: {
                         console.warn("WARNING: Settings->New... clicked - Not implemented yet.")
-                    }
-                }
-                MenuItem {
-                    text: "Open..."
-                    onClicked: {
-                        console.warn("WARNING: Help->Open... clicked - Not implemented yet.")
-                    }
-                }
-                MenuItem {
-                    text: "Save"
-                    onClicked: {
-                        console.warn("WARNING: Settings->Save... clicked - Not implemented yet.")
                     }
                 }
             }
         }
         
         
-        
         Button {
             id: helpButton
             text: "Help"
-            onClicked: menu3.open()
+            onClicked: menu4.open()
             
             Menu {
-                id: menu3
+                id: menu4
                 y: helpButton.height
-                
+
                 MenuItem {
-                    text: "New..."
+                    text: "Manual"
                     onClicked: {
-                        console.warn("WARNING: Help->New... clicked - Not implemented yet.")
+                        console.warn("WARNING: Help->Manual clicked - Not implemented yet.")
                     }
                 }
                 MenuItem {
-                    text: "Open..."
+                    text: "About"
                     onClicked: {
-                        console.warn("WARNING: Help->Open... clicked - Not implemented yet.")
-                    }
-                }
-                MenuItem {
-                    text: "Save"
-                    onClicked: {
-                        console.warn("WARNING: Help->Save... clicked - Not implemented yet.")
+                        console.warn("WARNING: Help->About clicked - Not implemented yet.")
                     }
                 }
             }
