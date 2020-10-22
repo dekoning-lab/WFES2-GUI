@@ -41,7 +41,7 @@ namespace wfes {
                 InputControllerWfafle(QObject* parent = nullptr);
 
                 /**
-                 * @brief InputControllerWfesSweep Destructor.
+                 * @brief InputControllerWfafle Destructor.
                  */
                 ~InputControllerWfafle();
 
@@ -77,6 +77,17 @@ namespace wfes {
                  * @param t value in GUI.
                  */
                 void set_t(QString t) const;
+
+                /**
+                 * @brief Send number of components to GUI.
+                 * @return Number of components.
+                 */
+                QString get_num_comp() const;
+                /**
+                 * @brief Set number of components from GUI.
+                 * @param num_comp Number of components.
+                 */
+                void set_num_comp(QString num_comp) const;
 
                 /**
                  * @brief Send if output Dist to GUI.
@@ -200,10 +211,6 @@ namespace wfes {
                  */
                 void set_h_vec(QList<double> h) const;
 
-
-                QString get_num_comp() const;
-
-                void set_num_comp(QString num_comp) const;
 
             signals:
                 /**

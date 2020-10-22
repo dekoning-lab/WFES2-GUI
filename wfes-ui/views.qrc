@@ -16,5 +16,6 @@
         <file alias="executionviews/wfafleView.qml">views/executionviews/wfafleView.qml</file>
         <file alias="executionviews/tabcomponents/tabWfafleComponent.qml">views/executionviews/tabcomponents/tabWfafleComponent.qml</file>
         <file alias="executionviews/wfasView.qml">views/executionviews/wfasView.qml</file>
+        <file alias="executionviews/tabcomponents/tabWfasComponent.qml">views/executionviews/tabcomponents/tabWfasComponent.qml</file>
     </qresource>
 </RCC>

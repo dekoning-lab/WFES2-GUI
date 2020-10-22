@@ -96,6 +96,10 @@ ApplicationWindow {
                                 vector[num_comps] = inputControllerWfas.ui_G_vec[num_comps-1]
                                 inputControllerWfas.ui_G_vec = vector
 
+                                vector = inputControllerWfas.ui_f_vec
+                                vector[num_comps] = inputControllerWfas.ui_f_vec[num_comps-1]
+                                inputControllerWfas.ui_f_vec = vector
+
                                 vector = inputControllerWfas.ui_s_vec
                                 vector[num_comps] = inputControllerWfas.ui_s_vec[num_comps-1]
                                 inputControllerWfas.ui_s_vec = vector
@@ -167,7 +171,7 @@ ApplicationWindow {
                                 id: inputNoProject
                                 text: "No Proj.: "
                                 toolTipText: "Do not project the distribution down."
-                                checked: inputControllerWfas.ui_no_project
+                                checked: inputControllerWfas.ui_no_proj
                             }
                         }
                     }
@@ -425,6 +429,7 @@ ApplicationWindow {
                                     inputControllerWfas.ui_no_project - inputNoProject.textFieldText
                                     var N_vec = []
                                     var G_vec = []
+                                    var f_vec = []
                                     var u_vec = []
                                     var v_vec = []
                                     var s_vec = []
@@ -433,12 +438,14 @@ ApplicationWindow {
                                         componentsSectionTabView.children[0].getTab(i).active = true
                                         var N = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[0].textFieldText
                                         var G = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[1].textFieldText
+                                        var f = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[2].textFieldText
                                         var u = componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[0].textFieldText
                                         var v = componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[1].textFieldText
                                         var s = componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[0].textFieldText
                                         var h = componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[1].textFieldText
                                         N_vec.push(N)
                                         G_vec.push(G)
+                                        f_vec.push(f)
                                         u_vec.push(u)
                                         v_vec.push(v)
                                         s_vec.push(s)
@@ -446,6 +453,7 @@ ApplicationWindow {
                                     }
                                     inputControllerWfas.ui_N_vec = N_vec
                                     inputControllerWfas.ui_G_vec = G_vec
+                                    inputControllerWfas.ui_f_vec = f_vec
                                     inputControllerWfas.ui_u_vec = u_vec
                                     inputControllerWfas.ui_v_vec = v_vec
                                     inputControllerWfas.ui_s_vec = s_vec
