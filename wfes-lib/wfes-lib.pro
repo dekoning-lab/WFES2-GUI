@@ -43,6 +43,12 @@ HEADERS += \
     source/model/executables/time_dist/results/resultsTimeDist.h \
     source/model/executables/time_dist/thread/workerThreadTimeDist.h \
     source/model/executables/time_dist/time_dist.h \
+    source/model/executables/wfas/config/configWfas.h \
+    source/model/executables/wfas/controllers/inputControllerWfas.h \
+    source/model/executables/wfas/controllers/outputControllerWfas.h \
+    source/model/executables/wfas/results/resultsWfas.h \
+    source/model/executables/wfas/thread/workerThreadWfas.h \
+    source/model/executables/wfas/wfas.h \
     source/model/executables/wfes_single/config/configWfesSingle.h \
     source/model/executables/wfes_single/controllers/inputControllerWfesSingle.h \
     source/model/executables/wfes_single/controllers/outputControllerWfesSingle.h \
@@ -94,6 +100,12 @@ SOURCES += \
     source/model/executables/time_dist/results/resultsTimeDist.cpp \
     source/model/executables/time_dist/thread/workerThreadTimeDist.cpp \
     source/model/executables/time_dist/time_dist.cpp \
+    source/model/executables/wfas/config/configWfas.cpp \
+    source/model/executables/wfas/controllers/inputControllerWfas.cpp \
+    source/model/executables/wfas/controllers/outputControllerWfas.cpp \
+    source/model/executables/wfas/results/resultsWfas.cpp \
+    source/model/executables/wfas/thread/workerThreadWfas.cpp \
+    source/model/executables/wfas/wfas.cpp \
     source/model/executables/wfes_single/config/configWfesSingle.cpp \
     source/model/executables/wfes_single/controllers/inputControllerWfesSingle.cpp \
     source/model/executables/wfes_single/controllers/outputControllerWfesSingle.cpp \

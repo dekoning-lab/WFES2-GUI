@@ -17,9 +17,9 @@ ApplicationWindow {
 
     visible: true
 
-    width: 955
-    minimumWidth: 955
-    maximumWidth: 955
+    width: 890
+    minimumWidth: 890
+    maximumWidth: 890
     height: 425
     minimumHeight: 425
     maximumHeight: 425
@@ -179,7 +179,7 @@ ApplicationWindow {
 
                 ColumnLayout {
                     id: column2
-                    Layout.preferredHeight: parent.height
+                    height: parent.height
 
                     ColumnLayout {
                         Layout.alignment: Qt.AlignTop
@@ -325,7 +325,6 @@ ApplicationWindow {
 
                     RowLayout {
                         id: row2
-                        Layout.preferredHeight: childrenRect.height
                         Layout.preferredWidth: parent.width
 
                         Button {
@@ -451,11 +450,6 @@ ApplicationWindow {
                     Label {
                         id: labelMoments2
                         text: "Allele freq. dist.:"
-                        anchors {
-                            left: parent.left
-                            topMargin: 10
-                            leftMargin: 10
-                        }
                     }
 
                     Rectangle {

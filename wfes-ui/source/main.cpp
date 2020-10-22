@@ -14,6 +14,8 @@
 #include <model/executables/phase_type/controllers/outputControllerPhaseType.h>
 #include <model/executables/wfafle/controllers/inputControllerWfafle.h>
 #include <model/executables/wfafle/controllers/outputControllerWfafle.h>
+#include <model/executables/wfas/controllers/inputControllerWfas.h>
+#include <model/executables/wfas/controllers/outputControllerWfas.h>
 
 int main(int argc, char *argv[])
 {
@@ -36,6 +38,8 @@ int main(int argc, char *argv[])
     qmlRegisterType<wfes::controllers::InputControllerPhaseType>("WFES", 1, 0, "InputControllerPhaseType");
     qmlRegisterType<wfes::controllers::OutputControllerWfafle>("WFES", 1, 0, "OutputControllerWfafle");
     qmlRegisterType<wfes::controllers::InputControllerWfafle>("WFES", 1, 0, "InputControllerWfafle");
+    qmlRegisterType<wfes::controllers::OutputControllerWfas>("WFES", 1, 0, "OutputControllerWfas");
+    qmlRegisterType<wfes::controllers::InputControllerWfas>("WFES", 1, 0, "InputControllerWfas");
 
     wfes::controllers::OutputControllerWfesSingle outputControllerWfesSingle;
     wfes::controllers::InputControllerWfesSingle inputControllerWfesSingle;
@@ -47,6 +51,8 @@ int main(int argc, char *argv[])
     wfes::controllers::InputControllerPhaseType inputControllerPhaseType;
     wfes::controllers::OutputControllerWfafle outputControllerWfafle;
     wfes::controllers::InputControllerWfafle inputControllerWfafle;
+    wfes::controllers::OutputControllerWfas outputControllerWfas;
+    wfes::controllers::InputControllerWfas inputControllerWfas;
 
     QQmlApplicationEngine engine;
     engine.addImportPath("qrc:/");
@@ -61,6 +67,8 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("inputControllerPhaseType", &inputControllerPhaseType);
     engine.rootContext()->setContextProperty("outputControllerWfafle", &outputControllerWfafle);
     engine.rootContext()->setContextProperty("inputControllerWfafle", &inputControllerWfafle);
+    engine.rootContext()->setContextProperty("outputControllerWfas", &outputControllerWfas);
+    engine.rootContext()->setContextProperty("inputControllerWfas", &inputControllerWfas);
 
     const QUrl url(QStringLiteral("qrc:/views/mainview/MainView.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
