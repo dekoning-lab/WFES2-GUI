@@ -1,6 +1,13 @@
 #ifndef RESULTSWFAS_H
 #define RESULTSWFAS_H
 
+#include "utils/types.h"
+
+#include <QDir>
+#include <QStandardPaths>
+#include <QDebug>
+
+#include <boost/math/special_functions/fpclassify.hpp>
 
 class ResultsWfas {
     public:

@@ -4,14 +4,14 @@ using namespace wfes::config;
 
 ConfigWfas::ConfigWfas() {}
 
-ivec ConfigWfas::N = [] {
-    ivec tmp(1);
+lvec ConfigWfas::N = [] {
+    lvec tmp(1);
     tmp << 100;
     return tmp;
 }();
 
-ivec ConfigWfas::G = [] {
-    ivec tmp(1);
+lvec ConfigWfas::G = [] {
+    lvec tmp(1);
     tmp << 100;
     return tmp;
 }();
@@ -42,7 +42,7 @@ dvec ConfigWfas::s = [] {
 
 dvec ConfigWfas::h = [] {
     dvec tmp(1);
-    tmp << 0.5;
+    tmp << 0.6;
     return tmp;
 }();
 

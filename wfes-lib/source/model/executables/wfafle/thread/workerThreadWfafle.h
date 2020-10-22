@@ -14,25 +14,25 @@
 class WorkerThreadWfafle : public QThread, public Observer
 {
     Q_OBJECT
-public:
-    /**
-     * @brief Store results of an execution.
-     */
-    ResultsWfafle results;
+    public:
+        /**
+         * @brief Store results of an execution.
+         */
+        ResultsWfafle results;
 
-    bool done = false;
+        bool done = false;
 
-    explicit WorkerThreadWfafle(QObject* parent = nullptr);
+        explicit WorkerThreadWfafle(QObject* parent = nullptr);
 
-    ~WorkerThreadWfafle();
+        ~WorkerThreadWfafle();
 
-    void run() override;
+        void run() override;
 
-    void update(int value) override;
+        void update(int value) override;
 
-signals:
-    void resultReady(ResultsWfafle results);
-    void updateProgress(int progress);
+    signals:
+        void resultReady(ResultsWfafle results);
+        void updateProgress(int progress);
 
 };
 

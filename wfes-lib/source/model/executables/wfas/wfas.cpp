@@ -36,6 +36,9 @@ ResultsWfas *wfas::function()
 
     llong size = (2 * ConfigWfas::N.sum()) + ConfigWfas::num_comp;
 
+    //Notify building matrix.
+    this->notify(ExecutionStatus::BUILDING_MATRICES);
+
     dmat switching = dmat::Zero(ConfigWfas::num_comp, ConfigWfas::num_comp);
     for(llong i = 0; i < ConfigWfas::num_comp - 1; i++) {
         switching(i, i) = 1 - (1 / ConfigWfas::G(i));
@@ -46,8 +49,17 @@ ResultsWfas *wfas::function()
     wrightfisher::Matrix W = wrightfisher::Switching(ConfigWfas::N, wrightfisher::NON_ABSORBING,
             s_scal, ConfigWfas::h, u_scal, v_scal, switching, ConfigWfas::a, msg_level);
 
+    //Notify saving data.
+    this->notify(ExecutionStatus::SAVING_DATA);
 
-    // if(output_Q_f) W.Q.save_market(args::get(output_Q_f));
+    //Save data into file.
+    if (ConfigWfas::output_Q)
+        W.Q->saveMarket(ConfigWfas::path_output_Q);
+    if (ConfigWfas::output_R)
+        utils::writeMatrixToFile(W.R, ConfigWfas::path_output_R);
+
+    //Notify solving
+    this->notify(ExecutionStatus::SOLVING_MATRICES);
 
     W.Q->subtractIdentity();
 
@@ -75,7 +87,6 @@ ResultsWfas *wfas::function()
     llong nk = 2 * ConfigWfas::N(ConfigWfas::num_comp - 1) + 1;
     // SparseMatrix R = SparseMatrix::LeftPaddedDiagonal(nk, 1 / t(ConfigWfas::num_comp - 1), size - nk);
     // if(output_R_f) R.save_market(args::get(output_R_f));
-
 
     dmat id = dmat::Identity(n_rhs, size);
 
@@ -126,6 +137,13 @@ ResultsWfas *wfas::function()
         } else {
             d = prj_u;
         }
+    }
+
+    //Notify saving data.
+    this->notify(ExecutionStatus::SAVING_DATA);
+
+    if(ConfigWfas::output_Dist) {
+        utils::writeVectorToFile(d, ConfigWfas::path_output_Dist);
     }
 
     //Calculate time.

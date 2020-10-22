@@ -23,9 +23,9 @@ namespace wfes {
                  */
                 static std::string vienna_solver;
 
-                static ivec N;
+                static lvec N;
 
-                static ivec G;
+                static lvec G;
 
                 static dvec f;
 
@@ -54,48 +54,6 @@ namespace wfes {
 
 
                 /**
-                 * @brief Path output Q.
-                 */
-                static std::string path_output_Q;
-
-                /**
-                 * @brief Path output R.
-                 */
-                static std::string path_output_R;
-
-                /**
-                 * @brief Path output N.
-                 */
-                static std::string path_output_N;
-
-                /**
-                 * @brief Path output B.
-                 */
-                static std::string path_output_B;
-
-                /**
-                 * @brief Path output N_Ext (extinction-conditional sojourn).
-                 */
-                static std::string path_output_N_ext;
-
-                /**
-                 * @brief Path output N_fix (fixation-conditional sojourn).
-                 */
-                static std::string path_output_N_fix;
-
-                /**
-                 * @brief Path output N_tmo (timeout-conditional sojourn).
-                 */
-                static std::string path_output_N_Tmo;
-
-                /**
-                 * @brief Path output Dist (Generated results).
-                 */
-                static std::string path_output_Dist;
-
-
-
-                /**
                  * @brief Output Q.
                  */
                 static bool output_Q;
@@ -118,22 +76,67 @@ namespace wfes {
                 /**
                  * @brief output N_Ext (extintion-conditional sojourn).
                  */
-                static bool output_N_ext;
+                static bool output_N_Ext;
 
                 /**
                  * @brief Path output N_fix (fixation-conditional sojourn).
                  */
-                static bool output_N_fix;
+                static bool output_N_Fix;
 
                 /**
                  * @brief Path output N_tmo (timeout-conditional sojourn).
                  */
-                static bool output_N_tmo;
+                static bool output_N_Tmo;
 
                 /**
                  * @brief Output Res (Generated results).
                  */
                 static bool output_Dist;
+
+
+
+
+                /**
+                 * @brief Path output Q.
+                 */
+                static std::string path_output_Q;
+
+                /**
+                 * @brief Path output R.
+                 */
+                static std::string path_output_R;
+
+                /**
+                 * @brief Path output N.
+                 */
+                static std::string path_output_N;
+
+                /**
+                 * @brief Path output B.
+                 */
+                static std::string path_output_B;
+
+                /**
+                 * @brief Path output N_Ext (extinction-conditional sojourn).
+                 */
+                static std::string path_output_N_Ext;
+
+                /**
+                 * @brief Path output N_fix (fixation-conditional sojourn).
+                 */
+                static std::string path_output_N_Fix;
+
+                /**
+                 * @brief Path output N_tmo (timeout-conditional sojourn).
+                 */
+                static std::string path_output_N_Tmo;
+
+                /**
+                 * @brief Path output Dist (Generated results).
+                 */
+                static std::string path_output_Dist;
+
+
 
                 /**
                  * @brief Do not perform parameter checks.
