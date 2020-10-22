@@ -53,6 +53,12 @@ HEADERS += \
     source/model/executables/wfes_sweep/results/resultsWfesSweep.h \
     source/model/executables/wfes_sweep/thread/workerThreadWfesSweep.h \
     source/model/executables/wfes_sweep/wfes_sweep.h \
+    source/model/executables/wfafle/config/configWfafle.h \
+    source/model/executables/wfafle/controllers/inputControllerWfafle.h \
+    source/model/executables/wfafle/controllers/outputControllerWfafle.h \
+    source/model/executables/wfafle/results/resultsWfafle.h \
+    source/model/executables/wfafle/thread/workerThreadWfafle.h \
+    source/model/executables/wfafle/wfafle.h \
     source/model/solver/pardiso/MKL_Consts.h \
     source/model/solver/pardiso/solverPardiso.h \
     source/model/solver/solver.h \
@@ -98,6 +104,12 @@ SOURCES += \
     source/model/executables/wfes_sweep/results/resultsWfesSweep.cpp \
     source/model/executables/wfes_sweep/thread/workerThreadWfesSweep.cpp \
     source/model/executables/wfes_sweep/wfes_sweep.cpp \
+    source/model/executables/wfafle/config/configWfafle.cpp \
+    source/model/executables/wfafle/controllers/inputControllerWfafle.cpp \
+    source/model/executables/wfafle/controllers/outputControllerWfafle.cpp \
+    source/model/executables/wfafle/results/resultsWfafle.cpp \
+    source/model/executables/wfafle/thread/workerThreadWfafle.cpp \
+    source/model/executables/wfafle/wfafle.cpp \
     source/model/solver/pardiso/solverPardiso.cpp \
     source/model/solver/solver.cpp \
     source/model/solver/solverFactory.cpp \

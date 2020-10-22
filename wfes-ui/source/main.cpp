@@ -12,6 +12,8 @@
 #include <model/executables/wfes_sweep/controllers/outputControllerWfesSweep.h>
 #include <model/executables/phase_type/controllers/inputControllerPhaseType.h>
 #include <model/executables/phase_type/controllers/outputControllerPhaseType.h>
+#include <model/executables/wfafle/controllers/inputControllerWfafle.h>
+#include <model/executables/wfafle/controllers/outputControllerWfafle.h>
 
 int main(int argc, char *argv[])
 {
@@ -32,6 +34,8 @@ int main(int argc, char *argv[])
     qmlRegisterType<wfes::controllers::InputControllerWfesSweep>("WFES", 1, 0, "InputControllerWfesSweep");
     qmlRegisterType<wfes::controllers::OutputControllerPhaseType>("WFES", 1, 0, "OutputControllerPhaseType");
     qmlRegisterType<wfes::controllers::InputControllerPhaseType>("WFES", 1, 0, "InputControllerPhaseType");
+    qmlRegisterType<wfes::controllers::OutputControllerWfafle>("WFES", 1, 0, "OutputControllerWfafle");
+    qmlRegisterType<wfes::controllers::InputControllerWfafle>("WFES", 1, 0, "InputControllerWfafle");
 
     wfes::controllers::OutputControllerWfesSingle outputControllerWfesSingle;
     wfes::controllers::InputControllerWfesSingle inputControllerWfesSingle;
@@ -41,6 +45,8 @@ int main(int argc, char *argv[])
     wfes::controllers::InputControllerWfesSweep inputControllerWfesSweep;
     wfes::controllers::OutputControllerPhaseType outputControllerPhaseType;
     wfes::controllers::InputControllerPhaseType inputControllerPhaseType;
+    wfes::controllers::OutputControllerWfafle outputControllerWfafle;
+    wfes::controllers::InputControllerWfafle inputControllerWfafle;
 
     QQmlApplicationEngine engine;
     engine.addImportPath("qrc:/");
@@ -53,6 +59,8 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("inputControllerWfesSweep", &inputControllerWfesSweep);
     engine.rootContext()->setContextProperty("outputControllerPhaseType", &outputControllerPhaseType);
     engine.rootContext()->setContextProperty("inputControllerPhaseType", &inputControllerPhaseType);
+    engine.rootContext()->setContextProperty("outputControllerWfafle", &outputControllerWfafle);
+    engine.rootContext()->setContextProperty("inputControllerWfafle", &inputControllerWfafle);
 
     const QUrl url(QStringLiteral("qrc:/views/mainview/MainView.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
