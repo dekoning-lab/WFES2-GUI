@@ -19,9 +19,21 @@ Item {
                 text: "WFES"
                 view: "qrc:/views/mainview/stackbuttons/wfesButtons.qml"
             }
-            LaunchViewButton {
+            Button {
                 text: "WFAS"
-                view: "wfas has not been implemented yet."
+                onClicked: {
+                    var componentWfas = Qt.createComponent("qrc:/views/executionviews/wfasView.qml")
+                    if( componentWfas.status !== Component.Ready )
+                    {
+                        if( componentWfas.status === Component.Error )
+                            console.debug("Error:"+ componentWfas.errorString() );
+                        return;
+                    }
+                    var windowWfas    = componentWfas.createObject(root, {})
+                    root.visible = false;
+                }
+                Layout.alignment: Qt.AlignHCenter
+                Layout.preferredWidth: 160
             }
             Button {
                 text: "WFAFLE"
