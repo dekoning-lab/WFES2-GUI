@@ -17,13 +17,13 @@ class ResultsWfesSequential {
     public:
         double pExt;
         double pFix;
-        double PTmo;
-        double TExt;
-        double TExtStd;
-        double TFix;
-        double TFixStd;
-        double TTmo;
-        double TTmoStd;
+        double pTmo;
+        double tExt;
+        double tExtStd;
+        double tFix;
+        double tFixStd;
+        double tTmo;
+        double tTmoStd;
         double time;
 
         ResultsWfesSequential();
@@ -37,7 +37,7 @@ class ResultsWfesSequential {
          * @param results results to be printed in a CSV file.
          * @param name Name of the file.
          */
-        void writeResultsToFile(ResultsWfesSingle *results, std::string name);
+        void writeResultsToFile(ResultsWfesSequential *results, std::string name);
 
 };
 
