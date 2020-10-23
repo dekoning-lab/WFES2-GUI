@@ -19,10 +19,29 @@
 #include "source/model/executables/wfes_sequential/config/configWfesSequential.h"
 
 
-class WorkerThreadWfesSequential
+class WorkerThreadWfesSequential : public QThread, public Observer
 {
-public:
-    WorkerThreadWfesSequential();
+    Q_OBJECT
+
+    public:
+        /**
+         * @brief Store results of an execution.
+         */
+        ResultsWfesSequential results;
+
+        bool done = false;
+
+        explicit WorkerThreadWfesSequential(QObject* parent = nullptr);
+
+        ~WorkerThreadWfesSequential();
+
+        void run() override;
+
+        void update(int value) override;
+
+    signals:
+        void resultReady(ResultsWfesSequential results);
+        void updateProgress(int progress);
 };
 
 #endif // WORKERTHREADWFESSEQUENTIAL_H
