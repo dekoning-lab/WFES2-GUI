@@ -162,6 +162,16 @@ void InputControllerWfesSequential::set_output_I(bool output_I) const
     ConfigWfesSequential::output_I = output_I;
 }
 
+bool InputControllerWfesSequential::get_output_N_Ext() const
+{
+    return ConfigWfesSequential::output_N_Ext;
+}
+
+void InputControllerWfesSequential::set_output_N_Ext(bool output_NExt) const
+{
+    ConfigWfesSequential::output_N_Ext = output_NExt;
+}
+
 bool InputControllerWfesSequential::get_output_N_Fix() const
 {
     return ConfigWfesSequential::output_N_Fix;
@@ -261,8 +271,8 @@ QList<double> InputControllerWfesSequential::get_t_vec() const
 
 void InputControllerWfesSequential::set_t_vec(QList<double> t) const
 {
-    std::vector<int> temp_int_std_t = std::vector<int>(t.begin(), t.end());
-    lvec temp_t(t.size());
+    std::vector<double> temp_int_std_t = std::vector<double>(t.begin(), t.end());
+    dvec temp_t(t.size());
     for(int i = 0; i < t.size(); i++)
         temp_t[i] = temp_int_std_t[i];
     ConfigWfesSequential::t = temp_t;
@@ -271,7 +281,7 @@ void InputControllerWfesSequential::set_t_vec(QList<double> t) const
 QList<double> InputControllerWfesSequential::get_p_vec() const
 {
     std::vector<double> temp_p = std::vector<double>(ConfigWfesSequential::p.data(), ConfigWfesSequential::p.data() + ConfigWfesSequential::num_comp);
-    std::vector<int> temp_int_p(temp_p.size());
+    std::vector<double> temp_int_p(temp_p.size());
     for(unsigned long i = 0; i < temp_p.size(); i++)
         temp_int_p[i] = temp_p[i];
     return QList<double>::fromVector(QVector<double>(temp_int_p.begin(), temp_int_p.end()));
@@ -280,7 +290,7 @@ QList<double> InputControllerWfesSequential::get_p_vec() const
 void InputControllerWfesSequential::set_p_vec(QList<double> p) const
 {
     std::vector<int> temp_int_std_p = std::vector<int>(p.begin(), p.end());
-    lvec temp_p(p.size());
+    dvec temp_p(p.size());
     for(int i = 0; i < p.size(); i++)
         temp_p[i] = temp_int_std_p[i];
     ConfigWfesSequential::p = temp_p;

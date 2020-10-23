@@ -74,7 +74,7 @@ namespace wfes {
                 static bool output_B;
 
                 /**
-                 * @brief output N_Ext (extintion-conditional sojourn).
+                 * @brief Path output N_Ext (extintion-conditional sojourn).
                  */
                 static bool output_N_Ext;
 

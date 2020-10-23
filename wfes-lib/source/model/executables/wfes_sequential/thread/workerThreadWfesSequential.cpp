@@ -16,8 +16,8 @@ WorkerThreadWfesSequential::~WorkerThreadWfesSequential(){
 void WorkerThreadWfesSequential::run() {
     QString result;
     wfes_sequential sequential = wfes_sequential();
-    wfes_sequential.addObserver(this);
-    results = *wfes_sequential.execute();
+    sequential.addObserver(this);
+    results = *sequential.execute();
 
     done = true;
     emit resultReady(results);

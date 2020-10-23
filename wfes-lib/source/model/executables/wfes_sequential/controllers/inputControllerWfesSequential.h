@@ -1,4 +1,4 @@
-#ifndef INPUTCONTROLLERWFESSEQUENTIAL_H
+﻿#ifndef INPUTCONTROLLERWFESSEQUENTIAL_H
 #define INPUTCONTROLLERWFESSEQUENTIAL_H
 
 #include <QObject>
@@ -23,7 +23,7 @@ namespace wfes {
         {
             Q_OBJECT
             Q_PROPERTY(QString ui_a READ get_a WRITE set_a NOTIFY input_changed)
-            Q_PROPERTY(QString ui_p READ get_c WRITE set_c NOTIFY input_changed)
+            Q_PROPERTY(QString ui_c READ get_c WRITE set_c NOTIFY input_changed)
             Q_PROPERTY(QString ui_t READ get_t WRITE set_t NOTIFY input_changed)
             Q_PROPERTY(QString ui_num_comp READ get_num_comp WRITE set_num_comp NOTIFY input_changed)
             Q_PROPERTY(bool ui_output_Q READ get_output_Q WRITE set_output_Q NOTIFY input_changed)
@@ -32,6 +32,7 @@ namespace wfes {
             Q_PROPERTY(bool ui_output_B READ get_output_B WRITE set_output_B NOTIFY input_changed)
             Q_PROPERTY(bool ui_output_I READ get_output_I WRITE set_output_I NOTIFY input_changed)
             Q_PROPERTY(bool ui_output_N_Fix READ get_output_N_Fix WRITE set_output_N_Fix NOTIFY input_changed)
+            Q_PROPERTY(bool ui_output_N_Ext READ get_output_N_Ext WRITE set_output_N_Ext NOTIFY input_changed)
             Q_PROPERTY(bool ui_output_N_Tmo READ get_output_N_Tmo WRITE set_output_N_Tmo NOTIFY input_changed)
             Q_PROPERTY(bool ui_output_Res READ get_output_Res WRITE set_output_Res NOTIFY input_changed)
             Q_PROPERTY(bool ui_force READ get_force WRITE set_force NOTIFY input_changed)
@@ -161,6 +162,18 @@ namespace wfes {
             void set_output_I(bool output_I) const;
 
             /**
+             * @brief Send if output NExt to GUI.
+             * @return boolean containing if output NExt.
+             */
+            bool get_output_N_Ext() const;
+            /**
+             * @brief Get if output NExt from GUI.
+             * @param output_NExt value of output NExt in GUI.
+             */
+            void set_output_N_Ext(bool output_NExt) const;
+
+
+            /**
              * @brief Send if output NFix to GUI.
              * @return boolean containing if output NFix.
              */
@@ -259,7 +272,7 @@ namespace wfes {
              * @brief Set vector of t from  GUI.
              * @param t value in GUI.
              */
-            void set_t_vec(QList<double> G) const;
+            void set_t_vec(QList<double> t) const;
 
             /**
              * @brief Send vector of p to GUI.

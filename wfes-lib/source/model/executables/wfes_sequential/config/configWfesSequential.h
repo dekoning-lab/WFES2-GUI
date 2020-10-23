@@ -25,7 +25,7 @@ namespace wfes {
 
                 static lvec N;
 
-                static lvec t;
+                static dvec t;
 
                 static dvec p;
 
@@ -74,6 +74,11 @@ namespace wfes {
                 static bool output_I;
 
                 /**
+                 * @brief Path output N_Ext (extintion-conditional sojourn).
+                 */
+                static bool output_N_Ext;
+
+                /**
                  * @brief Path output N_fix (fixation-conditional sojourn).
                  */
                 static bool output_N_Fix;
@@ -114,6 +119,11 @@ namespace wfes {
                  * @brief Path output I.
                  */
                 static std::string path_output_I;
+
+                /**
+                 * @brief Path output N_ext (extintion-conditional sojourn).
+                 */
+                static std::string path_output_N_Ext;
 
                 /**
                  * @brief Path output N_fix (fixation-conditional sojourn).

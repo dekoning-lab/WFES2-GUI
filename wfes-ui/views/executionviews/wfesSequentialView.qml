@@ -419,11 +419,10 @@ ApplicationWindow {
                                     bottomMenu.visibleProgressBar = true
 
                                     inputControllerWfesSequential.ui_a = inputA.textFieldText
-                                    inputControllerWfesSequential.ui_p - inputP.textFieldText
-                                    inputControllerWfesSequential.ui_no_project - inputNoProject.textFieldText
+                                    inputControllerWfesSequential.ui_c - inputC.textFieldText
                                     var N_vec = []
-                                    var G_vec = []
-                                    var f_vec = []
+                                    var t_vec = []
+                                    var p_vec = []
                                     var u_vec = []
                                     var v_vec = []
                                     var s_vec = []
@@ -431,23 +430,23 @@ ApplicationWindow {
                                     for(var i = 0; i < inputControllerWfesSequential.ui_num_comp; i++) {
                                         componentsSectionTabView.children[0].getTab(i).active = true
                                         var N = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[0].textFieldText
-                                        var G = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[1].textFieldText
-                                        var f = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[2].textFieldText
+                                        var t = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[1].textFieldText
+                                        var p = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[2].textFieldText
                                         var u = componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[0].textFieldText
                                         var v = componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[1].textFieldText
                                         var s = componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[0].textFieldText
                                         var h = componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[1].textFieldText
                                         N_vec.push(N)
-                                        G_vec.push(G)
-                                        f_vec.push(f)
+                                        t_vec.push(t)
+                                        p_vec.push(p)
                                         u_vec.push(u)
                                         v_vec.push(v)
                                         s_vec.push(s)
                                         h_vec.push(h)
                                     }
                                     inputControllerWfesSequential.ui_N_vec = N_vec
-                                    inputControllerWfesSequential.ui_G_vec = G_vec
-                                    inputControllerWfesSequential.ui_f_vec = f_vec
+                                    inputControllerWfesSequential.ui_t_vec = t_vec
+                                    inputControllerWfesSequential.ui_p_vec = p_vec
                                     inputControllerWfesSequential.ui_u_vec = u_vec
                                     inputControllerWfesSequential.ui_v_vec = v_vec
                                     inputControllerWfesSequential.ui_s_vec = s_vec
@@ -460,7 +459,7 @@ ApplicationWindow {
                                     inputControllerWfesSequential.ui_output_N_Ext = inputWriteNExt.checked
                                     inputControllerWfesSequential.ui_output_N_Fix = inputWriteNFix.checked
                                     inputControllerWfesSequential.ui_output_N_Tmo = inputWriteNTmo.checked
-                                    inputControllerWfesSequential.ui_output_Dist = inputWriteDist.checked
+                                    inputControllerWfesSequential.ui_output_Res = inputWriteRes.checked
                                     inputControllerWfesSequential.ui_t = inputT.textFieldText
                                     inputControllerWfesSequential.ui_force = inputForce.checked
 
@@ -509,18 +508,12 @@ ApplicationWindow {
                     Layout.alignment: Qt.AlignTop
 
                     Label {
-                        id: labelMoments
+                        id: labelFinalOutput
                         text: "Output:"
                         font.bold: true
                     }
 
                     ColumnLayout {
-
-                        anchors {
-                            top: labelFinalOutput.bottom
-                            left: parent.left
-                            margins: 10
-                        }
 
                         LabeledTextField {
                             id: outputPExt

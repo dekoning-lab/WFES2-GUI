@@ -60,6 +60,7 @@ bool ConfigWfesSequential::output_N = false;
 bool ConfigWfesSequential::output_B = false;
 bool ConfigWfesSequential::output_I = false;
 bool ConfigWfesSequential::output_N_Fix = false;
+bool ConfigWfesSequential::output_N_Ext = false;
 bool ConfigWfesSequential::output_N_Tmo = false;
 bool ConfigWfesSequential::output_Res = true;
 
@@ -69,6 +70,7 @@ std::string ConfigWfesSequential::path_output_R = "output_R.csv";
 std::string ConfigWfesSequential::path_output_N = "output_N.csv";
 std::string ConfigWfesSequential::path_output_B = "output_B.csv";
 std::string ConfigWfesSequential::path_output_I = "output_I.csv";
+std::string ConfigWfesSequential::path_output_N_Ext = "output_N_Ext.csv";
 std::string ConfigWfesSequential::path_output_N_Fix = "output_N_Fix.csv";
 std::string ConfigWfesSequential::path_output_N_Tmo = "output_N_Tmo.csv";
 std::string ConfigWfesSequential::path_output_Res = "output_Res.csv";
