@@ -50,7 +50,7 @@ std::string ConfigWfesSequential::library = "Pardiso";
 std::string ConfigWfesSequential::vienna_solver = "BicGStab";
 
 double ConfigWfesSequential::a = 1e-20;
-double ConfigWfesSequential::c = 1;
+double ConfigWfesSequential::c = 1e-10;
 int ConfigWfesSequential::n_threads = 1;
 
 

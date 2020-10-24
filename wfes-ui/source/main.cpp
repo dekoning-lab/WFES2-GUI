@@ -17,6 +17,7 @@
 #include <model/executables/wfas/controllers/inputControllerWfas.h>
 #include <model/executables/wfas/controllers/outputControllerWfas.h>
 #include <model/executables/wfes_sequential/controllers/inputControllerWfesSequential.h>
+#include <model/executables/wfes_sequential/controllers/outputControllerWfesSequential.h>
 
 int main(int argc, char *argv[])
 {
@@ -41,6 +42,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<wfes::controllers::InputControllerWfafle>("WFES", 1, 0, "InputControllerWfafle");
     qmlRegisterType<wfes::controllers::OutputControllerWfas>("WFES", 1, 0, "OutputControllerWfas");
     qmlRegisterType<wfes::controllers::InputControllerWfas>("WFES", 1, 0, "InputControllerWfas");
+    qmlRegisterType<wfes::controllers::OutputControllerWfesSequential>("WFES", 1, 0, "OutputControllerWfesSequential");
     qmlRegisterType<wfes::controllers::InputControllerWfesSequential>("WFES", 1, 0, "InputControllerWfesSequential");
 
     wfes::controllers::OutputControllerWfesSingle outputControllerWfesSingle;
@@ -55,6 +57,7 @@ int main(int argc, char *argv[])
     wfes::controllers::InputControllerWfafle inputControllerWfafle;
     wfes::controllers::OutputControllerWfas outputControllerWfas;
     wfes::controllers::InputControllerWfas inputControllerWfas;
+    wfes::controllers::OutputControllerWfesSequential outputControllerWfesSequential;
     wfes::controllers::InputControllerWfesSequential inputControllerWfesSequential;
 
     QQmlApplicationEngine engine;
@@ -72,6 +75,7 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("inputControllerWfafle", &inputControllerWfafle);
     engine.rootContext()->setContextProperty("outputControllerWfas", &outputControllerWfas);
     engine.rootContext()->setContextProperty("inputControllerWfas", &inputControllerWfas);
+    engine.rootContext()->setContextProperty("outputControllerWfesSequential", &outputControllerWfesSequential);
     engine.rootContext()->setContextProperty("inputControllerWfesSequential", &inputControllerWfesSequential);
 
     const QUrl url(QStringLiteral("qrc:/views/mainview/MainView.qml"));

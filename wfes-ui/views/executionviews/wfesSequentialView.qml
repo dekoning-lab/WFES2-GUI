@@ -163,7 +163,7 @@ ApplicationWindow {
                                 id: inputC
                                 text: "c: "
                                 toolTipText: "Starting number of copies integration cutoff."
-                                validator: DoubleValidator {bottom: 2; top: 50000;}
+                                validator: DoubleValidator {bottom: 0; top: 1;}
                                 textFieldText: inputControllerWfesSequential.ui_c
                             }
 
@@ -419,7 +419,7 @@ ApplicationWindow {
                                     bottomMenu.visibleProgressBar = true
 
                                     inputControllerWfesSequential.ui_a = inputA.textFieldText
-                                    inputControllerWfesSequential.ui_c - inputC.textFieldText
+                                    inputControllerWfesSequential.ui_c = inputC.textFieldText
                                     var N_vec = []
                                     var t_vec = []
                                     var p_vec = []

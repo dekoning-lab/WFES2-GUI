@@ -92,6 +92,8 @@ ResultsWfesSequential *wfes_sequential::function()
 
     Solver* solver = SolverFactory::createSolver(ConfigWfesSingle::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, ConfigWfesSingle::vienna_solver);
 
+    solver->preprocess();
+
     // Get initial probabilities of mu within each model
     lvec nnz_p0(ConfigWfesSequential::num_comp);
     std::vector<dvec> p0(ConfigWfesSequential::num_comp);
