@@ -57,9 +57,22 @@ Item {
                 top: row1.bottom
                 topMargin: 30
             }
-            LaunchViewButton {
+
+            Button {
                 text: "WFES Sequential"
-                view: "WFES Sequential has not been implemented yet."
+                onClicked: {
+                    var componentWfesSequential = Qt.createComponent("qrc:/views/executionviews/wfesSequentialView.qml")
+                    if( componentWfesSequential.status !== Component.Ready )
+                    {
+                        if( componentWfesSequential.status === Component.Error )
+                            console.debug("Error:"+ componentWfesSequential.errorString() );
+                        return;
+                    }
+                    var windowWfesSequential    = componentWfesSequential.createObject(root, {})
+                    root.visible = false;
+                }
+                Layout.alignment: Qt.AlignHCenter
+                Layout.preferredWidth: 160
             }
             LaunchViewButton {
                 text: "WFES Switching"

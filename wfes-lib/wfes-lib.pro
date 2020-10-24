@@ -49,6 +49,12 @@ HEADERS += \
     source/model/executables/wfas/results/resultsWfas.h \
     source/model/executables/wfas/thread/workerThreadWfas.h \
     source/model/executables/wfas/wfas.h \
+    source/model/executables/wfes_sequential/config/configWfesSequential.h \
+    source/model/executables/wfes_sequential/controllers/inputControllerWfesSequential.h \
+    source/model/executables/wfes_sequential/controllers/outputControllerWfesSequential.h \
+    source/model/executables/wfes_sequential/results/resultsWfesSequential.h \
+    source/model/executables/wfes_sequential/thread/workerThreadWfesSequential.h \
+    source/model/executables/wfes_sequential/wfes_sequential.h \
     source/model/executables/wfes_single/config/configWfesSingle.h \
     source/model/executables/wfes_single/controllers/inputControllerWfesSingle.h \
     source/model/executables/wfes_single/controllers/outputControllerWfesSingle.h \
@@ -106,6 +112,12 @@ SOURCES += \
     source/model/executables/wfas/results/resultsWfas.cpp \
     source/model/executables/wfas/thread/workerThreadWfas.cpp \
     source/model/executables/wfas/wfas.cpp \
+    source/model/executables/wfes_sequential/config/configWfesSequential.cpp \
+    source/model/executables/wfes_sequential/controllers/inputControllerWfesSequential.cpp \
+    source/model/executables/wfes_sequential/controllers/outputControllerWfesSequential.cpp \
+    source/model/executables/wfes_sequential/results/resultsWfesSequential.cpp \
+    source/model/executables/wfes_sequential/thread/workerThreadWfesSequential.cpp \
+    source/model/executables/wfes_sequential/wfes_sequential.cpp \
     source/model/executables/wfes_single/config/configWfesSingle.cpp \
     source/model/executables/wfes_single/controllers/inputControllerWfesSingle.cpp \
     source/model/executables/wfes_single/controllers/outputControllerWfesSingle.cpp \
