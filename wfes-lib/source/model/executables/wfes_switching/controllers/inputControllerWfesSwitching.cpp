@@ -254,22 +254,33 @@ void InputControllerWfesSwitching::set_N_vec(QList<int> N) const
     ConfigWfesSwitching::N = temp_N;
 }
 
-QList<double> InputControllerWfesSwitching::get_r_vec() const
+QStringList InputControllerWfesSwitching::get_r_vec() const
 {
-    std::vector<double> temp_r = std::vector<double>(ConfigWfesSwitching::r.data(), ConfigWfesSwitching::r.data() + ConfigWfesSwitching::num_comp);
-    std::vector<int> temp_int_r(temp_r.size());
-    for(unsigned long i = 0; i < temp_r.size(); i++)
-        temp_int_r[i] = temp_r[i];
-    return QList<double>::fromVector(QVector<double>(temp_int_r.begin(), temp_int_r.end()));
+    QString str = "";
+    QStringList list;
+    for(int i = 0; i < ConfigWfesSwitching::r.rows(); i++) {
+        for(int j = 0; j < ConfigWfesSwitching::r.cols() - 1; j++) {
+            str += QString::fromStdString(std::to_string(ConfigWfesSwitching::r(i, j)) + ", ");
+        }
+        str += QString::fromStdString(std::to_string(ConfigWfesSwitching::r(i, ConfigWfesSwitching::r.cols() - 1)));
+        list.append(str);
+        str = "";
+    }
+    return list;
 }
 
-void InputControllerWfesSwitching::set_r_vec(QList<double> r) const
+void InputControllerWfesSwitching::set_r_vec(QStringList r) const
 {
-    std::vector<double> temp_int_std_r = std::vector<double>(r.begin(), r.end());
-    dvec temp_r(r.size());
-    for(int i = 0; i < r.size(); i++)
-        temp_r[i] = temp_int_std_r[i];
-    ConfigWfesSwitching::r = temp_r;
+    QStringList parts;
+    dmat r_temp(r.size(), r[0].split(", ").size());
+    dvec values;
+    for(int i = 0; i < r.size(); i++) {
+        parts = r[i].split(", ");
+        for(int j = 0; j < parts.size(); j++) {
+            r_temp(i, j) = std::stod(parts[j].toStdString());
+        }
+    }
+    ConfigWfesSwitching::r = r_temp;
 }
 
 QList<double> InputControllerWfesSwitching::get_p_vec() const
@@ -283,7 +294,7 @@ QList<double> InputControllerWfesSwitching::get_p_vec() const
 
 void InputControllerWfesSwitching::set_p_vec(QList<double> p) const
 {
-    std::vector<int> temp_int_std_p = std::vector<int>(p.begin(), p.end());
+    std::vector<double> temp_int_std_p = std::vector<double>(p.begin(), p.end());
     dvec temp_p(p.size());
     for(int i = 0; i < p.size(); i++)
         temp_p[i] = temp_int_std_p[i];

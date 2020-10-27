@@ -23,11 +23,12 @@ lvec ConfigWfesSwitching::N = [] {
     return tmp;
 }();
 
-dvec ConfigWfesSwitching::r = [] {
-    dvec tmp(1);
+dmat ConfigWfesSwitching::r  = [] {
+    dmat tmp(1, 1);
     tmp << 100;
     return tmp;
 }();
+
 
 dvec ConfigWfesSwitching::p = [] {
     dvec tmp(1);

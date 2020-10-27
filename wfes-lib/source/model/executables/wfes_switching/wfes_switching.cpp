@@ -136,6 +136,7 @@ ResultsWfesSwitching *wfes_switching::absorption()
             // P_cond_ext[i_] += P_ext_i * o;
             P_ext += P_ext_i * o * ConfigWfesSwitching::p[i_];
 
+            qDebug() << P_ext_i << " " << o << " " << ConfigWfesSwitching::p[i_];
             double P_fix_i = 0;
             for (llong k_ = 0; k_ < kf.size(); k_++) {
                 P_fix_i += B(idx, kf[k_]);
@@ -143,6 +144,7 @@ ResultsWfesSwitching *wfes_switching::absorption()
             }
             // P_cond_fix[i_] += P_fix_i * o;
             P_fix += P_fix_i * o * ConfigWfesSwitching::p[i_];
+            qDebug() << P_fix_i << " " << o << " " << ConfigWfesSwitching::p[i_];
         }
     }
 

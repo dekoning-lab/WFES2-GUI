@@ -65,21 +65,6 @@ Component{
                 }
 
                 LabeledTextField {
-                    id: inputR
-                    text: "r" + number + ": "
-                    toolTipText: "//TODO."
-                    validator: DoubleValidator {bottom: 2; top: 50000;}
-                    textFieldText: {
-                        if(number != 0) {
-                            var r_vec = inputControllerWfesSwitching.ui_r_vec
-                            return r_vec[number - 1]
-                        } else {
-                            return "";
-                        }
-                    }
-                }
-
-                LabeledTextField {
                     id: inputP
                     text: "p" + number + ": "
                     toolTipText: "Starting probabilities."
@@ -93,6 +78,24 @@ Component{
                         }
                     }
                 }
+
+                LabeledTextField {
+                    id: inputR
+                    text: "r" + number + ": "
+                    toolTipText: "//TODO."
+                    validator: DoubleValidator {bottom: 2; top: 50000;}
+                    textFieldPreferredWidth: 250
+                    textFieldText: {
+                        if(number != 0) {
+                            var r_vec = inputControllerWfesSwitching.ui_r_vec
+                            return r_vec[number - 1]
+                        } else {
+                            return "";
+                        }
+                    }
+                    Layout.columnSpan: 2
+                }
+
             }
         }
 

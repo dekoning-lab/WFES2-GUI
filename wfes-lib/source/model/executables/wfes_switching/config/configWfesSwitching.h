@@ -2,7 +2,7 @@
 #define CONFIGWFESSWITCHING_H
 
 #include "utils/types.h"
-
+#include <boost/assign/list_of.hpp>
 namespace wfes {
     namespace config {
 
@@ -49,7 +49,7 @@ namespace wfes {
 
             static lvec N;
 
-            static dvec r;
+            static dmat r;
 
             static dvec p;
 

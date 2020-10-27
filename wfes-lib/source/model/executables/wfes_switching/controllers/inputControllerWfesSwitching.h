@@ -38,7 +38,7 @@ namespace wfes {
             Q_PROPERTY(QString ui_solver READ get_solver WRITE set_solver NOTIFY input_changed)
             Q_PROPERTY(QString ui_initial_distribution READ get_initial_distribution_path WRITE set_initial_distribution_path NOTIFY input_changed)
             Q_PROPERTY(QList<int> ui_N_vec READ get_N_vec WRITE set_N_vec NOTIFY input_changed)
-            Q_PROPERTY(QList<double> ui_r_vec READ get_r_vec WRITE set_r_vec NOTIFY input_changed)
+            Q_PROPERTY(QStringList ui_r_vec READ get_r_vec WRITE set_r_vec NOTIFY input_changed)
             Q_PROPERTY(QList<double> ui_p_vec READ get_p_vec WRITE set_p_vec NOTIFY input_changed)
             Q_PROPERTY(QList<double> ui_u_vec READ get_u_vec WRITE set_u_vec NOTIFY input_changed)
             Q_PROPERTY(QList<double> ui_v_vec READ get_v_vec WRITE set_v_vec NOTIFY input_changed)
@@ -250,14 +250,14 @@ namespace wfes {
 
                 /**
                  * @brief Send vector of r to GUI.
-                 * @return QList<double> containing r.
+                 * @return QString containing r.
                  */
-                QList<double> get_r_vec() const;
+                QStringList get_r_vec() const;
                 /**
                  * @brief Set vector of r from  GUI.
                  * @param r value in GUI.
                  */
-                void set_r_vec(QList<double> r) const;
+                void set_r_vec(QStringList r) const;
 
                 /**
                  * @brief Send vector of p to GUI.
