@@ -71,6 +71,12 @@ HEADERS += \
     source/model/executables/wfafle/results/resultsWfafle.h \
     source/model/executables/wfafle/thread/workerThreadWfafle.h \
     source/model/executables/wfafle/wfafle.h \
+    source/model/executables/wfes_switching/config/configWfesSwitching.h \
+    source/model/executables/wfes_switching/controllers/inputControllerWfesSwitching.h \
+    source/model/executables/wfes_switching/controllers/outputControllerWfesSwitching.h \
+    source/model/executables/wfes_switching/results/resultsWfesSwitching.h \
+    source/model/executables/wfes_switching/thread/workerThreadWfesSwitching.h \
+    source/model/executables/wfes_switching/wfes_switching.h \
     source/model/solver/pardiso/MKL_Consts.h \
     source/model/solver/pardiso/solverPardiso.h \
     source/model/solver/solver.h \
@@ -134,6 +140,12 @@ SOURCES += \
     source/model/executables/wfafle/results/resultsWfafle.cpp \
     source/model/executables/wfafle/thread/workerThreadWfafle.cpp \
     source/model/executables/wfafle/wfafle.cpp \
+    source/model/executables/wfes_switching/config/configWfesSwitching.cpp \
+    source/model/executables/wfes_switching/controllers/inputControllerWfesSwitching.cpp \
+    source/model/executables/wfes_switching/controllers/outputControllerWfesSwitching.cpp \
+    source/model/executables/wfes_switching/results/resultsWfesSwitching.cpp \
+    source/model/executables/wfes_switching/thread/workerThreadWfesSwitching.cpp \
+    source/model/executables/wfes_switching/wfes_switching.cpp \
     source/model/solver/pardiso/solverPardiso.cpp \
     source/model/solver/solver.cpp \
     source/model/solver/solverFactory.cpp \

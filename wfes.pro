@@ -4,7 +4,7 @@ CONFIG += ordered
 
 SUBDIRS += \
     wfes-lib \
-    wfes-tests \
+    #wfes-tests \
     wfes-ui
 
 message(wfes project dir: $${PWD})

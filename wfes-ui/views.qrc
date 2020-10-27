@@ -18,5 +18,7 @@
         <file alias="executionviews/tabcomponents/tabWfasComponent.qml">views/executionviews/tabcomponents/tabWfasComponent.qml</file>
         <file alias="executionviews/wfesSequentialView.qml">views/executionviews/wfesSequentialView.qml</file>
         <file alias="executionviews/tabcomponents/tabWfesSequentialComponent.qml">views/executionviews/tabcomponents/tabWfesSequentialComponent.qml</file>
+        <file alias="executionviews/wfesSwitchingView.qml">views/executionviews/wfesSwitchingView.qml</file>
+        <file alias="executionviews/tabcomponents/tabWfesSwitchingComponent.qml">views/executionviews/tabcomponents/tabWfesSwitchingComponent.qml</file>
     </qresource>
 </RCC>
