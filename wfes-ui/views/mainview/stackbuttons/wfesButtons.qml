@@ -74,9 +74,21 @@ Item {
                 Layout.alignment: Qt.AlignHCenter
                 Layout.preferredWidth: 160
             }
-            LaunchViewButton {
+            Button {
                 text: "WFES Switching"
-                view: "WFES Switching has not been implemented yet."
+                onClicked: {
+                    var componentWfesSwithcing = Qt.createComponent("qrc:/views/executionviews/wfesSwitchingView.qml")
+                    if( componentWfesSwithcing.status !== Component.Ready )
+                    {
+                        if( componentWfesSwithcing.status === Component.Error )
+                            console.debug("Error:"+ componentWfesSwithcing.errorString() );
+                        return;
+                    }
+                    var windowWfesSwithcing    = componentWfesSwithcing.createObject(root, {})
+                    root.visible = false;
+                }
+                Layout.alignment: Qt.AlignHCenter
+                Layout.preferredWidth: 160
             }
         }
 

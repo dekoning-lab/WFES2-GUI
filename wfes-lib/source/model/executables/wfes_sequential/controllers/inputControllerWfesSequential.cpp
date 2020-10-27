@@ -75,7 +75,8 @@ QString InputControllerWfesSequential::get_t() const
 }
 
 void InputControllerWfesSequential::set_t(QString t) const
-{    std::string t_str = t.toStdString();
+{
+    std::string t_str = t.toStdString();
      try {
          double t_d = boost::lexical_cast<double>(t_str);
          ConfigWfesSequential::n_threads = t_d;
