@@ -25,14 +25,14 @@ lvec ConfigWfesSwitching::N = [] {
 
 dmat ConfigWfesSwitching::r  = [] {
     dmat tmp(1, 1);
-    tmp << 100;
+    tmp << 1;
     return tmp;
 }();
 
 
 dvec ConfigWfesSwitching::p = [] {
     dvec tmp(1);
-    tmp << 100;
+    tmp << 1;
     return tmp;
 }();
 
@@ -56,7 +56,7 @@ dvec ConfigWfesSwitching::s = [] {
 
 dvec ConfigWfesSwitching::h = [] {
     dvec tmp(1);
-    tmp << 0.6;
+    tmp << 0.5;
     return tmp;
 }();
 
