@@ -26,7 +26,6 @@ Rectangle {
                 return object
             }
             onLoaded: {
-                console.log(this.children[0].number)
                 this.children[0].number = 1
             }
         }

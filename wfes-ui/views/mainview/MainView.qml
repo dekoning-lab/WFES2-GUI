@@ -9,6 +9,7 @@ import components 1.0
 
 ApplicationWindow {
     id: root
+    objectName: "Root"
     title: qsTr("WFES - Wright-Fisher Exact Solver")
 
     visible: true

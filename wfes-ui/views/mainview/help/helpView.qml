@@ -27,8 +27,7 @@ ApplicationWindow {
     color: Universal.chromeLowColor
 
     onClosing: {
-        rootHelp.destroy();
-        root.visible = true;
+        rootHelp.hide();
     }
 
     // Center window in screen.

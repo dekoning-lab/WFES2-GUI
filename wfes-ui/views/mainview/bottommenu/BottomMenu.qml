@@ -35,7 +35,6 @@ Rectangle {
                     return;
                 }
                 var windowPhaseType    = h.createObject(root, {})
-                root.visible = false;
             }
         }
     }
