@@ -20,5 +20,6 @@
         <file alias="executionviews/tabcomponents/tabWfesSequentialComponent.qml">views/executionviews/tabcomponents/tabWfesSequentialComponent.qml</file>
         <file alias="executionviews/wfesSwitchingView.qml">views/executionviews/wfesSwitchingView.qml</file>
         <file alias="executionviews/tabcomponents/tabWfesSwitchingComponent.qml">views/executionviews/tabcomponents/tabWfesSwitchingComponent.qml</file>
+        <file alias="mainview/help/helpView.qml">views/mainview/help/helpView.qml</file>
     </qresource>
 </RCC>
