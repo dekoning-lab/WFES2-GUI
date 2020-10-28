@@ -82,7 +82,15 @@ Rectangle {
                 MenuItem {
                     text: "About"
                     onClicked: {
-                        console.warn("WARNING: Help->About clicked - Not implemented yet.")
+                        var h = Qt.createComponent("qrc:/views/mainview/help/helpView.qml")
+                        if( h.status !== Component.Ready )
+                        {
+                            if( h.status === Component.Error )
+                                console.debug("Error:"+ h.errorString() );
+                            return;
+                        }
+                        var windowh = h.createObject(upperMenu.parent.parent, {})
+                        windowh.visible
                     }
                 }
             }

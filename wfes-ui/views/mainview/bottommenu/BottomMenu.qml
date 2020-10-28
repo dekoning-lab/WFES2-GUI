@@ -19,15 +19,23 @@ Rectangle {
     color: "transparent"
     RowLayout {
         id: row3
-        width: childrenRect.width
-        height: childrenRect.height
+
         LaunchViewButton {
             text: "Configure"
             view: "WARNING: Configure clicked - Not implemented yet."
         }
-        LaunchViewButton {
+        Button {
             text: "Help"
-            view: "WARNING: Help clicked - Not implemented yet."
+            onClicked: {
+                var h = Qt.createComponent("qrc:/views/mainview/help/helpView.qml")
+                if( h.status !== Component.Ready )
+                {
+                    if( h.status === Component.Error )
+                        console.debug("Error:"+ h.errorString() );
+                    return;
+                }
+                var windowPhaseType    = h.createObject(root, {})
+            }
         }
     }
 }
