@@ -73,10 +73,11 @@ Rectangle {
                 id: menu4
                 y: helpButton.height
 
+
                 MenuItem {
                     text: "Manual"
                     onClicked: {
-                        console.warn("WARNING: Help->Manual clicked - Not implemented yet.")
+                        Qt.openUrlExternally("https://github.com/dekoning-lab/wfes-gui/wiki");
                     }
                 }
                 MenuItem {
