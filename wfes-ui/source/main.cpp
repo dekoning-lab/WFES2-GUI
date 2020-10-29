@@ -20,6 +20,7 @@
 #include <model/executables/wfes_sequential/controllers/outputControllerWfesSequential.h>
 #include <model/executables/wfes_switching/controllers/inputControllerWfesSwitching.h>
 #include <model/executables/wfes_switching/controllers/outputControllerWfesSwitching.h>
+#include <model/visualization/visualizationImageProvider.h>
 
 int main(int argc, char *argv[])
 {
@@ -68,6 +69,8 @@ int main(int argc, char *argv[])
 
     QQmlApplicationEngine engine;
     engine.addImportPath("qrc:/");
+
+    engine.addImageProvider(QLatin1String("visualizationImageProvider"), new VisualizationImageProvider());
 
     engine.rootContext()->setContextProperty("outputControllerWfesSingle", &outputControllerWfesSingle);
     engine.rootContext()->setContextProperty("inputControllerWfesSingle", &inputControllerWfesSingle);

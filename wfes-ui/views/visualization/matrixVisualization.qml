@@ -37,20 +37,15 @@ ApplicationWindow {
         setY(Screen.height / 2 - height / 2);
     }
 
-    Image {
-        id: logo
-        anchors {
-            top: parent.top
-            left: parent.left
-            topMargin: 20
-            leftMargin: 30
+    ColumnLayout {
+        Image {
+            source: "image://visualizationImageProvider/Q"
+            asynchronous: true
         }
 
-        width: 125;
-        height: 76;
-        fillMode: Image.PreserveAspectFit
-        source: "qrc:/assets/images/wfes_logo_225x140.png"
-        horizontalAlignment: Image.AlignHCenter;
+        Image {
+            source: "image://visualizationImageProvider/N"
+            asynchronous: true
+        }
     }
-
 }

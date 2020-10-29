@@ -1,7 +1,5 @@
 #include "wfes_single.h"
 
-#include <source/model/executables/wfes_single/config/configWfesSingle.h>
-
 
 using namespace wfes::wrightfisher;
 using namespace wfes::solver;
@@ -221,35 +219,43 @@ ResultsWfesSingle *wfes_single::absorption()
 
     // Generate images from matrices and save to file.
     QImage *imageI = nullptr, *imageQ = nullptr, *imageR = nullptr, *imageN = nullptr, *imageNExt = nullptr, *imageNFix = nullptr, *imageB = nullptr;
-    if(ConfigWfesSingle::saveImageI) {
+
+    if(ConfigWfesSingle::output_I) {
         imageI = utils::generateImage(starting_copies_p);
-        utils::saveImage(imageI, "Image_I");
+        //utils::saveImage(imageI, "Image_I");
+        ImageResults::I = imageI;
     }
-    if(ConfigWfesSingle::saveImageQ) {
+    if(ConfigWfesSingle::output_Q) {
         imageQ = utils::generateImage(W.Q->dense());
-        utils::saveImage(imageQ, "Image_Q");
+        //utils::saveImage(imageQ, "Image_Q");
+        ImageResults::Q = imageQ;
     }
-    if(ConfigWfesSingle::saveImageR) {
+    if(ConfigWfesSingle::output_R) {
         imageR = utils::generateImage(W.R);
-        utils::saveImage(imageR, "Image_R");
+        //utils::saveImage(imageR, "Image_R");
+        ImageResults::R = imageR;
     }
-    if(ConfigWfesSingle::saveImageN) {
+    if(ConfigWfesSingle::output_N) {
         imageN = utils::generateImage(N_mat);
-        utils::saveImage(imageN, "Image_N");
+        //utils::saveImage(imageN, "Image_N");
+        ImageResults::N = imageN;
     }
-    if(ConfigWfesSingle::saveImageNExt) {
+    if(ConfigWfesSingle::output_N_ext) {
         imageNExt = utils::generateImage(E_ext_mat);
-        utils::saveImage(imageNExt, "Image_NExt");
+        //utils::saveImage(imageNExt, "Image_NExt");
+        ImageResults::N_ext = imageNExt;
     }
-    if(ConfigWfesSingle::saveImageNFix) {
+    if(ConfigWfesSingle::output_N_fix) {
         imageNFix = utils::generateImage(E_fix_mat);
-        utils::saveImage(imageNFix, "Image_NFix");
+        //utils::saveImage(imageNFix, "Image_NFix");
+        ImageResults::N_fix = imageNFix;
     }
-    if(ConfigWfesSingle::saveImageB) {
+    if(ConfigWfesSingle::output_B) {
         B.col(0) = B_ext;
         B.col(1) = B_fix;
         imageB = utils::generateImage(B);
-        utils::saveImage(imageB, "Image_B");
+        //utils::saveImage(imageB, "Image_B");
+        ImageResults::B = imageB;
     }
 
     ResultsWfesSingle* res = new ResultsWfesSingle(ConfigWfesSingle::modelType, P_ext, P_fix, T_abs, T_abs_std, T_ext, T_ext_std, N_ext, T_fix, T_fix_std, dt.count(), imageI, imageQ, imageR, imageN, imageNExt, imageNFix, imageB);
@@ -325,23 +331,28 @@ ResultsWfesSingle *wfes_single::fixation()
     QImage *imageI = nullptr, *imageQ = nullptr, *imageR = nullptr, *imageN = nullptr, *imageB = nullptr;
     if(ConfigWfesSingle::saveImageI) {
         imageI = utils::generateImage(starting_copies_p);
-        utils::saveImage(imageI, "Image_I");
+        //utils::saveImage(imageI, "Image_I");
+        ImageResults::I = imageI;
     }
     if(ConfigWfesSingle::saveImageQ) {
         imageQ = utils::generateImage(W.Q->dense());
-        utils::saveImage(imageQ, "Image_Q");
+        //utils::saveImage(imageQ, "Image_Q");
+        ImageResults::Q = imageQ;
     }
     if(ConfigWfesSingle::saveImageR) {
         imageR = utils::generateImage(W.R);
-        utils::saveImage(imageR, "Image_R");
+        //utils::saveImage(imageR, "Image_R");
+        ImageResults::R = imageR;
     }
     if(ConfigWfesSingle::saveImageN) {
         imageN = utils::generateImage(N_mat);
-        utils::saveImage(imageN, "Image_N");
+        //utils::saveImage(imageN, "Image_N");
+        ImageResults::N = imageN;
     }
     if(ConfigWfesSingle::saveImageB) {
         imageB = utils::generateImage(B);
-        utils::saveImage(imageB, "Image_B");
+        //utils::saveImage(imageB, "Image_B");
+        ImageResults::B = imageB;
     }
     ResultsWfesSingle* res = new ResultsWfesSingle(ConfigWfesSingle::modelType, T_fix, T_std, rate, dt.count(), imageI, imageQ, imageR, imageN, imageB);
 

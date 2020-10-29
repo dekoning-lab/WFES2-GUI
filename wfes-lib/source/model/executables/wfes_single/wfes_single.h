@@ -23,6 +23,10 @@
 
 #include <utils/observer/subject.h>
 
+#include <source/model/executables/wfes_single/config/configWfesSingle.h>
+
+#include <model/visualization/imageresults.h>
+
 class wfes_single : public Subject{
 
     public:

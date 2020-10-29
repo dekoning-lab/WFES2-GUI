@@ -84,7 +84,7 @@ Rectangle {
                 MenuItem {
                     text: "Manual"
                     onClicked: {
-                        fileUtils.openFile("<path to pdf file>")
+                        Qt.openUrlExternally("https://github.com/dekoning-lab/wfes-gui/wiki");
                     }
                 }
                 MenuItem {
