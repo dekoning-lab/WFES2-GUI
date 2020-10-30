@@ -15,12 +15,12 @@ ApplicationWindow {
     visible: true
 
 
-    width: 600
-    minimumWidth: 600
-    maximumWidth: 600
-    height: 300
-    minimumHeight: 300
-    maximumHeight: 300
+    width: 500
+    minimumWidth: 500
+    maximumWidth: 500
+    height: 500
+    minimumHeight: 500
+    maximumHeight: 500
 
     // Select theme for the application.
     Universal.theme: Universal.Light
@@ -37,30 +37,131 @@ ApplicationWindow {
         setY(Screen.height / 2 - height / 2);
     }
 
-    ColumnLayout {
-        Flickable {
-            width: 200; height: 200
-            contentWidth: imageQ.width; contentHeight: imageQ.height
 
-            Image {
-                id: imageQ
-                sourceSize.width: 200
-                sourceSize.height: 200
-                source: "image://visualizationImageProvider/Q"
-                asynchronous: true
+      Rectangle{
+         id:displayQ
+         width:parent.width
+         height:parent.height
+         color: "transparent"
+        Image {
+            id: imageQ
+            sourceSize.width: parent.width
+            sourceSize.height: parent.width
+            source: "image://visualizationImageProvider/Q"
+            asynchronous: true
+
+            anchors {
+                verticalCenter: parent.verticalCenter
+                horizontalCenter: parent.horizontalCenter
             }
         }
-        Flickable {
-            width: 200; height: 200
-            contentWidth: imageN.width; contentHeight: imageN.height
 
-            Image {
-                id: imageN
-                sourceSize.width: 200
-                sourceSize.height: 200
-                source: "image://visualizationImageProvider/N"
-                asynchronous: true
-            }
+        MouseArea{
+           width: parent.width
+           height: parent.height
+
+           drag.target: displayQ
+
+           anchors.centerIn: displayQ
+           onWheel: {
+               if (wheel.modifiers & Qt.ControlModifier) {
+                   displayQ.rotation += wheel.angleDelta.y / 120 * 5;
+                   if (Math.abs(displayQ.rotation) < 4)
+                       parent.rotation = 0;
+               } else {
+                   displayQ.rotation += wheel.angleDelta.x / 120;
+                   if (Math.abs(displayQ.rotation) < 0.6)
+                       displayQ.rotation = 0;
+                   var scaleBefore = parent.scale;
+                   var incrementScale = displayQ.scale * wheel.angleDelta.y / 120 / 10
+                   if(displayQ.scale + incrementScale < 2.5 && displayQ.scale + incrementScale > 0.8)
+                        displayQ.scale += displayQ.scale * wheel.angleDelta.y / 120 / 10
+               }
+           }
         }
     }
+
+      Rectangle{
+         id:displayN
+         width:parent.width
+         height:parent.height
+         color: "transparent"
+         visible: false
+        Image {
+            id: imageN
+            sourceSize.width: parent.width
+            sourceSize.height: parent.width
+            source: "image://visualizationImageProvider/N"
+            asynchronous: true
+
+            anchors {
+                verticalCenter: parent.verticalCenter
+                horizontalCenter: parent.horizontalCenter
+            }
+        }
+
+        MouseArea{
+           width: parent.width
+           height: parent.height
+
+           drag.target: displayN
+
+           anchors.centerIn: displayN
+           onWheel: {
+               if (wheel.modifiers & Qt.ControlModifier) {
+                   displayN.rotation += wheel.angleDelta.y / 120 * 5;
+                   if (Math.abs(displayN.rotation) < 4)
+                       parent.rotation = 0;
+               } else {
+                   displayN.rotation += wheel.angleDelta.x / 120;
+                   if (Math.abs(displayN.rotation) < 0.6)
+                       displayN.rotation = 0;
+                   var scaleBefore = parent.scale;
+                   var incrementScale = displayN.scale * wheel.angleDelta.y / 120 / 10
+                   if(displayN.scale + incrementScale < 2.5 && displayN.scale + incrementScale > 0.8)
+                        displayN.scale += displayN.scale * wheel.angleDelta.y / 120 / 10
+               }
+           }
+        }
+    }
+
+        Button {
+            text: "Reset Zoom"
+            anchors {
+                top: parent.top
+                horizontalCenter: parent.horizontalCenter
+            }
+
+            onClicked: {
+                displayQ.scale = 1
+                displayQ.x = 0
+                displayQ.y = 0
+                displayN.scale = 1
+                displayN.x = 0
+                displayN.y = 0
+            }
+
+        }
+
+        Button {
+            text: "N Matrix"
+            anchors {
+                top: parent.top
+                right: parent.right
+            }
+
+            onClicked: {
+                if(displayQ.visible == true) {
+                    displayQ.visible = false
+                    displayN.visible = true
+                    text = "Q Matrix"
+                } else {
+                    displayQ.visible = true
+                    displayN.visible = false
+                    text = "N Matrix"
+                }
+
+            }
+
+        }
 }
