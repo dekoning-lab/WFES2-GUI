@@ -1,18 +1,16 @@
 #ifndef VISUALIZATIONCONTROLLER_H
 #define VISUALIZATIONCONTROLLER_H
 
-#include <QObject>
 #include <wfes-lib_global.h>
 #include <QQuickImageProvider>
 
 class VisualizationImageProvider : public QQuickImageProvider
 {
-public:
-    QList<QImage> image;
-    VisualizationImageProvider();
+    public:
 
-    QImage requestImage(const QString &id, QSize *size, const QSize &requestedSize) override;
+        VisualizationImageProvider();
 
+        QImage requestImage(const QString &id, QSize *size, const QSize &requestedSize) override;
 
 };
 

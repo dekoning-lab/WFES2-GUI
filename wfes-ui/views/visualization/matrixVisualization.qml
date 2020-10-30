@@ -47,7 +47,7 @@ ApplicationWindow {
             id: imageQ
             sourceSize.width: parent.width
             sourceSize.height: parent.width
-            source: "image://visualizationImageProvider/Q"
+            source: imageOutputController.ui_image_source
             asynchronous: true
 
             anchors {

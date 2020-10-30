@@ -1,3 +1,4 @@
+#include "imageOutputController.h"
 #include "imageresults.h"
 #include "visualizationImageProvider.h"
 
@@ -6,6 +7,7 @@ VisualizationImageProvider::VisualizationImageProvider()
 
 QImage VisualizationImageProvider::requestImage(const QString &id, QSize *size, const QSize &requestedSize)
 {
-   QImage scaled = ImageResults::getImage(id).scaled(requestedSize.width(), requestedSize.height(), Qt::KeepAspectRatio);
+   QImage scaled = ImageResults::getImage(id.split("?")[0]).scaled(requestedSize.width(), requestedSize.height(), Qt::KeepAspectRatio);
+
    return scaled;
 }
