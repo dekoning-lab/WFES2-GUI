@@ -9,6 +9,8 @@ OutputControllerWfesSweep::~OutputControllerWfesSweep() {}
 
 QString OutputControllerWfesSweep::execute()
 {
+    ImageResults::clear();
+
     executing = true;
     qRegisterMetaType<ResultsWfesSweep>("ResultsWfesSweep");
 
