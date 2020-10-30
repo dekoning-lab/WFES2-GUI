@@ -104,14 +104,16 @@ ResultsWfesSweep *wfes_sweep::fixation()
     }
     delete solver;
 
-    //Calculate time.
-    t_end = std::chrono::system_clock::now();
-    time_diff dt = t_end - t_start;
+
 
     ResultsWfesSweep* res = new ResultsWfesSweep(T_fix, rate, dt.count());
 
     if(ConfigWfesSweep::output_Res)
        res->writeResultsToFile(res, ConfigWfesSweep::path_output_Res);
+
+    //Calculate time.
+    t_end = std::chrono::system_clock::now();
+    time_diff dt = t_end - t_start;
 
     //Notify done.
     this->notify(ExecutionStatus::DONE);
