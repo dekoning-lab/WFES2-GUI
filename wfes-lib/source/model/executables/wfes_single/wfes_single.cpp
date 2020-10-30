@@ -445,7 +445,7 @@ ResultsWfesSingle *wfes_single::fundamental()
         //utils::saveImage(imageN, "Image_N");
         ImageResults::N = imageN;
     }
-    if(ConfigWfesSingle::saveImageV) {
+    if(ConfigWfesSingle::output_V) {
         dvec Ndg = (2 * N.diagonal().array()) - 1;
         dmat Nsq = N.array().square();
         V = (N * diagmat(Ndg)) - Nsq;

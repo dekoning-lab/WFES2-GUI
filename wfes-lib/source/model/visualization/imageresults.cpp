@@ -34,7 +34,7 @@ QImage ImageResults::getImage(QString id)
         return *ImageResults::E;
     else {
         QImage image(100, 100, QImage::Format_ARGB32);
-        image.fill(Qt::red);
+        image.fill(Qt::white);
         return image;
     }
 }

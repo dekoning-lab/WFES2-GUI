@@ -135,6 +135,8 @@ ApplicationWindow {
         visible: {
             return displayI.source != "image://visualizationimageprovider/null"
         }
+        width: 100
+
         enabled: true
         text: "I Matrix"
         anchors {
@@ -170,6 +172,8 @@ ApplicationWindow {
         visible: {
             return displayQ.source != "image://visualizationimageprovider/null"
         }
+        width: 100
+
         text: "Q Matrix"
         anchors {
             top: buttonI.bottom
@@ -204,6 +208,8 @@ ApplicationWindow {
         visible: {
             return displayR.source != "image://visualizationimageprovider/null"
         }
+        width: 100
+
         text: "R Matrix"
         anchors {
             top: buttonQ.bottom
@@ -239,6 +245,8 @@ ApplicationWindow {
         visible: {
             return displayB.source != "image://visualizationimageprovider/null"
         }
+        width: 100
+
         text: "B Matrix"
         anchors {
             top: buttonR.bottom
@@ -273,6 +281,8 @@ ApplicationWindow {
         visible: {
             return displayN.source != "image://visualizationimageprovider/null"
         }
+        width: 100
+
         text: "N Matrix"
         anchors {
             top: buttonB.bottom
@@ -307,6 +317,8 @@ ApplicationWindow {
         visible: {
             return displayNext.source != "image://visualizationimageprovider/null"
         }
+        width: 100
+
         text: "N ext Matrix"
         anchors {
             top: buttonN.bottom
@@ -341,6 +353,8 @@ ApplicationWindow {
         visible: {
             return displayNfix.source != "image://visualizationimageprovider/null"
         }
+        width: 100
+
         text: "N fix Matrix"
         anchors {
             top: buttonNext.bottom
@@ -374,6 +388,7 @@ ApplicationWindow {
         visible: {
             return displayV.source != "image://visualizationimageprovider/null"
         }
+        width: 100
 
         text: "V Matrix"
         anchors {
@@ -408,6 +423,7 @@ ApplicationWindow {
         visible: {
             return displayE.source != "image://visualizationimageprovider/null"
         }
+        width: 100
 
         text: "E Matrix"
         anchors {
