@@ -37,131 +37,267 @@ ApplicationWindow {
         setY(Screen.height / 2 - height / 2);
     }
 
+    DisplayImage {
+        id: displayI
+        visible: false
+        source: imageOutputController.ui_image_I
+    }
 
-      Rectangle{
-         id:displayQ
-         width:parent.width
-         height:parent.height
-         color: "transparent"
-        Image {
-            id: imageQ
-            sourceSize.width: parent.width
-            sourceSize.height: parent.width
-            source: imageOutputController.ui_image_source
-            asynchronous: true
+    DisplayImage {
+        id: displayQ
+        visible: true
+        source: imageOutputController.ui_image_Q
+    }
 
-            anchors {
-                verticalCenter: parent.verticalCenter
-                horizontalCenter: parent.horizontalCenter
-            }
+    DisplayImage {
+        id: displayR
+        visible: false
+        source: imageOutputController.ui_image_R
+    }
+
+    DisplayImage {
+        id: displayB
+        visible: false
+        source: imageOutputController.ui_image_B
+    }
+
+    DisplayImage {
+        id: displayN
+        visible: false
+        source: imageOutputController.ui_image_N
+    }
+
+    DisplayImage {
+        id: displayNext
+        visible: false
+        source: imageOutputController.ui_image_N_ext
+    }
+
+    DisplayImage {
+        id: displayNfix
+        visible: false
+        source: imageOutputController.ui_image_N_fix
+    }
+
+    Button {
+        text: "Reset Zoom"
+        anchors {
+            top: parent.top
+            horizontalCenter: parent.horizontalCenter
         }
 
-        MouseArea{
-           width: parent.width
-           height: parent.height
+        onClicked: {
+            displayI.scale = 1
+            displayI.x = 0
+            displayI.y = 0
+            displayQ.scale = 1
+            displayQ.x = 0
+            displayQ.y = 0
+            displayR.scale = 1
+            displayR.x = 0
+            displayR.y = 0
+            displayB.scale = 1
+            displayB.x = 0
+            displayB.y = 0
+            displayN.scale = 1
+            displayN.x = 0
+            displayN.y = 0
+            displayNExt.scale = 1
+            displayNExt.x = 0
+            displayNExt.y = 0
+            displayNfix.scale = 1
+            displayNfix.x = 0
+            displayNfix.y = 0
+        }
 
-           drag.target: displayQ
+    }
 
-           anchors.centerIn: displayQ
-           onWheel: {
-               if (wheel.modifiers & Qt.ControlModifier) {
-                   displayQ.rotation += wheel.angleDelta.y / 120 * 5;
-                   if (Math.abs(displayQ.rotation) < 4)
-                       parent.rotation = 0;
-               } else {
-                   displayQ.rotation += wheel.angleDelta.x / 120;
-                   if (Math.abs(displayQ.rotation) < 0.6)
-                       displayQ.rotation = 0;
-                   var scaleBefore = parent.scale;
-                   var incrementScale = displayQ.scale * wheel.angleDelta.y / 120 / 10
-                   if(displayQ.scale + incrementScale < 2.5 && displayQ.scale + incrementScale > 0.8)
-                        displayQ.scale += displayQ.scale * wheel.angleDelta.y / 120 / 10
-               }
-           }
+    Button {
+        id: buttonI
+        enabled: true
+        text: "I Matrix"
+        anchors {
+            top: parent.top
+            right: parent.right
+        }
+        onClicked: {
+            buttonI.enabled = false
+            buttonQ.enabled = true
+            buttonR.enabled = true
+            buttonB.enabled = true
+            buttonN.enabled = true
+            buttonNext.enabled = true
+            buttonNfix.enabled = true
+
+            displayI.visible = true
+            displayQ.visible = false
+            displayR.visible = false
+            displayB.visible = false
+            displayN.visible = false
+            displayNext.visible = false
+            displayNfix.visible = false
         }
     }
 
-      Rectangle{
-         id:displayN
-         width:parent.width
-         height:parent.height
-         color: "transparent"
-         visible: false
-        Image {
-            id: imageN
-            sourceSize.width: parent.width
-            sourceSize.height: parent.width
-            source: "image://visualizationImageProvider/N"
-            asynchronous: true
-
-            anchors {
-                verticalCenter: parent.verticalCenter
-                horizontalCenter: parent.horizontalCenter
-            }
+    Button {
+        id: buttonQ
+        enabled: false
+        text: "Q Matrix"
+        anchors {
+            top: buttonI.bottom
+            right: parent.right
         }
+        onClicked: {
+            buttonI.enabled = true
+            buttonQ.enabled = false
+            buttonR.enabled = true
+            buttonB.enabled = true
+            buttonN.enabled = true
+            buttonNext.enabled = true
+            buttonNfix.enabled = true
 
-        MouseArea{
-           width: parent.width
-           height: parent.height
-
-           drag.target: displayN
-
-           anchors.centerIn: displayN
-           onWheel: {
-               if (wheel.modifiers & Qt.ControlModifier) {
-                   displayN.rotation += wheel.angleDelta.y / 120 * 5;
-                   if (Math.abs(displayN.rotation) < 4)
-                       parent.rotation = 0;
-               } else {
-                   displayN.rotation += wheel.angleDelta.x / 120;
-                   if (Math.abs(displayN.rotation) < 0.6)
-                       displayN.rotation = 0;
-                   var scaleBefore = parent.scale;
-                   var incrementScale = displayN.scale * wheel.angleDelta.y / 120 / 10
-                   if(displayN.scale + incrementScale < 2.5 && displayN.scale + incrementScale > 0.8)
-                        displayN.scale += displayN.scale * wheel.angleDelta.y / 120 / 10
-               }
-           }
+            displayI.visible = false
+            displayQ.visible = true
+            displayR.visible = false
+            displayB.visible = false
+            displayN.visible = false
+            displayNext.visible = false
+            displayNfix.visible = false
         }
     }
 
-        Button {
-            text: "Reset Zoom"
-            anchors {
-                top: parent.top
-                horizontalCenter: parent.horizontalCenter
-            }
-
-            onClicked: {
-                displayQ.scale = 1
-                displayQ.x = 0
-                displayQ.y = 0
-                displayN.scale = 1
-                displayN.x = 0
-                displayN.y = 0
-            }
-
+    Button {
+        id: buttonR
+        enabled: true
+        text: "R Matrix"
+        anchors {
+            top: buttonQ.bottom
+            right: parent.right
         }
+        onClicked: {
+            buttonI.enabled = true
+            buttonQ.enabled = true
+            buttonR.enabled = false
+            buttonB.enabled = true
+            buttonN.enabled = true
+            buttonNext.enabled = true
+            buttonNfix.enabled = true
 
-        Button {
-            text: "N Matrix"
-            anchors {
-                top: parent.top
-                right: parent.right
-            }
-
-            onClicked: {
-                if(displayQ.visible == true) {
-                    displayQ.visible = false
-                    displayN.visible = true
-                    text = "Q Matrix"
-                } else {
-                    displayQ.visible = true
-                    displayN.visible = false
-                    text = "N Matrix"
-                }
-
-            }
-
+            displayI.visible = false
+            displayQ.visible = false
+            displayR.visible = true
+            displayB.visible = false
+            displayN.visible = false
+            displayNext.visible = false
+            displayNfix.visible = false
         }
+    }
+
+
+    Button {
+        id: buttonB
+        enabled: true
+        text: "B Matrix"
+        anchors {
+            top: buttonR.bottom
+            right: parent.right
+        }
+        onClicked: {
+            buttonI.enabled = true
+            buttonQ.enabled = true
+            buttonR.enabled = true
+            buttonB.enabled = false
+            buttonN.enabled = true
+            buttonNext.enabled = true
+            buttonNfix.enabled = true
+
+            displayI.visible = false
+            displayQ.visible = false
+            displayR.visible = false
+            displayB.visible = true
+            displayN.visible = false
+            displayNext.visible = false
+            displayNfix.visible = false
+        }
+    }
+
+    Button {
+        id: buttonN
+        enabled: true
+        text: "N Matrix"
+        anchors {
+            top: buttonB.bottom
+            right: parent.right
+        }
+        onClicked: {
+            buttonI.enabled = true
+            buttonQ.enabled = true
+            buttonR.enabled = true
+            buttonB.enabled = true
+            buttonN.enabled = false
+            buttonNext.enabled = true
+            buttonNfix.enabled = true
+
+            displayI.visible = false
+            displayQ.visible = false
+            displayR.visible = false
+            displayB.visible = false
+            displayN.visible = true
+            displayNext.visible = false
+            displayNfix.visible = false
+        }
+    }
+
+    Button {
+        id: buttonNext
+        enabled: true
+        text: "N ext Matrix"
+        anchors {
+            top: buttonN.bottom
+            right: parent.right
+        }
+        onClicked: {
+            buttonI.enabled = true
+            buttonQ.enabled = true
+            buttonR.enabled = true
+            buttonB.enabled = true
+            buttonN.enabled = true
+            buttonNext.enabled = false
+            buttonNfix.enabled = true
+
+            displayI.visible = false
+            displayQ.visible = false
+            displayR.visible = false
+            displayB.visible = false
+            displayN.visible = false
+            displayNext.visible = true
+            displayNfix.visible = false
+        }
+    }
+    Button {
+        id: buttonNfix
+        enabled: true
+        text: "N fix Matrix"
+        anchors {
+            top: buttonNext.bottom
+            right: parent.right
+        }
+        onClicked: {
+            buttonI.enabled = true
+            buttonQ.enabled = true
+            buttonR.enabled = true
+            buttonB.enabled = true
+            buttonN.enabled = true
+            buttonNext.enabled = true
+            buttonNfix.enabled = false
+
+            displayI.visible = false
+            displayQ.visible = false
+            displayR.visible = false
+            displayB.visible = false
+            displayN.visible = false
+            displayNext.visible = false
+            displayNfix.visible = true
+        }
+    }
 }
