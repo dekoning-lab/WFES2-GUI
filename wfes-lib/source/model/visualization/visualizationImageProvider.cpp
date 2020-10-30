@@ -6,5 +6,6 @@ VisualizationImageProvider::VisualizationImageProvider()
 
 QImage VisualizationImageProvider::requestImage(const QString &id, QSize *size, const QSize &requestedSize)
 {
-   return ImageResults::getImage(id);
+   QImage scaled = ImageResults::getImage(id).scaled(requestedSize.width(), requestedSize.height(), Qt::KeepAspectRatio);
+   return scaled;
 }

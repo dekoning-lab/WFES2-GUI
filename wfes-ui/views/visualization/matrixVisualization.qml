@@ -38,14 +38,29 @@ ApplicationWindow {
     }
 
     ColumnLayout {
-        Image {
-            source: "image://visualizationImageProvider/Q"
-            asynchronous: true
-        }
+        Flickable {
+            width: 200; height: 200
+            contentWidth: imageQ.width; contentHeight: imageQ.height
 
-        Image {
-            source: "image://visualizationImageProvider/N"
-            asynchronous: true
+            Image {
+                id: imageQ
+                sourceSize.width: 200
+                sourceSize.height: 200
+                source: "image://visualizationImageProvider/Q"
+                asynchronous: true
+            }
+        }
+        Flickable {
+            width: 200; height: 200
+            contentWidth: imageN.width; contentHeight: imageN.height
+
+            Image {
+                id: imageN
+                sourceSize.width: 200
+                sourceSize.height: 200
+                source: "image://visualizationImageProvider/N"
+                asynchronous: true
+            }
         }
     }
 }
