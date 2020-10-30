@@ -8,6 +8,8 @@ OutputControllerWfesSingle::~OutputControllerWfesSingle() {}
 
 QString OutputControllerWfesSingle::execute()
 {
+    ImageResults::clear();
+
     executing = true;
     qRegisterMetaType<ResultsWfesSingle>("ResultsWfesSingle");
 

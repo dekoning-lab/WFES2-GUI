@@ -7,6 +7,8 @@ QImage* ImageResults::N = nullptr;
 QImage* ImageResults::N_ext = nullptr;
 QImage* ImageResults::N_fix = nullptr;
 QImage* ImageResults::B = nullptr;
+QImage* ImageResults::V = nullptr;
+QImage* ImageResults::E = nullptr;
 
 ImageResults::ImageResults() {}
 
@@ -26,9 +28,26 @@ QImage ImageResults::getImage(QString id)
         return *ImageResults::N_fix;
     if(id.compare("B") == 0 && ImageResults::B != nullptr)
         return *ImageResults::B;
+    if(id.compare("V") == 0 && ImageResults::V != nullptr)
+        return *ImageResults::V;
+    if(id.compare("E") == 0 && ImageResults::E != nullptr)
+        return *ImageResults::E;
     else {
         QImage image(100, 100, QImage::Format_ARGB32);
         image.fill(Qt::red);
         return image;
     }
+}
+
+void ImageResults::clear()
+{
+    ImageResults::I = nullptr;
+    ImageResults::Q = nullptr;
+    ImageResults::R = nullptr;
+    ImageResults::N = nullptr;
+    ImageResults::N_ext = nullptr;
+    ImageResults::N_fix = nullptr;
+    ImageResults::B = nullptr;
+    ImageResults::V = nullptr;
+    ImageResults::E = nullptr;
 }

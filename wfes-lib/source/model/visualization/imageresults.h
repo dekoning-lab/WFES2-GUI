@@ -13,10 +13,14 @@ public:
     static QImage *N_ext;
     static QImage *N_fix;
     static QImage *B;
+    static QImage *V;
+    static QImage *E;
 
     ImageResults();
 
     static QImage getImage(QString id);
+
+    static void clear();
 
 };
 

@@ -6,42 +6,90 @@ ImageOutputController::ImageOutputController() : count(0){}
 
 QString ImageOutputController::get_image_I()
 {
-    count++;
-    return "image://visualizationImageProvider/I?count=" + QString(count);
+    if(ImageResults::I == nullptr)
+        return "image://visualizationImageProvider/null";
+    else {
+        count++;
+        return "image://visualizationImageProvider/I?count=" + QString(count);
+    }
 }
 
 QString ImageOutputController::get_image_Q()
 {
-    count++;
-    return "image://visualizationImageProvider/Q?count=" + QString(count);
+    if(ImageResults::Q == nullptr)
+        return "image://visualizationImageProvider/null";
+    else {
+        count++;
+        return "image://visualizationImageProvider/Q?count=" + QString(count);
+    }
 }
 
 QString ImageOutputController::get_image_R()
 {
-    count++;
-    return "image://visualizationImageProvider/R?count=" + QString(count);
+    if(ImageResults::R == nullptr)
+        return "image://visualizationImageProvider/null";
+    else {
+        count++;
+        return "image://visualizationImageProvider/R?count=" + QString(count);
+    }
 }
 
 QString ImageOutputController::get_image_B()
 {
-    count++;
-    return "image://visualizationImageProvider/B?count=" + QString(count);
+    if(ImageResults::B == nullptr)
+        return "image://visualizationImageProvider/null";
+    else {
+        count++;
+        return "image://visualizationImageProvider/B?count=" + QString(count);
+    }
 }
 
 QString ImageOutputController::get_image_N()
 {
-    count++;
-    return "image://visualizationImageProvider/N?count=" + QString(count);
+    if(ImageResults::N == nullptr)
+        return "image://visualizationImageProvider/null";
+    else {
+        count++;
+        return "image://visualizationImageProvider/N?count=" + QString(count);
+    }
 }
 
 QString ImageOutputController::get_image_N_ext()
 {
-    count++;
-    return "image://visualizationImageProvider/N_ext?count=" + QString(count);
+    if(ImageResults::N_ext == nullptr)
+        return "image://visualizationImageProvider/null";
+    else {
+        count++;
+        return "image://visualizationImageProvider/N_ext?count=" + QString(count);
+    }
 }
 
 QString ImageOutputController::get_image_N_fix()
 {
-    count++;
-    return "image://visualizationImageProvider/N_fix?count=" + QString(count);
+    if(ImageResults::N_fix == nullptr)
+        return "image://visualizationImageProvider/null";
+    else {
+        count++;
+        return "image://visualizationImageProvider/N_fix?count=" + QString(count);
+    }
+}
+
+QString ImageOutputController::get_image_V()
+{
+    if(ImageResults::V == nullptr)
+        return "image://visualizationImageProvider/null";
+    else {
+        count++;
+        return "image://visualizationImageProvider/V?count=" + QString(count);
+    }
+}
+
+QString ImageOutputController::get_image_E()
+{
+    if(ImageResults::E == nullptr)
+        return "image://visualizationImageProvider/null";
+    else {
+        count++;
+        return "image://visualizationImageProvider/E?count=" + QString(count);
+    }
 }

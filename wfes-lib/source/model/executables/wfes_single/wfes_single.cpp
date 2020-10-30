@@ -329,31 +329,33 @@ ResultsWfesSingle *wfes_single::fixation()
 
     // Generate images from matrices and save to file.
     QImage *imageI = nullptr, *imageQ = nullptr, *imageR = nullptr, *imageN = nullptr, *imageB = nullptr;
-    if(ConfigWfesSingle::saveImageI) {
+
+    if(ConfigWfesSingle::output_I) {
         imageI = utils::generateImage(starting_copies_p);
         //utils::saveImage(imageI, "Image_I");
         ImageResults::I = imageI;
     }
-    if(ConfigWfesSingle::saveImageQ) {
+    if(ConfigWfesSingle::output_Q) {
         imageQ = utils::generateImage(W.Q->dense());
         //utils::saveImage(imageQ, "Image_Q");
         ImageResults::Q = imageQ;
     }
-    if(ConfigWfesSingle::saveImageR) {
+    if(ConfigWfesSingle::output_R) {
         imageR = utils::generateImage(W.R);
         //utils::saveImage(imageR, "Image_R");
         ImageResults::R = imageR;
     }
-    if(ConfigWfesSingle::saveImageN) {
+    if(ConfigWfesSingle::output_N) {
         imageN = utils::generateImage(N_mat);
         //utils::saveImage(imageN, "Image_N");
         ImageResults::N = imageN;
     }
-    if(ConfigWfesSingle::saveImageB) {
+    if(ConfigWfesSingle::output_B) {
         imageB = utils::generateImage(B);
         //utils::saveImage(imageB, "Image_B");
         ImageResults::B = imageB;
     }
+
     ResultsWfesSingle* res = new ResultsWfesSingle(ConfigWfesSingle::modelType, T_fix, T_std, rate, dt.count(), imageI, imageQ, imageR, imageN, imageB);
 
     if(ConfigWfesSingle::output_Res)
@@ -421,28 +423,35 @@ ResultsWfesSingle *wfes_single::fundamental()
 
     // Generate images from matrices and save to file.
     QImage *imageI = nullptr, *imageQ = nullptr, *imageR = nullptr, *imageN = nullptr, *imageV = nullptr;
-    if(ConfigWfesSingle::saveImageI) {
+
+
+    if(ConfigWfesSingle::output_I) {
         imageI = utils::generateImage(starting_copies_p);
-        utils::saveImage(imageI, "Image_I");
+        //utils::saveImage(imageI, "Image_I");
+        ImageResults::I = imageI;
     }
-    if (ConfigWfesSingle::saveImageQ) {
+    if(ConfigWfesSingle::output_Q) {
         imageQ = utils::generateImage(W.Q->dense());
-        utils::saveImage(imageQ, "Image_Q");
+        //utils::saveImage(imageQ, "Image_Q");
+        ImageResults::Q = imageQ;
     }
-    if (ConfigWfesSingle::saveImageR) {
+    if(ConfigWfesSingle::output_R) {
         imageR = utils::generateImage(W.R);
-        utils::saveImage(imageR, "Image_R");
+        //utils::saveImage(imageR, "Image_R");
+        ImageResults::R = imageR;
     }
-    if(ConfigWfesSingle::saveImageN) {
+    if(ConfigWfesSingle::output_N) {
         imageN = utils::generateImage(N);
-        utils::saveImage(imageN, "Image_N");
+        //utils::saveImage(imageN, "Image_N");
+        ImageResults::N = imageN;
     }
     if(ConfigWfesSingle::saveImageV) {
         dvec Ndg = (2 * N.diagonal().array()) - 1;
         dmat Nsq = N.array().square();
         V = (N * diagmat(Ndg)) - Nsq;
         imageV = utils::generateImage(V);
-        utils::saveImage(imageV, "Image_V");
+        //utils::saveImage(imageV, "Image_V");
+        ImageResults::V = imageV;
     }
 
     //Notify done.
@@ -497,14 +506,19 @@ ResultsWfesSingle *wfes_single::equilibrium()
 
     // Generate images from matrices and save to file.
     QImage *imageI = nullptr, *imageE = nullptr;
-    if(ConfigWfesSingle::saveImageI) {
+
+
+    if(ConfigWfesSingle::output_I) {
         imageI = utils::generateImage(starting_copies_p);
-        utils::saveImage(imageI, "Image_I");
+        //utils::saveImage(imageI, "Image_I");
+        ImageResults::I = imageI;
     }
-    if(ConfigWfesSingle::saveImageE) {
+    if(ConfigWfesSingle::output_E) {
         imageE = utils::generateImage(pi);
-        utils::saveImage(imageE, "Image_E");
+        //utils::saveImage(imageI, "Image_I");
+        ImageResults::E = imageE;
     }
+
     ResultsWfesSingle* res = new ResultsWfesSingle(ConfigWfesSingle::modelType, e_freq, (1.0 - e_freq), dt.count(), imageI, imageE);
 
     //Notify saving data.
@@ -694,17 +708,20 @@ ResultsWfesSingle *wfes_single::establishment()
 
     // Generate images from matrices and save to file.
     QImage *imageI = nullptr, *imageQ = nullptr, *imageR = nullptr;
-    if(ConfigWfesSingle::saveImageI) {
+    if(ConfigWfesSingle::output_I) {
         imageI = utils::generateImage(starting_copies_p);
-        utils::saveImage(imageI, "Image_I");
+        //utils::saveImage(imageI, "Image_I");
+        ImageResults::I = imageI;
     }
-    if(ConfigWfesSingle::saveImageQ) {
+    if(ConfigWfesSingle::output_Q) {
         imageQ = utils::generateImage(W_tr.Q->dense());
-        utils::saveImage(imageQ, "Image_Q");
+        //utils::saveImage(imageI, "Image_I");
+        ImageResults::Q = imageQ;
     }
-    if(ConfigWfesSingle::saveImageR) {
+    if(ConfigWfesSingle::output_R) {
         imageR = utils::generateImage(W_tr.R);
-        utils::saveImage(imageR, "Image_R");
+        //utils::saveImage(imageI, "Image_I");
+        ImageResults::R = imageR;
     }
 
     ResultsWfesSingle* res = new ResultsWfesSingle(ConfigWfesSingle::modelType, est_freq, P_est, T_seg, T_seg_std,
@@ -797,19 +814,21 @@ ResultsWfesSingle *wfes_single::alleleAge()
 
     // Generate images from matrices and save to file.
     QImage *imageI = nullptr, *imageQ = nullptr, *imageR = nullptr;
-    if(ConfigWfesSingle::saveImageI) {
+    if(ConfigWfesSingle::output_I) {
         imageI = utils::generateImage(starting_copies_p);
-        utils::saveImage(imageI, "Image_I");
+        //utils::saveImage(imageI, "Image_I");
+        ImageResults::I = imageI;
     }
-    if(ConfigWfesSingle::saveImageQ) {
+    if(ConfigWfesSingle::output_Q) {
         imageQ = utils::generateImage(W.Q->dense());
-        utils::saveImage(imageQ, "Image_Q");
+        //utils::saveImage(imageI, "Image_I");
+        ImageResults::Q = imageQ;
     }
-    if(ConfigWfesSingle::saveImageR) {
+    if(ConfigWfesSingle::output_R) {
         imageR = utils::generateImage(W.R);
-        utils::saveImage(imageR, "Image_R");
+        //utils::saveImage(imageI, "Image_I");
+        ImageResults::R = imageR;
     }
-
     ResultsWfesSingle* res = new ResultsWfesSingle(ConfigWfesSingle::modelType, E_allele_age, S_allele_age, true, dt.count(), imageI, imageQ, imageR);
 
     //Notify saving data.
@@ -848,15 +867,16 @@ ResultsWfesSingle *wfes_single::nonAbsorbing()
     // Generate images from matrices and save to file.
     //TODO Set if show and print from GUI.
     QImage *imageI = nullptr, *imageQ = nullptr;
-    if(ConfigWfesSingle::saveImageI) {
+    if(ConfigWfesSingle::output_I) {
         imageI = utils::generateImage(starting_copies_p);
-        utils::saveImage(imageI, "Image_I");
+        //utils::saveImage(imageI, "Image_I");
+        ImageResults::I = imageI;
     }
-    if(ConfigWfesSingle::saveImageQ) {
+    if(ConfigWfesSingle::output_Q) {
         imageQ = utils::generateImage(W.Q->dense());
-        utils::saveImage(imageQ, "Image_Q");
+        //utils::saveImage(imageI, "Image_I");
+        ImageResults::Q = imageQ;
     }
-
     //Notify done.
     this->notify(ExecutionStatus::DONE);
 

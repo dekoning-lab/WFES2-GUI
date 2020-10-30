@@ -45,7 +45,7 @@ ApplicationWindow {
 
     DisplayImage {
         id: displayQ
-        visible: true
+        visible: false
         source: imageOutputController.ui_image_Q
     }
 
@@ -79,6 +79,18 @@ ApplicationWindow {
         source: imageOutputController.ui_image_N_fix
     }
 
+    DisplayImage {
+        id: displayV
+        visible: false
+        source: imageOutputController.ui_image_V
+    }
+
+    DisplayImage {
+        id: displayE
+        visible: false
+        source: imageOutputController.ui_image_E
+    }
+
     Button {
         text: "Reset Zoom"
         anchors {
@@ -108,12 +120,21 @@ ApplicationWindow {
             displayNfix.scale = 1
             displayNfix.x = 0
             displayNfix.y = 0
+            displayV.scale = 1
+            displayV.x = 0
+            displayV.y = 0
+            displayE.scale = 1
+            displayE.x = 0
+            displayE.y = 0
         }
 
     }
 
     Button {
         id: buttonI
+        visible: {
+            return displayI.source != "image://visualizationimageprovider/null"
+        }
         enabled: true
         text: "I Matrix"
         anchors {
@@ -128,6 +149,8 @@ ApplicationWindow {
             buttonN.enabled = true
             buttonNext.enabled = true
             buttonNfix.enabled = true
+            buttonV.enabled = true
+            buttonE.enabled = true
 
             displayI.visible = true
             displayQ.visible = false
@@ -136,12 +159,17 @@ ApplicationWindow {
             displayN.visible = false
             displayNext.visible = false
             displayNfix.visible = false
+            displayV.visible = false
+            displayE.visible = false
         }
     }
 
     Button {
         id: buttonQ
-        enabled: false
+        enabled: true
+        visible: {
+            return displayQ.source != "image://visualizationimageprovider/null"
+        }
         text: "Q Matrix"
         anchors {
             top: buttonI.bottom
@@ -155,6 +183,8 @@ ApplicationWindow {
             buttonN.enabled = true
             buttonNext.enabled = true
             buttonNfix.enabled = true
+            buttonV.enabled = true
+            buttonE.enabled = true
 
             displayI.visible = false
             displayQ.visible = true
@@ -163,12 +193,17 @@ ApplicationWindow {
             displayN.visible = false
             displayNext.visible = false
             displayNfix.visible = false
+            displayV.visible = false
+            displayE.visible = false
         }
     }
 
     Button {
         id: buttonR
         enabled: true
+        visible: {
+            return displayR.source != "image://visualizationimageprovider/null"
+        }
         text: "R Matrix"
         anchors {
             top: buttonQ.bottom
@@ -182,6 +217,8 @@ ApplicationWindow {
             buttonN.enabled = true
             buttonNext.enabled = true
             buttonNfix.enabled = true
+            buttonV.enabled = true
+            buttonE.enabled = true
 
             displayI.visible = false
             displayQ.visible = false
@@ -190,6 +227,8 @@ ApplicationWindow {
             displayN.visible = false
             displayNext.visible = false
             displayNfix.visible = false
+            displayV.visible = false
+            displayE.visible = false
         }
     }
 
@@ -197,6 +236,9 @@ ApplicationWindow {
     Button {
         id: buttonB
         enabled: true
+        visible: {
+            return displayB.source != "image://visualizationimageprovider/null"
+        }
         text: "B Matrix"
         anchors {
             top: buttonR.bottom
@@ -210,6 +252,8 @@ ApplicationWindow {
             buttonN.enabled = true
             buttonNext.enabled = true
             buttonNfix.enabled = true
+            buttonV.enabled = true
+            buttonE.enabled = true
 
             displayI.visible = false
             displayQ.visible = false
@@ -218,12 +262,17 @@ ApplicationWindow {
             displayN.visible = false
             displayNext.visible = false
             displayNfix.visible = false
+            displayV.visible = false
+            displayE.visible = false
         }
     }
 
     Button {
         id: buttonN
         enabled: true
+        visible: {
+            return displayN.source != "image://visualizationimageprovider/null"
+        }
         text: "N Matrix"
         anchors {
             top: buttonB.bottom
@@ -237,6 +286,8 @@ ApplicationWindow {
             buttonN.enabled = false
             buttonNext.enabled = true
             buttonNfix.enabled = true
+            buttonV.enabled = true
+            buttonE.enabled = true
 
             displayI.visible = false
             displayQ.visible = false
@@ -245,12 +296,17 @@ ApplicationWindow {
             displayN.visible = true
             displayNext.visible = false
             displayNfix.visible = false
+            displayV.visible = false
+            displayE.visible = false
         }
     }
 
     Button {
         id: buttonNext
         enabled: true
+        visible: {
+            return displayNext.source != "image://visualizationimageprovider/null"
+        }
         text: "N ext Matrix"
         anchors {
             top: buttonN.bottom
@@ -264,6 +320,8 @@ ApplicationWindow {
             buttonN.enabled = true
             buttonNext.enabled = false
             buttonNfix.enabled = true
+            buttonV.enabled = true
+            buttonE.enabled = true
 
             displayI.visible = false
             displayQ.visible = false
@@ -272,11 +330,17 @@ ApplicationWindow {
             displayN.visible = false
             displayNext.visible = true
             displayNfix.visible = false
+            displayV.visible = false
+            displayE.visible = false
         }
     }
+
     Button {
         id: buttonNfix
         enabled: true
+        visible: {
+            return displayNfix.source != "image://visualizationimageprovider/null"
+        }
         text: "N fix Matrix"
         anchors {
             top: buttonNext.bottom
@@ -290,6 +354,8 @@ ApplicationWindow {
             buttonN.enabled = true
             buttonNext.enabled = true
             buttonNfix.enabled = false
+            buttonV.enabled = true
+            buttonE.enabled = true
 
             displayI.visible = false
             displayQ.visible = false
@@ -298,6 +364,76 @@ ApplicationWindow {
             displayN.visible = false
             displayNext.visible = false
             displayNfix.visible = true
+            displayV.visible = false
+            displayE.visible = false
+        }
+    }
+    Button {
+        id: buttonV
+        enabled: true
+        visible: {
+            return displayV.source != "image://visualizationimageprovider/null"
+        }
+
+        text: "V Matrix"
+        anchors {
+            top: buttonNfix.bottom
+            right: parent.right
+        }
+        onClicked: {
+            buttonI.enabled = true
+            buttonQ.enabled = true
+            buttonR.enabled = true
+            buttonB.enabled = true
+            buttonN.enabled = true
+            buttonNext.enabled = true
+            buttonNfix.enabled = true
+            buttonV.enabled = false
+            buttonE.enabled = true
+
+            displayI.visible = false
+            displayQ.visible = false
+            displayR.visible = false
+            displayB.visible = false
+            displayN.visible = false
+            displayNext.visible = false
+            displayNfix.visible = false
+            displayV.visible = true
+            displayE.visible = false
+        }
+    }
+    Button {
+        id: buttonE
+        enabled: true
+        visible: {
+            return displayE.source != "image://visualizationimageprovider/null"
+        }
+
+        text: "E Matrix"
+        anchors {
+            top: buttonV.bottom
+            right: parent.right
+        }
+        onClicked: {
+            buttonI.enabled = true
+            buttonQ.enabled = true
+            buttonR.enabled = true
+            buttonB.enabled = true
+            buttonN.enabled = true
+            buttonNext.enabled = true
+            buttonNfix.enabled = true
+            buttonV.enabled = true
+            buttonE.enabled = false
+
+            displayI.visible = false
+            displayQ.visible = false
+            displayR.visible = false
+            displayB.visible = false
+            displayN.visible = false
+            displayNext.visible = false
+            displayNfix.visible = false
+            displayV.visible = false
+            displayE.visible = true
         }
     }
 }

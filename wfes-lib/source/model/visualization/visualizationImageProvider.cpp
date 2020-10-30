@@ -1,5 +1,4 @@
-#include "imageOutputController.h"
-#include "imageresults.h"
+
 #include "visualizationImageProvider.h"
 
 VisualizationImageProvider::VisualizationImageProvider()

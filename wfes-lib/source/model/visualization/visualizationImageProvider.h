@@ -3,6 +3,8 @@
 
 #include <wfes-lib_global.h>
 #include <QQuickImageProvider>
+#include "imageOutputController.h"
+#include "imageresults.h"
 
 class VisualizationImageProvider : public QQuickImageProvider
 {

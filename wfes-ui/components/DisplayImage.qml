@@ -25,6 +25,7 @@ Rectangle{
             verticalCenter: parent.verticalCenter
             horizontalCenter: parent.horizontalCenter
         }
+
     }
     
     MouseArea{
