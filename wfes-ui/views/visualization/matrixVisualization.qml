@@ -114,9 +114,9 @@ ApplicationWindow {
             displayN.scale = 1
             displayN.x = 0
             displayN.y = 0
-            displayNExt.scale = 1
-            displayNExt.x = 0
-            displayNExt.y = 0
+            displayNext.scale = 1
+            displayNext.x = 0
+            displayNext.y = 0
             displayNfix.scale = 1
             displayNfix.x = 0
             displayNfix.y = 0
@@ -130,326 +130,309 @@ ApplicationWindow {
 
     }
 
-    Button {
-        id: buttonI
-        visible: {
-            return displayI.source != "image://visualizationimageprovider/null"
-        }
-        width: 100
-
-        enabled: true
-        text: "I Matrix"
+    ColumnLayout {
         anchors {
             top: parent.top
             right: parent.right
         }
-        onClicked: {
-            buttonI.enabled = false
-            buttonQ.enabled = true
-            buttonR.enabled = true
-            buttonB.enabled = true
-            buttonN.enabled = true
-            buttonNext.enabled = true
-            buttonNfix.enabled = true
-            buttonV.enabled = true
-            buttonE.enabled = true
 
-            displayI.visible = true
-            displayQ.visible = false
-            displayR.visible = false
-            displayB.visible = false
-            displayN.visible = false
-            displayNext.visible = false
-            displayNfix.visible = false
-            displayV.visible = false
-            displayE.visible = false
-        }
-    }
+        Button {
+            id: buttonI
+            visible: {
+                return displayI.source != "image://visualizationimageprovider/null"
+            }
+            Layout.preferredWidth: 100
 
-    Button {
-        id: buttonQ
-        enabled: true
-        visible: {
-            return displayQ.source != "image://visualizationimageprovider/null"
-        }
-        width: 100
+            enabled: true
+            text: "I Matrix"
 
-        text: "Q Matrix"
-        anchors {
-            top: buttonI.bottom
-            right: parent.right
-        }
-        onClicked: {
-            buttonI.enabled = true
-            buttonQ.enabled = false
-            buttonR.enabled = true
-            buttonB.enabled = true
-            buttonN.enabled = true
-            buttonNext.enabled = true
-            buttonNfix.enabled = true
-            buttonV.enabled = true
-            buttonE.enabled = true
+            onClicked: {
+                buttonI.enabled = false
+                buttonQ.enabled = true
+                buttonR.enabled = true
+                buttonB.enabled = true
+                buttonN.enabled = true
+                buttonNext.enabled = true
+                buttonNfix.enabled = true
+                buttonV.enabled = true
+                buttonE.enabled = true
 
-            displayI.visible = false
-            displayQ.visible = true
-            displayR.visible = false
-            displayB.visible = false
-            displayN.visible = false
-            displayNext.visible = false
-            displayNfix.visible = false
-            displayV.visible = false
-            displayE.visible = false
+                displayI.visible = true
+                displayQ.visible = false
+                displayR.visible = false
+                displayB.visible = false
+                displayN.visible = false
+                displayNext.visible = false
+                displayNfix.visible = false
+                displayV.visible = false
+                displayE.visible = false
+            }
         }
-    }
 
-    Button {
-        id: buttonR
-        enabled: true
-        visible: {
-            return displayR.source != "image://visualizationimageprovider/null"
-        }
-        width: 100
+        Button {
+            id: buttonQ
+            enabled: true
+            visible: {
+                return displayQ.source != "image://visualizationimageprovider/null"
+            }
+            Layout.preferredWidth: 100
 
-        text: "R Matrix"
-        anchors {
-            top: buttonQ.bottom
-            right: parent.right
-        }
-        onClicked: {
-            buttonI.enabled = true
-            buttonQ.enabled = true
-            buttonR.enabled = false
-            buttonB.enabled = true
-            buttonN.enabled = true
-            buttonNext.enabled = true
-            buttonNfix.enabled = true
-            buttonV.enabled = true
-            buttonE.enabled = true
+            text: "Q Matrix"
 
-            displayI.visible = false
-            displayQ.visible = false
-            displayR.visible = true
-            displayB.visible = false
-            displayN.visible = false
-            displayNext.visible = false
-            displayNfix.visible = false
-            displayV.visible = false
-            displayE.visible = false
+            onClicked: {
+                buttonI.enabled = true
+                buttonQ.enabled = false
+                buttonR.enabled = true
+                buttonB.enabled = true
+                buttonN.enabled = true
+                buttonNext.enabled = true
+                buttonNfix.enabled = true
+                buttonV.enabled = true
+                buttonE.enabled = true
+
+                displayI.visible = false
+                displayQ.visible = true
+                displayR.visible = false
+                displayB.visible = false
+                displayN.visible = false
+                displayNext.visible = false
+                displayNfix.visible = false
+                displayV.visible = false
+                displayE.visible = false
+            }
         }
-    }
+
+        Button {
+            id: buttonR
+            enabled: true
+            visible: {
+                return displayR.source != "image://visualizationimageprovider/null"
+            }
+            Layout.preferredWidth: 100
+
+            text: "R Matrix"
+
+            onClicked: {
+                buttonI.enabled = true
+                buttonQ.enabled = true
+                buttonR.enabled = false
+                buttonB.enabled = true
+                buttonN.enabled = true
+                buttonNext.enabled = true
+                buttonNfix.enabled = true
+                buttonV.enabled = true
+                buttonE.enabled = true
+
+                displayI.visible = false
+                displayQ.visible = false
+                displayR.visible = true
+                displayB.visible = false
+                displayN.visible = false
+                displayNext.visible = false
+                displayNfix.visible = false
+                displayV.visible = false
+                displayE.visible = false
+            }
+        }
+
+        Button {
+            id: buttonB
+            enabled: true
+            visible: {
+                return displayB.source != "image://visualizationimageprovider/null"
+            }
+            Layout.preferredWidth: 100
+
+            text: "B Matrix"
+
+            onClicked: {
+                buttonI.enabled = true
+                buttonQ.enabled = true
+                buttonR.enabled = true
+                buttonB.enabled = false
+                buttonN.enabled = true
+                buttonNext.enabled = true
+                buttonNfix.enabled = true
+                buttonV.enabled = true
+                buttonE.enabled = true
+
+                displayI.visible = false
+                displayQ.visible = false
+                displayR.visible = false
+                displayB.visible = true
+                displayN.visible = false
+                displayNext.visible = false
+                displayNfix.visible = false
+                displayV.visible = false
+                displayE.visible = false
+            }
+        }
+
+        Button {
+            id: buttonN
+            enabled: true
+            visible: {
+                return displayN.source != "image://visualizationimageprovider/null"
+            }
+            Layout.preferredWidth: 100
+
+            text: "N Matrix"
+
+            onClicked: {
+                buttonI.enabled = true
+                buttonQ.enabled = true
+                buttonR.enabled = true
+                buttonB.enabled = true
+                buttonN.enabled = false
+                buttonNext.enabled = true
+                buttonNfix.enabled = true
+                buttonV.enabled = true
+                buttonE.enabled = true
+
+                displayI.visible = false
+                displayQ.visible = false
+                displayR.visible = false
+                displayB.visible = false
+                displayN.visible = true
+                displayNext.visible = false
+                displayNfix.visible = false
+                displayV.visible = false
+                displayE.visible = false
+            }
+        }
+
+        Button {
+            id: buttonNext
+            enabled: true
+            visible: {
+                return displayNext.source != "image://visualizationimageprovider/null"
+            }
+            Layout.preferredWidth: 100
+
+            text: "N ext Matrix"
+
+            onClicked: {
+                buttonI.enabled = true
+                buttonQ.enabled = true
+                buttonR.enabled = true
+                buttonB.enabled = true
+                buttonN.enabled = true
+                buttonNext.enabled = false
+                buttonNfix.enabled = true
+                buttonV.enabled = true
+                buttonE.enabled = true
+
+                displayI.visible = false
+                displayQ.visible = false
+                displayR.visible = false
+                displayB.visible = false
+                displayN.visible = false
+                displayNext.visible = true
+                displayNfix.visible = false
+                displayV.visible = false
+                displayE.visible = false
+            }
+        }
+
+        Button {
+            id: buttonNfix
+            enabled: true
+            visible: {
+                return displayNfix.source != "image://visualizationimageprovider/null"
+            }
+            Layout.preferredWidth: 100
+
+            text: "N fix Matrix"
+
+            onClicked: {
+                buttonI.enabled = true
+                buttonQ.enabled = true
+                buttonR.enabled = true
+                buttonB.enabled = true
+                buttonN.enabled = true
+                buttonNext.enabled = true
+                buttonNfix.enabled = false
+                buttonV.enabled = true
+                buttonE.enabled = true
+
+                displayI.visible = false
+                displayQ.visible = false
+                displayR.visible = false
+                displayB.visible = false
+                displayN.visible = false
+                displayNext.visible = false
+                displayNfix.visible = true
+                displayV.visible = false
+                displayE.visible = false
+            }
+        }
+
+        Button {
+            id: buttonV
+            enabled: true
+            visible: {
+                return displayV.source != "image://visualizationimageprovider/null"
+            }
+            Layout.preferredWidth: 100
+
+            text: "V Matrix"
+
+            onClicked: {
+                buttonI.enabled = true
+                buttonQ.enabled = true
+                buttonR.enabled = true
+                buttonB.enabled = true
+                buttonN.enabled = true
+                buttonNext.enabled = true
+                buttonNfix.enabled = true
+                buttonV.enabled = false
+                buttonE.enabled = true
+
+                displayI.visible = false
+                displayQ.visible = false
+                displayR.visible = false
+                displayB.visible = false
+                displayN.visible = false
+                displayNext.visible = false
+                displayNfix.visible = false
+                displayV.visible = true
+                displayE.visible = false
+            }
+        }
+
+        Button {
+            id: buttonE
+            enabled: true
+            visible: {
+                return displayE.source != "image://visualizationimageprovider/null"
+            }
+            Layout.preferredWidth: 100
+
+            text: "E Matrix"
+
+            onClicked: {
+                buttonI.enabled = true
+                buttonQ.enabled = true
+                buttonR.enabled = true
+                buttonB.enabled = true
+                buttonN.enabled = true
+                buttonNext.enabled = true
+                buttonNfix.enabled = true
+                buttonV.enabled = true
+                buttonE.enabled = false
+
+                displayI.visible = false
+                displayQ.visible = false
+                displayR.visible = false
+                displayB.visible = false
+                displayN.visible = false
+                displayNext.visible = false
+                displayNfix.visible = false
+                displayV.visible = false
+                displayE.visible = true
+            }
+        }
 
 
-    Button {
-        id: buttonB
-        enabled: true
-        visible: {
-            return displayB.source != "image://visualizationimageprovider/null"
-        }
-        width: 100
-
-        text: "B Matrix"
-        anchors {
-            top: buttonR.bottom
-            right: parent.right
-        }
-        onClicked: {
-            buttonI.enabled = true
-            buttonQ.enabled = true
-            buttonR.enabled = true
-            buttonB.enabled = false
-            buttonN.enabled = true
-            buttonNext.enabled = true
-            buttonNfix.enabled = true
-            buttonV.enabled = true
-            buttonE.enabled = true
-
-            displayI.visible = false
-            displayQ.visible = false
-            displayR.visible = false
-            displayB.visible = true
-            displayN.visible = false
-            displayNext.visible = false
-            displayNfix.visible = false
-            displayV.visible = false
-            displayE.visible = false
-        }
-    }
-
-    Button {
-        id: buttonN
-        enabled: true
-        visible: {
-            return displayN.source != "image://visualizationimageprovider/null"
-        }
-        width: 100
-
-        text: "N Matrix"
-        anchors {
-            top: buttonB.bottom
-            right: parent.right
-        }
-        onClicked: {
-            buttonI.enabled = true
-            buttonQ.enabled = true
-            buttonR.enabled = true
-            buttonB.enabled = true
-            buttonN.enabled = false
-            buttonNext.enabled = true
-            buttonNfix.enabled = true
-            buttonV.enabled = true
-            buttonE.enabled = true
-
-            displayI.visible = false
-            displayQ.visible = false
-            displayR.visible = false
-            displayB.visible = false
-            displayN.visible = true
-            displayNext.visible = false
-            displayNfix.visible = false
-            displayV.visible = false
-            displayE.visible = false
-        }
-    }
-
-    Button {
-        id: buttonNext
-        enabled: true
-        visible: {
-            return displayNext.source != "image://visualizationimageprovider/null"
-        }
-        width: 100
-
-        text: "N ext Matrix"
-        anchors {
-            top: buttonN.bottom
-            right: parent.right
-        }
-        onClicked: {
-            buttonI.enabled = true
-            buttonQ.enabled = true
-            buttonR.enabled = true
-            buttonB.enabled = true
-            buttonN.enabled = true
-            buttonNext.enabled = false
-            buttonNfix.enabled = true
-            buttonV.enabled = true
-            buttonE.enabled = true
-
-            displayI.visible = false
-            displayQ.visible = false
-            displayR.visible = false
-            displayB.visible = false
-            displayN.visible = false
-            displayNext.visible = true
-            displayNfix.visible = false
-            displayV.visible = false
-            displayE.visible = false
-        }
-    }
-
-    Button {
-        id: buttonNfix
-        enabled: true
-        visible: {
-            return displayNfix.source != "image://visualizationimageprovider/null"
-        }
-        width: 100
-
-        text: "N fix Matrix"
-        anchors {
-            top: buttonNext.bottom
-            right: parent.right
-        }
-        onClicked: {
-            buttonI.enabled = true
-            buttonQ.enabled = true
-            buttonR.enabled = true
-            buttonB.enabled = true
-            buttonN.enabled = true
-            buttonNext.enabled = true
-            buttonNfix.enabled = false
-            buttonV.enabled = true
-            buttonE.enabled = true
-
-            displayI.visible = false
-            displayQ.visible = false
-            displayR.visible = false
-            displayB.visible = false
-            displayN.visible = false
-            displayNext.visible = false
-            displayNfix.visible = true
-            displayV.visible = false
-            displayE.visible = false
-        }
-    }
-    Button {
-        id: buttonV
-        enabled: true
-        visible: {
-            return displayV.source != "image://visualizationimageprovider/null"
-        }
-        width: 100
-
-        text: "V Matrix"
-        anchors {
-            top: buttonNfix.bottom
-            right: parent.right
-        }
-        onClicked: {
-            buttonI.enabled = true
-            buttonQ.enabled = true
-            buttonR.enabled = true
-            buttonB.enabled = true
-            buttonN.enabled = true
-            buttonNext.enabled = true
-            buttonNfix.enabled = true
-            buttonV.enabled = false
-            buttonE.enabled = true
-
-            displayI.visible = false
-            displayQ.visible = false
-            displayR.visible = false
-            displayB.visible = false
-            displayN.visible = false
-            displayNext.visible = false
-            displayNfix.visible = false
-            displayV.visible = true
-            displayE.visible = false
-        }
-    }
-    Button {
-        id: buttonE
-        enabled: true
-        visible: {
-            return displayE.source != "image://visualizationimageprovider/null"
-        }
-        width: 100
-
-        text: "E Matrix"
-        anchors {
-            top: buttonV.bottom
-            right: parent.right
-        }
-        onClicked: {
-            buttonI.enabled = true
-            buttonQ.enabled = true
-            buttonR.enabled = true
-            buttonB.enabled = true
-            buttonN.enabled = true
-            buttonNext.enabled = true
-            buttonNfix.enabled = true
-            buttonV.enabled = true
-            buttonE.enabled = false
-
-            displayI.visible = false
-            displayQ.visible = false
-            displayR.visible = false
-            displayB.visible = false
-            displayN.visible = false
-            displayNext.visible = false
-            displayNfix.visible = false
-            displayV.visible = false
-            displayE.visible = true
-        }
     }
 }
