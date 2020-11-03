@@ -148,7 +148,16 @@ ApplicationWindow {
 
     }
 
+    Button {
+        text: "Download"
+        anchors {
+            bottom: parent.bottom
+            horizontalCenter: parent.horizontalCenter
+        }
+    }
+
     ColumnLayout {
+
         anchors {
             top: parent.top
             right: parent.right
@@ -449,6 +458,7 @@ ApplicationWindow {
                 displayP.visible = false
             }
         }
+
         Button {
             id: buttonV
             enabled: true
@@ -523,7 +533,6 @@ ApplicationWindow {
             }
         }
 
-
         Button {
             id: buttonP
             enabled: true
@@ -562,4 +571,7 @@ ApplicationWindow {
         }
 
     }
+
+
+
 }
