@@ -20,9 +20,9 @@ ApplicationWindow {
     width: 640
     minimumWidth: 640
     maximumWidth: 640
-    height: 450
-    minimumHeight: 450
-    maximumHeight: 450
+    height: 500
+    minimumHeight: 500
+    maximumHeight: 500
 
     // Select theme for the application.
     Universal.theme: Universal.Light
@@ -39,7 +39,8 @@ ApplicationWindow {
     }
 
     Rectangle {
-        anchors.fill: parent
+        width: parent.width
+        height: parent.height
         color: "transparent"
 
         UpperMenu {
@@ -1017,12 +1018,13 @@ ApplicationWindow {
 
         }
 
+
         Rectangle {
             height: 1
             width: parent.width
             color: Universal.baseHighColor
             anchors {
-                top: content.bottom
+                top: bottomMenu.top
                 left: parent.left
             }
         }
@@ -1037,14 +1039,16 @@ ApplicationWindow {
         BottomMenuExecutionView {
             id: bottomMenu
             width: parent.width
+            height: childrenRect.height
             executionProgress: outputControllerTimeDist.ui_progress
+
+            anchors {
+                bottom: parent.bottom
+                left: parent.left
+            }
 
             executionTime: {
                 outputControllerTimeDist.ui_get_time == "" ? "" : outputControllerTimeDist.ui_get_time + "s"
-            }
-            anchors {
-                top: content.bottom
-                left: parent.left
             }
         }
     }

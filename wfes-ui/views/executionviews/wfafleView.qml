@@ -206,6 +206,10 @@ ApplicationWindow {
                                     margins: 10
                                 }
 
+                                Label {
+                                    // Empty, so Res is always at right.
+                                }
+
                                 LabeledCheckBox {
                                     id: inputWriteDist
                                     text: "Dist: "

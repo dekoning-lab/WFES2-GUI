@@ -268,6 +268,10 @@ ApplicationWindow {
                                         checked: inputControllerWfas.ui_output_N_Tmo
                                     }*/
 
+                                    Label {
+                                        // Empty, so Res is always at right.
+                                    }
+
                                     LabeledCheckBox {
                                         id: inputWriteDist
                                         text: "Dist: "

@@ -400,6 +400,11 @@ ApplicationWindow {
                                         toolTipText: "Output fixation-conditional sojourn to file."
                                         checked: inputControllerWfesSwitching.ui_output_N_Fix
                                     }
+
+                                    Label {
+                                        // Empty, so Res is always at right.
+                                    }
+
                                     LabeledCheckBox {
                                         id: inputWriteRes
                                         text: "Res: "
