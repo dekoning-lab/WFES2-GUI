@@ -20,6 +20,9 @@
 #include <model/executables/wfes_sequential/controllers/outputControllerWfesSequential.h>
 #include <model/executables/wfes_switching/controllers/inputControllerWfesSwitching.h>
 #include <model/executables/wfes_switching/controllers/outputControllerWfesSwitching.h>
+#include <model/visualization/imageOutputController.h>
+#include <model/visualization/visualizationImageProvider.h>
+#include <asm-generic/errno.h>
 
 int main(int argc, char *argv[])
 {
@@ -48,6 +51,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<wfes::controllers::InputControllerWfesSequential>("WFES", 1, 0, "InputControllerWfesSequential");
     qmlRegisterType<wfes::controllers::OutputControllerWfesSwitching>("WFES", 1, 0, "OutputControllerWfesSwitching");
     qmlRegisterType<wfes::controllers::InputControllerWfesSwitching>("WFES", 1, 0, "InputControllerWfesSwitching");
+    qmlRegisterType<wfes::controllers::ImageOutputController>("WFES", 1, 0, "ImageOutputController");
 
     wfes::controllers::OutputControllerWfesSingle outputControllerWfesSingle;
     wfes::controllers::InputControllerWfesSingle inputControllerWfesSingle;
@@ -65,9 +69,12 @@ int main(int argc, char *argv[])
     wfes::controllers::InputControllerWfesSequential inputControllerWfesSequential;
     wfes::controllers::OutputControllerWfesSwitching outputControllerWfesSwitching;
     wfes::controllers::InputControllerWfesSwitching inputControllerWfesSwitching;
+    wfes::controllers::ImageOutputController imageOutputController;
 
     QQmlApplicationEngine engine;
     engine.addImportPath("qrc:/");
+
+    engine.addImageProvider(QLatin1String("visualizationImageProvider"), new VisualizationImageProvider());
 
     engine.rootContext()->setContextProperty("outputControllerWfesSingle", &outputControllerWfesSingle);
     engine.rootContext()->setContextProperty("inputControllerWfesSingle", &inputControllerWfesSingle);
@@ -85,6 +92,7 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("inputControllerWfesSequential", &inputControllerWfesSequential);
     engine.rootContext()->setContextProperty("outputControllerWfesSwitching", &outputControllerWfesSwitching);
     engine.rootContext()->setContextProperty("inputControllerWfesSwitching", &inputControllerWfesSwitching);
+    engine.rootContext()->setContextProperty("imageOutputController", &imageOutputController);
 
     const QUrl url(QStringLiteral("qrc:/views/mainview/MainView.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,

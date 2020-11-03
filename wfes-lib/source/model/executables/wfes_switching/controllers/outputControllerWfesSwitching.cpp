@@ -8,6 +8,8 @@ OutputControllerWfesSwitching::~OutputControllerWfesSwitching() {}
 
 QString OutputControllerWfesSwitching::execute()
 {
+    ImageResults::clear();
+
     executing = true;
     qRegisterMetaType<ResultsWfesSwitching>("ResultsWfesSwitching");
 

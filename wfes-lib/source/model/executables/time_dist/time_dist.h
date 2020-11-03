@@ -15,6 +15,7 @@
 #include <model/executables/time_dist/config/configTimeDist.h>
 #include <model/executables/time_dist/config/configTimeDistSGV.h>
 
+#include <model/visualization/imageresults.h>
 
 class time_dist : public Subject{
 

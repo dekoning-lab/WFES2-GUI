@@ -93,6 +93,23 @@ ResultsTimeDist *time_dist::timeDist()
         utils::writeMatrixToFile(PH, ConfigTimeDist::path_output_P);
     }
 
+    QImage *imageQ = nullptr, *imageR = nullptr, *imageP = nullptr;
+    if(ConfigTimeDist::output_Q) {
+        imageQ = utils::generateImage(wf.Q->dense());
+        //utils::saveImage(imageI, "Image_I");
+        ImageResults::Q = imageQ;
+    }
+    if(ConfigTimeDist::output_R) {
+        imageR = utils::generateImage(wf.R);
+        //utils::saveImage(imageI, "Image_I");
+        ImageResults::R = imageR;
+    }
+    if(ConfigTimeDist::output_P) {
+        imageP = utils::generateImage(PH);
+        //utils::saveImage(imageI, "Image_I");
+        ImageResults::P = imageP;
+    }
+
     //Calculate time.
     t_end = std::chrono::system_clock::now();
     time_diff dt = t_end - t_start;
@@ -176,6 +193,23 @@ ResultsTimeDist *time_dist::timeDistSGV()
         utils::writeMatrixToFile(PH, ConfigTimeDist::path_output_P);
     }
 
+    QImage *imageQ = nullptr, *imageR = nullptr, *imageP = nullptr;
+    if(ConfigTimeDist::output_Q) {
+        imageQ = utils::generateImage(wf.Q->dense());
+        //utils::saveImage(imageI, "Image_I");
+        ImageResults::Q = imageQ;
+    }
+    if(ConfigTimeDist::output_R) {
+        imageR = utils::generateImage(wf.R);
+        //utils::saveImage(imageI, "Image_I");
+        ImageResults::R = imageR;
+    }
+    if(ConfigTimeDist::output_P) {
+        imageP = utils::generateImage(PH);
+        //utils::saveImage(imageI, "Image_I");
+        ImageResults::P = imageP;
+    }
+
     //Calculate time.
     t_end = std::chrono::system_clock::now();
     time_diff dt = t_end - t_start;
@@ -235,6 +269,23 @@ ResultsTimeDist *time_dist::timeDistSkip()
         utils::writeMatrixToFile(PH, ConfigTimeDist::path_output_P);
     }
 
+    QImage *imageQ = nullptr, *imageR = nullptr, *imageP = nullptr;
+    if(ConfigTimeDist::output_Q) {
+        imageQ = utils::generateImage(wf.Q->dense());
+        //utils::saveImage(imageI, "Image_I");
+        ImageResults::Q = imageQ;
+    }
+    if(ConfigTimeDist::output_R) {
+        imageR = utils::generateImage(wf.R);
+        //utils::saveImage(imageI, "Image_I");
+        ImageResults::R = imageR;
+    }
+    if(ConfigTimeDist::output_P) {
+        imageP = utils::generateImage(PH);
+        //utils::saveImage(imageI, "Image_I");
+        ImageResults::P = imageP;
+    }
+
     //Calculate time.
     t_end = std::chrono::system_clock::now();
     time_diff dt = t_end - t_start;
@@ -291,6 +342,23 @@ ResultsTimeDist *time_dist::timeDistDual()
 
     if (ConfigTimeDist::output_P) {
         utils::writeMatrixToFile(PH, ConfigTimeDist::path_output_P);
+    }
+
+    QImage *imageQ = nullptr, *imageR = nullptr, *imageP = nullptr;
+    if(ConfigTimeDist::output_Q) {
+        imageQ = utils::generateImage(wf.Q->dense());
+        //utils::saveImage(imageI, "Image_I");
+        ImageResults::Q = imageQ;
+    }
+    if(ConfigTimeDist::output_R) {
+        imageR = utils::generateImage(wf.R);
+        //utils::saveImage(imageI, "Image_I");
+        ImageResults::R = imageR;
+    }
+    if(ConfigTimeDist::output_P) {
+        imageP = utils::generateImage(PH);
+        //utils::saveImage(imageI, "Image_I");
+        ImageResults::P = imageP;
     }
 
     //Calculate time.

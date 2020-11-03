@@ -400,6 +400,11 @@ ApplicationWindow {
                                         toolTipText: "Output fixation-conditional sojourn to file."
                                         checked: inputControllerWfesSwitching.ui_output_N_Fix
                                     }
+
+                                    Label {
+                                        // Empty, so Res is always at right.
+                                    }
+
                                     LabeledCheckBox {
                                         id: inputWriteRes
                                         text: "Res: "
@@ -547,6 +552,11 @@ ApplicationWindow {
                                 Layout.margins: 10
                                 Layout.alignment: Qt.AlignRight
                                 text: "Execute"
+
+                                onEnabledChanged: {
+                                    if(outputControllerWfesSwitching.ui_get_not_exec)
+                                        imageOutputController.image_changed()
+                                }
 
                                 Binding {
                                     target: executeButton

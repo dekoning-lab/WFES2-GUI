@@ -206,6 +206,10 @@ ApplicationWindow {
                                     margins: 10
                                 }
 
+                                Label {
+                                    // Empty, so Res is always at right.
+                                }
+
                                 LabeledCheckBox {
                                     id: inputWriteDist
                                     text: "Dist: "
@@ -352,6 +356,11 @@ ApplicationWindow {
                             Layout.margins: 10
                             Layout.alignment: Qt.AlignRight
                             text: "Execute"
+
+                            onEnabledChanged: {
+                                if(outputControllerWfafle.ui_get_not_exec)
+                                    imageOutputController.image_changed()
+                            }
 
                             Binding {
                                 target: executeButton

@@ -407,6 +407,11 @@ ApplicationWindow {
                                 Layout.alignment: Qt.AlignRight
                                 text: "Execute"
 
+                                onEnabledChanged: {
+                                    if(outputControllerWfesSequentials.ui_get_not_exec)
+                                        imageOutputController.image_changed()
+                                }
+
                                 Binding {
                                     target: executeButton
                                     property: "enabled"

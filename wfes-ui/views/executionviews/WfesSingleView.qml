@@ -12,6 +12,8 @@ ApplicationWindow {
     id: rootWfesSingle
     title: qsTr("WFES - Wright-Fisher Exact Solver (WFES Single)")
 
+
+
     color: Universal.chromeLowColor
 
     visible: true
@@ -933,6 +935,11 @@ ApplicationWindow {
                             Layout.alignment: Qt.AlignRight
                             text: "Execute"
 
+                            onEnabledChanged: {
+                                if(outputControllerWfesSingle.ui_get_not_exec)
+                                    imageOutputController.image_changed()
+                            }
+
                             Binding {
                                 target: executeButton
                                 property: "enabled"
@@ -1003,6 +1010,7 @@ ApplicationWindow {
                                     messageDialog.open()
                                 }
                                 outputControllerWfesSingle.ui_reset_error
+
                             }
 
                         }

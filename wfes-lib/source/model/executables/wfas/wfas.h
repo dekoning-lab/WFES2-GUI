@@ -23,6 +23,7 @@
 
 #include <model/executables/wfas/config/configWfas.h>
 
+#include <model/visualization/imageresults.h>
 
 class wfas : public Subject
 {

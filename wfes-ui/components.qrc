@@ -8,5 +8,6 @@
         <file alias="LabeledCheckBox.qml">components/LabeledCheckBox.qml</file>
         <file alias="LabeledComboBox.qml">components/LabeledComboBox.qml</file>
         <file alias="DynamicTabView.qml">components/DynamicTabView.qml</file>
+        <file alias="DisplayImage.qml">components/DisplayImage.qml</file>
     </qresource>
 </RCC>

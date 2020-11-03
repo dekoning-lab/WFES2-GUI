@@ -1,5 +1,7 @@
 #include "resultsWfesSingle.h"
 
+using namespace wfes::config;
+
 // Empty constructor
 ResultsWfesSingle::ResultsWfesSingle() :
     modelType(wfes::config::ModelTypeWfesSingle::NONE), pExt(std::nan("")), pFix(std::nan("")), tAbs(std::nan("")),
@@ -191,6 +193,21 @@ void ResultsWfesSingle::writeResultsToFile(ResultsWfesSingle *results, std::stri
     QTextStream outStream(&file);
 
     outStream << "Result, Value" << "\n";
+
+    if(!(boost::math::isnan)(ConfigWfesSingle::population_size))
+        outStream << "N, " << ConfigWfesSingle::population_size << "\n";
+
+    if(!(boost::math::isnan)(ConfigWfesSingle::s))
+        outStream << "s, " << ConfigWfesSingle::s << "\n";
+
+    if(!(boost::math::isnan)(ConfigWfesSingle::h))
+        outStream << "h, " << ConfigWfesSingle::h << "\n";
+
+    if(!(boost::math::isnan)(ConfigWfesSingle::u))
+        outStream << "u, " << ConfigWfesSingle::u << "\n";
+
+    if(!(boost::math::isnan)(ConfigWfesSingle::v))
+        outStream << "v, " << ConfigWfesSingle::v << "\n";
 
     if(!(boost::math::isnan)(results->pExt))
         outStream << "P_ext, " << results->pExt << "\n";

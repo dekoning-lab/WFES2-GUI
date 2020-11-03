@@ -60,8 +60,8 @@ ResultsWfas *wfas::function()
     //Save data into file.
     if (ConfigWfas::output_Q)
         W.Q->saveMarket(ConfigWfas::path_output_Q);
-    if (ConfigWfas::output_R)
-        utils::writeMatrixToFile(W.R, ConfigWfas::path_output_R);
+    //if (ConfigWfas::output_R)
+    //    utils::writeMatrixToFile(W.R, ConfigWfas::path_output_R);
 
     //Notify solving
     this->notify(ExecutionStatus::SOLVING_MATRICES);
@@ -150,6 +150,27 @@ ResultsWfas *wfas::function()
     if(ConfigWfas::output_Dist) {
         utils::writeVectorToFile(d, ConfigWfas::path_output_Dist);
     }
+    if (ConfigWfas::output_B) {
+        utils::writeMatrixToFile(B, ConfigWfas::path_output_B);
+    }
+
+    QImage *imageQ = nullptr, *imageR = nullptr, *imageB = nullptr;
+    if(ConfigWfas::output_Q) {
+        imageQ = utils::generateImage(W.Q->dense());
+        //utils::saveImage(imageI, "Image_I");
+        ImageResults::Q = imageQ;
+    }
+    //if(ConfigWfas::output_R) {
+    //    imageR = utils::generateImage(W.R);
+    //    //utils::saveImage(imageI, "Image_I");
+    //    ImageResults::R = imageR;
+    //}
+    if(ConfigWfas::output_B) {
+        imageB = utils::generateImage(B);
+        //utils::saveImage(imageB, "Image_B");
+        ImageResults::B = imageB;
+    }
+
 
     //Calculate time.
     t_end = std::chrono::system_clock::now();

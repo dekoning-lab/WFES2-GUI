@@ -6,3 +6,4 @@ LabeledTextField 1.0 LabeledTextField.qml
 LabeledCheckBox 1.0 LabeledCheckBox.qml
 LabeledComboBox 1.0 LabeledComboBox.qml
 DynamicTabView 1.0 DynamicTabView.qml
+DisplayImage 1.0 DisplayImage.qml

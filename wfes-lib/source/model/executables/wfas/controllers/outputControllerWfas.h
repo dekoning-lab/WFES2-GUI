@@ -14,6 +14,7 @@
 
 #include <model/executables/wfas/config/configWfas.h>
 
+#include <model/visualization/imageresults.h>
 
 namespace wfes {
     namespace controllers {

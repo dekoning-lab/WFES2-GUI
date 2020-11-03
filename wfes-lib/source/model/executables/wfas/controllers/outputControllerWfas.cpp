@@ -8,6 +8,8 @@ OutputControllerWfas::~OutputControllerWfas() {}
 
 QString OutputControllerWfas::execute()
 {
+    ImageResults::clear();
+
     executing = true;
     qRegisterMetaType<ResultsWfas>("ResultsWfas");
 

@@ -23,6 +23,8 @@
 
 #include <model/executables/wfes_sweep/config/configWfesSweep.h>
 
+#include <model/visualization/imageresults.h>
+
 class wfes_sweep : public Subject
 {
 

@@ -193,13 +193,12 @@ QImage* wfes::utils::generateImage(const dmat &a)
     int bytesPerLine = (a.rows() * a.cols() * sizeof(uchar)) / a.rows();
 
     // Calculate pixel values using min and max.
-    for(int i = a.rows() * a.cols(); i >= 0 ; i--) {
+    for(int i = (a.rows() * a.cols()) - 1; i >= 0 ; i--) {
         double val = a.data()[i] + std::abs(min);
         val = val * 255;
         val = val / (std::abs(min + max));
         // Invert pixel values so higher values are darker.
         data[i] = (uchar) std::abs(255-(val));
-        //qDebug() << data[i];
     }
 
     // Create QImage using vector of pixels.

@@ -57,7 +57,15 @@ Rectangle {
                 MenuItem {
                     text: "Matrix Visualization"
                     onClicked: {
-                        console.warn("WARNING: Settings->New... clicked - Not implemented yet.")
+                        var visualizer = Qt.createComponent("qrc:/views/visualization/matrixVisualization.qml")
+                        if( visualizer.status !== Component.Ready )
+                        {
+                            if( visualizer.status === Component.Error )
+                                console.debug("Error:"+ visualizer.errorString() );
+                            return;
+                        }
+                        var windowvisualizer = visualizer.createObject(upperMenu.parent.parent, {})
+                        windowvisualizer.visible
                     }
                 }
             }

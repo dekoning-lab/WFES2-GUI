@@ -104,6 +104,33 @@ ResultsWfesSweep *wfes_sweep::fixation()
     }
     delete solver;
 
+    QImage *imageI = nullptr, *imageQ = nullptr, *imageR = nullptr,  *imageN = nullptr, *imageB = nullptr;
+    if(ConfigWfesSweep::output_I) {
+        imageI = utils::generateImage(starting_copies_p);
+        //utils::saveImage(imageI, "Image_I");
+        ImageResults::I = imageI;
+    }
+    if(ConfigWfesSweep::output_Q) {
+        imageQ = utils::generateImage(wf.Q->dense());
+        //utils::saveImage(imageI, "Image_I");
+        ImageResults::Q = imageQ;
+    }
+    if(ConfigWfesSweep::output_R) {
+        imageR = utils::generateImage(wf.R);
+        //utils::saveImage(imageI, "Image_I");
+        ImageResults::R = imageR;
+    }
+    if(ConfigWfesSweep::output_N) {
+        imageN = utils::generateImage(N);
+        //utils::saveImage(imageN, "Image_N");
+        ImageResults::N = imageN;
+    }
+    if(ConfigWfesSweep::output_B) {
+        imageB = utils::generateImage(B);
+        //utils::saveImage(imageB, "Image_B");
+        ImageResults::B = imageB;
+    }
+
     //Calculate time.
     t_end = std::chrono::system_clock::now();
     time_diff dt = t_end - t_start;

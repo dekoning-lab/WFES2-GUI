@@ -23,6 +23,7 @@
 
 #include <model/executables/phase_type/config/configPhaseType.h>
 
+#include <model/visualization/imageresults.h>
 
 class phase_type : public Subject
 {

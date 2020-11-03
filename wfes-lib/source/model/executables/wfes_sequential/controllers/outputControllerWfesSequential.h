@@ -14,6 +14,8 @@
 
 #include <model/executables/wfes_sequential/config/configWfesSequential.h>
 
+#include <model/visualization/imageresults.h>
+
 namespace wfes {
     namespace controllers {
 
