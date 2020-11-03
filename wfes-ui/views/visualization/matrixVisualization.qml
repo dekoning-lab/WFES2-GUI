@@ -148,7 +148,52 @@ ApplicationWindow {
 
     }
 
+    Button {
+        text: "Download"
+        anchors {
+            bottom: parent.bottom
+            horizontalCenter: parent.horizontalCenter
+        }
+        onClicked: {
+            if(displayI.visible == true) {
+                imageOutputController.ui_image_to_download = "I"
+                imageOutputController.ui_download
+            } else if (displayQ.visible == true) {
+                imageOutputController.ui_image_to_download = "Q"
+                imageOutputController.ui_download
+            } else if (displayR.visible == true) {
+                imageOutputController.ui_image_to_download = "R"
+                imageOutputController.ui_download
+            } else if (displayB.visible == true) {
+                imageOutputController.ui_image_to_download = "B"
+                imageOutputController.ui_download
+            } else if (displayN.visible == true) {
+                imageOutputController.ui_image_to_download = "N"
+                imageOutputController.ui_download
+            } else if (displayNext.visible == true) {
+                imageOutputController.ui_image_to_download = "N_ext"
+                imageOutputController.ui_download
+            } else if (displayNfix.visible == true) {
+                imageOutputController.ui_image_to_download = "N_fix"
+                imageOutputController.ui_download
+            } else if (displayNtmo.visible == true) {
+                imageOutputController.ui_image_to_download = "N_tmo"
+                imageOutputController.ui_download
+            } else if (displayV.visible == true) {
+                imageOutputController.ui_image_to_download = "V"
+                imageOutputController.ui_download
+            } else if (displayE.visible == true) {
+                imageOutputController.ui_image_to_download = "E"
+                imageOutputController.ui_download
+            } else if(displayP.visible == true) {
+                imageOutputController.ui_image_to_download = "P"
+                imageOutputController.ui_download
+            }
+        }
+    }
+
     ColumnLayout {
+
         anchors {
             top: parent.top
             right: parent.right
@@ -449,6 +494,7 @@ ApplicationWindow {
                 displayP.visible = false
             }
         }
+
         Button {
             id: buttonV
             enabled: true
@@ -523,7 +569,6 @@ ApplicationWindow {
             }
         }
 
-
         Button {
             id: buttonP
             enabled: true
@@ -562,4 +607,7 @@ ApplicationWindow {
         }
 
     }
+
+
+
 }
