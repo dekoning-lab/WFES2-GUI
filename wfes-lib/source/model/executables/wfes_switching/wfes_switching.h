@@ -23,6 +23,8 @@
 
 #include <model/executables/wfes_switching/config/configWfesSwitching.h>
 
+#include <model/visualization/imageresults.h>
+
 class wfes_switching : public Subject
 {
 public:

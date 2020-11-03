@@ -217,7 +217,7 @@ ResultsWfesSequential *wfes_sequential::function()
             i++;
         }
         imageN = utils::generateImage(N);
-        utils::saveImage(imageN, "Image_N");
+        //utils::saveImage(imageN, "Image_N");
         ImageResults::N = imageN;
     }
     if(ConfigWfesSequential::output_B) {

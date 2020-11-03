@@ -212,6 +212,45 @@ ResultsWfesSwitching *wfes_switching::absorption()
     }
     delete solver;
 
+    QImage *imageQ = nullptr, *imageR = nullptr,  *imageN = nullptr, *imageB = nullptr, *imageN_ext = nullptr, *imageN_fix = nullptr;
+    if(ConfigWfesSwitching::output_Q) {
+        imageQ = utils::generateImage(W.Q->dense());
+        //utils::saveImage(imageI, "Image_I");
+        ImageResults::Q = imageQ;
+    }
+    if(ConfigWfesSwitching::output_R) {
+        imageR = utils::generateImage(W.R);
+        //utils::saveImage(imageI, "Image_I");
+        ImageResults::R = imageR;
+    }
+    if(ConfigWfesSwitching::output_N) {
+        dmat N(N_rows.size(), N_rows[0].size());
+        int i = 0;
+        for(auto const &item : N_rows) {
+            dvec v = item.second;
+            N.row(i) = v.transpose();
+            i++;
+        }
+        imageN = utils::generateImage(N);
+        utils::saveImage(imageN, "Image_N");
+        ImageResults::N = imageN;
+    }
+    if(ConfigWfesSwitching::output_B) {
+        imageB = utils::generateImage(B);
+        //utils::saveImage(imageB, "Image_B");
+        ImageResults::B = imageB;
+    }
+    if(ConfigWfesSwitching::output_N_Ext) {
+        imageN_ext = utils::generateImage(E_ext);
+        //utils::saveImage(imageB, "Image_B");
+        ImageResults::N_ext = imageN_ext;
+    }
+    if(ConfigWfesSwitching::output_N_Fix) {
+        imageN_fix = utils::generateImage(E_fix);
+        //utils::saveImage(imageB, "Image_B");
+        ImageResults::N_fix = imageN_fix;
+    }
+
     //Calculate time.
     t_end = std::chrono::system_clock::now();
     time_diff dt = t_end - t_start;
@@ -290,6 +329,27 @@ ResultsWfesSwitching *wfes_switching::fixation()
         utils::writeMatrixToFile(B, ConfigWfesSwitching::path_output_B);
     }
     delete solver;
+    QImage *imageQ = nullptr, *imageR = nullptr,  *imageN = nullptr, *imageB = nullptr, *imageN_ext = nullptr, *imageN_fix = nullptr;
+    if(ConfigWfesSwitching::output_Q) {
+        imageQ = utils::generateImage(W.Q->dense());
+        //utils::saveImage(imageI, "Image_I");
+        ImageResults::Q = imageQ;
+    }
+    if(ConfigWfesSwitching::output_R) {
+        imageR = utils::generateImage(W.R);
+        //utils::saveImage(imageI, "Image_I");
+        ImageResults::R = imageR;
+    }
+    if(ConfigWfesSwitching::output_N) {
+        imageN = utils::generateImage(N);
+        //utils::saveImage(imageN, "Image_N");
+        ImageResults::N = imageN;
+    }
+    if(ConfigWfesSwitching::output_B) {
+        imageB = utils::generateImage(B);
+        //utils::saveImage(imageB, "Image_B");
+        ImageResults::B = imageB;
+    }
 
     //Calculate time.
     t_end = std::chrono::system_clock::now();

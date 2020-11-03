@@ -394,7 +394,7 @@ ApplicationWindow {
             id: buttonNtmo
             enabled: true
             visible: {
-                return displayNfix.source != "image://visualizationimageprovider/null"
+                return displayNtmo.source != "image://visualizationimageprovider/null"
             }
             Layout.preferredWidth: 100
 
