@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include "imageresults.h"
+#include "utils/utils.h"
 
 namespace wfes {
     namespace controllers {
@@ -20,9 +21,18 @@ namespace wfes {
             Q_PROPERTY(QString ui_image_V READ get_image_V NOTIFY image_changed)
             Q_PROPERTY(QString ui_image_E READ get_image_E NOTIFY image_changed)
             Q_PROPERTY(QString ui_image_P READ get_image_P NOTIFY image_changed)
-
+            Q_PROPERTY(QString ui_image_to_download WRITE set_image_to_download)
+            Q_PROPERTY(QString ui_download READ download CONSTANT)
             public:
                 int count;
+                QString image_to_download;
+
+                /**
+                 * @brief ImageOutputController Constructor.
+                 * @param parent To be used by Qt.
+                 */
+                explicit ImageOutputController(QObject* parent = nullptr);
+
                 QString get_image_I();
                 QString get_image_Q();
                 QString get_image_R();
@@ -34,8 +44,8 @@ namespace wfes {
                 QString get_image_V();
                 QString get_image_E();
                 QString get_image_P();
-
-                ImageOutputController();
+                void set_image_to_download(QString imageName);
+                QString download();
 
             signals:
                 void image_changed();
