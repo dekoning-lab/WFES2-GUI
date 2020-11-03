@@ -20,12 +20,14 @@ Rectangle {
     RowLayout {
         id: row3
 
-        LaunchViewButton {
-            text: "Configure"
-            view: "WARNING: Configure clicked - Not implemented yet."
+        Button {
+            text: "Manual"
+            onClicked: {
+                Qt.openUrlExternally("https://github.com/dekoning-lab/wfes-gui/wiki");
+            }
         }
         Button {
-            text: "Help"
+            text: "About"
             onClicked: {
                 var h = Qt.createComponent("qrc:/views/mainview/help/helpView.qml")
                 if( h.status !== Component.Ready )
