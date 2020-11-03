@@ -519,7 +519,7 @@ ApplicationWindow {
                 displayNtmo.visible = false
                 displayV.visible = false
                 displayE.visible = true
-                displayP.visible = true
+                displayP.visible = false
             }
         }
 
