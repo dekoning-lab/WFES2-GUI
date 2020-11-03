@@ -46,7 +46,7 @@ Rectangle{
                     displayImage.rotation = 0;
                 var scaleBefore = parent.scale;
                 var incrementScale = displayImage.scale * wheel.angleDelta.y / 120 / 10
-                if(displayImage.scale + incrementScale < 2.5 && displayImage.scale + incrementScale > 0.8)
+                //if(displayImage.scale + incrementScale < 2.5 && displayImage.scale + incrementScale > 0.8)
                     displayImage.scale += displayImage.scale * wheel.angleDelta.y / 120 / 10
             }
         }
