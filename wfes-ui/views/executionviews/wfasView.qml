@@ -219,13 +219,6 @@ ApplicationWindow {
                                     }
 
                                     LabeledCheckBox {
-                                        id: inputWriteDist
-                                        text: "Dist: "
-                                        toolTipText: "Output Allele freq. dist. as CSV file."
-                                        checked: inputControllerWfas.ui_output_Dist
-                                    }
-
-                                    LabeledCheckBox {
                                         id: inputWriteQ
                                         text: "Q: "
                                         toolTipText: "Output Q matrix to file."
@@ -271,6 +264,13 @@ ApplicationWindow {
                                         text: "N Tmo.: "
                                         toolTipText: "Output timeout-conditional sojourn to file."
                                         checked: inputControllerWfas.ui_output_N_Tmo
+                                    }
+
+                                    LabeledCheckBox {
+                                        id: inputWriteDist
+                                        text: "Dist: "
+                                        toolTipText: "Output Allele freq. dist. as CSV file."
+                                        checked: inputControllerWfas.ui_output_Dist
                                     }
 
                                 }
@@ -412,6 +412,11 @@ ApplicationWindow {
                                 Layout.margins: 10
                                 Layout.alignment: Qt.AlignRight
                                 text: "Execute"
+
+                                onEnabledChanged: {
+                                    if(outputControllerWfas.ui_get_not_exec)
+                                        imageOutputController.image_changed()
+                                }
 
                                 Binding {
                                     target: executeButton
