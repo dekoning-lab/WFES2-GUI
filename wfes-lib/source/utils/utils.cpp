@@ -187,7 +187,6 @@ QImage* wfes::utils::generateImage(const dmat &a)
     }
 
     // Allocate vector of uchar to store pixel values.
-    qDebug() << "ROWS: " << a.rows() << "COLS: " << a.cols() << "UCHAR: " << sizeof(uchar) << "MULT: " << a.rows() * a.cols() * sizeof(uchar);
     uchar* data = (uchar*) malloc(a.rows() * a.cols() * sizeof(uchar));
 
     // Get number of bytes per each row.
