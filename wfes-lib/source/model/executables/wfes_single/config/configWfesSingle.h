@@ -4,6 +4,12 @@
 #include <string>
 #include "utils/types.h"
 
+#include <QDir>
+#include <QStandardPaths>
+#include <QDebug>
+
+#include <QString>
+
 namespace wfes {
     namespace config {
 
@@ -18,6 +24,8 @@ namespace wfes {
          * @brief Model Type Names as string, same order as enumeration above to obtain the name of a given enumeration value.
          */
         static const char *ModelTypeNames[] = { "None", "Absorption", "Fixation", "Establishment", "Fundamental", "Equilibrium", "Non Absorbing", "Allele Age"};
+
+        static const int numModelTypes = 8;
 
         class ConfigWfesSingle {
             public:
@@ -282,6 +290,11 @@ namespace wfes {
                  */
                 static bool saveImageE;
 
+                static void saveConfigWfesSingle();
+
+                static void loadConfigWfesSingle();
+
+                static void processLine(QString line);
         };
     }
 }

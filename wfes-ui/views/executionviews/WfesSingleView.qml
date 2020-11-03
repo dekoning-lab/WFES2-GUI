@@ -12,8 +12,6 @@ ApplicationWindow {
     id: rootWfesSingle
     title: qsTr("WFES - Wright-Fisher Exact Solver (WFES Single)")
 
-
-
     color: Universal.chromeLowColor
 
     visible: true
@@ -1344,6 +1342,106 @@ ApplicationWindow {
                 left: parent.left
             }
         }
+    }
+
+    function updateGUI() {
+        radioButtonAbsorption.checked = inputControllerWfesSingle.ui_modelType == "Absorption"
+        radioButtonFixation.checked = inputControllerWfesSingle.ui_modelType == "Fixation"
+        radioButtonEstablishment.checked = inputControllerWfesSingle.ui_modelType == "Establishment"
+        radioButtonFundamental.checked = inputControllerWfesSingle.ui_modelType == "Fundamental"
+        radioButtonNonAbsorbing.checked = inputControllerWfesSingle.ui_modelType == "Non Absorbing"
+        radioButtonEquilibrium.checked = inputControllerWfesSingle.ui_modelType == "Equilibrium"
+        radioButtonAlleleAge.checked = inputControllerWfesSingle.ui_modelType == "Allele Age"
+
+        inputN.textFieldText = inputControllerWfesSingle.ui_n
+        inputA.textFieldText = inputControllerWfesSingle.ui_a
+        inputp.textFieldText = inputControllerWfesSingle.ui_p
+        inputc.textFieldText = inputControllerWfesSingle.ui_c
+        inputX.textFieldText = inputControllerWfesSingle.ui_x
+        inputK.textFieldText = inputControllerWfesSingle.ui_k
+        inputU.textFieldText = inputControllerWfesSingle.ui_u
+        inputV.textFieldText = inputControllerWfesSingle.ui_v
+        inputM.checked = inputControllerWfesSingle.ui_m
+        inputS.textFieldText = inputControllerWfesSingle.ui_s
+        inputH.textFieldText = inputControllerWfesSingle.ui_h
+
+        inputWriteQ.checked = inputControllerWfesSingle.ui_output_Q
+        inputWriteR.checked = inputControllerWfesSingle.ui_output_R
+        inputWriteB.checked = inputControllerWfesSingle.ui_output_B
+        inputWriteN.checked = inputControllerWfesSingle.ui_output_N
+        inputWriteNExt.checked = inputControllerWfesSingle.ui_output_NExt
+        inputWriteNFix.checked = inputControllerWfesSingle.ui_output_NFix
+        inputWriteI.checked = inputControllerWfesSingle.ui_output_I
+        inputWriteE.checked = inputControllerWfesSingle.ui_output_E
+        inputWriteV.checked = inputControllerWfesSingle.ui_output_V
+        inputWriteRes.checked = inputControllerWfesSingle.ui_output_Res
+
+        inputForce.checked = inputControllerWfesSingle.ui_force
+        inputT.textFieldText = inputControllerWfesSingle.ui_t
+        inputI.textFieldText = inputControllerWfesSingle.ui_initial_distribution
+
+        var library = inputControllerWfesSingle.ui_library
+        if(library === "Pardiso")
+            comboBoxLibrary.currentIndex = 0
+        else if(library === "ViennaCL")
+            comboBoxLibrary.currentIndex = 1
+
+        var solver = inputControllerWfesSingle.ui_solver
+        if(library === "GMRes")
+            comboBoxSolver.currentIndex = 0
+        else if(library === "BicGStab")
+            comboBoxSolver.currentIndex = 1
+    }
+
+    function updateBackend() {
+
+        // Set mode in backend.
+        if(radioButtonAbsorption.checked)
+            inputControllerWfesSingle.ui_modelType = "Absorption"
+        else if (radioButtonFixation.checked)
+            inputControllerWfesSingle.ui_modelType = "Fixation"
+        else if (radioButtonEstablishment.checked)
+            inputControllerWfesSingle.ui_modelType = "Establishment"
+        else if (radioButtonFundamental.checked)
+            inputControllerWfesSingle.ui_modelType = "Fundamental"
+        else if (radioButtonNonAbsorbing.checked)
+            inputControllerWfesSingle.ui_modelType = "Non Absorbing"
+        else if (radioButtonEquilibrium.checked)
+            inputControllerWfesSingle.ui_modelType = "Equilibrium"
+        else if (radioButtonAlleleAge.checked)
+            inputControllerWfesSingle.ui_modelType = "Allele Age"
+
+        inputControllerWfesSingle.ui_n = inputN.textFieldText
+        inputControllerWfesSingle.ui_a = inputA.textFieldText
+        inputControllerWfesSingle.ui_p = inputp.textFieldText
+        inputControllerWfesSingle.ui_c = inputc.textFieldText
+        inputControllerWfesSingle.ui_x = inputX.textFieldText
+        inputControllerWfesSingle.ui_k = inputK.textFieldText
+        inputControllerWfesSingle.ui_u = inputU.textFieldText
+        inputControllerWfesSingle.ui_v = inputV.textFieldText
+        inputControllerWfesSingle.ui_m = inputM.checked
+        inputControllerWfesSingle.ui_s = inputS.textFieldText
+        inputControllerWfesSingle.ui_h = inputH.textFieldText
+
+        inputControllerWfesSingle.ui_output_Q = inputWriteQ.checked
+        inputControllerWfesSingle.ui_output_R = inputWriteR.checked
+        inputControllerWfesSingle.ui_output_B = inputWriteB.checked
+        inputControllerWfesSingle.ui_output_N = inputWriteN.checked
+        inputControllerWfesSingle.ui_output_NExt = inputWriteNExt.checked
+        inputControllerWfesSingle.ui_output_NFix = inputWriteNFix.checked
+        inputControllerWfesSingle.ui_output_I = inputWriteI.checked
+        inputControllerWfesSingle.ui_output_E = inputWriteE.checked
+        inputControllerWfesSingle.ui_output_V = inputWriteV.checked
+        inputControllerWfesSingle.ui_output_Res = inputWriteRes.checked
+
+        inputControllerWfesSingle.ui_force = inputForce.checked
+        inputControllerWfesSingle.ui_t = inputT.textFieldText
+
+        inputControllerWfesSingle.ui_initial_distribution = inputI.textFieldText
+
+        inputControllerWfesSingle.ui_library = comboBoxLibrary.currentText;
+        inputControllerWfesSingle.ui_solver = comboBoxSolver.currentText;
+
     }
 
 }

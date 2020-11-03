@@ -11,6 +11,7 @@ Rectangle {
     property alias text: label.text
     property alias model: comboBox.model
     property alias currentText: comboBox.currentText
+    property alias currentIndex: comboBox.currentIndex
 
     property var fun: function(){}
 

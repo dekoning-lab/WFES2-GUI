@@ -27,13 +27,15 @@ Rectangle {
                 MenuItem {
                     text: "Save Config..."
                     onClicked: {
-                        console.warn("WARNING: Settings->Save Config... clicked - Not implemented yet.")
+                        rootWfesSingle.updateBackend()
+                        outputControllerWfesSingle.ui_save_config
                     }
                 }
                 MenuItem {
                     text: "Load Config..."
                     onClicked: {
-                        console.warn("WARNING: Help->Load Config... clicked - Not implemented yet.")
+                        outputControllerWfesSingle.ui_load_config
+                        rootWfesSingle.updateGUI()
                     }
                 }
                 MenuItem {

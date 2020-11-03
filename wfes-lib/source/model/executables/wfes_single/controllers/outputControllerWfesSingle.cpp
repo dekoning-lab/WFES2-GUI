@@ -1,6 +1,7 @@
 ﻿#include "outputControllerWfesSingle.h"
 
 using namespace wfes::controllers;
+using namespace wfes::config;
 
 OutputControllerWfesSingle::OutputControllerWfesSingle(QObject* parent): QObject(parent), executing(false){}
 
@@ -28,6 +29,20 @@ QString OutputControllerWfesSingle::stop()
     worker->terminate();
     worker->wait();
     worker->exit();
+
+    return QString();
+}
+
+QString OutputControllerWfesSingle::save_config()
+{
+    ConfigWfesSingle::saveConfigWfesSingle();
+
+    return QString();
+}
+
+QString OutputControllerWfesSingle::load_config()
+{
+    ConfigWfesSingle::loadConfigWfesSingle();
 
     return QString();
 }
