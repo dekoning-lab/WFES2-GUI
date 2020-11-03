@@ -20,9 +20,9 @@ ApplicationWindow {
     width: 895
     minimumWidth: 895
     maximumWidth: 895
-    height: 530
-    minimumHeight: 530
-    maximumHeight: 530
+    height: 460
+    minimumHeight: 460
+    maximumHeight: 460
 
     // Select theme for the application.
     Universal.theme: Universal.Light
@@ -224,7 +224,8 @@ ApplicationWindow {
                                         toolTipText: "Output Q matrix to file."
                                         checked: inputControllerWfas.ui_output_Q
                                     }
-
+                                    // TODO Not implemented in original code.
+                                    /*
                                     LabeledCheckBox {
                                         id: inputWriteR
                                         text: "R: "
@@ -232,12 +233,12 @@ ApplicationWindow {
                                         checked: inputControllerWfas.ui_output_R
                                     }
 
-                                    LabeledCheckBox {
+                                   LabeledCheckBox {
                                         id: inputWriteN
                                         text: "N: "
                                         toolTipText: "Output N matrix to file."
                                         checked: inputControllerWfas.ui_output_N
-                                    }
+                                    }*/
 
                                     LabeledCheckBox {
                                         id: inputWriteB
@@ -246,7 +247,8 @@ ApplicationWindow {
                                         checked: inputControllerWfas.ui_output_B
                                     }
 
-                                    LabeledCheckBox {
+                                    // TODO Not implemented in original code.
+                                    /*LabeledCheckBox {
                                         id: inputWriteNExt
                                         text: "N Ext.: "
                                         toolTipText: "Output extinction-conditional sojourn to file."
@@ -264,7 +266,7 @@ ApplicationWindow {
                                         text: "N Tmo.: "
                                         toolTipText: "Output timeout-conditional sojourn to file."
                                         checked: inputControllerWfas.ui_output_N_Tmo
-                                    }
+                                    }*/
 
                                     LabeledCheckBox {
                                         id: inputWriteDist
@@ -465,12 +467,12 @@ ApplicationWindow {
                                     inputControllerWfas.ui_h_vec = h_vec
 
                                     inputControllerWfas.ui_output_Q = inputWriteQ.checked
-                                    inputControllerWfas.ui_output_R = inputWriteR.checked
-                                    inputControllerWfas.ui_output_N = inputWriteN.checked
+                                    //inputControllerWfas.ui_output_R = inputWriteR.checked
+                                    //inputControllerWfas.ui_output_N = inputWriteN.checked
                                     inputControllerWfas.ui_output_B = inputWriteB.checked
-                                    inputControllerWfas.ui_output_N_Ext = inputWriteNExt.checked
-                                    inputControllerWfas.ui_output_N_Fix = inputWriteNFix.checked
-                                    inputControllerWfas.ui_output_N_Tmo = inputWriteNTmo.checked
+                                    //inputControllerWfas.ui_output_N_Ext = inputWriteNExt.checked
+                                    //inputControllerWfas.ui_output_N_Fix = inputWriteNFix.checked
+                                    //inputControllerWfas.ui_output_N_Tmo = inputWriteNTmo.checked
                                     inputControllerWfas.ui_output_Dist = inputWriteDist.checked
                                     inputControllerWfas.ui_t = inputT.textFieldText
                                     inputControllerWfas.ui_force = inputForce.checked
