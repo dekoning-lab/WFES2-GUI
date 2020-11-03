@@ -19,6 +19,7 @@ namespace wfes {
             Q_PROPERTY(QString ui_image_N_tmo READ get_image_N_tmo NOTIFY image_changed)
             Q_PROPERTY(QString ui_image_V READ get_image_V NOTIFY image_changed)
             Q_PROPERTY(QString ui_image_E READ get_image_E NOTIFY image_changed)
+            Q_PROPERTY(QString ui_image_P READ get_image_P NOTIFY image_changed)
 
             public:
                 int count;
@@ -32,6 +33,7 @@ namespace wfes {
                 QString get_image_N_tmo();
                 QString get_image_V();
                 QString get_image_E();
+                QString get_image_P();
 
                 ImageOutputController();
 

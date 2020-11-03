@@ -103,3 +103,13 @@ QString ImageOutputController::get_image_E()
         return "image://visualizationImageProvider/E?count=" + QString(count);
     }
 }
+
+QString ImageOutputController::get_image_P()
+{
+    if(ImageResults::P == nullptr)
+        return "image://visualizationImageProvider/null";
+    else {
+        count++;
+        return "image://visualizationImageProvider/P?count=" + QString(count);
+    }
+}

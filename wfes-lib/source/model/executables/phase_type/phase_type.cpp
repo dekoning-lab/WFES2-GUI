@@ -86,6 +86,23 @@ ResultsPhaseType *phase_type::phaseTypeDist()
         utils::writeMatrixToFile(PH, ConfigPhaseType::path_output_P);
     }
 
+    QImage *imageQ = nullptr, *imageR = nullptr, *imageP = nullptr;
+    if(ConfigPhaseType::output_Q) {
+        imageQ = utils::generateImage(wf.Q->dense());
+        //utils::saveImage(imageI, "Image_I");
+        ImageResults::Q = imageQ;
+    }
+    if(ConfigPhaseType::output_R) {
+        imageR = utils::generateImage(wf.R);
+        //utils::saveImage(imageI, "Image_I");
+        ImageResults::R = imageR;
+    }
+    if(ConfigPhaseType::output_P) {
+        imageP = utils::generateImage(PH);
+        //utils::saveImage(imageI, "Image_I");
+        ImageResults::P = imageP;
+    }
+
     //Calculate time.
     t_end = std::chrono::system_clock::now();
     time_diff dt = t_end - t_start;
@@ -153,6 +170,18 @@ ResultsPhaseType *phase_type::phaseTypeMoment()
     double m2 = m(0, 2);
 
     delete solver;
+
+    QImage *imageQ = nullptr, *imageR = nullptr;
+    if(ConfigPhaseType::output_Q) {
+        imageQ = utils::generateImage(wf.Q->dense());
+        //utils::saveImage(imageI, "Image_I");
+        ImageResults::Q = imageQ;
+    }
+    if(ConfigPhaseType::output_R) {
+        imageR = utils::generateImage(wf.R);
+        //utils::saveImage(imageI, "Image_I");
+        ImageResults::R = imageR;
+    }
 
     //Calculate time.
     t_end = std::chrono::system_clock::now();

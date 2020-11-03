@@ -16,6 +16,7 @@ public:
     static QImage *B;
     static QImage *V;
     static QImage *E;
+    static QImage *P;
 
     ImageResults();
 

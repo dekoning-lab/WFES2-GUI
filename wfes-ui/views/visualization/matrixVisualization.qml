@@ -97,6 +97,12 @@ ApplicationWindow {
         source: imageOutputController.ui_image_E
     }
 
+    DisplayImage {
+        id: displayP
+        visible: false
+        source: imageOutputController.ui_image_P
+    }
+
     Button {
         text: "Reset Zoom"
         anchors {
@@ -135,6 +141,9 @@ ApplicationWindow {
             displayE.scale = 1
             displayE.x = 0
             displayE.y = 0
+            displayP.scale = 1
+            displayP.x = 0
+            displayP.y = 0
         }
 
     }
@@ -166,6 +175,7 @@ ApplicationWindow {
                 buttonNtmo.enabled = true
                 buttonV.enabled = true
                 buttonE.enabled = true
+                buttonP.enabled = true
 
                 displayI.visible = true
                 displayQ.visible = false
@@ -177,6 +187,7 @@ ApplicationWindow {
                 displayNtmo.visible = false
                 displayV.visible = false
                 displayE.visible = false
+                displayP.visible = false
             }
         }
 
@@ -201,6 +212,7 @@ ApplicationWindow {
                 buttonNtmo.enabled = true
                 buttonV.enabled = true
                 buttonE.enabled = true
+                buttonP.enabled = true
 
                 displayI.visible = false
                 displayQ.visible = true
@@ -212,6 +224,7 @@ ApplicationWindow {
                 displayNtmo.visible = false
                 displayV.visible = false
                 displayE.visible = false
+                displayP.visible = false
             }
         }
 
@@ -236,6 +249,7 @@ ApplicationWindow {
                 buttonNtmo.enabled = true
                 buttonV.enabled = true
                 buttonE.enabled = true
+                buttonP.enabled = true
 
                 displayI.visible = false
                 displayQ.visible = false
@@ -247,6 +261,7 @@ ApplicationWindow {
                 displayNtmo.visible = false
                 displayV.visible = false
                 displayE.visible = false
+                displayP.visible = false
             }
         }
 
@@ -271,6 +286,7 @@ ApplicationWindow {
                 buttonNtmo.enabled = true
                 buttonV.enabled = true
                 buttonE.enabled = true
+                buttonP.enabled = true
 
                 displayI.visible = false
                 displayQ.visible = false
@@ -282,6 +298,7 @@ ApplicationWindow {
                 displayNtmo.visible = false
                 displayV.visible = false
                 displayE.visible = false
+                displayP.visible = false
             }
         }
 
@@ -306,6 +323,7 @@ ApplicationWindow {
                 buttonNtmo.enabled = true
                 buttonV.enabled = true
                 buttonE.enabled = true
+                buttonP.enabled = true
 
                 displayI.visible = false
                 displayQ.visible = false
@@ -317,6 +335,7 @@ ApplicationWindow {
                 displayNtmo.visible = false
                 displayV.visible = false
                 displayE.visible = false
+                displayP.visible = false
             }
         }
 
@@ -341,6 +360,7 @@ ApplicationWindow {
                 buttonNtmo.enabled = true
                 buttonV.enabled = true
                 buttonE.enabled = true
+                buttonP.enabled = true
 
                 displayI.visible = false
                 displayQ.visible = false
@@ -352,6 +372,7 @@ ApplicationWindow {
                 displayNtmo.visible = false
                 displayV.visible = false
                 displayE.visible = false
+                displayP.visible = false
             }
         }
 
@@ -376,6 +397,7 @@ ApplicationWindow {
                 buttonNtmo.enabled = true
                 buttonV.enabled = true
                 buttonE.enabled = true
+                buttonP.enabled = true
 
                 displayI.visible = false
                 displayQ.visible = false
@@ -387,6 +409,7 @@ ApplicationWindow {
                 displayNtmo.visible = false
                 displayV.visible = false
                 displayE.visible = false
+                displayP.visible = false
             }
         }
 
@@ -411,6 +434,7 @@ ApplicationWindow {
                 buttonNtmo.enabled = false
                 buttonV.enabled = true
                 buttonE.enabled = true
+                buttonP.enabled = true
 
                 displayI.visible = false
                 displayQ.visible = false
@@ -422,6 +446,7 @@ ApplicationWindow {
                 displayNtmo.visible = true
                 displayV.visible = false
                 displayE.visible = false
+                displayP.visible = false
             }
         }
         Button {
@@ -445,6 +470,7 @@ ApplicationWindow {
                 buttonNtmo.enabled = true
                 buttonV.enabled = false
                 buttonE.enabled = true
+                buttonP.enabled = true
 
                 displayI.visible = false
                 displayQ.visible = false
@@ -456,6 +482,7 @@ ApplicationWindow {
                 displayNtmo.visible = false
                 displayV.visible = true
                 displayE.visible = false
+                displayP.visible = false
             }
         }
 
@@ -480,6 +507,7 @@ ApplicationWindow {
                 buttonNtmo.enabled = true
                 buttonV.enabled = true
                 buttonE.enabled = false
+                buttonP.enabled = false
 
                 displayI.visible = false
                 displayQ.visible = false
@@ -491,9 +519,47 @@ ApplicationWindow {
                 displayNtmo.visible = false
                 displayV.visible = false
                 displayE.visible = true
+                displayP.visible = true
             }
         }
 
+
+        Button {
+            id: buttonP
+            enabled: true
+            visible: {
+                return displayP.source != "image://visualizationimageprovider/null"
+            }
+            Layout.preferredWidth: 100
+
+            text: "P Matrix"
+
+            onClicked: {
+                buttonI.enabled = true
+                buttonQ.enabled = true
+                buttonR.enabled = true
+                buttonB.enabled = true
+                buttonN.enabled = true
+                buttonNext.enabled = true
+                buttonNfix.enabled = true
+                buttonNtmo.enabled = true
+                buttonV.enabled = true
+                buttonE.enabled = true
+                buttonP.enabled = false
+
+                displayI.visible = false
+                displayQ.visible = false
+                displayR.visible = false
+                displayB.visible = false
+                displayN.visible = false
+                displayNext.visible = false
+                displayNfix.visible = false
+                displayNtmo.visible = false
+                displayV.visible = false
+                displayE.visible = false
+                displayP.visible = true
+            }
+        }
 
     }
 }

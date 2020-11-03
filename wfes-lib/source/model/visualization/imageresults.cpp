@@ -10,6 +10,7 @@ QImage* ImageResults::N_tmo = nullptr;
 QImage* ImageResults::B = nullptr;
 QImage* ImageResults::V = nullptr;
 QImage* ImageResults::E = nullptr;
+QImage* ImageResults::P = nullptr;
 
 ImageResults::ImageResults() {}
 
@@ -35,6 +36,8 @@ QImage ImageResults::getImage(QString id)
         return *ImageResults::V;
     if(id.compare("E") == 0 && ImageResults::E != nullptr)
         return *ImageResults::E;
+    if(id.compare("P") == 0 && ImageResults::P != nullptr)
+        return *ImageResults::P;
     else {
         QImage image(100, 100, QImage::Format_ARGB32);
         image.fill(Qt::white);
@@ -54,4 +57,5 @@ void ImageResults::clear()
     ImageResults::B = nullptr;
     ImageResults::V = nullptr;
     ImageResults::E = nullptr;
+    ImageResults::P = nullptr;
 }
