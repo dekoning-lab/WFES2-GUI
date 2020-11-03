@@ -80,6 +80,12 @@ ApplicationWindow {
     }
 
     DisplayImage {
+        id: displayNtmo
+        visible: false
+        source: imageOutputController.ui_image_N_tmo
+    }
+
+    DisplayImage {
         id: displayV
         visible: false
         source: imageOutputController.ui_image_V
@@ -120,6 +126,9 @@ ApplicationWindow {
             displayNfix.scale = 1
             displayNfix.x = 0
             displayNfix.y = 0
+            displayNtmo.scale = 1
+            displayNtmo.x = 0
+            displayNtmo.y = 0
             displayV.scale = 1
             displayV.x = 0
             displayV.y = 0
@@ -389,7 +398,7 @@ ApplicationWindow {
             }
             Layout.preferredWidth: 100
 
-            text: "N fix Matrix"
+            text: "N tmo Matrix"
 
             onClicked: {
                 buttonI.enabled = true
