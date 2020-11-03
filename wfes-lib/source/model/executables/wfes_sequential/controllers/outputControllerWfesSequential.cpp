@@ -8,6 +8,8 @@ OutputControllerWfesSequential::~OutputControllerWfesSequential() {}
 
 QString OutputControllerWfesSequential::execute()
 {
+    ImageResults::clear();
+
     executing = true;
     qRegisterMetaType<ResultsWfesSequential>("ResultsWfesSequential");
 

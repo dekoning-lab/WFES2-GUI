@@ -74,6 +74,16 @@ QString ImageOutputController::get_image_N_fix()
     }
 }
 
+QString ImageOutputController::get_image_N_tmo()
+{
+    if(ImageResults::N_tmo == nullptr)
+        return "image://visualizationImageProvider/null";
+    else {
+        count++;
+        return "image://visualizationImageProvider/N_tmo?count=" + QString(count);
+        }
+}
+
 QString ImageOutputController::get_image_V()
 {
     if(ImageResults::V == nullptr)

@@ -6,6 +6,9 @@
 #include "utils/utils.h"
 #include "utils/parsing.h"
 
+#include <Eigen/Core>
+#include <Eigen/Sparse>
+
 #include "model/solver/solver.h"
 #include "model/solver/solverFactory.h"
 
@@ -23,6 +26,7 @@
 
 #include <model/executables/wfes_sequential/config/configWfesSequential.h>
 
+#include <model/visualization/imageresults.h>
 
 class wfes_sequential : public Subject
 {

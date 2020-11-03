@@ -90,7 +90,7 @@ ResultsWfesSequential *wfes_sequential::function()
     //Notify solving
     this->notify(ExecutionStatus::SOLVING_MATRICES);
 
-    Solver* solver = SolverFactory::createSolver(ConfigWfesSingle::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, ConfigWfesSingle::vienna_solver);
+    Solver* solver = SolverFactory::createSolver(ConfigWfesSequential::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, ConfigWfesSequential::vienna_solver);
 
     solver->preprocess();
 
@@ -197,8 +197,49 @@ ResultsWfesSequential *wfes_sequential::function()
     if(ConfigWfesSequential::output_B)
         writeMatrixToFile(B, ConfigWfesSequential::path_output_B);
 
-    //Notify saving data.
-    this->notify(ExecutionStatus::SAVING_DATA);
+    QImage *imageQ = nullptr, *imageR = nullptr,  *imageN = nullptr, *imageB = nullptr, *imageN_ext = nullptr, *imageN_fix = nullptr, *imageN_tmo = nullptr;
+    if(ConfigWfesSequential::output_Q) {
+        imageQ = utils::generateImage(W.Q->dense());
+        //utils::saveImage(imageI, "Image_I");
+        ImageResults::Q = imageQ;
+    }
+    if(ConfigWfesSequential::output_R) {
+        imageR = utils::generateImage(W.R);
+        //utils::saveImage(imageI, "Image_I");
+        ImageResults::R = imageR;
+    }
+    if(ConfigWfesSequential::output_N) {
+        dmat N(N_rows.size(), N_rows[0].size());
+        int i = 0;
+        for(auto const &item : N_rows) {
+            dvec v = item.second;
+            N.row(i) = v.transpose();
+            i++;
+        }
+        imageN = utils::generateImage(N);
+        utils::saveImage(imageN, "Image_N");
+        ImageResults::N = imageN;
+    }
+    if(ConfigWfesSequential::output_B) {
+        imageB = utils::generateImage(B);
+        //utils::saveImage(imageB, "Image_B");
+        ImageResults::B = imageB;
+    }
+    if(ConfigWfesSequential::output_N_Ext) {
+        imageN_ext = utils::generateImage(E_ext);
+        //utils::saveImage(imageB, "Image_B");
+        ImageResults::N_ext = imageN_ext;
+    }
+    if(ConfigWfesSequential::output_N_Fix) {
+        imageN_fix = utils::generateImage(E_fix);
+        //utils::saveImage(imageB, "Image_B");
+        ImageResults::N_fix = imageN_fix;
+    }
+    if(ConfigWfesSequential::output_N_Tmo) {
+        imageN_tmo = utils::generateImage(E_tmo);
+        //utils::saveImage(imageB, "Image_B");
+        ImageResults::N_tmo = imageN_tmo;
+    }
 
     //Calculate time.
     t_end = std::chrono::system_clock::now();
@@ -206,8 +247,8 @@ ResultsWfesSequential *wfes_sequential::function()
 
     ResultsWfesSequential *res =  new ResultsWfesSequential(P_ext, P_fix, P_tmo, T_ext, T_ext_std, T_fix, T_fix_std, T_tmo, T_tmo_std, dt.count());
 
-    if(ConfigWfesSingle::output_Res)
-       res->writeResultsToFile(res, ConfigWfesSingle::path_output_Res);
+    if(ConfigWfesSequential::output_Res)
+       res->writeResultsToFile(res, ConfigWfesSequential::path_output_Res);
 
     //Notify done.
     this->notify(ExecutionStatus::DONE);

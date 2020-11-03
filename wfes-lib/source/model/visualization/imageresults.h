@@ -12,6 +12,7 @@ public:
     static QImage *N;
     static QImage *N_ext;
     static QImage *N_fix;
+    static QImage *N_tmo;
     static QImage *B;
     static QImage *V;
     static QImage *E;

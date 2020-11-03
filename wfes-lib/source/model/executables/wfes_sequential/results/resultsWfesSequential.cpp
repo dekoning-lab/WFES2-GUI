@@ -21,7 +21,7 @@ void ResultsWfesSequential::writeResultsToFile(ResultsWfesSequential *results, s
     if (!dir.exists(outputPath))
         dir.mkpath(outputPath);
 
-    QFile file(outputPath + QString::fromStdString("Wfes_Single_-_" + s + "_" + name));
+    QFile file(outputPath + QString::fromStdString("Wfes_Sequential_-_" + s + "_" + name));
     file.open(QIODevice::WriteOnly);
 
     if(!file.isOpen()) {

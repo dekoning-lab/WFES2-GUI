@@ -154,6 +154,7 @@ ApplicationWindow {
                 buttonN.enabled = true
                 buttonNext.enabled = true
                 buttonNfix.enabled = true
+                buttonNtmo.enabled = true
                 buttonV.enabled = true
                 buttonE.enabled = true
 
@@ -164,6 +165,7 @@ ApplicationWindow {
                 displayN.visible = false
                 displayNext.visible = false
                 displayNfix.visible = false
+                displayNtmo.visible = false
                 displayV.visible = false
                 displayE.visible = false
             }
@@ -187,6 +189,7 @@ ApplicationWindow {
                 buttonN.enabled = true
                 buttonNext.enabled = true
                 buttonNfix.enabled = true
+                buttonNtmo.enabled = true
                 buttonV.enabled = true
                 buttonE.enabled = true
 
@@ -197,6 +200,7 @@ ApplicationWindow {
                 displayN.visible = false
                 displayNext.visible = false
                 displayNfix.visible = false
+                displayNtmo.visible = false
                 displayV.visible = false
                 displayE.visible = false
             }
@@ -220,6 +224,7 @@ ApplicationWindow {
                 buttonN.enabled = true
                 buttonNext.enabled = true
                 buttonNfix.enabled = true
+                buttonNtmo.enabled = true
                 buttonV.enabled = true
                 buttonE.enabled = true
 
@@ -230,6 +235,7 @@ ApplicationWindow {
                 displayN.visible = false
                 displayNext.visible = false
                 displayNfix.visible = false
+                displayNtmo.visible = false
                 displayV.visible = false
                 displayE.visible = false
             }
@@ -253,6 +259,7 @@ ApplicationWindow {
                 buttonN.enabled = true
                 buttonNext.enabled = true
                 buttonNfix.enabled = true
+                buttonNtmo.enabled = true
                 buttonV.enabled = true
                 buttonE.enabled = true
 
@@ -263,6 +270,7 @@ ApplicationWindow {
                 displayN.visible = false
                 displayNext.visible = false
                 displayNfix.visible = false
+                displayNtmo.visible = false
                 displayV.visible = false
                 displayE.visible = false
             }
@@ -286,6 +294,7 @@ ApplicationWindow {
                 buttonN.enabled = false
                 buttonNext.enabled = true
                 buttonNfix.enabled = true
+                buttonNtmo.enabled = true
                 buttonV.enabled = true
                 buttonE.enabled = true
 
@@ -296,6 +305,7 @@ ApplicationWindow {
                 displayN.visible = true
                 displayNext.visible = false
                 displayNfix.visible = false
+                displayNtmo.visible = false
                 displayV.visible = false
                 displayE.visible = false
             }
@@ -319,6 +329,7 @@ ApplicationWindow {
                 buttonN.enabled = true
                 buttonNext.enabled = false
                 buttonNfix.enabled = true
+                buttonNtmo.enabled = true
                 buttonV.enabled = true
                 buttonE.enabled = true
 
@@ -329,6 +340,7 @@ ApplicationWindow {
                 displayN.visible = false
                 displayNext.visible = true
                 displayNfix.visible = false
+                displayNtmo.visible = false
                 displayV.visible = false
                 displayE.visible = false
             }
@@ -352,6 +364,7 @@ ApplicationWindow {
                 buttonN.enabled = true
                 buttonNext.enabled = true
                 buttonNfix.enabled = false
+                buttonNtmo.enabled = true
                 buttonV.enabled = true
                 buttonE.enabled = true
 
@@ -362,11 +375,46 @@ ApplicationWindow {
                 displayN.visible = false
                 displayNext.visible = false
                 displayNfix.visible = true
+                displayNtmo.visible = false
                 displayV.visible = false
                 displayE.visible = false
             }
         }
 
+        Button {
+            id: buttonNtmo
+            enabled: true
+            visible: {
+                return displayNfix.source != "image://visualizationimageprovider/null"
+            }
+            Layout.preferredWidth: 100
+
+            text: "N fix Matrix"
+
+            onClicked: {
+                buttonI.enabled = true
+                buttonQ.enabled = true
+                buttonR.enabled = true
+                buttonB.enabled = true
+                buttonN.enabled = true
+                buttonNext.enabled = true
+                buttonNfix.enabled = true
+                buttonNtmo.enabled = false
+                buttonV.enabled = true
+                buttonE.enabled = true
+
+                displayI.visible = false
+                displayQ.visible = false
+                displayR.visible = false
+                displayB.visible = false
+                displayN.visible = false
+                displayNext.visible = false
+                displayNfix.visible = false
+                displayNtmo.visible = true
+                displayV.visible = false
+                displayE.visible = false
+            }
+        }
         Button {
             id: buttonV
             enabled: true
@@ -385,6 +433,7 @@ ApplicationWindow {
                 buttonN.enabled = true
                 buttonNext.enabled = true
                 buttonNfix.enabled = true
+                buttonNtmo.enabled = true
                 buttonV.enabled = false
                 buttonE.enabled = true
 
@@ -395,6 +444,7 @@ ApplicationWindow {
                 displayN.visible = false
                 displayNext.visible = false
                 displayNfix.visible = false
+                displayNtmo.visible = false
                 displayV.visible = true
                 displayE.visible = false
             }
@@ -418,6 +468,7 @@ ApplicationWindow {
                 buttonN.enabled = true
                 buttonNext.enabled = true
                 buttonNfix.enabled = true
+                buttonNtmo.enabled = true
                 buttonV.enabled = true
                 buttonE.enabled = false
 
@@ -428,6 +479,7 @@ ApplicationWindow {
                 displayN.visible = false
                 displayNext.visible = false
                 displayNfix.visible = false
+                displayNtmo.visible = false
                 displayV.visible = false
                 displayE.visible = true
             }
