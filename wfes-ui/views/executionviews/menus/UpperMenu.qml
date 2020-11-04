@@ -63,26 +63,26 @@ Rectangle {
                             outputControllerWfesSingle.ui_load_config
                             rootWfesSingle.updateGUI()
                         } else if(typeof(rootWfesSequential) != "undefined") {
-                            rootWfesSequential.updateGUI()
                             outputControllerWfesSequential.ui_load_config
+                            rootWfesSequential.updateGUI()
                         } else if(typeof(rootWfesSweep) != "undefined") {
-                            rootWfesSweep.updateGUI()
                             outputControllerWfesSweep.ui_load_config
+                            rootWfesSweep.updateGUI()
                         } else if(typeof(rootWfesSwitching) != "undefined") {
-                            rootWfesSwitching.updateGUI()
                             outputControllerWfesSwitching.ui_load_config
+                            rootWfesSwitching.updateGUI()
                         } else if(typeof(rootWfas) != "undefined") {
-                            rootWfas.updateGUI()
                             outputControllerWfas.ui_load_config
+                            rootWfas.updateGUI()
                         } else if(typeof(rootWfafle) != "undefined") {
-                            rootWfafle.updateGUI()
                             outputControllerWfafle.ui_load_config
+                            rootWfafle.updateGUI()
                         } else if(typeof(rootTimeDist) != "undefined") {
-                            rootTimeDist.updateGUI()
                             outputControllerTimeDist.ui_load_config
+                            rootTimeDist.updateGUI()
                         } else if(typeof(rootPhaseType) != "undefined") {
-                            rootPhaseType.updateGUI()
                             outputControllerPhaseType.ui_load_config
+                            rootPhaseType.updateGUI()
                         }
 
                     }

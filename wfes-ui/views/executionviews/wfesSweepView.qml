@@ -809,11 +809,18 @@ ApplicationWindow {
     function updateGUI() {
         radioButtonFixation.checked = inputControllerWfesSweep.ui_modelType == "Fixation"
 
+        inputN.textFieldText = inputControllerWfesSweep.ui_n
+        inputA.textFieldText = inputControllerWfesSweep.ui_a
+        inputL.textFieldText = inputControllerWfesSweep.ui_l
+        inputC.textFieldText = inputControllerWfesSweep.ui_c
+        inputP.textFieldText = inputControllerWfesSweep.ui_p
+
         var u_vec = inputControllerWfesSweep.ui_u_vec
         var v_vec = inputControllerWfesSweep.ui_v_vec
         var s_vec = inputControllerWfesSweep.ui_s_vec
         var h_vec = inputControllerWfesSweep.ui_h_vec
         for(var i = 0; i < 2; i++) {
+            componentsSectionTabView.getTab(i).active = true
             componentsSectionTabView.getTab(i).item.children[0].children[1].children[0].textFieldText = u_vec[i]
             componentsSectionTabView.getTab(i).item.children[0].children[1].children[1].textFieldText = v_vec[i]
             componentsSectionTabView.getTab(i).item.children[1].children[1].children[0].textFieldText = s_vec[i]
@@ -836,10 +843,12 @@ ApplicationWindow {
             comboBoxLibrary.currentIndex = 1
 
         var solver = inputControllerWfesSweep.ui_solver
-        if(library === "GMRes")
+        if(solver === "GMRes")
             comboBoxSolver.currentIndex = 0
-        else if(library === "BicGStab")
+        else if(solver === "BicGStab")
             comboBoxSolver.currentIndex = 1
+
+        inputI.textFieldText = inputControllerWfesSweep.ui_initial_distribution
     }
 
     function updateBackend() {
@@ -882,6 +891,9 @@ ApplicationWindow {
         inputControllerWfesSweep.ui_library = comboBoxLibrary.currentText;
         inputControllerWfesSweep.ui_solver = comboBoxSolver.currentText;
         inputControllerWfesSweep.ui_force = inputForce.checked
+
+        inputControllerWfesSweep.ui_initial_distribution = inputI.textFieldText
+
     }
 
 }

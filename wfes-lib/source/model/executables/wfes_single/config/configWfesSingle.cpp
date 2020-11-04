@@ -60,9 +60,7 @@ bool ConfigWfesSingle::saveImageE = false;
 
 std::string ConfigWfesSingle::error = "";
 
-ConfigWfesSingle::ConfigWfesSingle() {
-}
-
+ConfigWfesSingle::ConfigWfesSingle() {}
 
 int ConfigWfesSingle::ModelTypeWfesSingleToInt(ModelTypeWfesSingle modelType){
     switch(modelType){

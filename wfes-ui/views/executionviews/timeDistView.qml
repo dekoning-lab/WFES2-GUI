@@ -934,62 +934,7 @@ ApplicationWindow {
                             onClicked: {
                                 bottomMenu.visibleProgressBar = true
 
-                                if(radioButtonTimeDist.checked)
-                                    inputControllerTimeDist.ui_modelType = "Time Dist."
-                                if(radioButtonTimeDistSGV.checked)
-                                    inputControllerTimeDist.ui_modelType = "Time Dist. SGV"
-                                if(radioButtonTimeDistSkip.checked)
-                                    inputControllerTimeDist.ui_modelType = "Time Dist. Skip"
-                                if(radioButtonTimeDistDual.checked)
-                                    inputControllerTimeDist.ui_modelType = "Time Dist. Dual"
-
-                                if(!radioButtonTimeDistSGV.checked) {
-                                    inputControllerTimeDist.ui_n = inputN.textFieldText
-                                    inputControllerTimeDist.ui_a = inputA.textFieldText
-                                    inputControllerTimeDist.ui_c = inputC.textFieldText
-                                    inputControllerTimeDist.ui_m = inputM.textFieldText
-                                    inputControllerTimeDist.ui_u = inputU.textFieldText
-                                    inputControllerTimeDist.ui_v = inputV.textFieldText
-                                    inputControllerTimeDist.ui_r = inputR.checked
-                                    inputControllerTimeDist.ui_s = inputS.textFieldText
-                                    inputControllerTimeDist.ui_h = inputH.textFieldText
-                                } else {
-                                    inputControllerTimeDist.ui_n = inputN1.textFieldText
-                                    inputControllerTimeDist.ui_a = inputA1.textFieldText
-                                    inputControllerTimeDist.ui_l = inputL.textFieldText
-                                    inputControllerTimeDist.ui_c = inputC1.textFieldText
-                                    inputControllerTimeDist.ui_m = inputM1.textFieldText
-                                    var u_vec = []
-                                    var v_vec = []
-                                    var s_vec = []
-                                    var h_vec = []
-                                    for(var i = 0; i < 2; i++) {
-                                        timeDistSGVSectionTabView.getTab(i).active = true
-                                        var u = timeDistSGVSectionTabView.getTab(i).item.children[0].children[1].children[0].textFieldText
-                                        var v = timeDistSGVSectionTabView.getTab(i).item.children[0].children[1].children[1].textFieldText
-                                        var s = timeDistSGVSectionTabView.getTab(i).item.children[1].children[1].children[0].textFieldText
-                                        var h = timeDistSGVSectionTabView.getTab(i).item.children[1].children[1].children[1].textFieldText
-                                        u_vec.push(u)
-                                        v_vec.push(v)
-                                        s_vec.push(s)
-                                        h_vec.push(h)
-                                    }
-                                    inputControllerTimeDist.ui_u_vec = u_vec
-                                    inputControllerTimeDist.ui_v_vec = v_vec
-                                    inputControllerTimeDist.ui_s_vec = s_vec
-                                    inputControllerTimeDist.ui_h_vec = h_vec
-
-                                }
-
-                                inputControllerTimeDist.ui_output_P = inputWriteP.checked
-                                inputControllerTimeDist.ui_output_Q = inputWriteQ.checked
-                                inputControllerTimeDist.ui_output_R = inputWriteR.checked
-
-                                inputControllerTimeDist.ui_t = inputT.textFieldText
-
-                                inputControllerTimeDist.ui_library = comboBoxLibrary.currentText;
-
-                                inputControllerTimeDist.ui_force = inputForce.checked
+                                updateBackend()
 
                                 if(outputControllerTimeDist.ui_get_error_message === "") {
                                     executeButton.enabled = false
@@ -1053,4 +998,120 @@ ApplicationWindow {
         }
     }
 
+    function updateGUI() {
+
+        //First, let's fill the SGV parameters.
+        radioButtonTimeDistSGV.checked = true
+        inputN1.textFieldText = inputControllerTimeDist.ui_n
+        inputA1.textFieldText = inputControllerTimeDist.ui_a
+        inputL.textFieldText = inputControllerTimeDist.ui_l
+        inputC1.textFieldText = inputControllerTimeDist.ui_c
+        inputM1.textFieldText = inputControllerTimeDist.ui_m
+        inputR1.checked = inputControllerTimeDist.ui_r
+        var u_vec = inputControllerWfesSweep.ui_u_vec
+        var v_vec = inputControllerWfesSweep.ui_v_vec
+        var s_vec = inputControllerWfesSweep.ui_s_vec
+        var h_vec = inputControllerWfesSweep.ui_h_vec
+        for(var i = 0; i < 2; i++) {
+            componentsSectionTabView.getTab(i).active = true
+            componentsSectionTabView.getTab(i).item.children[0].children[1].children[0].textFieldText = u_vec[i]
+            componentsSectionTabView.getTab(i).item.children[0].children[1].children[1].textFieldText = v_vec[i]
+            componentsSectionTabView.getTab(i).item.children[1].children[1].children[0].textFieldText = s_vec[i]
+            componentsSectionTabView.getTab(i).item.children[1].children[1].children[1].textFieldText = h_vec[i]
+        }
+
+        //And second, the rest of parameters.
+        radioButtonTimeDist.checked = true
+        inputN.textFieldText = inputControllerTimeDist.ui_n
+        inputA.textFieldText = inputControllerTimeDist.ui_a
+        inputc.textFieldText = inputControllerTimeDist.ui_c
+        inputM.textFieldText = inputControllerTimeDist.ui_m
+        inputU.textFieldText = inputControllerTimeDist.ui_u
+        inputV.textFieldText = inputControllerTimeDist.ui_v
+        inputR.checked = inputControllerTimeDist.ui_r
+        inputS.textFieldText = inputControllerTimeDist.ui_s
+        inputH.textFieldText = inputControllerTimeDist.ui_h
+
+        inputWriteQ.checked = inputControllerTimeDist.ui_output_Q
+        inputWriteR.checked = inputControllerTimeDist.ui_output_R
+        inputWriteP.checked = inputControllerTimeDist.ui_output_P
+
+        inputForce.checked = inputControllerTimeDist.ui_force
+
+        inputT.textFieldText = inputControllerTimeDist.ui_t
+        var library = inputControllerTimeDist.ui_library
+        if(library === "Pardiso")
+            comboBoxLibrary.currentIndex = 0
+        else if(library === "ViennaCL")
+            comboBoxLibrary.currentIndex = 1
+
+        radioButtonTimeDist.checked = inputControllerTimeDist.ui_modelType == "Time Dist."
+        radioButtonTimeDistDual.checked = inputControllerTimeDist.ui_modelType == "Time Dist. Dual"
+        radioButtonTimeDistSGV.checked = inputControllerTimeDist.ui_modelType == "Time Dist. SGV"
+        radioButtonTimeDistSkip.checked = inputControllerTimeDist.ui_modelType == "Time Dist. Skip"
+
+
+    }
+
+    function updateBackend() {
+
+        if(radioButtonTimeDist.checked)
+            inputControllerTimeDist.ui_modelType = "Time Dist."
+        if(radioButtonTimeDistSGV.checked)
+            inputControllerTimeDist.ui_modelType = "Time Dist. SGV"
+        if(radioButtonTimeDistSkip.checked)
+            inputControllerTimeDist.ui_modelType = "Time Dist. Skip"
+        if(radioButtonTimeDistDual.checked)
+            inputControllerTimeDist.ui_modelType = "Time Dist. Dual"
+
+        if(!radioButtonTimeDistSGV.checked) {
+            inputControllerTimeDist.ui_n = inputN.textFieldText
+            inputControllerTimeDist.ui_a = inputA.textFieldText
+            inputControllerTimeDist.ui_c = inputC.textFieldText
+            inputControllerTimeDist.ui_m = inputM.textFieldText
+            inputControllerTimeDist.ui_u = inputU.textFieldText
+            inputControllerTimeDist.ui_v = inputV.textFieldText
+            inputControllerTimeDist.ui_r = inputR.checked
+            inputControllerTimeDist.ui_s = inputS.textFieldText
+            inputControllerTimeDist.ui_h = inputH.textFieldText
+        } else {
+            inputControllerTimeDist.ui_n = inputN1.textFieldText
+            inputControllerTimeDist.ui_a = inputA1.textFieldText
+            inputControllerTimeDist.ui_l = inputL.textFieldText
+            inputControllerTimeDist.ui_c = inputC1.textFieldText
+            inputControllerTimeDist.ui_m = inputM1.textFieldText
+            inputControllerTimeDist.ui_r = inputR1.checked
+            var u_vec = []
+            var v_vec = []
+            var s_vec = []
+            var h_vec = []
+            for(var i = 0; i < 2; i++) {
+                timeDistSGVSectionTabView.getTab(i).active = true
+                var u = timeDistSGVSectionTabView.getTab(i).item.children[0].children[1].children[0].textFieldText
+                var v = timeDistSGVSectionTabView.getTab(i).item.children[0].children[1].children[1].textFieldText
+                var s = timeDistSGVSectionTabView.getTab(i).item.children[1].children[1].children[0].textFieldText
+                var h = timeDistSGVSectionTabView.getTab(i).item.children[1].children[1].children[1].textFieldText
+                u_vec.push(u)
+                v_vec.push(v)
+                s_vec.push(s)
+                h_vec.push(h)
+            }
+            inputControllerTimeDist.ui_u_vec = u_vec
+            inputControllerTimeDist.ui_v_vec = v_vec
+            inputControllerTimeDist.ui_s_vec = s_vec
+            inputControllerTimeDist.ui_h_vec = h_vec
+
+        }
+
+        inputControllerTimeDist.ui_output_P = inputWriteP.checked
+        inputControllerTimeDist.ui_output_Q = inputWriteQ.checked
+        inputControllerTimeDist.ui_output_R = inputWriteR.checked
+
+        inputControllerTimeDist.ui_t = inputT.textFieldText
+
+        inputControllerTimeDist.ui_library = comboBoxLibrary.currentText;
+
+        inputControllerTimeDist.ui_force = inputForce.checked
+
+    }
 }
