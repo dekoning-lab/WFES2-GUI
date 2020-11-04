@@ -947,57 +947,9 @@ ApplicationWindow {
 
                             // All changes made in backend from GUI are done here.
                             onClicked: {
-                                    bottomMenu.visibleProgressBar = true
+                                bottomMenu.visibleProgressBar = true
 
-                                    // Set mode in backend.
-                                    if(radioButtonAbsorption.checked)
-                                        inputControllerWfesSingle.ui_modelType = "Absorption"
-                                    else if (radioButtonFixation.checked)
-                                        inputControllerWfesSingle.ui_modelType = "Fixation"
-                                    else if (radioButtonEstablishment.checked)
-                                        inputControllerWfesSingle.ui_modelType = "Establishment"
-                                    else if (radioButtonFundamental.checked)
-                                        inputControllerWfesSingle.ui_modelType = "Fundamental"
-                                    else if (radioButtonNonAbsorbing.checked)
-                                        inputControllerWfesSingle.ui_modelType = "Non Absorbing"
-                                    else if (radioButtonEquilibrium.checked)
-                                        inputControllerWfesSingle.ui_modelType = "Equilibrium"
-                                    else if (radioButtonAlleleAge.checked)
-                                        inputControllerWfesSingle.ui_modelType = "Allele Age"
-
-                                    inputControllerWfesSingle.ui_n = inputN.textFieldText
-                                    inputControllerWfesSingle.ui_a = inputA.textFieldText
-                                    if(inputControllerWfesSingle.ui_modelType == "Fixation" || inputControllerWfesSingle.ui_modelType == "Absorption" || inputControllerWfesSingle.ui_modelType == "Establishment" || inputControllerWfesSingle.ui_modelType == "Allele Age")
-                                        inputControllerWfesSingle.ui_p = inputp.textFieldText
-                                    inputControllerWfesSingle.ui_c = inputc.textFieldText
-                                    if(inputControllerWfesSingle.ui_modelType == "Allele Age")
-                                        inputControllerWfesSingle.ui_x = inputX.textFieldText
-                                    if(inputControllerWfesSingle.ui_modelType == "Establishment")
-                                        inputControllerWfesSingle.ui_k = inputK.textFieldText
-                                    inputControllerWfesSingle.ui_u = inputU.textFieldText
-                                    inputControllerWfesSingle.ui_v = inputV.textFieldText
-                                    inputControllerWfesSingle.ui_m = inputM.checked
-                                    inputControllerWfesSingle.ui_s = inputS.textFieldText
-                                    inputControllerWfesSingle.ui_h = inputH.textFieldText
-
-                                    inputControllerWfesSingle.ui_output_Q = inputWriteQ.checked
-                                    inputControllerWfesSingle.ui_output_R = inputWriteR.checked
-                                    inputControllerWfesSingle.ui_output_B = inputWriteB.checked
-                                    inputControllerWfesSingle.ui_output_N = inputWriteN.checked
-                                    inputControllerWfesSingle.ui_output_NExt = inputWriteNExt.checked
-                                    inputControllerWfesSingle.ui_output_NFix = inputWriteNFix.checked
-                                    inputControllerWfesSingle.ui_output_I = inputWriteI.checked
-                                    inputControllerWfesSingle.ui_output_E = inputWriteE.checked
-                                    inputControllerWfesSingle.ui_output_V = inputWriteV.checked
-                                    inputControllerWfesSingle.ui_output_Res = inputWriteRes.checked
-
-                                    inputControllerWfesSingle.ui_force = inputForce.checked
-                                    inputControllerWfesSingle.ui_t = inputT.textFieldText
-
-                                    inputControllerWfesSingle.ui_initial_distribution = inputI.textFieldText
-
-                                    inputControllerWfesSingle.ui_library = comboBoxLibrary.currentText;
-                                    inputControllerWfesSingle.ui_solver = comboBoxSolver.currentText;
+                                updateBackend();
 
                                 if(outputControllerWfesSingle.ui_get_error_message == "") {
                                     executeButton.enabled = false
