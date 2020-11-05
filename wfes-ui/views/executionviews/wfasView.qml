@@ -636,7 +636,6 @@ ApplicationWindow {
     }
 
     function updateBackend() {
-
         inputControllerWfas.ui_a = inputA.textFieldText
         inputControllerWfas.ui_p = inputP.textFieldText
         inputControllerWfas.ui_no_proj = inputNoProject.checked
