@@ -836,6 +836,8 @@ ApplicationWindow {
         inputT.textFieldText = inputControllerWfesSweep.ui_t
         inputForce.checked = inputControllerWfesSweep.ui_force
 
+        inputI.textFieldText = inputControllerWfesSweep.ui_initial_distribution
+
         var library = inputControllerWfesSweep.ui_library
         if(library === "Pardiso")
             comboBoxLibrary.currentIndex = 0
@@ -848,7 +850,6 @@ ApplicationWindow {
         else if(solver === "BicGStab")
             comboBoxSolver.currentIndex = 1
 
-        inputI.textFieldText = inputControllerWfesSweep.ui_initial_distribution
     }
 
     function updateBackend() {

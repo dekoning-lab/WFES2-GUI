@@ -1,7 +1,14 @@
 #ifndef CONFIGWFESSEQUENTIAL_H
 #define CONFIGWFESSEQUENTIAL_H
 
+#include <string>
 #include "utils/types.h"
+
+#include <QString>
+
+#include <QDir>
+#include <QStandardPaths>
+#include <QDebug>
 
 namespace wfes {
     namespace config {
@@ -162,6 +169,11 @@ namespace wfes {
                  */
                 static int num_comp;
 
+                static void saveConfigWfesSequential();
+
+                static void loadConfigWfesSequential();
+
+                static void processLine(QString line);
 
         };
     }
