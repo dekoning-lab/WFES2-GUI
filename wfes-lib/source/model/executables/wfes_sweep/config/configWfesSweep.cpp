@@ -113,6 +113,8 @@ void ConfigWfesSweep::saveConfigWfesSweep()
     outStream << "Output I: " << (ConfigWfesSweep::output_I ? QString("true") : QString("false")) << "\n";
     outStream << "Output Res: " << (ConfigWfesSweep::output_Res ? QString("true") : QString("false")) << "\n";
 
+    outStream << "Num. Comps.: " << ConfigWfesSweep::num_comp << "\n";
+
     file.close();
 }
 
@@ -187,6 +189,10 @@ void ConfigWfesSweep::processLine(QString line)
         ConfigWfesSweep::output_I = splitted.at(1).compare("true") == 0 ? true : false;
     } else if(splitted.at(0).compare("Output Res") == 0) {
         ConfigWfesSweep::output_Res = splitted.at(1).compare("true") == 0 ? true : false;
+    } else if(splitted.at(0).compare("Num. Comps.") == 0) {
+        ConfigWfesSweep::num_comp = std::stoi(splitted.at(1).toStdString());
     }
+
+
 }
 

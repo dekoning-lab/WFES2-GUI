@@ -128,12 +128,12 @@ ResultsTimeDist *time_dist::timeDistSGV()
     if(ConfigTimeDistSGV::s.size() != 2)  throw exception::Error("Selection coefficient vector should be of length 2");
 
     if (!ConfigTimeDistSGV::force) {
-        if (ConfigTimeDist::population_size > 500000) {
+        if (ConfigTimeDistSGV::population_size > 500000) {
             // TODO Show as dialog.
             throw exception::Error("Population size is quite large - the computations will take a long time. Use --force to ignore");
         }
         double max_mu = std::max(ConfigTimeDistSGV::u.maxCoeff(), ConfigTimeDistSGV::v.maxCoeff());
-        if (4 * ConfigTimeDist::population_size * max_mu > 1) {
+        if (4 * ConfigTimeDistSGV::population_size * max_mu > 1) {
             // TODO Show as dialog.
             throw exception::Error("The mutation rate might violate the Wright-Fisher assumptions. Use --force to ignore");
         }
@@ -141,7 +141,7 @@ ResultsTimeDist *time_dist::timeDistSGV()
             // TODO Show as dialog.
             throw exception::Error("The selection coefficient is quite negative. Fixations might be impossible. Use --force to ignore");
         }
-        if (ConfigTimeDist::a > 1e-5) {
+        if (ConfigTimeDistSGV::a > 1e-5) {
             // TODO Show as dialog.
             throw exception::Error("Zero cutoff value is quite high. This might produce inaccurate results. Use --force to ignore");
         }
@@ -152,7 +152,7 @@ ResultsTimeDist *time_dist::timeDistSGV()
 
     dmat switching(2, 2); switching << 1 - ConfigTimeDistSGV::l, ConfigTimeDistSGV::l, 0, 1;
 
-    wrightfisher::Matrix wf = wrightfisher::NonAbsorbingToFixationOnly(ConfigTimeDist::population_size, ConfigTimeDistSGV::s, ConfigTimeDistSGV::h, ConfigTimeDistSGV::u, ConfigTimeDistSGV::v, switching, ConfigTimeDist::a, msg_level, ConfigTimeDist::b);
+    wrightfisher::Matrix wf = wrightfisher::NonAbsorbingToFixationOnly(ConfigTimeDistSGV::population_size, ConfigTimeDistSGV::s, ConfigTimeDistSGV::h, ConfigTimeDistSGV::u, ConfigTimeDistSGV::v, switching, ConfigTimeDistSGV::a, msg_level, ConfigTimeDist::b);
 
     //Notify saving data.
     this->notify(ExecutionStatus::SAVING_DATA);
@@ -165,15 +165,15 @@ ResultsTimeDist *time_dist::timeDistSGV()
     //Notify solving
     this->notify(ExecutionStatus::SOLVING_MATRICES);
 
-    dmat PH(ConfigTimeDist::max_t, 3);
+    dmat PH(ConfigTimeDistSGV::max_t, 3);
 
-    dvec c = dvec::Zero(4 * ConfigTimeDist::population_size + 1);
+    dvec c = dvec::Zero(4 * ConfigTimeDistSGV::population_size + 1);
     c(0) = 1;
     dvec R = wf.R.col(0);
 
     double cdf = 0;
     llong i;
-    for (i = 0; cdf < ConfigTimeDist::integration_cutoff && i < ConfigTimeDist::max_t; i++) {
+    for (i = 0; cdf < ConfigTimeDistSGV::integration_cutoff && i < ConfigTimeDistSGV::max_t; i++) {
 
         double P_abs_t = R.dot(c);
         cdf += P_abs_t;

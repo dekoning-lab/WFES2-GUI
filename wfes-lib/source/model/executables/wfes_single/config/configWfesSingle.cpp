@@ -185,6 +185,7 @@ void ConfigWfesSingle::processLine(QString line) {
         ConfigWfesSingle::v = std::stod(splitted.at(1).toStdString());
     } else if(splitted.at(0).compare("No Recurrent Mutation (m)") == 0) {
         ConfigWfesSingle::no_rem = splitted.at(1).compare("true") == 0 ? true : false;
+        ConfigWfesSingle::rem = !no_rem;
     } else if(splitted.at(0).compare("Tail Truncation Weight (a)") == 0) {
         ConfigWfesSingle::a = std::stod(splitted.at(1).toStdString());
     } else if(splitted.at(0).compare("Odds Ratio (k)") == 0) {

@@ -35,6 +35,34 @@ void InputControllerTimeDist::set_n(QString n) const
     }
 }
 
+QString InputControllerTimeDist::get_n_sgv() const
+{
+
+    boost::format fmt = boost::format(DPFS) % (wfes::config::ConfigTimeDistSGV::population_size);
+
+    if((boost::math::isnan)(wfes::config::ConfigTimeDistSGV::population_size))
+        return "Error";
+    else
+        return QString::fromStdString(fmt.str());
+}
+
+void InputControllerTimeDist::set_n_sgv(QString n) const
+{
+    std::string n_str = n.toStdString();
+    try {
+        double n_d = boost::lexical_cast<double>(n_str);
+        wfes::config::ConfigTimeDistSGV::population_size = n_d;
+    } catch(boost::exception const&  ex) {
+        std::string errorMessage = "";
+        if(n_str.compare("") == 0) {
+            errorMessage = "The field 'Population' (N) is empty." + n_str + "\n";
+        } else {
+            errorMessage = "Wrong value for 'Population' (N): " + n_str + "\n";
+        }
+        wfes::config::ConfigTimeDist::error += errorMessage;
+    }
+}
+
 QString InputControllerTimeDist::get_a() const
 {
     boost::format fmt = boost::format(DPFS) % (wfes::config::ConfigTimeDist::a);
@@ -51,6 +79,33 @@ void InputControllerTimeDist::set_a(QString a) const
     try {
         double a_d = boost::lexical_cast<double>(a_str);
         wfes::config::ConfigTimeDist::a = a_d;
+    } catch(boost::exception const&  ex) {
+        std::string errorMessage = "";
+        if(a_str.compare("") == 0) {
+            errorMessage = "The field 'Tail Truncation Weight' (a) is empty." + a_str + "\n";
+        } else {
+            errorMessage = "Wrong value for 'Tail Truncation Weight' (a): " + a_str + "\n";
+        }
+        wfes::config::ConfigTimeDist::error += errorMessage;
+    }
+}
+
+QString InputControllerTimeDist::get_a_sgv() const
+{
+    boost::format fmt = boost::format(DPFS) % (wfes::config::ConfigTimeDistSGV::a);
+
+    if((boost::math::isnan)(wfes::config::ConfigTimeDistSGV::a))
+        return "Error";
+    else
+        return QString::fromStdString(fmt.str());
+}
+
+void InputControllerTimeDist::set_a_sgv(QString a) const
+{
+    std::string a_str = a.toStdString();
+    try {
+        double a_d = boost::lexical_cast<double>(a_str);
+        wfes::config::ConfigTimeDistSGV::a = a_d;
     } catch(boost::exception const&  ex) {
         std::string errorMessage = "";
         if(a_str.compare("") == 0) {
@@ -117,6 +172,34 @@ void InputControllerTimeDist::set_c(QString c) const
     }
 }
 
+QString InputControllerTimeDist::get_c_sgv() const
+{
+    boost::format fmt = boost::format(DPFS) % (wfes::config::ConfigTimeDistSGV::integration_cutoff);
+
+    if((boost::math::isnan)(wfes::config::ConfigTimeDistSGV::integration_cutoff))
+        return "Error";
+    else
+        return QString::fromStdString(fmt.str());
+
+}
+
+void InputControllerTimeDist::set_c_sgv(QString c) const
+{
+    std::string c_str = c.toStdString();
+    try {
+        double c_d = boost::lexical_cast<double>(c_str);
+        wfes::config::ConfigTimeDistSGV::integration_cutoff = c_d;
+    } catch(boost::exception const&  ex) {
+        std::string errorMessage = "";
+        if(c_str.compare("") == 0) {
+            errorMessage = "The field 'Integration Cutoff' (c) is empty." + c_str + "\n";
+        } else {
+            errorMessage = "Wrong value for 'Integration Cutoff' (c): " + c_str + "\n";
+        }
+        wfes::config::ConfigTimeDist::error += errorMessage;
+    }
+}
+
 QString InputControllerTimeDist::get_m() const
 {
     boost::format fmt = boost::format(DPFS) % (wfes::config::ConfigTimeDist::max_t);
@@ -133,6 +216,33 @@ void InputControllerTimeDist::set_m(QString m) const
     try {
         double m_d = boost::lexical_cast<double>(m_str);
         wfes::config::ConfigTimeDist::max_t = m_d;
+    } catch(boost::exception const&  ex) {
+        std::string errorMessage = "";
+        if(m_str.compare("") == 0) {
+            errorMessage = "The field 'Max. num. generations' (m) is empty." + m_str + "\n";
+        } else {
+            errorMessage = "Wrong value for 'Max. num. generations' (m): " + m_str + "\n";
+        }
+        wfes::config::ConfigTimeDist::error += errorMessage;
+    }
+}
+
+QString InputControllerTimeDist::get_m_sgv() const
+{
+    boost::format fmt = boost::format(DPFS) % (wfes::config::ConfigTimeDistSGV::max_t);
+
+    if((boost::math::isnan)(wfes::config::ConfigTimeDistSGV::max_t))
+        return "Error";
+    else
+        return QString::fromStdString(fmt.str());
+}
+
+void InputControllerTimeDist::set_m_sgv(QString m) const
+{
+    std::string m_str = m.toStdString();
+    try {
+        double m_d = boost::lexical_cast<double>(m_str);
+        wfes::config::ConfigTimeDistSGV::max_t = m_d;
     } catch(boost::exception const&  ex) {
         std::string errorMessage = "";
         if(m_str.compare("") == 0) {
@@ -319,6 +429,16 @@ bool InputControllerTimeDist::get_r() const
 void InputControllerTimeDist::set_r(bool r) const
 {
     wfes::config::ConfigTimeDist::no_rem = r;
+}
+
+bool InputControllerTimeDist::get_r_sgv() const
+{
+    return wfes::config::ConfigTimeDistSGV::no_rem;
+}
+
+void InputControllerTimeDist::set_r_sgv(bool r) const
+{
+    wfes::config::ConfigTimeDistSGV::no_rem = r;
 }
 
 QString InputControllerTimeDist::get_model_type() const
