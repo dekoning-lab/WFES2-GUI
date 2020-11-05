@@ -22,7 +22,7 @@
 #include <model/executables/wfes_switching/controllers/outputControllerWfesSwitching.h>
 #include <model/visualization/imageOutputController.h>
 #include <model/visualization/visualizationImageProvider.h>
-#include <asm-generic/errno.h>
+
 
 int main(int argc, char *argv[])
 {
