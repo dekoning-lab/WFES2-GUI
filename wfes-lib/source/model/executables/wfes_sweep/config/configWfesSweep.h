@@ -10,7 +10,6 @@
 #include <QStandardPaths>
 #include <QDebug>
 
-
 namespace wfes {
     namespace config {
 

@@ -17,6 +17,28 @@ Rectangle {
         width: parent.width
         height: parent.height
 
+        function addTab() {
+            onAdd()
+            var component = Qt.createComponent(urlComponent)
+            var object = component.createObject(tb, {})
+            tb.insertTab(tb.count-2, (tabNames + " " + (tb.count - 1)), object)
+            tb.currentIndex = tb.count-3
+            tb.getTab(tb.count-3).children[0].number = tb.count-2
+        }
+
+        function deleteTab() {
+            if(tb.count > 3) {
+                if(this.visible) {
+                    onDelete()
+                    tb.currentIndex = tb.count-4
+                    tb.removeTab(tb.count-3)
+                }
+            }else {
+                console.log("Cannot remove last Tab!")
+                tb.currentIndex = tb.count-3
+            }
+        }
+
         Tab {
             id:viewComp1
             title: tabNames + " 1"

@@ -435,56 +435,7 @@ ApplicationWindow {
                                 onClicked: {
                                     bottomMenu.visibleProgressBar = true
 
-                                    inputControllerWfas.ui_a = inputA.textFieldText
-                                    inputControllerWfas.ui_p - inputP.textFieldText
-                                    inputControllerWfas.ui_no_project - inputNoProject.textFieldText
-                                    var N_vec = []
-                                    var G_vec = []
-                                    var f_vec = []
-                                    var u_vec = []
-                                    var v_vec = []
-                                    var s_vec = []
-                                    var h_vec = []
-                                    for(var i = 0; i < inputControllerWfas.ui_num_comp; i++) {
-                                        componentsSectionTabView.children[0].getTab(i).active = true
-                                        var N = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[0].textFieldText
-                                        var G = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[1].textFieldText
-                                        var f = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[2].textFieldText
-                                        var u = componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[0].textFieldText
-                                        var v = componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[1].textFieldText
-                                        var s = componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[0].textFieldText
-                                        var h = componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[1].textFieldText
-                                        N_vec.push(N)
-                                        G_vec.push(G)
-                                        f_vec.push(f)
-                                        u_vec.push(u)
-                                        v_vec.push(v)
-                                        s_vec.push(s)
-                                        h_vec.push(h)
-                                    }
-                                    inputControllerWfas.ui_N_vec = N_vec
-                                    inputControllerWfas.ui_G_vec = G_vec
-                                    inputControllerWfas.ui_f_vec = f_vec
-                                    inputControllerWfas.ui_u_vec = u_vec
-                                    inputControllerWfas.ui_v_vec = v_vec
-                                    inputControllerWfas.ui_s_vec = s_vec
-                                    inputControllerWfas.ui_h_vec = h_vec
-
-                                    inputControllerWfas.ui_output_Q = inputWriteQ.checked
-                                    //inputControllerWfas.ui_output_R = inputWriteR.checked
-                                    //inputControllerWfas.ui_output_N = inputWriteN.checked
-                                    inputControllerWfas.ui_output_B = inputWriteB.checked
-                                    //inputControllerWfas.ui_output_N_Ext = inputWriteNExt.checked
-                                    //inputControllerWfas.ui_output_N_Fix = inputWriteNFix.checked
-                                    //inputControllerWfas.ui_output_N_Tmo = inputWriteNTmo.checked
-                                    inputControllerWfas.ui_output_Dist = inputWriteDist.checked
-                                    inputControllerWfas.ui_t = inputT.textFieldText
-                                    inputControllerWfas.ui_force = inputForce.checked
-
-                                    inputControllerWfas.ui_initial_distribution = inputI.textFieldText
-
-                                    inputControllerWfas.ui_library = comboBoxLibrary.currentText;
-                                    inputControllerWfas.ui_solver = comboBoxSolver.currentText;
+                                    updateBackend()
 
                                     console.log(outputControllerWfas.ui_get_error_message)
                                     if(outputControllerWfas.ui_get_error_message === "") {
@@ -611,4 +562,131 @@ ApplicationWindow {
 
     }
 
+
+    function updateGUI() {
+        inputA.textFieldText = inputControllerWfas.ui_a
+        inputP.textFieldText = inputControllerWfas.ui_p
+        inputNoProject.checked = inputControllerWfas.ui_no_proj
+
+        var N_vec = inputControllerWfas.ui_N_vec
+        var G_vec = inputControllerWfas.ui_G_vec
+        var f_vec = inputControllerWfas.ui_f_vec
+        var u_vec = inputControllerWfas.ui_u_vec
+        var v_vec = inputControllerWfas.ui_v_vec
+        var s_vec = inputControllerWfas.ui_s_vec
+        var h_vec = inputControllerWfas.ui_h_vec
+
+        // Minus 2 because we don't have to count the add and delete tabs.
+        // If the number of current tabs is less than the number of components to load,
+        // add a tab.
+        if(componentsSectionTabView.children[0].count - 2 < inputControllerWfas.ui_num_comp) {
+
+            while(componentsSectionTabView.children[0].count - 2 < inputControllerWfas.ui_num_comp) {
+                // Create new tab.
+                componentsSectionTabView.children[0].addTab()
+                // Don't update ui_num_comp
+                inputControllerWfas.ui_num_comp = inputControllerWfas.ui_num_comp - 1
+            }
+        // If the number of current tabs is greater than the number of components to load,
+        // remove a tab.
+        } else if(componentsSectionTabView.children[0].count - 2 > inputControllerWfas.ui_num_comp) {
+
+            while(componentsSectionTabView.children[0].count - 2 > inputControllerWfas.ui_num_comp) {
+                // Delete a tab.
+                componentsSectionTabView.children[0].deleteTab()
+                // Don't update ui_num_comp
+                inputControllerWfas.ui_num_comp = parseInt(inputControllerWfas.ui_num_comp) + 1
+            }
+        }
+
+        for(var i = 0; i < inputControllerWfas.ui_num_comp; i++) {
+            componentsSectionTabView.children[0].getTab(i).active = true
+            componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[0].textFieldText = N_vec[i]
+            componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[1].textFieldText = G_vec[i]
+            componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[2].textFieldText = f_vec[i]
+            componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[0].textFieldText = u_vec[i]
+            componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[1].textFieldText = v_vec[i]
+            componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[0].textFieldText = s_vec[i]
+            componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[1].textFieldText = h_vec[i]
+        }
+        inputWriteQ.checked = inputControllerWfas.ui_output_Q
+        //inputWriteR.checked = inputControllerWfas.ui_output_R
+        //inputWriteN.checked = inputControllerWfas.ui_output_N
+        inputWriteB.checked = inputControllerWfas.ui_output_B
+        //inputControllerWfas.ui_output_N_Ext = inputWriteNExt.checked
+        //inputWriteNFix.checked = inputControllerWfas.ui_output_N_Fix
+        //inputWriteNTmo.checked = inputControllerWfas.ui_output_N_Tmo
+        inputWriteDist.checked = inputControllerWfas.ui_output_Dist
+        inputT.textFieldText = inputControllerWfas.ui_t
+        inputForce.checked = inputControllerWfas.ui_force
+
+        inputI.textFieldText = inputControllerWfas.ui_initial_distribution
+
+        var library = inputControllerWfas.ui_library
+        if(library === "Pardiso")
+            comboBoxLibrary.currentIndex = 0
+        else if(library === "ViennaCL")
+            comboBoxLibrary.currentIndex = 1
+
+        var solver = inputControllerWfas.ui_solver
+        if(library === "GMRes")
+            comboBoxSolver.currentIndex = 0
+        else if(library === "BicGStab")
+            comboBoxSolver.currentIndex = 1
+    }
+
+    function updateBackend() {
+
+        inputControllerWfas.ui_a = inputA.textFieldText
+        inputControllerWfas.ui_p = inputP.textFieldText
+        inputControllerWfas.ui_no_proj = inputNoProject.checked
+        var N_vec = []
+        var G_vec = []
+        var f_vec = []
+        var u_vec = []
+        var v_vec = []
+        var s_vec = []
+        var h_vec = []
+        for(var i = 0; i < inputControllerWfas.ui_num_comp; i++) {
+            componentsSectionTabView.children[0].getTab(i).active = true
+            var N = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[0].textFieldText
+            var G = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[1].textFieldText
+            var f = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[2].textFieldText
+            var u = componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[0].textFieldText
+            var v = componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[1].textFieldText
+            var s = componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[0].textFieldText
+            var h = componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[1].textFieldText
+            N_vec.push(N)
+            G_vec.push(G)
+            f_vec.push(f)
+            u_vec.push(u)
+            v_vec.push(v)
+            s_vec.push(s)
+            h_vec.push(h)
+        }
+        inputControllerWfas.ui_N_vec = N_vec
+        inputControllerWfas.ui_G_vec = G_vec
+        inputControllerWfas.ui_f_vec = f_vec
+        inputControllerWfas.ui_u_vec = u_vec
+        inputControllerWfas.ui_v_vec = v_vec
+        inputControllerWfas.ui_s_vec = s_vec
+        inputControllerWfas.ui_h_vec = h_vec
+
+        inputControllerWfas.ui_output_Q = inputWriteQ.checked
+        //inputControllerWfas.ui_output_R = inputWriteR.checked
+        //inputControllerWfas.ui_output_N = inputWriteN.checked
+        inputControllerWfas.ui_output_B = inputWriteB.checked
+        //inputControllerWfas.ui_output_N_Ext = inputWriteNExt.checked
+        //inputControllerWfas.ui_output_N_Fix = inputWriteNFix.checked
+        //inputControllerWfas.ui_output_N_Tmo = inputWriteNTmo.checked
+        inputControllerWfas.ui_output_Dist = inputWriteDist.checked
+        inputControllerWfas.ui_t = inputT.textFieldText
+        inputControllerWfas.ui_force = inputForce.checked
+
+        inputControllerWfas.ui_initial_distribution = inputI.textFieldText
+
+        inputControllerWfas.ui_library = comboBoxLibrary.currentText;
+        inputControllerWfas.ui_solver = comboBoxSolver.currentText;
+
+    }
 }
