@@ -16,6 +16,8 @@ namespace wfes {
             Q_OBJECT
             Q_PROPERTY(QString ui_execute READ execute CONSTANT)
             Q_PROPERTY(QString ui_stop READ stop CONSTANT)
+            Q_PROPERTY(QString ui_save_config READ save_config CONSTANT)
+            Q_PROPERTY(QString ui_load_config READ load_config CONSTANT)
             Q_PROPERTY(QString ui_get_mean READ get_mean NOTIFY results_changed)
             Q_PROPERTY(QString ui_get_std READ get_std NOTIFY results_changed)
             Q_PROPERTY(QString ui_get_error_message READ get_error_message NOTIFY results_changed)
@@ -47,16 +49,28 @@ namespace wfes {
                 ~OutputControllerPhaseType();
 
                 /**
-                 * @brief Execute pphase_type and get results.
+                 * @brief Execute phase_type and get results.
                  * @return Results of wfes_single execution.
                  */
                 QString execute();
 
                 /**
-                 * @brief Stop an execution of wfes_single.
+                 * @brief Stop an execution of phase_type.
                  * @return Nothing.
                  */
                 QString stop();
+
+                /**
+                 * @brief Save configuration of phase_type.
+                 * @return Nothing.
+                 */
+                QString save_config();
+
+                /**
+                 * @brief Load configuration of phase_type.
+                 * @return Nothing.
+                 */
+                QString load_config();
 
                 /**
                  * @brief Send get_mean to GUI.

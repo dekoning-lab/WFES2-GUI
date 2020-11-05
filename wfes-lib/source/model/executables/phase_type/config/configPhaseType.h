@@ -4,6 +4,12 @@
 #include <string>
 #include "utils/types.h"
 
+#include <QDir>
+#include <QStandardPaths>
+#include <QDebug>
+
+#include <QString>
+
 namespace wfes {
     namespace config {
 
@@ -182,6 +188,11 @@ namespace wfes {
                  */
                 static std::string error;
 
+                static void saveConfigPhaseType();
+
+                static void loadConfigPhaseType();
+
+                static void processLine(QString line);
         };
     }
 }

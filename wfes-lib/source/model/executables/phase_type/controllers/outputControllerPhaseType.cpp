@@ -1,6 +1,7 @@
 #include "outputControllerPhaseType.h"
 
 using namespace wfes::controllers;
+using namespace wfes::config;
 
 OutputControllerPhaseType::OutputControllerPhaseType(QObject *parent): QObject(parent), executing(false){}
 
@@ -27,6 +28,20 @@ QString OutputControllerPhaseType::stop()
     worker->terminate();
     worker->wait();
     worker->exit();
+
+    return QString();
+}
+
+QString OutputControllerPhaseType::save_config()
+{
+    ConfigPhaseType::saveConfigPhaseType();
+
+    return QString();
+}
+
+QString OutputControllerPhaseType::load_config()
+{
+    ConfigPhaseType::loadConfigPhaseType();
 
     return QString();
 }
