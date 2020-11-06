@@ -11,6 +11,8 @@ Rectangle {
     property alias text: label.text
     property alias checked: checkBox.checked
 
+    property alias enabledCheckBox: checkBox.enabled
+
     property var fun: function(){}
 
     property string toolTipText: "This is a tooltip"

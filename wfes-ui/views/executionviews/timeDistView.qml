@@ -815,9 +815,9 @@ ApplicationWindow {
                                 LabeledCheckBox {
                                     id: inputWriteP
                                     text: "P: "
-                                    toolTipText: "TODO."
-                                    checked: inputControllerTimeDist.ui_output_P
-                                    //enabled: //TODO
+                                    toolTipText: "TODO. (Always enabled)."
+                                    checked: true
+                                    enabledCheckBox: false
                                 }
 
                             }

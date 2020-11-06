@@ -213,8 +213,9 @@ ApplicationWindow {
                                 LabeledCheckBox {
                                     id: inputWriteDist
                                     text: "Dist: "
-                                    toolTipText: "Output Allele freq. dist. as CSV file."
-                                    checked: inputControllerWfafle.ui_output_Dist
+                                    enabledCheckBox: false
+                                    toolTipText: "Output Allele freq. dist. as CSV file. (Always enabled)."
+                                    checked: true
                                 }
 
                             }

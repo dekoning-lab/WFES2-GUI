@@ -395,8 +395,9 @@ ApplicationWindow {
                                 LabeledCheckBox {
                                     id: inputWriteMoments
                                     text: "Moments: "
-                                    toolTipText: "//TODO."
-                                    checked: inputControllerPhaseType.ui_output_Moments
+                                    toolTipText: "//TODO. (Always enabled)."
+                                    checked: true
+                                    enabledCheckBox: false
                                     enabled: inputControllerPhaseType.ui_modelType == "Phase Type Moments"
                                 }
 
