@@ -16,11 +16,19 @@ Item {
             height: childrenRect.height
             width: parent.width
             ChangeStackViewButton {
+                ToolTip.text: "Wright Fisher Exact Solver"
+                ToolTip.delay: 1000
+                ToolTip.timeout: 5000
+                ToolTip.visible: hovered
                 text: "WFES"
                 view: "qrc:/views/mainview/stackbuttons/wfesButtons.qml"
             }
             Button {
-                text: "WFAS"
+                text: "WFAF-S"
+                ToolTip.text: "Wright-Fisher Allele Frequency Stochastic"
+                ToolTip.delay: 1000
+                ToolTip.timeout: 5000
+                ToolTip.visible: hovered
                 onClicked: {
                     var componentWfas = Qt.createComponent("qrc:/views/executionviews/wfasView.qml")
                     if( componentWfas.status !== Component.Ready )
@@ -36,7 +44,11 @@ Item {
                 Layout.preferredWidth: 160
             }
             Button {
-                text: "WFAFLE"
+                text: "WFAF-D"
+                ToolTip.text: "Wright-Fisher Allele Frequency Deterministic"
+                ToolTip.delay: 1000
+                ToolTip.timeout: 5000
+                ToolTip.visible: hovered
                 onClicked: {
                     var componentWfafle = Qt.createComponent("qrc:/views/executionviews/wfafleView.qml")
                     if( componentWfafle.status !== Component.Ready )
@@ -64,6 +76,10 @@ Item {
             }
             Button {
                 text: "Time Dist."
+                ToolTip.text: "Distribution of Time to Fixation/Extinction"
+                ToolTip.delay: 1000
+                ToolTip.timeout: 5000
+                ToolTip.visible: hovered
                 onClicked: {
                     var componentTimeDist = Qt.createComponent("qrc:/views/executionviews/timeDistView.qml")
                     if( componentTimeDist.status !== Component.Ready )
@@ -80,6 +96,10 @@ Item {
             }
             Button {
                 text: "Phase Type"
+                ToolTip.text: "Calculate Moments and Distributions of Absorption Times for a Fixation-only Model"
+                ToolTip.delay: 1000
+                ToolTip.timeout: 5000
+                ToolTip.visible: hovered
                 onClicked: {
                     var componentPhaseType = Qt.createComponent("qrc:/views/executionviews/phaseTypeView.qml")
                     if( componentPhaseType.status !== Component.Ready )
