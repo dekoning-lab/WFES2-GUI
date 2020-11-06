@@ -17,6 +17,11 @@ Item {
             width: parent.width
             Button {
                 text: "WFES Single"
+                ToolTip.text: "Calculations for the Standard Wright-Fisher Model"
+                ToolTip.delay: 1000
+                ToolTip.timeout: 5000
+                ToolTip.visible: hovered
+
                 onClicked: {
                     var componentWfesSingle = Qt.createComponent("qrc:/views/executionviews/wfesSingleView.qml")
                     if( componentWfesSingle.status !== Component.Ready )
@@ -33,6 +38,11 @@ Item {
             }
             Button {
                 text: "WFES Sweep"
+                ToolTip.text: "Model of Positive Selection with Standing Genetic Variation"
+                ToolTip.delay: 1000
+                ToolTip.timeout: 5000
+                ToolTip.visible: hovered
+
                 onClicked: {
                     var componentWfesSweep = Qt.createComponent("qrc:/views/executionviews/wfesSweepView.qml")
                     if( componentWfesSweep.status !== Component.Ready )
@@ -60,6 +70,10 @@ Item {
 
             Button {
                 text: "WFES Sequential"
+                ToolTip.text: "// TODO"
+                ToolTip.delay: 1000
+                ToolTip.timeout: 5000
+                ToolTip.visible: hovered
                 onClicked: {
                     var componentWfesSequential = Qt.createComponent("qrc:/views/executionviews/wfesSequentialView.qml")
                     if( componentWfesSequential.status !== Component.Ready )
@@ -76,6 +90,11 @@ Item {
             }
             Button {
                 text: "WFES Switching"
+                ToolTip.text: "Time-heterogeneous Extension to the Wright-Fisher Model"
+                ToolTip.delay: 1000
+                ToolTip.timeout: 5000
+                ToolTip.visible: hovered
+
                 onClicked: {
                     var componentWfesSwithcing = Qt.createComponent("qrc:/views/executionviews/wfesSwitchingView.qml")
                     if( componentWfesSwithcing.status !== Component.Ready )

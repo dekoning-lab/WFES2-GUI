@@ -11,7 +11,7 @@ import components 1.0
 //TODO Implement value validators and return exceptions.
 ApplicationWindow {
     id: rootWfas
-    title: qsTr("WFES - Wright-Fisher Exact Solver (WFAS)")
+    title: qsTr("WFES - Wright-Fisher Exact Solver (WFAF-S)")
 
     color: Universal.chromeLowColor
 
