@@ -1,8 +1,15 @@
 #ifndef CONFIGWFESSWITCHING_H
 #define CONFIGWFESSWITCHING_H
 
+#include <string>
 #include "utils/types.h"
-#include <boost/assign/list_of.hpp>
+
+#include <QDir>
+#include <QStandardPaths>
+#include <QDebug>
+
+#include <QString>
+
 namespace wfes {
     namespace config {
 
@@ -172,6 +179,12 @@ namespace wfes {
              */
             static int num_comp;
 
+
+            static void saveConfigWfesSwitching();
+
+            static void loadConfigWfesSwitching();
+
+            static void processLine(QString line);
 
 
         };

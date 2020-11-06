@@ -1,7 +1,14 @@
 #ifndef CONFIGWFAS_H
 #define CONFIGWFAS_H
 
+#include <string>
 #include "utils/types.h"
+
+#include <QString>
+
+#include <QDir>
+#include <QStandardPaths>
+#include <QDebug>
 
 namespace wfes {
     namespace config {
@@ -23,12 +30,24 @@ namespace wfes {
                  */
                 static std::string vienna_solver;
 
+                /**
+                 * @brief Population size for each of the k epochs (N)
+                 */
                 static lvec N;
 
+                /**
+                 * @brief Number of generations each of the k epochs last (G)
+                 */
                 static lvec G;
 
+                /**
+                 * @brief Approximating (down) factor for each population size (f).
+                 */
                 static dvec f;
 
+                /**
+                 * @brief Individial selection coefficient (s)
+                 */
                 static dvec s;
 
                 static dvec h;
@@ -39,10 +58,16 @@ namespace wfes {
 
                 static double a;
 
+                /**
+                 * @brief p Initial number of alleles (i will be ignored)
+                 */
                 static int p;
 
                 static int n_threads;
 
+                /**
+                 * @brief no_proj Do not project the distribution down.
+                 */
                 static bool no_proj;
 
                 /**
@@ -158,6 +183,11 @@ namespace wfes {
                  */
                 static int num_comp;
 
+                static void saveConfigWfas();
+
+                static void loadConfigWfas();
+
+                static void processLine(QString line);
             };
     }
 }

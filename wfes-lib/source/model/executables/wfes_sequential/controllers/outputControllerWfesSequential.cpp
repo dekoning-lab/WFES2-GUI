@@ -1,6 +1,7 @@
 #include "outputControllerWfesSequential.h"
 
 using namespace wfes::controllers;
+using namespace wfes::config;
 
 OutputControllerWfesSequential::OutputControllerWfesSequential(QObject* parent): QObject(parent), executing(false){}
 
@@ -28,6 +29,20 @@ QString OutputControllerWfesSequential::stop()
     worker->terminate();
     worker->wait();
     worker->exit();
+
+    return QString();
+}
+
+QString OutputControllerWfesSequential::save_config()
+{
+    ConfigWfesSequential::saveConfigWfesSequential();
+
+    return QString();
+}
+
+QString OutputControllerWfesSequential::load_config()
+{
+    ConfigWfesSequential::loadConfigWfesSequential();
 
     return QString();
 }

@@ -1,6 +1,7 @@
 #include "outputControllerWfas.h"
 
 using namespace wfes::controllers;
+using namespace wfes::config;
 
 OutputControllerWfas::OutputControllerWfas(QObject *parent): QObject(parent), executing(false){}
 
@@ -29,6 +30,20 @@ QString OutputControllerWfas::stop()
     worker->terminate();
     worker->wait();
     worker->exit();
+
+    return QString();
+}
+
+QString OutputControllerWfas::save_config()
+{
+    ConfigWfas::saveConfigWfas();
+
+    return QString();
+}
+
+QString OutputControllerWfas::load_config()
+{
+    ConfigWfas::loadConfigWfas();
 
     return QString();
 }

@@ -184,81 +184,36 @@ ApplicationWindow {
                             tabNames: "Comp."
                             urlComponent: "qrc:/views/executionviews/tabcomponents/tabWfesSwitchingComponent.qml"
                             onAdd: function(){
-                                //Update backend from GUI before copying.
-                                var N_vec = []
-                                var r_vec = []
-                                var p_vec = []
-                                var u_vec = []
-                                var v_vec = []
-                                var s_vec = []
-                                var h_vec = []
-                                for(var i = 0; i < inputControllerWfesSwitching.ui_num_comp; i++) {
-                                    componentsSectionTabView.children[0].getTab(i).active = true
-                                    var N = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[0].textFieldText
-                                    var p = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[1].textFieldText
-                                    var r = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[2].textFieldText
-                                    var u = componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[0].textFieldText
-                                    var v = componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[1].textFieldText
-                                    var s = componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[0].textFieldText
-                                    var h = componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[1].textFieldText
-                                    N_vec.push(N)
-                                    r_vec.push(r)
-                                    p_vec.push(p)
-                                    u_vec.push(u)
-                                    v_vec.push(v)
-                                    s_vec.push(s)
-                                    h_vec.push(h)
-                                }
-                                inputControllerWfesSwitching.ui_N_vec = N_vec
-                                inputControllerWfesSwitching.ui_r_vec = r_vec
-                                inputControllerWfesSwitching.ui_p_vec = p_vec
-                                inputControllerWfesSwitching.ui_u_vec = u_vec
-                                inputControllerWfesSwitching.ui_v_vec = v_vec
-                                inputControllerWfesSwitching.ui_s_vec = s_vec
-                                inputControllerWfesSwitching.ui_h_vec = h_vec
-
-
-                                //Increase arrays size.
-                                var num_comps = parseInt(inputControllerWfesSwitching.ui_num_comp) + 1
-                                inputControllerWfesSwitching.ui_num_comp = parseInt(num_comps)
+                                var num_comps = inputControllerWfesSwitching.ui_num_comp
+                                inputControllerWfesSwitching.ui_num_comp = parseInt(num_comps) + 1
 
                                 // Update previous adding 1
                                 var vector = inputControllerWfesSwitching.ui_r_vec
-                                var arr = []
-                                for(var j = 0; j < num_comps - 1; j++){
-                                    var line = vector[j].slice()
-                                    line = line.concat(", 1.000000")
-                                    componentsSectionTabView.children[0].getTab(j).item.children[0].children[1].children[2].textFieldText = line
-                                    arr[j] = line
-                                }
-                                inputControllerWfesSwitching.ui_r_vec = arr
-                                // Create new from previous.
-                                vector[num_comps-1] = inputControllerWfesSwitching.ui_r_vec[num_comps-2]
+                                vector[num_comps] = inputControllerWfesSwitching.ui_r_vec[num_comps-1]
                                 inputControllerWfesSwitching.ui_r_vec = vector
 
-
                                 vector = inputControllerWfesSwitching.ui_N_vec
-                                vector[num_comps-1] = inputControllerWfesSwitching.ui_N_vec[num_comps-2]
+                                vector[num_comps] = inputControllerWfesSwitching.ui_N_vec[num_comps-1]
                                 inputControllerWfesSwitching.ui_N_vec = vector
 
                                 vector = inputControllerWfesSwitching.ui_p_vec
-                                vector[num_comps-1] = inputControllerWfesSwitching.ui_p_vec[num_comps-2]
+                                vector[num_comps] = inputControllerWfesSwitching.ui_p_vec[num_comps-1]
                                 inputControllerWfesSwitching.ui_p_vec = vector
 
                                 vector = inputControllerWfesSwitching.ui_s_vec
-                                vector[num_comps-1] = inputControllerWfesSwitching.ui_s_vec[num_comps-2]
+                                vector[num_comps] = inputControllerWfesSwitching.ui_s_vec[num_comps-1]
                                 inputControllerWfesSwitching.ui_s_vec = vector
 
                                 vector = inputControllerWfesSwitching.ui_h_vec
-                                vector[num_comps-1] = inputControllerWfesSwitching.ui_h_vec[num_comps-2]
+                                vector[num_comps] = inputControllerWfesSwitching.ui_h_vec[num_comps-1]
                                 inputControllerWfesSwitching.ui_h_vec = vector
 
                                 vector = inputControllerWfesSwitching.ui_u_vec
-                                vector[num_comps-1] = inputControllerWfesSwitching.ui_u_vec[num_comps-2]
+                                vector[num_comps] = inputControllerWfesSwitching.ui_u_vec[num_comps-1]
                                 inputControllerWfesSwitching.ui_u_vec = vector
 
                                 vector = inputControllerWfesSwitching.ui_v_vec
-                                vector[num_comps-1] = inputControllerWfesSwitching.ui_v_vec[num_comps-2]
+                                vector[num_comps] = inputControllerWfesSwitching.ui_v_vec[num_comps-1]
                                 inputControllerWfesSwitching.ui_v_vec = vector
                             }
                             onDelete: function(){
@@ -569,60 +524,7 @@ ApplicationWindow {
                                 onClicked: {
                                     bottomMenu.visibleProgressBar = true
 
-                                    // Set mode in backend.
-                                    if(radioButtonWfesSwitchingAbsorption.checked)
-                                        inputControllerWfesSwitching.ui_modelType = "Absorption"
-                                    else if (radioButtonWfesSwitchingFixation.checked)
-                                        inputControllerWfesSwitching.ui_modelType = "Fixation"
-
-                                    inputControllerWfesSwitching.ui_a = inputA.textFieldText
-                                    inputControllerWfesSwitching.ui_c = inputC.textFieldText
-                                    var N_vec = []
-                                    var r_vec = []
-                                    var p_vec = []
-                                    var u_vec = []
-                                    var v_vec = []
-                                    var s_vec = []
-                                    var h_vec = []
-                                    for(var i = 0; i < inputControllerWfesSwitching.ui_num_comp; i++) {
-                                        componentsSectionTabView.children[0].getTab(i).active = true
-                                        var N = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[0].textFieldText
-                                        var p = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[1].textFieldText
-                                        var r = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[2].textFieldText
-                                        var u = componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[0].textFieldText
-                                        var v = componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[1].textFieldText
-                                        var s = componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[0].textFieldText
-                                        var h = componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[1].textFieldText
-                                        N_vec.push(N)
-                                        r_vec.push(r)
-                                        p_vec.push(p)
-                                        u_vec.push(u)
-                                        v_vec.push(v)
-                                        s_vec.push(s)
-                                        h_vec.push(h)
-                                    }
-                                    inputControllerWfesSwitching.ui_N_vec = N_vec
-                                    inputControllerWfesSwitching.ui_r_vec = r_vec
-                                    inputControllerWfesSwitching.ui_p_vec = p_vec
-                                    inputControllerWfesSwitching.ui_u_vec = u_vec
-                                    inputControllerWfesSwitching.ui_v_vec = v_vec
-                                    inputControllerWfesSwitching.ui_s_vec = s_vec
-                                    inputControllerWfesSwitching.ui_h_vec = h_vec
-
-                                    inputControllerWfesSwitching.ui_output_Q = inputWriteQ.checked
-                                    inputControllerWfesSwitching.ui_output_R = inputWriteR.checked
-                                    inputControllerWfesSwitching.ui_output_N = inputWriteN.checked
-                                    inputControllerWfesSwitching.ui_output_B = inputWriteB.checked
-                                    inputControllerWfesSwitching.ui_output_N_Ext = inputWriteNExt.checked
-                                    inputControllerWfesSwitching.ui_output_N_Fix = inputWriteNFix.checked
-                                    inputControllerWfesSwitching.ui_output_Res = inputWriteRes.checked
-                                    inputControllerWfesSwitching.ui_t = inputT.textFieldText
-                                    inputControllerWfesSwitching.ui_force = inputForce.checked
-
-                                    inputControllerWfesSwitching.ui_initial_distribution = inputI.textFieldText
-
-                                    inputControllerWfesSwitching.ui_library = comboBoxLibrary.currentText;
-                                    inputControllerWfesSwitching.ui_solver = comboBoxSolver.currentText;
+                                    updateBackend()
 
                                     console.log(outputControllerWfesSwitching.ui_get_error_message)
                                     if(outputControllerWfesSwitching.ui_get_error_message === "") {
@@ -787,7 +689,137 @@ ApplicationWindow {
                 left: parent.left
             }
         }
+    }
 
+    function updateGUI() {
+        radioButtonWfesSwitchingAbsorption.checked = inputControllerWfesSwitching.ui_modelType == "Absorption"
+        radioButtonWfesSwitchingFixation.checked = inputControllerWfesSwitching.ui_modelType == "Fixation"
+
+        inputA.textFieldText = inputControllerWfesSwitching.ui_a
+        inputC.textFieldText = inputControllerWfesSwitching.ui_c
+
+        var N_vec = inputControllerWfesSwitching.ui_N_vec
+        var r_vec = inputControllerWfesSwitching.ui_r_vec
+        var p_vec = inputControllerWfesSwitching.ui_p_vec
+        var u_vec = inputControllerWfesSwitching.ui_u_vec
+        var v_vec = inputControllerWfesSwitching.ui_v_vec
+        var s_vec = inputControllerWfesSwitching.ui_s_vec
+        var h_vec = inputControllerWfesSwitching.ui_h_vec
+
+        // Minus 2 because we don't have to count the add and delete tabs.
+        // If the number of current tabs is less than the number of components to load,
+        // add a tab.
+        if(componentsSectionTabView.children[0].count - 2 < inputControllerWfesSwitching.ui_num_comp) {
+            while(componentsSectionTabView.children[0].count - 2 < inputControllerWfesSwitching.ui_num_comp) {
+                // Create new tab.
+                componentsSectionTabView.children[0].addTab()
+                // Don't update ui_num_comp
+                inputControllerWfesSwitching.ui_num_comp = parseInt(inputControllerWfesSwitching.ui_num_comp) - 1
+            }
+        // If the number of current tabs is greater than the number of components to load,
+        // remove a tab.
+        } else if(componentsSectionTabView.children[0].count - 2 > inputControllerWfesSwitching.ui_num_comp) {
+
+            while(componentsSectionTabView.children[0].count - 2 > inputControllerWfesSwitching.ui_num_comp) {
+                // Delete a tab.
+                componentsSectionTabView.children[0].deleteTab()
+                // Don't update ui_num_comp
+                inputControllerWfesSwitching.ui_num_comp = parseInt(inputControllerWfesSwitching.ui_num_comp) + 1
+            }
+        }
+
+        console.log(inputControllerWfesSwitching.ui_num_comp)
+        for(var i = 0; i < inputControllerWfesSwitching.ui_num_comp; i++) {
+            componentsSectionTabView.children[0].getTab(i).active = true
+            componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[0].textFieldText = N_vec[i]
+            componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[1].textFieldText = p_vec[i]
+            componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[2].textFieldText = r_vec[i]
+            componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[0].textFieldText = u_vec[i]
+            componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[1].textFieldText = v_vec[i]
+            componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[0].textFieldText = s_vec[i]
+            componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[1].textFieldText = h_vec[i]
+        }
+
+        inputWriteQ.checked = inputControllerWfesSwitching.ui_output_Q
+        inputWriteR.checked = inputControllerWfesSwitching.ui_output_R
+        inputWriteN.checked = inputControllerWfesSwitching.ui_output_N
+        inputWriteB.checked = inputControllerWfesSwitching.ui_output_B
+        inputWriteNExt.checked = inputControllerWfesSwitching.ui_output_N_Ext
+        inputWriteNFix.checked = inputControllerWfesSwitching.ui_output_N_Fix
+        inputWriteRes.checked = inputControllerWfesSwitching.ui_output_Res
+        inputT.textFieldText = inputControllerWfesSwitching.ui_t
+        inputForce.checked = inputControllerWfesSwitching.ui_force
+
+        inputI.textFieldText = inputControllerWfesSwitching.ui_initial_distribution
+
+        var library = inputControllerWfesSwitching.ui_library
+        if(library === "Pardiso")
+            comboBoxLibrary.currentIndex = 0
+        else if(library === "ViennaCL")
+            comboBoxLibrary.currentIndex = 1
+
+        var solver = inputControllerWfesSwitching.ui_solver
+        if(solver === "GMRes")
+            comboBoxSolver.currentIndex = 0
+        else if(solver === "BicGStab")
+            comboBoxSolver.currentIndex = 1
+    }
+
+    function updateBackend() {
+        // Set mode in backend.
+        if(radioButtonWfesSwitchingAbsorption.checked)
+            inputControllerWfesSwitching.ui_modelType = "Absorption"
+        else if (radioButtonWfesSwitchingFixation.checked)
+            inputControllerWfesSwitching.ui_modelType = "Fixation"
+
+        inputControllerWfesSwitching.ui_a = inputA.textFieldText
+        inputControllerWfesSwitching.ui_c = inputC.textFieldText
+        var N_vec = []
+        var r_vec = []
+        var p_vec = []
+        var u_vec = []
+        var v_vec = []
+        var s_vec = []
+        var h_vec = []
+        for(var i = 0; i < componentsSectionTabView.children[0].count - 2; i++) {
+            componentsSectionTabView.children[0].getTab(i).active = true
+            var N = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[0].textFieldText
+            var p = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[1].textFieldText
+            var r = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[2].textFieldText
+            var u = componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[0].textFieldText
+            var v = componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[1].textFieldText
+            var s = componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[0].textFieldText
+            var h = componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[1].textFieldText
+            N_vec.push(N)
+            r_vec.push(r)
+            p_vec.push(p)
+            u_vec.push(u)
+            v_vec.push(v)
+            s_vec.push(s)
+            h_vec.push(h)
+        }
+        inputControllerWfesSwitching.ui_N_vec = N_vec
+        inputControllerWfesSwitching.ui_r_vec = r_vec
+        inputControllerWfesSwitching.ui_p_vec = p_vec
+        inputControllerWfesSwitching.ui_u_vec = u_vec
+        inputControllerWfesSwitching.ui_v_vec = v_vec
+        inputControllerWfesSwitching.ui_s_vec = s_vec
+        inputControllerWfesSwitching.ui_h_vec = h_vec
+
+        inputControllerWfesSwitching.ui_output_Q = inputWriteQ.checked
+        inputControllerWfesSwitching.ui_output_R = inputWriteR.checked
+        inputControllerWfesSwitching.ui_output_N = inputWriteN.checked
+        inputControllerWfesSwitching.ui_output_B = inputWriteB.checked
+        inputControllerWfesSwitching.ui_output_N_Ext = inputWriteNExt.checked
+        inputControllerWfesSwitching.ui_output_N_Fix = inputWriteNFix.checked
+        inputControllerWfesSwitching.ui_output_Res = inputWriteRes.checked
+        inputControllerWfesSwitching.ui_t = inputT.textFieldText
+        inputControllerWfesSwitching.ui_force = inputForce.checked
+
+        inputControllerWfesSwitching.ui_initial_distribution = inputI.textFieldText
+
+        inputControllerWfesSwitching.ui_library = comboBoxLibrary.currentText;
+        inputControllerWfesSwitching.ui_solver = comboBoxSolver.currentText;
 
     }
 

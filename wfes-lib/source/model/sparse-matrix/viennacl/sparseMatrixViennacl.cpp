@@ -370,16 +370,30 @@ void SparseMatrixViennaCL::setValue(double x, int i, int j)
     //TODO Implementation (Not used).
 }
 
-void SparseMatrixViennaCL::saveMarket(std::string path)
+void SparseMatrixViennaCL::saveMarket(std::string name)
 {
-    //TODO Implement with QFile.
-    FILE* out = fopen(path.c_str(), "w");
-    fprintf(out, "%%%%MatrixMarket matrix coordinate real general\n");
+    //TODO put outputPath in global configuration.
+    QString outputPath(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/Wfes/");
+    QDir dir;
+
+    if (!dir.exists(outputPath))
+        dir.mkpath(outputPath);
+
+    QFile file(outputPath + QString::fromStdString(name));
+    file.open(QIODevice::WriteOnly);
+
+    if(!file.isOpen()) {
+        qDebug() << "The file is not open.";
+    }
+
+    QTextStream outStream(&file);
+    outStream << "%%%%MatrixMarket matrix coordinate real general\n";
 
     for (int i = 0; i < num_rows; ++i) {
         for (int j = row_index[i]; j < row_index[i + 1]; ++j) {
-            fprintf(out, "%d" "\t" "%d" "\t" DPF "\n", i + 1, cols[j] + 1, data[j]);
+            outStream << i+1 << "\t" << cols[j] + 1 << "\t" << data[j] << "\n";
         }
     }
-    fclose(out);
+
+    file.close();
 }

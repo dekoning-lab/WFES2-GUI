@@ -83,7 +83,6 @@ Component{
                     id: inputR
                     text: "r" + number + ": "
                     toolTipText: "//TODO."
-                    validator: DoubleValidator {bottom: 2; top: 50000;}
                     textFieldPreferredWidth: 250
                     textFieldText: {
                         if(number != 0) {

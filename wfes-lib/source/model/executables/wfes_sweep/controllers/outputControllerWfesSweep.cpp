@@ -34,6 +34,20 @@ QString OutputControllerWfesSweep::stop()
     return QString();
 }
 
+QString OutputControllerWfesSweep::save_config()
+{
+    ConfigWfesSweep::saveConfigWfesSweep();
+
+    return QString();
+}
+
+QString OutputControllerWfesSweep::load_config()
+{
+    ConfigWfesSweep::loadConfigWfesSweep();
+
+    return QString();
+}
+
 QString OutputControllerWfesSweep::get_t_fix() const
 {
     boost::format fmt = boost::format(DPF) % (this->results.tFix);

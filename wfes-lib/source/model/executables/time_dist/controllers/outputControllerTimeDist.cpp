@@ -1,6 +1,7 @@
 #include "outputControllerTimeDist.h"
 
 using namespace wfes::controllers;
+using namespace wfes::config;
 
 OutputControllerTimeDist::OutputControllerTimeDist(QObject *parent): QObject(parent), executing(false){}
 
@@ -26,6 +27,23 @@ QString OutputControllerTimeDist::stop()
     worker->exit();
 
     return QString();
+}
+
+QString OutputControllerTimeDist::save_config()
+{
+    ConfigTimeDist::saveConfigTimeDist();
+    ConfigTimeDistSGV::saveConfigTimeDistSGV();
+
+    return QString();
+}
+
+QString OutputControllerTimeDist::load_config()
+{
+    ConfigTimeDist::loadConfigTimeDist();
+    ConfigTimeDistSGV::loadConfigTimeDistSGV();
+
+    return QString();
+
 }
 
 QString OutputControllerTimeDist::get_error_message() const

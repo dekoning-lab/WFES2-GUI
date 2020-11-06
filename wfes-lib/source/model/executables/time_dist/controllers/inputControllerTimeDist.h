@@ -18,10 +18,14 @@ namespace wfes {
         class WFESLIBSHARED_EXPORT InputControllerTimeDist : public QObject {
             Q_OBJECT
             Q_PROPERTY(QString ui_n READ get_n WRITE set_n NOTIFY input_changed)
+            Q_PROPERTY(QString ui_n_sgv READ get_n_sgv WRITE set_n_sgv NOTIFY input_changed)
             Q_PROPERTY(QString ui_a READ get_a WRITE set_a NOTIFY input_changed)
+            Q_PROPERTY(QString ui_a_sgv READ get_a_sgv WRITE set_a_sgv NOTIFY input_changed)
             Q_PROPERTY(QString ui_l READ get_l WRITE set_l NOTIFY input_changed)
             Q_PROPERTY(QString ui_c READ get_c WRITE set_c NOTIFY input_changed)
+            Q_PROPERTY(QString ui_c_sgv READ get_c_sgv WRITE set_c_sgv NOTIFY input_changed)
             Q_PROPERTY(QString ui_m READ get_m WRITE set_m NOTIFY input_changed)
+            Q_PROPERTY(QString ui_m_sgv READ get_m_sgv WRITE set_m_sgv NOTIFY input_changed)
             Q_PROPERTY(QString ui_u READ get_u WRITE set_u NOTIFY input_changed)
             Q_PROPERTY(QString ui_v READ get_v WRITE set_v NOTIFY input_changed)
             Q_PROPERTY(QString ui_s READ get_s WRITE set_s NOTIFY input_changed)
@@ -31,6 +35,7 @@ namespace wfes {
             Q_PROPERTY(bool ui_output_Q READ get_output_Q WRITE set_output_Q NOTIFY input_changed)
             Q_PROPERTY(bool ui_output_R READ get_output_R WRITE set_output_R NOTIFY input_changed)
             Q_PROPERTY(bool ui_r READ get_r WRITE set_r NOTIFY input_changed)
+            Q_PROPERTY(bool ui_r_sgv READ get_r_sgv WRITE set_r_sgv NOTIFY input_changed)
             Q_PROPERTY(QString ui_modelType READ get_model_type WRITE set_model_type NOTIFY input_changed)
             Q_PROPERTY(QString ui_library READ get_library WRITE set_library NOTIFY input_changed)
             Q_PROPERTY(QString ui_solver READ get_solver WRITE set_solver NOTIFY input_changed)
@@ -66,6 +71,17 @@ namespace wfes {
             void set_n(QString n) const;
 
             /**
+             * @brief Send N to GUI.
+             * @return QString containing N.
+             */
+            QString get_n_sgv() const;
+            /**
+             * @brief Set N from  GUI.
+             * @param N value in GUI.
+             */
+            void set_n_sgv(QString n) const;
+
+            /**
              * @brief Send a to GUI.
              * @return QString containing a.
              */
@@ -75,6 +91,17 @@ namespace wfes {
              * @param a value in GUI.
              */
             void set_a(QString a) const;
+
+            /**
+             * @brief Send a to GUI.
+             * @return QString containing a.
+             */
+            QString get_a_sgv() const;
+            /**
+             * @brief Set a from  GUI.
+             * @param a value in GUI.
+             */
+            void set_a_sgv(QString a) const;
 
             /**
              * @brief Send l to GUI.
@@ -100,6 +127,17 @@ namespace wfes {
             void set_c(QString c) const;
 
             /**
+             * @brief Send c to GUI.
+             * @return QString containing c.
+             */
+            QString get_c_sgv() const;
+            /**
+             * @brief Set c from  GUI.
+             * @param c value in GUI.
+             */
+            void set_c_sgv(QString c) const;
+
+            /**
              * @brief Send m to GUI.
              * @return QString containing m.
              */
@@ -109,6 +147,17 @@ namespace wfes {
              * @param m value in GUI.
              */
             void set_m(QString m) const;
+
+            /**
+             * @brief Send m to GUI.
+             * @return QString containing m.
+             */
+            QString get_m_sgv() const;
+            /**
+             * @brief Set m from  GUI.
+             * @param m value in GUI.
+             */
+            void set_m_sgv(QString m) const;
 
             /**
              * @brief Send u to GUI.
@@ -212,6 +261,18 @@ namespace wfes {
              * @param r value of r in GUI.
              */
             void set_r(bool r) const;
+
+
+            /**
+             * @brief Send r to GUI.
+             * @return boolean containing r.
+             */
+            bool get_r_sgv() const;
+            /**
+             * @brief Get r from GUI.
+             * @param r value of r in GUI.
+             */
+            void set_r_sgv(bool r) const;
 
 
             /**

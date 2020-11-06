@@ -27,13 +27,64 @@ Rectangle {
                 MenuItem {
                     text: "Save Config..."
                     onClicked: {
-                        console.warn("WARNING: Settings->Save Config... clicked - Not implemented yet.")
+                        //Check for active view and save config.
+                        if(typeof(rootWfesSingle) != "undefined") {
+                            rootWfesSingle.updateBackend()
+                            outputControllerWfesSingle.ui_save_config
+                        } else if(typeof(rootWfesSequential) != "undefined") {
+                            rootWfesSequential.updateBackend()
+                            outputControllerWfesSequential.ui_save_config
+                        } else if(typeof(rootWfesSweep) != "undefined") {
+                            rootWfesSweep.updateBackend()
+                            outputControllerWfesSweep.ui_save_config
+                        } else if(typeof(rootWfesSwitching) != "undefined") {
+                            rootWfesSwitching.updateBackend()
+                            outputControllerWfesSwitching.ui_save_config
+                        } else if(typeof(rootWfas) != "undefined") {
+                            rootWfas.updateBackend()
+                            outputControllerWfas.ui_save_config
+                        } else if(typeof(rootWfafle) != "undefined") {
+                            rootWfafle.updateBackend()
+                            outputControllerWfafle.ui_save_config
+                        } else if(typeof(rootTimeDist) != "undefined") {
+                            rootTimeDist.updateBackend()
+                            outputControllerTimeDist.ui_save_config
+                        } else if(typeof(rootPhaseType) != "undefined") {
+                            rootPhaseType.updateBackend()
+                            outputControllerPhaseType.ui_save_config
+                        }
                     }
                 }
                 MenuItem {
                     text: "Load Config..."
                     onClicked: {
-                        console.warn("WARNING: Help->Load Config... clicked - Not implemented yet.")
+                        //Check for active view and load config.
+                        if(typeof(rootWfesSingle) != "undefined") {
+                            outputControllerWfesSingle.ui_load_config
+                            rootWfesSingle.updateGUI()
+                        } else if(typeof(rootWfesSequential) != "undefined") {
+                            outputControllerWfesSequential.ui_load_config
+                            rootWfesSequential.updateGUI()
+                        } else if(typeof(rootWfesSweep) != "undefined") {
+                            outputControllerWfesSweep.ui_load_config
+                            rootWfesSweep.updateGUI()
+                        } else if(typeof(rootWfesSwitching) != "undefined") {
+                            outputControllerWfesSwitching.ui_load_config
+                            rootWfesSwitching.updateGUI()
+                        } else if(typeof(rootWfas) != "undefined") {
+                            outputControllerWfas.ui_load_config
+                            rootWfas.updateGUI()
+                        } else if(typeof(rootWfafle) != "undefined") {
+                            outputControllerWfafle.ui_load_config
+                            rootWfafle.updateGUI()
+                        } else if(typeof(rootTimeDist) != "undefined") {
+                            outputControllerTimeDist.ui_load_config
+                            rootTimeDist.updateGUI()
+                        } else if(typeof(rootPhaseType) != "undefined") {
+                            outputControllerPhaseType.ui_load_config
+                            rootPhaseType.updateGUI()
+                        }
+
                     }
                 }
                 MenuItem {

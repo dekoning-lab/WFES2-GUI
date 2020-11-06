@@ -1,6 +1,7 @@
 #include "outputControllerWfesSwitching.h"
 
 using namespace wfes::controllers;
+using namespace wfes::config;
 
 OutputControllerWfesSwitching::OutputControllerWfesSwitching(QObject* parent): QObject(parent), executing(false){}
 
@@ -28,6 +29,20 @@ QString OutputControllerWfesSwitching::stop()
     worker->terminate();
     worker->wait();
     worker->exit();
+
+    return QString();
+}
+
+QString OutputControllerWfesSwitching::save_config()
+{
+    ConfigWfesSwitching::saveConfigWfesSwitching();
+
+    return QString();
+}
+
+QString OutputControllerWfesSwitching::load_config()
+{
+    ConfigWfesSwitching::loadConfigWfesSwitching();
 
     return QString();
 }

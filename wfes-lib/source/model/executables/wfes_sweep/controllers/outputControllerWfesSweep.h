@@ -22,6 +22,8 @@ namespace wfes {
             Q_OBJECT
             Q_PROPERTY(QString ui_execute READ execute CONSTANT)
             Q_PROPERTY(QString ui_stop READ stop CONSTANT)
+            Q_PROPERTY(QString ui_save_config READ save_config CONSTANT)
+            Q_PROPERTY(QString ui_load_config READ load_config CONSTANT)
             Q_PROPERTY(QString ui_get_t_fix READ get_t_fix NOTIFY results_changed)
             Q_PROPERTY(QString ui_get_rate READ get_rate NOTIFY results_changed)
             Q_PROPERTY(QString ui_get_error_message READ get_error_message NOTIFY results_changed)
@@ -61,6 +63,17 @@ namespace wfes {
              * @return Nothing.
              */
             QString stop();
+
+            /**
+             * @brief Save configuration of wfes_sweep.
+             * @return Nothing.
+             */
+            QString save_config();
+            /**
+             * @brief Load configuration of wfes_sweep.
+             * @return Nothing.
+             */
+            QString load_config();
 
             /**
              * @brief Send t_fix to GUI.

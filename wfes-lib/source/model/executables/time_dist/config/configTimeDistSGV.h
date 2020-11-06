@@ -1,7 +1,14 @@
 #ifndef CONFIGTIMEDISTSGV_H
 #define CONFIGTIMEDISTSGV_H
 
+#include <string>
 #include "utils/types.h"
+
+#include <QDir>
+#include <QStandardPaths>
+#include <QDebug>
+
+#include <QString>
 
 namespace wfes {
     namespace config {
@@ -29,6 +36,36 @@ namespace wfes {
                 static dvec h;
 
                 /**
+                 * @brief Size of the population in the Wright Fisher Model (N).
+                 */
+                static int population_size;
+
+                /**
+                 * @brief Tail truncation weight (a).
+                 */
+                static double a;
+
+                /**
+                 * @brief No recurrent mutation (m).
+                 */
+                static bool no_rem;
+
+                /**
+                 * @brief Recurrent mutation.
+                 */
+                static bool rem;
+
+                /**
+                 * @brief Maximum number of generations.
+                 */
+                static int max_t;
+
+                /**
+                 * @brief Starting number of copies integration cutoff (c).
+                 */
+                static double integration_cutoff;
+
+                /**
                  * @brief Number of components.
                  */
                 static int num_comp;
@@ -47,6 +84,12 @@ namespace wfes {
                  * @brief Default constructor for class configTimeDistSGV.
                  */
                 ConfigTimeDistSGV();
+
+                static void saveConfigTimeDistSGV();
+
+                static void loadConfigTimeDistSGV();
+
+                static void processLine(QString line);
         };
     }
 }

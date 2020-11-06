@@ -532,40 +532,7 @@ ApplicationWindow {
                             onClicked: {
                                 bottomMenu.visibleProgressBar = true
 
-                                // Set mode in backend.
-                                if(radioButtonPhaseTypeDist.checked)
-                                    inputControllerPhaseType.ui_modelType = "Phase Type Dist."
-                                if(radioButtonPhaseTypeMoments.checked)
-                                    inputControllerPhaseType.ui_modelType = "Phase Type Moments"
-
-                                inputControllerPhaseType.ui_n = inputN.textFieldText
-                                inputControllerPhaseType.ui_s = inputS.textFieldText
-                                inputControllerPhaseType.ui_h = inputH.textFieldText
-                                inputControllerPhaseType.ui_u = inputU.textFieldText
-                                inputControllerPhaseType.ui_v = inputV.textFieldText
-                                inputControllerPhaseType.ui_a = inputA.textFieldText
-                                inputControllerPhaseType.ui_t = inputT.textFieldText
-                                if(inputControllerPhaseType.ui_modelType == "Phase Type Moments")
-                                    inputControllerPhaseType.ui_k = inputK.textFieldText
-                                if(inputControllerPhaseType.ui_modelType == "Phase Type Dist.") {
-                                    inputControllerPhaseType.ui_c = inputC.textFieldText
-                                    inputControllerPhaseType.ui_m = inputM.textFieldText
-                                    inputControllerPhaseType.ui_r = inputR.checked
-                                }
-
-                                if(inputControllerPhaseType.ui_modelType == "Phase Type Dist.")
-                                    inputControllerPhaseType.ui_output_P = inputWriteP.checked
-
-                                inputControllerPhaseType.ui_output_Q = inputWriteQ.checked
-                                inputControllerPhaseType.ui_output_R = inputWriteR.checked
-
-                                if(inputControllerPhaseType.ui_modelType == "Phase Type Moments") {
-                                    inputControllerPhaseType.ui_output_Res = inputWriteRes.checked
-                                    inputControllerPhaseType.ui_output_Moments = inputWriteMoments.checked
-                                }
-
-                                inputControllerPhaseType.ui_library = comboBoxLibrary.currentText;
-                                inputControllerPhaseType.ui_solver = comboBoxSolver.currentText;
+                                updateBackend()
 
                                 if(outputControllerPhaseType.ui_get_error_message === "") {
                                     executeButton.enabled = false
@@ -729,4 +696,73 @@ ApplicationWindow {
 
     }
 
+    function updateGUI() {
+        radioButtonPhaseTypeDist.checked = inputControllerPhaseType.ui_modelType == "Phase Type Dist."
+        radioButtonPhaseTypeMoments.checked = inputControllerPhaseType.ui_modelType == "Phase Type Moments"
+
+        inputN.textFieldText = inputControllerPhaseType.ui_n
+        inputS.textFieldText = inputControllerPhaseType.ui_s
+        inputH.textFieldText = inputControllerPhaseType.ui_h
+        inputU.textFieldText = inputControllerPhaseType.ui_u
+        inputV.textFieldText = inputControllerPhaseType.ui_v
+        inputA.textFieldText = inputControllerPhaseType.ui_a
+        inputT.textFieldText = inputControllerPhaseType.ui_t
+        inputK.textFieldText = inputControllerPhaseType.ui_k
+        inputC.textFieldText = inputControllerPhaseType.ui_c
+        inputM.textFieldText = inputControllerPhaseType.ui_m
+        inputR.checked = inputControllerPhaseType.ui_r
+
+        inputWriteP.checked = inputControllerPhaseType.ui_output_P
+
+        inputWriteQ.checked = inputControllerPhaseType.ui_output_Q
+        inputWriteR.checked = inputControllerPhaseType.ui_output_R
+
+        inputWriteRes.checked = inputControllerPhaseType.ui_output_Res
+        inputWriteMoments.checked = inputControllerPhaseType.ui_output_Moments
+
+        var library = inputControllerPhaseType.ui_library
+        if(library === "Pardiso")
+            comboBoxLibrary.currentIndex = 0
+        else if(library === "ViennaCL")
+            comboBoxLibrary.currentIndex = 1
+
+        var solver = inputControllerPhaseType.ui_solver
+        if(library === "GMRes")
+            comboBoxSolver.currentIndex = 0
+        else if(library === "BicGStab")
+            comboBoxSolver.currentIndex = 1
+    }
+
+    function updateBackend() {
+
+        // Set mode in backend.
+        if(radioButtonPhaseTypeDist.checked)
+            inputControllerPhaseType.ui_modelType = "Phase Type Dist."
+        if(radioButtonPhaseTypeMoments.checked)
+            inputControllerPhaseType.ui_modelType = "Phase Type Moments"
+
+        inputControllerPhaseType.ui_n = inputN.textFieldText
+        inputControllerPhaseType.ui_s = inputS.textFieldText
+        inputControllerPhaseType.ui_h = inputH.textFieldText
+        inputControllerPhaseType.ui_u = inputU.textFieldText
+        inputControllerPhaseType.ui_v = inputV.textFieldText
+        inputControllerPhaseType.ui_a = inputA.textFieldText
+        inputControllerPhaseType.ui_t = inputT.textFieldText
+        inputControllerPhaseType.ui_k = inputK.textFieldText
+        inputControllerPhaseType.ui_c = inputC.textFieldText
+        inputControllerPhaseType.ui_m = inputM.textFieldText
+        inputControllerPhaseType.ui_r = inputR.checked
+
+        inputControllerPhaseType.ui_output_P = inputWriteP.checked
+
+        inputControllerPhaseType.ui_output_Q = inputWriteQ.checked
+        inputControllerPhaseType.ui_output_R = inputWriteR.checked
+
+        inputControllerPhaseType.ui_output_Res = inputWriteRes.checked
+        inputControllerPhaseType.ui_output_Moments = inputWriteMoments.checked
+
+        inputControllerPhaseType.ui_library = comboBoxLibrary.currentText;
+        inputControllerPhaseType.ui_solver = comboBoxSolver.currentText;
+
+    }
 }

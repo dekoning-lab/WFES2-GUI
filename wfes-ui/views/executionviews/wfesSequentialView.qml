@@ -423,55 +423,7 @@ ApplicationWindow {
                                 onClicked: {
                                     bottomMenu.visibleProgressBar = true
 
-                                    inputControllerWfesSequential.ui_a = inputA.textFieldText
-                                    inputControllerWfesSequential.ui_c = inputC.textFieldText
-                                    var N_vec = []
-                                    var t_vec = []
-                                    var p_vec = []
-                                    var u_vec = []
-                                    var v_vec = []
-                                    var s_vec = []
-                                    var h_vec = []
-                                    for(var i = 0; i < inputControllerWfesSequential.ui_num_comp; i++) {
-                                        componentsSectionTabView.children[0].getTab(i).active = true
-                                        var N = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[0].textFieldText
-                                        var t = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[1].textFieldText
-                                        var p = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[2].textFieldText
-                                        var u = componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[0].textFieldText
-                                        var v = componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[1].textFieldText
-                                        var s = componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[0].textFieldText
-                                        var h = componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[1].textFieldText
-                                        N_vec.push(N)
-                                        t_vec.push(t)
-                                        p_vec.push(p)
-                                        u_vec.push(u)
-                                        v_vec.push(v)
-                                        s_vec.push(s)
-                                        h_vec.push(h)
-                                    }
-                                    inputControllerWfesSequential.ui_N_vec = N_vec
-                                    inputControllerWfesSequential.ui_t_vec = t_vec
-                                    inputControllerWfesSequential.ui_p_vec = p_vec
-                                    inputControllerWfesSequential.ui_u_vec = u_vec
-                                    inputControllerWfesSequential.ui_v_vec = v_vec
-                                    inputControllerWfesSequential.ui_s_vec = s_vec
-                                    inputControllerWfesSequential.ui_h_vec = h_vec
-
-                                    inputControllerWfesSequential.ui_output_Q = inputWriteQ.checked
-                                    inputControllerWfesSequential.ui_output_R = inputWriteR.checked
-                                    inputControllerWfesSequential.ui_output_N = inputWriteN.checked
-                                    inputControllerWfesSequential.ui_output_B = inputWriteB.checked
-                                    inputControllerWfesSequential.ui_output_N_Ext = inputWriteNExt.checked
-                                    inputControllerWfesSequential.ui_output_N_Fix = inputWriteNFix.checked
-                                    inputControllerWfesSequential.ui_output_N_Tmo = inputWriteNTmo.checked
-                                    inputControllerWfesSequential.ui_output_Res = inputWriteRes.checked
-                                    inputControllerWfesSequential.ui_t = inputT.textFieldText
-                                    inputControllerWfesSequential.ui_force = inputForce.checked
-
-                                    inputControllerWfesSequential.ui_initial_distribution = inputI.textFieldText
-
-                                    inputControllerWfesSequential.ui_library = comboBoxLibrary.currentText;
-                                    inputControllerWfesSequential.ui_solver = comboBoxSolver.currentText;
+                                    updateBackground()
 
                                     console.log(outputControllerWfesSequential.ui_get_error_message)
                                     if(outputControllerWfesSequential.ui_get_error_message === "") {
@@ -648,7 +600,129 @@ ApplicationWindow {
                 left: parent.left
             }
         }
+    }
 
+    function updateGUI() {
+        inputA.textFieldText = inputControllerWfesSequential.ui_a
+        inputC.textFieldText = inputControllerWfesSequential.ui_c
+
+        var N_vec = inputControllerWfesSequential.ui_N_vec
+        var t_vec = inputControllerWfesSequential.ui_t_vec
+        var p_vec = inputControllerWfesSequential.ui_p_vec
+        var u_vec = inputControllerWfesSequential.ui_u_vec
+        var v_vec = inputControllerWfesSequential.ui_v_vec
+        var s_vec = inputControllerWfesSequential.ui_s_vec
+        var h_vec = inputControllerWfesSequential.ui_h_vec
+
+        // Minus 2 because we don't have to count the add and delete tabs.
+        // If the number of current tabs is less than the number of components to load,
+        // add a tab.
+        if(componentsSectionTabView.children[0].count - 2 < inputControllerWfesSequential.ui_num_comp) {
+
+            while(componentsSectionTabView.children[0].count - 2 < inputControllerWfesSequential.ui_num_comp) {
+                // Create new tab.
+                componentsSectionTabView.children[0].addTab()
+                // Don't update ui_num_comp
+                inputControllerWfesSequential.ui_num_comp = inputControllerWfesSequential.ui_num_comp - 1
+            }
+        // If the number of current tabs is greater than the number of components to load,
+        // remove a tab.
+        } else if(componentsSectionTabView.children[0].count - 2 > inputControllerWfesSequential.ui_num_comp) {
+
+            while(componentsSectionTabView.children[0].count - 2 > inputControllerWfesSequential.ui_num_comp) {
+                // Delete a tab.
+                componentsSectionTabView.children[0].deleteTab()
+                // Don't update ui_num_comp
+                inputControllerWfesSequential.ui_num_comp = parseInt(inputControllerWfesSequential.ui_num_comp) + 1
+            }
+        }
+
+        for(var i = 0; i < inputControllerWfesSequential.ui_num_comp; i++) {
+            componentsSectionTabView.children[0].getTab(i).active = true
+            componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[0].textFieldText = N_vec[i]
+            componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[1].textFieldText = t_vec[i]
+            componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[2].textFieldText = p_vec[i]
+            componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[0].textFieldText = u_vec[i]
+            componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[1].textFieldText = v_vec[i]
+            componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[0].textFieldText = s_vec[i]
+            componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[1].textFieldText = h_vec[i]
+        }
+        inputWriteQ.checked = inputControllerWfesSequential.ui_output_Q
+        inputWriteR.checked = inputControllerWfesSequential.ui_output_R
+        inputWriteN.checked = inputControllerWfesSequential.ui_output_N
+        inputWriteB.checked = inputControllerWfesSequential.ui_output_B
+        inputWriteNExt.checked = inputControllerWfesSequential.ui_output_N_Ext
+        inputWriteNFix.checked = inputControllerWfesSequential.ui_output_N_Fix
+        inputWriteNTmo.checked = inputControllerWfesSequential.ui_output_N_Tmo
+        inputWriteRes.checked = inputControllerWfesSequential.ui_output_Res
+        inputT.textFieldText = inputControllerWfesSequential.ui_t
+        inputForce.checked = inputControllerWfesSequential.ui_force
+
+        inputI.textFieldText = inputControllerWfesSequential.ui_initial_distribution
+
+        var library = inputControllerWfesSequential.ui_library
+        if(library === "Pardiso")
+            comboBoxLibrary.currentIndex = 0
+        else if(library === "ViennaCL")
+            comboBoxLibrary.currentIndex = 1
+
+        var solver = inputControllerWfesSequential.ui_solver
+        if(solver === "GMRes")
+            comboBoxSolver.currentIndex = 0
+        else if(solver === "BicGStab")
+            comboBoxSolver.currentIndex = 1
+    }
+
+    function updateBackend(){
+        inputControllerWfesSequential.ui_a = inputA.textFieldText
+        inputControllerWfesSequential.ui_c = inputC.textFieldText
+        var N_vec = []
+        var t_vec = []
+        var p_vec = []
+        var u_vec = []
+        var v_vec = []
+        var s_vec = []
+        var h_vec = []
+        for(var i = 0; i < inputControllerWfesSequential.ui_num_comp; i++) {
+            componentsSectionTabView.children[0].getTab(i).active = true
+            var N = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[0].textFieldText
+            var t = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[1].textFieldText
+            var p = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[2].textFieldText
+            var u = componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[0].textFieldText
+            var v = componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[1].textFieldText
+            var s = componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[0].textFieldText
+            var h = componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[1].textFieldText
+            N_vec.push(N)
+            t_vec.push(t)
+            p_vec.push(p)
+            u_vec.push(u)
+            v_vec.push(v)
+            s_vec.push(s)
+            h_vec.push(h)
+        }
+        inputControllerWfesSequential.ui_N_vec = N_vec
+        inputControllerWfesSequential.ui_t_vec = t_vec
+        inputControllerWfesSequential.ui_p_vec = p_vec
+        inputControllerWfesSequential.ui_u_vec = u_vec
+        inputControllerWfesSequential.ui_v_vec = v_vec
+        inputControllerWfesSequential.ui_s_vec = s_vec
+        inputControllerWfesSequential.ui_h_vec = h_vec
+
+        inputControllerWfesSequential.ui_output_Q = inputWriteQ.checked
+        inputControllerWfesSequential.ui_output_R = inputWriteR.checked
+        inputControllerWfesSequential.ui_output_N = inputWriteN.checked
+        inputControllerWfesSequential.ui_output_B = inputWriteB.checked
+        inputControllerWfesSequential.ui_output_N_Ext = inputWriteNExt.checked
+        inputControllerWfesSequential.ui_output_N_Fix = inputWriteNFix.checked
+        inputControllerWfesSequential.ui_output_N_Tmo = inputWriteNTmo.checked
+        inputControllerWfesSequential.ui_output_Res = inputWriteRes.checked
+        inputControllerWfesSequential.ui_t = inputT.textFieldText
+        inputControllerWfesSequential.ui_force = inputForce.checked
+
+        inputControllerWfesSequential.ui_initial_distribution = inputI.textFieldText
+
+        inputControllerWfesSequential.ui_library = comboBoxLibrary.currentText;
+        inputControllerWfesSequential.ui_solver = comboBoxSolver.currentText;
 
     }
 

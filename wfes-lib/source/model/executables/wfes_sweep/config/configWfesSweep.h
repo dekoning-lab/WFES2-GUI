@@ -1,7 +1,14 @@
 #ifndef CONFIGWFESSWEEP_H
 #define CONFIGWFESSWEEP_H
 
+#include <string>
 #include "utils/types.h"
+
+#include <QString>
+
+#include <QDir>
+#include <QStandardPaths>
+#include <QDebug>
 
 namespace wfes {
     namespace config {
@@ -188,6 +195,11 @@ namespace wfes {
                  */
                 static int num_comp;
 
+                static void saveConfigWfesSweep();
+
+                static void loadConfigWfesSweep();
+
+                static void processLine(QString line);
         };
     }
 }

@@ -1,7 +1,14 @@
 #ifndef CONFIGWFAFLE_H
 #define CONFIGWFAFLE_H
 
+#include <string>
 #include "utils/types.h"
+
+#include <QString>
+
+#include <QDir>
+#include <QStandardPaths>
+#include <QDebug>
 
 namespace wfes {
     namespace config {
@@ -86,6 +93,11 @@ namespace wfes {
                  */
                 static int num_comp;
 
+                static void saveConfigWfafle();
+
+                static void loadConfigWfafle();
+
+                static void processLine(QString line);
         };
     }
 }

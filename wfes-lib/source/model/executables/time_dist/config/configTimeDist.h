@@ -5,8 +5,11 @@
 #include "utils/types.h"
 
 #include <QDir>
-
 #include <QStandardPaths>
+#include <QDebug>
+
+#include <QString>
+
 namespace wfes {
     namespace config {
 
@@ -163,6 +166,11 @@ namespace wfes {
              */
             static std::string error;
 
+            static void saveConfigTimeDist();
+
+            static void loadConfigTimeDist();
+
+            static void processLine(QString line);
         };
     }
 }
