@@ -104,7 +104,7 @@ void ConfigWfesSweep::saveConfigWfesSweep()
     outStream << "Starting Copies (p): " << ConfigWfesSweep::starting_copies << "\n";
     outStream << "Number of Threads (t): " << ConfigWfesSweep::n_threads << "\n";
     outStream << "Integration Cutoff (c): " << ConfigWfesSweep::integration_cutoff << "\n";
-    outStream << "Transition Probability (l)" << ConfigWfesSweep::l << "\n";
+    outStream << "Transition Probability (l): " << ConfigWfesSweep::l << "\n";
 
     outStream << "Output Q: " << (ConfigWfesSweep::output_Q ? QString("true") : QString("false")) << "\n";
     outStream << "Output R: " << (ConfigWfesSweep::output_R ? QString("true") : QString("false")) << "\n";

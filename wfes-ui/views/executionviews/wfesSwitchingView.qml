@@ -733,8 +733,8 @@ ApplicationWindow {
         for(var i = 0; i < inputControllerWfesSwitching.ui_num_comp; i++) {
             componentsSectionTabView.children[0].getTab(i).active = true
             componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[0].textFieldText = N_vec[i]
-            componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[1].textFieldText = r_vec[i]
-            componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[2].textFieldText = p_vec[i]
+            componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[1].textFieldText = p_vec[i]
+            componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[2].textFieldText = r_vec[i]
             componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[0].textFieldText = u_vec[i]
             componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[1].textFieldText = v_vec[i]
             componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[0].textFieldText = s_vec[i]
