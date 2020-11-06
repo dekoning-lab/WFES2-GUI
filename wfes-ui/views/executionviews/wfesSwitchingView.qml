@@ -184,38 +184,36 @@ ApplicationWindow {
                             tabNames: "Comp."
                             urlComponent: "qrc:/views/executionviews/tabcomponents/tabWfesSwitchingComponent.qml"
                             onAdd: function(){
-
-                                //Increase arrays size.
-                                var num_comps = parseInt(componentsSectionTabView.children[0].count - 2) + 1
-                                inputControllerWfesSwitching.ui_num_comp = parseInt(num_comps)
+                                var num_comps = inputControllerWfesSwitching.ui_num_comp
+                                inputControllerWfesSwitching.ui_num_comp = parseInt(num_comps) + 1
 
                                 // Update previous adding 1
                                 var vector = inputControllerWfesSwitching.ui_r_vec
-                                vector[num_comps-1] = inputControllerWfesSwitching.ui_r_vec[num_comps-2]
+                                vector[num_comps] = inputControllerWfesSwitching.ui_r_vec[num_comps-1]
                                 inputControllerWfesSwitching.ui_r_vec = vector
 
                                 vector = inputControllerWfesSwitching.ui_N_vec
-                                vector[num_comps-1] = inputControllerWfesSwitching.ui_N_vec[num_comps-2]
+                                vector[num_comps] = inputControllerWfesSwitching.ui_N_vec[num_comps-1]
                                 inputControllerWfesSwitching.ui_N_vec = vector
 
                                 vector = inputControllerWfesSwitching.ui_p_vec
-                                vector[num_comps-1] = inputControllerWfesSwitching.ui_p_vec[num_comps-2]
+                                vector[num_comps] = inputControllerWfesSwitching.ui_p_vec[num_comps-1]
                                 inputControllerWfesSwitching.ui_p_vec = vector
 
                                 vector = inputControllerWfesSwitching.ui_s_vec
-                                vector[num_comps-1] = inputControllerWfesSwitching.ui_s_vec[num_comps-2]
+                                vector[num_comps] = inputControllerWfesSwitching.ui_s_vec[num_comps-1]
                                 inputControllerWfesSwitching.ui_s_vec = vector
 
                                 vector = inputControllerWfesSwitching.ui_h_vec
-                                vector[num_comps-1] = inputControllerWfesSwitching.ui_h_vec[num_comps-2]
+                                vector[num_comps] = inputControllerWfesSwitching.ui_h_vec[num_comps-1]
                                 inputControllerWfesSwitching.ui_h_vec = vector
 
                                 vector = inputControllerWfesSwitching.ui_u_vec
-                                vector[num_comps-1] = inputControllerWfesSwitching.ui_u_vec[num_comps-2]
+                                vector[num_comps] = inputControllerWfesSwitching.ui_u_vec[num_comps-1]
                                 inputControllerWfesSwitching.ui_u_vec = vector
 
                                 vector = inputControllerWfesSwitching.ui_v_vec
-                                vector[num_comps-1] = inputControllerWfesSwitching.ui_v_vec[num_comps-2]
+                                vector[num_comps] = inputControllerWfesSwitching.ui_v_vec[num_comps-1]
                                 inputControllerWfesSwitching.ui_v_vec = vector
                             }
                             onDelete: function(){
@@ -716,7 +714,7 @@ ApplicationWindow {
                 // Create new tab.
                 componentsSectionTabView.children[0].addTab()
                 // Don't update ui_num_comp
-                inputControllerWfesSwitching.ui_num_comp = inputControllerWfesSwitching.ui_num_comp - 1
+                inputControllerWfesSwitching.ui_num_comp = parseInt(inputControllerWfesSwitching.ui_num_comp) - 1
             }
         // If the number of current tabs is greater than the number of components to load,
         // remove a tab.
@@ -730,6 +728,7 @@ ApplicationWindow {
             }
         }
 
+        console.log(inputControllerWfesSwitching.ui_num_comp)
         for(var i = 0; i < inputControllerWfesSwitching.ui_num_comp; i++) {
             componentsSectionTabView.children[0].getTab(i).active = true
             componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[0].textFieldText = N_vec[i]
