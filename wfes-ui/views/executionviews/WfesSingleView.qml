@@ -1454,6 +1454,6 @@ ApplicationWindow {
 
         //TODO Check if Initial Distribution (I) file exists.
 
-        return error;
+        return error.split("\n \n")[0];
     }
 }
