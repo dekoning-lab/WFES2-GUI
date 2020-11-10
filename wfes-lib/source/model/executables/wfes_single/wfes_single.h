@@ -51,7 +51,6 @@ class wfes_single : public Subject{
 
         ResultsWfesSingle* nonAbsorbing();
 
-        void force();
         void calculateStartingCopies();
         void calculateZ();
 };
