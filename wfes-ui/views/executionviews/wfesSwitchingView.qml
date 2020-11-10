@@ -874,8 +874,6 @@ ApplicationWindow {
                 error += " - Probability of starting (p" + (i + 1) + ") is quite large, the computations will take a long time. Check 'Force' to ignore. \n \n"
         }
 
-
-
         for(i = 0; i < inputControllerWfesSwitching.ui_num_comp; i++) {
             var splitted = r_vec[i].split(", ")
             if(splitted.length !== parseInt(inputControllerWfesSwitching.ui_num_comp))
