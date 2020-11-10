@@ -961,6 +961,9 @@ ApplicationWindow {
                 error += " - Selection Coefficient (s" + (i + 1) + ") is quite negative. Fixations might be impossible. It must be at least -1. \n \n"
             if(parseFloat(s_vec[i]) > 1)
                 error += " - Selection Coefficient (s" + (i + 1) + ") is quite large. The maximum value allowed is 1. \n \n"
+            if(parseFloat(s_vec[i]) * 2 * parseInt(inputN.textFieldText) <= -100) {
+                error += " - Selection Coefficient (s" + (i + 1) + ") is quite negative. Fixations might be impossible. It must be at least -1. \n \n"
+            }
         }
 
         for(i = 0; i < 2; i++) {

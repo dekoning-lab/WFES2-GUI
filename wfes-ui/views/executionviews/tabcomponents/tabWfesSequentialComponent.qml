@@ -53,7 +53,7 @@ Component{
                     id: inputN
                     text: "N" + number + ": "
                     toolTipText: "Size of the population in the Wright Fisher Model."
-                    validator: DoubleValidator {bottom: 2; top: 50000;}
+                    validator: IntValidator {bottom: 2; top: 500000;}
                     textFieldText: {
                         if(number != 0) {
                             var n_vec = inputControllerWfesSequential.ui_N_vec
@@ -68,7 +68,7 @@ Component{
                     id: inputT
                     text: "t" + number + ": "
                     toolTipText: "Expected time spent in each model."
-                    validator: DoubleValidator {bottom: 2; top: 50000;}
+                    validator: IntValidator {bottom: 1;}
                     textFieldText: {
                         if(number != 0) {
                             var t_vec = inputControllerWfesSequential.ui_t_vec
@@ -83,7 +83,7 @@ Component{
                     id: inputP
                     text: "p" + number + ": "
                     toolTipText: "Starting probabilities."
-                    validator: DoubleValidator {bottom: 2; top: 50000;}
+                    validator: DoubleValidator {bottom: 0; top: 1;}
                     textFieldText: {
                         if(number != 0) {
                             var p_vec = inputControllerWfesSequential.ui_p_vec
@@ -128,7 +128,7 @@ Component{
                     id: inputU
                     text: "u" + number + ": "
                     toolTipText: "Backward mutation rate."
-                    validator: DoubleValidator {bottom: 2; top: 50000;}
+                    validator: DoubleValidator {bottom: 0;}
                     textFieldText: {
                         if(number != 0) {
                             var u_vec = inputControllerWfesSequential.ui_u_vec
@@ -143,7 +143,7 @@ Component{
                     id: inputV
                     text: "v" + number + ": "
                     toolTipText: "Forward mutation rate."
-                    validator: DoubleValidator {bottom: 0; top: 2e-10;}
+                    validator: DoubleValidator {bottom: 0;}
                     textFieldText: {
                         if(number != 0) {
                             var v_vec = inputControllerWfesSequential.ui_v_vec
@@ -191,7 +191,7 @@ Component{
                     id: inputS
                     text: "s" + number + ": "
                     toolTipText: "Selection coefficient."
-                    validator: DoubleValidator {bottom: 2; top: 50000;}
+                    validator: DoubleValidator {bottom: -1; top: 1;}
                     textFieldText: {
                         if(number != 0) {
                             var s_vec = inputControllerWfesSequential.ui_s_vec
@@ -206,7 +206,7 @@ Component{
                     id: inputH
                     text: "h" + number + ": "
                     toolTipText: "Dominance coefficient."
-                    validator: DoubleValidator {bottom: 0; top: 2e-10;}
+                    validator: DoubleValidator {bottom: 0; top: 1;}
                     textFieldText: {
                         if(number != 0) {
                             var h_vec = inputControllerWfesSequential.ui_h_vec
