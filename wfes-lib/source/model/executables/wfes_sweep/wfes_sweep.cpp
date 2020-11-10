@@ -22,8 +22,6 @@ ResultsWfesSweep *wfes_sweep::execute()
     //Notify starting.
     this->notify(ExecutionStatus::STARTING);
 
-    this->force();
-
     this->calculateStartingCopies();
 
     // Save initial distribution if resquested by the user.
@@ -144,35 +142,6 @@ ResultsWfesSweep *wfes_sweep::fixation()
     this->notify(ExecutionStatus::DONE);
 
     return res;
-}
-
-void wfes_sweep::force()
-{
-
-    if(ConfigWfesSweep::s.size() != 2)  throw exception::Error("Selection coefficient vector should be of length 2");
-
-    if (!ConfigWfesSweep::force) {
-        if (ConfigWfesSweep::population_size > 500000) {
-            // TODO Show as dialog.
-            throw exception::Error("Population size is quite large - the computations will take a long "
-                              "time. Use --force to ignore");
-        }
-        double max_mu = std::max(ConfigWfesSweep::u.maxCoeff(), ConfigWfesSweep::v.maxCoeff());
-        if (4 * ConfigWfesSweep::population_size * max_mu > 1) {
-            // TODO Show as dialog.
-            throw exception::Error("The mutation rate might violate the Wright-Fisher assumptions. Use "
-                              "--force to ignore");
-        }
-        if (ConfigWfesSweep::s.minCoeff() <= -1) {
-            // TODO Show as dialog.
-            throw exception::Error("The selection coefficient is quite negative. Fixations might be impossible. Use --force to ignore");
-        }
-        if (ConfigWfesSweep::a > 1e-5) {
-            // TODO Show as dialog.
-            throw exception::Error("Zero cutoff value is quite high. This might produce inaccurate results. Use --force to ignore");
-        }
-    }
-
 }
 
 void wfes_sweep::calculateStartingCopies()
