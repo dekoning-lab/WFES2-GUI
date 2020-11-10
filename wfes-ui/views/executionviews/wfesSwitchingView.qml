@@ -874,15 +874,29 @@ ApplicationWindow {
                 error += " - Probability of starting (p" + (i + 1) + ") is quite large, the computations will take a long time. Check 'Force' to ignore. \n \n"
         }
 
+
+
         for(i = 0; i < inputControllerWfesSwitching.ui_num_comp; i++) {
-            var splitted = p_vec[i].split(", ")
-            var valid = true;
-            for(var j = 0; j < splitted.length; j++) {
-                if(splitted[j] < 0) {
-                    error += " - The element " + j + " of Relative Probability of Switching (r" + i + ") is quite small, it must be at least 0. \n \n"
+            var splitted = r_vec[i].split(", ")
+            if(splitted.length !== parseInt(inputControllerWfesSwitching.ui_num_comp))
+                error += " - Relative Probability of Switching (r" + (i + 1) + ") has " + splitted.length + " components. It should have " + inputControllerWfesSwitching.ui_num_comp + " components. \n \n"
+            if(splitted.length > 1) {
+                var valid = true;
+                for(var j = 0; j < splitted.length; j++) {
+                    if(parseFloat(splitted[j]) < 0) {
+                        error += " - The element " + j + " of Relative Probability of Switching (r" + (i + 1) + ") is quite small, it must be at least 0. \n \n"
+                        break;
+                    } else if (parseFloat(splitted[j]) > 1) {
+                        error += " - The element " + j + " of Relative Probability of Switching (r" + (i + 1) + ") is quite large. The maximum value allowed is 1. \n \n"
+                        break;
+                    }
+                }
+            } else {
+                if(parseFloat(r_vec[i]) < 0) {
+                    error += " - The element " + j + " of Relative Probability of Switching (r" + (i + 1) + ") is quite small, it must be at least 0. \n \n"
                     break;
-                } else if (splitted[j] > 1) {
-                    error += " - The element " + j + " of Relative Probability of Switching (r" + i + ") is quite small. The maximum value allowed is 1. \n \n"
+                } else if (parseFloat(r_vec[i]) > 1) {
+                    error += " - The element " + j + " of Relative Probability of Switching (r" + (i + 1) + ") is quite large. The maximum value allowed is 1. \n \n"
                     break;
                 }
             }
