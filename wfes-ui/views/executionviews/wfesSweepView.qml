@@ -920,7 +920,7 @@ ApplicationWindow {
             error += " - Integration Cutoff (c) is quite large. The maximum value allowed is 10e-3. \n \n"
 
         if(parseInt(inputP.textFieldText) < 0)
-            error += " - Starting copies (p) is quite small, if you want to disable it just use 0. \n"
+            error += " - Starting copies (p) is quite small, if you want to disable it just use 0. \n \n"
         if(parseInt(inputP.textFieldText) > parseInt(inputN.textFieldText))
             error += " - Starting Copies (p) is quite large. The maximum value allowed is N. \n \n"
 
@@ -944,30 +944,30 @@ ApplicationWindow {
 
         for(i = 0; i < 2; i++) {
             if(parseFloat(u_vec[i].textFieldText) < 0)
-                error += " - Backward Mutation (u" + i + ") is quite small. It must be at least 0. \n \n"
+                error += " - Backward Mutation (u" + (i + 1) + ") is quite small. It must be at least 0. \n \n"
             if(!inputForce.checked && (4 * parseInt(inputN.textFieldText) * parseFloat(u_vec[i])) > 1)
-                error += " - Backward Mutation (u" + i + ") is quite large and might violate the Wright-Fisher assumptions. Check 'Force' to ignore."
+                error += " - Backward Mutation (u" + (i + 1) + ") is quite large and might violate the Wright-Fisher assumptions. Check 'Force' to ignore. \n \n"
         }
 
         for(i = 0; i < 2; i++) {
             if(parseFloat(v_vec[i]) < 0)
-                error += " - Forward Mutation (v" + i + ") is quite small. It must be at least 0. \n \n"
+                error += " - Forward Mutation (v" + (i + 1) + ") is quite small. It must be at least 0. \n \n"
             if(!inputForce.checked && (4 * parseInt(inputN.textFieldText) * parseFloat(v_vec[i])) > 1)
-                error += " - Forward Mutation (v" + i + ") is quite large and might violate the Wright-Fisher assumptions. Check 'Force' to ignore."
+                error += " - Forward Mutation (v" + (i + 1) + ") is quite large and might violate the Wright-Fisher assumptions. Check 'Force' to ignore. \n \n"
         }
 
         for(i = 0; i < 2; i++) {
             if(parseFloat(s_vec[i]) < -1)
-                error += " - Selection Coefficient (s" + i + ") is quite negative. Fixations might be impossible. It must be at least -1. \n \n"
+                error += " - Selection Coefficient (s" + (i + 1) + ") is quite negative. Fixations might be impossible. It must be at least -1. \n \n"
             if(parseFloat(s_vec[i]) > 1)
-                error += " - Selection Coefficient (s" + i + ") is quite large. The maximum value allowed is 1. \n \n"
+                error += " - Selection Coefficient (s" + (i + 1) + ") is quite large. The maximum value allowed is 1. \n \n"
         }
 
         for(i = 0; i < 2; i++) {
             if(parseFloat(h_vec[i]) < 0)
-                error += " - Dominance Coefficient (h" + i + ") is quite small. It must be at least 0. \n \n"
+                error += " - Dominance Coefficient (h" + (i + 1) + ") is quite small. It must be at least 0. \n \n"
             if(parseFloat(h_vec[i]) > 1)
-                error += " - Dominance Coefficient (h" + i + ") is quite large. The maximum value allowed is 1. \n \n"
+                error += " - Dominance Coefficient (h" + (i + 1) + ") is quite large. The maximum value allowed is 1. \n \n"
         }
 
         // Number of threads (k) does not have upper limites, since it depends on the hardware available.

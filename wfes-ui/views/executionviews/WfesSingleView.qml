@@ -1410,7 +1410,7 @@ ApplicationWindow {
             error += " - Tail Truncation Cutoff (a) value is quite high. This might produce inaccurate results. A good value should be between 0 and 10e-10. Check 'Force' to ignore. \n \n"
 
         if(parseInt(inputp.textFieldText) < 0)
-            error += " - Starting copies (p) is quite small, if you want to disable it just use 0. \n"
+            error += " - Starting copies (p) is quite small, if you want to disable it just use 0. \n \n"
         if(parseInt(inputp.textFieldText) > parseInt(inputN.textFieldText))
             error += " - Starting Copies (p) is quite large. The maximum value allowed is N. \n \n"
 
@@ -1420,7 +1420,7 @@ ApplicationWindow {
             error += " - Integration Cutoff (c) is quite large. The maximum value allowed is 10e-3. \n \n"
 
         if(parseInt(inputX.textFieldText) < 1)
-            error += " - Observed copies (x) is quite small. It must be at least 1. \n"
+            error += " - Observed copies (x) is quite small. It must be at least 1. \n \n"
         if(parseInt(inputX.textFieldText) > parseInt(inputN.textFieldText))
             error += " - Observed Copies (x) is quite large. The maximum value allowed is N. \n \n"
 
@@ -1429,19 +1429,19 @@ ApplicationWindow {
         if(parseFloat(inputU.textFieldText) < 0)
             error += " - Backward Mutation (u) is quite small. It must be at least 0. \n \n"
         if(!inputForce.checked && (4 * parseInt(inputN.textFieldText) * parseFloat(inputU.textFieldText)) > 1)
-            error += " - Backward Mutation (u) is quite large and might violate the Wright-Fisher assumptions. Check 'Force' to ignore."
+            error += " - Backward Mutation (u) is quite large and might violate the Wright-Fisher assumptions. Check 'Force' to ignore. \n \n"
 
         if(parseFloat(inputV.textFieldText) < 0)
             error += " - Forward Mutation (v) is quite small. It must be at least 0. \n \n"
         if(!inputForce.checked && (4 * parseInt(inputN.textFieldText) * parseFloat(inputV.textFieldText)) > 1)
-            error += " - Forward Mutation (v) is quite large and might violate the Wright-Fisher assumptions. Check 'Force' to ignore."
+            error += " - Forward Mutation (v) is quite large and might violate the Wright-Fisher assumptions. Check 'Force' to ignore. \n \n"
 
         if(parseFloat(inputS.textFieldText) < -1)
             error += " - Selection Coefficient (s) is quite small. It must be at least -1. \n \n"
         if(parseFloat(inputS.textFieldText) > 1)
             error += " - Selection Coefficient (s) is quite large. The maximum value allowed is 1. \n \n"
         if(!inputForce.checked && parseFloat(inputS.textFieldText) * (2 * parseInt(inputN.textFieldText)) <= -100)
-            error += " - Selection Coefficient (s) is quite negative. Fixations might be impossible. Check 'Force' to ignore."
+            error += " - Selection Coefficient (s) is quite negative. Fixations might be impossible. Check 'Force' to ignore. \n \n"
 
         if(parseFloat(inputH.textFieldText) < 0)
             error += " - Dominance Coefficient (h) is quite small. It must be at least 0. \n \n"
