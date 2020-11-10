@@ -6,10 +6,10 @@ QT += gui quick
 TARGET = wfes-lib
 TEMPLATE = lib
 
-CONFIG += c++11
+CONFIG += c++11 optimize_full
 
 DEFINES += WFESLIB_LIBRARY
-
+z
 QMAKE_CXXFLAGS += -DMKL_ILP64 -m64
 
 DESTDIR = $$PWD/../binaries/$$DESTINATION_PATH

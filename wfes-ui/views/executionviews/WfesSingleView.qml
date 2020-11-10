@@ -960,7 +960,6 @@ ApplicationWindow {
                                     messageDialog.text = error
                                     messageDialog.open()
                                 }
-                                outputControllerWfesSingle.ui_reset_error
 
                             }
 
@@ -1433,9 +1432,9 @@ ApplicationWindow {
             error += " - Backward Mutation (u) is quite large and might violate the Wright-Fisher assumptions. Check 'Force' to ignore."
 
         if(parseFloat(inputV.textFieldText) < 0)
-            error += " - Forward Mutation (u) is quite small. It must be at least 0. \n \n"
+            error += " - Forward Mutation (v) is quite small. It must be at least 0. \n \n"
         if(!inputForce.checked && (4 * parseInt(inputN.textFieldText) * parseFloat(inputV.textFieldText)) > 1)
-            error += " - Forward Mutation (u) is quite large and might violate the Wright-Fisher assumptions. Check 'Force' to ignore."
+            error += " - Forward Mutation (v) is quite large and might violate the Wright-Fisher assumptions. Check 'Force' to ignore."
 
         if(parseFloat(inputS.textFieldText) < -1)
             error += " - Selection Coefficient (s) is quite small. It must be at least -1. \n \n"

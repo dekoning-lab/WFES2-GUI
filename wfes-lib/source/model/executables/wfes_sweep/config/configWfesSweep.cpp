@@ -11,7 +11,7 @@ double ConfigWfesSweep::a = 1e-20;
 int ConfigWfesSweep::b = 100;
 int ConfigWfesSweep::starting_copies = 0;
 int ConfigWfesSweep::n_threads = 1;
-double ConfigWfesSweep::integration_cutoff = 1 - 1e-8;
+double ConfigWfesSweep::integration_cutoff = 1e-10;
 double ConfigWfesSweep::l = 1e-20;
 
 bool ConfigWfesSweep::output_Q = false;

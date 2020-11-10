@@ -38,7 +38,6 @@ public:
 
     ResultsWfesSweep* fixation();
 
-    void force();
     void calculateStartingCopies();
     void calculateZ();
 };
