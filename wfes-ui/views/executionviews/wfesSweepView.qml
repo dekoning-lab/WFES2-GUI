@@ -170,7 +170,7 @@ ApplicationWindow {
                                                 id: inputU1
                                                 text: "u1: "
                                                 toolTipText: "Backward mutation rate."
-                                                validator: DoubleValidator {bottom: 2; top: 50000;}
+                                                validator: DoubleValidator {bottom: 0;}
                                                 textFieldText: {
                                                     var u_vec = inputControllerWfesSweep.ui_u_vec
                                                     return u_vec[0]
@@ -181,7 +181,7 @@ ApplicationWindow {
                                                 id: inputV1
                                                 text: "v1: "
                                                 toolTipText: "Forward mutation rate."
-                                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
+                                                validator: DoubleValidator {bottom: 0;}
                                                 textFieldText: {
                                                     var v_vec = inputControllerWfesSweep.ui_v_vec
                                                     return v_vec[0]
@@ -225,7 +225,7 @@ ApplicationWindow {
                                                 id: inputS1
                                                 text: "s1: "
                                                 toolTipText: "Selection coefficient."
-                                                validator: DoubleValidator {bottom: 2; top: 50000;}
+                                                validator: DoubleValidator {bottom: -1; top: 1;}
                                                 textFieldText: {
                                                     var s_vec = inputControllerWfesSweep.ui_s_vec
                                                     return s_vec[0]
@@ -236,7 +236,7 @@ ApplicationWindow {
                                                 id: inputH1
                                                 text: "h1: "
                                                 toolTipText: "Dominance coefficient."
-                                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
+                                                validator: DoubleValidator {bottom: 0; top: 1;}
                                                 textFieldText: {
                                                     var h_vec = inputControllerWfesSweep.ui_h_vec
                                                     return h_vec[0]
@@ -293,7 +293,7 @@ ApplicationWindow {
                                                 id: inputU2
                                                 text: "u2: "
                                                 toolTipText: "Backward mutation rate."
-                                                validator: DoubleValidator {bottom: 2; top: 50000;}
+                                                validator: DoubleValidator {bottom: 0;}
                                                 textFieldText: {
                                                     var u_vec = inputControllerWfesSweep.ui_u_vec
                                                     return u_vec[1]
@@ -304,7 +304,7 @@ ApplicationWindow {
                                                 id: inputV2
                                                 text: "v2: "
                                                 toolTipText: "Forward mutation rate."
-                                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
+                                                validator: DoubleValidator {bottom: 0;}
                                                 textFieldText: {
                                                     var v_vec = inputControllerWfesSweep.ui_v_vec
                                                     return v_vec[1]
@@ -348,7 +348,7 @@ ApplicationWindow {
                                                 id: inputS2
                                                 text: "s2: "
                                                 toolTipText: "Selection coefficient."
-                                                validator: DoubleValidator {bottom: 2; top: 50000;}
+                                                validator: DoubleValidator {bottom: -1; top: 1;}
                                                 textFieldText: {
                                                     var s_vec = inputControllerWfesSweep.ui_s_vec
                                                     return s_vec[1]
@@ -359,7 +359,7 @@ ApplicationWindow {
                                                 id: inputH2
                                                 text: "h2: "
                                                 toolTipText: "Dominance coefficient."
-                                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
+                                                validator: DoubleValidator {bottom: 0; top: 1;}
                                                 textFieldText: {
                                                     var h_vec = inputControllerWfesSweep.ui_h_vec
                                                     return h_vec[1]
@@ -406,7 +406,7 @@ ApplicationWindow {
                                 id: inputN
                                 text: "N: "
                                 toolTipText: "Size of the population in the Wright Fisher Model."
-                                validator: DoubleValidator {bottom: 2; top: 50000;}
+                                validator: IntValidator {bottom: 2; top: 500000;}
                                 textFieldText: inputControllerWfesSweep.ui_n
                             }
 
@@ -414,7 +414,7 @@ ApplicationWindow {
                                 id: inputA
                                 text: "a: "
                                 toolTipText: "Tail truncation weight."
-                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
+                                validator: DoubleValidator {bottom: 0; top: 10e-10;}
                                 textFieldText: inputControllerWfesSweep.ui_a
                             }
 
@@ -422,7 +422,7 @@ ApplicationWindow {
                                 id: inputL
                                 text: "l: "
                                 toolTipText: "TODO."
-                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
+                                validator: DoubleValidator {bottom: 1e-20; top: 1;}
                                 textFieldText: inputControllerWfesSweep.ui_l
                             }
 
@@ -430,7 +430,7 @@ ApplicationWindow {
                                 id: inputC
                                 text: "c: "
                                 toolTipText: "TODO."
-                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
+                                validator: DoubleValidator {bottom: 0; top: 10e-3;}
                                 textFieldText: inputControllerWfesSweep.ui_c
                             }
 
@@ -438,7 +438,7 @@ ApplicationWindow {
                                 id: inputP
                                 text: "p: "
                                 toolTipText: "TODO."
-                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
+                                validator: IntValidator {bottom: 2; top: 500000;}
                                 textFieldText: inputControllerWfesSweep.ui_c
                             }
 
@@ -573,7 +573,7 @@ ApplicationWindow {
                                         text: "t: "
                                         labelPreferredWidth: 10
                                         toolTipText: "Number of threads for OpenMP."
-                                        validator: DoubleValidator {bottom: 2; top: 50000;}
+                                        validator: DoubleValidator {bottom: 1;}
                                         textFieldText: inputControllerWfesSweep.ui_t
                                     }
                                 }
