@@ -1448,7 +1448,7 @@ ApplicationWindow {
         if(parseFloat(inputH.textFieldText) > 1)
             error += " - Dominance Coefficient (h) is quite large. The maximum value allowed is 1. \n \n"
 
-        // Number of threads (k) does not have upper limites, since it depends on the hardware available.
+        // Number of threads (t) does not have upper limites, since it depends on the hardware available.
         if(parseInt(inputT.textFieldText) < 1)
             error += " - Number of Threads (t) is quite small, it must be at least 1. \n \n"
 

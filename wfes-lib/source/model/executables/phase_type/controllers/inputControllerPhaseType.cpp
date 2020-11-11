@@ -92,9 +92,9 @@ void InputControllerPhaseType::set_c(QString c) const
 
 QString InputControllerPhaseType::get_k() const
 {
-    boost::format fmt = boost::format(DPFS) % (ConfigPhaseType::odds_ratio);
+    boost::format fmt = boost::format(DPFS) % (ConfigPhaseType::k);
 
-    if((boost::math::isnan)(ConfigPhaseType::odds_ratio))
+    if((boost::math::isnan)(ConfigPhaseType::k))
         return "Error";
     else
         return QString::fromStdString(fmt.str());
@@ -105,7 +105,7 @@ void InputControllerPhaseType::set_k(QString k) const
     std::string k_str = k.toStdString();
     try {
         double k_d = boost::lexical_cast<double>(k_str);
-        ConfigPhaseType::odds_ratio = k_d;
+        ConfigPhaseType::k = k_d;
     } catch(boost::exception const&  ex) {
         std::string errorMessage = "";
         if(k_str.compare("") == 0) {

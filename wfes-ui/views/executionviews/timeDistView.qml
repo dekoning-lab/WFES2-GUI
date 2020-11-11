@@ -945,7 +945,6 @@ ApplicationWindow {
                                     messageDialog.text = error
                                     messageDialog.open()
                                 }
-                                outputControllerWfesSingle.ui_reset_error
                             }
 
                         }
@@ -1242,11 +1241,11 @@ ApplicationWindow {
 
 
         }
-            // Number of threads (k) does not have upper limites, since it depends on the hardware available.
-            if(parseInt(inputT.textFieldText) < 1)
-                error += " - Number of Threads (t) is quite small, it must be at least 1. \n \n"
+        // Number of threads (t) does not have upper limites, since it depends on the hardware available.
+        if(parseInt(inputT.textFieldText) < 1)
+            error += " - Number of Threads (t) is quite small, it must be at least 1. \n \n"
 
-            //TODO Check if Initial Distribution (I) file exists.
+        //TODO Check if Initial Distribution (I) file exists.
 
         return error.split("\n \n")[0];
     }

@@ -185,7 +185,7 @@ ApplicationWindow {
                                 id: inputN
                                 text: "N: "
                                 toolTipText: "Size of the population in the Wright Fisher Model."
-                                validator: DoubleValidator {bottom: 2; top: 50000;}
+                                validator: IntValidator {bottom: 2; top: 500000;}
                                 textFieldText: inputControllerPhaseType.ui_n
                             }
 
@@ -193,7 +193,7 @@ ApplicationWindow {
                                 id: inputA
                                 text: "a: "
                                 toolTipText: "Tail truncation weight."
-                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
+                                validator: DoubleValidator {bottom: 0; top: 10e-10;}
                                 textFieldText: inputControllerPhaseType.ui_a
                             }
 
@@ -201,7 +201,7 @@ ApplicationWindow {
                                 id: inputC
                                 text: "c: "
                                 toolTipText: "Starting number of copies integration cutoff."
-                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
+                                validator: DoubleValidator {bottom: 0; top: 10e-3;}
                                 textFieldText: inputControllerPhaseType.ui_c
                                 enabled: inputControllerPhaseType.ui_modelType == "Phase Type Dist."
                             }
@@ -210,7 +210,7 @@ ApplicationWindow {
                                 id: inputM
                                 text: "m: "
                                 toolTipText: "TODO."
-                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
+                                validator: IntValidator {bottom: 2; top: 500000;}
                                 textFieldText: inputControllerPhaseType.ui_m
                                 enabled: inputControllerPhaseType.ui_modelType == "Phase Type Dist."
                             }
@@ -218,8 +218,7 @@ ApplicationWindow {
                             LabeledTextField {
                                 id: inputK
                                 text: "k: "
-                                toolTipText: "Odds ratio (--establishment only)."
-                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
+                                toolTipText: "Number of Moments."
                                 textFieldText: inputControllerPhaseType.ui_k
                                 enabled: inputControllerPhaseType.ui_modelType == "Phase Type Moments"
                             }
@@ -259,7 +258,7 @@ ApplicationWindow {
                                 id: inputU
                                 text: "u: "
                                 toolTipText: "Backward mutation rate."
-                                validator: DoubleValidator {bottom: 2; top: 50000;}
+                                validator: DoubleValidator {bottom: 0;}
                                 textFieldText: inputControllerPhaseType.ui_u
                             }
 
@@ -267,7 +266,7 @@ ApplicationWindow {
                                 id: inputV
                                 text: "v: "
                                 toolTipText: "Forward mutation rate."
-                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
+                                validator: DoubleValidator {bottom: 0;}
                                 textFieldText: inputControllerPhaseType.ui_v
                             }
 
@@ -312,7 +311,7 @@ ApplicationWindow {
                                 id: inputS
                                 text: "s: "
                                 toolTipText: "Selection coefficient."
-                                validator: DoubleValidator {bottom: 2; top: 50000;}
+                                validator: DoubleValidator {bottom: -1; top: 1;}
                                 textFieldText: inputControllerPhaseType.ui_s
                             }
 
@@ -320,7 +319,7 @@ ApplicationWindow {
                                 id: inputH
                                 text: "h: "
                                 toolTipText: "Dominance coefficient."
-                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
+                                validator: DoubleValidator {bottom: 0; top: 1;}
                                 textFieldText: inputControllerPhaseType.ui_h
                             }
 
@@ -446,14 +445,24 @@ ApplicationWindow {
                                 ColumnLayout {
                                     width: childrenRect.width
 
-                                    LabeledTextField {
-                                        id: inputT
-                                        text: "t: "
-                                        toolTipText: "Number of threads for OpenMP."
-                                        labelPreferredWidth: 75
-                                        textFieldPreferredWidth: 185
-                                        validator: DoubleValidator {bottom: 2; top: 50000;}
-                                        textFieldText: inputControllerPhaseType.ui_t
+                                    RowLayout {
+                                        width: childrenRect.width
+
+                                        LabeledCheckBox {
+                                            id: inputForce
+                                            toolTipText: "Do not perform parameter checks."
+                                            text: "Force: "
+                                            checked: inputControllerWfesSingle.ui_force
+                                        }
+
+                                        LabeledTextField {
+                                            id: inputT
+                                            text: "t: "
+                                            toolTipText: "Number of threads for OpenMP."
+                                            labelPreferredWidth: 10
+                                            validator: IntValidator {bottom: 1;}
+                                            textFieldText: inputControllerWfesSingle.ui_t
+                                        }
                                     }
                                     LabeledComboBox {
                                         id: comboBoxLibrary
@@ -531,19 +540,19 @@ ApplicationWindow {
 
                             // All changes made in backend from GUI are done here.
                             onClicked: {
-                                bottomMenu.visibleProgressBar = true
+                                var error = checkIntegrity()
 
                                 updateBackend()
 
-                                if(outputControllerPhaseType.ui_get_error_message === "") {
+                                if(error === "") {
                                     executeButton.enabled = false
                                     stopButton.enabled = true
+                                    bottomMenu.visibleProgressBar = true
                                     outputControllerPhaseType.ui_execute
                                 } else {
-                                    messageDialog.text = outputControllerPhaseType.ui_get_error_message
+                                    messageDialog.text = error
                                     messageDialog.open()
                                 }
-                                outputControllerPhaseType.ui_reset_error
                             }
 
                         }
@@ -764,6 +773,66 @@ ApplicationWindow {
 
         inputControllerPhaseType.ui_library = comboBoxLibrary.currentText;
         inputControllerPhaseType.ui_solver = comboBoxSolver.currentText;
+
+    }
+
+
+    function checkIntegrity() {
+        var error = ""
+
+        if(parseInt(inputN.textFieldText) < 2)
+            error += " - Population Size (N) is quite small, it must be at least 2. \n \n"
+        if(!inputForce.checked && parseInt(inputN.textFieldText) > 50000)
+            error += " - Population Size (N) is quite large, the computations will take a long time. Check 'Force' to ignore. \n \n"
+
+        if(parseFloat(inputA.textFieldText) < 0)
+            error += " - Tail Truncation Cutoff (a) is quite small. It must be at least 0. \n \n"
+        if(!inputForce.checked && parseFloat(inputA.textFieldText) > 1e-5)
+            error += " - Tail Truncation Cutoff (a) value is quite high. This might produce inaccurate results. A good value should be between 0 and 10e-10. Check 'Force' to ignore. \n \n"
+
+        if(parseFloat(inputC.textFieldText) < 0)
+            error += " - Integration Cutoff (c) is quite small. It must be at least 0. \n \n"
+        if(parseFloat(inputC.textFieldText) > 10e-3)
+            error += " - Integration Cutoff (c) is quite large. The maximum value allowed is 10e-3. \n \n"
+
+        if(parseInt(inputM.textFieldText) < 2)
+            error += " - Maximum Number of Generations (m) is quite small, it must be at least 2. \n \n"
+        if(!inputForce.checked && parseInt(inputM.textFieldText) > 50000)
+            error += " - Maximum Number of Generations (m) is quite large, the computations will take a long time. Check 'Force' to ignore. \n \n"
+
+        // Moments (k) does not have upper limits, at least in the code. The default value is 20.
+        if(parseInt(inputK.textFieldText) < 2)
+            error += " - Number of Moments (k) is quite small, it must be at least 1. \n \n"
+
+        if(parseFloat(inputU.textFieldText) < 0)
+            error += " - Backward Mutation (u) is quite small. It must be at least 0. \n \n"
+        if(!inputForce.checked && (4 * parseInt(inputN.textFieldText) * parseFloat(inputU.textFieldText)) > 1)
+            error += " - Backward Mutation (u) is quite large and might violate the Wright-Fisher assumptions. Check 'Force' to ignore. \n \n"
+
+        if(parseFloat(inputV.textFieldText) < 0)
+            error += " - Forward Mutation (v) is quite small. It must be at least 0. \n \n"
+        if(!inputForce.checked && (4 * parseInt(inputN.textFieldText) * parseFloat(inputV.textFieldText)) > 1)
+            error += " - Forward Mutation (v) is quite large and might violate the Wright-Fisher assumptions. Check 'Force' to ignore. \n \n"
+
+        if(parseFloat(inputS.textFieldText) < -1)
+            error += " - Selection Coefficient (s) is quite small. It must be at least -1. \n \n"
+        if(parseFloat(inputS.textFieldText) > 1)
+            error += " - Selection Coefficient (s) is quite large. The maximum value allowed is 1. \n \n"
+        if(!inputForce.checked && parseFloat(inputS.textFieldText) * (2 * parseInt(inputN.textFieldText)) <= -100)
+            error += " - Selection Coefficient (s) is quite negative. Fixations might be impossible. Check 'Force' to ignore. \n \n"
+
+        if(parseFloat(inputH.textFieldText) < 0)
+            error += " - Dominance Coefficient (h) is quite small. It must be at least 0. \n \n"
+        if(parseFloat(inputH.textFieldText) > 1)
+            error += " - Dominance Coefficient (h) is quite large. The maximum value allowed is 1. \n \n"
+
+        // Number of threads (t) does not have upper limites, since it depends on the hardware available.
+        if(parseInt(inputT.textFieldText) < 1)
+            error += " - Number of Threads (t) is quite small, it must be at least 1. \n \n"
+
+        //TODO Check if Initial Distribution (I) file exists.
+
+        return error.split("\n \n")[0];
 
     }
 }
