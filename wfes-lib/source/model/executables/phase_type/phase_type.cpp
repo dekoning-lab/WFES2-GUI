@@ -14,10 +14,8 @@ ResultsPhaseType *phase_type::execute()
     msg_level = ConfigPhaseType::verbose ? MKL_PARDISO_MSG_VERBOSE : MKL_PARDISO_MSG_QUIET;
 
     // Set number of threads for intel MKL Pardiso.
-    #ifdef OMP
-        omp_set_num_threads(ConfigPhaseType::n_threads);
-    #endif
-        mkl_set_num_threads(ConfigPhaseType::n_threads);
+    omp_set_num_threads(ConfigPhaseType::n_threads);
+    mkl_set_num_threads(ConfigPhaseType::n_threads);
 
     //Notify starting.
     this->notify(ExecutionStatus::STARTING);

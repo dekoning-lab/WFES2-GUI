@@ -15,10 +15,8 @@ ResultsWfesSequential *wfes_sequential::execute()
     msg_level = ConfigWfesSequential::verbose ? MKL_PARDISO_MSG_VERBOSE : MKL_PARDISO_MSG_QUIET;
 
     // Set number of threads for intel MKL Pardiso.
-    #ifdef OMP
-        omp_set_num_threads(ConfigWfesSequential::n_threads);
-    #endif
-        mkl_set_num_threads(ConfigWfesSequential::n_threads);
+    omp_set_num_threads(ConfigWfesSequential::n_threads);
+    mkl_set_num_threads(ConfigWfesSequential::n_threads);
 
     //Notify starting.
     this->notify(ExecutionStatus::STARTING);
