@@ -9,6 +9,8 @@
 
 #include <QtGui/QImage>
 
+#include <ctime>
+
 #include <QDir>
 #include <QStandardPaths>
 #include <QDebug>

@@ -9,7 +9,7 @@ TEMPLATE = lib
 CONFIG += c++11 optimize_full
 
 DEFINES += WFESLIB_LIBRARY
-z
+
 QMAKE_CXXFLAGS += -DMKL_ILP64 -m64
 
 DESTDIR = $$PWD/../binaries/$$DESTINATION_PATH
@@ -194,6 +194,8 @@ macx {
 }
 
 win32 {
+
+    QMAKE_CXXFLAGS += -openmp
 
     INCLUDEPATH += $$PWD/source/
     INCLUDEPATH += $$PWD/../dependencies/windows/

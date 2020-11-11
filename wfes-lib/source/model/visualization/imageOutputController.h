@@ -1,13 +1,14 @@
 #ifndef IMAGEOUTPUTCONTROLLER_H
 #define IMAGEOUTPUTCONTROLLER_H
 
+#include <wfes-lib_global.h>
 #include <QObject>
 #include "imageresults.h"
 #include "utils/utils.h"
 
 namespace wfes {
     namespace controllers {
-        class ImageOutputController :public QObject
+        class WFESLIBSHARED_EXPORT ImageOutputController :public QObject
         {
             Q_OBJECT
             Q_PROPERTY(QString ui_image_I READ get_image_I NOTIFY image_changed)

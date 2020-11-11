@@ -1,7 +1,7 @@
 #ifndef IMAGERESULTS_H
 #define IMAGERESULTS_H
 
-#import <QImage>
+#include <QImage>
 
 class ImageResults
 {

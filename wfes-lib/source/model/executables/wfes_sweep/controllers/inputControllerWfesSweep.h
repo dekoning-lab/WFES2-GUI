@@ -43,7 +43,7 @@ namespace wfes {
              * @brief InputControllerWfesSweep Constructor.
              * @param parent To be used by Qt.
              */
-            InputControllerWfesSweep(QObject* parent = nullptr);
+            explicit InputControllerWfesSweep(QObject* parent = nullptr);
 
             /**
              * @brief InputControllerWfesSweep Destructor.

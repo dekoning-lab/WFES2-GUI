@@ -7,6 +7,8 @@
 #include <QStandardPaths>
 #include <QDebug>
 
+#include <ctime>
+
 #include <boost/math/special_functions/fpclassify.hpp>
 
 class ResultsWfesSweep

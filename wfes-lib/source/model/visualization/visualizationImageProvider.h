@@ -6,11 +6,11 @@
 #include "imageOutputController.h"
 #include "imageresults.h"
 
-class VisualizationImageProvider : public QQuickImageProvider
+class  WFESLIBSHARED_EXPORT VisualizationImageProvider : public QQuickImageProvider
 {
     public:
 
-        VisualizationImageProvider();
+        explicit VisualizationImageProvider();
 
         QImage requestImage(const QString &id, QSize *size, const QSize &requestedSize) override;
 

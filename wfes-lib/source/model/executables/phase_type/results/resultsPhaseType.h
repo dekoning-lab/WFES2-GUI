@@ -8,6 +8,7 @@
 #include <QDebug>
 
 #include <boost/math/special_functions/fpclassify.hpp>
+#include <ctime>
 
 class ResultsPhaseType {
 public:
