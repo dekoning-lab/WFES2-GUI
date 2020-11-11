@@ -27,7 +27,8 @@ ResultsWfesSingle* wfes_single::execute()
     this->notify(ExecutionStatus::STARTING);
 
     // If force is not activated, show error when values are not in expected ranges.
-    this->force();
+    // This has been implemented in view, so it is not necessary here anymore.
+    //this->force();
 
     // Set value for starting copies if the user has provided an initial distribution,
     // load it and calculate starting copies p.
@@ -558,6 +559,7 @@ ResultsWfesSingle *wfes_single::establishment()
     dvec B_est_closest = B_full_fix - dvec::Constant(size, ConfigWfesSingle::odds_ratio / (1 + ConfigWfesSingle::odds_ratio));
     B_est_closest.array().abs().minCoeff(&est_idx);
 
+    // TODO show as error in GUI
     if (est_idx == 1) {
         throw wfes::exception::Error("Establishment is near-certain: establishment-count is 1");
     }
@@ -736,9 +738,8 @@ ResultsWfesSingle *wfes_single::alleleAge()
     //Notify building matrix.
     this->notify(ExecutionStatus::BUILDING_MATRICES);
 
-    if (ConfigWfesSingle::observed_copies < 1 || ConfigWfesSingle::observed_copies > ConfigWfesSingle::population_size) {
-        throw wfes::exception::Error("x (observed copies) must be between 1 and N");
-    }
+    // Checking minimum and maximum value of observed copies in view, so it has been deleted here to avoid that an exception may crash the application.
+
     llong x = ConfigWfesSingle::observed_copies - 1;
 
     llong size = (2 * ConfigWfesSingle::population_size) - 1;
@@ -875,34 +876,6 @@ ResultsWfesSingle *wfes_single::nonAbsorbing()
     this->notify(ExecutionStatus::DONE);
 
     return new ResultsWfesSingle(ConfigWfesSingle::modelType, true, dt.count(), imageI, imageQ);
-}
-
-void wfes_single::force()
-{
-    if (!ConfigWfesSingle::force) {
-        if (ConfigWfesSingle::population_size > 500000) {
-            // TODO Show as dialog.
-            throw exception::Error("Population size is quite large - the computations will take a long "
-                              "time. Use --force to ignore");
-        }
-        double max_mu = std::max(ConfigWfesSingle::u, ConfigWfesSingle::v);
-        if ((4 * ConfigWfesSingle::population_size * max_mu) > 1) {
-            // TODO Show as dialog.
-            throw exception::Error("The mutation rate might violate the Wright-Fisher assumptions. Use "
-                              "--force to ignore");
-        }
-        if ((2 * ConfigWfesSingle::population_size * ConfigWfesSingle::s) <= -100) {
-            // TODO Show as dialog.
-            throw exception::Error("The selection coefficient is quite negative. Fixations might be "
-                              "impossible. Use --force to ignore");
-        }
-        if (ConfigWfesSingle::a > 1e-5) {
-            // TODO Show as dialog.
-            throw exception::Error("Zero cutoff value is quite high. This might produce inaccurate "
-                              "results. Use --force to ignore");
-        }
-    }
-
 }
 
 void wfes_single::calculateStartingCopies()

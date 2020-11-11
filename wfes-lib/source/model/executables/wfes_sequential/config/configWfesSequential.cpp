@@ -209,7 +209,7 @@ dvec ConfigWfesSequential::t = [] {
 
 dvec ConfigWfesSequential::p = [] {
     dvec tmp(1);
-    tmp << 100;
+    tmp << 1;
     return tmp;
 }();
 
@@ -233,7 +233,7 @@ dvec ConfigWfesSequential::s = [] {
 
 dvec ConfigWfesSequential::h = [] {
     dvec tmp(1);
-    tmp << 0.6;
+    tmp << 0.5;
     return tmp;
 }();
 

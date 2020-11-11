@@ -28,8 +28,8 @@ dvec ConfigTimeDistSGV::h = [] {
 
 int ConfigTimeDistSGV::population_size = 10000;
 double ConfigTimeDistSGV::a = 1e-20;
-double ConfigTimeDistSGV::integration_cutoff = 1 - 1e-8;
-int ConfigTimeDistSGV::max_t = 100000;
+double ConfigTimeDistSGV::integration_cutoff = 1e-10;
+int ConfigTimeDistSGV::max_t = 10000;
 bool ConfigTimeDistSGV::no_rem = false;
 bool ConfigTimeDistSGV::rem = !ConfigTimeDistSGV::no_rem;
 

@@ -256,7 +256,7 @@ ApplicationWindow {
                                 id: inputA
                                 text: "a: "
                                 toolTipText: "Tail truncation weight."
-                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
+                                validator: DoubleValidator {bottom: 0; top: 10e-10;}
                                 textFieldText: inputControllerWfesSwitching.ui_a
                             }
 
@@ -264,7 +264,7 @@ ApplicationWindow {
                                 id: inputC
                                 text: "c: "
                                 toolTipText: "Starting number of copies integration cutoff."
-                                validator: DoubleValidator {bottom: 0; top: 1;}
+                                validator: DoubleValidator {bottom: 0; top: 10e-3;}
                                 textFieldText: inputControllerWfesSwitching.ui_c
                             }
 
@@ -413,7 +413,7 @@ ApplicationWindow {
                                             text: "t: "
                                             labelPreferredWidth: 10
                                             toolTipText: "Number of threads for OpenMP."
-                                            validator: DoubleValidator {bottom: 2; top: 50000;}
+                                            validator: IntValidator {bottom: 1;}
                                             textFieldText: inputControllerWfesSwitching.ui_t
                                         }
                                     }
@@ -522,20 +522,19 @@ ApplicationWindow {
 
                                 // All changes made in backend from GUI are done here.
                                 onClicked: {
-                                    bottomMenu.visibleProgressBar = true
+                                    var error = checkIntegrity()
 
                                     updateBackend()
 
-                                    console.log(outputControllerWfesSwitching.ui_get_error_message)
-                                    if(outputControllerWfesSwitching.ui_get_error_message === "") {
+                                    if(error === "") {
                                         executeButton.enabled = false
                                         stopButton.enabled = true
+                                        bottomMenu.visibleProgressBar = true
                                         outputControllerWfesSwitching.ui_execute
                                     } else {
-                                        messageDialog.text = outputControllerWfesSwitching.ui_get_error_message
+                                        messageDialog.text = error
                                         messageDialog.open()
                                     }
-                                    outputControllerWfesSwitching.ui_reset_error
                                 }
 
                             }
@@ -699,8 +698,8 @@ ApplicationWindow {
         inputC.textFieldText = inputControllerWfesSwitching.ui_c
 
         var N_vec = inputControllerWfesSwitching.ui_N_vec
-        var r_vec = inputControllerWfesSwitching.ui_r_vec
         var p_vec = inputControllerWfesSwitching.ui_p_vec
+        var r_vec = inputControllerWfesSwitching.ui_r_vec
         var u_vec = inputControllerWfesSwitching.ui_u_vec
         var v_vec = inputControllerWfesSwitching.ui_v_vec
         var s_vec = inputControllerWfesSwitching.ui_s_vec
@@ -775,8 +774,8 @@ ApplicationWindow {
         inputControllerWfesSwitching.ui_a = inputA.textFieldText
         inputControllerWfesSwitching.ui_c = inputC.textFieldText
         var N_vec = []
-        var r_vec = []
         var p_vec = []
+        var r_vec = []
         var u_vec = []
         var v_vec = []
         var s_vec = []
@@ -823,4 +822,121 @@ ApplicationWindow {
 
     }
 
+    function checkIntegrity() {
+        var error = ""
+
+        if(parseFloat(inputA.textFieldText) < 0)
+            error += " - Tail Truncation Cutoff (a) is quite small. It must be at least 0. \n \n"
+        if(!inputForce.checked && parseFloat(inputA.textFieldText) > 1e-5)
+            error += " - Tail Truncation Cutoff (a) value is quite high. This might produce inaccurate results. A good value should be between 0 and 10e-10. Check 'Force' to ignore. \n \n"
+
+        if(parseFloat(inputC.textFieldText) < 0)
+            error += " - Integration Cutoff (c) is quite small. It must be at least 0. \n \n"
+        if(parseFloat(inputC.textFieldText) > 10e-3)
+            error += " - Integration Cutoff (c) is quite large. The maximum value allowed is 10e-3. \n \n"
+
+        var N_vec = []
+        var p_vec = []
+        var r_vec = []
+        var u_vec = []
+        var v_vec = []
+        var s_vec = []
+        var h_vec = []
+        for(var i = 0; i < componentsSectionTabView.children[0].count - 2; i++) {
+            componentsSectionTabView.children[0].getTab(i).active = true
+            var N = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[0].textFieldText
+            var p = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[1].textFieldText
+            var r = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[2].textFieldText
+            var u = componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[0].textFieldText
+            var v = componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[1].textFieldText
+            var s = componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[0].textFieldText
+            var h = componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[1].textFieldText
+            N_vec.push(N)
+            r_vec.push(r)
+            p_vec.push(p)
+            u_vec.push(u)
+            v_vec.push(v)
+            s_vec.push(s)
+            h_vec.push(h)
+        }
+
+        for(i = 0; i < inputControllerWfesSwitching.ui_num_comp; i++) {
+            if(parseInt(N_vec[i]) < 2)
+                error += " - Population Size (N" + (i + 1) + ") is quite small, it must be at least 2. \n \n"
+            if(!inputForce.checked && parseInt(N_vec[i]) > 50000)
+                error +=  " - Population Size (N" + (i + 1) + ") is quite large, the computations will take a long time. Check 'Force' to ignore. \n \n"
+        }
+
+        for(i = 0; i < inputControllerWfesSwitching.ui_num_comp; i++) {
+            if(parseInt(p_vec[i]) < 0)
+                error += " - Probability of starting (p" + (i + 1) + ") is quite small, it must be at least 2. \n \n"
+            if(parseInt(p_vec[i]) > 1)
+                error += " - Probability of starting (p" + (i + 1) + ") is quite large, the computations will take a long time. Check 'Force' to ignore. \n \n"
+        }
+
+        for(i = 0; i < inputControllerWfesSwitching.ui_num_comp; i++) {
+            var splitted = r_vec[i].split(", ")
+            if(splitted.length !== parseInt(inputControllerWfesSwitching.ui_num_comp))
+                error += " - Relative Probability of Switching (r" + (i + 1) + ") has " + splitted.length + " components. It should have " + inputControllerWfesSwitching.ui_num_comp + " components. \n \n"
+            if(splitted.length > 1) {
+                var valid = true;
+                for(var j = 0; j < splitted.length; j++) {
+                    if(parseFloat(splitted[j]) < 0) {
+                        error += " - The element " + j + " of Relative Probability of Switching (r" + (i + 1) + ") is quite small, it must be at least 0. \n \n"
+                        break;
+                    } else if (parseFloat(splitted[j]) > 1) {
+                        error += " - The element " + j + " of Relative Probability of Switching (r" + (i + 1) + ") is quite large. The maximum value allowed is 1. \n \n"
+                        break;
+                    }
+                }
+            } else {
+                if(parseFloat(r_vec[i]) < 0) {
+                    error += " - The element " + j + " of Relative Probability of Switching (r" + (i + 1) + ") is quite small, it must be at least 0. \n \n"
+                    break;
+                } else if (parseFloat(r_vec[i]) > 1) {
+                    error += " - The element " + j + " of Relative Probability of Switching (r" + (i + 1) + ") is quite large. The maximum value allowed is 1. \n \n"
+                    break;
+                }
+            }
+        }
+
+        for(i = 0; i < inputControllerWfesSwitching.ui_num_comp; i++) {
+            if(parseFloat(u_vec[i]) < 0)
+                error += " - Backward Mutation (u" + (i + 1) + ") is quite small. It must be at least 0. \n \n"
+            if(!inputForce.checked && (4 * parseInt(N_vec[i]) * parseFloat(u_vec[i])) > 1)
+                error += " - Backward Mutation (u" + (i + 1) + ") is quite large and might violate the Wright-Fisher assumptions. Check 'Force' to ignore. \n \n"
+        }
+
+        for(i = 0; i < inputControllerWfesSwitching.ui_num_comp; i++) {
+            if(parseFloat(v_vec[i]) < 0)
+                error += " - Forward Mutation (v" + (i + 1) + ") is quite small. It must be at least 0. \n \n"
+            if(!inputForce.checked && (4 * parseInt(N_vec[i]) * parseFloat(v_vec[i])) > 1)
+                error += " - Forward Mutation (v" + (i + 1) + ") is quite large and might violate the Wright-Fisher assumptions. Check 'Force' to ignore. \n \n"
+        }
+
+        for(i = 0; i < inputControllerWfesSwitching.ui_num_comp; i++) {
+            if(parseFloat(s_vec[i]) < -1)
+                error += " - Selection Coefficient (s" + (i + 1) + ") is quite negative. Fixations might be impossible. It must be at least -1. \n \n"
+            if(parseFloat(s_vec[i]) > 1)
+                error += " - Selection Coefficient (s" + (i + 1) + ") is quite large. The maximum value allowed is 1. \n \n"
+            if(parseFloat(s_vec[i]) * 2 * parseInt(N_vec[i]) <= -100) {
+                error += " - Selection Coefficient (s" + (i + 1) + ") is quite negative. Fixations might be impossible. It must be at least -1. \n \n"
+            }
+        }
+
+        for(i = 0; i < inputControllerWfesSwitching.ui_num_comp; i++) {
+            if(parseFloat(h_vec[i]) < 0)
+                error += " - Dominance Coefficient (h" + (i + 1) + ") is quite small. It must be at least 0. \n \n"
+            if(parseFloat(h_vec[i]) > 1)
+                error += " - Dominance Coefficient (h" + (i + 1) + ") is quite large. The maximum value allowed is 1. \n \n"
+        }
+
+        // Number of threads (t) does not have upper limites, since it depends on the hardware available.
+        if(parseInt(inputT.textFieldText) < 1)
+            error += " - Number of Threads (t) is quite small, it must be at least 1. \n \n"
+
+        //TODO Check if Initial Distribution (I) file exists.
+
+        return error.split("\n \n")[0];
+    }
 }

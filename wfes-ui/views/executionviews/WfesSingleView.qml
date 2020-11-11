@@ -498,7 +498,7 @@ ApplicationWindow {
                                 id: inputN
                                 text: "N: "
                                 toolTipText: "Size of the population in the Wright Fisher Model."
-                                validator: DoubleValidator {bottom: 2; top: 50000;}
+                                validator: IntValidator {bottom: 2; top: 500000;}
                                 textFieldText: inputControllerWfesSingle.ui_n
                             }
 
@@ -506,7 +506,7 @@ ApplicationWindow {
                                 id: inputA
                                 text: "a: "
                                 toolTipText: "Tail truncation weight."
-                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
+                                validator: DoubleValidator {bottom: 0; top: 10e-10;}
                                 textFieldText: inputControllerWfesSingle.ui_a
                             }
 
@@ -514,7 +514,7 @@ ApplicationWindow {
                                 id: inputp
                                 text: "p: "
                                 toolTipText: "Starting number of copies - no integration."
-                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
+                                validator: IntValidator {bottom: 0; top: 500000;}
                                 textFieldText: inputControllerWfesSingle.ui_p
                                 enabled: (inputControllerWfesSingle.ui_modelType == "Fixation" ||
                                           inputControllerWfesSingle.ui_modelType == "Absorption" ||
@@ -526,7 +526,7 @@ ApplicationWindow {
                                 id: inputc
                                 text: "c: "
                                 toolTipText: "Starting number of copies integration cutoff."
-                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
+                                validator: DoubleValidator {bottom: 0; top: 10e-3;}
                                 textFieldText: inputControllerWfesSingle.ui_c
                             }
 
@@ -534,7 +534,7 @@ ApplicationWindow {
                                 id: inputX
                                 text: "x: "
                                 toolTipText: "Observed number of copies (--allele-age only)."
-                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
+                                validator: IntValidator {bottom: 0; top: 500000;}
                                 textFieldText: inputControllerWfesSingle.ui_x
                                 enabled: (inputControllerWfesSingle.ui_modelType == "Allele Age")
                             }
@@ -543,7 +543,6 @@ ApplicationWindow {
                                 id: inputK
                                 text: "k: "
                                 toolTipText: "Odds ratio (--establishment only)."
-                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
                                 textFieldText: inputControllerWfesSingle.ui_k
                                 enabled: (inputControllerWfesSingle.ui_modelType == "Establishment")
                             }
@@ -583,7 +582,7 @@ ApplicationWindow {
                                 id: inputU
                                 text: "u: "
                                 toolTipText: "Backward mutation rate."
-                                validator: DoubleValidator {bottom: 2; top: 50000;}
+                                validator: DoubleValidator {bottom: 0;}
                                 textFieldText: inputControllerWfesSingle.ui_u
                             }
 
@@ -591,7 +590,7 @@ ApplicationWindow {
                                 id: inputV
                                 text: "v: "
                                 toolTipText: "Forward mutation rate."
-                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
+                                validator: DoubleValidator {bottom: 0;}
                                 textFieldText: inputControllerWfesSingle.ui_v
                             }
 
@@ -641,7 +640,7 @@ ApplicationWindow {
                                 id: inputS
                                 text: "s: "
                                 toolTipText: "Selection coefficient."
-                                validator: DoubleValidator {bottom: 2; top: 50000;}
+                                validator: DoubleValidator {bottom: -1; top: 1;}
                                 textFieldText: inputControllerWfesSingle.ui_s
                             }
 
@@ -649,7 +648,7 @@ ApplicationWindow {
                                 id: inputH
                                 text: "h: "
                                 toolTipText: "Dominance coefficient."
-                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
+                                validator: DoubleValidator {bottom: 0; top: 1;}
                                 textFieldText: inputControllerWfesSingle.ui_h
                             }
 
@@ -837,7 +836,7 @@ ApplicationWindow {
                                         text: "t: "
                                         toolTipText: "Number of threads for OpenMP."
                                         labelPreferredWidth: 10
-                                        validator: DoubleValidator {bottom: 2; top: 50000;}
+                                        validator: IntValidator {bottom: 1;}
                                         textFieldText: inputControllerWfesSingle.ui_t
                                     }
                                 }
@@ -947,19 +946,20 @@ ApplicationWindow {
 
                             // All changes made in backend from GUI are done here.
                             onClicked: {
-                                bottomMenu.visibleProgressBar = true
+
+                                var error = checkIntegrity()
 
                                 updateBackend();
 
-                                if(outputControllerWfesSingle.ui_get_error_message == "") {
+                                if(error === "") {
                                     executeButton.enabled = false
                                     stopButton.enabled = true
+                                    bottomMenu.visibleProgressBar = true
                                     outputControllerWfesSingle.ui_execute
                                 } else {
-                                    messageDialog.text = outputControllerWfesSingle.ui_get_error_message
+                                    messageDialog.text = error
                                     messageDialog.open()
                                 }
-                                outputControllerWfesSingle.ui_reset_error
 
                             }
 
@@ -1396,4 +1396,64 @@ ApplicationWindow {
 
     }
 
+    function checkIntegrity() {
+        var error = ""
+
+        if(parseInt(inputN.textFieldText) < 2)
+            error += " - Population Size (N) is quite small, it must be at least 2. \n \n"
+        if(!inputForce.checked && parseInt(inputN.textFieldText) > 50000)
+            error += " - Population Size (N) is quite large, the computations will take a long time. Check 'Force' to ignore. \n \n"
+
+        if(parseFloat(inputA.textFieldText) < 0)
+            error += " - Tail Truncation Cutoff (a) is quite small. It must be at least 0. \n \n"
+        if(!inputForce.checked && parseFloat(inputA.textFieldText) > 1e-5)
+            error += " - Tail Truncation Cutoff (a) value is quite high. This might produce inaccurate results. A good value should be between 0 and 10e-10. Check 'Force' to ignore. \n \n"
+
+        if(parseInt(inputp.textFieldText) < 0)
+            error += " - Starting copies (p) is quite small, if you want to disable it just use 0. \n \n"
+        if(parseInt(inputp.textFieldText) > parseInt(inputN.textFieldText))
+            error += " - Starting Copies (p) is quite large. The maximum value allowed is N. \n \n"
+
+        if(parseFloat(inputc.textFieldText) < 0)
+            error += " - Integration Cutoff (c) is quite small. It must be at least 0. \n \n"
+        if(parseFloat(inputc.textFieldText) > 10e-3)
+            error += " - Integration Cutoff (c) is quite large. The maximum value allowed is 10e-3. \n \n"
+
+        if(parseInt(inputX.textFieldText) < 1)
+            error += " - Observed copies (x) is quite small. It must be at least 1. \n \n"
+        if(parseInt(inputX.textFieldText) > parseInt(inputN.textFieldText))
+            error += " - Observed Copies (x) is quite large. The maximum value allowed is N. \n \n"
+
+        // Odds ratio (k) does not have limits, at least in the code. The default value is 1.
+
+        if(parseFloat(inputU.textFieldText) < 0)
+            error += " - Backward Mutation (u) is quite small. It must be at least 0. \n \n"
+        if(!inputForce.checked && (4 * parseInt(inputN.textFieldText) * parseFloat(inputU.textFieldText)) > 1)
+            error += " - Backward Mutation (u) is quite large and might violate the Wright-Fisher assumptions. Check 'Force' to ignore. \n \n"
+
+        if(parseFloat(inputV.textFieldText) < 0)
+            error += " - Forward Mutation (v) is quite small. It must be at least 0. \n \n"
+        if(!inputForce.checked && (4 * parseInt(inputN.textFieldText) * parseFloat(inputV.textFieldText)) > 1)
+            error += " - Forward Mutation (v) is quite large and might violate the Wright-Fisher assumptions. Check 'Force' to ignore. \n \n"
+
+        if(parseFloat(inputS.textFieldText) < -1)
+            error += " - Selection Coefficient (s) is quite small. It must be at least -1. \n \n"
+        if(parseFloat(inputS.textFieldText) > 1)
+            error += " - Selection Coefficient (s) is quite large. The maximum value allowed is 1. \n \n"
+        if(!inputForce.checked && parseFloat(inputS.textFieldText) * (2 * parseInt(inputN.textFieldText)) <= -100)
+            error += " - Selection Coefficient (s) is quite negative. Fixations might be impossible. Check 'Force' to ignore. \n \n"
+
+        if(parseFloat(inputH.textFieldText) < 0)
+            error += " - Dominance Coefficient (h) is quite small. It must be at least 0. \n \n"
+        if(parseFloat(inputH.textFieldText) > 1)
+            error += " - Dominance Coefficient (h) is quite large. The maximum value allowed is 1. \n \n"
+
+        // Number of threads (t) does not have upper limites, since it depends on the hardware available.
+        if(parseInt(inputT.textFieldText) < 1)
+            error += " - Number of Threads (t) is quite small, it must be at least 1. \n \n"
+
+        //TODO Check if Initial Distribution (I) file exists.
+
+        return error.split("\n \n")[0];
+    }
 }

@@ -141,10 +141,10 @@ bool ConfigTimeDist::no_rem = false;
 bool ConfigTimeDist::rem = !ConfigTimeDist::no_rem;
 double ConfigTimeDist::a = 1e-20;
 int ConfigTimeDist::b = 100;
-int ConfigTimeDist::max_t = 100000;
+int ConfigTimeDist::max_t = 10000;
 
 int ConfigTimeDist::n_threads = 1;
-double ConfigTimeDist::integration_cutoff = 1 - 1e-8;
+double ConfigTimeDist::integration_cutoff = 1e-10;
 bool ConfigTimeDist::verbose = false;
 
 std::string ConfigTimeDist::initial_distribution_csv = "";

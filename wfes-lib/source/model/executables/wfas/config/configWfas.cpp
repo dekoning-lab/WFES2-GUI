@@ -234,7 +234,7 @@ dvec ConfigWfas::s = [] {
 
 dvec ConfigWfas::h = [] {
     dvec tmp(1);
-    tmp << 0.6;
+    tmp << 0.5;
     return tmp;
 }();
 
@@ -242,7 +242,7 @@ std::string ConfigWfas::library = "Pardiso";
 std::string ConfigWfas::vienna_solver = "BicGStab";
 
 double ConfigWfas::a = 1e-20;
-int ConfigWfas::p = 1;
+int ConfigWfas::p = 0;
 int ConfigWfas::n_threads = 1;
 bool ConfigWfas::no_proj = false;
 

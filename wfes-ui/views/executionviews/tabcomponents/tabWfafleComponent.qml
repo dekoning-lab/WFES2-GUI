@@ -53,7 +53,7 @@ Component{
                     id: inputN
                     text: "N" + number + ": "
                     toolTipText: "Size of the population in the Wright Fisher Model."
-                    validator: DoubleValidator {bottom: 2; top: 50000;}
+                    validator: IntValidator {bottom: 2; top: 500000;}
                     textFieldText: {
                         if(number != 0) {
                             var n_vec = inputControllerWfafle.ui_N_vec
@@ -68,7 +68,7 @@ Component{
                     id: inputG
                     text: "G" + number + ": "
                     toolTipText: "Number of generations for each epoch."
-                    validator: DoubleValidator {bottom: 2; top: 50000;}
+                    validator: IntValidator {bottom: 0; top: 500000;}
                     textFieldText: {
                         if(number != 0) {
                             var g_vec = inputControllerWfafle.ui_G_vec
@@ -113,7 +113,7 @@ Component{
                     id: inputU
                     text: "u" + number + ": "
                     toolTipText: "Backward mutation rate."
-                    validator: DoubleValidator {bottom: 2; top: 50000;}
+                    validator: DoubleValidator {bottom: 0;}
                     textFieldText: {
                         if(number != 0) {
                             var u_vec = inputControllerWfafle.ui_u_vec
@@ -128,7 +128,7 @@ Component{
                     id: inputV
                     text: "v" + number + ": "
                     toolTipText: "Forward mutation rate."
-                    validator: DoubleValidator {bottom: 0; top: 2e-10;}
+                    validator: DoubleValidator {bottom: 0;}
                     textFieldText: {
                         if(number != 0) {
                             var v_vec = inputControllerWfafle.ui_v_vec
@@ -176,7 +176,7 @@ Component{
                     id: inputS
                     text: "s" + number + ": "
                     toolTipText: "Selection coefficient."
-                    validator: DoubleValidator {bottom: 2; top: 50000;}
+                    validator: DoubleValidator {bottom: -1; top: 1;}
                     textFieldText: {
                         if(number != 0) {
                             var s_vec = inputControllerWfafle.ui_s_vec
@@ -191,7 +191,7 @@ Component{
                     id: inputH
                     text: "h" + number + ": "
                     toolTipText: "Dominance coefficient."
-                    validator: DoubleValidator {bottom: 0; top: 2e-10;}
+                    validator: DoubleValidator {bottom: 0; top: 1;}
                     textFieldText: {
                         if(number != 0) {
                             var h_vec = inputControllerWfafle.ui_h_vec

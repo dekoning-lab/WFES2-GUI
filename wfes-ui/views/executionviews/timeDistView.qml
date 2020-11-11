@@ -322,7 +322,7 @@ ApplicationWindow {
                                                 id: inputU1
                                                 text: "u1: "
                                                 toolTipText: "Backward mutation rate."
-                                                validator: DoubleValidator {bottom: 2; top: 50000;}
+                                                validator: DoubleValidator {bottom: 0;}
                                                 textFieldText: {
                                                     var u_vec = inputControllerTimeDist.ui_u_vec
                                                     return u_vec[0]
@@ -333,7 +333,7 @@ ApplicationWindow {
                                                 id: inputV1
                                                 text: "v1: "
                                                 toolTipText: "Forward mutation rate."
-                                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
+                                                validator: DoubleValidator {bottom: 0;}
                                                 textFieldText: {
                                                     var v_vec = inputControllerTimeDist.ui_v_vec
                                                     return v_vec[0]
@@ -375,7 +375,7 @@ ApplicationWindow {
                                                 id: inputS1
                                                 text: "s1: "
                                                 toolTipText: "Selection coefficient."
-                                                validator: DoubleValidator {bottom: 2; top: 50000;}
+                                                validator: DoubleValidator {bottom: -1; top: 1;}
                                                 textFieldText: {
                                                     var s_vec = inputControllerTimeDist.ui_s_vec
                                                     return s_vec[0]
@@ -386,7 +386,7 @@ ApplicationWindow {
                                                 id: inputH1
                                                 text: "h1: "
                                                 toolTipText: "Dominance coefficient."
-                                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
+                                                validator: DoubleValidator {bottom: 0; top: 1;}
                                                 textFieldText: {
                                                     var h_vec = inputControllerTimeDist.ui_h_vec
                                                     return h_vec[0]
@@ -442,7 +442,7 @@ ApplicationWindow {
                                                 id: inputU2
                                                 text: "u2: "
                                                 toolTipText: "Backward mutation rate."
-                                                validator: DoubleValidator {bottom: 2; top: 50000;}
+                                                validator: DoubleValidator {bottom: 0;}
                                                 textFieldText: {
                                                     var u_vec = inputControllerTimeDist.ui_u_vec
                                                     return u_vec[1]
@@ -453,7 +453,7 @@ ApplicationWindow {
                                                 id: inputV2
                                                 text: "v2: "
                                                 toolTipText: "Forward mutation rate."
-                                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
+                                                validator: DoubleValidator {bottom: 0;}
                                                 textFieldText: {
                                                     var v_vec = inputControllerTimeDist.ui_v_vec
                                                     return v_vec[1]
@@ -495,7 +495,7 @@ ApplicationWindow {
                                                 id: inputS2
                                                 text: "s2: "
                                                 toolTipText: "Selection coefficient."
-                                                validator: DoubleValidator {bottom: 2; top: 50000;}
+                                                validator: DoubleValidator {bottom: -1; top: 1;}
                                                 textFieldText: {
                                                     var s_vec = inputControllerTimeDist.ui_s_vec
                                                     return s_vec[1]
@@ -506,7 +506,7 @@ ApplicationWindow {
                                                 id: inputH2
                                                 text: "h2: "
                                                 toolTipText: "Dominance coefficient."
-                                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
+                                                validator: DoubleValidator {bottom: 0; top: 1;}
                                                 textFieldText: {
                                                     var h_vec = inputControllerTimeDist.ui_h_vec
                                                     return h_vec[1]
@@ -549,7 +549,7 @@ ApplicationWindow {
                                 id: inputN
                                 text: "N: "
                                 toolTipText: "Size of the population in the Wright Fisher Model."
-                                validator: DoubleValidator {bottom: 2; top: 50000;}
+                                validator: IntValidator {bottom: 2; top: 500000;}
                                 textFieldText: inputControllerTimeDist.ui_n
                             }
 
@@ -557,7 +557,7 @@ ApplicationWindow {
                                 id: inputA
                                 text: "a: "
                                 toolTipText: "Tail truncation weight."
-                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
+                                validator: DoubleValidator {bottom: 0; top: 10e-10;}
                                 textFieldText: inputControllerTimeDist.ui_a
                             }
 
@@ -565,7 +565,7 @@ ApplicationWindow {
                                 id: inputC
                                 text: "c: "
                                 toolTipText: "Stop once this probability mass is reached."
-                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
+                                validator: DoubleValidator {bottom: 0; top: 10e-3;}
                                 textFieldText: inputControllerTimeDist.ui_c
                             }
 
@@ -573,7 +573,7 @@ ApplicationWindow {
                                 id: inputM
                                 text: "m: "
                                 toolTipText: "Maximum number of generations."
-                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
+                                validator: IntValidator {bottom: 2; top: 500000;}
                                 textFieldText: inputControllerTimeDist.ui_m
                             }
 
@@ -614,7 +614,7 @@ ApplicationWindow {
                                 id: inputN1
                                 text: "N: "
                                 toolTipText: "Size of the population in the Wright Fisher Model."
-                                validator: DoubleValidator {bottom: 2; top: 50000;}
+                                validator: IntValidator {bottom: 2; top: 500000;}
                                 textFieldText: inputControllerTimeDist.ui_n_sgv
                             }
 
@@ -622,7 +622,7 @@ ApplicationWindow {
                                 id: inputA1
                                 text: "a: "
                                 toolTipText: "Tail truncation weight."
-                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
+                                validator: DoubleValidator {bottom: 0; top: 10e-10;}
                                 textFieldText: inputControllerTimeDist.ui_a_sgv
                             }
 
@@ -630,7 +630,7 @@ ApplicationWindow {
                                 id: inputL
                                 text: "l: "
                                 toolTipText: "Transition probability."
-                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
+                                validator: DoubleValidator {bottom: 1e-20; top: 1;}
                                 textFieldText: inputControllerTimeDist.ui_l
                                 enabled: (inputControllerTimeDist.ui_modelType == "Time Dist. SGV")
                             }
@@ -639,7 +639,7 @@ ApplicationWindow {
                                 id: inputC1
                                 text: "c: "
                                 toolTipText: "Stop once this probability mass is reached."
-                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
+                                validator: DoubleValidator {bottom: 0; top: 10e-3;}
                                 textFieldText: inputControllerTimeDist.ui_c_sgv
                             }
 
@@ -647,7 +647,7 @@ ApplicationWindow {
                                 id: inputM1
                                 text: "m: "
                                 toolTipText: "Maximum number of generations."
-                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
+                                validator: IntValidator {bottom: 2; top: 500000;}
                                 textFieldText: inputControllerTimeDist.ui_m_sgv
                             }
 
@@ -687,7 +687,7 @@ ApplicationWindow {
                                 id: inputU
                                 text: "u: "
                                 toolTipText: "Backward mutation rate."
-                                validator: DoubleValidator {bottom: 2; top: 50000;}
+                                validator: DoubleValidator {bottom: 0;}
                                 textFieldText: inputControllerTimeDist.ui_u
                             }
 
@@ -695,7 +695,7 @@ ApplicationWindow {
                                 id: inputV
                                 text: "v: "
                                 toolTipText: "Forward mutation rate."
-                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
+                                validator: DoubleValidator {bottom: 0;}
                                 textFieldText: inputControllerTimeDist.ui_v
                             }
 
@@ -741,7 +741,7 @@ ApplicationWindow {
                                 id: inputS
                                 text: "s: "
                                 toolTipText: "Selection coefficient."
-                                validator: DoubleValidator {bottom: 2; top: 50000;}
+                                validator: DoubleValidator {bottom: -1; top: 1;}
                                 textFieldText: inputControllerTimeDist.ui_s
                             }
 
@@ -749,7 +749,7 @@ ApplicationWindow {
                                 id: inputH
                                 text: "h: "
                                 toolTipText: "Dominance coefficient."
-                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
+                                validator: DoubleValidator {bottom: 0; top: 1;}
                                 textFieldText: inputControllerTimeDist.ui_h
                             }
 
@@ -866,7 +866,7 @@ ApplicationWindow {
                                         text: "t: "
                                         textFieldPreferredWidth: 100
                                         toolTipText: "Number of threads for OpenMP."
-                                        validator: DoubleValidator {bottom: 2; top: 50000;}
+                                        validator: DoubleValidator {bottom: 1;}
                                         textFieldText: inputControllerTimeDist.ui_t
                                     }
                                 }
@@ -932,19 +932,19 @@ ApplicationWindow {
 
                             // All changes made in backend from GUI are done here.
                             onClicked: {
-                                bottomMenu.visibleProgressBar = true
+                                var error = checkIntegrity()
 
                                 updateBackend()
 
-                                if(outputControllerTimeDist.ui_get_error_message === "") {
+                                if(error === "") {
                                     executeButton.enabled = false
                                     stopButton.enabled = true
+                                    bottomMenu.visibleProgressBar = true
                                     outputControllerTimeDist.ui_execute
                                 } else {
-                                    messageDialog.text = outputControllerTimeDist.ui_get_error_message
+                                    messageDialog.text = error
                                     messageDialog.open()
                                 }
-                                outputControllerWfesSingle.ui_reset_error
                             }
 
                         }
@@ -1118,5 +1118,135 @@ ApplicationWindow {
 
         inputControllerTimeDist.ui_force = inputForce.checked
 
+    }
+
+    function checkIntegrity() {
+        var error = ""
+
+
+        if(!radioButtonTimeDistSGV.checked) {
+            if(parseInt(inputN.textFieldText) < 2)
+                error += " - Population Size (N) is quite small, it must be at least 2. \n \n"
+            if(!inputForce.checked && parseInt(inputN.textFieldText) > 50000)
+                error += " - Population Size (N) is quite large, the computations will take a long time. Check 'Force' to ignore. \n \n"
+
+            if(parseFloat(inputA.textFieldText) < 0)
+                error += " - Tail Truncation Cutoff (a) is quite small. It must be at least 0. \n \n"
+            if(!inputForce.checked && parseFloat(inputA.textFieldText) > 1e-5)
+                error += " - Tail Truncation Cutoff (a) value is quite high. This might produce inaccurate results. A good value should be between 0 and 10e-10. Check 'Force' to ignore. \n \n"
+
+            if(parseFloat(inputC.textFieldText) < 0)
+                error += " - Integration Cutoff (c) is quite small. It must be at least 0. \n \n"
+            if(parseFloat(inputC.textFieldText) > 10e-3)
+                error += " - Integration Cutoff (c) is quite large. The maximum value allowed is 10e-3. \n \n"
+
+            if(parseInt(inputM.textFieldText) < 2)
+                error += " - Maximum Number of Generations (m) is quite small, it must be at least 2. \n \n"
+            if(!inputForce.checked && parseInt(inputM.textFieldText) > 50000)
+                error += " - Maximum Number of Generations (m) is quite large, the computations will take a long time. Check 'Force' to ignore. \n \n"
+
+            if(parseFloat(inputU.textFieldText) < 0)
+                error += " - Backward Mutation (u) is quite small. It must be at least 0. \n \n"
+            if(!inputForce.checked && (4 * parseInt(inputN.textFieldText) * parseFloat(inputU.textFieldText)) > 1)
+                error += " - Backward Mutation (u) is quite large and might violate the Wright-Fisher assumptions. Check 'Force' to ignore. \n \n"
+
+            if(parseFloat(inputV.textFieldText) < 0)
+                error += " - Forward Mutation (v) is quite small. It must be at least 0. \n \n"
+            if(!inputForce.checked && (4 * parseInt(inputN.textFieldText) * parseFloat(inputV.textFieldText)) > 1)
+                error += " - Forward Mutation (v) is quite large and might violate the Wright-Fisher assumptions. Check 'Force' to ignore. \n \n"
+
+            if(parseFloat(inputS.textFieldText) < -1)
+                error += " - Selection Coefficient (s) is quite small. It must be at least -1. \n \n"
+            if(parseFloat(inputS.textFieldText) > 1)
+                error += " - Selection Coefficient (s) is quite large. The maximum value allowed is 1. \n \n"
+            if(!inputForce.checked && parseFloat(inputS.textFieldText) * (2 * parseInt(inputN.textFieldText)) <= -100)
+                error += " - Selection Coefficient (s) is quite negative. Fixations might be impossible. Check 'Force' to ignore. \n \n"
+
+            if(parseFloat(inputH.textFieldText) < 0)
+                error += " - Dominance Coefficient (h) is quite small. It must be at least 0. \n \n"
+            if(parseFloat(inputH.textFieldText) > 1)
+                error += " - Dominance Coefficient (h) is quite large. The maximum value allowed is 1. \n \n"
+        } else {
+            if(parseInt(inputN1.textFieldText) < 2)
+                error += " - Population Size (N) of SGV is quite small, it must be at least 2. \n \n"
+            if(!inputForce.checked && parseInt(inputN1.textFieldText) > 50000)
+                error += " - Population Size (N) of SGV is quite large, the computations will take a long time. Check 'Force' to ignore. \n \n"
+
+            if(parseFloat(inputL.textFieldText) < 1e-20)
+                error += " - Rate of switching to pre-adaptive phase (l) of SGV is quite small. It must be at least 0. \n \n"
+            if(parseFloat(inputL.textFieldText) > 1)
+                error += " - Rate of switching to pre-adaptive phase (l) of SGV is quite large. The maximum value allowed is 10e-3. \n \n"
+
+            if(parseFloat(inputA1.textFieldText) < 0)
+                error += " - Tail Truncation Cutoff (a) of SGV is quite small. It must be at least 0. \n \n"
+            if(!inputForce.checked && parseFloat(inputA1.textFieldText) > 1e-5)
+                error += " - Tail Truncation Cutoff (a) of SGV value is quite high. This might produce inaccurate results. A good value should be between 0 and 10e-10. Check 'Force' to ignore. \n \n"
+
+            if(parseFloat(inputC1.textFieldText) < 0)
+                error += " - Integration Cutoff (c) of SGV is quite small. It must be at least 0. \n \n"
+            if(parseFloat(inputC1.textFieldText) > 10e-3)
+                error += " - Integration Cutoff (c) of SGV is quite large. The maximum value allowed is 10e-3. \n \n"
+
+            if(parseInt(inputM1.textFieldText) < 2)
+                error += " - Maximum Number of Generations (m) of SGV is quite small, it must be at least 2. \n \n"
+            if(!inputForce.checked && parseInt(inputM1.textFieldText) > 50000)
+                error += " - Maximum Number of Generations (m) of SGV is quite large, the computations will take a long time. Check 'Force' to ignore. \n \n"
+
+            var u_vec = []
+            var v_vec = []
+            var s_vec = []
+            var h_vec = []
+            for(var i = 0; i < 2; i++) {
+                timeDistSGVSectionTabView.getTab(i).active = true
+                var u = timeDistSGVSectionTabView.getTab(i).item.children[0].children[1].children[0].textFieldText
+                var v = timeDistSGVSectionTabView.getTab(i).item.children[0].children[1].children[1].textFieldText
+                var s = timeDistSGVSectionTabView.getTab(i).item.children[1].children[1].children[0].textFieldText
+                var h = timeDistSGVSectionTabView.getTab(i).item.children[1].children[1].children[1].textFieldText
+                u_vec.push(u)
+                v_vec.push(v)
+                s_vec.push(s)
+                h_vec.push(h)
+            }
+
+            for(i = 0; i < 2; i++) {
+                if(parseFloat(u_vec[i].textFieldText) < 0)
+                    error += " - Backward Mutation (u" + (i + 1) + ") of SGV is quite small. It must be at least 0. \n \n"
+                if(!inputForce.checked && (4 * parseInt(inputN.textFieldText) * parseFloat(u_vec[i])) > 1)
+                    error += " - Backward Mutation (u" + (i + 1) + ") of SGV is quite large and might violate the Wright-Fisher assumptions. Check 'Force' to ignore. \n \n"
+            }
+
+            for(i = 0; i < 2; i++) {
+                if(parseFloat(v_vec[i]) < 0)
+                    error += " - Forward Mutation (v" + (i + 1) + ") of SGV is quite small. It must be at least 0. \n \n"
+                if(!inputForce.checked && (4 * parseInt(inputN.textFieldText) * parseFloat(v_vec[i])) > 1)
+                    error += " - Forward Mutation (v" + (i + 1) + ") of SGV is quite large and might violate the Wright-Fisher assumptions. Check 'Force' to ignore. \n \n"
+            }
+
+            for(i = 0; i < 2; i++) {
+                if(parseFloat(s_vec[i]) < -1)
+                    error += " - Selection Coefficient (s" + (i + 1) + ") of SGV is quite negative. Fixations might be impossible. It must be at least -1. \n \n"
+                if(parseFloat(s_vec[i]) > 1)
+                    error += " - Selection Coefficient (s" + (i + 1) + ") of SGV is quite large. The maximum value allowed is 1. \n \n"
+                if(parseFloat(s_vec[i]) * 2 * parseInt(inputN.textFieldText) <= -100) {
+                    error += " - Selection Coefficient (s" + (i + 1) + ") of SGV is quite negative. Fixations might be impossible. It must be at least -1. \n \n"
+                }
+            }
+
+            for(i = 0; i < 2; i++) {
+                if(parseFloat(h_vec[i]) < 0)
+                    error += " - Dominance Coefficient (h" + (i + 1) + ") of SGV is quite small. It must be at least 0. \n \n"
+                if(parseFloat(h_vec[i]) > 1)
+                    error += " - Dominance Coefficient (h" + (i + 1) + ") of SGV is quite large. The maximum value allowed is 1. \n \n"
+            }
+
+
+        }
+        // Number of threads (t) does not have upper limites, since it depends on the hardware available.
+        if(parseInt(inputT.textFieldText) < 1)
+            error += " - Number of Threads (t) is quite small, it must be at least 1. \n \n"
+
+        //TODO Check if Initial Distribution (I) file exists.
+
+        return error.split("\n \n")[0];
     }
 }

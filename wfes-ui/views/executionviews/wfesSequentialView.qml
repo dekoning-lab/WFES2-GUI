@@ -408,7 +408,7 @@ ApplicationWindow {
                                 text: "Execute"
 
                                 onEnabledChanged: {
-                                    if(outputControllerWfesSequentials.ui_get_not_exec)
+                                    if(outputControllerWfesSequential.ui_get_not_exec)
                                         imageOutputController.image_changed()
                                 }
 
@@ -421,20 +421,19 @@ ApplicationWindow {
 
                                 // All changes made in backend from GUI are done here.
                                 onClicked: {
-                                    bottomMenu.visibleProgressBar = true
+                                    var error = checkIntegrity()
 
-                                    updateBackground()
+                                    updateBackend()
 
-                                    console.log(outputControllerWfesSequential.ui_get_error_message)
-                                    if(outputControllerWfesSequential.ui_get_error_message === "") {
+                                    if(error === "") {
                                         executeButton.enabled = false
                                         stopButton.enabled = true
+                                        bottomMenu.visibleProgressBar = true
                                         outputControllerWfesSequential.ui_execute
                                     } else {
-                                        messageDialog.text = outputControllerWfesSequential.ui_get_error_message
+                                        messageDialog.text = error
                                         messageDialog.open()
                                     }
-                                    outputControllerWfesSequential.ui_reset_error
                                 }
 
                             }
@@ -723,7 +722,102 @@ ApplicationWindow {
 
         inputControllerWfesSequential.ui_library = comboBoxLibrary.currentText;
         inputControllerWfesSequential.ui_solver = comboBoxSolver.currentText;
+    }
 
+    function checkIntegrity() {
+        var error = ""
+
+        if(parseFloat(inputA.textFieldText) < 0)
+            error += " - Tail Truncation Cutoff (a) is quite small. It must be at least 0. \n \n"
+        if(!inputForce.checked && parseFloat(inputA.textFieldText) > 1e-5)
+            error += " - Tail Truncation Cutoff (a) value is quite high. This might produce inaccurate results. A good value should be between 0 and 10e-10. Check 'Force' to ignore. \n \n"
+
+        if(parseFloat(inputC.textFieldText) < 0)
+            error += " - Integration Cutoff (c) is quite small. It must be at least 0. \n \n"
+        if(parseFloat(inputC.textFieldText) > 10e-3)
+            error += " - Integration Cutoff (c) is quite large. The maximum value allowed is 10e-3. \n \n"
+
+        var N_vec = []
+        var t_vec = []
+        var p_vec = []
+        var u_vec = []
+        var v_vec = []
+        var s_vec = []
+        var h_vec = []
+        for(var i = 0; i < inputControllerWfesSequential.ui_num_comp; i++) {
+            componentsSectionTabView.children[0].getTab(i).active = true
+            var N = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[0].textFieldText
+            var t = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[1].textFieldText
+            var p = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[2].textFieldText
+            var u = componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[0].textFieldText
+            var v = componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[1].textFieldText
+            var s = componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[0].textFieldText
+            var h = componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[1].textFieldText
+            N_vec.push(N)
+            t_vec.push(t)
+            p_vec.push(p)
+            u_vec.push(u)
+            v_vec.push(v)
+            s_vec.push(s)
+            h_vec.push(h)
+        }
+
+        for(i = 0; i < inputControllerWfesSequential.ui_num_comp; i++) {
+            if(parseInt(N_vec[i]) < 2)
+                error += " - Population Size (N" + (i + 1) + ") is quite small, it must be at least 2. \n \n"
+            if(!inputForce.checked && parseInt(N_vec[i]) > 50000)
+                error +=  " - Population Size (N" + (i + 1) + ") is quite large, the computations will take a long time. Check 'Force' to ignore. \n \n"
+        }
+
+        for(i = 0; i < inputControllerWfesSequential.ui_num_comp; i++) {
+            if(parseInt(t_vec[i]) < 1)
+                error += " - Expected Time (t" + (i + 1) + ") is quite small, it must be at least 2. \n \n"
+            // No upper limit for this.
+        }
+
+
+        for(i = 0; i < inputControllerWfesSequential.ui_num_comp; i++) {
+            //TODO Starting probabilities.
+        }
+
+        for(i = 0; i < inputControllerWfesSequential.ui_num_comp; i++) {
+            if(parseFloat(u_vec[i]) < 0)
+                error += " - Backward Mutation (u" + (i + 1) + ") is quite small. It must be at least 0. \n \n"
+            if(!inputForce.checked && (4 * parseInt(N_vec[i]) * parseFloat(u_vec[i])) > 1)
+                error += " - Backward Mutation (u" + (i + 1) + ") is quite large and might violate the Wright-Fisher assumptions. Check 'Force' to ignore. \n \n"
+        }
+
+        for(i = 0; i < inputControllerWfesSequential.ui_num_comp; i++) {
+            if(parseFloat(v_vec[i]) < 0)
+                error += " - Forward Mutation (v" + (i + 1) + ") is quite small. It must be at least 0. \n \n"
+            if(!inputForce.checked && (4 * parseInt(N_vec[i]) * parseFloat(v_vec[i])) > 1)
+                error += " - Forward Mutation (v" + (i + 1) + ") is quite large and might violate the Wright-Fisher assumptions. Check 'Force' to ignore. \n \n"
+        }
+
+        for(i = 0; i < inputControllerWfesSequential.ui_num_comp; i++) {
+            if(parseFloat(s_vec[i]) < -1)
+                error += " - Selection Coefficient (s" + (i + 1) + ") is quite negative. Fixations might be impossible. It must be at least -1. \n \n"
+            if(parseFloat(s_vec[i]) > 1)
+                error += " - Selection Coefficient (s" + (i + 1) + ") is quite large. The maximum value allowed is 1. \n \n"
+            if(parseFloat(s_vec[i]) * 2 * parseInt(N_vec[i]) <= -100) {
+                error += " - Selection Coefficient (s" + (i + 1) + ") is quite negative. Fixations might be impossible. It must be at least -1. \n \n"
+            }
+        }
+
+        for(i = 0; i < inputControllerWfesSequential.ui_num_comp; i++) {
+            if(parseFloat(h_vec[i]) < 0)
+                error += " - Dominance Coefficient (h" + (i + 1) + ") is quite small. It must be at least 0. \n \n"
+            if(parseFloat(h_vec[i]) > 1)
+                error += " - Dominance Coefficient (h" + (i + 1) + ") is quite large. The maximum value allowed is 1. \n \n"
+        }
+
+        // Number of threads (t) does not have upper limites, since it depends on the hardware available.
+        if(parseInt(inputT.textFieldText) < 1)
+            error += " - Number of Threads (t) is quite small, it must be at least 1. \n \n"
+
+        //TODO Check if Initial Distribution (I) file exists.
+
+        return error.split("\n \n")[0];
     }
 
 }
