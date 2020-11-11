@@ -748,21 +748,21 @@ ApplicationWindow {
                 error +=  " - Approximation Factor (f" + (i + 1) + ") is quite large. The maximum value allowed is N. \n \n"
         }
 
-        for(i = 0; i < inputControllerWfesSequential.ui_num_comp; i++) {
+        for(i = 0; i < inputControllerWfas.ui_num_comp; i++) {
             if(parseFloat(u_vec[i]) < 0)
                 error += " - Backward Mutation (u" + (i + 1) + ") is quite small. It must be at least 0. \n \n"
             if(!inputForce.checked && (4 * parseInt(N_vec[i]) * parseFloat(u_vec[i])) > 1)
                 error += " - Backward Mutation (u" + (i + 1) + ") is quite large and might violate the Wright-Fisher assumptions. Check 'Force' to ignore. \n \n"
         }
 
-        for(i = 0; i < inputControllerWfesSequential.ui_num_comp; i++) {
+        for(i = 0; i < inputControllerWfas.ui_num_comp; i++) {
             if(parseFloat(v_vec[i]) < 0)
                 error += " - Forward Mutation (v" + (i + 1) + ") is quite small. It must be at least 0. \n \n"
             if(!inputForce.checked && (4 * parseInt(N_vec[i]) * parseFloat(v_vec[i])) > 1)
                 error += " - Forward Mutation (v" + (i + 1) + ") is quite large and might violate the Wright-Fisher assumptions. Check 'Force' to ignore. \n \n"
         }
 
-        for(i = 0; i < inputControllerWfesSequential.ui_num_comp; i++) {
+        for(i = 0; i < inputControllerWfas.ui_num_comp; i++) {
             if(parseFloat(s_vec[i]) < -1)
                 error += " - Selection Coefficient (s" + (i + 1) + ") is quite negative. Fixations might be impossible. It must be at least -1. \n \n"
             if(parseFloat(s_vec[i]) > 1)
@@ -772,7 +772,7 @@ ApplicationWindow {
             }
         }
 
-        for(i = 0; i < inputControllerWfesSequential.ui_num_comp; i++) {
+        for(i = 0; i < inputControllerWfas.ui_num_comp; i++) {
             if(parseFloat(h_vec[i]) < 0)
                 error += " - Dominance Coefficient (h" + (i + 1) + ") is quite small. It must be at least 0. \n \n"
             if(parseFloat(h_vec[i]) > 1)

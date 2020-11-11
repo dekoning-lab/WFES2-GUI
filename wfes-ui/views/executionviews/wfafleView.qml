@@ -159,7 +159,7 @@ ApplicationWindow {
                                 id: inputP
                                 text: "p: "
                                 toolTipText: "Initial allele count."
-                                validator: DoubleValidator {bottom: 2; top: 50000;}
+                                validator: IntValidator {bottom: 0; top: 2;}
                                 textFieldText: inputControllerWfafle.ui_p
                             }
 
@@ -372,17 +372,17 @@ ApplicationWindow {
 
                             // All changes made in backend from GUI are done here.
                             onClicked: {
-                                bottomMenu.visibleProgressBar = true
+                                var error = checkIntegrity()
 
                                 updateBackend()
 
-                                console.log(outputControllerWfafle.ui_get_error_message)
-                                if(outputControllerWfafle.ui_get_error_message === "") {
+                                if(error === "") {
                                     executeButton.enabled = false
                                     stopButton.enabled = true
+                                    bottomMenu.visibleProgressBar = true
                                     outputControllerWfafle.ui_execute
                                 } else {
-                                    messageDialog.text = outputControllerWfafle.ui_get_error_message
+                                    messageDialog.text = error
                                     messageDialog.open()
                                 }
                                 outputControllerWfafle.ui_reset_error
@@ -601,5 +601,93 @@ ApplicationWindow {
 
         inputControllerWfafle.ui_library = comboBoxLibrary.currentText;
         inputControllerWfafle.ui_solver = comboBoxSolver.currentText;
+    }
+
+    function checkIntegrity() {
+        var error = ""
+
+        if(parseFloat(inputA.textFieldText) < 0)
+            error += " - Tail Truncation Cutoff (a) is quite small. It must be at least 0. \n \n"
+        if(!inputForce.checked && parseFloat(inputA.textFieldText) > 1e-5)
+            error += " - Tail Truncation Cutoff (a) value is quite high. This might produce inaccurate results. A good value should be between 0 and 10e-10. Check 'Force' to ignore. \n \n"
+
+        if(parseInt(inputP.textFieldText) < 0)
+            error += " - Initial Allele Count (p) is quite small. It must be at least 0. \n \n"
+        if(!inputForce.checked && parseInt(inputP.textFieldText) > 2)
+            error += " - Initial Allele Count (p) value is quite high. The maximum value allowed is 2. \n \n"
+
+        var N_vec = []
+        var G_vec = []
+        var u_vec = []
+        var v_vec = []
+        var s_vec = []
+        var h_vec = []
+        for(var i = 0; i < inputControllerWfafle.ui_num_comp; i++) {
+            componentsSectionTabView.children[0].getTab(i).active = true
+            var N = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[0].textFieldText
+            var G = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[1].textFieldText
+            var u = componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[0].textFieldText
+            var v = componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[1].textFieldText
+            var s = componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[0].textFieldText
+            var h = componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[1].textFieldText
+            N_vec.push(N)
+            G_vec.push(G)
+            u_vec.push(u)
+            v_vec.push(v)
+            s_vec.push(s)
+            h_vec.push(h)
+        }
+
+        for(i = 0; i < inputControllerWfafle.ui_num_comp; i++) {
+            if(parseInt(N_vec[i]) < 2)
+                error += " - Population Size (N" + (i + 1) + ") is quite small, it must be at least 2. \n \n"
+            if(!inputForce.checked && parseInt(N_vec[i]) > 50000)
+                error +=  " - Population Size (N" + (i + 1) + ") is quite large, the computations will take a long time. Check 'Force' to ignore. \n \n"
+        }
+
+        for(i = 0; i < inputControllerWfafle.ui_num_comp; i++) {
+            if(parseInt(G_vec[i]) < 0)
+                error += " - Generations (G" + (i + 1) + ") is quite small, it must be at least 2. \n \n"
+        }
+
+        for(i = 0; i < inputControllerWfafle.ui_num_comp; i++) {
+            if(parseFloat(u_vec[i]) < 0)
+                error += " - Backward Mutation (u" + (i + 1) + ") is quite small. It must be at least 0. \n \n"
+            if(!inputForce.checked && (4 * parseInt(N_vec[i]) * parseFloat(u_vec[i])) > 1)
+                error += " - Backward Mutation (u" + (i + 1) + ") is quite large and might violate the Wright-Fisher assumptions. Check 'Force' to ignore. \n \n"
+        }
+
+        for(i = 0; i < inputControllerWfafle.ui_num_comp; i++) {
+            if(parseFloat(v_vec[i]) < 0)
+                error += " - Forward Mutation (v" + (i + 1) + ") is quite small. It must be at least 0. \n \n"
+            if(!inputForce.checked && (4 * parseInt(N_vec[i]) * parseFloat(v_vec[i])) > 1)
+                error += " - Forward Mutation (v" + (i + 1) + ") is quite large and might violate the Wright-Fisher assumptions. Check 'Force' to ignore. \n \n"
+        }
+
+        for(i = 0; i < inputControllerWfafle.ui_num_comp; i++) {
+            if(parseFloat(s_vec[i]) < -1)
+                error += " - Selection Coefficient (s" + (i + 1) + ") is quite negative. Fixations might be impossible. It must be at least -1. \n \n"
+            if(parseFloat(s_vec[i]) > 1)
+                error += " - Selection Coefficient (s" + (i + 1) + ") is quite large. The maximum value allowed is 1. \n \n"
+            if(parseFloat(s_vec[i]) * 2 * parseInt(N_vec[i]) <= -100) {
+                error += " - Selection Coefficient (s" + (i + 1) + ") is quite negative. Fixations might be impossible. It must be at least -1. \n \n"
+            }
+        }
+
+        for(i = 0; i < inputControllerWfafle.ui_num_comp; i++) {
+            if(parseFloat(h_vec[i]) < 0)
+                error += " - Dominance Coefficient (h" + (i + 1) + ") is quite small. It must be at least 0. \n \n"
+            if(parseFloat(h_vec[i]) > 1)
+                error += " - Dominance Coefficient (h" + (i + 1) + ") is quite large. The maximum value allowed is 1. \n \n"
+        }
+
+        // Number of threads (t) does not have upper limites, since it depends on the hardware available.
+        if(parseInt(inputT.textFieldText) < 1)
+            error += " - Number of Threads (t) is quite small, it must be at least 1. \n \n"
+
+        //TODO Check if Initial Distribution (I) file exists.
+
+        return error.split("\n \n")[0];
+
     }
 }

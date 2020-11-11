@@ -196,7 +196,7 @@ std::string ConfigWfafle::library = "Pardiso";
 std::string ConfigWfafle::vienna_solver = "BicGStab";
 
 double ConfigWfafle::a = 1e-20;
-int ConfigWfafle::p = 1;
+int ConfigWfafle::p = 0;
 int ConfigWfafle::n_threads = 1;
 
 bool ConfigWfafle::output_I = false;
