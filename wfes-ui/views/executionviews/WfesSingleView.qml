@@ -933,8 +933,15 @@ ApplicationWindow {
                             text: "Execute"
 
                             onEnabledChanged: {
-                                if(outputControllerWfesSingle.ui_get_not_exec)
+                                if(outputControllerWfesSingle.ui_get_not_exec) {
                                     imageOutputController.image_changed()
+                                }
+                                console.log(outputControllerWfesSingle.ui_get_error_message)
+                                if(outputControllerWfesSingle.ui_get_error_message !== "") {
+                                    messageDialog.text = outputControllerWfesSingle.ui_get_error_message
+                                    messageDialog.open()
+                                    outputControllerWfesSingle.ui_reset_error
+                                }
                             }
 
                             Binding {

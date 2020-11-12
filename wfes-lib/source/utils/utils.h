@@ -20,10 +20,10 @@ namespace wfes{
     namespace utils{
 
         enum ExecutionStatus{
-            NONE, STARTING, BUILDING_MATRICES, SOLVING_MATRICES, SAVING_DATA, DONE, ABORTED
+            NONE, STARTING, BUILDING_MATRICES, SOLVING_MATRICES, SAVING_DATA, DONE, ERROR, ABORTED
         };
 
-        static const char* ExecutionStatusName[] = { "None", "Starting...", "Building matrices...", "Solving matrices...", "Saving data...", "Done.", "Aborted by user."};
+        static const char* ExecutionStatusName[] = { "None", "Starting...", "Building matrices...", "Solving matrices...", "Saving data...", "Done.", "ERROR", "Aborted by user."};
 
         /**
          * @brief Format for CSV in input and output.

@@ -290,12 +290,12 @@ QString OutputControllerWfesSingle::get_s_a() const
 
 QString OutputControllerWfesSingle::get_error_message() const
 {
-    return QString::fromStdString(wfes::config::ConfigWfesSingle::error);
+    return QString::fromStdString(this->results.error);
 }
 
-QString OutputControllerWfesSingle::reset_error() const
+QString OutputControllerWfesSingle::reset_error()
 {
-    wfes::config::ConfigWfesSingle::error = "";
+    this->results.error = "";
     return QString();
 }
 

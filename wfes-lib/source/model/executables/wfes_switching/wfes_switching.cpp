@@ -20,8 +20,6 @@ ResultsWfesSwitching *wfes_switching::execute()
     //Notify starting.
     this->notify(ExecutionStatus::STARTING);
 
-    this->force();
-
     // dmat switching = GTR::Matrix(p, r);
 
     // switching.diagonal() = dvec::Zero(n_models);
@@ -362,30 +360,4 @@ ResultsWfesSwitching *wfes_switching::fixation()
     this->notify(ExecutionStatus::DONE);
 
     return res;
-}
-
-void wfes_switching::force() {
-    if (!ConfigWfesSwitching::force) {
-        if (ConfigWfesSwitching::N.maxCoeff() > 500000) {
-            // TODO Show as dialog.
-            throw exception::Error("Population size is quite large - the computations will take a long time. Use --force to ignore");
-        }
-        dvec N = ConfigWfesSwitching::N.cast<double>();
-        dvec theta_f = dvec::Constant(ConfigWfesSwitching::num_comp, 4).array() * N.array() * ConfigWfesSwitching::v.array();
-        dvec theta_b = dvec::Constant(ConfigWfesSwitching::num_comp, 4).array() * N.array() * ConfigWfesSwitching::u.array();
-        double max_theta = std::max(theta_b.maxCoeff(), theta_f.maxCoeff());
-        if (max_theta > 1) {
-            // TODO Show as dialog.
-            throw exception::Error("The mutation rate might violate the Wright-Fisher assumptions. Use --force to ignore");
-        }
-        dvec gamma = dvec::Constant(ConfigWfesSwitching::num_comp, 2).array() * N.array() * ConfigWfesSwitching::s.array();
-        if (2 * N.maxCoeff() * ConfigWfesSwitching::s.minCoeff() <= -100) {
-            // TODO Show as dialog.
-            throw exception::Error("The selection coefficient is quite negative. Fixations might be impossible. Use --force to ignore");
-        }
-        if (ConfigWfesSwitching::a > 1e-5) {
-            // TODO Show as dialog.
-            throw exception::Error("Zero cutoff value is quite high. This might produce inaccurate results. Use --force to ignore");
-        }
-    }
 }

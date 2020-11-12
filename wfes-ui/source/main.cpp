@@ -23,7 +23,6 @@
 #include <model/visualization/imageOutputController.h>
 #include <model/visualization/visualizationImageProvider.h>
 
-
 int main(int argc, char *argv[])
 {
     QQuickStyle::setStyle("Universal");
@@ -104,3 +103,4 @@ int main(int argc, char *argv[])
 
     return app.exec();
 }
+

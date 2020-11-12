@@ -10,7 +10,7 @@ PardisoSolver::PardisoSolver(SparseMatrixPardiso& A, llong matrix_type, llong me
         matrix_type(matrix_type),
         matrix_number(1),
         error(0),
-        message_level(message_level),
+        message_level(1),
         control(lvec::Zero(MKL_IFS_SIZE)),
         internal(lvec::Zero(MKL_IFS_SIZE)),
         workspace(dvec::Zero(size * n_rhs))
