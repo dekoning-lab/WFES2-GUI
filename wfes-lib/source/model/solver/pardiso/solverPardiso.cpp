@@ -10,7 +10,7 @@ PardisoSolver::PardisoSolver(SparseMatrixPardiso& A, llong matrix_type, llong me
         matrix_type(matrix_type),
         matrix_number(1),
         error(0),
-        message_level(1),
+        message_level(message_level),
         control(lvec::Zero(MKL_IFS_SIZE)),
         internal(lvec::Zero(MKL_IFS_SIZE)),
         workspace(dvec::Zero(size * n_rhs))
@@ -36,7 +36,6 @@ PardisoSolver::PardisoSolver(SparseMatrixPardiso& A, llong matrix_type, llong me
 void PardisoSolver::preprocess()
 {
     phase = MKL_PARDISO_SOLVER_PHASE_ANALYSIS;
-
     pardiso_64(internal.data(), &max_factors, &matrix_number,
                &matrix_type, &phase, &size,
                dynamic_cast<SparseMatrixPardiso&>(m).data, dynamic_cast<SparseMatrixPardiso&>(m).row_index, dynamic_cast<SparseMatrixPardiso&>(m).cols,

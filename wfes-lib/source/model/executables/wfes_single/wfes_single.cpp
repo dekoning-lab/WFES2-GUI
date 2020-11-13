@@ -105,7 +105,6 @@ ResultsWfesSingle *wfes_single::absorption()
         return new ResultsWfesSingle("INTEL MKL PARDISO: Unknown error while preprocessing the matrix.");
     }
 
-
     dvec R_ext = W.R.col(0);
     dvec B_ext;
     try {
@@ -678,10 +677,20 @@ ResultsWfesSingle *wfes_single::establishment()
 
     // TODO show as error in GUI
     if (est_idx == 1) {
-        throw wfes::exception::Error("Establishment is near-certain: establishment-count is 1");
-    }
+        try{
+            throw wfes::exception::Error("Establishment is near-certain: establishment-count is 1");
+        } catch(const std::exception &e) {
+            this->notify(ExecutionStatus::ERROR);
+            return new ResultsWfesSingle(e.what());
+        }
+    } else {
     if (z >= est_idx) {
-        throw wfes::exception::Error("Establishment can be reached by mutation alone");
+        try{
+            throw wfes::exception::Error("Establishment can be reached by mutation alone");
+        } catch(const std::exception &e) {
+            this->notify(ExecutionStatus::ERROR);
+            return new ResultsWfesSingle(e.what());
+        }
     }
 
     // Since the B indexes begin at 1
