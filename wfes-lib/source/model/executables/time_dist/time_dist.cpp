@@ -42,304 +42,336 @@ ResultsTimeDist *time_dist::execute()
 
 ResultsTimeDist *time_dist::timeDist()
 {
-    //Notify building matrix.
-    this->notify(ExecutionStatus::BUILDING_MATRICES);
+    try {
+        //Notify building matrix.
+        this->notify(ExecutionStatus::BUILDING_MATRICES);
 
-    wrightfisher::Matrix wf = wrightfisher::Single(ConfigTimeDist::population_size, ConfigTimeDist::population_size, wrightfisher::BOTH_ABSORBING, ConfigTimeDist::s, ConfigTimeDist::h, ConfigTimeDist::u, ConfigTimeDist::v,
-                               ConfigTimeDist::rem, ConfigTimeDist::a, msg_level, ConfigTimeDist::b);
+        wrightfisher::Matrix wf = wrightfisher::Single(ConfigTimeDist::population_size, ConfigTimeDist::population_size, wrightfisher::BOTH_ABSORBING, ConfigTimeDist::s, ConfigTimeDist::h, ConfigTimeDist::u, ConfigTimeDist::v,
+                                   ConfigTimeDist::rem, ConfigTimeDist::a, msg_level, ConfigTimeDist::b);
 
-    //Notify saving data.
-    this->notify(ExecutionStatus::SAVING_DATA);
+        //Notify saving data.
+        this->notify(ExecutionStatus::SAVING_DATA);
 
 
-    qDebug() << QString::fromStdString(ConfigTimeDist::path_output_P);
-    if (ConfigTimeDist::output_Q)
-        wf.Q->saveMarket(ConfigTimeDist::path_output_Q);
-    if (ConfigTimeDist::output_R)
-        utils::writeMatrixToFile(wf.R, ConfigTimeDist::path_output_R);
+        qDebug() << QString::fromStdString(ConfigTimeDist::path_output_P);
+        if (ConfigTimeDist::output_Q)
+            wf.Q->saveMarket(ConfigTimeDist::path_output_Q);
+        if (ConfigTimeDist::output_R)
+            utils::writeMatrixToFile(wf.R, ConfigTimeDist::path_output_R);
 
-    //Notify solving
-    this->notify(ExecutionStatus::SOLVING_MATRICES);
+        //Notify solving
+        this->notify(ExecutionStatus::SOLVING_MATRICES);
 
-    dmat PH(ConfigTimeDist::max_t, 5);
+        dmat PH(ConfigTimeDist::max_t, 5);
 
-    dvec c = dvec::Zero(2 * ConfigTimeDist::population_size - 1);
-    c(0) = 1;
+        dvec c = dvec::Zero(2 * ConfigTimeDist::population_size - 1);
+        c(0) = 1;
 
-    double cdf = 0;
-    llong i;
-    for (i = 0; cdf < ConfigTimeDist::integration_cutoff && i < ConfigTimeDist::max_t; i++) {
-        double P_ext_t = wf.R.col(0).dot(c);
-        double P_fix_t = wf.R.col(1).dot(c);
-        cdf += P_fix_t + P_ext_t;
+        double cdf = 0;
+        llong i;
+        for (i = 0; cdf < ConfigTimeDist::integration_cutoff && i < ConfigTimeDist::max_t; i++) {
+            double P_ext_t = wf.R.col(0).dot(c);
+            double P_fix_t = wf.R.col(1).dot(c);
+            cdf += P_fix_t + P_ext_t;
 
-        PH(i, 0) = i + 1;
-        PH(i, 1) = P_ext_t;
-        PH(i, 2) = P_fix_t;
-        PH(i, 3) = P_ext_t + P_fix_t;
-        PH(i, 4) = cdf;
+            PH(i, 0) = i + 1;
+            PH(i, 1) = P_ext_t;
+            PH(i, 2) = P_fix_t;
+            PH(i, 3) = P_ext_t + P_fix_t;
+            PH(i, 4) = cdf;
 
-        c = wf.Q->multiply(c, true);
+            c = wf.Q->multiply(c, true);
+        }
+        PH.conservativeResize(i, 5);
+
+        //Notify saving data.
+        this->notify(ExecutionStatus::SAVING_DATA);
+
+        if (ConfigTimeDist::output_P) {
+            utils::writeMatrixToFile(PH, ConfigTimeDist::path_output_P);
+        }
+
+        QImage *imageQ = nullptr, *imageR = nullptr, *imageP = nullptr;
+        if(ConfigTimeDist::output_Q) {
+            imageQ = utils::generateImage(wf.Q->dense());
+            //utils::saveImage(imageI, "Image_I");
+            ImageResults::Q = imageQ;
+        }
+        if(ConfigTimeDist::output_R) {
+            imageR = utils::generateImage(wf.R);
+            //utils::saveImage(imageI, "Image_I");
+            ImageResults::R = imageR;
+        }
+        if(ConfigTimeDist::output_P) {
+            imageP = utils::generateImage(PH);
+            //utils::saveImage(imageI, "Image_I");
+            ImageResults::P = imageP;
+        }
+
+        //Calculate time.
+        t_end = std::chrono::system_clock::now();
+        time_diff dt = t_end - t_start;
+
+        //Notify done.
+        this->notify(ExecutionStatus::DONE);
+
+        return new ResultsTimeDist(dt.count());
+    } catch(const std::exception &e) {
+        this->notify(ExecutionStatus::ERROR);
+        return new ResultsTimeDist(e.what());
+    } catch(...) {
+        this->notify(ExecutionStatus::ERROR);
+        return new ResultsTimeDist("INTEL MKL PARDISO: Unknown error while preprocessing the matrix.");
     }
-    PH.conservativeResize(i, 5);
-
-    //Notify saving data.
-    this->notify(ExecutionStatus::SAVING_DATA);
-
-    if (ConfigTimeDist::output_P) {
-        utils::writeMatrixToFile(PH, ConfigTimeDist::path_output_P);
-    }
-
-    QImage *imageQ = nullptr, *imageR = nullptr, *imageP = nullptr;
-    if(ConfigTimeDist::output_Q) {
-        imageQ = utils::generateImage(wf.Q->dense());
-        //utils::saveImage(imageI, "Image_I");
-        ImageResults::Q = imageQ;
-    }
-    if(ConfigTimeDist::output_R) {
-        imageR = utils::generateImage(wf.R);
-        //utils::saveImage(imageI, "Image_I");
-        ImageResults::R = imageR;
-    }
-    if(ConfigTimeDist::output_P) {
-        imageP = utils::generateImage(PH);
-        //utils::saveImage(imageI, "Image_I");
-        ImageResults::P = imageP;
-    }
-
-    //Calculate time.
-    t_end = std::chrono::system_clock::now();
-    time_diff dt = t_end - t_start;
-
-    //Notify done.
-    this->notify(ExecutionStatus::DONE);
-
-    return new ResultsTimeDist(dt.count());
 
 }
 
 ResultsTimeDist *time_dist::timeDistSGV()
 {
-    //Notify building matrix.
-    this->notify(ExecutionStatus::BUILDING_MATRICES);
+    try {
+        //Notify building matrix.
+        this->notify(ExecutionStatus::BUILDING_MATRICES);
 
-    dmat switching(2, 2); switching << 1 - ConfigTimeDistSGV::l, ConfigTimeDistSGV::l, 0, 1;
+        dmat switching(2, 2); switching << 1 - ConfigTimeDistSGV::l, ConfigTimeDistSGV::l, 0, 1;
 
-    wrightfisher::Matrix wf = wrightfisher::NonAbsorbingToFixationOnly(ConfigTimeDistSGV::population_size, ConfigTimeDistSGV::s, ConfigTimeDistSGV::h, ConfigTimeDistSGV::u, ConfigTimeDistSGV::v, switching, ConfigTimeDistSGV::a, msg_level, ConfigTimeDist::b);
+        wrightfisher::Matrix wf = wrightfisher::NonAbsorbingToFixationOnly(ConfigTimeDistSGV::population_size, ConfigTimeDistSGV::s, ConfigTimeDistSGV::h, ConfigTimeDistSGV::u, ConfigTimeDistSGV::v, switching, ConfigTimeDistSGV::a, msg_level, ConfigTimeDist::b);
 
-    //Notify saving data.
-    this->notify(ExecutionStatus::SAVING_DATA);
+        //Notify saving data.
+        this->notify(ExecutionStatus::SAVING_DATA);
 
-    if (ConfigTimeDist::output_Q)
-        wf.Q->saveMarket(ConfigTimeDist::path_output_Q);
-    if (ConfigTimeDist::output_R)
-        utils::writeMatrixToFile(wf.R, ConfigTimeDist::path_output_R);
+        if (ConfigTimeDist::output_Q)
+            wf.Q->saveMarket(ConfigTimeDist::path_output_Q);
+        if (ConfigTimeDist::output_R)
+            utils::writeMatrixToFile(wf.R, ConfigTimeDist::path_output_R);
 
-    //Notify solving
-    this->notify(ExecutionStatus::SOLVING_MATRICES);
+        //Notify solving
+        this->notify(ExecutionStatus::SOLVING_MATRICES);
 
-    dmat PH(ConfigTimeDistSGV::max_t, 3);
+        dmat PH(ConfigTimeDistSGV::max_t, 3);
 
-    dvec c = dvec::Zero(4 * ConfigTimeDistSGV::population_size + 1);
-    c(0) = 1;
-    dvec R = wf.R.col(0);
+        dvec c = dvec::Zero(4 * ConfigTimeDistSGV::population_size + 1);
+        c(0) = 1;
+        dvec R = wf.R.col(0);
 
-    double cdf = 0;
-    llong i;
-    for (i = 0; cdf < ConfigTimeDistSGV::integration_cutoff && i < ConfigTimeDistSGV::max_t; i++) {
+        double cdf = 0;
+        llong i;
+        for (i = 0; cdf < ConfigTimeDistSGV::integration_cutoff && i < ConfigTimeDistSGV::max_t; i++) {
 
-        double P_abs_t = R.dot(c);
-        cdf += P_abs_t;
+            double P_abs_t = R.dot(c);
+            cdf += P_abs_t;
 
-        PH(i, 0) = i + 1;
-        PH(i, 1) = P_abs_t;
-        PH(i, 2) = cdf;
+            PH(i, 0) = i + 1;
+            PH(i, 1) = P_abs_t;
+            PH(i, 2) = cdf;
 
-        c = wf.Q->multiply(c, true);
+            c = wf.Q->multiply(c, true);
+        }
+        PH.conservativeResize(i, 3);
+
+        //Notify saving data.
+        this->notify(ExecutionStatus::SAVING_DATA);
+
+        if (ConfigTimeDist::output_P) {
+            utils::writeMatrixToFile(PH, ConfigTimeDist::path_output_P);
+        }
+
+        QImage *imageQ = nullptr, *imageR = nullptr, *imageP = nullptr;
+        if(ConfigTimeDist::output_Q) {
+            imageQ = utils::generateImage(wf.Q->dense());
+            //utils::saveImage(imageI, "Image_I");
+            ImageResults::Q = imageQ;
+        }
+        if(ConfigTimeDist::output_R) {
+            imageR = utils::generateImage(wf.R);
+            //utils::saveImage(imageI, "Image_I");
+            ImageResults::R = imageR;
+        }
+        if(ConfigTimeDist::output_P) {
+            imageP = utils::generateImage(PH);
+            //utils::saveImage(imageI, "Image_I");
+            ImageResults::P = imageP;
+        }
+
+        //Calculate time.
+        t_end = std::chrono::system_clock::now();
+        time_diff dt = t_end - t_start;
+
+        //Notify done.
+        this->notify(ExecutionStatus::DONE);
+
+        return new ResultsTimeDist(dt.count());
+    } catch(const std::exception &e) {
+        this->notify(ExecutionStatus::ERROR);
+        return new ResultsTimeDist(e.what());
+    } catch(...) {
+        this->notify(ExecutionStatus::ERROR);
+        return new ResultsTimeDist("INTEL MKL PARDISO: Unknown error while preprocessing the matrix.");
     }
-    PH.conservativeResize(i, 3);
-
-    //Notify saving data.
-    this->notify(ExecutionStatus::SAVING_DATA);
-
-    if (ConfigTimeDist::output_P) {
-        utils::writeMatrixToFile(PH, ConfigTimeDist::path_output_P);
-    }
-
-    QImage *imageQ = nullptr, *imageR = nullptr, *imageP = nullptr;
-    if(ConfigTimeDist::output_Q) {
-        imageQ = utils::generateImage(wf.Q->dense());
-        //utils::saveImage(imageI, "Image_I");
-        ImageResults::Q = imageQ;
-    }
-    if(ConfigTimeDist::output_R) {
-        imageR = utils::generateImage(wf.R);
-        //utils::saveImage(imageI, "Image_I");
-        ImageResults::R = imageR;
-    }
-    if(ConfigTimeDist::output_P) {
-        imageP = utils::generateImage(PH);
-        //utils::saveImage(imageI, "Image_I");
-        ImageResults::P = imageP;
-    }
-
-    //Calculate time.
-    t_end = std::chrono::system_clock::now();
-    time_diff dt = t_end - t_start;
-
-    //Notify done.
-    this->notify(ExecutionStatus::DONE);
-
-    return new ResultsTimeDist(dt.count());
 
 }
 
 
 ResultsTimeDist *time_dist::timeDistSkip()
 {
-    //Notify building matrix.
-    this->notify(ExecutionStatus::BUILDING_MATRICES);
+    try {
+        //Notify building matrix.
+        this->notify(ExecutionStatus::BUILDING_MATRICES);
 
-    wrightfisher::Matrix wf = wrightfisher::Bounce(ConfigTimeDist::population_size, ConfigTimeDist::population_size,
-                                                   ConfigTimeDist::s, ConfigTimeDist::h, ConfigTimeDist::u, ConfigTimeDist::v,
-                                                   ConfigTimeDist::rem, ConfigTimeDist::a, msg_level, ConfigTimeDist::b);
+        wrightfisher::Matrix wf = wrightfisher::Bounce(ConfigTimeDist::population_size, ConfigTimeDist::population_size,
+                                                       ConfigTimeDist::s, ConfigTimeDist::h, ConfigTimeDist::u, ConfigTimeDist::v,
+                                                       ConfigTimeDist::rem, ConfigTimeDist::a, msg_level, ConfigTimeDist::b);
 
-    //Notify saving data.
-    this->notify(ExecutionStatus::SAVING_DATA);
+        //Notify saving data.
+        this->notify(ExecutionStatus::SAVING_DATA);
 
-    if (ConfigTimeDist::output_Q)
-        wf.Q->saveMarket(ConfigTimeDist::path_output_Q);
-    if (ConfigTimeDist::output_R)
-        utils::writeMatrixToFile(wf.R, ConfigTimeDist::path_output_R);
+        if (ConfigTimeDist::output_Q)
+            wf.Q->saveMarket(ConfigTimeDist::path_output_Q);
+        if (ConfigTimeDist::output_R)
+            utils::writeMatrixToFile(wf.R, ConfigTimeDist::path_output_R);
 
-    //Notify solving
-    this->notify(ExecutionStatus::SOLVING_MATRICES);
+        //Notify solving
+        this->notify(ExecutionStatus::SOLVING_MATRICES);
 
-    dmat PH(ConfigTimeDist::max_t, 3);
-    dvec c = dvec::Zero(2 * ConfigTimeDist::population_size - 1);
-    c(0) = 1;
+        dmat PH(ConfigTimeDist::max_t, 3);
+        dvec c = dvec::Zero(2 * ConfigTimeDist::population_size - 1);
+        c(0) = 1;
 
-    double cdf = 0;
+        double cdf = 0;
 
-    llong i;
+        llong i;
 
-    for (i = 0; cdf < ConfigTimeDist::integration_cutoff && i < ConfigTimeDist::max_t; i++) {
+        for (i = 0; cdf < ConfigTimeDist::integration_cutoff && i < ConfigTimeDist::max_t; i++) {
 
-        double P_abs_t = wf.R.col(0).dot(c);
-        cdf += P_abs_t;
+            double P_abs_t = wf.R.col(0).dot(c);
+            cdf += P_abs_t;
 
-        PH(i, 0) = i + 1;
-        PH(i, 1) = P_abs_t;
-        PH(i, 2) = cdf;
-        c = wf.Q->multiply(c, true);
+            PH(i, 0) = i + 1;
+            PH(i, 1) = P_abs_t;
+            PH(i, 2) = cdf;
+            c = wf.Q->multiply(c, true);
+        }
+        PH.conservativeResize(i, 3);
+
+        //Notify saving data.
+        this->notify(ExecutionStatus::SAVING_DATA);
+
+        if (ConfigTimeDist::output_P) {
+            utils::writeMatrixToFile(PH, ConfigTimeDist::path_output_P);
+        }
+
+        QImage *imageQ = nullptr, *imageR = nullptr, *imageP = nullptr;
+        if(ConfigTimeDist::output_Q) {
+            imageQ = utils::generateImage(wf.Q->dense());
+            //utils::saveImage(imageI, "Image_I");
+            ImageResults::Q = imageQ;
+        }
+        if(ConfigTimeDist::output_R) {
+            imageR = utils::generateImage(wf.R);
+            //utils::saveImage(imageI, "Image_I");
+            ImageResults::R = imageR;
+        }
+        if(ConfigTimeDist::output_P) {
+            imageP = utils::generateImage(PH);
+            //utils::saveImage(imageI, "Image_I");
+            ImageResults::P = imageP;
+        }
+
+        //Calculate time.
+        t_end = std::chrono::system_clock::now();
+        time_diff dt = t_end - t_start;
+
+        //Notify done.
+        this->notify(ExecutionStatus::DONE);
+
+        return new ResultsTimeDist(dt.count());
+    } catch(const std::exception &e) {
+        this->notify(ExecutionStatus::ERROR);
+        return new ResultsTimeDist(e.what());
+    } catch(...) {
+        this->notify(ExecutionStatus::ERROR);
+        return new ResultsTimeDist("INTEL MKL PARDISO: Unknown error while preprocessing the matrix.");
     }
-    PH.conservativeResize(i, 3);
-
-    //Notify saving data.
-    this->notify(ExecutionStatus::SAVING_DATA);
-
-    if (ConfigTimeDist::output_P) {
-        utils::writeMatrixToFile(PH, ConfigTimeDist::path_output_P);
-    }
-
-    QImage *imageQ = nullptr, *imageR = nullptr, *imageP = nullptr;
-    if(ConfigTimeDist::output_Q) {
-        imageQ = utils::generateImage(wf.Q->dense());
-        //utils::saveImage(imageI, "Image_I");
-        ImageResults::Q = imageQ;
-    }
-    if(ConfigTimeDist::output_R) {
-        imageR = utils::generateImage(wf.R);
-        //utils::saveImage(imageI, "Image_I");
-        ImageResults::R = imageR;
-    }
-    if(ConfigTimeDist::output_P) {
-        imageP = utils::generateImage(PH);
-        //utils::saveImage(imageI, "Image_I");
-        ImageResults::P = imageP;
-    }
-
-    //Calculate time.
-    t_end = std::chrono::system_clock::now();
-    time_diff dt = t_end - t_start;
-
-    //Notify done.
-    this->notify(ExecutionStatus::DONE);
-
-    return new ResultsTimeDist(dt.count());
 }
 
 ResultsTimeDist *time_dist::timeDistDual()
 {
-    //Notify building matrix.
-    this->notify(ExecutionStatus::BUILDING_MATRICES);
+    try {
+        //Notify building matrix.
+        this->notify(ExecutionStatus::BUILDING_MATRICES);
 
-    wrightfisher::Matrix wf = wrightfisher::DualMutation(ConfigTimeDist::population_size, ConfigTimeDist::population_size, ConfigTimeDist::s, ConfigTimeDist::h, ConfigTimeDist::u, ConfigTimeDist::v, ConfigTimeDist::rem, ConfigTimeDist::a, msg_level, ConfigTimeDist::b);
+        wrightfisher::Matrix wf = wrightfisher::DualMutation(ConfigTimeDist::population_size, ConfigTimeDist::population_size, ConfigTimeDist::s, ConfigTimeDist::h, ConfigTimeDist::u, ConfigTimeDist::v, ConfigTimeDist::rem, ConfigTimeDist::a, msg_level, ConfigTimeDist::b);
 
-    //Notify saving data.
-    this->notify(ExecutionStatus::SAVING_DATA);
+        //Notify saving data.
+        this->notify(ExecutionStatus::SAVING_DATA);
 
-    if (ConfigTimeDist::output_Q)
-        wf.Q->saveMarket(ConfigTimeDist::path_output_Q);
-    if (ConfigTimeDist::output_R)
-        utils::writeMatrixToFile(wf.R, ConfigTimeDist::path_output_R);
+        if (ConfigTimeDist::output_Q)
+            wf.Q->saveMarket(ConfigTimeDist::path_output_Q);
+        if (ConfigTimeDist::output_R)
+            utils::writeMatrixToFile(wf.R, ConfigTimeDist::path_output_R);
 
-    //Notify solving
-    this->notify(ExecutionStatus::SOLVING_MATRICES);
+        //Notify solving
+        this->notify(ExecutionStatus::SOLVING_MATRICES);
 
-    dmat PH(ConfigTimeDist::max_t, 5);
+        dmat PH(ConfigTimeDist::max_t, 5);
 
-    dvec c = dvec::Zero(2 * ConfigTimeDist::population_size);
-    c(0) = 1;
+        dvec c = dvec::Zero(2 * ConfigTimeDist::population_size);
+        c(0) = 1;
 
-    double cdf = 0;
-    llong i;
-    for (i = 0; cdf < ConfigTimeDist::integration_cutoff && i < ConfigTimeDist::max_t; i++) {
+        double cdf = 0;
+        llong i;
+        for (i = 0; cdf < ConfigTimeDist::integration_cutoff && i < ConfigTimeDist::max_t; i++) {
 
-        double P_ext_t = wf.R.col(0).dot(c);
-        double P_fix_t = wf.R.col(1).dot(c);
-        cdf += P_fix_t + P_ext_t;
+            double P_ext_t = wf.R.col(0).dot(c);
+            double P_fix_t = wf.R.col(1).dot(c);
+            cdf += P_fix_t + P_ext_t;
 
-        PH(i, 0) = i + 1;
-        PH(i, 1) = P_ext_t;
-        PH(i, 2) = P_fix_t;
-        PH(i, 3) = P_ext_t + P_fix_t;
-        PH(i, 4) = cdf;
+            PH(i, 0) = i + 1;
+            PH(i, 1) = P_ext_t;
+            PH(i, 2) = P_fix_t;
+            PH(i, 3) = P_ext_t + P_fix_t;
+            PH(i, 4) = cdf;
 
-        c = wf.Q->multiply(c, true);
+            c = wf.Q->multiply(c, true);
+        }
+        PH.conservativeResize(i, 5);
+
+        //Notify saving data.
+        this->notify(ExecutionStatus::SAVING_DATA);
+
+        if (ConfigTimeDist::output_P) {
+            utils::writeMatrixToFile(PH, ConfigTimeDist::path_output_P);
+        }
+
+        QImage *imageQ = nullptr, *imageR = nullptr, *imageP = nullptr;
+        if(ConfigTimeDist::output_Q) {
+            imageQ = utils::generateImage(wf.Q->dense());
+            //utils::saveImage(imageI, "Image_I");
+            ImageResults::Q = imageQ;
+        }
+        if(ConfigTimeDist::output_R) {
+            imageR = utils::generateImage(wf.R);
+            //utils::saveImage(imageI, "Image_I");
+            ImageResults::R = imageR;
+        }
+        if(ConfigTimeDist::output_P) {
+            imageP = utils::generateImage(PH);
+            //utils::saveImage(imageI, "Image_I");
+            ImageResults::P = imageP;
+        }
+
+        //Calculate time.
+        t_end = std::chrono::system_clock::now();
+        time_diff dt = t_end - t_start;
+
+        //Notify done.
+        this->notify(ExecutionStatus::DONE);
+
+        return new ResultsTimeDist(dt.count());
+    } catch(const std::exception &e) {
+        this->notify(ExecutionStatus::ERROR);
+        return new ResultsTimeDist(e.what());
+    } catch(...) {
+        this->notify(ExecutionStatus::ERROR);
+        return new ResultsTimeDist("INTEL MKL PARDISO: Unknown error while preprocessing the matrix.");
     }
-    PH.conservativeResize(i, 5);
-
-    //Notify saving data.
-    this->notify(ExecutionStatus::SAVING_DATA);
-
-    if (ConfigTimeDist::output_P) {
-        utils::writeMatrixToFile(PH, ConfigTimeDist::path_output_P);
-    }
-
-    QImage *imageQ = nullptr, *imageR = nullptr, *imageP = nullptr;
-    if(ConfigTimeDist::output_Q) {
-        imageQ = utils::generateImage(wf.Q->dense());
-        //utils::saveImage(imageI, "Image_I");
-        ImageResults::Q = imageQ;
-    }
-    if(ConfigTimeDist::output_R) {
-        imageR = utils::generateImage(wf.R);
-        //utils::saveImage(imageI, "Image_I");
-        ImageResults::R = imageR;
-    }
-    if(ConfigTimeDist::output_P) {
-        imageP = utils::generateImage(PH);
-        //utils::saveImage(imageI, "Image_I");
-        ImageResults::P = imageP;
-    }
-
-    //Calculate time.
-    t_end = std::chrono::system_clock::now();
-    time_diff dt = t_end - t_start;
-
-    //Notify done.
-    this->notify(ExecutionStatus::DONE);
-
-    return new ResultsTimeDist(dt.count());
 }

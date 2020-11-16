@@ -279,7 +279,8 @@ SparseMatrix* SparseMatrixPardiso::multiply(SparseMatrix &B, bool transpose)
 
     sparse_status_t info = mkl_sparse_spmm(op, handler, static_cast<SparseMatrixPardiso&>(B).handler, &C->handler);
 
-    if(info != SPARSE_STATUS_SUCCESS) throw std::runtime_error("SparseMatrix::multiply(sparse): " + std::to_string(info));
+    info = sparse_status_t::SPARSE_STATUS_ALLOC_FAILED;
+    if(info != SPARSE_STATUS_SUCCESS) throw std::runtime_error("Pardiso: Error multiplying matrices. Code " + std::to_string(info));
 
     return C;
 }
