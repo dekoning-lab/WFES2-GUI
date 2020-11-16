@@ -105,7 +105,7 @@ dvec PardisoSolver::get_diagonal()
 
   pardiso_getdiag(internal.data(), d_factorized.data(), d_initial.data(), &matrix_number, &error);
 
-  if(error == 1) throw std::runtime_error("PardisoSolver::get_diagonal(): Diagonal information not turned on before pardiso main loop: " + std::to_string(error));
+  if(error == 1) throw std::runtime_error("Pardiso: Diagonal information not turned on before pardiso main loop: " + std::to_string(error));
 
   return d_factorized;
 }
@@ -137,7 +137,7 @@ std::string PardisoSolver::errorMessage(long long code)
             return "Error Code is " + std::to_string(code) + ". read/write problems with the OOC data file.";
         case 0:
         default:
-            return "Error code is " + std::to_string(code) = ". Unknown error.";
+            return "Error code is " + std::to_string(code) + ". Unknown error.";
     }
 }
 

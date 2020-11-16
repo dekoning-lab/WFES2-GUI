@@ -42,8 +42,9 @@ namespace wfes{
             case BOTH_ABSORBING:
                 return 2;
             default:
-                //TODO Show as exception in GUI dialog.
-                throw std::runtime_error("Unknown absorption type.");
+                // This error should never be thrown since the possible options of the switch are from an enum. If in the future new elements are
+                // added to the enum, and those values are not added to this switch statement, this exception could be thrown.
+                throw std::runtime_error("Wright Fisher Error: Unknown absorption type.");
             }
         }
 
@@ -61,8 +62,9 @@ namespace wfes{
             case BOTH_ABSORBING:
                 return "Both extinction and fixation boundaries are absorbing";
             default:
-                //TODO Show as exception in GUI dialog.
-                throw std::runtime_error("Unknown absorption type.");
+                // This error should never be thrown since the possible options of the switch are from an enum. If in the future new elements are
+                // added to the enum, and those values are not added to this switch statement, this exception could be thrown.
+                throw std::runtime_error("Wright Fisher Error: Unknown absorption type.");
             }
         }
 
