@@ -68,12 +68,12 @@ QString OutputControllerPhaseType::get_std() const
 
 QString OutputControllerPhaseType::get_error_message() const
 {
-    return QString::fromStdString(wfes::config::ConfigPhaseType::error);
+    return QString::fromStdString(this->results.error);
 }
 
-QString OutputControllerPhaseType::reset_error() const
+QString OutputControllerPhaseType::reset_error()
 {
-    wfes::config::ConfigPhaseType::error = "";
+    this->results.error = "";
     return QString();
 }
 

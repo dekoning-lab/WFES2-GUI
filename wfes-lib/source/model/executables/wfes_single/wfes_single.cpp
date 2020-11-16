@@ -683,7 +683,7 @@ ResultsWfesSingle *wfes_single::establishment()
             this->notify(ExecutionStatus::ERROR);
             return new ResultsWfesSingle(e.what());
         }
-    } else {
+    }
     if (z >= est_idx) {
         try{
             throw wfes::exception::Error("Establishment can be reached by mutation alone");

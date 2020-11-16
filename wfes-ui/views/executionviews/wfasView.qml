@@ -424,6 +424,12 @@ ApplicationWindow {
                                 onEnabledChanged: {
                                     if(outputControllerWfas.ui_get_not_exec)
                                         imageOutputController.image_changed()
+                                    console.log(outputControllerWfas.ui_get_error_message)
+                                    if(outputControllerWfas.ui_get_error_message !== "") {
+                                        messageDialog.text = outputControllerWfas.ui_get_error_message
+                                        messageDialog.open()
+                                        outputControllerWfas.ui_reset_error
+                                    }
                                 }
 
                                 Binding {

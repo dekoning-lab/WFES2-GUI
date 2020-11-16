@@ -16,12 +16,15 @@ public:
     double std;
     double time;
     dvec moments;
+    std::string error;
 
     ResultsPhaseType();
 
-    ResultsPhaseType(double mean, double std, dvec moments, double time);
-
     ResultsPhaseType(double time);
+
+    ResultsPhaseType(std::string error);
+
+    ResultsPhaseType(double mean, double std, dvec moments, double time);
 
     /**
      * @brief Write results in a CSV file.

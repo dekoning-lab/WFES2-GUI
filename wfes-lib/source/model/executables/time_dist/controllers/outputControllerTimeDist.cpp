@@ -48,12 +48,12 @@ QString OutputControllerTimeDist::load_config()
 
 QString OutputControllerTimeDist::get_error_message() const
 {
-    return QString::fromStdString(wfes::config::ConfigTimeDist::error);
+    return QString::fromStdString(this->results.error);
 }
 
-QString OutputControllerTimeDist::reset_error() const
+QString OutputControllerTimeDist::reset_error()
 {
-    wfes::config::ConfigTimeDist::error = "";
+    this->results.error = "";
     return QString();
 }
 

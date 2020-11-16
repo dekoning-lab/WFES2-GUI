@@ -12,10 +12,13 @@ class ResultsTimeDist
 {
 public:
     double time;
+    std::string error;
 
     ResultsTimeDist();
 
     ResultsTimeDist(double time);
+
+    ResultsTimeDist(std::string error);
 };
 
 #endif // RESULTSTIMEDIST_H

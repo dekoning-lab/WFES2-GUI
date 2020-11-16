@@ -529,6 +529,12 @@ ApplicationWindow {
                             onEnabledChanged: {
                                 if(outputControllerPhaseType.ui_get_not_exec)
                                     imageOutputController.image_changed()
+                                console.log(outputControllerPhaseType.ui_get_error_message)
+                                if(outputControllerPhaseType.ui_get_error_message !== "") {
+                                    messageDialog.text = outputControllerPhaseType.ui_get_error_message
+                                    messageDialog.open()
+                                    outputControllerPhaseType.ui_reset_error
+                                }
                             }
 
                             Binding {

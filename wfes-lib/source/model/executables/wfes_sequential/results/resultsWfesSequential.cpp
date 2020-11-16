@@ -1,10 +1,12 @@
 #include "resultsWfesSequential.h"
 
-ResultsWfesSequential::ResultsWfesSequential() : pExt(std::nan("")), pFix(std::nan("")), pTmo(std::nan("")), tExt(std::nan("")), tExtStd(std::nan("")), tFix(std::nan("")), tFixStd(std::nan("")), tTmo(std::nan("")), tTmoStd(std::nan("")), time(std::nan("")) {}
+ResultsWfesSequential::ResultsWfesSequential() : pExt(std::nan("")), pFix(std::nan("")), pTmo(std::nan("")), tExt(std::nan("")), tExtStd(std::nan("")), tFix(std::nan("")), tFixStd(std::nan("")), tTmo(std::nan("")), tTmoStd(std::nan("")), time(std::nan("")), error("") {}
 
-ResultsWfesSequential::ResultsWfesSequential(double time) : pExt(std::nan("")), pFix(std::nan("")), pTmo(std::nan("")), tExt(std::nan("")), tExtStd(std::nan("")), tFix(std::nan("")), tFixStd(std::nan("")), tTmo(std::nan("")), tTmoStd(std::nan("")), time(time) {}
+ResultsWfesSequential::ResultsWfesSequential(double time) : pExt(std::nan("")), pFix(std::nan("")), pTmo(std::nan("")), tExt(std::nan("")), tExtStd(std::nan("")), tFix(std::nan("")), tFixStd(std::nan("")), tTmo(std::nan("")), tTmoStd(std::nan("")), time(time), error("") {}
 
-ResultsWfesSequential::ResultsWfesSequential(double pExt, double pFix, double pTmo, double tExt, double tExtStd, double tFix, double tFixStd, double tTmo, double tTmoStd, double time) : pExt(pExt), pFix(pFix), pTmo(pTmo), tExt(tExt), tExtStd(tExtStd), tFix(tFix), tFixStd(tFixStd), tTmo(tTmo), tTmoStd(tTmoStd), time(time) {}
+ResultsWfesSequential::ResultsWfesSequential(std::string error) : pExt(std::nan("")), pFix(std::nan("")), pTmo(std::nan("")), tExt(std::nan("")), tExtStd(std::nan("")), tFix(std::nan("")), tFixStd(std::nan("")), tTmo(std::nan("")), tTmoStd(std::nan("")), time(std::nan("")), error(error) {}
+
+ResultsWfesSequential::ResultsWfesSequential(double pExt, double pFix, double pTmo, double tExt, double tExtStd, double tFix, double tFixStd, double tTmo, double tTmoStd, double time) : pExt(pExt), pFix(pFix), pTmo(pTmo), tExt(tExt), tExtStd(tExtStd), tFix(tFix), tFixStd(tFixStd), tTmo(tTmo), tTmoStd(tTmoStd), time(time), error("") {}
 
 void ResultsWfesSequential::writeResultsToFile(ResultsWfesSequential *results, std::string name)
 {

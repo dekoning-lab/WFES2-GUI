@@ -21,32 +21,12 @@ ResultsWfesSequential *wfes_sequential::execute()
     //Notify starting.
     this->notify(ExecutionStatus::STARTING);
 
-        return this->function();
+    return this->function();
 }
 
 ResultsWfesSequential *wfes_sequential::function()
 {
-
-    if (!ConfigWfesSequential::force) {
-        if (ConfigWfesSequential::N.maxCoeff() > 500000) {
-            qDebug() << "Population size is quite large - the computations will take a long time. Use --force to ignore";
-        }
-        dvec N = ConfigWfesSequential::N.cast<double>();
-        dvec theta_f = dvec::Constant(ConfigWfesSequential::num_comp, 4).array() * N.array() * ConfigWfesSequential::v.array();
-        dvec theta_b = dvec::Constant(ConfigWfesSequential::num_comp, 4).array() * N.array() * ConfigWfesSequential::u.array();
-        double max_theta = std::max(theta_b.maxCoeff(), theta_f.maxCoeff());
-        if (max_theta > 1) {
-            qDebug() << "The mutation rate might violate the Wright-Fisher assumptions. Use --force to ignore";
-        }
-        dvec gamma = dvec::Constant(ConfigWfesSequential::num_comp, 2).array() * N.array() * ConfigWfesSequential::s.array();
-        if (2 * N.maxCoeff() * ConfigWfesSequential::s.minCoeff() <= -100) {
-            qDebug() << "The selection coefficient is quite negative. Fixations might be impossible. Use --force to ignore";
-        }
-        if (ConfigWfesSequential::a > 1e-5) {
-            qDebug() << "Zero cutoff value is quite high. This might produce inaccurate results. Use --force to ignore";
-        }
-    }
-    //}}}
+    //Force was here, but since it is now implemented in view, deleted here.
 
     //Notify building matrix.
     this->notify(ExecutionStatus::BUILDING_MATRICES);
@@ -90,8 +70,15 @@ ResultsWfesSequential *wfes_sequential::function()
 
     Solver* solver = SolverFactory::createSolver(ConfigWfesSequential::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, ConfigWfesSequential::vienna_solver);
 
-    solver->preprocess();
-
+    try {
+        solver->preprocess();
+    } catch(const std::exception &e) {
+        this->notify(ExecutionStatus::ERROR);
+        return new ResultsWfesSequential(e.what());
+    } catch(...) {
+        this->notify(ExecutionStatus::ERROR);
+        return new ResultsWfesSequential("INTEL MKL PARDISO: Unknown error while preprocessing the matrix.");
+    }
     // Get initial probabilities of mu within each model
     lvec nnz_p0(ConfigWfesSequential::num_comp);
     std::vector<dvec> p0(ConfigWfesSequential::num_comp);
@@ -106,7 +93,15 @@ ResultsWfesSequential *wfes_sequential::function()
     dmat B(size, (ConfigWfesSequential::num_comp * 2) + 1);
     for (llong i = 0; i < (ConfigWfesSequential::num_comp * 2) + 1; i++) {
         dvec R_col = W.R.col(i);
-        B.col(i) = solver->solve(R_col, false);
+        try {
+            B.col(i) = solver->solve(R_col, false);
+        } catch(const std::exception &e) {
+            this->notify(ExecutionStatus::ERROR);
+            return new ResultsWfesSequential(e.what());
+        } catch(...) {
+            this->notify(ExecutionStatus::ERROR);
+            return new ResultsWfesSequential("INTEL MKL PARDISO: Unknown error while preprocessing the matrix.");
+        }
     }
 
     std::map<llong, dvec> N_rows;
@@ -118,8 +113,24 @@ ResultsWfesSequential *wfes_sequential::function()
             llong idx = i + o_;
             id.setZero();
             id(idx) = 1;
-            N_rows[idx] = solver->solve(id, true);
-            N2_rows[idx] = solver->solve(N_rows[idx], true);
+            try {
+                N_rows[idx] = solver->solve(id, true);
+            } catch(const std::exception &e) {
+                this->notify(ExecutionStatus::ERROR);
+                return new ResultsWfesSequential(e.what());
+            } catch(...) {
+                this->notify(ExecutionStatus::ERROR);
+                return new ResultsWfesSequential("INTEL MKL PARDISO: Unknown error while preprocessing the matrix.");
+            }
+            try {
+                N2_rows[idx] = solver->solve(N_rows[idx], true);
+            } catch(const std::exception &e) {
+                this->notify(ExecutionStatus::ERROR);
+                return new ResultsWfesSequential(e.what());
+            } catch(...) {
+                this->notify(ExecutionStatus::ERROR);
+                return new ResultsWfesSequential("INTEL MKL PARDISO: Unknown error while preprocessing the matrix.");
+            }
         }
     }
 

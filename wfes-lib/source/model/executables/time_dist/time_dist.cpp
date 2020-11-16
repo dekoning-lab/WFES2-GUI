@@ -42,7 +42,6 @@ ResultsTimeDist *time_dist::execute()
 
 ResultsTimeDist *time_dist::timeDist()
 {
-
     //Notify building matrix.
     this->notify(ExecutionStatus::BUILDING_MATRICES);
 

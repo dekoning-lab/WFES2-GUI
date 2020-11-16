@@ -50,12 +50,12 @@ QString OutputControllerWfas::load_config()
 
 QString OutputControllerWfas::get_error_message() const
 {
-    return QString::fromStdString(wfes::config::ConfigWfas::error);
+    return QString::fromStdString(this->results.error);
 }
 
-QString OutputControllerWfas::reset_error() const
+QString OutputControllerWfas::reset_error()
 {
-    wfes::config::ConfigWfas::error = "";
+    this->results.error = "";
     return QString();
 }
 

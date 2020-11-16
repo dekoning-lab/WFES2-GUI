@@ -139,12 +139,12 @@ QString OutputControllerWfesSequential::get_t_tmo_std() const
 
 QString OutputControllerWfesSequential::get_error_message() const
 {
-    return QString::fromStdString(wfes::config::ConfigWfesSequential::error);
+    return QString::fromStdString(this->results.error);
 }
 
-QString OutputControllerWfesSequential::reset_error() const
+QString OutputControllerWfesSequential::reset_error()
 {
-    wfes::config::ConfigWfesSequential::error = "";
+    this->results.error = "";
     return QString();
 }
 

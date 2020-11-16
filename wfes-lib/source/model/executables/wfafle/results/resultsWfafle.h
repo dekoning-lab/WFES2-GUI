@@ -13,9 +13,12 @@ class ResultsWfafle {
     public:
         double time;
         dvec probs;
+        std::string error;
         ResultsWfafle();
 
         ResultsWfafle(double time);
+
+        ResultsWfafle(std::string error);
 
         ResultsWfafle(dvec probs, double time);
 

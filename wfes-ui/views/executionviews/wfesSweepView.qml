@@ -672,6 +672,12 @@ ApplicationWindow {
                             onEnabledChanged: {
                                 if(outputControllerWfesSweep.ui_get_not_exec)
                                     imageOutputController.image_changed()
+                                console.log(outputControllerWfesSweep.ui_get_error_message)
+                                if(outputControllerWfesSweep.ui_get_error_message !== "") {
+                                    messageDialog.text = outputControllerWfesSweep.ui_get_error_message
+                                    messageDialog.open()
+                                    outputControllerWfesSweep.ui_reset_error
+                                }
                             }
 
                             Binding {

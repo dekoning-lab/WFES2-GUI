@@ -27,10 +27,14 @@ class ResultsWfesSequential {
         double tTmo;
         double tTmoStd;
         double time;
+        std::string error;
 
         ResultsWfesSequential();
 
         ResultsWfesSequential(double time);
+
+        // Empty constructor with ERROR
+        ResultsWfesSequential(std::string error);
 
         ResultsWfesSequential(double pExt, double pFix, double pTmo, double tExt, double tExtStd, double tFix, double tFixStd, double tTmo, double tTmoStd, double time);
 

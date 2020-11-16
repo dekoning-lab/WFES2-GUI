@@ -23,7 +23,7 @@ namespace wfes{
             NONE, STARTING, BUILDING_MATRICES, SOLVING_MATRICES, SAVING_DATA, DONE, ERROR, ABORTED
         };
 
-        static const char* ExecutionStatusName[] = { "None", "Starting...", "Building matrices...", "Solving matrices...", "Saving data...", "Done.", "ERROR", "Aborted by user."};
+        static const char* ExecutionStatusName[] = { "None", "Starting...", "Building matrices...", "Solving matrices...", "Saving data...", "Done.", "Execution error.", "Aborted by user."};
 
         /**
          * @brief Format for CSV in input and output.

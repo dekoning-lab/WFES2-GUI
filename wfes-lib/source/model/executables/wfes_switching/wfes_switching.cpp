@@ -48,7 +48,6 @@ ResultsWfesSwitching *wfes_switching::execute()
 
 ResultsWfesSwitching *wfes_switching::absorption()
 {
-
     //Notify building matrix.
     this->notify(ExecutionStatus::BUILDING_MATRICES);
 
@@ -75,7 +74,16 @@ ResultsWfesSwitching *wfes_switching::absorption()
     llong size = (2 * ConfigWfesSwitching::N.sum()) - ConfigWfesSwitching::num_comp;
 
     Solver* solver = SolverFactory::createSolver(ConfigWfesSwitching::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, ConfigWfesSwitching::vienna_solver);
-    solver->preprocess();
+
+    try {
+        solver->preprocess();
+    } catch(const std::exception &e) {
+        this->notify(ExecutionStatus::ERROR);
+        return new ResultsWfesSwitching(e.what());
+    } catch(...) {
+        this->notify(ExecutionStatus::ERROR);
+        return new ResultsWfesSwitching("INTEL MKL PARDISO: Unknown error while preprocessing the matrix.");
+    }
 
     // Get initial probabilities of mu within each model
     lvec nnz_p0(ConfigWfesSwitching::num_comp);
@@ -91,7 +99,15 @@ ResultsWfesSwitching *wfes_switching::absorption()
     dmat B(size, ConfigWfesSwitching::num_comp * 2);
     for (llong i = 0; i < ConfigWfesSwitching::num_comp * 2; i++) {
         dvec R_col = W.R.col(i);
-        B.col(i) = solver->solve(R_col, false);
+        try {
+            B.col(i) = solver->solve(R_col, false);
+        } catch(const std::exception &e) {
+            this->notify(ExecutionStatus::ERROR);
+            return new ResultsWfesSwitching(e.what());
+        } catch(...) {
+            this->notify(ExecutionStatus::ERROR);
+            return new ResultsWfesSwitching("INTEL MKL PARDISO: Unknown error while preprocessing the matrix.");
+        }
     }
 
     std::map<llong, dvec> N_rows;
@@ -103,8 +119,24 @@ ResultsWfesSwitching *wfes_switching::absorption()
             llong idx = i + o_;
             id.setZero();
             id(idx) = 1;
-            N_rows[idx] = solver->solve(id, true);
-            N2_rows[idx] = solver->solve(N_rows[idx], true);
+            try {
+                N_rows[idx] = solver->solve(id, true);
+            } catch(const std::exception &e) {
+                this->notify(ExecutionStatus::ERROR);
+                return new ResultsWfesSwitching(e.what());
+            } catch(...) {
+                this->notify(ExecutionStatus::ERROR);
+                return new ResultsWfesSwitching("INTEL MKL PARDISO: Unknown error while preprocessing the matrix.");
+            }
+            try {
+                N2_rows[idx] = solver->solve(N_rows[idx], true);
+            } catch(const std::exception &e) {
+                this->notify(ExecutionStatus::ERROR);
+                return new ResultsWfesSwitching(e.what());
+            } catch(...) {
+                this->notify(ExecutionStatus::ERROR);
+                return new ResultsWfesSwitching("INTEL MKL PARDISO: Unknown error while preprocessing the matrix.");
+            }
         }
     }
 
@@ -289,7 +321,15 @@ ResultsWfesSwitching *wfes_switching::fixation()
 
     Solver* solver = SolverFactory::createSolver(ConfigWfesSwitching::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, ConfigWfesSwitching::vienna_solver);
 
-    solver->preprocess();
+    try {
+        solver->preprocess();
+    } catch(const std::exception &e) {
+        this->notify(ExecutionStatus::ERROR);
+        return new ResultsWfesSwitching(e.what());
+    } catch(...) {
+        this->notify(ExecutionStatus::ERROR);
+        return new ResultsWfesSwitching("INTEL MKL PARDISO: Unknown error while preprocessing the matrix.");
+    }
 
     dmat N(ConfigWfesSwitching::num_comp, size);
     lvec start_state_index(ConfigWfesSwitching::num_comp);
@@ -301,7 +341,15 @@ ResultsWfesSwitching *wfes_switching::fixation()
     for(llong i = 0; i < ConfigWfesSwitching::num_comp; i++) {
         id.setZero();
         id(start_state_index(i)) = 1;
-        N.row(i) = solver->solve(id, true);
+        try {
+            N.row(i) = solver->solve(id, true);
+        } catch(const std::exception &e) {
+            this->notify(ExecutionStatus::ERROR);
+            return new ResultsWfesSwitching(e.what());
+        } catch(...) {
+            this->notify(ExecutionStatus::ERROR);
+            return new ResultsWfesSwitching("INTEL MKL PARDISO: Unknown error while preprocessing the matrix.");
+        }
         N.row(i) *= ConfigWfesSwitching::p(i);
     }
 
@@ -312,7 +360,15 @@ ResultsWfesSwitching *wfes_switching::fixation()
 
     for(llong i = 0; i < ConfigWfesSwitching::num_comp; i++) {
         dvec R_col = W.R.col(i);
-        B.col(i) = solver->solve(R_col, false);
+        try {
+            B.col(i) = solver->solve(R_col, false);
+        } catch(const std::exception &e) {
+            this->notify(ExecutionStatus::ERROR);
+            return new ResultsWfesSwitching(e.what());
+        } catch(...) {
+            this->notify(ExecutionStatus::ERROR);
+            return new ResultsWfesSwitching("INTEL MKL PARDISO: Unknown error while preprocessing the matrix.");
+        }
     }
 
     //Notify saving data.
