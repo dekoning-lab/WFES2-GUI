@@ -27,7 +27,6 @@ ResultsWfas *wfas::execute()
 
 ResultsWfas *wfas::function()
 {
-
     dvec s_scal = ConfigWfas::s.array() * ConfigWfas::f.array();
     dvec u_scal = ConfigWfas::u.array() * ConfigWfas::f.array();
     dvec v_scal = ConfigWfas::v.array() * ConfigWfas::f.array();
@@ -84,7 +83,15 @@ ResultsWfas *wfas::function()
 
     Solver* solver = SolverFactory::createSolver(ConfigWfas::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, ConfigWfas::vienna_solver, "", n_rhs);
 
-    solver->preprocess();
+    try {
+        solver->preprocess();
+    } catch(const std::exception &e) {
+        this->notify(ExecutionStatus::ERROR);
+        return new ResultsWfas(e.what());
+    } catch(...) {
+        this->notify(ExecutionStatus::ERROR);
+        return new ResultsWfas("INTEL MKL PARDISO: Unknown error while preprocessing the matrix.");
+    }
 
     // dmat R = dmat::Identity(size, 2 * population_sizes(ConfigWfas::num_comp - 1) + 1).reverse() * (1 / t(ConfigWfas::num_comp - 1));
     llong nk = 2 * popSizes(ConfigWfas::num_comp - 1) + 1;
@@ -93,7 +100,16 @@ ResultsWfas *wfas::function()
 
     dmat id = dmat::Identity(n_rhs, size);
 
-    dmat B = solver->solve_multiple(id, true);
+    dmat B;
+    try {
+        B = solver->solve_multiple(id, true);
+    } catch(const std::exception &e) {
+        this->notify(ExecutionStatus::ERROR);
+        return new ResultsWfas(e.what());
+    } catch(...) {
+        this->notify(ExecutionStatus::ERROR);
+        return new ResultsWfas("INTEL MKL PARDISO: Unknown error while preprocessing the matrix.");
+    }
 
     // if(output_N_f) write_matrix_to_file(Nt, args::get(output_N_f));
 

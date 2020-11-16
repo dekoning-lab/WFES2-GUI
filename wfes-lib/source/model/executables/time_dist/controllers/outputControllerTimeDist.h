@@ -59,7 +59,7 @@ namespace wfes {
 
             QString get_error_message() const;
 
-            QString reset_error() const;
+            QString reset_error();
 
             QString get_time() const;
 

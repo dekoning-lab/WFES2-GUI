@@ -410,6 +410,12 @@ ApplicationWindow {
                                 onEnabledChanged: {
                                     if(outputControllerWfesSequential.ui_get_not_exec)
                                         imageOutputController.image_changed()
+                                    console.log(outputControllerWfesSequential.ui_get_error_message)
+                                    if(outputControllerWfesSequential.ui_get_error_message !== "") {
+                                        messageDialog.text = outputControllerWfesSequential.ui_get_error_message
+                                        messageDialog.open()
+                                        outputControllerWfesSequential.ui_reset_error
+                                    }
                                 }
 
                                 Binding {

@@ -511,6 +511,12 @@ ApplicationWindow {
                                 onEnabledChanged: {
                                     if(outputControllerWfesSwitching.ui_get_not_exec)
                                         imageOutputController.image_changed()
+                                    console.log(outputControllerWfesSwitching.ui_get_error_message)
+                                    if(outputControllerWfesSwitching.ui_get_error_message !== "") {
+                                        messageDialog.text = outputControllerWfesSwitching.ui_get_error_message
+                                        messageDialog.open()
+                                        outputControllerWfesSwitching.ui_reset_error
+                                    }
                                 }
 
                                 Binding {

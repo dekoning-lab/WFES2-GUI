@@ -30,11 +30,14 @@ public:
     dvec tCondExt;
     dvec tCondFix;
     double time;
+    std::string error;
 
 
     ResultsWfesSwitching();
 
     ResultsWfesSwitching(double time);
+
+    ResultsWfesSwitching(std::string error);
 
     // Fixation
     ResultsWfesSwitching(double tFix, double rate, double time);

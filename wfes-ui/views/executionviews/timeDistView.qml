@@ -922,6 +922,12 @@ ApplicationWindow {
                             onEnabledChanged: {
                                 if(outputControllerTimeDist.ui_get_not_exec)
                                     imageOutputController.image_changed()
+                                console.log(outputControllerTimeDist.ui_get_error_message)
+                                if(outputControllerTimeDist.ui_get_error_message !== "") {
+                                    messageDialog.text = outputControllerTimeDist.ui_get_error_message
+                                    messageDialog.open()
+                                    outputControllerTimeDist.ui_reset_error
+                                }
                             }
 
                             Binding {

@@ -17,8 +17,15 @@ public:
     double tFix;
     double rate;
     double time;
+    std::string error;
 
     ResultsWfesSweep();
+
+    // Empty constructor with time
+    ResultsWfesSweep(double time);
+
+    // Empty constructor with ERROR
+    ResultsWfesSweep(std::string error);
 
     ResultsWfesSweep(double t_fix, double rate, double time);
 

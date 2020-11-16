@@ -67,15 +67,30 @@ ResultsWfesSweep *wfes_sweep::fixation()
 
     Solver* solver = SolverFactory::createSolver(ConfigWfesSweep::library, *(wf.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, ConfigWfesSweep::vienna_solver);
 
-    solver->preprocess();
+    try {
+        solver->preprocess();
+    } catch(const std::exception &e) {
+        this->notify(ExecutionStatus::ERROR);
+        return new ResultsWfesSweep(e.what());
+    } catch(...) {
+        this->notify(ExecutionStatus::ERROR);
+        return new ResultsWfesSweep("INTEL MKL PARDISO: Unknown error while preprocessing the matrix.");
+    }
 
     dvec id(wf.Q->num_rows);
     id.setZero();
     id(ConfigWfesSweep::starting_copies) = 1;
 
     dvec N(wf.Q->num_rows);
-    N = solver->solve(id, true);
-
+    try {
+        N = solver->solve(id, true);
+    } catch(const std::exception &e) {
+        this->notify(ExecutionStatus::ERROR);
+        return new ResultsWfesSweep(e.what());
+    } catch(...) {
+        this->notify(ExecutionStatus::ERROR);
+        return new ResultsWfesSweep("INTEL MKL PARDISO: Unknown error while solving the system.");
+    }
     double T_fix = N.tail(2 * ConfigWfesSweep::population_size).sum();
     qDebug() << "Fixation";
     double rate = 1.0 / T_fix;
@@ -83,7 +98,16 @@ ResultsWfesSweep *wfes_sweep::fixation()
     llong size = ((2 * ConfigWfesSweep::population_size) + 1) + (2 * ConfigWfesSweep::population_size);
 
     dvec R_ext = wf.R.col(0);
-    dvec B_ext = solver->solve(R_ext, false);
+    dvec B_ext;
+    try {
+        B_ext = solver->solve(R_ext, false);
+    } catch(const std::exception &e) {
+        this->notify(ExecutionStatus::ERROR);
+        return new ResultsWfesSweep(e.what());
+    } catch(...) {
+        this->notify(ExecutionStatus::ERROR);
+        return new ResultsWfesSweep("INTEL MKL PARDISO: Unknown error while solving the system.");
+    }
     dvec B_fix = dvec::Ones(size) - B_ext;
 
     //Notify saving data.

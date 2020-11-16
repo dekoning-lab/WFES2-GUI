@@ -262,7 +262,7 @@ namespace wfes {
                  * @brief Reset error message.
                  * @return QString empty.
                  */
-                QString reset_error() const;
+                QString reset_error();
 
                 /**
                  * @brief Send execution time to GUI.

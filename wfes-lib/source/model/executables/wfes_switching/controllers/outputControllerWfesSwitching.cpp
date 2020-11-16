@@ -121,12 +121,12 @@ QString OutputControllerWfesSwitching::get_rate() const
 
 QString OutputControllerWfesSwitching::get_error_message() const
 {
-    return QString::fromStdString(wfes::config::ConfigWfesSwitching::error);
+    return QString::fromStdString(this->results.error);
 }
 
-QString OutputControllerWfesSwitching::reset_error() const
+QString OutputControllerWfesSwitching::reset_error()
 {
-    wfes::config::ConfigWfesSwitching::error = "";
+    this->results.error = "";
     return QString();
 }
 

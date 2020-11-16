@@ -1,10 +1,16 @@
 #include "resultsWfesSweep.h"
 
 ResultsWfesSweep::ResultsWfesSweep() :
-    tFix(std::nan("")), rate(std::nan("")),time(std::nan("")) {}
+    tFix(std::nan("")), rate(std::nan("")),time(std::nan("")), error("") {}
+
+ResultsWfesSweep::ResultsWfesSweep(double time) :
+    tFix(std::nan("")), rate(std::nan("")),time(time), error("") {}
+
+ResultsWfesSweep::ResultsWfesSweep(std::string error) :
+    tFix(std::nan("")), rate(std::nan("")),time(std::nan("")), error(error) {}
 
 ResultsWfesSweep::ResultsWfesSweep(double t_fix, double rate, double time) :
-    tFix(t_fix), rate(rate), time(time) {}
+    tFix(t_fix), rate(rate), time(time), error("") {}
 
 void ResultsWfesSweep::writeResultsToFile(ResultsWfesSweep *results, std::string name) {
 

@@ -39,7 +39,6 @@ public:
 
     ResultsWfesSwitching* fixation();
 
-    void force();
 };
 
 #endif // WFES_SWITCHING_H

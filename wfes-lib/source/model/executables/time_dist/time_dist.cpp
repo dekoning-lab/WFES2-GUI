@@ -42,7 +42,6 @@ ResultsTimeDist *time_dist::execute()
 
 ResultsTimeDist *time_dist::timeDist()
 {
-
     //Notify building matrix.
     this->notify(ExecutionStatus::BUILDING_MATRICES);
 
@@ -121,30 +120,6 @@ ResultsTimeDist *time_dist::timeDist()
 
 ResultsTimeDist *time_dist::timeDistSGV()
 {
-
-    // TODO Show as dialog.
-    if(ConfigTimeDistSGV::s.size() != 2)  throw exception::Error("Selection coefficient vector should be of length 2");
-
-    if (!ConfigTimeDistSGV::force) {
-        if (ConfigTimeDistSGV::population_size > 500000) {
-            // TODO Show as dialog.
-            throw exception::Error("Population size is quite large - the computations will take a long time. Use --force to ignore");
-        }
-        double max_mu = std::max(ConfigTimeDistSGV::u.maxCoeff(), ConfigTimeDistSGV::v.maxCoeff());
-        if (4 * ConfigTimeDistSGV::population_size * max_mu > 1) {
-            // TODO Show as dialog.
-            throw exception::Error("The mutation rate might violate the Wright-Fisher assumptions. Use --force to ignore");
-        }
-        if (ConfigTimeDistSGV::s.minCoeff() <= -1) {
-            // TODO Show as dialog.
-            throw exception::Error("The selection coefficient is quite negative. Fixations might be impossible. Use --force to ignore");
-        }
-        if (ConfigTimeDistSGV::a > 1e-5) {
-            // TODO Show as dialog.
-            throw exception::Error("Zero cutoff value is quite high. This might produce inaccurate results. Use --force to ignore");
-        }
-    }
-
     //Notify building matrix.
     this->notify(ExecutionStatus::BUILDING_MATRICES);
 

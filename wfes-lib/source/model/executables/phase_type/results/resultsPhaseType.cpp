@@ -1,13 +1,16 @@
 #include "resultsPhaseType.h"
 
 ResultsPhaseType::ResultsPhaseType() :
-    mean(std::nan("")), std(std::nan("")), time(std::nan("")) {}
+    mean(std::nan("")), std(std::nan("")), time(std::nan("")), error("") {}
 
 ResultsPhaseType::ResultsPhaseType(double mean, double std, dvec moments, double time) :
-    mean(mean), std(std), time(time), moments(moments) {}
+    mean(mean), std(std), time(time), moments(moments), error("") {}
 
 ResultsPhaseType::ResultsPhaseType(double time) :
-    mean(std::nan("")), std(std::nan("")), time(time) {}
+    mean(std::nan("")), std(std::nan("")), time(time), error("") {}
+
+ResultsPhaseType::ResultsPhaseType(std::string error) :
+    mean(std::nan("")), std(std::nan("")), time(time), error(error) {}
 
 void ResultsPhaseType::writeResultsToFile(ResultsPhaseType *results, std::string name)
 {

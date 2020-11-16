@@ -139,7 +139,15 @@ ResultsPhaseType *phase_type::phaseTypeMoment()
 
     Solver* solver = SolverFactory::createSolver(ConfigPhaseType::library, *(wf.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, ConfigPhaseType::vienna_solver);
 
-    solver->preprocess();
+    try {
+        solver->preprocess();
+    } catch(const std::exception &e) {
+        this->notify(ExecutionStatus::ERROR);
+        return new ResultsPhaseType(e.what());
+    } catch(...) {
+        this->notify(ExecutionStatus::ERROR);
+        return new ResultsPhaseType("INTEL MKL PARDISO: Unknown error while preprocessing the matrix.");
+    }
 
     dvec z = dvec::Zero(ConfigPhaseType::k+1);
     z(0) = 1; z(1) = -1;
@@ -148,7 +156,15 @@ ResultsPhaseType *phase_type::phaseTypeMoment()
     dvec rhs = dvec::Ones(size);
     dmat m = dmat::Zero(size, ConfigPhaseType::k+1);
     m.col(0) = rhs;
-    m.col(1) = solver->solve(rhs, false);
+    try {
+        m.col(1) = solver->solve(rhs, false);
+    } catch(const std::exception &e) {
+        this->notify(ExecutionStatus::ERROR);
+        return new ResultsPhaseType(e.what());
+    } catch(...) {
+        this->notify(ExecutionStatus::ERROR);
+        return new ResultsPhaseType("INTEL MKL PARDISO: Unknown error while preprocessing the matrix.");
+    }
 
     for(llong i = 1; i < ConfigPhaseType::k; i++) {
         z(i + 1) = -1;
@@ -162,7 +178,15 @@ ResultsPhaseType *phase_type::phaseTypeMoment()
         }
 
         // note that we only need the first row of M - do we need to solve every time?
-        m.col(i+1) = solver->solve(rhs, false);
+        try {
+            m.col(i+1) = solver->solve(rhs, false);
+        } catch(const std::exception &e) {
+            this->notify(ExecutionStatus::ERROR);
+            return new ResultsPhaseType(e.what());
+        } catch(...) {
+            this->notify(ExecutionStatus::ERROR);
+            return new ResultsPhaseType("INTEL MKL PARDISO: Unknown error while preprocessing the matrix.");
+        }
     }
     double m1 = m(0, 1);
     double m2 = m(0, 2);

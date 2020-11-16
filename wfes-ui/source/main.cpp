@@ -2,6 +2,7 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QQuickStyle>
+#include <csignal>
 
 #include <source/model/executables/wfes_single/controllers/outputControllerWfesSingle.h>
 #include <source/model/executables/wfes_single/controllers/inputControllerWfesSingle.h>
@@ -23,9 +24,25 @@
 #include <model/visualization/imageOutputController.h>
 #include <model/visualization/visualizationImageProvider.h>
 
+void signalHandler( int signum ) {
+   std::cout << "Interrupt signal (" << signum << ") received.\n";
+
+   // cleanup and close up stuff here
+   // terminate program
+
+   exit(signum);
+}
 
 int main(int argc, char *argv[])
 {
+    std::set_terminate([](){ std::cout << "Unhandled exception" << std::endl; std::abort();});
+    signal(SIGINT, signalHandler);
+    signal(SIGABRT, signalHandler);
+    signal(SIGFPE, signalHandler);
+    signal(SIGILL, signalHandler);
+    signal(SIGSEGV, signalHandler);
+    signal(SIGTERM, signalHandler);
+
     QQuickStyle::setStyle("Universal");
 
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
@@ -34,6 +51,8 @@ int main(int argc, char *argv[])
 
     app.setOrganizationName("University of Calgary");
     app.setOrganizationDomain("www.ucalgary.ca");
+
+    qDebug() << QDir::currentPath();
 
     qmlRegisterType<wfes::controllers::OutputControllerWfesSingle>("WFES", 1, 0, "OutputControllerWfesSingle");
     qmlRegisterType<wfes::controllers::InputControllerWfesSingle>("WFES", 1, 0, "InputControllerWfesSingle");
@@ -104,3 +123,4 @@ int main(int argc, char *argv[])
 
     return app.exec();
 }
+

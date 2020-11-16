@@ -115,6 +115,13 @@ namespace wfes{
                  * @return Diagonal of the matrix as a vector.
                  */
                 dvec get_diagonal();
+
+                /**
+                 * @brief Get error message from code. Codes and descriptions extracted from Intel MKL Pardiso Documentation: https://software.intel.com/content/www/us/en/develop/articles/description-of-pardiso-errors-and-messages.html
+                 * @param code Pardiso error code.
+                 * @return Description of the error.
+                 */
+                std::string errorMessage(long long code);
         };
     }
 }

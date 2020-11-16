@@ -86,8 +86,6 @@ ResultsWfesSingle *wfes_single::absorption()
     if (ConfigWfesSingle::output_R)
         utils::writeMatrixToFile(W.R, ConfigWfesSingle::path_output_R);
 
-    time_point t_start2 = std::chrono::system_clock::now();
-
     //Notify solving
     this->notify(ExecutionStatus::SOLVING_MATRICES);
 
@@ -97,10 +95,28 @@ ResultsWfesSingle *wfes_single::absorption()
 
     Solver* solver = SolverFactory::createSolver(ConfigWfesSingle::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, ConfigWfesSingle::vienna_solver);
 
-    solver->preprocess();
+    try {
+        solver->preprocess();
+    } catch(const std::exception &e) {
+        this->notify(ExecutionStatus::ERROR);
+        return new ResultsWfesSingle(e.what());
+    } catch(...) {
+        this->notify(ExecutionStatus::ERROR);
+        return new ResultsWfesSingle("INTEL MKL PARDISO: Unknown error while preprocessing the matrix.");
+    }
 
     dvec R_ext = W.R.col(0);
-    dvec B_ext = solver->solve(R_ext, false);
+    dvec B_ext;
+    try {
+        B_ext = solver->solve(R_ext, false);
+    } catch(const std::exception &e) {
+        this->notify(ExecutionStatus::ERROR);
+        return new ResultsWfesSingle(e.what());
+    } catch(...) {
+        this->notify(ExecutionStatus::ERROR);
+        return new ResultsWfesSingle("INTEL MKL PARDISO: Unknown error while solving the system.");
+    }
+
     dvec B_fix = dvec::Ones(size) - B_ext;
     dvec id(size);
 
@@ -125,9 +141,26 @@ ResultsWfesSingle *wfes_single::absorption()
             id.setZero();
             id(i) = 1;
 
-            N_mat.row(i) = solver->solve(id, true);
+            try {
+                N_mat.row(i) = solver->solve(id, true);
+            } catch(const std::exception &e) {
+                this->notify(ExecutionStatus::ERROR);
+                return new ResultsWfesSingle(e.what());
+            } catch(...) {
+                this->notify(ExecutionStatus::ERROR);
+                return new ResultsWfesSingle("INTEL MKL PARDISO: Unknown error while solving the system.");
+            }
+
             dvec N1 = N_mat.row(i);
-            N2_mat.row(i) = solver->solve(N1, true);
+            try {
+                N2_mat.row(i) = solver->solve(N1, true);
+            } catch(const std::exception &e) {
+                this->notify(ExecutionStatus::ERROR);
+                return new ResultsWfesSingle(e.what());
+            } catch(...) {
+                this->notify(ExecutionStatus::ERROR);
+                return new ResultsWfesSingle("INTEL MKL PARDISO: Unknown error while solving the system.");
+            }
             dvec N2 = N2_mat.row(i);
 
             T_abs += N1.sum() * p_i;
@@ -155,9 +188,25 @@ ResultsWfesSingle *wfes_single::absorption()
         // TODO: combine this with the previous clause
         id.setZero();
         id(ConfigWfesSingle::starting_copies) = 1;
-        N_mat.row(0) = solver->solve(id, true);
+        try{
+            N_mat.row(0) = solver->solve(id, true);
+        } catch(const std::exception &e) {
+            this->notify(ExecutionStatus::ERROR);
+            return new ResultsWfesSingle(e.what());
+        } catch(...) {
+            this->notify(ExecutionStatus::ERROR);
+            return new ResultsWfesSingle("INTEL MKL PARDISO: Unknown error while solving the system.");
+        }
         dvec N1 = N_mat.row(0);
-        N2_mat.row(0) = solver->solve(N1, true);
+        try{
+            N2_mat.row(0) = solver->solve(N1, true);
+        } catch(const std::exception &e) {
+            this->notify(ExecutionStatus::ERROR);
+            return new ResultsWfesSingle(e.what());
+        } catch(...) {
+            this->notify(ExecutionStatus::ERROR);
+            return new ResultsWfesSingle("INTEL MKL PARDISO: Unknown error while solving the system.");
+        }
         dvec N2 = N2_mat.row(0);
 
         T_abs = N1.sum();
@@ -253,7 +302,7 @@ ResultsWfesSingle *wfes_single::absorption()
     t_end = std::chrono::system_clock::now();
     time_diff dt = t_end - t_start;
 
-    ResultsWfesSingle* res = new ResultsWfesSingle(ConfigWfesSingle::modelType, P_ext, P_fix, T_abs, T_abs_std, T_ext, T_ext_std, N_ext, T_fix, T_fix_std, dt.count(), imageI, imageQ, imageR, imageN, imageNExt, imageNFix, imageB);
+    ResultsWfesSingle* res = new ResultsWfesSingle(ConfigWfesSingle::modelType, P_ext, P_fix, T_abs, T_abs_std, T_ext, T_ext_std, N_ext, T_fix, T_fix_std, dt.count());
 
     if(ConfigWfesSingle::output_Res)
        res->writeResultsToFile(res, ConfigWfesSingle::path_output_Res);
@@ -289,16 +338,42 @@ ResultsWfesSingle *wfes_single::fixation()
 
     Solver *solver = wfes::solver::SolverFactory::createSolver(ConfigWfesSingle::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, ConfigWfesSingle::vienna_solver);
 
-    solver->preprocess();
+    try {
+        solver->preprocess();
+    } catch(const std::exception &e) {
+        this->notify(ExecutionStatus::ERROR);
+        return new ResultsWfesSingle(e.what());
+    } catch(...) {
+        this->notify(ExecutionStatus::ERROR);
+        return new ResultsWfesSingle("INTEL MKL PARDISO: Unknown error while preprocessing the matrix.");
+    }
+
 
     dvec id(size);
     dmat N_mat(1, size);
 
     id.setZero();
     id(ConfigWfesSingle::starting_copies) = 1;
-    N_mat.row(0) = solver->solve(id, true);
+    try{
+        N_mat.row(0) = solver->solve(id, true);
+    } catch(const std::exception &e) {
+        this->notify(ExecutionStatus::ERROR);
+        return new ResultsWfesSingle(e.what());
+    } catch(...) {
+        this->notify(ExecutionStatus::ERROR);
+        return new ResultsWfesSingle("INTEL MKL PARDISO: Unknown error while solving the system.");
+    }
     dvec N1 = N_mat.row(0);
-    dvec N2 = solver->solve(N1, true);
+    dvec N2;
+    try{
+        N2 = solver->solve(N1, true);
+    } catch(const std::exception &e) {
+        this->notify(ExecutionStatus::ERROR);
+        return new ResultsWfesSingle(e.what());
+    } catch(...) {
+        this->notify(ExecutionStatus::ERROR);
+        return new ResultsWfesSingle("INTEL MKL PARDISO: Unknown error while solving the system.");
+    }
     double T_fix = N1.sum();
     double T_var = ((2 * N2.sum()) - N1.sum()) - pow(N1.sum(), 2);
 
@@ -351,7 +426,7 @@ ResultsWfesSingle *wfes_single::fixation()
     t_end = std::chrono::system_clock::now();
     time_diff dt = t_end - t_start;
 
-    ResultsWfesSingle* res = new ResultsWfesSingle(ConfigWfesSingle::modelType, T_fix, T_std, rate, dt.count(), imageI, imageQ, imageR, imageN, imageB);
+    ResultsWfesSingle* res = new ResultsWfesSingle(ConfigWfesSingle::modelType, T_fix, T_std, rate, dt.count());
 
     if(ConfigWfesSingle::output_Res)
        res->writeResultsToFile(res, ConfigWfesSingle::path_output_Res);
@@ -387,7 +462,16 @@ ResultsWfesSingle *wfes_single::fundamental()
 
     Solver* solver = SolverFactory::createSolver(ConfigWfesSingle::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, ConfigWfesSingle::vienna_solver);
 
-    solver->preprocess();
+    try {
+        solver->preprocess();
+    } catch(const std::exception &e) {
+        this->notify(ExecutionStatus::ERROR);
+        return new ResultsWfesSingle(e.what());
+    } catch(...) {
+        this->notify(ExecutionStatus::ERROR);
+        return new ResultsWfesSingle("INTEL MKL PARDISO: Unknown error while preprocessing the matrix.");
+    }
+
     dmat N(size, size);
     dvec id(size);
     for (llong i = 0; i < size; i++) {
@@ -450,7 +534,7 @@ ResultsWfesSingle *wfes_single::fundamental()
     //Notify done.
     this->notify(ExecutionStatus::DONE);
 
-    return new ResultsWfesSingle(ConfigWfesSingle::modelType, dt.count(), imageI, imageQ, imageR, imageN, imageV);
+    return new ResultsWfesSingle(ConfigWfesSingle::modelType, dt.count());
 }
 
 ResultsWfesSingle *wfes_single::equilibrium()
@@ -467,11 +551,28 @@ ResultsWfesSingle *wfes_single::equilibrium()
 
     Solver* solver = SolverFactory::createSolver(ConfigWfesSingle::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, ConfigWfesSingle::vienna_solver);
 
-    solver->preprocess();
+    try {
+        solver->preprocess();
+    } catch(const std::exception &e) {
+        this->notify(ExecutionStatus::ERROR);
+        return new ResultsWfesSingle(e.what());
+    } catch(...) {
+        this->notify(ExecutionStatus::ERROR);
+        return new ResultsWfesSingle("INTEL MKL PARDISO: Unknown error while preprocessing the matrix.");
+    }
+
     dvec O = dvec::Zero(size);
     O(size - 1) = 1;
-
-    dvec pi = solver->solve(O, true);
+    dvec pi;
+    try{
+        pi = solver->solve(O, true);
+    } catch(const std::exception &e) {
+        this->notify(ExecutionStatus::ERROR);
+        return new ResultsWfesSingle(e.what());
+    } catch(...) {
+        this->notify(ExecutionStatus::ERROR);
+        return new ResultsWfesSingle("INTEL MKL PARDISO: Unknown error while solving the system.");
+    }
 
     //Notify saving data.
     this->notify(ExecutionStatus::SAVING_DATA);
@@ -510,7 +611,7 @@ ResultsWfesSingle *wfes_single::equilibrium()
     t_end = std::chrono::system_clock::now();
     time_diff dt = t_end - t_start;
 
-    ResultsWfesSingle* res = new ResultsWfesSingle(ConfigWfesSingle::modelType, e_freq, (1.0 - e_freq), dt.count(), imageI, imageE);
+    ResultsWfesSingle* res = new ResultsWfesSingle(ConfigWfesSingle::modelType, e_freq, (1.0 - e_freq), dt.count());
 
     //Notify saving data.
     this->notify(ExecutionStatus::SAVING_DATA);
@@ -543,10 +644,27 @@ ResultsWfesSingle *wfes_single::establishment()
 
     Solver* solver_full = SolverFactory::createSolver(ConfigWfesSingle::library, *(W_full.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, ConfigWfesSingle::vienna_solver);
 
-    solver_full->preprocess();
+    try {
+        solver_full->preprocess();
+    } catch(const std::exception &e) {
+        this->notify(ExecutionStatus::ERROR);
+        return new ResultsWfesSingle(e.what());
+    } catch(...) {
+        this->notify(ExecutionStatus::ERROR);
+        return new ResultsWfesSingle("INTEL MKL PARDISO: Unknown error while preprocessing the matrix.");
+    }
 
     dvec R_full_fix = W_full.R.col(1);
-    dvec B_full_fix = solver_full->solve(R_full_fix, false);
+    dvec B_full_fix;
+    try {
+        B_full_fix = solver_full->solve(R_full_fix, false);
+    } catch(const std::exception &e) {
+        this->notify(ExecutionStatus::ERROR);
+        return new ResultsWfesSingle(e.what());
+    } catch(...) {
+        this->notify(ExecutionStatus::ERROR);
+        return new ResultsWfesSingle("INTEL MKL PARDISO: Unknown error while solving the system.");
+    }
     dvec B_full_ext = dvec::Constant(size, 1) - B_full_fix;
     dvec id_full(size);
 
@@ -559,10 +677,20 @@ ResultsWfesSingle *wfes_single::establishment()
 
     // TODO show as error in GUI
     if (est_idx == 1) {
-        throw wfes::exception::Error("Establishment is near-certain: establishment-count is 1");
+        try{
+            throw wfes::exception::Error("Establishment is near-certain: establishment-count is 1");
+        } catch(const std::exception &e) {
+            this->notify(ExecutionStatus::ERROR);
+            return new ResultsWfesSingle(e.what());
+        }
     }
     if (z >= est_idx) {
-        throw wfes::exception::Error("Establishment can be reached by mutation alone");
+        try{
+            throw wfes::exception::Error("Establishment can be reached by mutation alone");
+        } catch(const std::exception &e) {
+            this->notify(ExecutionStatus::ERROR);
+            return new ResultsWfesSingle(e.what());
+        }
     }
 
     // Since the B indexes begin at 1
@@ -573,8 +701,26 @@ ResultsWfesSingle *wfes_single::establishment()
     // post-establishment time before absorption
     id_full.setZero();
     id_full(est_idx) = 1;
-    dvec N1_aft_est = solver_full->solve(id_full, true);
-    dvec N2_aft_est = solver_full->solve(N1_aft_est, true);
+    dvec N1_aft_est;
+    try{
+        N1_aft_est = solver_full->solve(id_full, true);
+    } catch(const std::exception &e) {
+        this->notify(ExecutionStatus::ERROR);
+        return new ResultsWfesSingle(e.what());
+    } catch(...) {
+        this->notify(ExecutionStatus::ERROR);
+        return new ResultsWfesSingle("INTEL MKL PARDISO: Unknown error while solving the system.");
+    }
+    dvec N2_aft_est;
+    try{
+        N2_aft_est = solver_full->solve(N1_aft_est, true);
+    } catch(const std::exception &e) {
+        this->notify(ExecutionStatus::ERROR);
+        return new ResultsWfesSingle(e.what());
+    } catch(...) {
+        this->notify(ExecutionStatus::ERROR);
+        return new ResultsWfesSingle("INTEL MKL PARDISO: Unknown error while solving the system.");
+    }
 
     // Segregation
     double T_seg = N1_aft_est.sum();
@@ -619,10 +765,27 @@ ResultsWfesSingle *wfes_single::establishment()
 
     Solver* solver_tr = SolverFactory::createSolver(ConfigWfesSingle::library, *(W_tr.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, ConfigWfesSingle::vienna_solver);
 
-    solver_tr->preprocess();
+    try {
+        solver_tr->preprocess();
+    } catch(const std::exception &e) {
+        this->notify(ExecutionStatus::ERROR);
+        return new ResultsWfesSingle(e.what());
+    } catch(...) {
+        this->notify(ExecutionStatus::ERROR);
+        return new ResultsWfesSingle("INTEL MKL PARDISO: Unknown error while preprocessing the matrix ");
+    }
 
     dvec R_est = W_tr.R.col(1);
-    dvec B_est = solver_tr->solve(R_est, false);
+    dvec B_est;
+    try{
+        B_est = solver_tr->solve(R_est, false);
+    } catch(const std::exception &e) {
+        this->notify(ExecutionStatus::ERROR);
+        return new ResultsWfesSingle(e.what());
+    } catch(...) {
+        this->notify(ExecutionStatus::ERROR);
+        return new ResultsWfesSingle("INTEL MKL PARDISO: Unknown error while solving the system.");
+    }
     dvec B_ext = dvec::Ones(est_idx - 1) - B_est;
 
     // integrate over starting number of copies
@@ -717,7 +880,7 @@ ResultsWfesSingle *wfes_single::establishment()
     time_diff dt = t_end - t_start;
 
     ResultsWfesSingle* res = new ResultsWfesSingle(ConfigWfesSingle::modelType, est_freq, P_est, T_seg, T_seg_std,
-                               T_seg_ext, T_seg_ext_std, T_seg_fix, T_seg_fix_std, T_est, T_est_std, dt.count(), imageI, imageQ, imageR);
+                               T_seg_ext, T_seg_ext_std, T_seg_fix, T_seg_fix_std, T_est, T_est_std, dt.count());
 
     //Notify saving data.
     this->notify(ExecutionStatus::SAVING_DATA);
@@ -759,7 +922,15 @@ ResultsWfesSingle *wfes_single::alleleAge()
 
     Solver* solver = SolverFactory::createSolver(ConfigWfesSingle::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, ConfigWfesSingle::vienna_solver);
 
-    solver->preprocess();
+    try {
+        solver->preprocess();
+    } catch(const std::exception &e) {
+        this->notify(ExecutionStatus::ERROR);
+        return new ResultsWfesSingle(e.what());
+    } catch(...) {
+        this->notify(ExecutionStatus::ERROR);
+        return new ResultsWfesSingle("INTEL MKL PARDISO: Unknown error while preprocessing the matrix ");
+    }
 
     W.Q->subtractIdentity();
     dvec Q_I_x = W.Q->getColCopy(x);
@@ -774,12 +945,38 @@ ResultsWfesSingle *wfes_single::alleleAge()
             dvec e_p = dvec::Zero(size);
             e_p(i) = 1;
 
-            dvec M1 = solver->solve(e_p, true);
-            dvec M2 = solver->solve(M1, true);
+            dvec M1;
+            try{
+                M1 = solver->solve(e_p, true);
+            } catch(const std::exception &e) {
+                this->notify(ExecutionStatus::ERROR);
+                return new ResultsWfesSingle(e.what());
+            } catch(...) {
+                this->notify(ExecutionStatus::ERROR);
+                return new ResultsWfesSingle("INTEL MKL PARDISO: Unknown error while solving the system.");
+            }
+            dvec M2;
+            try{
+                M2 = solver->solve(M1, true);
+            } catch(const std::exception &e) {
+                this->notify(ExecutionStatus::ERROR);
+                return new ResultsWfesSingle(e.what());
+            } catch(...) {
+                this->notify(ExecutionStatus::ERROR);
+                return new ResultsWfesSingle("INTEL MKL PARDISO: Unknown error while solving the system.");
+            }
 
             double mu1 = M2.dot(Q_x) / M1(x);
-
-            dvec M3 = solver->solve(M2, true);
+            dvec M3;
+            try{
+                M3 = solver->solve(M2, true);
+            } catch(const std::exception &e) {
+                this->notify(ExecutionStatus::ERROR);
+                return new ResultsWfesSingle(e.what());
+            } catch(...) {
+                this->notify(ExecutionStatus::ERROR);
+                return new ResultsWfesSingle("INTEL MKL PARDISO: Unknown error while solving the system.");
+            }
 
             double mu2 = sqrt((M3.dot(A_x) / M1(x)) - pow(mu1, 2));
 
@@ -821,7 +1018,7 @@ ResultsWfesSingle *wfes_single::alleleAge()
     t_end = std::chrono::system_clock::now();
     time_diff dt = t_end - t_start;
 
-    ResultsWfesSingle* res = new ResultsWfesSingle(ConfigWfesSingle::modelType, E_allele_age, S_allele_age, true, dt.count(), imageI, imageQ, imageR);
+    ResultsWfesSingle* res = new ResultsWfesSingle(ConfigWfesSingle::modelType, E_allele_age, S_allele_age, true, dt.count());
 
     //Notify saving data.
     this->notify(ExecutionStatus::SAVING_DATA);
@@ -873,7 +1070,7 @@ ResultsWfesSingle *wfes_single::nonAbsorbing()
     //Notify done.
     this->notify(ExecutionStatus::DONE);
 
-    return new ResultsWfesSingle(ConfigWfesSingle::modelType, true, dt.count(), imageI, imageQ);
+    return new ResultsWfesSingle(ConfigWfesSingle::modelType, true, dt.count());
 }
 
 void wfes_single::calculateStartingCopies()

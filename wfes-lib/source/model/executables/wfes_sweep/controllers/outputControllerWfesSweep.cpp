@@ -70,13 +70,12 @@ QString OutputControllerWfesSweep::get_rate() const
 
 QString OutputControllerWfesSweep::get_error_message() const
 {
-
-    return QString::fromStdString(ConfigWfesSweep::error);
+    return QString::fromStdString(this->results.error);
 }
 
-QString OutputControllerWfesSweep::reset_error() const
+QString OutputControllerWfesSweep::reset_error()
 {
-    ConfigWfesSweep::error = "";
+    this->results.error = "";
     return QString();
 }
 

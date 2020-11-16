@@ -171,6 +171,9 @@ SOURCES += \
 
 # Default rules for deployment.
 unix: !macx {
+
+    QMAKE_CXXFLAGS += -fopenmp
+
     target.path = /usr/lib
 
     INCLUDEPATH += source \
@@ -180,6 +183,9 @@ unix: !macx {
 }
 
 macx {
+
+    QMAKE_CXXFLAGS += -fopenmp
+
     INCLUDEPATH += $$PWD/source/
     INCLUDEPATH += $$PWD/../dependencies/mac/
 

@@ -36,14 +36,13 @@ PardisoSolver::PardisoSolver(SparseMatrixPardiso& A, llong matrix_type, llong me
 void PardisoSolver::preprocess()
 {
     phase = MKL_PARDISO_SOLVER_PHASE_ANALYSIS;
-
     pardiso_64(internal.data(), &max_factors, &matrix_number,
                &matrix_type, &phase, &size,
                dynamic_cast<SparseMatrixPardiso&>(m).data, dynamic_cast<SparseMatrixPardiso&>(m).row_index, dynamic_cast<SparseMatrixPardiso&>(m).cols,
                nullptr, &n_right_hand_sides, control.data(),
                &message_level, nullptr, nullptr, &error);
 
-    if(error != 0) throw std::runtime_error("PardisoSolver::preprocess(): Symbolic factorization error: " + std::to_string(error));
+    if(error != 0) throw std::runtime_error("Pardiso: Symbolic factorization error. Phase " + std::to_string(phase) + ". \n" + this->errorMessage(error));
 
     phase = MKL_PARDISO_SOLVER_PHASE_NUMERICAL_FACTORIZATION;
     pardiso_64(internal.data(), &max_factors, &matrix_number,
@@ -52,7 +51,7 @@ void PardisoSolver::preprocess()
                nullptr, &n_right_hand_sides, control.data(),
                &message_level, nullptr, nullptr, &error);
 
-    if(error != 0) throw std::runtime_error("PardisoSolver::preprocess(): Numerical factorization error: " + std::to_string(error));
+    if(error != 0) throw std::runtime_error("Pardiso: Numerical factorization error. Phase " + std::to_string(phase) + ". \n" + this->errorMessage(error));
 }
 
 dvec PardisoSolver::solve(dvec& b, bool transpose)
@@ -67,7 +66,7 @@ dvec PardisoSolver::solve(dvec& b, bool transpose)
                nullptr, &n_right_hand_sides, control.data(),
                &message_level, b.data(), workspace.data(), &error);
 
-    if(error != 0) throw std::runtime_error("PardisoSolver::solve(): Solution error: " + std::to_string(error));
+    if(error != 0) throw std::runtime_error("Pardiso: Solution error. Phase " + std::to_string(phase) + ". \n" + this->errorMessage(error));
 
     dvec x(size);
     for(llong i = 0; i < size; i++) x(i) = workspace(i);
@@ -87,7 +86,7 @@ dmat PardisoSolver::solve_multiple(dmat& B, bool transpose)
                nullptr, &n_right_hand_sides, control.data(),
                &message_level, B.data(), workspace.data(), &error);
 
-    if(error != 0) throw std::runtime_error("PardisoSolver::solve(): Solution error: " + std::to_string(error));
+    if(error != 0) throw std::runtime_error("Pardiso: Solution error. Phase " + std::to_string(phase) + ". \n" + this->errorMessage(error));
 
     // rows of B are RHS components
     dmat X(B.cols(), B.rows());
@@ -109,6 +108,37 @@ dvec PardisoSolver::get_diagonal()
   if(error == 1) throw std::runtime_error("PardisoSolver::get_diagonal(): Diagonal information not turned on before pardiso main loop: " + std::to_string(error));
 
   return d_factorized;
+}
+
+std::string PardisoSolver::errorMessage(long long code)
+{
+    switch (code) {
+        case -1:
+            return "Error Code is " + std::to_string(code) + ". Input inconsistency.";
+        case -2:
+            return "Error Code is " + std::to_string(code) + ". Not enough memory.";
+        case -3:
+            return "Error Code is " + std::to_string(code) + ". Reordering problem.";
+        case -4:
+            return "Error Code is " + std::to_string(code) + ". Zero pivot, numerical factorization or iterative refinement problem.";
+        case -5:
+            return "Error Code is " + std::to_string(code) + ". Unclassified (internal) error.";
+        case -6:
+            return "Error Code is " + std::to_string(code) + ". Preordering failed (matrix types 11, 13 only).";
+        case -7:
+            return "Error Code is " + std::to_string(code) + ". Diagonal matrix is singular.";
+        case -8:
+            return "Error Code is " + std::to_string(code) + ". 32-bit integer overflow problem.";
+        case -9:
+            return "Error Code is " + std::to_string(code) + ". Not enough memory for OOC.";
+        case -10:
+            return "Error Code is " + std::to_string(code) + ". Problems with opening OOC temporary files.";
+        case -11:
+            return "Error Code is " + std::to_string(code) + ". read/write problems with the OOC data file.";
+        case 0:
+        default:
+            return "Error code is " + std::to_string(code) = ". Unknown error.";
+    }
 }
 
 PardisoSolver::~PardisoSolver()

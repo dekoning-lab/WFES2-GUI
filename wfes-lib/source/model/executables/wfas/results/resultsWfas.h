@@ -13,9 +13,13 @@ class ResultsWfas {
     public:
         double time;
         dvec probs;
+        std::string error;
+
         ResultsWfas();
 
         ResultsWfas(double time);
+
+        ResultsWfas(std::string error);
 
         ResultsWfas(dvec probs, double time);
 
