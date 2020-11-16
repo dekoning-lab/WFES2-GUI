@@ -43,7 +43,7 @@ namespace wfes{
                 return 2;
             default:
                 //TODO Show as exception in GUI dialog.
-                throw std::runtime_error("Unknown absorption type");
+                throw std::runtime_error("Unknown absorption type.");
             }
         }
 
@@ -62,7 +62,7 @@ namespace wfes{
                 return "Both extinction and fixation boundaries are absorbing";
             default:
                 //TODO Show as exception in GUI dialog.
-                throw std::runtime_error("Unknown absorption type");
+                throw std::runtime_error("Unknown absorption type.");
             }
         }
 
