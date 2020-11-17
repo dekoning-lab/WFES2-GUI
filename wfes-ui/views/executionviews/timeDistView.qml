@@ -36,8 +36,9 @@ ApplicationWindow {
     Component.onCompleted: {
         setX(Screen.width / 2 - width / 2);
         setY(Screen.height / 2 - height / 2);
-        outputControllerTimeDist.ui_load_config
-        rootTimeDist.updateGUI()
+        // Activate time dist sgv, so it is loaded and it loads the configuration.
+        radioButtonTimeDistSGV.checked = true
+
     }
 
     Rectangle {
@@ -398,6 +399,10 @@ ApplicationWindow {
                                         }
                                     }
 
+                                }
+                                onLoaded: function() {
+                                    var dummyString = outputControllerTimeDist.ui_load_config
+                                    rootTimeDist.updateGUI()
                                 }
                             }
                             Tab {
@@ -1007,12 +1012,11 @@ ApplicationWindow {
     }
 
     function updateGUI() {
-
         //First, let's fill the SGV parameters.
+        radioButtonTimeDistSGV.checked = true
         radioButtonTimeDist.checked = false
         radioButtonTimeDistDual.checked = false
         radioButtonTimeDistSkip.checked = false
-        radioButtonTimeDistSGV.checked = true
 
         inputN1.textFieldText = inputControllerTimeDist.ui_n_sgv
         inputA1.textFieldText = inputControllerTimeDist.ui_a_sgv
