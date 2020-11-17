@@ -29,12 +29,16 @@ ApplicationWindow {
     onClosing: {
         rootWfesSingle.destroy();
         root.visible = true;
+        rootWfesSingle.updateBackend()
+        outputControllerWfesSingle.ui_save_config
     }
 
     // Center window in screen.
     Component.onCompleted: {
         setX(Screen.width / 2 - width / 2);
         setY(Screen.height / 2 - height / 2);
+        outputControllerWfesSingle.ui_load_config
+        rootWfesSingle.updateGUI()
     }
 
     Rectangle {

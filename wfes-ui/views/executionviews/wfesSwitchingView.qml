@@ -30,6 +30,8 @@ ApplicationWindow {
     onClosing: {
         rootWfesSwitching.destroy();
         root.visible = true;
+        rootWfesSwitching.updateBackend()
+        outputControllerWfesSwitching.ui_save_config
     }
 
     // Center window in screen.
@@ -219,6 +221,10 @@ ApplicationWindow {
                             onDelete: function(){
                                 var num_comps = inputControllerWfesSwitching.ui_num_comp
                                 inputControllerWfesSwitching.ui_num_comp = parseInt(num_comps) - 1
+                            }
+                            onLoaded: function() {
+                                var dummyString = outputControllerWfesSwitching.ui_load_config
+                                rootWfesSwitching.updateGUI()
                             }
                         }
 

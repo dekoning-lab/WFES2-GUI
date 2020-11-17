@@ -30,6 +30,8 @@ ApplicationWindow {
     onClosing: {
         rootWfesSweep.destroy();
         root.visible = true;
+        rootWfesSweep.updateBackend()
+        outputControllerWfesSweep.ui_save_config
     }
 
     // Center window in screen.
@@ -246,6 +248,11 @@ ApplicationWindow {
 
                                         }
                                     }
+                                }
+
+                                onLoaded: function() {
+                                    var dummyString = outputControllerWfesSweep.ui_load_config
+                                    rootWfesSweep.updateGUI()
                                 }
                             }
 

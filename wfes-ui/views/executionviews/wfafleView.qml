@@ -30,6 +30,8 @@ ApplicationWindow {
     onClosing: {
         rootWfafle.destroy();
         root.visible = true;
+        rootWfafle.updateBackend()
+        outputControllerWfafle.ui_save_config
     }
 
     // Center window in screen.
@@ -115,6 +117,10 @@ ApplicationWindow {
                             onDelete: function(){
                                 var num_comps = inputControllerWfafle.ui_num_comp
                                 inputControllerWfafle.ui_num_comp = parseInt(num_comps) - 1
+                            }
+                            onLoaded: function() {
+                                var dummyString = outputControllerWfafle.ui_load_config
+                                rootWfafle.updateGUI()
                             }
                         }
 

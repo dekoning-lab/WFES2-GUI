@@ -30,6 +30,8 @@ ApplicationWindow {
     onClosing: {
         rootWfesSequential.destroy();
         root.visible = true;
+        rootWfesSequential.updateBackend()
+        outputControllerWfesSequential.ui_save_config
     }
 
     // Center window in screen.
@@ -119,6 +121,10 @@ ApplicationWindow {
                             onDelete: function(){
                                 var num_comps = inputControllerWfesSequential.ui_num_comp
                                 inputControllerWfesSequential.ui_num_comp = parseInt(num_comps) - 1
+                            }
+                            onLoaded: function() {
+                                var dummyString = outputControllerWfesSequential.ui_load_config
+                                rootWfesSequential.updateGUI()
                             }
                         }
 
