@@ -220,6 +220,10 @@ ApplicationWindow {
                                 var num_comps = inputControllerWfesSwitching.ui_num_comp
                                 inputControllerWfesSwitching.ui_num_comp = parseInt(num_comps) - 1
                             }
+                            onLoaded: function() {
+                                var dummyString = outputControllerWfesSwitching.ui_load_config
+                                rootWfesSwitching.updateGUI()
+                            }
                         }
 
                     }

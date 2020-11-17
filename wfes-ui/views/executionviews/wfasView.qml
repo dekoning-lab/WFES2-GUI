@@ -83,6 +83,11 @@ ApplicationWindow {
                             width: commonSection.width + 10
                             height: 270
                             tabNames: "Comp."
+                            onLoaded: function() {
+                                var dummyString = outputControllerWfas.ui_load_config
+                                rootWfas.updateGUI()
+                            }
+
                             urlComponent: "qrc:/views/executionviews/tabcomponents/tabWfasComponent.qml"
                             onAdd: function(){
                                 var num_comps = inputControllerWfas.ui_num_comp

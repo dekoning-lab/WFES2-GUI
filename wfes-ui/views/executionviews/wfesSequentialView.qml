@@ -120,6 +120,10 @@ ApplicationWindow {
                                 var num_comps = inputControllerWfesSequential.ui_num_comp
                                 inputControllerWfesSequential.ui_num_comp = parseInt(num_comps) - 1
                             }
+                            onLoaded: function() {
+                                var dummyString = outputControllerWfesSequential.ui_load_config
+                                rootWfesSequential.updateGUI()
+                            }
                         }
 
                     }

@@ -35,6 +35,8 @@ ApplicationWindow {
     Component.onCompleted: {
         setX(Screen.width / 2 - width / 2);
         setY(Screen.height / 2 - height / 2);
+        outputControllerPhaseType.ui_load_config
+        rootPhaseType.updateGUI()
     }
 
 

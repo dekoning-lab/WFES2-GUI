@@ -2,12 +2,14 @@ import QtQuick 2.0
 import QtQuick.Controls 1.0
 
 Rectangle {
+    id: rect
     property var widthTabView: 100
     property var heightTabView: 100
     property var urlComponent
     property var tabNames: "Tab"
     property var onAdd: function(){}
     property var onDelete: function(){}
+    property var onLoaded: function(){}
     color: "transparent"
     width: widthTabView
     height: heightTabView
@@ -49,6 +51,7 @@ Rectangle {
             }
             onLoaded: {
                 this.children[0].number = 1
+                rect.onLoaded();
             }
         }
 
