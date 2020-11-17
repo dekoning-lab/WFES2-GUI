@@ -20,9 +20,9 @@ ApplicationWindow {
     width: 955
     minimumWidth: 955
     maximumWidth: 955
-    height: 490
-    minimumHeight: 490
-    maximumHeight: 490
+    height: 515
+    minimumHeight: 515
+    maximumHeight: 515
 
     // Select theme for the application.
     Universal.theme: Universal.Light
@@ -80,6 +80,7 @@ ApplicationWindow {
                         Label {
                             id: labelModel
                             text: "Mode:"
+                            font.bold: true
                         }
 
                         GridLayout {
@@ -113,6 +114,12 @@ ApplicationWindow {
                         height: 1
                         width: componentsSection.width
                         color: Universal.baseHighColor
+                    }
+
+                    Label {
+                        id: labelComponents
+                        text: "Components:"
+                        font.bold: true
                     }
 
                     Rectangle {
@@ -384,7 +391,7 @@ ApplicationWindow {
 
                     Rectangle {
                         height: 1
-                        width: commonSection.width
+                        width: componentsSection.width
                         color: Universal.baseHighColor
                     }
 
@@ -398,6 +405,7 @@ ApplicationWindow {
                         Label {
                             id: labelCommonParameters
                             text: "Common Parameters"
+                            font.bold: true
                         }
 
                         GridLayout {
@@ -480,6 +488,7 @@ ApplicationWindow {
                             Label {
                                 id: labelOutput
                                 text: "Output Options:"
+                                font.bold: true
                             }
 
                             GridLayout {
@@ -554,6 +563,7 @@ ApplicationWindow {
                             Label {
                                 id: labelExecution
                                 text: "Execution:"
+                                font.bold: true
                             }
 
 
@@ -746,6 +756,7 @@ ApplicationWindow {
                         Label {
                             id: labelFinalOutput
                             text: "Output:"
+                            font.bold: true
                         }
 
                         ColumnLayout {

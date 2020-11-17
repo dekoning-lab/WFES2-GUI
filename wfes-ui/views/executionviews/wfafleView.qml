@@ -20,9 +20,9 @@ ApplicationWindow {
     width: 890
     minimumWidth: 890
     maximumWidth: 890
-    height: 425
-    minimumHeight: 425
-    maximumHeight: 425
+    height: 445
+    minimumHeight: 445
+    maximumHeight: 445
 
     // Select theme for the application.
     Universal.theme: Universal.Light
@@ -70,6 +70,12 @@ ApplicationWindow {
 
                     Layout.margins: 10
                     Layout.alignment: Qt.AlignTop
+
+                    Label {
+                        id: labelComponents
+                        text: "Components:"
+                        font.bold: true
+                    }
 
                     Rectangle {
                         id: componentsSection
@@ -142,6 +148,7 @@ ApplicationWindow {
                         Label {
                             id: labelCommonParameters
                             text: "Common Parameters"
+                            font.bold: true
                         }
 
                         GridLayout {
@@ -186,10 +193,11 @@ ApplicationWindow {
                 ColumnLayout {
                     id: column2
                     height: parent.height
+                    Layout.alignment: Qt.AlignTop
+                    Layout.margins: 10
 
                     ColumnLayout {
                         Layout.alignment: Qt.AlignTop
-                        Layout.margins: 10
 
                         Rectangle {
                             id: outputSection
@@ -200,6 +208,7 @@ ApplicationWindow {
                             Label {
                                 id: labelOutput
                                 text: "Output Options:"
+                                font.bold: true
                             }
 
                             GridLayout {
@@ -243,6 +252,7 @@ ApplicationWindow {
                             Label {
                                 id: labelExecution
                                 text: "Execution:"
+                                font.bold: true
                             }
 
 
