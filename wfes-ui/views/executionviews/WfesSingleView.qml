@@ -81,6 +81,7 @@ ApplicationWindow {
                         Label {
                             id: labelModel
                             text: "Mode:"
+                            font.bold: true
                         }
 
                         GridLayout {
@@ -473,7 +474,7 @@ ApplicationWindow {
 
                     Rectangle {
                         height: 1
-                        width: modeSectionGrid.width
+                        width: modeSectionGrid.width + 10
                         color: Universal.baseHighColor
                     }
 
@@ -487,6 +488,7 @@ ApplicationWindow {
                         Label {
                             id: labelPopulation
                             text: "Population:"
+                            font.bold: true
                         }
 
                         GridLayout {
@@ -556,7 +558,7 @@ ApplicationWindow {
 
                     Rectangle {
                         height: 1
-                        width: populationSectionGrid.width
+                        width: modeSectionGrid.width + 10
                         color: Universal.baseHighColor
                     }
 
@@ -570,6 +572,7 @@ ApplicationWindow {
                         Label {
                             id: labelMutation
                             text: "Mutation:"
+                            font.bold: true
                         }
 
                         GridLayout {
@@ -615,7 +618,7 @@ ApplicationWindow {
 
                     Rectangle {
                         height: 1
-                        width: mutationSectionGrid.width
+                        width: modeSectionGrid.width + 10
                         color: Universal.baseHighColor
                     }
 
@@ -629,6 +632,7 @@ ApplicationWindow {
                         Label {
                             id: labelSelection
                             text: "Selection:"
+                            font.bold: true
                         }
 
                         GridLayout {
@@ -686,6 +690,7 @@ ApplicationWindow {
                             Label {
                                 id: labelOutput
                                 text: "Output Options:"
+                                font.bold: true
                             }
 
                             GridLayout {
@@ -814,6 +819,7 @@ ApplicationWindow {
                             Label {
                                 id: labelExecution
                                 text: "Execution:"
+                                font.bold: true
                             }
 
 
@@ -1009,6 +1015,7 @@ ApplicationWindow {
                         Label {
                             id: labelFinalOutput
                             text: "Output:"
+                            font.bold: true
                         }
 
                         ColumnLayout {

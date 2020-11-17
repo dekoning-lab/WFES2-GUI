@@ -20,9 +20,9 @@ ApplicationWindow {
     width: 895
     minimumWidth: 895
     maximumWidth: 895
-    height: 460
-    minimumHeight: 460
-    maximumHeight: 460
+    height: 485
+    minimumHeight: 485
+    maximumHeight: 485
 
     // Select theme for the application.
     Universal.theme: Universal.Light
@@ -70,6 +70,12 @@ ApplicationWindow {
 
                     Layout.margins: 10
                     Layout.alignment: Qt.AlignTop
+
+                    Label {
+                        id: labelComponents
+                        text: "Components:"
+                        font.bold: true
+                    }
 
                     Rectangle {
                         id: componentsSection
@@ -147,6 +153,7 @@ ApplicationWindow {
                         Label {
                             id: labelCommonParameters
                             text: "Common Parameters"
+                            font.bold: true
                         }
 
                         GridLayout {
@@ -198,10 +205,11 @@ ApplicationWindow {
 
                     ColumnLayout {
                         id: column2
+                        Layout.margins: 10
+                        Layout.alignment: Qt.AlignTop
 
                         ColumnLayout {
                             Layout.alignment: Qt.AlignTop
-                            Layout.margins: 10
                             height: childrenRect.height
 
                             Rectangle {
@@ -213,6 +221,7 @@ ApplicationWindow {
                                 Label {
                                     id: labelOutput
                                     text: "Output Options:"
+                                    font.bold: true
                                 }
 
                                 GridLayout {
@@ -307,6 +316,7 @@ ApplicationWindow {
                                 Label {
                                     id: labelExecution
                                     text: "Execution:"
+                                    font.bold: true
                                 }
 
 

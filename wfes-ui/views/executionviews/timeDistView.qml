@@ -20,9 +20,9 @@ ApplicationWindow {
     width: 640
     minimumWidth: 640
     maximumWidth: 640
-    height: 500
-    minimumHeight: 500
-    maximumHeight: 500
+    height: 525
+    minimumHeight: 525
+    maximumHeight: 525
 
     // Select theme for the application.
     Universal.theme: Universal.Light
@@ -82,6 +82,7 @@ ApplicationWindow {
                         Label {
                             id: labelModel
                             text: "Mode:"
+                            font.bold: true
                         }
 
                         GridLayout {
@@ -123,6 +124,7 @@ ApplicationWindow {
 
                                     inputForce.enabled = !checked
 
+                                    labelComponents.visible = !checked
                                     timeDistSGVSection.visible = !checked
                                     timeDistSGVCommonSection.visible = !checked
                                     populationSection.visible = checked
@@ -164,6 +166,7 @@ ApplicationWindow {
 
                                     inputForce.enabled = checked
 
+                                    labelComponents.visible = checked
                                     timeDistSGVSection.visible = checked
                                     timeDistSGVCommonSection.visible = checked
                                     populationSection.visible = !checked
@@ -206,6 +209,7 @@ ApplicationWindow {
 
                                     inputForce.enabled = !checked
 
+                                    labelComponents.visible = !checked
                                     timeDistSGVSection.visible = !checked
                                     timeDistSGVCommonSection.visible = !checked
                                     populationSection.visible = checked
@@ -247,6 +251,7 @@ ApplicationWindow {
 
                                     inputForce.enabled = !checked
 
+                                    labelComponents.visible = !checked
                                     timeDistSGVSection.visible = !checked
                                     timeDistSGVCommonSection.visible = !checked
                                     populationSection.visible = checked
@@ -266,10 +271,16 @@ ApplicationWindow {
                     Rectangle {
                         id: separator1column1
                         height: 1
-                        width: modeSectionGrid.width
+                        width: modeSectionGrid.width + 10
                         color: Universal.baseHighColor
                     }
 
+                    Label {
+                        id: labelComponents
+                        text: "Components:"
+                        visible: (inputControllerTimeDist.ui_modelType === "Time Dist. SGV")
+                        font.bold: true
+                    }
                     Rectangle {
                         id: timeDistSGVSection
                         width: modeSection.width
@@ -543,6 +554,7 @@ ApplicationWindow {
                         Label {
                             id: labelPopulation
                             text: "Population:"
+                            font.bold: true
                         }
 
                         GridLayout {
@@ -593,7 +605,7 @@ ApplicationWindow {
                     Rectangle {
                         id: separator2column1
                         height: 1
-                        width: populationSectionGrid.width
+                        width: modeSectionGrid.width + 10
                         color: Universal.baseHighColor
                     }
 
@@ -608,6 +620,7 @@ ApplicationWindow {
                         Label {
                             id: labelCommonParameters
                             text: "Common Parameters"
+                            font.bold: true
                         }
 
                         GridLayout {
@@ -680,6 +693,7 @@ ApplicationWindow {
                         Label {
                             id: labelMutation
                             text: "Mutation:"
+                            font.bold: true
                         }
 
                         GridLayout {
@@ -720,7 +734,7 @@ ApplicationWindow {
                     Rectangle {
                         id: separator3column1
                         height: 1
-                        width: mutationSectionGrid.width
+                        width: modeSectionGrid.width + 10
                         color: Universal.baseHighColor
                     }
 
@@ -735,6 +749,7 @@ ApplicationWindow {
                         Label {
                             id: labelSelection
                             text: "Selection:"
+                            font.bold: true
                         }
 
                         GridLayout {
@@ -792,6 +807,7 @@ ApplicationWindow {
                             Label {
                                 id: labelOutput
                                 text: "Output Options:"
+                                font.bold: true
                             }
 
                             GridLayout {
@@ -848,6 +864,7 @@ ApplicationWindow {
                             Label {
                                 id: labelExecution
                                 text: "Execution:"
+                                font.bold: true
                             }
 
 

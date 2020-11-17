@@ -71,6 +71,12 @@ ApplicationWindow {
                     Layout.margins: 10
                     Layout.alignment: Qt.AlignTop
 
+                    Label {
+                        id: labelComponents
+                        text: "Components:"
+                        font.bold: true
+                    }
+
                     Rectangle {
                         id: componentsSection
                         width: commonSection.width + 10
@@ -146,6 +152,7 @@ ApplicationWindow {
                         Label {
                             id: labelCommonParameters
                             text: "Common Parameters"
+                            font.bold: true
                         }
 
                         GridLayout {
@@ -206,6 +213,7 @@ ApplicationWindow {
                                 Label {
                                     id: labelOutput
                                     text: "Output Options:"
+                                    font.bold: true
                                 }
 
                                 GridLayout {
@@ -292,6 +300,7 @@ ApplicationWindow {
                                 Label {
                                     id: labelExecution
                                     text: "Execution:"
+                                    font.bold: true
                                 }
 
 
