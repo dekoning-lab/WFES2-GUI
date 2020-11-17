@@ -29,6 +29,8 @@ ApplicationWindow {
     onClosing: {
         rootWfesSingle.destroy();
         root.visible = true;
+        rootWfesSingle.updateBackend()
+        outputControllerWfesSingle.ui_save_config
     }
 
     // Center window in screen.

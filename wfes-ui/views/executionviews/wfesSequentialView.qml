@@ -30,6 +30,8 @@ ApplicationWindow {
     onClosing: {
         rootWfesSequential.destroy();
         root.visible = true;
+        rootWfesSequential.updateBackend()
+        outputControllerWfesSequential.ui_save_config
     }
 
     // Center window in screen.

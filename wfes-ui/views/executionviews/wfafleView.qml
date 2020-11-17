@@ -30,6 +30,8 @@ ApplicationWindow {
     onClosing: {
         rootWfafle.destroy();
         root.visible = true;
+        rootWfafle.updateBackend()
+        outputControllerWfafle.ui_save_config
     }
 
     // Center window in screen.

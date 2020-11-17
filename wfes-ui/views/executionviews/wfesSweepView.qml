@@ -30,6 +30,8 @@ ApplicationWindow {
     onClosing: {
         rootWfesSweep.destroy();
         root.visible = true;
+        rootWfesSweep.updateBackend()
+        outputControllerWfesSweep.ui_save_config
     }
 
     // Center window in screen.

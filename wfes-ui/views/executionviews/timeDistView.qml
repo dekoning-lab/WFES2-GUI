@@ -30,6 +30,8 @@ ApplicationWindow {
     onClosing: {
         rootTimeDist.destroy();
         root.visible = true;
+        rootTimeDist.updateBackend()
+        outputControllerTimeDist.ui_save_config
     }
 
     // Center window in screen.

@@ -29,6 +29,8 @@ ApplicationWindow {
     onClosing: {
         rootPhaseType.destroy();
         root.visible = true;
+        rootPhaseType.updateBackend()
+        outputControllerPhaseType.ui_save_config
     }
 
     // Center window in screen.
