@@ -184,10 +184,10 @@ unix: !macx {
 
 macx {
 
-    QMAKE_CXXFLAGS += -fopenmp
-
+    QMAKE_CXXFLAGS *= "-Xpreprocessor -fopenmp"
     INCLUDEPATH += $$PWD/source/
     INCLUDEPATH += $$PWD/../dependencies/mac/
+    INCLUDEPATH += /usr/local/include
 
     # Intel MKL
     LIBS += -L$$PWD/../dependencies/mac/intel/mkl/lib/ -lmkl_core
