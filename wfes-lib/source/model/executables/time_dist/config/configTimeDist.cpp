@@ -152,7 +152,7 @@ std::string ConfigTimeDist::path_output_P = "output_P.csv";
 std::string ConfigTimeDist::path_output_Q = "output_Q.csv";
 std::string ConfigTimeDist::path_output_R = "output_R.csv";
 
-bool ConfigTimeDist::output_P = false;
+bool ConfigTimeDist::output_P = true;
 bool ConfigTimeDist::output_Q = false;
 bool ConfigTimeDist::output_R = false;
 bool ConfigTimeDist::output_I = false;
