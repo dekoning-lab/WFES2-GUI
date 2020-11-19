@@ -7,7 +7,7 @@ import QtQuick.Controls.Universal 2.3
 import assets 1.0
 import components 1.0
 
-ApplicationWindow {
+Window {
     id: root
     objectName: "Root"
     title: qsTr("WFES - Wright-Fisher Exact Solver")

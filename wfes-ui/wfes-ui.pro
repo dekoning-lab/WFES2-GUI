@@ -1,7 +1,7 @@
 include(../qmake-target-platform.pri)
 include(../qmake-destination-path.pri)
 
-QT += qml quick quickcontrols2
+QT += qml quick quickcontrols2 widgets charts
 
 TEMPLATE = app
 

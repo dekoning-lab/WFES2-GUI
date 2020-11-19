@@ -22,5 +22,6 @@
         <file alias="executionviews/tabcomponents/tabWfesSwitchingComponent.qml">views/executionviews/tabcomponents/tabWfesSwitchingComponent.qml</file>
         <file alias="mainview/help/helpView.qml">views/mainview/help/helpView.qml</file>
         <file alias="visualization/matrixVisualization.qml">views/visualization/matrixVisualization.qml</file>
+        <file alias="visualization/chartVisualization.qml">views/visualization/chartVisualization.qml</file>
     </qresource>
 </RCC>

@@ -87,12 +87,12 @@ Rectangle {
 
                     }
                 }
-                MenuItem {
+                /*MenuItem {
                     text: "Global Settings"
                     onClicked: {
                         console.warn("WARNING: Settings->Global Settings clicked - Not implemented yet.")
                     }
-                }
+                }*/
             }
         }
 
@@ -109,6 +109,20 @@ Rectangle {
                     text: "Matrix Visualization"
                     onClicked: {
                         var visualizer = Qt.createComponent("qrc:/views/visualization/matrixVisualization.qml")
+                        if( visualizer.status !== Component.Ready )
+                        {
+                            if( visualizer.status === Component.Error )
+                                console.debug("Error:"+ visualizer.errorString() );
+                            return;
+                        }
+                        var windowvisualizer = visualizer.createObject(upperMenu.parent.parent, {})
+                        windowvisualizer.visible
+                    }
+                }
+                MenuItem {
+                    text: "Chart Visualization"
+                    onClicked: {
+                        var visualizer = Qt.createComponent("qrc:/views/visualization/chartVisualization.qml")
                         if( visualizer.status !== Component.Ready )
                         {
                             if( visualizer.status === Component.Error )
