@@ -8,6 +8,7 @@
 #include <model/executables/phase_type/thread/workerThreadPhaseType.h>
 
 #include <boost/format.hpp>
+
 namespace wfes {
     namespace controllers {
 

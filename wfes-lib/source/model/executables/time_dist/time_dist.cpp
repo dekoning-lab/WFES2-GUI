@@ -1,5 +1,6 @@
 #include "time_dist.h"
 
+
 using namespace wfes::wrightfisher;
 using namespace wfes::utils;
 using namespace wfes::config;
@@ -108,6 +109,8 @@ ResultsTimeDist *time_dist::timeDist()
             ImageResults::P = imageP;
         }
 
+        ChartResults::probabilities = PH;
+
         //Calculate time.
         t_end = std::chrono::system_clock::now();
         time_diff dt = t_end - t_start;
@@ -191,6 +194,8 @@ ResultsTimeDist *time_dist::timeDistSGV()
             //utils::saveImage(imageI, "Image_I");
             ImageResults::P = imageP;
         }
+
+        ChartResults::probabilities = PH;
 
         //Calculate time.
         t_end = std::chrono::system_clock::now();
@@ -276,6 +281,8 @@ ResultsTimeDist *time_dist::timeDistSkip()
             ImageResults::P = imageP;
         }
 
+        ChartResults::probabilities = PH;
+
         //Calculate time.
         t_end = std::chrono::system_clock::now();
         time_diff dt = t_end - t_start;
@@ -358,6 +365,8 @@ ResultsTimeDist *time_dist::timeDistDual()
             //utils::saveImage(imageI, "Image_I");
             ImageResults::P = imageP;
         }
+
+        ChartResults::probabilities = PH;
 
         //Calculate time.
         t_end = std::chrono::system_clock::now();
