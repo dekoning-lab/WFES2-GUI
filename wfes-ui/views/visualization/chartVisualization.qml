@@ -10,7 +10,7 @@ import components 1.0
 
 
 ApplicationWindow {
-    id: rootHelp
+    id: rootChart
     title: qsTr("WFES - Wright-Fisher Exact Solver")
 
     visible: true
@@ -29,7 +29,7 @@ ApplicationWindow {
     color: Universal.chromeLowColor
 
     onClosing: {
-        rootHelp.hide();
+        rootChart.hide();
     }
 
     // Center window in screen.
@@ -39,20 +39,55 @@ ApplicationWindow {
     }
 
     ChartView {
-        title: "Line"
-        anchors.fill: parent
-        antialiasing: true
+            id: myChart
+            title: "Line"
+            anchors.fill: parent
+            antialiasing: true
 
-        LineSeries {
-            name: "LineSeries"
-            XYPoint { x: 0; y: 0 }
-            XYPoint { x: 1.1; y: 2.1 }
-            XYPoint { x: 1.9; y: 3.3 }
-            XYPoint { x: 2.1; y: 2.1 }
-            XYPoint { x: 2.9; y: 4.9 }
-            XYPoint { x: 3.4; y: 3.0 }
-            XYPoint { x: 4.1; y: 3.3 }
+            ValueAxis {
+                id: axisY
+                gridVisible: true
+                tickCount: 5
+                min: 0
+                max: 1
+            }
+
+            ValueAxis {
+                id: axisX
+                min: 0
+                max: 1
+                gridVisible: true
+                tickCount: 5
+            }
         }
+
+    Button{
+        id: updateButton
+        width: 100
+        height: 20
+        text: "Update"
+        anchors.top: parent.top
+        anchors.topMargin: 10
+        anchors.left: parent.left
+        anchors.leftMargin: 10
+
+        onClicked: updatePhaseTypeMomentsChart()
     }
 
+    function updatePhaseTypeMomentsChart() {
+        var line = myChart.createSeries(ChartView.SeriesTypeLine, "Line series", axisX, axisY);
+
+        var input = outputControllerPhaseType.ui_moments
+        var numbers = []
+        for(var i = 0; i < input.length; i++) {
+            numbers[i] = parseInt(input[i])
+            line.append(i, numbers[i])
+        }
+        axisX.min = 0;
+        axisX.max = i-1;
+
+        axisY.min = 0;
+        axisY.max = Math.max(...numbers);;
+
+    }
 }

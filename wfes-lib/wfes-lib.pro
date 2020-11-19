@@ -30,8 +30,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 HEADERS += \
-    source/model/charts/chartOutputController.h \
-    source/model/charts/chartResults.h \
     source/model/executables/phase_type/config/configPhaseType.h \
     source/model/executables/phase_type/controllers/inputControllerPhaseType.h \
     source/model/executables/phase_type/controllers/outputControllerPhaseType.h \
@@ -104,8 +102,6 @@ HEADERS += \
     wfes-lib_global.h
 
 SOURCES += \
-    source/model/charts/chartOutputController.cpp \
-    source/model/charts/chartResults.cpp \
     source/model/executables/phase_type/config/configPhaseType.cpp \
     source/model/executables/phase_type/controllers/inputControllerPhaseType.cpp \
     source/model/executables/phase_type/controllers/outputControllerPhaseType.cpp \

@@ -17,8 +17,6 @@
 
 #include <model/visualization/imageresults.h>
 
-#include <model/charts/chartResults.h>
-
 class time_dist : public Subject{
 
     public:
