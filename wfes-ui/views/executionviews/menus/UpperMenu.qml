@@ -182,7 +182,7 @@ Rectangle {
         chartVisualization.updateDistWfafle()
     }
 
-    function updateProbTimeDist() {
-        chartVisualization.updateProbTimeDist()
+    function updateProbTimeDist(name) {
+        chartVisualization.updateProbTimeDist(name)
     }
 }

@@ -954,7 +954,7 @@ ApplicationWindow {
                                     messageDialog.open()
                                     outputControllerTimeDist.ui_reset_error
                                 }
-                                upperMenu.updateProbTimeDist()
+                                upperMenu.updateProbTimeDist(inputControllerTimeDist.ui_modelType)
                             }
 
                             Binding {

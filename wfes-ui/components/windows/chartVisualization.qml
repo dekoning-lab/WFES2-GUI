@@ -67,7 +67,8 @@ ApplicationWindow {
 
     function updatePhaseTypeMomentsChart() {
         myChart.removeAllSeries()
-        var line = myChart.createSeries(ChartView.SeriesTypeLine, "Phase Type Moments", axisX, axisY);
+        myChart.title = "Phase Type Moments"
+        var line = myChart.createSeries(ChartView.SeriesTypeLine, "Moments", axisX, axisY);
 
         var input = outputControllerPhaseType.ui_moments
         var numbers = []
@@ -84,7 +85,8 @@ ApplicationWindow {
 
     function updateDistWfas() {
         myChart.removeAllSeries()
-        var line = myChart.createSeries(ChartView.SeriesTypeLine, "WFAF-S Dist.", axisX, axisY);
+        myChart.title = "WFAF-S"
+        var line = myChart.createSeries(ChartView.SeriesTypeLine, "Dist.", axisX, axisY);
 
         var input = outputControllerWfas.ui_probs
         var numbers = []
@@ -101,7 +103,8 @@ ApplicationWindow {
 
     function updateDistWfafle() {
         myChart.removeAllSeries()
-        var line = myChart.createSeries(ChartView.SeriesTypeLine, "WFAF-D Dist.", axisX, axisY);
+        myChart.title = "WFAF-D"
+        var line = myChart.createSeries(ChartView.SeriesTypeLine, "Dist.", axisX, axisY);
 
         var input = outputControllerWfafle.ui_probs
         var numbers = []
@@ -116,8 +119,9 @@ ApplicationWindow {
         axisY.max = Math.max(...numbers) + 1;
     }
 
-    function updateProbTimeDist() {
+    function updateProbTimeDist(name) {
         myChart.removeAllSeries()
+        myChart.title = name
 
         var names = []
 
