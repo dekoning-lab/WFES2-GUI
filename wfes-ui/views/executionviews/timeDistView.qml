@@ -954,7 +954,7 @@ ApplicationWindow {
                                     messageDialog.open()
                                     outputControllerTimeDist.ui_reset_error
                                 }
-                                upperMenu.updateProbsChart()
+                                upperMenu.updateProbTimeDist()
                             }
 
                             Binding {
@@ -1169,8 +1169,8 @@ ApplicationWindow {
 
             if(parseFloat(inputC.textFieldText) < 0)
                 error += " - Integration Cutoff (c) is quite small. It must be at least 0. \n \n"
-            if(parseFloat(inputC.textFieldText) > 10e-3)
-                error += " - Integration Cutoff (c) is quite large. The maximum value allowed is 10e-3. \n \n"
+            if(parseFloat(inputC.textFieldText) > 1)
+                error += " - Integration Cutoff (c) is quite large. The maximum value allowed is 1. \n \n"
 
             if(parseInt(inputM.textFieldText) < 2)
                 error += " - Maximum Number of Generations (m) is quite small, it must be at least 2. \n \n"

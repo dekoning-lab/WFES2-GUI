@@ -46,6 +46,28 @@ QString OutputControllerTimeDist::load_config()
 
 }
 
+QStringList OutputControllerTimeDist::get_probs() {
+    QStringList list;
+    QString str = "";
+    for(int i = 0; i < this->results.probs.rows(); i++) {
+        for(int j = 0; j < this->results.probs.cols(); j++) {
+
+            boost::format fmt = boost::format(DPF) % (this->results.probs(i, j));
+            if((boost::math::isnan)(this->results.probs))
+                str += "";
+            else {
+                if(j != this->results.probs.cols()-1)
+                    str += QString::fromStdString(fmt.str()) + ", ";
+                else
+                    str += QString::fromStdString(fmt.str());
+            }
+        }
+        list.append(str);
+        str = "";
+    }
+    return list;
+}
+
 QString OutputControllerTimeDist::get_error_message() const
 {
     return QString::fromStdString(this->results.error);

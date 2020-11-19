@@ -447,6 +447,7 @@ ApplicationWindow {
                                         messageDialog.open()
                                         outputControllerWfas.ui_reset_error
                                     }
+                                    upperMenu.updateDistWfas()
                                 }
 
                                 Binding {

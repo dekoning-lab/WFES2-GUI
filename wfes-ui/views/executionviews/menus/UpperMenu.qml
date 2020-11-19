@@ -174,8 +174,15 @@ Rectangle {
         chartVisualization.updatePhaseTypeMomentsChart()
     }
 
-    function updateProbsChart() {
-        chartVisualization.updateProbsChart()
+    function updateDistWfas() {
+        chartVisualization.updateDistWfas()
     }
-    
+
+    function updateDistWfafle() {
+        chartVisualization.updateDistWfafle()
+    }
+
+    function updateProbTimeDist() {
+        chartVisualization.updateProbTimeDist()
+    }
 }

@@ -1,7 +1,6 @@
 #ifndef OUTPUTCONTROLLERTIMEDIST_H
 #define OUTPUTCONTROLLERTIMEDIST_H
 
-
 #include <QObject>
 #include <wfes-lib_global.h>
 
@@ -26,6 +25,7 @@ namespace wfes {
             Q_PROPERTY(QString ui_get_time READ get_time NOTIFY results_changed)
             Q_PROPERTY(bool ui_get_not_exec READ get_not_exec NOTIFY results_changed)
             Q_PROPERTY(QString ui_progress READ get_progress NOTIFY updateProgress)
+            Q_PROPERTY(QStringList ui_probs READ get_probs NOTIFY results_changed)
 
         public:
 
@@ -56,6 +56,8 @@ namespace wfes {
              * @return Nothing.
              */
             QString load_config();
+
+            QStringList get_probs();
 
             QString get_error_message() const;
 
