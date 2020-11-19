@@ -9,6 +9,9 @@ ResultsPhaseType::ResultsPhaseType(double mean, double std, dvec moments, double
 ResultsPhaseType::ResultsPhaseType(double time) :
     mean(std::nan("")), std(std::nan("")), time(time), error("") {}
 
+ResultsPhaseType::ResultsPhaseType(dmat probs, double time) :
+    mean(std::nan("")), std(std::nan("")), probs(probs), time(time), error("") {}
+
 ResultsPhaseType::ResultsPhaseType(std::string error) :
     mean(std::nan("")), std(std::nan("")), time(time), error(error) {}
 

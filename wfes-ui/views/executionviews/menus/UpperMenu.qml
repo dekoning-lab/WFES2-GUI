@@ -185,4 +185,8 @@ Rectangle {
     function updateProbTimeDist(name) {
         chartVisualization.updateProbTimeDist(name)
     }
+
+    function updatePhaseTypeDistChart() {
+        chartVisualization.updatePhaseTypeDistChart()
+    }
 }

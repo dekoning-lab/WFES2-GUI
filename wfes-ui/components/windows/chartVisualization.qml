@@ -125,6 +125,13 @@ ApplicationWindow {
     }
 
     function updatePhaseTypeMomentsChart() {
+        bt1.visible = false
+        bt2.visible = false
+        chart1.visible = true
+        chart2.visible = false
+        bt1.enabled = false
+        bt2.enabled = true
+
         chart1.removeAllSeries()
         chart1.title = "Phase Type Moments"
         var line = chart1.createSeries(ChartView.SeriesTypeLine, "Moments", axisX, axisY);
@@ -142,7 +149,82 @@ ApplicationWindow {
         axisY.max = Math.max(...numbers) + 1;
     }
 
+    function updatePhaseTypeDistChart() {
+        bt1.visible = true
+        bt2.visible = true
+        chart1.visible = true
+        chart2.visible = false
+        bt1.enabled = false
+        bt2.enabled = true
+
+        chart1.removeAllSeries()
+        chart2.removeAllSeries()
+        chart1.title = "Phase Type Dist."
+        chart2.title = "Phase Type Dist."
+
+        var names = []
+
+        var input = outputControllerPhaseType.ui_probs
+        var numbers = []
+        var maxY1 = 0
+        var minY1 = 0
+        var maxY2 = 0
+        var minY2 = 0
+        if(typeof(input) != "undefined") {
+            var splitted = input[0].split(", ")
+            var splitLength = splitted.length
+
+            if(splitLength === 3) {
+                names[0] = "Prob. substitution"
+                names[1] = "Cumulative prob. of subs."
+            }
+            if(splitLength === 5) {
+                names[0] = "Prob. of extinction"
+                names[1] = "Prob. of fixation"
+                names[2] = "Prob. of absorption (either)"
+                names[3] = "Cumulative prob. of abs."
+            }
+
+            for(var i = 1; i < splitLength; i++) {
+                var line;
+                if(splitLength === 5 && i > 2 || splitLength === 3 && i > 1) {
+                    line = chart2.createSeries(ChartView.SeriesTypeLine, names[i-1], axisX2, axisY2);
+                } else {
+                    line = chart1.createSeries(ChartView.SeriesTypeLine, names[i-1], axisX, axisY);
+                }
+                splitted = []
+                numbers = []
+                for(var j = 0; j < input.length; j++) {
+                    splitted = input[j].split(", ")
+                    numbers[j] = parseFloat(splitted[i])
+                    line.append(j, numbers[j])
+                }
+
+                if(splitLength === 5 && i > 2 || splitLength === 3 && i > 1) {
+                    if(Math.max(...numbers) > maxY2) maxY2 = Math.max(...numbers);
+                } else {
+                    if(Math.max(...numbers) > maxY1) maxY1 = Math.max(...numbers);
+                }
+            }
+
+            axisY.max = maxY1
+            axisY2.max = maxY2
+            axisX.max = input.length;
+            axisX2.max = input.length;
+
+            console.log(maxY2)
+            console.log(maxY1)
+        }
+    }
+
     function updateDistWfas() {
+        bt1.visible = false
+        bt2.visible = false
+        chart1.visible = true
+        chart2.visible = false
+        bt1.enabled = false
+        bt2.enabled = true
+
         chart1.removeAllSeries()
         chart1.title = "WFAF-S"
         var line = chart1.createSeries(ChartView.SeriesTypeLine, "Dist.", axisX, axisY);
@@ -161,6 +243,13 @@ ApplicationWindow {
     }
 
     function updateDistWfafle() {
+        bt1.visible = false
+        bt2.visible = false
+        chart1.visible = true
+        chart2.visible = false
+        bt1.enabled = false
+        bt2.enabled = true
+
         chart1.removeAllSeries()
         chart1.title = "WFAF-D"
         var line = chart1.createSeries(ChartView.SeriesTypeLine, "Dist.", axisX, axisY);
@@ -179,6 +268,13 @@ ApplicationWindow {
     }
 
     function updateProbTimeDist(name) {
+        bt1.visible = true
+        bt2.visible = true
+        chart1.visible = true
+        chart2.visible = false
+        bt1.enabled = false
+        bt2.enabled = true
+
         chart1.removeAllSeries()
         chart2.removeAllSeries()
         chart1.title = name

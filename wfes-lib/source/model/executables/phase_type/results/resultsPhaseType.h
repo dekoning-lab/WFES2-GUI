@@ -15,12 +15,15 @@ public:
     double mean;
     double std;
     double time;
+    dmat probs;
     dvec moments;
     std::string error;
 
     ResultsPhaseType();
 
     ResultsPhaseType(double time);
+
+    ResultsPhaseType(dmat probs, double time);
 
     ResultsPhaseType(std::string error);
 
