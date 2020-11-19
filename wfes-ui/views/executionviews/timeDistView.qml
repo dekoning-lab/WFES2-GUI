@@ -954,6 +954,7 @@ ApplicationWindow {
                                     messageDialog.open()
                                     outputControllerTimeDist.ui_reset_error
                                 }
+                                upperMenu.updateProbsChart()
                             }
 
                             Binding {

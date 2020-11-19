@@ -4,6 +4,7 @@ import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.5
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Controls.Universal 2.3
+import components 1.0
 
 Rectangle {
     id: upperMenu
@@ -87,12 +88,13 @@ Rectangle {
 
                     }
                 }
-                /*MenuItem {
+                MenuItem {
                     text: "Global Settings"
                     onClicked: {
                         console.warn("WARNING: Settings->Global Settings clicked - Not implemented yet.")
+                        chartVisualization.updatePhaseTypeMomentsChart()
                     }
-                }*/
+                }
             }
         }
 
@@ -115,22 +117,14 @@ Rectangle {
                                 console.debug("Error:"+ visualizer.errorString() );
                             return;
                         }
-                        var windowvisualizer = visualizer.createObject(upperMenu.parent.parent, {})
+                        var windowvisualizer = visualizer.createObject(upperMenu, {})
                         windowvisualizer.visible
                     }
                 }
                 MenuItem {
                     text: "Chart Visualization"
                     onClicked: {
-                        var visualizer = Qt.createComponent("qrc:/views/visualization/chartVisualization.qml")
-                        if( visualizer.status !== Component.Ready )
-                        {
-                            if( visualizer.status === Component.Error )
-                                console.debug("Error:"+ visualizer.errorString() );
-                            return;
-                        }
-                        var windowvisualizer = visualizer.createObject(upperMenu.parent.parent, {})
-                        windowvisualizer.visible
+                        chartVisualization.visible = true
                     }
                 }
             }
@@ -169,6 +163,19 @@ Rectangle {
                 }
             }
         }
+    }
+
+    ChartVisualization {
+        id:chartVisualization
+        visibleWindow: false
+    }
+
+    function updatePhaseTypeMomentsChart() {
+        chartVisualization.updatePhaseTypeMomentsChart()
+    }
+
+    function updateProbsChart() {
+        chartVisualization.updateProbsChart()
     }
     
 }

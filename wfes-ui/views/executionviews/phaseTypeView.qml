@@ -545,6 +545,7 @@ ApplicationWindow {
                                     messageDialog.open()
                                     outputControllerPhaseType.ui_reset_error
                                 }
+                                upperMenu.updatePhaseTypeMomentsChart()
                             }
 
                             Binding {

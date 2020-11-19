@@ -7,3 +7,4 @@ LabeledCheckBox 1.0 LabeledCheckBox.qml
 LabeledComboBox 1.0 LabeledComboBox.qml
 DynamicTabView 1.0 DynamicTabView.qml
 DisplayImage 1.0 DisplayImage.qml
+ChartVisualization 1.0 windows/chartVisualization.qml
