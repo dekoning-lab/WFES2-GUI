@@ -40,7 +40,7 @@ ApplicationWindow {
 
     ChartView {
             id: myChart
-            title: ""
+            title: "A chart will appear here when you execute an executable with Dist, Moments or Probs (P)."
             anchors.fill: parent
             antialiasing: true
             anchors { fill: parent; margins: -10 }
