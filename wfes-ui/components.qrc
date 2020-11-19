@@ -9,5 +9,6 @@
         <file alias="LabeledComboBox.qml">components/LabeledComboBox.qml</file>
         <file alias="DynamicTabView.qml">components/DynamicTabView.qml</file>
         <file alias="DisplayImage.qml">components/DisplayImage.qml</file>
+        <file alias="windows/chartVisualization.qml">components/windows/chartVisualization.qml</file>
     </qresource>
 </RCC>

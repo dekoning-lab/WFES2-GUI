@@ -159,7 +159,7 @@ int ConfigPhaseType::k = 20;
 bool ConfigPhaseType::output_P = false;
 bool ConfigPhaseType::output_Q = false;
 bool ConfigPhaseType::output_R = false;
-bool ConfigPhaseType::output_Moments = false;
+bool ConfigPhaseType::output_Moments = true;
 bool ConfigPhaseType::output_Res = true;
 
 bool ConfigPhaseType::force = false;

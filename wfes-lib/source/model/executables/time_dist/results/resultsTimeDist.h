@@ -12,11 +12,12 @@ class ResultsTimeDist
 {
 public:
     double time;
+    dmat probs;
     std::string error;
 
     ResultsTimeDist();
 
-    ResultsTimeDist(double time);
+    ResultsTimeDist(dmat probs, double time);
 
     ResultsTimeDist(std::string error);
 };

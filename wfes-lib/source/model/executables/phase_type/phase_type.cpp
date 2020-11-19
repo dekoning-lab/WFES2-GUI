@@ -105,7 +105,7 @@ ResultsPhaseType *phase_type::phaseTypeDist() {
         t_end = std::chrono::system_clock::now();
         time_diff dt = t_end - t_start;
 
-        ResultsPhaseType* res = new ResultsPhaseType(dt.count());
+        ResultsPhaseType* res = new ResultsPhaseType(PH, dt.count());
 
         //Notify done.
         this->notify(ExecutionStatus::DONE);

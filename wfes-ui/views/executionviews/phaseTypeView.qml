@@ -545,6 +545,11 @@ ApplicationWindow {
                                     messageDialog.open()
                                     outputControllerPhaseType.ui_reset_error
                                 }
+
+                                if(inputControllerPhaseType.ui_modelType == "Phase Type Dist.")
+                                    upperMenu.updatePhaseTypeDistChart()
+                                else
+                                    upperMenu.updatePhaseTypeMomentsChart()
                             }
 
                             Binding {

@@ -8,6 +8,7 @@
 #include <model/executables/phase_type/thread/workerThreadPhaseType.h>
 
 #include <boost/format.hpp>
+
 namespace wfes {
     namespace controllers {
 
@@ -26,6 +27,7 @@ namespace wfes {
             Q_PROPERTY(bool ui_get_not_exec READ get_not_exec NOTIFY results_changed)
             Q_PROPERTY(QString ui_progress READ get_progress NOTIFY updateProgress)
             Q_PROPERTY(QStringList ui_moments READ get_moments NOTIFY results_changed)
+            Q_PROPERTY(QStringList ui_probs READ get_probs NOTIFY results_changed)
 
             public:
 
@@ -71,6 +73,8 @@ namespace wfes {
                  * @return Nothing.
                  */
                 QString load_config();
+
+                QStringList get_probs();
 
                 /**
                  * @brief Send get_mean to GUI.

@@ -383,6 +383,7 @@ ApplicationWindow {
                                     messageDialog.open()
                                     outputControllerWfafle.ui_reset_error
                                 }
+                                upperMenu.updateDistWfafle()
                             }
 
                             Binding {

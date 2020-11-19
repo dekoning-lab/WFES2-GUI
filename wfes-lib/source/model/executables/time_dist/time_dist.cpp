@@ -1,5 +1,6 @@
 #include "time_dist.h"
 
+
 using namespace wfes::wrightfisher;
 using namespace wfes::utils;
 using namespace wfes::config;
@@ -115,7 +116,7 @@ ResultsTimeDist *time_dist::timeDist()
         //Notify done.
         this->notify(ExecutionStatus::DONE);
 
-        return new ResultsTimeDist(dt.count());
+        return new ResultsTimeDist(PH, dt.count());
     } catch(const std::exception &e) {
         this->notify(ExecutionStatus::ERROR);
         return new ResultsTimeDist(e.what());
@@ -199,7 +200,7 @@ ResultsTimeDist *time_dist::timeDistSGV()
         //Notify done.
         this->notify(ExecutionStatus::DONE);
 
-        return new ResultsTimeDist(dt.count());
+        return new ResultsTimeDist(PH, dt.count());
     } catch(const std::exception &e) {
         this->notify(ExecutionStatus::ERROR);
         return new ResultsTimeDist(e.what());
@@ -283,7 +284,7 @@ ResultsTimeDist *time_dist::timeDistSkip()
         //Notify done.
         this->notify(ExecutionStatus::DONE);
 
-        return new ResultsTimeDist(dt.count());
+        return new ResultsTimeDist(PH, dt.count());
     } catch(const std::exception &e) {
         this->notify(ExecutionStatus::ERROR);
         return new ResultsTimeDist(e.what());
@@ -366,7 +367,7 @@ ResultsTimeDist *time_dist::timeDistDual()
         //Notify done.
         this->notify(ExecutionStatus::DONE);
 
-        return new ResultsTimeDist(dt.count());
+        return new ResultsTimeDist(PH, dt.count());
     } catch(const std::exception &e) {
         this->notify(ExecutionStatus::ERROR);
         return new ResultsTimeDist(e.what());

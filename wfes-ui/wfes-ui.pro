@@ -1,7 +1,7 @@
 include(../qmake-target-platform.pri)
 include(../qmake-destination-path.pri)
 
-QT += qml quick quickcontrols2
+QT += qml quick quickcontrols2 widgets charts
 
 TEMPLATE = app
 
@@ -41,7 +41,8 @@ RESOURCES += views.qrc \
 LIBS += -L$$PWD/../binaries/$$DESTINATION_PATH -lwfes-lib
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
-QML_IMPORT_PATH = $$PWD
+QML_IMPORT_PATH = $$PWD \
+                  $$PWD/windows
 
 # Additional import path used to resolve QML modules just for Qt Quick Designer
 #QML_DESIGNER_IMPORT_PATH =
