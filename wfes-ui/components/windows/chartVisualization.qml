@@ -16,9 +16,9 @@ ApplicationWindow {
 
     visible: visibleWindow
 
-    width: 500
-    minimumWidth: 500
-    maximumWidth: 500
+    width: 800
+    minimumWidth: 800
+    maximumWidth: 800
     height: 500
     minimumHeight: 500
     maximumHeight: 500
@@ -44,6 +44,8 @@ ApplicationWindow {
             anchors.fill: parent
             antialiasing: true
             anchors { fill: parent; margins: -10 }
+            legend.alignment: Qt.AlignRight
+            legend.font.pointSize: 12
 
             ValueAxis {
                 id: axisY
@@ -117,13 +119,27 @@ ApplicationWindow {
     function updateProbTimeDist() {
         myChart.removeAllSeries()
 
+        var names = []
+
         var input = outputControllerTimeDist.ui_probs
         var numbers = []
         if(typeof(input) != "undefined") {
             var splitted = input[0].split(", ")
             var splitLength = splitted.length
+
+            if(splitLength === 3) {
+                names[0] = "Prob. substitution"
+                names[1] = "Cumulative prob. of subs."
+            }
+            if(splitLength === 5) {
+                names[0] = "Prob. of extinction"
+                names[1] = "Prob. of fixation"
+                names[2] = "Prob. of absorption (either)"
+                names[3] = "Cumulative prob. of abs."
+            }
+
             for(var i = 1; i < splitLength; i++) {
-                var line = myChart.createSeries(ChartView.SeriesTypeLine, "WFAF-D Dist.", axisX, axisY);
+                var line = myChart.createSeries(ChartView.SeriesTypeLine, names[i-1], axisX, axisY);
                 splitted = []
                 numbers = []
                 for(var j = 0; j < input.length; j++) {
