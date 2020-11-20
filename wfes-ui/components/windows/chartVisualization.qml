@@ -28,8 +28,8 @@ ApplicationWindow {
 
     color: Universal.chromeLowColor
 
-    // Center window in screen.
     Component.onCompleted: {
+        // Center window in screen.
         setX(Screen.width / 2 - width / 2);
         setY(Screen.height / 2 - height / 2);
     }

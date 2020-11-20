@@ -8,8 +8,6 @@ import QtQuick.Controls.Styles 1.4
 import QtQuick.Controls.Universal 2.3
 import components 1.0
 
-//TODO Implement value validators and return exceptions.
-
 Component{
     id:viewComp
     GridLayout {
@@ -166,7 +164,6 @@ Component{
 
             color: "transparent"
 
-
             Label {
                 id: labelSelection
                 text: "Selection:"
@@ -216,10 +213,7 @@ Component{
                         }
                     }
                 }
-
-
             }
         }
-
     }
 }

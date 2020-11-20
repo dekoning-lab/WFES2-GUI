@@ -5,7 +5,9 @@ Item {
     property alias visibleProgressBar: progressBar.visible
     property alias executionProgress: status.text
     property alias executionTime: time.text
+
     width: parent.width
+
     Rectangle {
         width: parent.width
         height: 30

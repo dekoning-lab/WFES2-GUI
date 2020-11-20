@@ -8,7 +8,6 @@ import QtQuick.Controls.Styles 1.4
 import QtQuick.Controls.Universal 2.3
 import components 1.0
 
-//TODO Implement value validators and return exceptions.
 ApplicationWindow {
     id: rootTimeDist
     title: qsTr("WFES - Wright-Fisher Exact Solver (Time Dist.)")
@@ -34,13 +33,13 @@ ApplicationWindow {
         outputControllerTimeDist.ui_save_config
     }
 
-    // Center window in screen.
     Component.onCompleted: {
+        // Center window in screen.
         setX(Screen.width / 2 - width / 2);
         setY(Screen.height / 2 - height / 2);
         // Activate time dist sgv, so it is loaded and it loads the configuration.
         radioButtonTimeDistSGV.checked = true
-
+        // Load configuration done in DynamicView.
     }
 
     Rectangle {
@@ -294,10 +293,14 @@ ApplicationWindow {
                             id: timeDistSGVSectionTabView
                             width: parent.width
                             height: 170
+                            style: TabViewStyle {
+
+                            }
                             Tab {
                                 id: comp1
                                 title: "Comp. 1"
                                 height: parent.height
+                                width: implicitWidth
                                 GridLayout {
                                     id: tabGrid1
                                     columns: 1
@@ -414,6 +417,7 @@ ApplicationWindow {
 
                                 }
                                 onLoaded: function() {
+                                    // Liad configuration on open here. Wait till everything loaded.
                                     var dummyString = outputControllerTimeDist.ui_load_config
                                     rootTimeDist.updateGUI()
                                 }
@@ -422,6 +426,7 @@ ApplicationWindow {
                                 id: comp2
                                 title: "Comp. 2"
                                 height: parent.height
+                                width: implicitWidth
                                 GridLayout {
                                     id: tabGrid2
                                     columns: 1
@@ -825,8 +830,6 @@ ApplicationWindow {
                                     text: "Q: "
                                     toolTipText: "Output Q as CSV file."
                                     checked: inputControllerTimeDist.ui_output_Q
-                                    //enabled: //TODO
-
                                 }
 
                                 LabeledCheckBox {
@@ -834,7 +837,6 @@ ApplicationWindow {
                                     text: "R: "
                                     toolTipText: "Output R as CSV file."
                                     checked: inputControllerTimeDist.ui_output_R
-                                    //enabled: //TODO
                                 }
 
                                 LabeledCheckBox {
@@ -1094,7 +1096,6 @@ ApplicationWindow {
     }
 
     function updateBackend() {
-
         if(radioButtonTimeDist.checked)
             inputControllerTimeDist.ui_modelType = "Time Dist."
         if(radioButtonTimeDistSGV.checked)
@@ -1155,7 +1156,6 @@ ApplicationWindow {
 
     function checkIntegrity() {
         var error = ""
-
 
         if(!radioButtonTimeDistSGV.checked) {
             if(parseInt(inputN.textFieldText) < 2)

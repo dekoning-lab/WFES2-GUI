@@ -7,7 +7,6 @@ import QtQuick.Controls.Styles 1.4
 import QtQuick.Controls.Universal 2.3
 import components 1.0
 
-//TODO Implement value validators and return exceptions.
 ApplicationWindow {
     id: rootWfesSingle
     title: qsTr("WFES - Wright-Fisher Exact Solver (WFES Single)")
@@ -33,8 +32,8 @@ ApplicationWindow {
         outputControllerWfesSingle.ui_save_config
     }
 
-    // Center window in screen.
     Component.onCompleted: {
+        // Center window in screen.
         setX(Screen.width / 2 - width / 2);
         setY(Screen.height / 2 - height / 2);
         outputControllerWfesSingle.ui_load_config

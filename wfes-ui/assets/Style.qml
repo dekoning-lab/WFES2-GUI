@@ -1,7 +1,6 @@
 pragma Singleton
 import QtQuick 2.9
 
-
 Item {
     property alias fontAwesome: fontAwesomeLoader.name
 

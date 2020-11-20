@@ -27,14 +27,10 @@
 void signalHandler( int signum ) {
    std::cout << "Interrupt signal (" << signum << ") received.\n";
 
-   // cleanup and close up stuff here
-   // terminate program
-
    exit(signum);
 }
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
     std::set_terminate([](){ std::cout << "Unhandled exception" << std::endl; std::abort();});
     signal(SIGINT, signalHandler);
     signal(SIGABRT, signalHandler);
