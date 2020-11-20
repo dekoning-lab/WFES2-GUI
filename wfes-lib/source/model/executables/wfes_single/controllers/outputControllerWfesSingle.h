@@ -42,6 +42,8 @@ namespace wfes {
             Q_PROPERTY(QString ui_get_n_ext READ get_n_ext NOTIFY results_changed)
             Q_PROPERTY(QString ui_get_t_fix READ get_t_fix NOTIFY results_changed)
             Q_PROPERTY(QString ui_get_t_fix_std READ get_t_fix_std NOTIFY results_changed)
+            Q_PROPERTY(QString ui_get_t_fix_abs_mode READ get_t_fix_abs_mode NOTIFY results_changed)
+            Q_PROPERTY(QString ui_get_t_fix_std_abs_mode READ get_t_fix_std_abs_mode NOTIFY results_changed)
             Q_PROPERTY(QString ui_get_rate READ get_rate NOTIFY results_changed)
             Q_PROPERTY(QString ui_get_e_freq_mut READ get_e_freq_mut NOTIFY results_changed)
             Q_PROPERTY(QString ui_get_e_freq_wt READ get_e_freq_wt NOTIFY results_changed)
@@ -161,6 +163,18 @@ namespace wfes {
                  * @return QString containing t_fix_std.
                  */
                 QString get_t_fix_std() const;
+
+                /**
+                 * @brief Send t_fix to GUI.
+                 * @return QString containing t_fix.
+                 */
+                QString get_t_fix_abs_mode() const;
+
+                /**
+                 * @brief Send t_fix_std to GUI.
+                 * @return QString containing t_fix_std.
+                 */
+                QString get_t_fix_std_abs_mode() const;
 
                 /**
                  * @brief Send rate to GUI.

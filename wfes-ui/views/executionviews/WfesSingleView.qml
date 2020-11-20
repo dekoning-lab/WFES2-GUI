@@ -111,8 +111,10 @@ ApplicationWindow {
                                     outputText.visible = checked;
                                     outputTextStd.visible = checked;
                                     outputNext.visible = checked;
-                                    outputTFix.visible = checked;
-                                    outputTFixStd.visible = checked;
+                                    outputTFix.visible = !checked;
+                                    outputTFixStd.visible = !checked;
+                                    outputTFixAbsMode.visible = checked;
+                                    outputTFixStdAbsMode.visible = checked;
                                     outputRate.visible = !checked;
                                     outputEFreqMut.visible = !checked;
                                     outputEFreqWt.visible = !checked;
@@ -167,6 +169,8 @@ ApplicationWindow {
                                     outputNext.visible = !checked;
                                     outputTFix.visible = checked;
                                     outputTFixStd.visible = checked;
+                                    outputTFixAbsMode.visible = !checked;
+                                    outputTFixStdAbsMode.visible = !checked;
                                     outputRate.visible = checked;
                                     outputEFreqMut.visible = !checked;
                                     outputEFreqWt.visible = !checked;
@@ -221,6 +225,8 @@ ApplicationWindow {
                                     outputNext.visible = !checked;
                                     outputTFix.visible = !checked;
                                     outputTFixStd.visible = !checked;
+                                    outputTFixAbsMode.visible = !checked;
+                                    outputTFixStdAbsMode.visible = !checked;
                                     outputRate.visible = !checked;
                                     outputEFreqMut.visible = !checked;
                                     outputEFreqWt.visible = !checked;
@@ -274,6 +280,8 @@ ApplicationWindow {
                                     outputNext.visible = !checked;
                                     outputTFix.visible = !checked;
                                     outputTFixStd.visible = !checked;
+                                    outputTFixAbsMode.visible = !checked;
+                                    outputTFixStdAbsMode.visible = !checked;
                                     outputRate.visible = !checked;
                                     outputEFreqMut.visible = !checked;
                                     outputEFreqWt.visible = !checked;
@@ -327,6 +335,8 @@ ApplicationWindow {
                                     outputNext.visible = !checked;
                                     outputTFix.visible = !checked;
                                     outputTFixStd.visible = !checked;
+                                    outputTFixAbsMode.visible = !checked;
+                                    outputTFixStdAbsMode.visible = !checked;
                                     outputRate.visible = !checked;
                                     outputEFreqMut.visible = !checked;
                                     outputEFreqWt.visible = !checked;
@@ -382,6 +392,8 @@ ApplicationWindow {
                                     outputRate.visible = !checked;
                                     outputTFix.visible = !checked;
                                     outputTFixStd.visible = !checked;
+                                    outputTFixAbsMode.visible = !checked;
+                                    outputTFixStdAbsMode.visible = !checked;
                                     outputEFreqMut.visible = checked;
                                     outputEFreqWt.visible = checked;
                                     outputFEst.visible = !checked;
@@ -434,6 +446,8 @@ ApplicationWindow {
                                     outputNext.visible = !checked;
                                     outputTFix.visible = !checked;
                                     outputTFixStd.visible = !checked;
+                                    outputTFixAbsMode.visible = !checked;
+                                    outputTFixStdAbsMode.visible = !checked;
                                     outputRate.visible = !checked;
                                     outputEFreqMut.visible = !checked;
                                     outputEFreqWt.visible = !checked;
@@ -1112,7 +1126,7 @@ ApplicationWindow {
                                 toolTipText: "Fixation time."
                                 textFieldText: outputControllerWfesSingle.ui_get_t_fix
                                 readOnly: true
-                                visible: radioButtonFixation.checked || radioButtonAbsorption.checked
+                                visible: radioButtonFixation.checked
                             }
 
                             LabeledTextField {
@@ -1123,7 +1137,29 @@ ApplicationWindow {
                                 toolTipText: "Standard fixation time."
                                 textFieldText: outputControllerWfesSingle.ui_get_t_fix_std
                                 readOnly: true
-                                visible: radioButtonFixation.checked || radioButtonAbsorption.checked
+                                visible: radioButtonFixation.checked
+                            }
+
+                            LabeledTextField {
+                                id: outputTFixAbsMode
+                                labelPreferredWidth: 100
+                                textFieldPreferredWidth: 180
+                                text: "T fix.: "
+                                toolTipText: "Fixation time."
+                                textFieldText: outputControllerWfesSingle.ui_get_t_fix_abs_mode
+                                readOnly: true
+                                visible: radioButtonAbsorption.checked
+                            }
+
+                            LabeledTextField {
+                                id: outputTFixStdAbsMode
+                                labelPreferredWidth: 100
+                                textFieldPreferredWidth: 180
+                                text: "T fix. std.: "
+                                toolTipText: "Standard fixation time."
+                                textFieldText: outputControllerWfesSingle.ui_get_t_fix_std_abs_mode
+                                readOnly: true
+                                visible: radioButtonAbsorption.checked
                             }
 
                             LabeledTextField {

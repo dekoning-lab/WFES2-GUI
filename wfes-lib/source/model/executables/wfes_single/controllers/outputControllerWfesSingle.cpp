@@ -137,6 +137,26 @@ QString OutputControllerWfesSingle::get_t_fix_std() const
         return QString::fromStdString(fmt.str());
 }
 
+QString OutputControllerWfesSingle::get_t_fix_abs_mode() const
+{
+    boost::format fmt = boost::format(DPF) % (this->results.tFixAbsMode);
+
+    if((boost::math::isnan)(this->results.tFixAbsMode))
+        return "";
+    else
+        return QString::fromStdString(fmt.str());
+}
+
+QString OutputControllerWfesSingle::get_t_fix_std_abs_mode() const
+{
+    boost::format fmt = boost::format(DPF) % (this->results.tFixStdAbsMode);
+
+    if((boost::math::isnan)(this->results.tFixStdAbsMode))
+        return "";
+    else
+        return QString::fromStdString(fmt.str());
+}
+
 QString OutputControllerWfesSingle::get_rate() const
 {
     boost::format fmt = boost::format(DPF) % (this->results.rate);

@@ -6,7 +6,7 @@ using namespace wfes::config;
 ResultsWfesSingle::ResultsWfesSingle() :
     modelType(wfes::config::ModelTypeWfesSingle::NONE), pExt(std::nan("")), pFix(std::nan("")), tAbs(std::nan("")),
       tAbsStd(std::nan("")), tExt(std::nan("")), tExtStd(std::nan("")), nExt(std::nan("")),
-      tFix(std::nan("")), tFixStd(std::nan("")), rate(std::nan("")),
+      tFix(std::nan("")), tFixStd(std::nan("")), tFixAbsMode(std::nan("")), tFixStdAbsMode(std::nan("")), rate(std::nan("")),
 
       freqMut(std::nan("")), freqWt(std::nan("")),
 
@@ -22,7 +22,7 @@ ResultsWfesSingle::ResultsWfesSingle() :
 ResultsWfesSingle::ResultsWfesSingle(double time)  :
     modelType(wfes::config::ModelTypeWfesSingle::NONE), pExt(std::nan("")), pFix(std::nan("")), tAbs(std::nan("")),
       tAbsStd(std::nan("")), tExt(std::nan("")), tExtStd(std::nan("")), nExt(std::nan("")),
-      tFix(std::nan("")), tFixStd(std::nan("")), rate(std::nan("")),
+      tFix(std::nan("")), tFixStd(std::nan("")), tFixAbsMode(std::nan("")), tFixStdAbsMode(std::nan("")), rate(std::nan("")),
 
       freqMut(std::nan("")), freqWt(std::nan("")),
 
@@ -37,7 +37,7 @@ ResultsWfesSingle::ResultsWfesSingle(double time)  :
 ResultsWfesSingle::ResultsWfesSingle(std::string error)  :
     modelType(wfes::config::ModelTypeWfesSingle::NONE), pExt(std::nan("")), pFix(std::nan("")), tAbs(std::nan("")),
       tAbsStd(std::nan("")), tExt(std::nan("")), tExtStd(std::nan("")), nExt(std::nan("")),
-      tFix(std::nan("")), tFixStd(std::nan("")), rate(std::nan("")),
+      tFix(std::nan("")), tFixStd(std::nan("")), tFixAbsMode(std::nan("")), tFixStdAbsMode(std::nan("")), rate(std::nan("")),
 
       freqMut(std::nan("")), freqWt(std::nan("")),
 
@@ -53,9 +53,9 @@ ResultsWfesSingle::ResultsWfesSingle(std::string error)  :
 // Absorption
 ResultsWfesSingle::ResultsWfesSingle(wfes::config::ModelTypeWfesSingle modelType, double pExt,
                  double pFix, double tAbs, double tAbsStd, double tExt,
-                 double tExtStd, double nExt, double tFix, double tFixStd, double time) :
+                 double tExtStd, double nExt, double tFixAbsMode, double tFixStdAbsMode, double time) :
     modelType(modelType), pExt(pExt), pFix(pFix), tAbs(tAbs), tAbsStd(tAbsStd),
-    tExt(tExt), tExtStd(tExtStd), nExt(nExt), tFix(tFix), tFixStd(tFixStd), rate(std::nan("")),
+    tExt(tExt), tExtStd(tExtStd), nExt(nExt), tFix(std::nan("")), tFixStd(std::nan("")), tFixAbsMode(tFixAbsMode), tFixStdAbsMode(tFixStdAbsMode), rate(std::nan("")),
 
     freqMut(std::nan("")), freqWt(std::nan("")),
 
@@ -71,7 +71,7 @@ ResultsWfesSingle::ResultsWfesSingle(wfes::config::ModelTypeWfesSingle modelType
 ResultsWfesSingle::ResultsWfesSingle(wfes::config::ModelTypeWfesSingle modelType, double tFix, double tFixStd, double rate, double time) :
     modelType(modelType), pExt(std::nan("")), pFix(std::nan("")), tAbs(std::nan("")),
       tAbsStd(std::nan("")), tExt(std::nan("")), tExtStd(std::nan("")), nExt(std::nan("")),
-      tFix(tFix), tFixStd(tFixStd), rate(rate),
+      tFix(tFix), tFixStd(tFixStd), tFixAbsMode(std::nan("")), tFixStdAbsMode(std::nan("")), rate(rate),
 
       freqMut(std::nan("")), freqWt(std::nan("")),
 
@@ -87,7 +87,7 @@ ResultsWfesSingle::ResultsWfesSingle(wfes::config::ModelTypeWfesSingle modelType
 ResultsWfesSingle::ResultsWfesSingle(wfes::config::ModelTypeWfesSingle modelType, double time) :
     modelType(modelType), pExt(std::nan("")), pFix(std::nan("")), tAbs(std::nan("")),
       tAbsStd(std::nan("")), tExt(std::nan("")), tExtStd(std::nan("")), nExt(std::nan("")),
-      tFix(std::nan("")), tFixStd(std::nan("")), rate(std::nan("")),
+      tFix(std::nan("")), tFixStd(std::nan("")), tFixAbsMode(std::nan("")), tFixStdAbsMode(std::nan("")), rate(std::nan("")),
 
       freqMut(std::nan("")), freqWt(std::nan("")),
 
@@ -103,7 +103,7 @@ ResultsWfesSingle::ResultsWfesSingle(wfes::config::ModelTypeWfesSingle modelType
 ResultsWfesSingle::ResultsWfesSingle(wfes::config::ModelTypeWfesSingle modelType, double freqMut, double freqWt, double time) :
     modelType(modelType), pExt(std::nan("")), pFix(std::nan("")), tAbs(std::nan("")),
     tAbsStd(std::nan("")), tExt(std::nan("")), tExtStd(std::nan("")), nExt(std::nan("")),
-    tFix(std::nan("")), tFixStd(std::nan("")), rate(std::nan("")),
+    tFix(std::nan("")), tFixStd(std::nan("")), tFixAbsMode(std::nan("")), tFixStdAbsMode(std::nan("")), rate(std::nan("")),
 
     freqMut(freqMut), freqWt(freqWt),
 
@@ -119,7 +119,7 @@ ResultsWfesSingle::ResultsWfesSingle(wfes::config::ModelTypeWfesSingle modelType
 ResultsWfesSingle::ResultsWfesSingle(wfes::config::ModelTypeWfesSingle modelType, double fEst, double pEst, double tSeg, double tSegStd, double tSegExt, double tSegExtStd, double tSegFix, double tSegFixStd, double tEst, double tEstStd, double time) :
       modelType(modelType), pExt(std::nan("")), pFix(std::nan("")), tAbs(std::nan("")),
       tAbsStd(std::nan("")), tExt(std::nan("")), tExtStd(std::nan("")), nExt(std::nan("")),
-      tFix(std::nan("")), tFixStd(std::nan("")), rate(std::nan("")),
+      tFix(std::nan("")), tFixStd(std::nan("")), tFixAbsMode(std::nan("")), tFixStdAbsMode(std::nan("")), rate(std::nan("")),
 
       freqMut(std::nan("")), freqWt(std::nan("")),
 
@@ -135,7 +135,7 @@ ResultsWfesSingle::ResultsWfesSingle(wfes::config::ModelTypeWfesSingle modelType
 ResultsWfesSingle::ResultsWfesSingle(wfes::config::ModelTypeWfesSingle modelType, double eAlleleAge, double sAlleleAge, bool allele, double time) :
     modelType(modelType), pExt(std::nan("")), pFix(std::nan("")), tAbs(std::nan("")),
       tAbsStd(std::nan("")), tExt(std::nan("")), tExtStd(std::nan("")), nExt(std::nan("")),
-      tFix(std::nan("")), tFixStd(std::nan("")), rate(std::nan("")),
+      tFix(std::nan("")), tFixStd(std::nan("")), tFixAbsMode(std::nan("")), tFixStdAbsMode(std::nan("")), rate(std::nan("")),
 
       freqMut(std::nan("")), freqWt(std::nan("")),
 
@@ -151,7 +151,7 @@ ResultsWfesSingle::ResultsWfesSingle(wfes::config::ModelTypeWfesSingle modelType
 ResultsWfesSingle::ResultsWfesSingle(wfes::config::ModelTypeWfesSingle modelType, bool nonAbsorbing, double time) :
     modelType(modelType), pExt(std::nan("")), pFix(std::nan("")), tAbs(std::nan("")),
       tAbsStd(std::nan("")), tExt(std::nan("")), tExtStd(std::nan("")), nExt(std::nan("")),
-      tFix(std::nan("")), tFixStd(std::nan("")), rate(std::nan("")),
+      tFix(std::nan("")), tFixStd(std::nan("")), tFixAbsMode(std::nan("")), tFixStdAbsMode(std::nan("")), rate(std::nan("")),
 
       freqMut(std::nan("")), freqWt(std::nan("")),
 
@@ -232,6 +232,12 @@ void ResultsWfesSingle::writeResultsToFile(ResultsWfesSingle *results, std::stri
 
     if(!(boost::math::isnan)(results->tFixStd))
         outStream << "T_fix_std, " << results->tFixStd << "\n";
+
+    if(!(boost::math::isnan)(results->tFixAbsMode))
+        outStream << "T_fix, " << results->tFixAbsMode << "\n";
+
+    if(!(boost::math::isnan)(results->tFixStdAbsMode))
+        outStream << "T_fix_std, " << results->tFixStdAbsMode << "\n";
 
     if(!(boost::math::isnan)(results->rate))
         outStream << "Rate, " << results->rate << "\n";

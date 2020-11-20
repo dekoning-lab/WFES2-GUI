@@ -28,6 +28,8 @@ public:
     double nExt;
     double tFix;
     double tFixStd;
+    double tFixAbsMode;
+    double tFixStdAbsMode;
     double rate;
     double freqMut;
     double freqWt;
@@ -58,7 +60,7 @@ public:
     // Absorption
     ResultsWfesSingle(wfes::config::ModelTypeWfesSingle modelType, double pExt,
             double pFix, double tAbs, double tAbsStd, double tExt,
-            double tExtStd, double nExt, double tFix, double tFixStd, double time);
+            double tExtStd, double nExt, double tFixAbsMode, double tFixStdAbsMode, double time);
 
     // Fixation
     ResultsWfesSingle(wfes::config::ModelTypeWfesSingle modelType, double tFix, double tFixStd, double rate, double time);
