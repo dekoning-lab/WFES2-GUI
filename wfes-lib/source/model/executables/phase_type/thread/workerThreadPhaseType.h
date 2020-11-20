@@ -3,10 +3,10 @@
 
 #include <QThread>
 
-#include <model/executables/phase_type/results/resultsPhaseType.h>
-#include <model/executables/phase_type/phase_type.h>
-#include <utils/observer/observer.h>
-#include <utils/utils.h>
+#include "model/executables/phase_type/results/resultsPhaseType.h"
+#include "model/executables/phase_type/phase_type.h"
+#include "utils/observer/observer.h"
+#include "utils/utils.h"
 
 /**
  * @brief The WorkerThreadPhaseType class implements a Worker Thread that executes everything in a background thread.

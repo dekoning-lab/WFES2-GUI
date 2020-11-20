@@ -4,13 +4,13 @@ using namespace wfes::config;
 
 int ConfigPhaseType::ModelTypePhaseTypeToInt(enum ModelTypePhaseType modelType) {
     switch(modelType){
-    case ModelTypePhaseType::PHASE_TYPE_DIST:
-        return 1;
-    case ModelTypePhaseType::PHASE_TYPE_MOMENTS:
-        return 2;
-    case ModelTypePhaseType::NONE:
-    default:
-        return 0;
+        case ModelTypePhaseType::PHASE_TYPE_DIST:
+            return 1;
+        case ModelTypePhaseType::PHASE_TYPE_MOMENTS:
+            return 2;
+        case ModelTypePhaseType::NONE:
+        default:
+            return 0;
     }
 }
 

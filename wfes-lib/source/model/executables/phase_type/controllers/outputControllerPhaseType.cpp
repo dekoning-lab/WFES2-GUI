@@ -94,7 +94,7 @@ QString OutputControllerPhaseType::get_error_message() const {
 
 QString OutputControllerPhaseType::reset_error() {
     this->results.error = "";
-    return QString();
+    return "";
 }
 
 QString OutputControllerPhaseType::get_time() const {

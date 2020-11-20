@@ -34,6 +34,7 @@ namespace wfes {
             Q_PROPERTY(QStringList ui_probs READ get_probs NOTIFY results_changed)
 
             public:
+
                 /**
                  * @brief Results of an execution.
                  */

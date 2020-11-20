@@ -2,48 +2,7 @@
 
 using namespace wfes::config;
 
-dvec ConfigTimeDistSGV::u = [] {
-    dvec tmp(2);
-    tmp << 1e-9, 1e-9;
-    return tmp;
-}();
-
-dvec ConfigTimeDistSGV::v = [] {
-    dvec tmp(2);
-    tmp << 1e-9, 1e-9;
-    return tmp;
-}();
-
-dvec ConfigTimeDistSGV::s = [] {
-    dvec tmp(2);
-    tmp << 0, 0;
-    return tmp;
-}();
-
-dvec ConfigTimeDistSGV::h = [] {
-    dvec tmp(2);
-    tmp << 0.5, 0.5;
-    return tmp;
-}();
-
-int ConfigTimeDistSGV::population_size = 10000;
-double ConfigTimeDistSGV::a = 1e-20;
-double ConfigTimeDistSGV::integration_cutoff = 1e-10;
-int ConfigTimeDistSGV::max_t = 10000;
-bool ConfigTimeDistSGV::no_rem = false;
-bool ConfigTimeDistSGV::rem = !ConfigTimeDistSGV::no_rem;
-
-double ConfigTimeDistSGV::l = 1e-20;
-
-int ConfigTimeDistSGV::num_comp = 2;
-
-bool ConfigTimeDistSGV::force = false;
-
-ConfigTimeDistSGV::ConfigTimeDistSGV(){}
-
-void ConfigTimeDistSGV::saveConfigTimeDistSGV()
-{
-
+void ConfigTimeDistSGV::saveConfigTimeDistSGV() {
     QString outputPath(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/Wfes/Config/");
     QDir dir;
 
@@ -51,8 +10,8 @@ void ConfigTimeDistSGV::saveConfigTimeDistSGV()
         dir.mkpath(outputPath);
 
     QFile file(outputPath + QString::fromStdString("Time_Dist.cfg"));
-    file.open(QIODevice::WriteOnly | QIODevice::Append);
 
+    file.open(QIODevice::WriteOnly | QIODevice::Append);
     if(!file.isOpen()) {
         qDebug() << "The file is not open.";
     }
@@ -60,9 +19,7 @@ void ConfigTimeDistSGV::saveConfigTimeDistSGV()
     QTextStream outStream(&file);
 
     outStream << "# Time Dist. SGV Options" << "\n";
-
     outStream << "Population Size SGV (N): " << ConfigTimeDistSGV::population_size << "\n";
-
     outStream << "Backward Mutation Rates (u): " << ConfigTimeDistSGV::u[0] << "; " << ConfigTimeDistSGV::u[1] << "\n";
     outStream << "Forward Mutation Rates (v): " << ConfigTimeDistSGV::v[0] << "; " << ConfigTimeDistSGV::v[1] << "\n";
     outStream << "Selection Coefficients (s): " << ConfigTimeDistSGV::s[0] << "; " << ConfigTimeDistSGV::s[1] << "\n";
@@ -74,14 +31,12 @@ void ConfigTimeDistSGV::saveConfigTimeDistSGV()
 
     outStream << "Transition Probability (l): " << ConfigTimeDistSGV::l << "\n";
     outStream << "Force: " << (ConfigTimeDistSGV::force ? QString("true") : QString("false")) << "\n";
-
     outStream << "Num. Comps.: " << ConfigTimeDistSGV::num_comp << "\n";
 
     file.close();
 }
 
-void ConfigTimeDistSGV::loadConfigTimeDistSGV()
-{
+void ConfigTimeDistSGV::loadConfigTimeDistSGV() {
     QString outputPath(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/Wfes/Config/" + "Time_Dist.cfg");
 
     QFile file(outputPath);
@@ -132,3 +87,42 @@ void ConfigTimeDistSGV::processLine(QString line) {
         ConfigTimeDistSGV::rem = !no_rem;
     }
 }
+
+
+////////////////////////////////
+// Static initializations here//
+////////////////////////////////
+
+dvec ConfigTimeDistSGV::u = [] {
+    dvec tmp(2);
+    tmp << 1e-9, 1e-9;
+    return tmp;
+}();
+
+dvec ConfigTimeDistSGV::v = [] {
+    dvec tmp(2);
+    tmp << 1e-9, 1e-9;
+    return tmp;
+}();
+
+dvec ConfigTimeDistSGV::s = [] {
+    dvec tmp(2);
+    tmp << 0, 0;
+    return tmp;
+}();
+
+dvec ConfigTimeDistSGV::h = [] {
+    dvec tmp(2);
+    tmp << 0.5, 0.5;
+    return tmp;
+}();
+
+int ConfigTimeDistSGV::population_size = 10000;
+double ConfigTimeDistSGV::a = 1e-20;
+double ConfigTimeDistSGV::integration_cutoff = 1e-10;
+int ConfigTimeDistSGV::max_t = 10000;
+bool ConfigTimeDistSGV::no_rem = false;
+bool ConfigTimeDistSGV::rem = !ConfigTimeDistSGV::no_rem;
+double ConfigTimeDistSGV::l = 1e-20;
+int ConfigTimeDistSGV::num_comp = 2;
+bool ConfigTimeDistSGV::force = false;

@@ -1,19 +1,19 @@
 #include "resultsPhaseType.h"
 
-ResultsPhaseType::ResultsPhaseType() :
-    mean(std::nan("")), std(std::nan("")), time(std::nan("")), error("") {}
+ResultsPhaseType::ResultsPhaseType()
+    : mean(std::nan("")), std(std::nan("")), time(std::nan("")), error("") {}
 
-ResultsPhaseType::ResultsPhaseType(double mean, double std, dvec moments, double time) :
-    mean(mean), std(std), time(time), moments(moments), error("") {}
+ResultsPhaseType::ResultsPhaseType(double mean, double std, dvec moments, double time)
+    : mean(mean), std(std), time(time), moments(moments), error("") {}
 
-ResultsPhaseType::ResultsPhaseType(double time) :
-    mean(std::nan("")), std(std::nan("")), time(time), error("") {}
+ResultsPhaseType::ResultsPhaseType(double time)
+    : mean(std::nan("")), std(std::nan("")), time(time), error("") {}
 
-ResultsPhaseType::ResultsPhaseType(dmat probs, double time) :
-    mean(std::nan("")), std(std::nan("")), time(time), probs(probs), error("") {}
+ResultsPhaseType::ResultsPhaseType(dmat probs, double time)
+    : mean(std::nan("")), std(std::nan("")), time(time), probs(probs), error("") {}
 
-ResultsPhaseType::ResultsPhaseType(std::string error) :
-    mean(std::nan("")), std(std::nan("")), time(std::nan("")), error(error) {}
+ResultsPhaseType::ResultsPhaseType(std::string error)
+    : mean(std::nan("")), std(std::nan("")), time(std::nan("")), error(error) {}
 
 void ResultsPhaseType::writeResultsToFile(ResultsPhaseType *results, std::string name) {
     // Get current time for the name of the file.

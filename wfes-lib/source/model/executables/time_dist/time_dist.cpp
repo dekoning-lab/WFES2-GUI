@@ -6,22 +6,22 @@ using namespace wfes::utils;
 using namespace wfes::config;
 using namespace wfes;
 
-ResultsTimeDist *time_dist::execute()
-{
+ResultsTimeDist *time_dist::execute() {
     // Start counting execution time.
     t_start = std::chrono::system_clock::now();
 
     // Select verbose level for Intel MKL Pardiso.
-    msg_level = ConfigTimeDist::verbose ? MKL_PARDISO_MSG_VERBOSE : MKL_PARDISO_MSG_QUIET;
+    // Since it is a GUI application, always quiet for a better performance.
+    msg_level = MKL_PARDISO_MSG_QUIET;
 
     // Set number of threads for intel MKL Pardiso.
     omp_set_num_threads(ConfigTimeDist::n_threads);
     mkl_set_num_threads(ConfigTimeDist::n_threads);
 
-    //Notify starting.
+    // Notify starting.
     this->notify(ExecutionStatus::STARTING);
 
-    // All cases (models) are wrapped in this switch instruction.
+    // Select the mode from configuration.
     switch(ConfigTimeDist::modelType) {
         case ModelTypeTimeDist::TIME_DIST:
             return this->timeDist();
@@ -31,30 +31,26 @@ ResultsTimeDist *time_dist::execute()
             return this->timeDistSkip();
         case ModelTypeTimeDist::TIME_DIST_DUAL:
             return this->timeDistDual();
-
         // If for some reason there is an error and the selected model type is none, or any of the previous one,
         // return default results, which is formed by nan values, so the GUI does not show anything.
         case ModelTypeTimeDist::NONE:
         default:
-            // TODO Show error as dialog. Right now it does nothing.
             return new ResultsTimeDist();
     }
 }
 
-ResultsTimeDist *time_dist::timeDist()
-{
+ResultsTimeDist *time_dist::timeDist() {
     try {
-        //Notify building matrix.
+        // Notify building matrix.
         this->notify(ExecutionStatus::BUILDING_MATRICES);
 
         wrightfisher::Matrix wf = wrightfisher::Single(ConfigTimeDist::population_size, ConfigTimeDist::population_size, wrightfisher::BOTH_ABSORBING, ConfigTimeDist::s, ConfigTimeDist::h, ConfigTimeDist::u, ConfigTimeDist::v,
                                    ConfigTimeDist::rem, ConfigTimeDist::a, msg_level, ConfigTimeDist::b);
 
-        //Notify saving data.
+        // Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
 
-
-        qDebug() << QString::fromStdString(ConfigTimeDist::path_output_P);
+        // Save data into file.
         if (ConfigTimeDist::output_Q)
             wf.Q->saveMarket(ConfigTimeDist::path_output_Q);
         if (ConfigTimeDist::output_R)
@@ -85,27 +81,26 @@ ResultsTimeDist *time_dist::timeDist()
         }
         PH.conservativeResize(i, 5);
 
-        //Notify saving data.
+        // Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
 
+        // Save data into file.
         if (ConfigTimeDist::output_P) {
             utils::writeMatrixToFile(PH, ConfigTimeDist::path_output_P);
         }
 
+        // Generate images.
         QImage *imageQ = nullptr, *imageR = nullptr, *imageP = nullptr;
         if(ConfigTimeDist::output_Q) {
             imageQ = utils::generateImage(wf.Q->dense());
-            //utils::saveImage(imageI, "Image_I");
             ImageResults::Q = imageQ;
         }
         if(ConfigTimeDist::output_R) {
             imageR = utils::generateImage(wf.R);
-            //utils::saveImage(imageI, "Image_I");
             ImageResults::R = imageR;
         }
         if(ConfigTimeDist::output_P) {
             imageP = utils::generateImage(PH);
-            //utils::saveImage(imageI, "Image_I");
             ImageResults::P = imageP;
         }
 
@@ -124,8 +119,7 @@ ResultsTimeDist *time_dist::timeDist()
 
 }
 
-ResultsTimeDist *time_dist::timeDistSGV()
-{
+ResultsTimeDist *time_dist::timeDistSGV() {
     try {
         //Notify building matrix.
         this->notify(ExecutionStatus::BUILDING_MATRICES);
@@ -137,12 +131,13 @@ ResultsTimeDist *time_dist::timeDistSGV()
         //Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
 
+        // Save data into file.
         if (ConfigTimeDist::output_Q)
             wf.Q->saveMarket(ConfigTimeDist::path_output_Q);
         if (ConfigTimeDist::output_R)
             utils::writeMatrixToFile(wf.R, ConfigTimeDist::path_output_R);
 
-        //Notify solving
+        // Notify solving
         this->notify(ExecutionStatus::SOLVING_MATRICES);
 
         dmat PH(ConfigTimeDistSGV::max_t, 3);
@@ -166,27 +161,26 @@ ResultsTimeDist *time_dist::timeDistSGV()
         }
         PH.conservativeResize(i, 3);
 
-        //Notify saving data.
+        // Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
 
+        // Save data into file.
         if (ConfigTimeDist::output_P) {
             utils::writeMatrixToFile(PH, ConfigTimeDist::path_output_P);
         }
 
+        // Generate images.
         QImage *imageQ = nullptr, *imageR = nullptr, *imageP = nullptr;
         if(ConfigTimeDist::output_Q) {
             imageQ = utils::generateImage(wf.Q->dense());
-            //utils::saveImage(imageI, "Image_I");
             ImageResults::Q = imageQ;
         }
         if(ConfigTimeDist::output_R) {
             imageR = utils::generateImage(wf.R);
-            //utils::saveImage(imageI, "Image_I");
             ImageResults::R = imageR;
         }
         if(ConfigTimeDist::output_P) {
             imageP = utils::generateImage(PH);
-            //utils::saveImage(imageI, "Image_I");
             ImageResults::P = imageP;
         }
 
@@ -205,8 +199,7 @@ ResultsTimeDist *time_dist::timeDistSGV()
 }
 
 
-ResultsTimeDist *time_dist::timeDistSkip()
-{
+ResultsTimeDist *time_dist::timeDistSkip() {
     try {
         //Notify building matrix.
         this->notify(ExecutionStatus::BUILDING_MATRICES);
@@ -218,6 +211,7 @@ ResultsTimeDist *time_dist::timeDistSkip()
         //Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
 
+        // Save data into file.
         if (ConfigTimeDist::output_Q)
             wf.Q->saveMarket(ConfigTimeDist::path_output_Q);
         if (ConfigTimeDist::output_R)
@@ -249,24 +243,23 @@ ResultsTimeDist *time_dist::timeDistSkip()
         //Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
 
+        // Save data into file.
         if (ConfigTimeDist::output_P) {
             utils::writeMatrixToFile(PH, ConfigTimeDist::path_output_P);
         }
 
+        // Generate images.
         QImage *imageQ = nullptr, *imageR = nullptr, *imageP = nullptr;
         if(ConfigTimeDist::output_Q) {
             imageQ = utils::generateImage(wf.Q->dense());
-            //utils::saveImage(imageI, "Image_I");
             ImageResults::Q = imageQ;
         }
         if(ConfigTimeDist::output_R) {
             imageR = utils::generateImage(wf.R);
-            //utils::saveImage(imageI, "Image_I");
             ImageResults::R = imageR;
         }
         if(ConfigTimeDist::output_P) {
             imageP = utils::generateImage(PH);
-            //utils::saveImage(imageI, "Image_I");
             ImageResults::P = imageP;
         }
 
@@ -284,8 +277,7 @@ ResultsTimeDist *time_dist::timeDistSkip()
     }
 }
 
-ResultsTimeDist *time_dist::timeDistDual()
-{
+ResultsTimeDist *time_dist::timeDistDual() {
     try {
         //Notify building matrix.
         this->notify(ExecutionStatus::BUILDING_MATRICES);
@@ -295,6 +287,7 @@ ResultsTimeDist *time_dist::timeDistDual()
         //Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
 
+        // Save data into file.
         if (ConfigTimeDist::output_Q)
             wf.Q->saveMarket(ConfigTimeDist::path_output_Q);
         if (ConfigTimeDist::output_R)
@@ -329,24 +322,23 @@ ResultsTimeDist *time_dist::timeDistDual()
         //Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
 
+        // Save data into file.
         if (ConfigTimeDist::output_P) {
             utils::writeMatrixToFile(PH, ConfigTimeDist::path_output_P);
         }
 
+        // Generate images.
         QImage *imageQ = nullptr, *imageR = nullptr, *imageP = nullptr;
         if(ConfigTimeDist::output_Q) {
             imageQ = utils::generateImage(wf.Q->dense());
-            //utils::saveImage(imageI, "Image_I");
             ImageResults::Q = imageQ;
         }
         if(ConfigTimeDist::output_R) {
             imageR = utils::generateImage(wf.R);
-            //utils::saveImage(imageI, "Image_I");
             ImageResults::R = imageR;
         }
         if(ConfigTimeDist::output_P) {
             imageP = utils::generateImage(PH);
-            //utils::saveImage(imageI, "Image_I");
             ImageResults::P = imageP;
         }
 

@@ -16,9 +16,9 @@ WorkerThreadPhaseType::~WorkerThreadPhaseType() {
 
 void WorkerThreadPhaseType::run() {
     QString result;
-    phase_type single = phase_type();
-    single.addObserver(this);
-    results = *single.execute();
+    phase_type exec = phase_type();
+    exec.addObserver(this);
+    results = *exec.execute();
 
     done = true;
     emit resultReady(results);

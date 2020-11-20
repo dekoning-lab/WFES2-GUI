@@ -1,19 +1,29 @@
 #ifndef CONFIGTIMEDISTSGV_H
 #define CONFIGTIMEDISTSGV_H
 
-#include <string>
-#include "utils/types.h"
-
-#include <QDir>
 #include <QStandardPaths>
-#include <QDebug>
-
 #include <QString>
+#include <QDebug>
+#include <QDir>
+
+#include <string>
+
+#include "utils/types.h"
 
 namespace wfes {
     namespace config {
+
+        /**
+         * @brief The ConfigTimeDistSGV class contains the configuration parameters specific of Time Dist SGV, as well as some functions for
+         * saving and loading the configuration.
+         */
         class ConfigTimeDistSGV {
             public:
+
+                /**
+                 * @brief Default constructor for class configTimeDistSGV.
+                 */
+                ConfigTimeDistSGV() = default;
 
                 /**
                  * @brief Backward mutation rates for each component (u).
@@ -46,7 +56,7 @@ namespace wfes {
                 static double a;
 
                 /**
-                 * @brief No recurrent mutation (m).
+                 * @brief No recurrent mutation (r).
                  */
                 static bool no_rem;
 
@@ -56,12 +66,12 @@ namespace wfes {
                 static bool rem;
 
                 /**
-                 * @brief Maximum number of generations.
+                 * @brief Maximum number of generations (m).
                  */
                 static int max_t;
 
                 /**
-                 * @brief Starting number of copies integration cutoff (c).
+                 * @brief Integration cutoff (c).
                  */
                 static double integration_cutoff;
 
@@ -81,14 +91,19 @@ namespace wfes {
                 static bool force;
 
                 /**
-                 * @brief Default constructor for class configTimeDistSGV.
+                 * @brief Save configuration into a file.
                  */
-                ConfigTimeDistSGV();
-
                 static void saveConfigTimeDistSGV();
 
+                /**
+                 * @brief Load configuration from a file.
+                 */
                 static void loadConfigTimeDistSGV();
 
+                /**
+                 * @brief Process a line from the configuration file.
+                 * @param line Current line being processed in the configuration file.
+                 */
                 static void processLine(QString line);
         };
     }

@@ -8,17 +8,9 @@
 
 #include "utils/observer/subject.h"
 
-#include "model/solver/solver.h"
-#include "model/solver/solverFactory.h"
-#include "model/solver/pardiso/solverPardiso.h"
-
 #include "model/wright-fisher/wrightFisher.h"
 
 #include <model/visualization/imageresults.h>
-
-#include "model/sparse-matrix/sparseMatrix.h"
-#include "model/sparse-matrix/sparseMatrixFactory.h"
-#include "model/sparse-matrix/pardiso/sparseMatrixPardiso.h"
 
 #include "model/executables/phase_type/config/configPhaseType.h"
 #include "model/executables/phase_type/results/resultsPhaseType.h"
