@@ -25,18 +25,44 @@
 
 #include <model/visualization/imageresults.h>
 
-class wfes_switching : public Subject
-{
-public:
+/**
+ * @brief The wfes_sweep class implements the wfes sweep executables.
+ * Fixation: Only fixation state is absorbing.
+ * Absorption: Both fixation and extinction states are absorbing.
+ */
+class wfes_switching : public Subject {
+    public:
+    /**
+     * @brief Starting point of measuring execution time.
+     */
+    time_point t_start;
 
+    /**
+     * @brief Ending point of measuring execution time.
+     */
+    time_point t_end;
 
-    time_point t_start, t_end;
+    /**
+     * @brief Verbose level.
+     */
     llong msg_level;
 
+    /**
+     * @brief Starts an execution of a wfes single model.
+     * @return Results of the execution.
+     */
     ResultsWfesSwitching* execute();
 
+    /**
+     * @brief Both fixation and extinction states are absorbing.
+     * @return Results of the execution.
+     */
     ResultsWfesSwitching* absorption();
 
+    /**
+     * @brief Only fixation state is absorbing.
+     * @return Results of the execution.
+     */
     ResultsWfesSwitching* fixation();
 
 };

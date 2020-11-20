@@ -70,6 +70,7 @@ ResultsWfesSingle *wfes_single::absorption() {
         //Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
 
+        //Save data into file.
         if (ConfigWfesSingle::output_Q)
             W.Q->saveMarket(ConfigWfesSingle::path_output_Q);
         if (ConfigWfesSingle::output_R)

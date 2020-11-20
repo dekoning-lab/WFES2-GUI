@@ -27,7 +27,6 @@ void ResultsWfesSweep::writeResultsToFile(ResultsWfesSweep *results, std::string
     // Output Path, save in a folder called Wfes inside documents folder.
     QString outputPath(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/Wfes/");
 
-
     // If output path does not exist, create it.
     QDir dir;
     if (!dir.exists(outputPath))

@@ -5,13 +5,12 @@ using namespace wfes::solver;
 using namespace wfes::utils;
 using namespace wfes;
 
-ResultsWfesSwitching *wfes_switching::execute()
-{
+ResultsWfesSwitching *wfes_switching::execute() {
     // Start counting execution time.
     t_start = std::chrono::system_clock::now();
 
     // Select verbose level for Intel MKL Pardiso.
-    msg_level = ConfigWfesSwitching::verbose ? MKL_PARDISO_MSG_VERBOSE : MKL_PARDISO_MSG_QUIET;
+    msg_level = MKL_PARDISO_MSG_QUIET;
 
     // Set number of threads for intel MKL Pardiso.
     omp_set_num_threads(ConfigWfesSwitching::n_threads);
@@ -31,6 +30,7 @@ ResultsWfesSwitching *wfes_switching::execute()
         }
     }
 
+    // Select the mode from configuration.
     switch(ConfigWfesSwitching::modelType) {
         case ModelTypeWfesSwitching::FIXATION:
             return this->fixation();
@@ -46,8 +46,7 @@ ResultsWfesSwitching *wfes_switching::execute()
 
 }
 
-ResultsWfesSwitching *wfes_switching::absorption()
-{
+ResultsWfesSwitching *wfes_switching::absorption() {
     try {
         //Notify building matrix.
         this->notify(ExecutionStatus::BUILDING_MATRICES);
@@ -209,15 +208,14 @@ ResultsWfesSwitching *wfes_switching::absorption()
         }
         delete solver;
 
+        // Generate images.
         QImage *imageQ = nullptr, *imageR = nullptr,  *imageN = nullptr, *imageB = nullptr, *imageN_ext = nullptr, *imageN_fix = nullptr;
         if(ConfigWfesSwitching::output_Q) {
             imageQ = utils::generateImage(W.Q->dense());
-            //utils::saveImage(imageI, "Image_I");
             ImageResults::Q = imageQ;
         }
         if(ConfigWfesSwitching::output_R) {
             imageR = utils::generateImage(W.R);
-            //utils::saveImage(imageI, "Image_I");
             ImageResults::R = imageR;
         }
         if(ConfigWfesSwitching::output_N) {
@@ -234,17 +232,14 @@ ResultsWfesSwitching *wfes_switching::absorption()
         }
         if(ConfigWfesSwitching::output_B) {
             imageB = utils::generateImage(B);
-            //utils::saveImage(imageB, "Image_B");
             ImageResults::B = imageB;
         }
         if(ConfigWfesSwitching::output_N_Ext) {
             imageN_ext = utils::generateImage(E_ext);
-            //utils::saveImage(imageB, "Image_B");
             ImageResults::N_ext = imageN_ext;
         }
         if(ConfigWfesSwitching::output_N_Fix) {
             imageN_fix = utils::generateImage(E_fix);
-            //utils::saveImage(imageB, "Image_B");
             ImageResults::N_fix = imageN_fix;
         }
 
@@ -254,6 +249,10 @@ ResultsWfesSwitching *wfes_switching::absorption()
 
         ResultsWfesSwitching* res = new ResultsWfesSwitching(P_ext, P_fix, T_ext, T_ext_std, T_fix, T_fix_std, P_cond_ext, P_cond_fix, T_uncond, T_cond_ext, T_cond_fix, dt.count());
 
+        //Notify saving data.
+        this->notify(ExecutionStatus::SAVING_DATA);
+
+        //Save data into file.
         if(ConfigWfesSwitching::output_Res)
            res->writeResultsToFile(res, ConfigWfesSwitching::path_output_Res);
 
@@ -267,8 +266,7 @@ ResultsWfesSwitching *wfes_switching::absorption()
     }
 }
 
-ResultsWfesSwitching *wfes_switching::fixation()
-{
+ResultsWfesSwitching *wfes_switching::fixation() {
     try {
         //Notify building matrix.
         this->notify(ExecutionStatus::BUILDING_MATRICES);
@@ -331,25 +329,21 @@ ResultsWfesSwitching *wfes_switching::fixation()
             utils::writeMatrixToFile(B, ConfigWfesSwitching::path_output_B);
         }
         delete solver;
-        QImage *imageQ = nullptr, *imageR = nullptr,  *imageN = nullptr, *imageB = nullptr, *imageN_ext = nullptr, *imageN_fix = nullptr;
+        QImage *imageQ = nullptr, *imageR = nullptr,  *imageN = nullptr, *imageB = nullptr;
         if(ConfigWfesSwitching::output_Q) {
             imageQ = utils::generateImage(W.Q->dense());
-            //utils::saveImage(imageI, "Image_I");
             ImageResults::Q = imageQ;
         }
         if(ConfigWfesSwitching::output_R) {
             imageR = utils::generateImage(W.R);
-            //utils::saveImage(imageI, "Image_I");
             ImageResults::R = imageR;
         }
         if(ConfigWfesSwitching::output_N) {
             imageN = utils::generateImage(N);
-            //utils::saveImage(imageN, "Image_N");
             ImageResults::N = imageN;
         }
         if(ConfigWfesSwitching::output_B) {
             imageB = utils::generateImage(B);
-            //utils::saveImage(imageB, "Image_B");
             ImageResults::B = imageB;
         }
 

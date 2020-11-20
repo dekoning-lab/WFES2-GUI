@@ -4,8 +4,8 @@ WorkerThreadWfesSwitching::WorkerThreadWfesSwitching(QObject *parent) : QThread(
     results = ResultsWfesSwitching();
 }
 
-WorkerThreadWfesSwitching::~WorkerThreadWfesSwitching()
-{
+WorkerThreadWfesSwitching::~WorkerThreadWfesSwitching() {
+    // If not done when finished, aborted by user.
     if (!done) {
         exit();
         emit updateProgress(wfes::utils::ExecutionStatus::ABORTED);
@@ -14,8 +14,7 @@ WorkerThreadWfesSwitching::~WorkerThreadWfesSwitching()
     }
 }
 
-void WorkerThreadWfesSwitching::run()
-{
+void WorkerThreadWfesSwitching::run() {
     QString result;
     wfes_switching switching = wfes_switching();
     switching.addObserver(this);
@@ -25,7 +24,6 @@ void WorkerThreadWfesSwitching::run()
     emit resultReady(results);
 }
 
-void WorkerThreadWfesSwitching::update(int value)
-{
+void WorkerThreadWfesSwitching::update(int value) {
     emit updateProgress(value);
 }

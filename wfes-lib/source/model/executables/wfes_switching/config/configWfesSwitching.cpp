@@ -2,10 +2,7 @@
 
 using namespace wfes::config;
 
-ConfigWfesSwitching::ConfigWfesSwitching() {}
-
-int ConfigWfesSwitching::ModelTypeWfesSwitchingToInt(ModelTypeWfesSwitching modelType)
-{
+int ConfigWfesSwitching::ModelTypeWfesSwitchingToInt(ModelTypeWfesSwitching modelType) {
     switch(modelType){
         case ModelTypeWfesSwitching::FIXATION:
             return 1;
@@ -17,20 +14,15 @@ int ConfigWfesSwitching::ModelTypeWfesSwitchingToInt(ModelTypeWfesSwitching mode
     }
 }
 
-void ConfigWfesSwitching::saveConfigWfesSwitching()
-{
+void ConfigWfesSwitching::saveConfigWfesSwitching() {
     QString outputPath(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/Wfes/Config/");
-    QDir dir;
 
+    QDir dir;
     if (!dir.exists(outputPath))
         dir.mkpath(outputPath);
 
     QFile file(outputPath + QString::fromStdString("Wfes_Switching.cfg"));
     file.open(QIODevice::WriteOnly);
-
-    if(!file.isOpen()) {
-        qDebug() << "The file is not open.";
-    }
 
     QTextStream outStream(&file);
 
@@ -104,13 +96,11 @@ void ConfigWfesSwitching::saveConfigWfesSwitching()
     }
     outStream << ConfigWfesSwitching::v[ConfigWfesSwitching::num_comp - 1] << "\n";
 
-
     file.close();
 
 }
 
-void ConfigWfesSwitching::loadConfigWfesSwitching()
-{
+void ConfigWfesSwitching::loadConfigWfesSwitching() {
     QString outputPath(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/Wfes/Config/" + "Wfes_Switching.cfg");
 
     QFile file(outputPath);
@@ -124,8 +114,7 @@ void ConfigWfesSwitching::loadConfigWfesSwitching()
     }
 }
 
-void ConfigWfesSwitching::processLine(QString line)
-{
+void ConfigWfesSwitching::processLine(QString line) {
     QStringList splitted = line.split(": ");
     if(splitted.at(0).compare("Library") == 0) {
         ConfigWfesSwitching::library = splitted.at(1).toStdString();
@@ -222,6 +211,11 @@ void ConfigWfesSwitching::processLine(QString line)
     }
 }
 
+
+////////////////////////////////
+// Static initializations here//
+////////////////////////////////
+
 lvec ConfigWfesSwitching::N = [] {
     lvec tmp(1);
     tmp << 100;
@@ -295,6 +289,4 @@ std::string ConfigWfesSwitching::path_output_N_Fix = "output_N_Fix.csv";
 std::string ConfigWfesSwitching::path_output_Res = "output_Res.csv";
 
 bool ConfigWfesSwitching::force = false;
-bool ConfigWfesSwitching::verbose = false;
-std::string ConfigWfesSwitching::error = "";
 int ConfigWfesSwitching::num_comp = 1;
