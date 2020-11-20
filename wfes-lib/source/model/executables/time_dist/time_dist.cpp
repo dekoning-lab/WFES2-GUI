@@ -120,9 +120,6 @@ ResultsTimeDist *time_dist::timeDist()
     } catch(const std::exception &e) {
         this->notify(ExecutionStatus::ERROR);
         return new ResultsTimeDist(e.what());
-    } catch(...) {
-        this->notify(ExecutionStatus::ERROR);
-        return new ResultsTimeDist("INTEL MKL PARDISO: Unknown error while preprocessing the matrix.");
     }
 
 }
@@ -204,11 +201,7 @@ ResultsTimeDist *time_dist::timeDistSGV()
     } catch(const std::exception &e) {
         this->notify(ExecutionStatus::ERROR);
         return new ResultsTimeDist(e.what());
-    } catch(...) {
-        this->notify(ExecutionStatus::ERROR);
-        return new ResultsTimeDist("INTEL MKL PARDISO: Unknown error while preprocessing the matrix.");
     }
-
 }
 
 
@@ -288,9 +281,6 @@ ResultsTimeDist *time_dist::timeDistSkip()
     } catch(const std::exception &e) {
         this->notify(ExecutionStatus::ERROR);
         return new ResultsTimeDist(e.what());
-    } catch(...) {
-        this->notify(ExecutionStatus::ERROR);
-        return new ResultsTimeDist("INTEL MKL PARDISO: Unknown error while preprocessing the matrix.");
     }
 }
 
@@ -371,8 +361,5 @@ ResultsTimeDist *time_dist::timeDistDual()
     } catch(const std::exception &e) {
         this->notify(ExecutionStatus::ERROR);
         return new ResultsTimeDist(e.what());
-    } catch(...) {
-        this->notify(ExecutionStatus::ERROR);
-        return new ResultsTimeDist("INTEL MKL PARDISO: Unknown error while preprocessing the matrix.");
     }
 }

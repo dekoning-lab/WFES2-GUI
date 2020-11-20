@@ -117,9 +117,6 @@ ResultsPhaseType *phase_type::phaseTypeDist() {
     } catch(const std::exception &e) {
         this->notify(ExecutionStatus::ERROR);
         return new ResultsPhaseType(e.what());
-    } catch(...) {
-        this->notify(ExecutionStatus::ERROR);
-        return new ResultsPhaseType("INTEL MKL PARDISO: Unknown error while preprocessing the matrix.");
     }
 }
 
@@ -212,8 +209,5 @@ ResultsPhaseType *phase_type::phaseTypeMoment()
     } catch(const std::exception &e) {
         this->notify(ExecutionStatus::ERROR);
         return new ResultsPhaseType(e.what());
-    } catch(...) {
-        this->notify(ExecutionStatus::ERROR);
-        return new ResultsPhaseType("INTEL MKL PARDISO: Unknown error while preprocessing the matrix.");
     }
 }

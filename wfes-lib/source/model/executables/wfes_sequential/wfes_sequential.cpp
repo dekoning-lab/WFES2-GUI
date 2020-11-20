@@ -236,8 +236,5 @@ ResultsWfesSequential *wfes_sequential::function()
     } catch(const std::exception &e) {
         this->notify(ExecutionStatus::ERROR);
         return new ResultsWfesSequential(e.what());
-    } catch(...) {
-        this->notify(ExecutionStatus::ERROR);
-        return new ResultsWfesSequential("INTEL MKL PARDISO: Unknown error while preprocessing the matrix.");
     }
 }

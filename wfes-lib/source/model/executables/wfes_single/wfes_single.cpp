@@ -267,9 +267,6 @@ ResultsWfesSingle *wfes_single::absorption()
     } catch(const std::exception &e) {
         this->notify(ExecutionStatus::ERROR);
         return new ResultsWfesSingle(e.what());
-    } catch(...) {
-        this->notify(ExecutionStatus::ERROR);
-        return new ResultsWfesSingle("INTEL MKL PARDISO: Unknown error while preprocessing the matrix.");
     }
 
 }
@@ -377,9 +374,6 @@ ResultsWfesSingle *wfes_single::fixation()
     } catch(const std::exception &e) {
         this->notify(ExecutionStatus::ERROR);
         return new ResultsWfesSingle(e.what());
-    } catch(...) {
-        this->notify(ExecutionStatus::ERROR);
-        return new ResultsWfesSingle("INTEL MKL PARDISO: Unknown error while preprocessing the matrix.");
     }
 }
 
@@ -477,9 +471,6 @@ ResultsWfesSingle *wfes_single::fundamental()
     } catch(const std::exception &e) {
         this->notify(ExecutionStatus::ERROR);
         return new ResultsWfesSingle(e.what());
-    } catch(...) {
-        this->notify(ExecutionStatus::ERROR);
-        return new ResultsWfesSingle("INTEL MKL PARDISO: Unknown error while preprocessing the matrix.");
     }
 }
 
@@ -556,9 +547,6 @@ ResultsWfesSingle *wfes_single::equilibrium()
     } catch(const std::exception &e) {
         this->notify(ExecutionStatus::ERROR);
         return new ResultsWfesSingle(e.what());
-    } catch(...) {
-        this->notify(ExecutionStatus::ERROR);
-        return new ResultsWfesSingle("INTEL MKL PARDISO: Unknown error while preprocessing the matrix.");
     }
 }
 
@@ -770,9 +758,6 @@ ResultsWfesSingle *wfes_single::establishment()
     } catch(const std::exception &e) {
         this->notify(ExecutionStatus::ERROR);
         return new ResultsWfesSingle(e.what());
-    } catch(...) {
-        this->notify(ExecutionStatus::ERROR);
-        return new ResultsWfesSingle("INTEL MKL PARDISO: Unknown error while preprocessing the matrix.");
     }
 }
 
@@ -884,9 +869,6 @@ ResultsWfesSingle *wfes_single::alleleAge()
     } catch(const std::exception &e) {
         this->notify(ExecutionStatus::ERROR);
         return new ResultsWfesSingle(e.what());
-    } catch(...) {
-        this->notify(ExecutionStatus::ERROR);
-        return new ResultsWfesSingle("INTEL MKL PARDISO: Unknown error while preprocessing the matrix.");
     }
 }
 
@@ -932,9 +914,6 @@ ResultsWfesSingle *wfes_single::nonAbsorbing()
     } catch(const std::exception &e) {
         this->notify(ExecutionStatus::ERROR);
         return new ResultsWfesSingle(e.what());
-    } catch(...) {
-        this->notify(ExecutionStatus::ERROR);
-        return new ResultsWfesSingle("INTEL MKL PARDISO: Unknown error while preprocessing the matrix.");
     }
 }
 

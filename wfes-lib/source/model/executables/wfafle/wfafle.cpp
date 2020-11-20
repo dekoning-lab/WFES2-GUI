@@ -73,9 +73,6 @@ ResultsWfafle *wfafle::function()
     } catch(const std::exception &e) {
         this->notify(ExecutionStatus::ERROR);
         return new ResultsWfafle(e.what());
-    } catch(...) {
-        this->notify(ExecutionStatus::ERROR);
-        return new ResultsWfafle("INTEL MKL PARDISO: Unknown error while solving the system.");
     }
 }
 

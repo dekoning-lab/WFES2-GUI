@@ -144,9 +144,6 @@ ResultsWfesSweep *wfes_sweep::fixation()
     } catch(const std::exception &e) {
         this->notify(ExecutionStatus::ERROR);
         return new ResultsWfesSweep(e.what());
-    } catch(...) {
-        this->notify(ExecutionStatus::ERROR);
-        return new ResultsWfesSweep("INTEL MKL PARDISO: Unknown error while preprocessing the matrix.");
     }
 }
 

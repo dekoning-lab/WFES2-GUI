@@ -677,6 +677,7 @@ ApplicationWindow {
                                 outputControllerWfesSweep.ui_stop
                                 stopButton.enabled = false
                                 executeButton.enabled = true
+                                bottomMenu.visibleProgressBar = false
                             }
                         }
 

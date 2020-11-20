@@ -181,8 +181,5 @@ ResultsWfas *wfas::function()
     } catch(const std::exception &e) {
         this->notify(ExecutionStatus::ERROR);
         return new ResultsWfas(e.what());
-    } catch(...) {
-        this->notify(ExecutionStatus::ERROR);
-        return new ResultsWfas("INTEL MKL PARDISO: Unknown error while preprocessing the matrix.");
     }
 }

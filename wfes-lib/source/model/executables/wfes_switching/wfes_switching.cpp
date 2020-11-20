@@ -264,9 +264,6 @@ ResultsWfesSwitching *wfes_switching::absorption()
     } catch(const std::exception &e) {
         this->notify(ExecutionStatus::ERROR);
         return new ResultsWfesSwitching(e.what());
-    } catch(...) {
-        this->notify(ExecutionStatus::ERROR);
-        return new ResultsWfesSwitching("INTEL MKL PARDISO: Unknown error while preprocessing the matrix.");
     }
 }
 
@@ -372,8 +369,5 @@ ResultsWfesSwitching *wfes_switching::fixation()
     } catch(const std::exception &e) {
         this->notify(ExecutionStatus::ERROR);
         return new ResultsWfesSwitching(e.what());
-    } catch(...) {
-        this->notify(ExecutionStatus::ERROR);
-        return new ResultsWfesSwitching("INTEL MKL PARDISO: Unknown error while preprocessing the matrix.");
     }
 }
