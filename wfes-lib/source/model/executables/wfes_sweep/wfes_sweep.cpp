@@ -5,8 +5,7 @@ using namespace wfes::solver;
 using namespace wfes::utils;
 using namespace wfes;
 
-ResultsWfesSweep *wfes_sweep::execute()
-{
+ResultsWfesSweep *wfes_sweep::execute() {
     // Start counting execution time.
     t_start = std::chrono::system_clock::now();
 
@@ -20,14 +19,19 @@ ResultsWfesSweep *wfes_sweep::execute()
     //Notify starting.
     this->notify(ExecutionStatus::STARTING);
 
+    // Set value for starting copies if the user has provided an initial distribution,
+    // load it and calculate starting copies p.
     this->calculateStartingCopies();
 
     // Save initial distribution if resquested by the user.
     if (ConfigWfesSweep::output_I)
         utils::writeVectorToFile(starting_copies_p, ConfigWfesSweep::path_output_I);
 
+    // Set value of z if the user has provided an initial distribution,
+    // load it and calculate z value.
     this->calculateZ();
 
+    // Select the mode from configuration.
     switch(ConfigWfesSweep::modelType) {
         case ModelTypeWfesSweep::FIXATION:
             return this->fixation();
@@ -41,8 +45,7 @@ ResultsWfesSweep *wfes_sweep::execute()
 
 }
 
-ResultsWfesSweep *wfes_sweep::fixation()
-{
+ResultsWfesSweep *wfes_sweep::fixation() {
     try {
         //Notify building matrix.
         this->notify(ExecutionStatus::BUILDING_MATRICES);
@@ -104,27 +107,22 @@ ResultsWfesSweep *wfes_sweep::fixation()
         QImage *imageI = nullptr, *imageQ = nullptr, *imageR = nullptr,  *imageN = nullptr, *imageB = nullptr;
         if(ConfigWfesSweep::output_I) {
             imageI = utils::generateImage(starting_copies_p);
-            //utils::saveImage(imageI, "Image_I");
             ImageResults::I = imageI;
         }
         if(ConfigWfesSweep::output_Q) {
             imageQ = utils::generateImage(wf.Q->dense());
-            //utils::saveImage(imageI, "Image_I");
             ImageResults::Q = imageQ;
         }
         if(ConfigWfesSweep::output_R) {
             imageR = utils::generateImage(wf.R);
-            //utils::saveImage(imageI, "Image_I");
             ImageResults::R = imageR;
         }
         if(ConfigWfesSweep::output_N) {
             imageN = utils::generateImage(N);
-            //utils::saveImage(imageN, "Image_N");
             ImageResults::N = imageN;
         }
         if(ConfigWfesSweep::output_B) {
             imageB = utils::generateImage(B);
-            //utils::saveImage(imageB, "Image_B");
             ImageResults::B = imageB;
         }
 
@@ -147,16 +145,13 @@ ResultsWfesSweep *wfes_sweep::fixation()
     }
 }
 
-void wfes_sweep::calculateStartingCopies()
-{
-    ConfigWfesSweep s;
+void wfes_sweep::calculateStartingCopies() {
     dvec first_row = wrightfisher::binom_row(2 * ConfigWfesSweep::population_size, wrightfisher::psi_diploid(0, ConfigWfesSweep::population_size, ConfigWfesSweep::s(0), ConfigWfesSweep::h(0), ConfigWfesSweep::u(0), ConfigWfesSweep::v(0)), ConfigWfesSweep::a).Q;
     starting_copies_p = first_row.tail(first_row.size() - 1); // renormalize
     starting_copies_p /= 1 - first_row(0);
 }
 
-void wfes_sweep::calculateZ()
-{
+void wfes_sweep::calculateZ() {
     z = 0;
 
     if(ConfigWfesSweep::integration_cutoff <= 0) { // no integration
@@ -166,6 +161,4 @@ void wfes_sweep::calculateZ()
         for(llong i = 0; starting_copies_p(i) > ConfigWfesSweep::integration_cutoff; i++, z++);
     }
     if(ConfigWfesSweep::starting_copies != 0) z = 1;
-
-
 }

@@ -14,7 +14,7 @@ namespace wfes {
 
     /**
      * @brief The OutputControllerWfesSingle class is a controller for output parameters
-     * and functions of phase type.
+     * and functions of wfes single.
      */
         class WFESLIBSHARED_EXPORT OutputControllerWfesSingle : public QObject {
             Q_OBJECT

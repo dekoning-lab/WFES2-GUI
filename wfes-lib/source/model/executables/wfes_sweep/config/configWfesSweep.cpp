@@ -1,67 +1,8 @@
 #include "configWfesSweep.h"
 
-
 using namespace wfes::config;
 
-ModelTypeWfesSweep ConfigWfesSweep::modelType = ModelTypeWfesSweep::FIXATION;
-std::string ConfigWfesSweep::library = "Pardiso";
-std::string ConfigWfesSweep::vienna_solver = "BicGStab";
-int ConfigWfesSweep::population_size = 10000;
-double ConfigWfesSweep::a = 1e-20;
-int ConfigWfesSweep::b = 100;
-int ConfigWfesSweep::starting_copies = 0;
-int ConfigWfesSweep::n_threads = 1;
-double ConfigWfesSweep::integration_cutoff = 1e-10;
-double ConfigWfesSweep::l = 1e-20;
-
-bool ConfigWfesSweep::output_Q = false;
-bool ConfigWfesSweep::output_R = false;
-bool ConfigWfesSweep::output_N = false;
-bool ConfigWfesSweep::output_B = false;
-bool ConfigWfesSweep::output_I = false;
-bool ConfigWfesSweep::output_Res = true;
-
-std::string ConfigWfesSweep::initial_distribution_csv = "";
-std::string ConfigWfesSweep::path_output_Q = "output_Q.csv";
-std::string ConfigWfesSweep::path_output_R = "output_R.csv";
-std::string ConfigWfesSweep::path_output_N = "output_N.csv";
-std::string ConfigWfesSweep::path_output_B = "output_B.csv";
-std::string ConfigWfesSweep::path_output_I = "output_I.csv";
-std::string ConfigWfesSweep::path_output_Res = "output_Res.csv";
-
-bool ConfigWfesSweep::force = false;
-bool ConfigWfesSweep::verbose = false;
-std::string ConfigWfesSweep::error = "";
-int ConfigWfesSweep::num_comp = 2;
-
-dvec ConfigWfesSweep::u = [] {
-    dvec tmp(2);
-    tmp << 1e-9, 1e-9;
-    return tmp;
-}();
-
-dvec ConfigWfesSweep::v = [] {
-    dvec tmp(2);
-    tmp << 1e-9, 1e-9;
-    return tmp;
-}();
-
-dvec ConfigWfesSweep::s = [] {
-    dvec tmp(2);
-    tmp << 0, 0;
-    return tmp;
-}();
-
-dvec ConfigWfesSweep::h = [] {
-    dvec tmp(2);
-    tmp << 0.5, 0.5;
-    return tmp;
-}();
-
-ConfigWfesSweep::ConfigWfesSweep() {}
-
-int ConfigWfesSweep::ModelTypeWfesSweepToInt(ModelTypeWfesSweep modelType)
-{
+int ConfigWfesSweep::ModelTypeWfesSweepToInt(ModelTypeWfesSweep modelType) {
     switch(modelType){
         case ModelTypeWfesSweep::FIXATION:
             return 1;
@@ -71,20 +12,15 @@ int ConfigWfesSweep::ModelTypeWfesSweepToInt(ModelTypeWfesSweep modelType)
     }
 }
 
-void ConfigWfesSweep::saveConfigWfesSweep()
-{
+void ConfigWfesSweep::saveConfigWfesSweep() {
     QString outputPath(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/Wfes/Config/");
-    QDir dir;
 
+    QDir dir;
     if (!dir.exists(outputPath))
         dir.mkpath(outputPath);
 
     QFile file(outputPath + QString::fromStdString("Wfes_Sweep.cfg"));
     file.open(QIODevice::WriteOnly);
-
-    if(!file.isOpen()) {
-        qDebug() << "The file is not open.";
-    }
 
     QTextStream outStream(&file);
 
@@ -118,8 +54,7 @@ void ConfigWfesSweep::saveConfigWfesSweep()
     file.close();
 }
 
-void ConfigWfesSweep::loadConfigWfesSweep()
-{
+void ConfigWfesSweep::loadConfigWfesSweep() {
     QString outputPath(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/Wfes/Config/" + "Wfes_Sweep.cfg");
 
     QFile file(outputPath);
@@ -133,8 +68,7 @@ void ConfigWfesSweep::loadConfigWfesSweep()
     }
 }
 
-void ConfigWfesSweep::processLine(QString line)
-{
+void ConfigWfesSweep::processLine(QString line) {
     QStringList splitted = line.split(": ");
     if(splitted.at(0).compare("Library") == 0) {
         ConfigWfesSweep::library = splitted.at(1).toStdString();
@@ -192,7 +126,65 @@ void ConfigWfesSweep::processLine(QString line)
     } else if(splitted.at(0).compare("Num. Comps.") == 0) {
         ConfigWfesSweep::num_comp = std::stoi(splitted.at(1).toStdString());
     }
-
-
 }
+
+
+////////////////////////////////
+// Static initializations here//
+////////////////////////////////
+
+ModelTypeWfesSweep ConfigWfesSweep::modelType = ModelTypeWfesSweep::FIXATION;
+std::string ConfigWfesSweep::library = "Pardiso";
+std::string ConfigWfesSweep::vienna_solver = "BicGStab";
+int ConfigWfesSweep::population_size = 10000;
+double ConfigWfesSweep::a = 1e-20;
+int ConfigWfesSweep::b = 100;
+int ConfigWfesSweep::starting_copies = 0;
+int ConfigWfesSweep::n_threads = 1;
+double ConfigWfesSweep::integration_cutoff = 1e-10;
+double ConfigWfesSweep::l = 1e-20;
+
+bool ConfigWfesSweep::output_Q = false;
+bool ConfigWfesSweep::output_R = false;
+bool ConfigWfesSweep::output_N = false;
+bool ConfigWfesSweep::output_B = false;
+bool ConfigWfesSweep::output_I = false;
+bool ConfigWfesSweep::output_Res = true;
+
+std::string ConfigWfesSweep::initial_distribution_csv = "";
+std::string ConfigWfesSweep::path_output_Q = "output_Q.csv";
+std::string ConfigWfesSweep::path_output_R = "output_R.csv";
+std::string ConfigWfesSweep::path_output_N = "output_N.csv";
+std::string ConfigWfesSweep::path_output_B = "output_B.csv";
+std::string ConfigWfesSweep::path_output_I = "output_I.csv";
+std::string ConfigWfesSweep::path_output_Res = "output_Res.csv";
+
+bool ConfigWfesSweep::force = false;
+bool ConfigWfesSweep::verbose = false;
+std::string ConfigWfesSweep::error = "";
+int ConfigWfesSweep::num_comp = 2;
+
+dvec ConfigWfesSweep::u = [] {
+    dvec tmp(2);
+    tmp << 1e-9, 1e-9;
+    return tmp;
+}();
+
+dvec ConfigWfesSweep::v = [] {
+    dvec tmp(2);
+    tmp << 1e-9, 1e-9;
+    return tmp;
+}();
+
+dvec ConfigWfesSweep::s = [] {
+    dvec tmp(2);
+    tmp << 0, 0;
+    return tmp;
+}();
+
+dvec ConfigWfesSweep::h = [] {
+    dvec tmp(2);
+    tmp << 0.5, 0.5;
+    return tmp;
+}();
 

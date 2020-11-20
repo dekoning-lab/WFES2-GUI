@@ -32,7 +32,7 @@ namespace wfes {
         class ConfigWfesSingle {
             public:
                 /**
-                 * @brief Default constructor for class Config.
+                 * @brief Default constructor for class ConfigWfesSingle.
                  */
                 ConfigWfesSingle() = default;
 
@@ -42,6 +42,7 @@ namespace wfes {
                  * @return Position of the Model Type in the enum.
                  */
                 static int ModelTypeWfesSingleToInt(ModelTypeWfesSingle modelType);
+
                 /**
                  * @brief Library used for solving matrix systems (e.g. pardiso, viennacl...).
                  */

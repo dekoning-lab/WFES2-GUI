@@ -176,10 +176,11 @@ void ResultsWfesSingle::writeResultsToFile(ResultsWfesSingle *results, std::stri
 
     // Output Path, save in a folder called Wfes inside documents folder.
     QString outputPath(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/Wfes/");
-    QDir dir;
+
 
     // If output path does not exist, create it.
-    if (!dir.exists(outputPath))
+     QDir dir;
+     if (!dir.exists(outputPath))
         dir.mkpath(outputPath);
 
     // Create file with generated name.
