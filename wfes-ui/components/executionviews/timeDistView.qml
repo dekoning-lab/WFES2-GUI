@@ -121,7 +121,7 @@ ApplicationWindow {
                                     inputWriteR.enabled = checked;
                                     inputWriteP.enabled = checked;
 
-                                    inputForce.enabled = !checked
+                                    inputForce.enabled = checked
 
                                     labelComponents.visible = !checked
                                     timeDistSGVSection.visible = !checked
@@ -206,7 +206,7 @@ ApplicationWindow {
                                     inputWriteR.enabled = checked;
                                     inputWriteP.enabled = checked;
 
-                                    inputForce.enabled = !checked
+                                    inputForce.enabled = checked
 
                                     labelComponents.visible = !checked
                                     timeDistSGVSection.visible = !checked
@@ -248,7 +248,7 @@ ApplicationWindow {
                                     inputWriteR.enabled = checked;
                                     inputWriteP.enabled = checked;
 
-                                    inputForce.enabled = !checked
+                                    inputForce.enabled = checked
 
                                     labelComponents.visible = !checked
                                     timeDistSGVSection.visible = !checked
@@ -886,7 +886,6 @@ ApplicationWindow {
                                         toolTipText: "Do not perform parameter checks."
                                         text: "Force: "
                                         checked: inputControllerTimeDist.ui_force
-                                        enabled: (inputControllerTimeDist.ui_modelType == "Time Dist. SGV")
                                     }
 
                                     LabeledTextField {
