@@ -1,12 +1,11 @@
 #include "workerThreadPhaseType.h"
 
-
 WorkerThreadPhaseType::WorkerThreadPhaseType(QObject *parent) : QThread(parent) {
     results = ResultsPhaseType();
 }
 
-WorkerThreadPhaseType::~WorkerThreadPhaseType()
-{
+WorkerThreadPhaseType::~WorkerThreadPhaseType() {
+    // If not done when finished, aborted by user.
     if (!done) {
         exit();
         emit updateProgress(wfes::utils::ExecutionStatus::ABORTED);
@@ -15,8 +14,7 @@ WorkerThreadPhaseType::~WorkerThreadPhaseType()
     }
 }
 
-void WorkerThreadPhaseType::run()
-{
+void WorkerThreadPhaseType::run() {
     QString result;
     phase_type single = phase_type();
     single.addObserver(this);
@@ -26,7 +24,6 @@ void WorkerThreadPhaseType::run()
     emit resultReady(results);
 }
 
-void WorkerThreadPhaseType::update(int value)
-{
+void WorkerThreadPhaseType::update(int value) {
     emit updateProgress(value);
 }

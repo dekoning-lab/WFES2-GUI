@@ -1,14 +1,14 @@
 #ifndef CONFIGPHASETYPE_H
 #define CONFIGPHASETYPE_H
 
-#include <string>
-#include "utils/types.h"
-
-#include <QDir>
 #include <QStandardPaths>
-#include <QDebug>
-
 #include <QString>
+#include <QDebug>
+#include <QDir>
+
+#include <string>
+
+#include "utils/types.h"
 
 namespace wfes {
     namespace config {
@@ -25,14 +25,24 @@ namespace wfes {
          */
         static const char *ModelTypePhaseTypeNames[] = { "None", "Phase Type Dist.", "Phase Type Moments"};
 
+        /**
+         * @brief The ConfigPhaseType class contains the configuration parameters of Phase Type, as well as some functions for
+         * saving and loading the configuration.
+         */
         class ConfigPhaseType {
             public:
                 /**
-                 * @brief Default constructor for class Config.
+                 * @brief Default constructor for class ConfigPhaseType.
                  */
-                ConfigPhaseType();
+                ConfigPhaseType() = default;
 
+                /**
+                 * @brief Get an integer representing a model type (Position in the enum).
+                 * @param modelType Model Type that we want to extract the numer (position).
+                 * @return Position of the Model Type in the enum.
+                 */
                 static int ModelTypePhaseTypeToInt(ModelTypePhaseType modelType);
+
                 /**
                  * @brief Library used for solving matrix systems (e.g. pardiso, viennacl...).
                  */
@@ -109,7 +119,7 @@ namespace wfes {
                 static int n_threads;
 
                 /**
-                 * @brief Starting number of copies integration cutoff (c).
+                 * @brief Integration Cutoff (c).
                  */
                 static double integration_cutoff;
 
@@ -174,24 +184,19 @@ namespace wfes {
                 static bool force;
 
                 /**
-                 * @brief Verbose solver output (TODO Not Used In GUI.)
+                 * @brief Save configuration into a file.
                  */
-                static bool verbose;
-
-                /**
-                 * @brief TODO Not used.
-                 */
-                static bool help;
-
-                /**
-                 * @brief Error messages to show if there is an error.
-                 */
-                static std::string error;
-
                 static void saveConfigPhaseType();
 
+                /**
+                 * @brief Load configuration from a file.
+                 */
                 static void loadConfigPhaseType();
 
+                /**
+                 * @brief Process a line from the configuration file.
+                 * @param line Current line being processed in the configuration file.
+                 */
                 static void processLine(QString line);
         };
     }

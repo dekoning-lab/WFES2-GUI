@@ -2,8 +2,6 @@
 
 using namespace wfes::config;
 
-ConfigPhaseType::ConfigPhaseType() {}
-
 int ConfigPhaseType::ModelTypePhaseTypeToInt(enum ModelTypePhaseType modelType) {
     switch(modelType){
     case ModelTypePhaseType::PHASE_TYPE_DIST:
@@ -16,8 +14,7 @@ int ConfigPhaseType::ModelTypePhaseTypeToInt(enum ModelTypePhaseType modelType) 
     }
 }
 
-void ConfigPhaseType::saveConfigPhaseType()
-{
+void ConfigPhaseType::saveConfigPhaseType() {
     QString outputPath(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/Wfes/Config/");
     QDir dir;
 
@@ -60,8 +57,7 @@ void ConfigPhaseType::saveConfigPhaseType()
     file.close();
 }
 
-void ConfigPhaseType::loadConfigPhaseType()
-{
+void ConfigPhaseType::loadConfigPhaseType() {
     QString outputPath(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/Wfes/Config/" + "Phase_Type.cfg");
 
     QFile file(outputPath);
@@ -75,8 +71,7 @@ void ConfigPhaseType::loadConfigPhaseType()
     }
 }
 
-void ConfigPhaseType::processLine(QString line)
-{
+void ConfigPhaseType::processLine(QString line) {
     QStringList splitted = line.split(": ");
     if(splitted.at(0).compare("Library") == 0) {
         ConfigPhaseType::library = splitted.at(1).toStdString();
@@ -129,9 +124,12 @@ void ConfigPhaseType::processLine(QString line)
     } else if(splitted.at(0).compare("Force") == 0) {
         ConfigPhaseType::force = splitted.at(1).compare("true") == 0 ? true : false;
     }
-
 }
 
+
+////////////////////////////////
+// Static initializations here//
+////////////////////////////////
 
 std::string ConfigPhaseType::library = "Pardiso";
 std::string ConfigPhaseType::vienna_solver = "BicGStab";
@@ -163,7 +161,6 @@ bool ConfigPhaseType::output_Moments = true;
 bool ConfigPhaseType::output_Res = true;
 
 bool ConfigPhaseType::force = false;
-bool ConfigPhaseType::verbose = false;
-bool ConfigPhaseType::help = false;
 
-std::string ConfigPhaseType::error = "";
+
+
