@@ -2,22 +2,15 @@
 
 using namespace wfes::config;
 
-ConfigWfesSequential::ConfigWfesSequential() {}
-
-void ConfigWfesSequential::saveConfigWfesSequential()
-{
+void ConfigWfesSequential::saveConfigWfesSequential() {
     QString outputPath(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/Wfes/Config/");
-    QDir dir;
 
+    QDir dir;
     if (!dir.exists(outputPath))
         dir.mkpath(outputPath);
 
     QFile file(outputPath + QString::fromStdString("Wes_Sequential.cfg"));
     file.open(QIODevice::WriteOnly);
-
-    if(!file.isOpen()) {
-        qDebug() << "The file is not open.";
-    }
 
     QTextStream outStream(&file);
 
@@ -41,7 +34,6 @@ void ConfigWfesSequential::saveConfigWfesSequential()
     outStream << "Initial Distribution Path (I): " << QString::fromStdString(ConfigWfesSequential::initial_distribution_csv) << "\n";
 
     outStream << "Num. Comps.: " << ConfigWfesSequential::num_comp << "\n";
-
 
     outStream << "Population Size (N): ";
     for(int i = 0; i < ConfigWfesSequential::num_comp - 1; i++) {
@@ -85,13 +77,10 @@ void ConfigWfesSequential::saveConfigWfesSequential()
     }
     outStream << ConfigWfesSequential::v[ConfigWfesSequential::num_comp - 1] << "\n";
 
-
     file.close();
-
 }
 
-void ConfigWfesSequential::loadConfigWfesSequential()
-{
+void ConfigWfesSequential::loadConfigWfesSequential() {
     QString outputPath(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/Wfes/Config/" + "Wes_Sequential.cfg");
 
     QFile file(outputPath);
@@ -105,8 +94,7 @@ void ConfigWfesSequential::loadConfigWfesSequential()
     }
 }
 
-void ConfigWfesSequential::processLine(QString line)
-{
+void ConfigWfesSequential::processLine(QString line) {
     QStringList splitted = line.split(": ");
     if(splitted.at(0).compare("Library") == 0) {
         ConfigWfesSequential::library = splitted.at(1).toStdString();
@@ -192,8 +180,12 @@ void ConfigWfesSequential::processLine(QString line)
         }
         ConfigWfesSequential::v = newv;
     }
-
 }
+
+
+////////////////////////////////
+// Static initializations here//
+////////////////////////////////
 
 lvec ConfigWfesSequential::N = [] {
     lvec tmp(1);
@@ -244,7 +236,6 @@ double ConfigWfesSequential::a = 1e-20;
 double ConfigWfesSequential::c = 1e-10;
 int ConfigWfesSequential::n_threads = 1;
 
-
 bool ConfigWfesSequential::output_Q = false;
 bool ConfigWfesSequential::output_R = false;
 bool ConfigWfesSequential::output_N = false;
@@ -267,8 +258,6 @@ std::string ConfigWfesSequential::path_output_N_Tmo = "output_N_Tmo.csv";
 std::string ConfigWfesSequential::path_output_Res = "output_Res.csv";
 
 bool ConfigWfesSequential::force = false;
-bool ConfigWfesSequential::verbose = false;
-std::string ConfigWfesSequential::error = "";
 int ConfigWfesSequential::num_comp = 1;
 
 

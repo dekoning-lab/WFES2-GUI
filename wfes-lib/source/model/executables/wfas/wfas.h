@@ -1,39 +1,54 @@
 #ifndef WFAS_H
 #define WFAS_H
 
-#include "utils/exceptions.h"
 #include "utils/types.h"
 #include "utils/utils.h"
 #include "utils/parsing.h"
-
-#include "model/solver/solver.h"
-#include "model/solver/solverFactory.h"
-
-#include "model/sparse-matrix/sparseMatrix.h"
-#include "model/sparse-matrix/sparseMatrixFactory.h"
-
-#include "model/wright-fisher/wrightFisher.h"
-
-#include "model/solver/pardiso/solverPardiso.h"
-#include "model/sparse-matrix/pardiso/sparseMatrixPardiso.h"
-
-#include <model/executables/wfas/results/resultsWfas.h>
+#include "utils/exceptions.h"
 
 #include <utils/observer/subject.h>
 
-#include <model/executables/wfas/config/configWfas.h>
+#include "model/wright-fisher/wrightFisher.h"
 
 #include <model/visualization/imageresults.h>
 
-class wfas : public Subject
-{
-public:
-    time_point t_start, t_end;
-    llong msg_level;
+#include <model/executables/wfas/config/configWfas.h>
+#include <model/executables/wfas/results/resultsWfas.h>
 
-    ResultsWfas* execute();
+//TODO Integrate generation of missing matrices and vectors.
 
-    ResultsWfas* function();
+/**
+ * @brief The wfas class implements the phase type executables.
+ * wfafle: WFAS - Wright-Fisher approximate spectrum.
+ */
+class wfas : public Subject {
+    public:
+        /**
+         * @brief Starting point of measuring execution time.
+         */
+        time_point t_start;
+
+        /**
+         * @brief Ending point of measuring execution time.
+         */
+        time_point t_end;
+
+        /**
+         * @brief Verbose level.
+         */
+        llong msg_level;
+
+        /**
+         * @brief Starts an execution of a wfas model.
+         * @return Results of the execution.
+         */
+        ResultsWfas* execute();
+
+        /**
+         * @brief Calculates WFAS - Wright-Fisher approximate spectrum.
+         * @return Results of the execution.
+         */
+        ResultsWfas* function();
 
 };
 

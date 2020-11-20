@@ -70,7 +70,7 @@ namespace wfes {
                 static double a;
 
                 /**
-                 * @brief Initial allele count (p).
+                 * @brief Initial allele count (p) (i will be ignored).
                  */
                 static int p;
 

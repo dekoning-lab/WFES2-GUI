@@ -83,7 +83,6 @@ namespace wfes {
                  */
                 static double v;
 
-
                 /**
                  * @brief No recurrent mutation (m).
                  */
@@ -105,7 +104,7 @@ namespace wfes {
                 static int b;
 
                 /**
-                 * @brief Maximum number of generations.
+                 * @brief Maximum number of generations (t).
                  */
                 static int max_t;
 

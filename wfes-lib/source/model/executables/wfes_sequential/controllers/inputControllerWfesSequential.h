@@ -2,25 +2,22 @@
 #define INPUTCONTROLLERWFESSEQUENTIAL_H
 
 #include <QObject>
-#include <QDebug>
+
+#include <boost/format.hpp>
+#include <boost/lexical_cast.hpp>
 
 #include <wfes-lib_global.h>
 
 #include <model/executables/wfes_sequential/config/configWfesSequential.h>
 
-#include <boost/format.hpp>
-#include <boost/lexical_cast.hpp>
-
 namespace wfes {
     namespace controllers {
 
         /**
-         * @brief The InputController class contains a set of configuration values that can be set in the GUI by the user.
-         * It has methods for setting GUI values from backend (for example, when starting the application and loading a previous configuration),
-         * or getting input values set by the user in the GUI.
+         * @brief The InputControllerWfesSequential class is a controller for input parameters
+         * of wfes sequential.
          */
-        class WFESLIBSHARED_EXPORT InputControllerWfesSequential : public QObject
-        {
+        class WFESLIBSHARED_EXPORT InputControllerWfesSequential : public QObject {
             Q_OBJECT
             Q_PROPERTY(QString ui_a READ get_a WRITE set_a NOTIFY input_changed)
             Q_PROPERTY(QString ui_c READ get_c WRITE set_c NOTIFY input_changed)
@@ -58,7 +55,7 @@ namespace wfes {
             /**
              * @brief InputControllerWfesSequential Destructor.
              */
-            ~InputControllerWfesSequential();
+            ~InputControllerWfesSequential() = default;
 
             /**
              * @brief Send a to GUI.

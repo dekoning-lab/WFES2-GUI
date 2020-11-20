@@ -32,7 +32,7 @@ QString OutputControllerWfafle::stop() {
     worker->wait();
     worker->exit();
 
-    return QString();
+    return "";
 }
 
 QString OutputControllerWfafle::save_config() {

@@ -2,22 +2,16 @@
 
 using namespace wfes::config;
 
-ConfigWfas::ConfigWfas() {}
-
-void ConfigWfas::saveConfigWfas()
-{
+void ConfigWfas::saveConfigWfas() {
     QString outputPath(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/Wfes/Config/");
-    QDir dir;
 
+    QDir dir;
     if (!dir.exists(outputPath))
         dir.mkpath(outputPath);
 
     QFile file(outputPath + QString::fromStdString("Wfas.cfg"));
-    file.open(QIODevice::WriteOnly);
 
-    if(!file.isOpen()) {
-        qDebug() << "The file is not open.";
-    }
+    file.open(QIODevice::WriteOnly);
 
     QTextStream outStream(&file);
 
@@ -86,11 +80,9 @@ void ConfigWfas::saveConfigWfas()
 
 
     file.close();
-
 }
 
-void ConfigWfas::loadConfigWfas()
-{
+void ConfigWfas::loadConfigWfas() {
     QString outputPath(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/Wfes/Config/" + "Wfas.cfg");
 
     QFile file(outputPath);
@@ -104,8 +96,7 @@ void ConfigWfas::loadConfigWfas()
     }
 }
 
-void ConfigWfas::processLine(QString line)
-{
+void ConfigWfas::processLine(QString line) {
     QStringList splitted = line.split(": ");
     if(splitted.at(0).compare("Library") == 0) {
         ConfigWfas::library = splitted.at(1).toStdString();
@@ -191,10 +182,12 @@ void ConfigWfas::processLine(QString line)
         }
         ConfigWfas::v = newv;
     }
-
-
-
 }
+
+
+////////////////////////////////
+// Static initializations here//
+////////////////////////////////
 
 lvec ConfigWfas::N = [] {
     lvec tmp(1);
@@ -266,6 +259,4 @@ std::string ConfigWfas::path_output_N_Tmo = "output_N_Tmo.csv";
 std::string ConfigWfas::path_output_Dist = "output_Dist.csv";
 
 bool ConfigWfas::force = false;
-bool ConfigWfas::verbose = false;
-std::string ConfigWfas::error = "";
 int ConfigWfas::num_comp = 1;

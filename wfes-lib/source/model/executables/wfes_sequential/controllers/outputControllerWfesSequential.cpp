@@ -3,52 +3,49 @@
 using namespace wfes::controllers;
 using namespace wfes::config;
 
-OutputControllerWfesSequential::OutputControllerWfesSequential(QObject* parent): QObject(parent), executing(false){}
+OutputControllerWfesSequential::OutputControllerWfesSequential(QObject* parent)
+    : QObject(parent), executing(false){}
 
-OutputControllerWfesSequential::~OutputControllerWfesSequential() {}
-
-QString OutputControllerWfesSequential::execute()
-{
-    ImageResults::clear();
-
+QString OutputControllerWfesSequential::execute() {
+    // Set executing to true.
     executing = true;
+
+    // Register results class as metatype, so it can be passed between Q_OBJECTS as slot.
     qRegisterMetaType<ResultsWfesSequential>("ResultsWfesSequential");
 
+    // Instantiate worker and connect signals of this controller with the worker.
     worker = new WorkerThreadWfesSequential();
     connect(worker, SIGNAL(resultReady(ResultsWfesSequential)), this, SLOT(handleResults(ResultsWfesSequential)));
     connect(worker, SIGNAL(updateProgress(int)), this, SLOT(handleProgress(int)));
     connect(worker, SIGNAL(finished()), worker, SLOT(deleteLater()));
+
+    // Start execution.
     worker->start();
-    return QString();
+
+    return "";
 }
 
-QString OutputControllerWfesSequential::stop()
-{
+QString OutputControllerWfesSequential::stop() {
     // TODO Looks that using terminate is a bad practice because it can stop the thread, for example, while writting a file,
     // and the file will be corrupt then. Look for a better way of doing this.
-    worker->terminate();
+     worker->terminate();
     worker->wait();
     worker->exit();
 
     return QString();
 }
 
-QString OutputControllerWfesSequential::save_config()
-{
+QString OutputControllerWfesSequential::save_config() {
     ConfigWfesSequential::saveConfigWfesSequential();
-
-    return QString();
+    return "";
 }
 
-QString OutputControllerWfesSequential::load_config()
-{
+QString OutputControllerWfesSequential::load_config() {
     ConfigWfesSequential::loadConfigWfesSequential();
-
-    return QString();
+    return "";
 }
 
-QString OutputControllerWfesSequential::get_p_ext() const
-{
+QString OutputControllerWfesSequential::get_p_ext() const {
     boost::format fmt = boost::format(DPF) % (this->results.pExt);
 
     if((boost::math::isnan)(this->results.pExt))
@@ -57,8 +54,7 @@ QString OutputControllerWfesSequential::get_p_ext() const
         return QString::fromStdString(fmt.str());
 }
 
-QString OutputControllerWfesSequential::get_p_fix() const
-{
+QString OutputControllerWfesSequential::get_p_fix() const {
     boost::format fmt = boost::format(DPF) % (this->results.pFix);
 
     if((boost::math::isnan)(this->results.pFix))
@@ -67,8 +63,7 @@ QString OutputControllerWfesSequential::get_p_fix() const
         return QString::fromStdString(fmt.str());
 }
 
-QString OutputControllerWfesSequential::get_p_tmo() const
-{
+QString OutputControllerWfesSequential::get_p_tmo() const {
     boost::format fmt = boost::format(DPF) % (this->results.pTmo);
 
     if((boost::math::isnan)(this->results.pTmo))
@@ -77,8 +72,7 @@ QString OutputControllerWfesSequential::get_p_tmo() const
         return QString::fromStdString(fmt.str());
 }
 
-QString OutputControllerWfesSequential::get_t_ext() const
-{
+QString OutputControllerWfesSequential::get_t_ext() const {
     boost::format fmt = boost::format(DPF) % (this->results.tExt);
 
     if((boost::math::isnan)(this->results.tExt))
@@ -87,8 +81,7 @@ QString OutputControllerWfesSequential::get_t_ext() const
         return QString::fromStdString(fmt.str());
 }
 
-QString OutputControllerWfesSequential::get_t_ext_std() const
-{
+QString OutputControllerWfesSequential::get_t_ext_std() const {
     boost::format fmt = boost::format(DPF) % (this->results.tExtStd);
 
     if((boost::math::isnan)(this->results.tExtStd))
@@ -97,8 +90,7 @@ QString OutputControllerWfesSequential::get_t_ext_std() const
         return QString::fromStdString(fmt.str());
 }
 
-QString OutputControllerWfesSequential::get_t_fix() const
-{
+QString OutputControllerWfesSequential::get_t_fix() const {
     boost::format fmt = boost::format(DPF) % (this->results.tFix);
 
     if((boost::math::isnan)(this->results.tFix))
@@ -107,8 +99,7 @@ QString OutputControllerWfesSequential::get_t_fix() const
         return QString::fromStdString(fmt.str());
 }
 
-QString OutputControllerWfesSequential::get_t_fix_std() const
-{
+QString OutputControllerWfesSequential::get_t_fix_std() const {
     boost::format fmt = boost::format(DPF) % (this->results.tFixStd);
 
     if((boost::math::isnan)(this->results.tFixStd))
@@ -117,8 +108,7 @@ QString OutputControllerWfesSequential::get_t_fix_std() const
         return QString::fromStdString(fmt.str());
 }
 
-QString OutputControllerWfesSequential::get_t_tmo() const
-{
+QString OutputControllerWfesSequential::get_t_tmo() const {
     boost::format fmt = boost::format(DPF) % (this->results.tTmo);
 
     if((boost::math::isnan)(this->results.tTmo))
@@ -127,8 +117,7 @@ QString OutputControllerWfesSequential::get_t_tmo() const
         return QString::fromStdString(fmt.str());
 }
 
-QString OutputControllerWfesSequential::get_t_tmo_std() const
-{
+QString OutputControllerWfesSequential::get_t_tmo_std() const {
     boost::format fmt = boost::format(DPF) % (this->results.tTmoStd);
 
     if((boost::math::isnan)(this->results.tTmoStd))
@@ -137,19 +126,16 @@ QString OutputControllerWfesSequential::get_t_tmo_std() const
         return QString::fromStdString(fmt.str());
 }
 
-QString OutputControllerWfesSequential::get_error_message() const
-{
+QString OutputControllerWfesSequential::get_error_message() const {
     return QString::fromStdString(this->results.error);
 }
 
-QString OutputControllerWfesSequential::reset_error()
-{
+QString OutputControllerWfesSequential::reset_error() {
     this->results.error = "";
     return QString();
 }
 
-QString OutputControllerWfesSequential::get_time() const
-{
+QString OutputControllerWfesSequential::get_time() const {
     boost::format fmt = boost::format("%1$.2f") % (this->results.time);
 
     if((boost::math::isnan)(this->results.time))
@@ -158,12 +144,10 @@ QString OutputControllerWfesSequential::get_time() const
         return QString::fromStdString(fmt.str());
 }
 
-bool OutputControllerWfesSequential::get_not_exec() const
-{
+bool OutputControllerWfesSequential::get_not_exec() const {
     return !executing;
 }
 
-QString OutputControllerWfesSequential::get_progress() const
-{
+QString OutputControllerWfesSequential::get_progress() const {
     return this->progress;
 }

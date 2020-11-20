@@ -49,31 +49,31 @@ class wfafle : public Subject {
         ResultsWfafle* function();
 
         /**
-         * @brief //TODO fill this.
-         * @param x
-         * @param N
-         * @param t
-         * @param s
-         * @param h
-         * @param u
-         * @param v
-         * @param alpha
-         * @param verbose
+         * @brief Iterate over the model t generations.
+         * @param x Vector of model.
+         * @param N Population size.
+         * @param t Max num generations
+         * @param s Selection coefficient.
+         * @param h Dominance coefficient.
+         * @param u Backward mutation rate.
+         * @param v Fordward mutation rate.
+         * @param alpha Tail truncation weight.
+         * @param verbose Obtain verbose information.
          */
         void iterate_generations(dvec& x, llong N, llong t, double s, double h, double u, double v, double alpha, bool verbose = false);
 
         /**
-         * @brief //TODO fill this.
-         * @param x
-         * @param Nx
-         * @param Ny
-         * @param s
-         * @param h
-         * @param u
-         * @param v
-         * @param alpha
-         * @param verbose
-         * @return
+         * @brief Switch population size between models.
+         * @param x Vector of model.
+         * @param Nx Population of first model.
+         * @param Ny Population of second model.
+         * @param s Selection coefficient.
+         * @param h Dominance coefficient.
+         * @param u Backward mutation rate.
+         * @param v Fordward mutation rate.
+         * @param alpha Tail truncation weight.
+         * @param verbose Obtain verbose information.
+         * @return Next vector to analyze
          */
         dvec switch_population_size(dvec& x, llong Nx, llong Ny, double s, double h, double u, double v, double alpha, bool verbose = false);
 
