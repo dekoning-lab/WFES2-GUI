@@ -14,7 +14,7 @@ ApplicationWindow {
 
     color: Universal.chromeLowColor
 
-    visible: true
+    visible: false
 
     width: 945
     minimumWidth: 945
@@ -27,7 +27,7 @@ ApplicationWindow {
     Universal.theme: Universal.Light
 
     onClosing: {
-        rootWfesSingle.destroy();
+        rootWfesSingle.hide();
         root.visible = true;
         rootWfesSingle.updateBackend()
         outputControllerWfesSingle.ui_save_config
@@ -39,6 +39,13 @@ ApplicationWindow {
         setY(Screen.height / 2 - height / 2);
         outputControllerWfesSingle.ui_load_config
         rootWfesSingle.updateGUI()
+    }
+
+    MessageDialog {
+        id: messageDialog
+        title: "Warning"
+        text: ""
+        icon: StandardIcon.Warning
     }
 
     Rectangle {
@@ -1000,12 +1007,6 @@ ApplicationWindow {
                     }
                 }
 
-                MessageDialog {
-                    id: messageDialog
-                    title: "Warning"
-                    text: ""
-                    icon: StandardIcon.Warning
-                }
 
                 Rectangle {
                     id: separator2

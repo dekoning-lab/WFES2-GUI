@@ -10,12 +10,12 @@ import components 1.0
 
 //TODO Implement value validators and return exceptions.
 ApplicationWindow {
-    id: rootWfesSwitching
-    title: qsTr("WFES - Wright-Fisher Exact Solver (WFES Switching)")
+    id: rootWfesSequential
+    title: qsTr("WFES - Wright-Fisher Exact Solver (WFES Sequential)")
 
     color: Universal.chromeLowColor
 
-    visible: true
+    visible: false
 
     width: 955
     minimumWidth: 955
@@ -28,10 +28,10 @@ ApplicationWindow {
     Universal.theme: Universal.Light
 
     onClosing: {
-        rootWfesSwitching.destroy();
+        rootWfesSequential.hide();
         root.visible = true;
-        rootWfesSwitching.updateBackend()
-        outputControllerWfesSwitching.ui_save_config
+        rootWfesSequential.updateBackend()
+        outputControllerWfesSequential.ui_save_config
     }
 
     // Center window in screen.
@@ -71,99 +71,6 @@ ApplicationWindow {
                     Layout.margins: 10
                     Layout.alignment: Qt.AlignTop
 
-                    Rectangle {
-                        id: modeSection
-                        color: "transparent"
-                        height: childrenRect.height
-                        width: childrenRect.width
-
-                        Label {
-                            id: labelModel
-                            text: "Mode:"
-                            font.bold: true
-                        }
-
-                        GridLayout {
-                            id: modeSectionGrid
-                            columns: 2
-                            anchors {
-                                top: labelModel.bottom
-                                left: parent.left
-                                margins: 10
-                            }
-
-                            RadioButton {
-                                id: radioButtonWfesSwitchingAbsorption
-                                checked: inputControllerWfesSwitching.ui_modelType === "Absorption"
-                                text: qsTr("Absorption")
-
-                                ToolTip.visible: hovered
-                                ToolTip.delay: 1000
-                                ToolTip.timeout: 5000
-                                ToolTip.text: qsTr("//TODO.")
-
-                                onCheckedChanged: {
-                                    inputA.enabled = checked;
-                                    inputC.enabled = !checked;
-
-                                    inputWriteQ.enabled = checked;
-                                    inputWriteR.enabled = checked;
-                                    inputWriteN.enabled = checked;
-                                    inputWriteB.enabled = checked;
-                                    inputWriteNExt.enabled = checked;
-                                    inputWriteNFix.enabled = checked;
-
-                                    outputPExt.visible = checked;
-                                    outputPFix.visible = checked;
-                                    outputText.visible = checked;
-                                    outputTextStd.visible = checked;
-                                    outputTFix.visible = checked;
-                                    outputTFixStd.visible = checked;
-                                    outputRate.visible = !checked;
-                                }
-                            }
-                            RadioButton {
-                                id: radioButtonWfesSwitchingFixation
-                                checked: inputControllerWfesSwitching.ui_modelType == "Fixation"
-                                text: qsTr("Fixation")
-
-                                ToolTip.visible: hovered
-                                ToolTip.delay: 1000
-                                ToolTip.timeout: 5000
-                                ToolTip.text: qsTr("//TODO.")
-
-                                onCheckedChanged: {
-                                    inputA.enabled = checked;
-                                    inputC.enabled = checked;
-
-                                    inputWriteQ.enabled = checked;
-                                    inputWriteR.enabled = checked;
-                                    inputWriteN.enabled = checked;
-                                    inputWriteB.enabled = checked;
-                                    inputWriteNExt.enabled = !checked;
-                                    inputWriteNFix.enabled = !checked;
-
-                                    outputPExt.visible = !checked;
-                                    outputPFix.visible = !checked;
-                                    outputText.visible = !checked;
-                                    outputTextStd.visible = !checked;
-                                    outputTFix.visible = checked;
-                                    outputTFixStd.visible = !checked;
-                                    outputRate.visible = checked;
-                                }
-                            }
-
-                        }
-
-                    }
-
-                    Rectangle {
-                        id: separator1column1
-                        height: 1
-                        width: commonSection.width + 10
-                        color: Universal.baseHighColor
-                    }
-
                     Label {
                         id: labelComponents
                         text: "Components:"
@@ -184,47 +91,46 @@ ApplicationWindow {
                             width: commonSection.width + 10
                             height: 270
                             tabNames: "Comp."
-                            urlComponent: "qrc:/views/executionviews/tabcomponents/tabWfesSwitchingComponent.qml"
+                            urlComponent: "qrc:/components/executionviews/tabcomponents/tabWfesSequentialComponent.qml"
                             onAdd: function(){
-                                var num_comps = inputControllerWfesSwitching.ui_num_comp
-                                inputControllerWfesSwitching.ui_num_comp = parseInt(num_comps) + 1
+                                var num_comps = inputControllerWfesSequential.ui_num_comp
+                                inputControllerWfesSequential.ui_num_comp = parseInt(num_comps) + 1
 
-                                // Update previous adding 1
-                                var vector = inputControllerWfesSwitching.ui_r_vec
-                                vector[num_comps] = inputControllerWfesSwitching.ui_r_vec[num_comps-1]
-                                inputControllerWfesSwitching.ui_r_vec = vector
+                                var vector = inputControllerWfesSequential.ui_N_vec
+                                vector[num_comps] = inputControllerWfesSequential.ui_N_vec[num_comps-1]
+                                inputControllerWfesSequential.ui_N_vec = vector
 
-                                vector = inputControllerWfesSwitching.ui_N_vec
-                                vector[num_comps] = inputControllerWfesSwitching.ui_N_vec[num_comps-1]
-                                inputControllerWfesSwitching.ui_N_vec = vector
+                                vector = inputControllerWfesSequential.ui_t_vec
+                                vector[num_comps] = inputControllerWfesSequential.ui_t_vec[num_comps-1]
+                                inputControllerWfesSequential.ui_t_vec = vector
 
-                                vector = inputControllerWfesSwitching.ui_p_vec
-                                vector[num_comps] = inputControllerWfesSwitching.ui_p_vec[num_comps-1]
-                                inputControllerWfesSwitching.ui_p_vec = vector
+                                vector = inputControllerWfesSequential.ui_p_vec
+                                vector[num_comps] = inputControllerWfesSequential.ui_p_vec[num_comps-1]
+                                inputControllerWfesSequential.ui_p_vec = vector
 
-                                vector = inputControllerWfesSwitching.ui_s_vec
-                                vector[num_comps] = inputControllerWfesSwitching.ui_s_vec[num_comps-1]
-                                inputControllerWfesSwitching.ui_s_vec = vector
+                                vector = inputControllerWfesSequential.ui_s_vec
+                                vector[num_comps] = inputControllerWfesSequential.ui_s_vec[num_comps-1]
+                                inputControllerWfesSequential.ui_s_vec = vector
 
-                                vector = inputControllerWfesSwitching.ui_h_vec
-                                vector[num_comps] = inputControllerWfesSwitching.ui_h_vec[num_comps-1]
-                                inputControllerWfesSwitching.ui_h_vec = vector
+                                vector = inputControllerWfesSequential.ui_h_vec
+                                vector[num_comps] = inputControllerWfesSequential.ui_h_vec[num_comps-1]
+                                inputControllerWfesSequential.ui_h_vec = vector
 
-                                vector = inputControllerWfesSwitching.ui_u_vec
-                                vector[num_comps] = inputControllerWfesSwitching.ui_u_vec[num_comps-1]
-                                inputControllerWfesSwitching.ui_u_vec = vector
+                                vector = inputControllerWfesSequential.ui_u_vec
+                                vector[num_comps] = inputControllerWfesSequential.ui_u_vec[num_comps-1]
+                                inputControllerWfesSequential.ui_u_vec = vector
 
-                                vector = inputControllerWfesSwitching.ui_v_vec
-                                vector[num_comps] = inputControllerWfesSwitching.ui_v_vec[num_comps-1]
-                                inputControllerWfesSwitching.ui_v_vec = vector
+                                vector = inputControllerWfesSequential.ui_v_vec
+                                vector[num_comps] = inputControllerWfesSequential.ui_v_vec[num_comps-1]
+                                inputControllerWfesSequential.ui_v_vec = vector
                             }
                             onDelete: function(){
-                                var num_comps = inputControllerWfesSwitching.ui_num_comp
-                                inputControllerWfesSwitching.ui_num_comp = parseInt(num_comps) - 1
+                                var num_comps = inputControllerWfesSequential.ui_num_comp
+                                inputControllerWfesSequential.ui_num_comp = parseInt(num_comps) - 1
                             }
                             onLoaded: function() {
-                                var dummyString = outputControllerWfesSwitching.ui_load_config
-                                rootWfesSwitching.updateGUI()
+                                var dummyString = outputControllerWfesSequential.ui_load_config
+                                rootWfesSequential.updateGUI()
                             }
                         }
 
@@ -262,16 +168,16 @@ ApplicationWindow {
                                 id: inputA
                                 text: "a: "
                                 toolTipText: "Tail truncation weight."
-                                validator: DoubleValidator {bottom: 0; top: 10e-10;}
-                                textFieldText: inputControllerWfesSwitching.ui_a
+                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
+                                textFieldText: inputControllerWfesSequential.ui_a
                             }
 
                             LabeledTextField {
                                 id: inputC
                                 text: "c: "
                                 toolTipText: "Starting number of copies integration cutoff."
-                                validator: DoubleValidator {bottom: 0; top: 10e-3;}
-                                textFieldText: inputControllerWfesSwitching.ui_c
+                                validator: DoubleValidator {bottom: 0; top: 1;}
+                                textFieldText: inputControllerWfesSequential.ui_c
                             }
 
                         }
@@ -324,53 +230,55 @@ ApplicationWindow {
                                         id: inputWriteQ
                                         text: "Q: "
                                         toolTipText: "Output Q matrix to file."
-                                        checked: inputControllerWfesSwitching.ui_output_Q
+                                        checked: inputControllerWfesSequential.ui_output_Q
                                     }
 
                                     LabeledCheckBox {
                                         id: inputWriteR
                                         text: "R: "
                                         toolTipText: "Output R vectors to file."
-                                        checked: inputControllerWfesSwitching.ui_output_R
+                                        checked: inputControllerWfesSequential.ui_output_R
                                     }
 
                                     LabeledCheckBox {
                                         id: inputWriteN
                                         text: "N: "
                                         toolTipText: "Output N matrix to file."
-                                        checked: inputControllerWfesSwitching.ui_output_N
+                                        checked: inputControllerWfesSequential.ui_output_N
                                     }
 
                                     LabeledCheckBox {
                                         id: inputWriteB
                                         text: "B: "
                                         toolTipText: "Output B vectors to file."
-                                        checked: inputControllerWfesSwitching.ui_output_B
+                                        checked: inputControllerWfesSequential.ui_output_B
                                     }
 
                                     LabeledCheckBox {
                                         id: inputWriteNExt
                                         text: "N Ext.: "
                                         toolTipText: "Output extinction-conditional sojourn to file."
-                                        checked: inputControllerWfesSwitching.ui_output_N_Ext
+                                        checked: inputControllerWfesSequential.ui_output_N_Ext
                                     }
 
                                     LabeledCheckBox {
                                         id: inputWriteNFix
                                         text: "N Fix.: "
                                         toolTipText: "Output fixation-conditional sojourn to file."
-                                        checked: inputControllerWfesSwitching.ui_output_N_Fix
+                                        checked: inputControllerWfesSequential.ui_output_N_Fix
                                     }
-
-                                    Label {
-                                        // Empty, so Res is always at right.
+                                    LabeledCheckBox {
+                                        id: inputWriteNTmo
+                                        text: "N Tmo.: "
+                                        toolTipText: "Output timeout-conditional sojourn to file."
+                                        checked: inputControllerWfesSequential.ui_output_N_Tmo
                                     }
 
                                     LabeledCheckBox {
                                         id: inputWriteRes
                                         text: "Res: "
                                         toolTipText: "Output Res (Generated results at right side) as CSV file."
-                                        checked: inputControllerWfesSwitching.ui_output_Res
+                                        checked: inputControllerWfesSequential.ui_output_Res
                                     }
 
                                 }
@@ -411,7 +319,7 @@ ApplicationWindow {
                                             id: inputForce
                                             toolTipText: "Do not perform parameter checks."
                                             text: "Force: "
-                                            checked: inputControllerWfesSwitching.ui_force
+                                            checked: inputControllerWfesSequential.ui_force
                                         }
 
                                         LabeledTextField {
@@ -419,8 +327,8 @@ ApplicationWindow {
                                             text: "t: "
                                             labelPreferredWidth: 10
                                             toolTipText: "Number of threads for OpenMP."
-                                            validator: IntValidator {bottom: 1;}
-                                            textFieldText: inputControllerWfesSwitching.ui_t
+                                            validator: DoubleValidator {bottom: 2; top: 50000;}
+                                            textFieldText: inputControllerWfesSequential.ui_t
                                         }
                                     }
 
@@ -457,7 +365,7 @@ ApplicationWindow {
                                             toolTipText: "Path to initial probability distribution CSV file."
                                             labelPreferredWidth: 75
                                             textFieldPreferredWidth: 185
-                                            textFieldText: inputControllerWfesSwitching.ui_initial_distribution
+                                            textFieldText: inputControllerWfesSequential.ui_initial_distribution
                                         }
 
                                         Button{
@@ -497,12 +405,12 @@ ApplicationWindow {
                                 Binding {
                                     target: stopButton
                                     property: "enabled"
-                                    value: !outputControllerWfesSwitching.ui_get_not_exec
+                                    value: !outputControllerWfesSequential.ui_get_not_exec
 
                                 }
 
                                 onClicked: {
-                                    outputControllerWfesSwitching.ui_stop
+                                    outputControllerWfesSequential.ui_stop
                                     stopButton.enabled = false
                                     executeButton.enabled = true
                                     bottomMenu.visibleProgressBar = false
@@ -516,20 +424,20 @@ ApplicationWindow {
                                 text: "Execute"
 
                                 onEnabledChanged: {
-                                    if(outputControllerWfesSwitching.ui_get_not_exec)
+                                    if(outputControllerWfesSequential.ui_get_not_exec)
                                         imageOutputController.image_changed()
-                                    console.log(outputControllerWfesSwitching.ui_get_error_message)
-                                    if(outputControllerWfesSwitching.ui_get_error_message !== "") {
-                                        messageDialog.text = outputControllerWfesSwitching.ui_get_error_message
+                                    console.log(outputControllerWfesSequential.ui_get_error_message)
+                                    if(outputControllerWfesSequential.ui_get_error_message !== "") {
+                                        messageDialog.text = outputControllerWfesSequential.ui_get_error_message
                                         messageDialog.open()
-                                        outputControllerWfesSwitching.ui_reset_error
+                                        outputControllerWfesSequential.ui_reset_error
                                     }
                                 }
 
                                 Binding {
                                     target: executeButton
                                     property: "enabled"
-                                    value: outputControllerWfesSwitching.ui_get_not_exec
+                                    value: outputControllerWfesSequential.ui_get_not_exec
 
                                 }
 
@@ -543,7 +451,7 @@ ApplicationWindow {
                                         executeButton.enabled = false
                                         stopButton.enabled = true
                                         bottomMenu.visibleProgressBar = true
-                                        outputControllerWfesSwitching.ui_execute
+                                        outputControllerWfesSequential.ui_execute
                                     } else {
                                         messageDialog.text = error
                                         messageDialog.open()
@@ -591,9 +499,8 @@ ApplicationWindow {
                             textFieldPreferredWidth: 180
                             text: "P ext. : "
                             toolTipText: "Probability of extintion."
-                            textFieldText: outputControllerWfesSwitching.ui_get_p_ext
+                            textFieldText: outputControllerWfesSequential.ui_get_p_ext
                             readOnly: true
-                            visible: (inputControllerWfesSwitching.ui_modelType == "Absorption")
                         }
 
                         LabeledTextField {
@@ -602,9 +509,18 @@ ApplicationWindow {
                             textFieldPreferredWidth: 180
                             text: "P fix. : "
                             toolTipText: "Probability of fixation."
-                            textFieldText: outputControllerWfesSwitching.ui_get_p_fix
+                            textFieldText: outputControllerWfesSequential.ui_get_p_fix
                             readOnly: true
-                            visible: (inputControllerWfesSwitching.ui_modelType == "Absorption")
+                        }
+
+                        LabeledTextField {
+                            id: outputPtmo
+                            labelPreferredWidth: 100
+                            textFieldPreferredWidth: 180
+                            text: "P tmo. : "
+                            toolTipText: "Probability of timeout."
+                            textFieldText: outputControllerWfesSequential.ui_get_p_tmo
+                            readOnly: true
                         }
 
                         LabeledTextField {
@@ -613,9 +529,8 @@ ApplicationWindow {
                             textFieldPreferredWidth: 180
                             text: "T ext.: "
                             toolTipText: "Extintion time."
-                            textFieldText: outputControllerWfesSwitching.ui_get_t_ext
+                            textFieldText: outputControllerWfesSequential.ui_get_t_ext
                             readOnly: true
-                            visible: (inputControllerWfesSwitching.ui_modelType == "Absorption")
                         }
 
                         LabeledTextField {
@@ -624,9 +539,8 @@ ApplicationWindow {
                             textFieldPreferredWidth: 180
                             text: "T ext. std.: "
                             toolTipText: "Standard extintion time."
-                            textFieldText: outputControllerWfesSwitching.ui_get_t_ext_std
+                            textFieldText: outputControllerWfesSequential.ui_get_t_ext_std
                             readOnly: true
-                            visible: (inputControllerWfesSwitching.ui_modelType == "Absorption")
                         }
 
 
@@ -636,7 +550,7 @@ ApplicationWindow {
                             textFieldPreferredWidth: 180
                             text: "T fix.: "
                             toolTipText: "Fixation time."
-                            textFieldText: outputControllerWfesSwitching.ui_get_t_fix
+                            textFieldText: outputControllerWfesSequential.ui_get_t_fix
                             readOnly: true
                         }
 
@@ -646,24 +560,30 @@ ApplicationWindow {
                             textFieldPreferredWidth: 180
                             text: "T fix. std.: "
                             toolTipText: "Standard fixation time."
-                            textFieldText: outputControllerWfesSwitching.ui_get_t_fix_std
+                            textFieldText: outputControllerWfesSequential.ui_get_t_fix_std
                             readOnly: true
-                            visible: (inputControllerWfesSwitching.ui_modelType == "Absorption")
                         }
 
                         LabeledTextField {
-                            id: outputRate
+                            id: outputTtmo
                             labelPreferredWidth: 100
                             textFieldPreferredWidth: 180
-                            text: "Rate: "
-                            toolTipText: "//TODO"
-                            textFieldText: outputControllerWfesSwitching.ui_get_rate
+                            text: "T tmo.: "
+                            toolTipText: "Timeout time."
+                            textFieldText: outputControllerWfesSequential.ui_get_t_tmo
                             readOnly: true
-                            visible: (inputControllerWfesSwitching.ui_modelType == "Fixation")
                         }
 
-                        //TODO Vectors P_cond_ext, V_cond_ext... cannot be shown in the GUI, takes too much space, so
-                        //those vectors are printed directly into the csv file.
+                        LabeledTextField {
+                            id: outputTtmoStd
+                            labelPreferredWidth: 100
+                            textFieldPreferredWidth: 180
+                            text: "T tmo. std.: "
+                            toolTipText: "Standard timeout time."
+                            textFieldText: outputControllerWfesSequential.ui_get_t_tmo_std
+                            readOnly: true
+                        }
+
                     }
 
                 }
@@ -684,17 +604,17 @@ ApplicationWindow {
         Binding {
             target: bottomMenu
             property: "visibleProgressBar"
-            value: !outputControllerWfesSwitching.ui_get_not_exec
+            value: !outputControllerWfesSequential.ui_get_not_exec
 
         }
 
         BottomMenuExecutionView {
             id: bottomMenu
             width: parent.width
-            executionProgress: outputControllerWfesSwitching.ui_progress
+            executionProgress: outputControllerWfesSequential.ui_progress
 
             executionTime: {
-                outputControllerWfesSwitching.ui_get_time == "" ? "" : outputControllerWfesSwitching.ui_get_time + "s"
+                outputControllerWfesSequential.ui_get_time == "" ? "" : outputControllerWfesSequential.ui_get_time + "s"
             }
             anchors {
                 top: separatorBottomBar.bottom
@@ -704,135 +624,126 @@ ApplicationWindow {
     }
 
     function updateGUI() {
-        radioButtonWfesSwitchingAbsorption.checked = inputControllerWfesSwitching.ui_modelType == "Absorption"
-        radioButtonWfesSwitchingFixation.checked = inputControllerWfesSwitching.ui_modelType == "Fixation"
+        inputA.textFieldText = inputControllerWfesSequential.ui_a
+        inputC.textFieldText = inputControllerWfesSequential.ui_c
 
-        inputA.textFieldText = inputControllerWfesSwitching.ui_a
-        inputC.textFieldText = inputControllerWfesSwitching.ui_c
-
-        var N_vec = inputControllerWfesSwitching.ui_N_vec
-        var p_vec = inputControllerWfesSwitching.ui_p_vec
-        var r_vec = inputControllerWfesSwitching.ui_r_vec
-        var u_vec = inputControllerWfesSwitching.ui_u_vec
-        var v_vec = inputControllerWfesSwitching.ui_v_vec
-        var s_vec = inputControllerWfesSwitching.ui_s_vec
-        var h_vec = inputControllerWfesSwitching.ui_h_vec
+        var N_vec = inputControllerWfesSequential.ui_N_vec
+        var t_vec = inputControllerWfesSequential.ui_t_vec
+        var p_vec = inputControllerWfesSequential.ui_p_vec
+        var u_vec = inputControllerWfesSequential.ui_u_vec
+        var v_vec = inputControllerWfesSequential.ui_v_vec
+        var s_vec = inputControllerWfesSequential.ui_s_vec
+        var h_vec = inputControllerWfesSequential.ui_h_vec
 
         // Minus 2 because we don't have to count the add and delete tabs.
         // If the number of current tabs is less than the number of components to load,
         // add a tab.
-        if(componentsSectionTabView.children[0].count - 2 < inputControllerWfesSwitching.ui_num_comp) {
-            while(componentsSectionTabView.children[0].count - 2 < inputControllerWfesSwitching.ui_num_comp) {
+        if(componentsSectionTabView.children[0].count - 2 < inputControllerWfesSequential.ui_num_comp) {
+
+            while(componentsSectionTabView.children[0].count - 2 < inputControllerWfesSequential.ui_num_comp) {
                 // Create new tab.
                 componentsSectionTabView.children[0].addTab()
                 // Don't update ui_num_comp
-                inputControllerWfesSwitching.ui_num_comp = parseInt(inputControllerWfesSwitching.ui_num_comp) - 1
+                inputControllerWfesSequential.ui_num_comp = inputControllerWfesSequential.ui_num_comp - 1
             }
         // If the number of current tabs is greater than the number of components to load,
         // remove a tab.
-        } else if(componentsSectionTabView.children[0].count - 2 > inputControllerWfesSwitching.ui_num_comp) {
+        } else if(componentsSectionTabView.children[0].count - 2 > inputControllerWfesSequential.ui_num_comp) {
 
-            while(componentsSectionTabView.children[0].count - 2 > inputControllerWfesSwitching.ui_num_comp) {
+            while(componentsSectionTabView.children[0].count - 2 > inputControllerWfesSequential.ui_num_comp) {
                 // Delete a tab.
                 componentsSectionTabView.children[0].deleteTab()
                 // Don't update ui_num_comp
-                inputControllerWfesSwitching.ui_num_comp = parseInt(inputControllerWfesSwitching.ui_num_comp) + 1
+                inputControllerWfesSequential.ui_num_comp = parseInt(inputControllerWfesSequential.ui_num_comp) + 1
             }
         }
 
-        console.log(inputControllerWfesSwitching.ui_num_comp)
-        for(var i = 0; i < inputControllerWfesSwitching.ui_num_comp; i++) {
+        for(var i = 0; i < inputControllerWfesSequential.ui_num_comp; i++) {
             componentsSectionTabView.children[0].getTab(i).active = true
             componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[0].textFieldText = N_vec[i]
-            componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[1].textFieldText = p_vec[i]
-            componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[2].textFieldText = r_vec[i]
+            componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[1].textFieldText = t_vec[i]
+            componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[2].textFieldText = p_vec[i]
             componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[0].textFieldText = u_vec[i]
             componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[1].textFieldText = v_vec[i]
             componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[0].textFieldText = s_vec[i]
             componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[1].textFieldText = h_vec[i]
         }
+        inputWriteQ.checked = inputControllerWfesSequential.ui_output_Q
+        inputWriteR.checked = inputControllerWfesSequential.ui_output_R
+        inputWriteN.checked = inputControllerWfesSequential.ui_output_N
+        inputWriteB.checked = inputControllerWfesSequential.ui_output_B
+        inputWriteNExt.checked = inputControllerWfesSequential.ui_output_N_Ext
+        inputWriteNFix.checked = inputControllerWfesSequential.ui_output_N_Fix
+        inputWriteNTmo.checked = inputControllerWfesSequential.ui_output_N_Tmo
+        inputWriteRes.checked = inputControllerWfesSequential.ui_output_Res
+        inputT.textFieldText = inputControllerWfesSequential.ui_t
+        inputForce.checked = inputControllerWfesSequential.ui_force
 
-        inputWriteQ.checked = inputControllerWfesSwitching.ui_output_Q
-        inputWriteR.checked = inputControllerWfesSwitching.ui_output_R
-        inputWriteN.checked = inputControllerWfesSwitching.ui_output_N
-        inputWriteB.checked = inputControllerWfesSwitching.ui_output_B
-        inputWriteNExt.checked = inputControllerWfesSwitching.ui_output_N_Ext
-        inputWriteNFix.checked = inputControllerWfesSwitching.ui_output_N_Fix
-        inputWriteRes.checked = inputControllerWfesSwitching.ui_output_Res
-        inputT.textFieldText = inputControllerWfesSwitching.ui_t
-        inputForce.checked = inputControllerWfesSwitching.ui_force
+        inputI.textFieldText = inputControllerWfesSequential.ui_initial_distribution
 
-        inputI.textFieldText = inputControllerWfesSwitching.ui_initial_distribution
-
-        var library = inputControllerWfesSwitching.ui_library
+        var library = inputControllerWfesSequential.ui_library
         if(library === "Pardiso")
             comboBoxLibrary.currentIndex = 0
         else if(library === "ViennaCL")
             comboBoxLibrary.currentIndex = 1
 
-        var solver = inputControllerWfesSwitching.ui_solver
+        var solver = inputControllerWfesSequential.ui_solver
         if(solver === "GMRes")
             comboBoxSolver.currentIndex = 0
         else if(solver === "BicGStab")
             comboBoxSolver.currentIndex = 1
     }
 
-    function updateBackend() {
-        // Set mode in backend.
-        if(radioButtonWfesSwitchingAbsorption.checked)
-            inputControllerWfesSwitching.ui_modelType = "Absorption"
-        else if (radioButtonWfesSwitchingFixation.checked)
-            inputControllerWfesSwitching.ui_modelType = "Fixation"
-
-        inputControllerWfesSwitching.ui_a = inputA.textFieldText
-        inputControllerWfesSwitching.ui_c = inputC.textFieldText
+    function updateBackend(){
+        inputControllerWfesSequential.ui_a = inputA.textFieldText
+        inputControllerWfesSequential.ui_c = inputC.textFieldText
         var N_vec = []
+        var t_vec = []
         var p_vec = []
-        var r_vec = []
         var u_vec = []
         var v_vec = []
         var s_vec = []
         var h_vec = []
-        for(var i = 0; i < componentsSectionTabView.children[0].count - 2; i++) {
+        for(var i = 0; i < inputControllerWfesSequential.ui_num_comp; i++) {
             componentsSectionTabView.children[0].getTab(i).active = true
             var N = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[0].textFieldText
-            var p = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[1].textFieldText
-            var r = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[2].textFieldText
+            var t = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[1].textFieldText
+            var p = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[2].textFieldText
             var u = componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[0].textFieldText
             var v = componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[1].textFieldText
             var s = componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[0].textFieldText
             var h = componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[1].textFieldText
             N_vec.push(N)
-            r_vec.push(r)
+            t_vec.push(t)
             p_vec.push(p)
             u_vec.push(u)
             v_vec.push(v)
             s_vec.push(s)
             h_vec.push(h)
         }
-        inputControllerWfesSwitching.ui_N_vec = N_vec
-        inputControllerWfesSwitching.ui_r_vec = r_vec
-        inputControllerWfesSwitching.ui_p_vec = p_vec
-        inputControllerWfesSwitching.ui_u_vec = u_vec
-        inputControllerWfesSwitching.ui_v_vec = v_vec
-        inputControllerWfesSwitching.ui_s_vec = s_vec
-        inputControllerWfesSwitching.ui_h_vec = h_vec
+        inputControllerWfesSequential.ui_N_vec = N_vec
+        inputControllerWfesSequential.ui_t_vec = t_vec
+        inputControllerWfesSequential.ui_p_vec = p_vec
+        inputControllerWfesSequential.ui_u_vec = u_vec
+        inputControllerWfesSequential.ui_v_vec = v_vec
+        inputControllerWfesSequential.ui_s_vec = s_vec
+        inputControllerWfesSequential.ui_h_vec = h_vec
 
-        inputControllerWfesSwitching.ui_output_Q = inputWriteQ.checked
-        inputControllerWfesSwitching.ui_output_R = inputWriteR.checked
-        inputControllerWfesSwitching.ui_output_N = inputWriteN.checked
-        inputControllerWfesSwitching.ui_output_B = inputWriteB.checked
-        inputControllerWfesSwitching.ui_output_N_Ext = inputWriteNExt.checked
-        inputControllerWfesSwitching.ui_output_N_Fix = inputWriteNFix.checked
-        inputControllerWfesSwitching.ui_output_Res = inputWriteRes.checked
-        inputControllerWfesSwitching.ui_t = inputT.textFieldText
-        inputControllerWfesSwitching.ui_force = inputForce.checked
+        inputControllerWfesSequential.ui_output_Q = inputWriteQ.checked
+        inputControllerWfesSequential.ui_output_R = inputWriteR.checked
+        inputControllerWfesSequential.ui_output_N = inputWriteN.checked
+        inputControllerWfesSequential.ui_output_B = inputWriteB.checked
+        inputControllerWfesSequential.ui_output_N_Ext = inputWriteNExt.checked
+        inputControllerWfesSequential.ui_output_N_Fix = inputWriteNFix.checked
+        inputControllerWfesSequential.ui_output_N_Tmo = inputWriteNTmo.checked
+        inputControllerWfesSequential.ui_output_Res = inputWriteRes.checked
+        inputControllerWfesSequential.ui_t = inputT.textFieldText
+        inputControllerWfesSequential.ui_force = inputForce.checked
 
-        inputControllerWfesSwitching.ui_initial_distribution = inputI.textFieldText
+        inputControllerWfesSequential.ui_initial_distribution = inputI.textFieldText
 
-        inputControllerWfesSwitching.ui_library = comboBoxLibrary.currentText;
-        inputControllerWfesSwitching.ui_solver = comboBoxSolver.currentText;
-
+        inputControllerWfesSequential.ui_library = comboBoxLibrary.currentText;
+        inputControllerWfesSequential.ui_solver = comboBoxSolver.currentText;
     }
 
     function checkIntegrity() {
@@ -849,23 +760,23 @@ ApplicationWindow {
             error += " - Integration Cutoff (c) is quite large. The maximum value allowed is 10e-3. \n \n"
 
         var N_vec = []
+        var t_vec = []
         var p_vec = []
-        var r_vec = []
         var u_vec = []
         var v_vec = []
         var s_vec = []
         var h_vec = []
-        for(var i = 0; i < componentsSectionTabView.children[0].count - 2; i++) {
+        for(var i = 0; i < inputControllerWfesSequential.ui_num_comp; i++) {
             componentsSectionTabView.children[0].getTab(i).active = true
             var N = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[0].textFieldText
-            var p = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[1].textFieldText
-            var r = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[2].textFieldText
+            var t = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[1].textFieldText
+            var p = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[2].textFieldText
             var u = componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[0].textFieldText
             var v = componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[1].textFieldText
             var s = componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[0].textFieldText
             var h = componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[1].textFieldText
             N_vec.push(N)
-            r_vec.push(r)
+            t_vec.push(t)
             p_vec.push(p)
             u_vec.push(u)
             v_vec.push(v)
@@ -873,61 +784,39 @@ ApplicationWindow {
             h_vec.push(h)
         }
 
-        for(i = 0; i < inputControllerWfesSwitching.ui_num_comp; i++) {
+        for(i = 0; i < inputControllerWfesSequential.ui_num_comp; i++) {
             if(parseInt(N_vec[i]) < 2)
                 error += " - Population Size (N" + (i + 1) + ") is quite small, it must be at least 2. \n \n"
             if(!inputForce.checked && parseInt(N_vec[i]) > 50000)
                 error +=  " - Population Size (N" + (i + 1) + ") is quite large, the computations will take a long time. Check 'Force' to ignore. \n \n"
         }
 
-        for(i = 0; i < inputControllerWfesSwitching.ui_num_comp; i++) {
-            if(parseInt(p_vec[i]) < 0)
-                error += " - Probability of starting (p" + (i + 1) + ") is quite small, it must be at least 2. \n \n"
-            if(parseInt(p_vec[i]) > 1)
-                error += " - Probability of starting (p" + (i + 1) + ") is quite large, the computations will take a long time. Check 'Force' to ignore. \n \n"
+        for(i = 0; i < inputControllerWfesSequential.ui_num_comp; i++) {
+            if(parseInt(t_vec[i]) < 1)
+                error += " - Expected Time (t" + (i + 1) + ") is quite small, it must be at least 2. \n \n"
+            // No upper limit for this.
         }
 
-        for(i = 0; i < inputControllerWfesSwitching.ui_num_comp; i++) {
-            var splitted = r_vec[i].split(", ")
-            if(splitted.length !== parseInt(inputControllerWfesSwitching.ui_num_comp))
-                error += " - Relative Probability of Switching (r" + (i + 1) + ") has " + splitted.length + " components. It should have " + inputControllerWfesSwitching.ui_num_comp + " components. \n \n"
-            if(splitted.length > 1) {
-                var valid = true;
-                for(var j = 0; j < splitted.length; j++) {
-                    if(parseFloat(splitted[j]) < 0) {
-                        error += " - The element " + j + " of Relative Probability of Switching (r" + (i + 1) + ") is quite small, it must be at least 0. \n \n"
-                        break;
-                    } else if (parseFloat(splitted[j]) > 1) {
-                        error += " - The element " + j + " of Relative Probability of Switching (r" + (i + 1) + ") is quite large. The maximum value allowed is 1. \n \n"
-                        break;
-                    }
-                }
-            } else {
-                if(parseFloat(r_vec[i]) < 0) {
-                    error += " - The element " + j + " of Relative Probability of Switching (r" + (i + 1) + ") is quite small, it must be at least 0. \n \n"
-                    break;
-                } else if (parseFloat(r_vec[i]) > 1) {
-                    error += " - The element " + j + " of Relative Probability of Switching (r" + (i + 1) + ") is quite large. The maximum value allowed is 1. \n \n"
-                    break;
-                }
-            }
+
+        for(i = 0; i < inputControllerWfesSequential.ui_num_comp; i++) {
+            //TODO Starting probabilities.
         }
 
-        for(i = 0; i < inputControllerWfesSwitching.ui_num_comp; i++) {
+        for(i = 0; i < inputControllerWfesSequential.ui_num_comp; i++) {
             if(parseFloat(u_vec[i]) < 0)
                 error += " - Backward Mutation (u" + (i + 1) + ") is quite small. It must be at least 0. \n \n"
             if(!inputForce.checked && (4 * parseInt(N_vec[i]) * parseFloat(u_vec[i])) > 1)
                 error += " - Backward Mutation (u" + (i + 1) + ") is quite large and might violate the Wright-Fisher assumptions. Check 'Force' to ignore. \n \n"
         }
 
-        for(i = 0; i < inputControllerWfesSwitching.ui_num_comp; i++) {
+        for(i = 0; i < inputControllerWfesSequential.ui_num_comp; i++) {
             if(parseFloat(v_vec[i]) < 0)
                 error += " - Forward Mutation (v" + (i + 1) + ") is quite small. It must be at least 0. \n \n"
             if(!inputForce.checked && (4 * parseInt(N_vec[i]) * parseFloat(v_vec[i])) > 1)
                 error += " - Forward Mutation (v" + (i + 1) + ") is quite large and might violate the Wright-Fisher assumptions. Check 'Force' to ignore. \n \n"
         }
 
-        for(i = 0; i < inputControllerWfesSwitching.ui_num_comp; i++) {
+        for(i = 0; i < inputControllerWfesSequential.ui_num_comp; i++) {
             if(parseFloat(s_vec[i]) < -1)
                 error += " - Selection Coefficient (s" + (i + 1) + ") is quite negative. Fixations might be impossible. It must be at least -1. \n \n"
             if(parseFloat(s_vec[i]) > 1)
@@ -937,7 +826,7 @@ ApplicationWindow {
             }
         }
 
-        for(i = 0; i < inputControllerWfesSwitching.ui_num_comp; i++) {
+        for(i = 0; i < inputControllerWfesSequential.ui_num_comp; i++) {
             if(parseFloat(h_vec[i]) < 0)
                 error += " - Dominance Coefficient (h" + (i + 1) + ") is quite small. It must be at least 0. \n \n"
             if(parseFloat(h_vec[i]) > 1)
@@ -952,4 +841,5 @@ ApplicationWindow {
 
         return error.split("\n \n")[0];
     }
+
 }

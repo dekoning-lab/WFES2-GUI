@@ -15,7 +15,7 @@ ApplicationWindow {
 
     color: Universal.chromeLowColor
 
-    visible: true
+    visible: false
 
     width: 955
     minimumWidth: 955
@@ -28,7 +28,7 @@ ApplicationWindow {
     Universal.theme: Universal.Light
 
     onClosing: {
-        rootWfesSweep.destroy();
+        rootWfesSweep.hide();
         root.visible = true;
         rootWfesSweep.updateBackend()
         outputControllerWfesSweep.ui_save_config

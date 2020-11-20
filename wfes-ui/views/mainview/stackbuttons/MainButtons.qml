@@ -6,6 +6,22 @@ import components 1.0
 
 Item {
 
+    WfasView {
+        id: wfasView
+    }
+
+    WfafleView {
+        id: wfafleView
+    }
+
+    TimeDistView {
+        id: timeDistView
+    }
+
+    PhaseTypeView {
+        id: phaseTypeView
+    }
+
     Rectangle {
         width: parent.width
         height: childrenRect.height
@@ -30,15 +46,7 @@ Item {
                 ToolTip.timeout: 5000
                 ToolTip.visible: hovered
                 onClicked: {
-                    var componentWfas = Qt.createComponent("qrc:/views/executionviews/wfasView.qml")
-                    if( componentWfas.status !== Component.Ready )
-                    {
-                        if( componentWfas.status === Component.Error )
-                            console.debug("Error:"+ componentWfas.errorString() );
-                        return;
-                    }
-                    var windowWfas    = componentWfas.createObject(root, {})
-                    root.visible = false;
+                    wfasView.visible = true;
                 }
                 Layout.alignment: Qt.AlignHCenter
                 Layout.preferredWidth: 160
@@ -50,15 +58,7 @@ Item {
                 ToolTip.timeout: 5000
                 ToolTip.visible: hovered
                 onClicked: {
-                    var componentWfafle = Qt.createComponent("qrc:/views/executionviews/wfafleView.qml")
-                    if( componentWfafle.status !== Component.Ready )
-                    {
-                        if( componentWfafle.status === Component.Error )
-                            console.debug("Error:"+ componentWfafle.errorString() );
-                        return;
-                    }
-                    var windowWfafle    = componentWfafle.createObject(root, {})
-                    root.visible = false;
+                    wfafleView.visible = true
                 }
                 Layout.alignment: Qt.AlignHCenter
                 Layout.preferredWidth: 160
@@ -81,15 +81,7 @@ Item {
                 ToolTip.timeout: 5000
                 ToolTip.visible: hovered
                 onClicked: {
-                    var componentTimeDist = Qt.createComponent("qrc:/views/executionviews/timeDistView.qml")
-                    if( componentTimeDist.status !== Component.Ready )
-                    {
-                        if( componentTimeDist.status === Component.Error )
-                            console.debug("Error:"+ componentTimeDist.errorString() );
-                        return;
-                    }
-                    var windowTimeDist    = componentTimeDist.createObject(root, {})
-                    root.visible = false;
+                    timeDistView.visible = true
                 }
                 Layout.alignment: Qt.AlignHCenter
                 Layout.preferredWidth: 160
@@ -101,15 +93,7 @@ Item {
                 ToolTip.timeout: 5000
                 ToolTip.visible: hovered
                 onClicked: {
-                    var componentPhaseType = Qt.createComponent("qrc:/views/executionviews/phaseTypeView.qml")
-                    if( componentPhaseType.status !== Component.Ready )
-                    {
-                        if( componentPhaseType.status === Component.Error )
-                            console.debug("Error:"+ componentPhaseType.errorString() );
-                        return;
-                    }
-                    var windowPhaseType    = componentPhaseType.createObject(root, {})
-                    root.visible = false;
+                    phaseTypeView.visible = true
                 }
                 Layout.alignment: Qt.AlignHCenter
                 Layout.preferredWidth: 160

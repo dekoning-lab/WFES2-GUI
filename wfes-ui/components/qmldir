@@ -8,3 +8,15 @@ LabeledComboBox 1.0 LabeledComboBox.qml
 DynamicTabView 1.0 DynamicTabView.qml
 DisplayImage 1.0 DisplayImage.qml
 ChartVisualization 1.0 windows/chartVisualization.qml
+
+WfesSingleView 1.0 executionviews/wfesSingleView.qml
+WfesSweepView 1.0 executionviews/wfesSweepView.qml
+WfesSequentialView 1.0 executionviews/wfesSequentialView.qml
+WfesSwitchingView 1.0 executionviews/wfesSwitchingView.qml
+WfasView 1.0 executionviews/wfasView.qml
+WfafleView 1.0 executionviews/wfafleView.qml
+TimeDistView 1.0 executionviews/timeDistView.qml
+PhaseTypeView 1.0 executionviews/phaseTypeView.qml
+
+UpperMenu 1.0 executionviews/menus/UpperMenu.qml
+BottomMenuExecutionView 1.0 executionviews/menus/BottomMenu.qml

@@ -1,5 +1,0 @@
-module components
-UpperMenu 1.0 menus/UpperMenu.qml
-BottomMenuExecutionView 1.0 menus/BottomMenu.qml
-WfesSingle 1.0 WfesSingle.qml
-TabWfafleComponent 1.0 tabcomponents/tabWfafleComponent.qml

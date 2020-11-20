@@ -4,8 +4,23 @@ import QtQuick.Layouts 1.15
 import components 1.0
 
 
-
 Item {
+
+    WfesSingleView {
+        id: wfesSingleView
+    }
+
+    WfesSweepView {
+        id: wfesSweep
+    }
+
+    WfesSequentialView {
+        id: wfesSequential
+    }
+
+    WfesSwitchingView {
+        id: wfesSwitching
+    }
 
     Rectangle {
         width: parent.width
@@ -23,15 +38,7 @@ Item {
                 ToolTip.visible: hovered
 
                 onClicked: {
-                    var componentWfesSingle = Qt.createComponent("qrc:/views/executionviews/wfesSingleView.qml")
-                    if( componentWfesSingle.status !== Component.Ready )
-                    {
-                        if( componentWfesSingle.status === Component.Error )
-                            console.debug("Error:"+ componentWfesSingle.errorString() );
-                        return;
-                    }
-                    var windowWfesSingle    = componentWfesSingle.createObject(root, {})
-                    root.visible = false;
+                    wfesSingleView.visible = true
                 }
                 Layout.alignment: Qt.AlignHCenter
                 Layout.preferredWidth: 160
@@ -44,15 +51,7 @@ Item {
                 ToolTip.visible: hovered
 
                 onClicked: {
-                    var componentWfesSweep = Qt.createComponent("qrc:/views/executionviews/wfesSweepView.qml")
-                    if( componentWfesSweep.status !== Component.Ready )
-                    {
-                        if( componentWfesSweep.status === Component.Error )
-                            console.debug("Error:"+ componentWfesSweep.errorString() );
-                        return;
-                    }
-                    var windowWfesSweep    = componentWfesSweep.createObject(root, {})
-                    root.visible = false;
+                    wfesSweep.visible = true
                 }
                 Layout.alignment: Qt.AlignHCenter
                 Layout.preferredWidth: 160
@@ -75,15 +74,7 @@ Item {
                 ToolTip.timeout: 5000
                 ToolTip.visible: hovered
                 onClicked: {
-                    var componentWfesSequential = Qt.createComponent("qrc:/views/executionviews/wfesSequentialView.qml")
-                    if( componentWfesSequential.status !== Component.Ready )
-                    {
-                        if( componentWfesSequential.status === Component.Error )
-                            console.debug("Error:"+ componentWfesSequential.errorString() );
-                        return;
-                    }
-                    var windowWfesSequential    = componentWfesSequential.createObject(root, {})
-                    root.visible = false;
+                    wfesSequential.visible = true
                 }
                 Layout.alignment: Qt.AlignHCenter
                 Layout.preferredWidth: 160
@@ -96,15 +87,7 @@ Item {
                 ToolTip.visible: hovered
 
                 onClicked: {
-                    var componentWfesSwithcing = Qt.createComponent("qrc:/views/executionviews/wfesSwitchingView.qml")
-                    if( componentWfesSwithcing.status !== Component.Ready )
-                    {
-                        if( componentWfesSwithcing.status === Component.Error )
-                            console.debug("Error:"+ componentWfesSwithcing.errorString() );
-                        return;
-                    }
-                    var windowWfesSwithcing    = componentWfesSwithcing.createObject(root, {})
-                    root.visible = false;
+                    wfesSwitching.visible = true
                 }
                 Layout.alignment: Qt.AlignHCenter
                 Layout.preferredWidth: 160

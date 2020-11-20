@@ -10,5 +10,20 @@
         <file alias="DynamicTabView.qml">components/DynamicTabView.qml</file>
         <file alias="DisplayImage.qml">components/DisplayImage.qml</file>
         <file alias="windows/chartVisualization.qml">components/windows/chartVisualization.qml</file>
+
+        <file alias="executionviews/wfesSingleView.qml">components/executionviews/WfesSingleView.qml</file>
+        <file alias="executionviews/wfesSweepView.qml">components/executionviews/wfesSweepView.qml</file>
+        <file alias="executionviews/timeDistView.qml">components/executionviews/timeDistView.qml</file>
+        <file alias="executionviews/menus/UpperMenu.qml">components/executionviews/menus/UpperMenu.qml</file>
+        <file alias="executionviews/phaseTypeView.qml">components/executionviews/phaseTypeView.qml</file>
+        <file alias="executionviews/menus/BottomMenu.qml">components/executionviews/menus/BottomMenu.qml</file>
+        <file alias="executionviews/wfafleView.qml">components/executionviews/wfafleView.qml</file>
+        <file alias="executionviews/tabcomponents/tabWfafleComponent.qml">components/executionviews/tabcomponents/tabWfafleComponent.qml</file>
+        <file alias="executionviews/wfasView.qml">components/executionviews/wfasView.qml</file>
+        <file alias="executionviews/tabcomponents/tabWfasComponent.qml">components/executionviews/tabcomponents/tabWfasComponent.qml</file>
+        <file alias="executionviews/wfesSequentialView.qml">components/executionviews/wfesSequentialView.qml</file>
+        <file alias="executionviews/tabcomponents/tabWfesSequentialComponent.qml">components/executionviews/tabcomponents/tabWfesSequentialComponent.qml</file>
+        <file alias="executionviews/wfesSwitchingView.qml">components/executionviews/wfesSwitchingView.qml</file>
+        <file alias="executionviews/tabcomponents/tabWfesSwitchingComponent.qml">components/executionviews/tabcomponents/tabWfesSwitchingComponent.qml</file>
     </qresource>
 </RCC>

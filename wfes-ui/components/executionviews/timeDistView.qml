@@ -15,7 +15,7 @@ ApplicationWindow {
 
     color: Universal.chromeLowColor
 
-    visible: true
+    visible: false
 
     width: 640
     minimumWidth: 640
@@ -28,7 +28,7 @@ ApplicationWindow {
     Universal.theme: Universal.Light
 
     onClosing: {
-        rootTimeDist.destroy();
+        rootTimeDist.hide();
         root.visible = true;
         rootTimeDist.updateBackend()
         outputControllerTimeDist.ui_save_config

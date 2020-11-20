@@ -15,7 +15,7 @@ ApplicationWindow {
 
     color: Universal.chromeLowColor
 
-    visible: true
+    visible: false
 
     width: 890
     minimumWidth: 890
@@ -28,7 +28,7 @@ ApplicationWindow {
     Universal.theme: Universal.Light
 
     onClosing: {
-        rootWfafle.destroy();
+        rootWfafle.hide();
         root.visible = true;
         rootWfafle.updateBackend()
         outputControllerWfafle.ui_save_config
@@ -91,7 +91,7 @@ ApplicationWindow {
                             width: commonSection.width + 10
                             height: 270
                             tabNames: "Comp."
-                            urlComponent: "qrc:/views/executionviews/tabcomponents/tabWfafleComponent.qml"
+                            urlComponent: "qrc:/components/executionviews/tabcomponents/tabWfafleComponent.qml"
                             onAdd: function(){
                                 var num_comps = inputControllerWfafle.ui_num_comp
                                 inputControllerWfafle.ui_num_comp = parseInt(num_comps) + 1

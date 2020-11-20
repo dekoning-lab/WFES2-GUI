@@ -14,7 +14,7 @@ ApplicationWindow {
 
     color: Universal.chromeLowColor
 
-    visible: true
+    visible: false
 
     width: 945
     minimumWidth: 945
@@ -27,7 +27,7 @@ ApplicationWindow {
     Universal.theme: Universal.Light
 
     onClosing: {
-        rootPhaseType.destroy();
+        rootPhaseType.hide();
         root.visible = true;
         rootPhaseType.updateBackend()
         outputControllerPhaseType.ui_save_config
@@ -816,7 +816,7 @@ ApplicationWindow {
 
         if(parseFloat(inputC.textFieldText) < 0)
             error += " - Integration Cutoff (c) is quite small. It must be at least 0. \n \n"
-        if(parseFloat(inputC.textFieldText) > 10e-3)
+        if(parseFloat(inputC.textFieldText) > 1)
             error += " - Integration Cutoff (c) is quite large. The maximum value allowed is 10e-3. \n \n"
 
         if(parseInt(inputM.textFieldText) < 2)

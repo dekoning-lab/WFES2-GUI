@@ -10,28 +10,28 @@ import components 1.0
 
 //TODO Implement value validators and return exceptions.
 ApplicationWindow {
-    id: rootWfas
-    title: qsTr("WFES - Wright-Fisher Exact Solver (WFAF-S)")
+    id: rootWfesSwitching
+    title: qsTr("WFES - Wright-Fisher Exact Solver (WFES Switching)")
 
     color: Universal.chromeLowColor
 
-    visible: true
+    visible: false
 
-    width: 895
-    minimumWidth: 895
-    maximumWidth: 895
-    height: 485
-    minimumHeight: 485
-    maximumHeight: 485
+    width: 955
+    minimumWidth: 955
+    maximumWidth: 955
+    height: 530
+    minimumHeight: 530
+    maximumHeight: 530
 
     // Select theme for the application.
     Universal.theme: Universal.Light
 
     onClosing: {
-        rootWfas.destroy();
+        rootWfesSwitching.hide();
         root.visible = true;
-        rootWfas.updateBackend()
-        outputControllerWfas.ui_save_config
+        rootWfesSwitching.updateBackend()
+        outputControllerWfesSwitching.ui_save_config
     }
 
     // Center window in screen.
@@ -71,6 +71,99 @@ ApplicationWindow {
                     Layout.margins: 10
                     Layout.alignment: Qt.AlignTop
 
+                    Rectangle {
+                        id: modeSection
+                        color: "transparent"
+                        height: childrenRect.height
+                        width: childrenRect.width
+
+                        Label {
+                            id: labelModel
+                            text: "Mode:"
+                            font.bold: true
+                        }
+
+                        GridLayout {
+                            id: modeSectionGrid
+                            columns: 2
+                            anchors {
+                                top: labelModel.bottom
+                                left: parent.left
+                                margins: 10
+                            }
+
+                            RadioButton {
+                                id: radioButtonWfesSwitchingAbsorption
+                                checked: inputControllerWfesSwitching.ui_modelType === "Absorption"
+                                text: qsTr("Absorption")
+
+                                ToolTip.visible: hovered
+                                ToolTip.delay: 1000
+                                ToolTip.timeout: 5000
+                                ToolTip.text: qsTr("//TODO.")
+
+                                onCheckedChanged: {
+                                    inputA.enabled = checked;
+                                    inputC.enabled = !checked;
+
+                                    inputWriteQ.enabled = checked;
+                                    inputWriteR.enabled = checked;
+                                    inputWriteN.enabled = checked;
+                                    inputWriteB.enabled = checked;
+                                    inputWriteNExt.enabled = checked;
+                                    inputWriteNFix.enabled = checked;
+
+                                    outputPExt.visible = checked;
+                                    outputPFix.visible = checked;
+                                    outputText.visible = checked;
+                                    outputTextStd.visible = checked;
+                                    outputTFix.visible = checked;
+                                    outputTFixStd.visible = checked;
+                                    outputRate.visible = !checked;
+                                }
+                            }
+                            RadioButton {
+                                id: radioButtonWfesSwitchingFixation
+                                checked: inputControllerWfesSwitching.ui_modelType == "Fixation"
+                                text: qsTr("Fixation")
+
+                                ToolTip.visible: hovered
+                                ToolTip.delay: 1000
+                                ToolTip.timeout: 5000
+                                ToolTip.text: qsTr("//TODO.")
+
+                                onCheckedChanged: {
+                                    inputA.enabled = checked;
+                                    inputC.enabled = checked;
+
+                                    inputWriteQ.enabled = checked;
+                                    inputWriteR.enabled = checked;
+                                    inputWriteN.enabled = checked;
+                                    inputWriteB.enabled = checked;
+                                    inputWriteNExt.enabled = !checked;
+                                    inputWriteNFix.enabled = !checked;
+
+                                    outputPExt.visible = !checked;
+                                    outputPFix.visible = !checked;
+                                    outputText.visible = !checked;
+                                    outputTextStd.visible = !checked;
+                                    outputTFix.visible = checked;
+                                    outputTFixStd.visible = !checked;
+                                    outputRate.visible = checked;
+                                }
+                            }
+
+                        }
+
+                    }
+
+                    Rectangle {
+                        id: separator1column1
+                        height: 1
+                        width: commonSection.width + 10
+                        color: Universal.baseHighColor
+                    }
+
                     Label {
                         id: labelComponents
                         text: "Components:"
@@ -91,47 +184,47 @@ ApplicationWindow {
                             width: commonSection.width + 10
                             height: 270
                             tabNames: "Comp."
-                            onLoaded: function() {
-                                var dummyString = outputControllerWfas.ui_load_config
-                                rootWfas.updateGUI()
-                            }
-
-                            urlComponent: "qrc:/views/executionviews/tabcomponents/tabWfasComponent.qml"
+                            urlComponent: "qrc:/components/executionviews/tabcomponents/tabWfesSwitchingComponent.qml"
                             onAdd: function(){
-                                var num_comps = inputControllerWfas.ui_num_comp
-                                inputControllerWfas.ui_num_comp = parseInt(num_comps) + 1
+                                var num_comps = inputControllerWfesSwitching.ui_num_comp
+                                inputControllerWfesSwitching.ui_num_comp = parseInt(num_comps) + 1
 
-                                var vector = inputControllerWfas.ui_N_vec
-                                vector[num_comps] = inputControllerWfas.ui_N_vec[num_comps-1]
-                                inputControllerWfas.ui_N_vec = vector
+                                // Update previous adding 1
+                                var vector = inputControllerWfesSwitching.ui_r_vec
+                                vector[num_comps] = inputControllerWfesSwitching.ui_r_vec[num_comps-1]
+                                inputControllerWfesSwitching.ui_r_vec = vector
 
-                                vector = inputControllerWfas.ui_G_vec
-                                vector[num_comps] = inputControllerWfas.ui_G_vec[num_comps-1]
-                                inputControllerWfas.ui_G_vec = vector
+                                vector = inputControllerWfesSwitching.ui_N_vec
+                                vector[num_comps] = inputControllerWfesSwitching.ui_N_vec[num_comps-1]
+                                inputControllerWfesSwitching.ui_N_vec = vector
 
-                                vector = inputControllerWfas.ui_f_vec
-                                vector[num_comps] = inputControllerWfas.ui_f_vec[num_comps-1]
-                                inputControllerWfas.ui_f_vec = vector
+                                vector = inputControllerWfesSwitching.ui_p_vec
+                                vector[num_comps] = inputControllerWfesSwitching.ui_p_vec[num_comps-1]
+                                inputControllerWfesSwitching.ui_p_vec = vector
 
-                                vector = inputControllerWfas.ui_s_vec
-                                vector[num_comps] = inputControllerWfas.ui_s_vec[num_comps-1]
-                                inputControllerWfas.ui_s_vec = vector
+                                vector = inputControllerWfesSwitching.ui_s_vec
+                                vector[num_comps] = inputControllerWfesSwitching.ui_s_vec[num_comps-1]
+                                inputControllerWfesSwitching.ui_s_vec = vector
 
-                                vector = inputControllerWfas.ui_h_vec
-                                vector[num_comps] = inputControllerWfas.ui_h_vec[num_comps-1]
-                                inputControllerWfas.ui_h_vec = vector
+                                vector = inputControllerWfesSwitching.ui_h_vec
+                                vector[num_comps] = inputControllerWfesSwitching.ui_h_vec[num_comps-1]
+                                inputControllerWfesSwitching.ui_h_vec = vector
 
-                                vector = inputControllerWfas.ui_u_vec
-                                vector[num_comps] = inputControllerWfas.ui_u_vec[num_comps-1]
-                                inputControllerWfas.ui_u_vec = vector
+                                vector = inputControllerWfesSwitching.ui_u_vec
+                                vector[num_comps] = inputControllerWfesSwitching.ui_u_vec[num_comps-1]
+                                inputControllerWfesSwitching.ui_u_vec = vector
 
-                                vector = inputControllerWfas.ui_v_vec
-                                vector[num_comps] = inputControllerWfas.ui_v_vec[num_comps-1]
-                                inputControllerWfas.ui_v_vec = vector
+                                vector = inputControllerWfesSwitching.ui_v_vec
+                                vector[num_comps] = inputControllerWfesSwitching.ui_v_vec[num_comps-1]
+                                inputControllerWfesSwitching.ui_v_vec = vector
                             }
                             onDelete: function(){
-                                var num_comps = inputControllerWfas.ui_num_comp
-                                inputControllerWfas.ui_num_comp = parseInt(num_comps) - 1
+                                var num_comps = inputControllerWfesSwitching.ui_num_comp
+                                inputControllerWfesSwitching.ui_num_comp = parseInt(num_comps) - 1
+                            }
+                            onLoaded: function() {
+                                var dummyString = outputControllerWfesSwitching.ui_load_config
+                                rootWfesSwitching.updateGUI()
                             }
                         }
 
@@ -169,24 +262,18 @@ ApplicationWindow {
                                 id: inputA
                                 text: "a: "
                                 toolTipText: "Tail truncation weight."
-                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
-                                textFieldText: inputControllerWfas.ui_a
+                                validator: DoubleValidator {bottom: 0; top: 10e-10;}
+                                textFieldText: inputControllerWfesSwitching.ui_a
                             }
 
                             LabeledTextField {
-                                id: inputP
-                                text: "p: "
-                                toolTipText: "Initial allele count."
-                                validator: IntValidator {bottom: 0; top: 2;}
-                                textFieldText: inputControllerWfas.ui_p
+                                id: inputC
+                                text: "c: "
+                                toolTipText: "Starting number of copies integration cutoff."
+                                validator: DoubleValidator {bottom: 0; top: 10e-3;}
+                                textFieldText: inputControllerWfesSwitching.ui_c
                             }
 
-                            LabeledCheckBox {
-                                id: inputNoProject
-                                text: "No Proj.: "
-                                toolTipText: "Do not project the distribution down."
-                                checked: inputControllerWfas.ui_no_proj
-                            }
                         }
                     }
 
@@ -205,11 +292,10 @@ ApplicationWindow {
 
                     ColumnLayout {
                         id: column2
-                        Layout.margins: 10
-                        Layout.alignment: Qt.AlignTop
 
                         ColumnLayout {
                             Layout.alignment: Qt.AlignTop
+                            Layout.margins: 10
                             height: childrenRect.height
 
                             Rectangle {
@@ -238,63 +324,53 @@ ApplicationWindow {
                                         id: inputWriteQ
                                         text: "Q: "
                                         toolTipText: "Output Q matrix to file."
-                                        checked: inputControllerWfas.ui_output_Q
+                                        checked: inputControllerWfesSwitching.ui_output_Q
                                     }
-                                    // TODO Not implemented in original code.
-                                    /*
+
                                     LabeledCheckBox {
                                         id: inputWriteR
                                         text: "R: "
                                         toolTipText: "Output R vectors to file."
-                                        checked: inputControllerWfas.ui_output_R
+                                        checked: inputControllerWfesSwitching.ui_output_R
                                     }
 
-                                   LabeledCheckBox {
+                                    LabeledCheckBox {
                                         id: inputWriteN
                                         text: "N: "
                                         toolTipText: "Output N matrix to file."
-                                        checked: inputControllerWfas.ui_output_N
-                                    }*/
+                                        checked: inputControllerWfesSwitching.ui_output_N
+                                    }
 
                                     LabeledCheckBox {
                                         id: inputWriteB
                                         text: "B: "
                                         toolTipText: "Output B vectors to file."
-                                        checked: inputControllerWfas.ui_output_B
+                                        checked: inputControllerWfesSwitching.ui_output_B
                                     }
 
-                                    // TODO Not implemented in original code.
-                                    /*LabeledCheckBox {
+                                    LabeledCheckBox {
                                         id: inputWriteNExt
                                         text: "N Ext.: "
                                         toolTipText: "Output extinction-conditional sojourn to file."
-                                        checked: inputControllerWfas.ui_output_N_Ext
+                                        checked: inputControllerWfesSwitching.ui_output_N_Ext
                                     }
 
                                     LabeledCheckBox {
                                         id: inputWriteNFix
                                         text: "N Fix.: "
                                         toolTipText: "Output fixation-conditional sojourn to file."
-                                        checked: inputControllerWfas.ui_output_N_Fix
+                                        checked: inputControllerWfesSwitching.ui_output_N_Fix
                                     }
-                                    LabeledCheckBox {
-                                        id: inputWriteNTmo
-                                        text: "N Tmo.: "
-                                        toolTipText: "Output timeout-conditional sojourn to file."
-                                        checked: inputControllerWfas.ui_output_N_Tmo
-                                    }*/
 
                                     Label {
                                         // Empty, so Res is always at right.
                                     }
 
                                     LabeledCheckBox {
-                                        id: inputWriteDist
-                                        enabled: true
-                                        enabledCheckBox: false
-                                        text: "Dist: "
-                                        toolTipText: "Output Allele freq. dist. as CSV file. (Always enabled)."
-                                        checked: true
+                                        id: inputWriteRes
+                                        text: "Res: "
+                                        toolTipText: "Output Res (Generated results at right side) as CSV file."
+                                        checked: inputControllerWfesSwitching.ui_output_Res
                                     }
 
                                 }
@@ -335,7 +411,7 @@ ApplicationWindow {
                                             id: inputForce
                                             toolTipText: "Do not perform parameter checks."
                                             text: "Force: "
-                                            checked: inputControllerWfas.ui_force
+                                            checked: inputControllerWfesSwitching.ui_force
                                         }
 
                                         LabeledTextField {
@@ -343,8 +419,8 @@ ApplicationWindow {
                                             text: "t: "
                                             labelPreferredWidth: 10
                                             toolTipText: "Number of threads for OpenMP."
-                                            validator: DoubleValidator {bottom: 1;}
-                                            textFieldText: inputControllerWfas.ui_t
+                                            validator: IntValidator {bottom: 1;}
+                                            textFieldText: inputControllerWfesSwitching.ui_t
                                         }
                                     }
 
@@ -381,7 +457,7 @@ ApplicationWindow {
                                             toolTipText: "Path to initial probability distribution CSV file."
                                             labelPreferredWidth: 75
                                             textFieldPreferredWidth: 185
-                                            textFieldText: inputControllerWfas.ui_initial_distribution
+                                            textFieldText: inputControllerWfesSwitching.ui_initial_distribution
                                         }
 
                                         Button{
@@ -421,12 +497,12 @@ ApplicationWindow {
                                 Binding {
                                     target: stopButton
                                     property: "enabled"
-                                    value: !outputControllerWfas.ui_get_not_exec
+                                    value: !outputControllerWfesSwitching.ui_get_not_exec
 
                                 }
 
                                 onClicked: {
-                                    outputControllerWfas.ui_stop
+                                    outputControllerWfesSwitching.ui_stop
                                     stopButton.enabled = false
                                     executeButton.enabled = true
                                     bottomMenu.visibleProgressBar = false
@@ -440,21 +516,20 @@ ApplicationWindow {
                                 text: "Execute"
 
                                 onEnabledChanged: {
-                                    if(outputControllerWfas.ui_get_not_exec)
+                                    if(outputControllerWfesSwitching.ui_get_not_exec)
                                         imageOutputController.image_changed()
-                                    console.log(outputControllerWfas.ui_get_error_message)
-                                    if(outputControllerWfas.ui_get_error_message !== "") {
-                                        messageDialog.text = outputControllerWfas.ui_get_error_message
+                                    console.log(outputControllerWfesSwitching.ui_get_error_message)
+                                    if(outputControllerWfesSwitching.ui_get_error_message !== "") {
+                                        messageDialog.text = outputControllerWfesSwitching.ui_get_error_message
                                         messageDialog.open()
-                                        outputControllerWfas.ui_reset_error
+                                        outputControllerWfesSwitching.ui_reset_error
                                     }
-                                    upperMenu.updateDistWfas()
                                 }
 
                                 Binding {
                                     target: executeButton
                                     property: "enabled"
-                                    value: outputControllerWfas.ui_get_not_exec
+                                    value: outputControllerWfesSwitching.ui_get_not_exec
 
                                 }
 
@@ -468,12 +543,11 @@ ApplicationWindow {
                                         executeButton.enabled = false
                                         stopButton.enabled = true
                                         bottomMenu.visibleProgressBar = true
-                                        outputControllerWfas.ui_execute
+                                        outputControllerWfesSwitching.ui_execute
                                     } else {
                                         messageDialog.text = error
                                         messageDialog.open()
                                     }
-                                    outputControllerWfas.ui_reset_error
                                 }
 
                             }
@@ -504,51 +578,93 @@ ApplicationWindow {
                     Layout.alignment: Qt.AlignTop
 
                     Label {
-                        id: labelMoments
+                        id: labelFinalOutput
                         text: "Output:"
                         font.bold: true
                     }
 
-                    Label {
-                        id: labelMoments2
-                        text: "Allele freq. dist.:"
-                    }
+                    ColumnLayout {
 
-                    Rectangle {
-                        width: labelMoments.width * 4
-                        height: childrenRect.height + 1
-                        color: "transparent"
-                        border.width: 1
-
-                        Layout.alignment: Qt.AlignTop
-                        Layout.margins: 10
-
-                        ScrollView {
-                            width: parent.width - 1
-                            height: 200
-                            clip: true
-                            topPadding: 1
-                            ScrollBar.vertical.policy: ScrollBar.AlwaysOn
-                            ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
-                            contentHeight: 200
-                            contentWidth: parent.width
-                            ListView {
-                                id: listViewMoments
-                                model: outputControllerWfas.ui_probs
-                                delegate: ItemDelegate {
-                                  width: parent.width
-                                  height: 25
-                                  Text {
-                                      text: modelData;
-                                      width: parent.width;
-                                      height: parent.height;
-                                  }
-                                }
-                            }
+                        LabeledTextField {
+                            id: outputPExt
+                            labelPreferredWidth: 100
+                            textFieldPreferredWidth: 180
+                            text: "P ext. : "
+                            toolTipText: "Probability of extintion."
+                            textFieldText: outputControllerWfesSwitching.ui_get_p_ext
+                            readOnly: true
+                            visible: (inputControllerWfesSwitching.ui_modelType == "Absorption")
                         }
 
-                    }
+                        LabeledTextField {
+                            id: outputPFix
+                            labelPreferredWidth: 100
+                            textFieldPreferredWidth: 180
+                            text: "P fix. : "
+                            toolTipText: "Probability of fixation."
+                            textFieldText: outputControllerWfesSwitching.ui_get_p_fix
+                            readOnly: true
+                            visible: (inputControllerWfesSwitching.ui_modelType == "Absorption")
+                        }
 
+                        LabeledTextField {
+                            id: outputText
+                            labelPreferredWidth: 100
+                            textFieldPreferredWidth: 180
+                            text: "T ext.: "
+                            toolTipText: "Extintion time."
+                            textFieldText: outputControllerWfesSwitching.ui_get_t_ext
+                            readOnly: true
+                            visible: (inputControllerWfesSwitching.ui_modelType == "Absorption")
+                        }
+
+                        LabeledTextField {
+                            id: outputTextStd
+                            labelPreferredWidth: 100
+                            textFieldPreferredWidth: 180
+                            text: "T ext. std.: "
+                            toolTipText: "Standard extintion time."
+                            textFieldText: outputControllerWfesSwitching.ui_get_t_ext_std
+                            readOnly: true
+                            visible: (inputControllerWfesSwitching.ui_modelType == "Absorption")
+                        }
+
+
+                        LabeledTextField {
+                            id: outputTFix
+                            labelPreferredWidth: 100
+                            textFieldPreferredWidth: 180
+                            text: "T fix.: "
+                            toolTipText: "Fixation time."
+                            textFieldText: outputControllerWfesSwitching.ui_get_t_fix
+                            readOnly: true
+                        }
+
+                        LabeledTextField {
+                            id: outputTFixStd
+                            labelPreferredWidth: 100
+                            textFieldPreferredWidth: 180
+                            text: "T fix. std.: "
+                            toolTipText: "Standard fixation time."
+                            textFieldText: outputControllerWfesSwitching.ui_get_t_fix_std
+                            readOnly: true
+                            visible: (inputControllerWfesSwitching.ui_modelType == "Absorption")
+                        }
+
+                        LabeledTextField {
+                            id: outputRate
+                            labelPreferredWidth: 100
+                            textFieldPreferredWidth: 180
+                            text: "Rate: "
+                            toolTipText: "//TODO"
+                            textFieldText: outputControllerWfesSwitching.ui_get_rate
+                            readOnly: true
+                            visible: (inputControllerWfesSwitching.ui_modelType == "Fixation")
+                        }
+
+                        //TODO Vectors P_cond_ext, V_cond_ext... cannot be shown in the GUI, takes too much space, so
+                        //those vectors are printed directly into the csv file.
+                    }
 
                 }
             }
@@ -568,151 +684,154 @@ ApplicationWindow {
         Binding {
             target: bottomMenu
             property: "visibleProgressBar"
-            value: !outputControllerWfas.ui_get_not_exec
+            value: !outputControllerWfesSwitching.ui_get_not_exec
 
         }
 
         BottomMenuExecutionView {
             id: bottomMenu
             width: parent.width
-            executionProgress: outputControllerWfas.ui_progress
+            executionProgress: outputControllerWfesSwitching.ui_progress
 
             executionTime: {
-                outputControllerWfas.ui_get_time == "" ? "" : outputControllerWfas.ui_get_time + "s"
+                outputControllerWfesSwitching.ui_get_time == "" ? "" : outputControllerWfesSwitching.ui_get_time + "s"
             }
             anchors {
                 top: separatorBottomBar.bottom
                 left: parent.left
             }
         }
-
-
     }
 
-
     function updateGUI() {
-        inputA.textFieldText = inputControllerWfas.ui_a
-        inputP.textFieldText = inputControllerWfas.ui_p
-        inputNoProject.checked = inputControllerWfas.ui_no_proj
+        radioButtonWfesSwitchingAbsorption.checked = inputControllerWfesSwitching.ui_modelType == "Absorption"
+        radioButtonWfesSwitchingFixation.checked = inputControllerWfesSwitching.ui_modelType == "Fixation"
 
-        var N_vec = inputControllerWfas.ui_N_vec
-        var G_vec = inputControllerWfas.ui_G_vec
-        var f_vec = inputControllerWfas.ui_f_vec
-        var u_vec = inputControllerWfas.ui_u_vec
-        var v_vec = inputControllerWfas.ui_v_vec
-        var s_vec = inputControllerWfas.ui_s_vec
-        var h_vec = inputControllerWfas.ui_h_vec
+        inputA.textFieldText = inputControllerWfesSwitching.ui_a
+        inputC.textFieldText = inputControllerWfesSwitching.ui_c
+
+        var N_vec = inputControllerWfesSwitching.ui_N_vec
+        var p_vec = inputControllerWfesSwitching.ui_p_vec
+        var r_vec = inputControllerWfesSwitching.ui_r_vec
+        var u_vec = inputControllerWfesSwitching.ui_u_vec
+        var v_vec = inputControllerWfesSwitching.ui_v_vec
+        var s_vec = inputControllerWfesSwitching.ui_s_vec
+        var h_vec = inputControllerWfesSwitching.ui_h_vec
 
         // Minus 2 because we don't have to count the add and delete tabs.
         // If the number of current tabs is less than the number of components to load,
         // add a tab.
-        if(componentsSectionTabView.children[0].count - 2 < inputControllerWfas.ui_num_comp) {
-
-            while(componentsSectionTabView.children[0].count - 2 < inputControllerWfas.ui_num_comp) {
+        if(componentsSectionTabView.children[0].count - 2 < inputControllerWfesSwitching.ui_num_comp) {
+            while(componentsSectionTabView.children[0].count - 2 < inputControllerWfesSwitching.ui_num_comp) {
                 // Create new tab.
                 componentsSectionTabView.children[0].addTab()
                 // Don't update ui_num_comp
-                inputControllerWfas.ui_num_comp = inputControllerWfas.ui_num_comp - 1
+                inputControllerWfesSwitching.ui_num_comp = parseInt(inputControllerWfesSwitching.ui_num_comp) - 1
             }
         // If the number of current tabs is greater than the number of components to load,
         // remove a tab.
-        } else if(componentsSectionTabView.children[0].count - 2 > inputControllerWfas.ui_num_comp) {
+        } else if(componentsSectionTabView.children[0].count - 2 > inputControllerWfesSwitching.ui_num_comp) {
 
-            while(componentsSectionTabView.children[0].count - 2 > inputControllerWfas.ui_num_comp) {
+            while(componentsSectionTabView.children[0].count - 2 > inputControllerWfesSwitching.ui_num_comp) {
                 // Delete a tab.
                 componentsSectionTabView.children[0].deleteTab()
                 // Don't update ui_num_comp
-                inputControllerWfas.ui_num_comp = parseInt(inputControllerWfas.ui_num_comp) + 1
+                inputControllerWfesSwitching.ui_num_comp = parseInt(inputControllerWfesSwitching.ui_num_comp) + 1
             }
         }
 
-        for(var i = 0; i < inputControllerWfas.ui_num_comp; i++) {
+        console.log(inputControllerWfesSwitching.ui_num_comp)
+        for(var i = 0; i < inputControllerWfesSwitching.ui_num_comp; i++) {
             componentsSectionTabView.children[0].getTab(i).active = true
             componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[0].textFieldText = N_vec[i]
-            componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[1].textFieldText = G_vec[i]
-            componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[2].textFieldText = f_vec[i]
+            componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[1].textFieldText = p_vec[i]
+            componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[2].textFieldText = r_vec[i]
             componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[0].textFieldText = u_vec[i]
             componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[1].textFieldText = v_vec[i]
             componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[0].textFieldText = s_vec[i]
             componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[1].textFieldText = h_vec[i]
         }
-        inputWriteQ.checked = inputControllerWfas.ui_output_Q
-        //inputWriteR.checked = inputControllerWfas.ui_output_R
-        //inputWriteN.checked = inputControllerWfas.ui_output_N
-        inputWriteB.checked = inputControllerWfas.ui_output_B
-        //inputControllerWfas.ui_output_N_Ext = inputWriteNExt.checked
-        //inputWriteNFix.checked = inputControllerWfas.ui_output_N_Fix
-        //inputWriteNTmo.checked = inputControllerWfas.ui_output_N_Tmo
-        inputWriteDist.checked = inputControllerWfas.ui_output_Dist
-        inputT.textFieldText = inputControllerWfas.ui_t
-        inputForce.checked = inputControllerWfas.ui_force
 
-        inputI.textFieldText = inputControllerWfas.ui_initial_distribution
+        inputWriteQ.checked = inputControllerWfesSwitching.ui_output_Q
+        inputWriteR.checked = inputControllerWfesSwitching.ui_output_R
+        inputWriteN.checked = inputControllerWfesSwitching.ui_output_N
+        inputWriteB.checked = inputControllerWfesSwitching.ui_output_B
+        inputWriteNExt.checked = inputControllerWfesSwitching.ui_output_N_Ext
+        inputWriteNFix.checked = inputControllerWfesSwitching.ui_output_N_Fix
+        inputWriteRes.checked = inputControllerWfesSwitching.ui_output_Res
+        inputT.textFieldText = inputControllerWfesSwitching.ui_t
+        inputForce.checked = inputControllerWfesSwitching.ui_force
 
-        var library = inputControllerWfas.ui_library
+        inputI.textFieldText = inputControllerWfesSwitching.ui_initial_distribution
+
+        var library = inputControllerWfesSwitching.ui_library
         if(library === "Pardiso")
             comboBoxLibrary.currentIndex = 0
         else if(library === "ViennaCL")
             comboBoxLibrary.currentIndex = 1
 
-        var solver = inputControllerWfas.ui_solver
-        if(library === "GMRes")
+        var solver = inputControllerWfesSwitching.ui_solver
+        if(solver === "GMRes")
             comboBoxSolver.currentIndex = 0
-        else if(library === "BicGStab")
+        else if(solver === "BicGStab")
             comboBoxSolver.currentIndex = 1
     }
 
     function updateBackend() {
-        inputControllerWfas.ui_a = inputA.textFieldText
-        inputControllerWfas.ui_p = inputP.textFieldText
-        inputControllerWfas.ui_no_proj = inputNoProject.checked
+        // Set mode in backend.
+        if(radioButtonWfesSwitchingAbsorption.checked)
+            inputControllerWfesSwitching.ui_modelType = "Absorption"
+        else if (radioButtonWfesSwitchingFixation.checked)
+            inputControllerWfesSwitching.ui_modelType = "Fixation"
+
+        inputControllerWfesSwitching.ui_a = inputA.textFieldText
+        inputControllerWfesSwitching.ui_c = inputC.textFieldText
         var N_vec = []
-        var G_vec = []
-        var f_vec = []
+        var p_vec = []
+        var r_vec = []
         var u_vec = []
         var v_vec = []
         var s_vec = []
         var h_vec = []
-        for(var i = 0; i < inputControllerWfas.ui_num_comp; i++) {
+        for(var i = 0; i < componentsSectionTabView.children[0].count - 2; i++) {
             componentsSectionTabView.children[0].getTab(i).active = true
             var N = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[0].textFieldText
-            var G = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[1].textFieldText
-            var f = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[2].textFieldText
+            var p = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[1].textFieldText
+            var r = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[2].textFieldText
             var u = componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[0].textFieldText
             var v = componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[1].textFieldText
             var s = componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[0].textFieldText
             var h = componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[1].textFieldText
             N_vec.push(N)
-            G_vec.push(G)
-            f_vec.push(f)
+            r_vec.push(r)
+            p_vec.push(p)
             u_vec.push(u)
             v_vec.push(v)
             s_vec.push(s)
             h_vec.push(h)
         }
-        inputControllerWfas.ui_N_vec = N_vec
-        inputControllerWfas.ui_G_vec = G_vec
-        inputControllerWfas.ui_f_vec = f_vec
-        inputControllerWfas.ui_u_vec = u_vec
-        inputControllerWfas.ui_v_vec = v_vec
-        inputControllerWfas.ui_s_vec = s_vec
-        inputControllerWfas.ui_h_vec = h_vec
+        inputControllerWfesSwitching.ui_N_vec = N_vec
+        inputControllerWfesSwitching.ui_r_vec = r_vec
+        inputControllerWfesSwitching.ui_p_vec = p_vec
+        inputControllerWfesSwitching.ui_u_vec = u_vec
+        inputControllerWfesSwitching.ui_v_vec = v_vec
+        inputControllerWfesSwitching.ui_s_vec = s_vec
+        inputControllerWfesSwitching.ui_h_vec = h_vec
 
-        inputControllerWfas.ui_output_Q = inputWriteQ.checked
-        //inputControllerWfas.ui_output_R = inputWriteR.checked
-        //inputControllerWfas.ui_output_N = inputWriteN.checked
-        inputControllerWfas.ui_output_B = inputWriteB.checked
-        //inputControllerWfas.ui_output_N_Ext = inputWriteNExt.checked
-        //inputControllerWfas.ui_output_N_Fix = inputWriteNFix.checked
-        //inputControllerWfas.ui_output_N_Tmo = inputWriteNTmo.checked
-        inputControllerWfas.ui_output_Dist = inputWriteDist.checked
-        inputControllerWfas.ui_t = inputT.textFieldText
-        inputControllerWfas.ui_force = inputForce.checked
+        inputControllerWfesSwitching.ui_output_Q = inputWriteQ.checked
+        inputControllerWfesSwitching.ui_output_R = inputWriteR.checked
+        inputControllerWfesSwitching.ui_output_N = inputWriteN.checked
+        inputControllerWfesSwitching.ui_output_B = inputWriteB.checked
+        inputControllerWfesSwitching.ui_output_N_Ext = inputWriteNExt.checked
+        inputControllerWfesSwitching.ui_output_N_Fix = inputWriteNFix.checked
+        inputControllerWfesSwitching.ui_output_Res = inputWriteRes.checked
+        inputControllerWfesSwitching.ui_t = inputT.textFieldText
+        inputControllerWfesSwitching.ui_force = inputForce.checked
 
-        inputControllerWfas.ui_initial_distribution = inputI.textFieldText
+        inputControllerWfesSwitching.ui_initial_distribution = inputI.textFieldText
 
-        inputControllerWfas.ui_library = comboBoxLibrary.currentText;
-        inputControllerWfas.ui_solver = comboBoxSolver.currentText;
+        inputControllerWfesSwitching.ui_library = comboBoxLibrary.currentText;
+        inputControllerWfesSwitching.ui_solver = comboBoxSolver.currentText;
 
     }
 
@@ -724,70 +843,91 @@ ApplicationWindow {
         if(!inputForce.checked && parseFloat(inputA.textFieldText) > 1e-5)
             error += " - Tail Truncation Cutoff (a) value is quite high. This might produce inaccurate results. A good value should be between 0 and 10e-10. Check 'Force' to ignore. \n \n"
 
-        if(parseInt(inputP.textFieldText) < 0)
-            error += " - Initial Allele Count (p) is quite small. It must be at least 0. \n \n"
-        if(!inputForce.checked && parseInt(inputP.textFieldText) > 2)
-            error += " - Initial Allele Count (p) value is quite high. The maximum value allowed is 2. \n \n"
+        if(parseFloat(inputC.textFieldText) < 0)
+            error += " - Integration Cutoff (c) is quite small. It must be at least 0. \n \n"
+        if(parseFloat(inputC.textFieldText) > 10e-3)
+            error += " - Integration Cutoff (c) is quite large. The maximum value allowed is 10e-3. \n \n"
 
         var N_vec = []
-        var G_vec = []
-        var f_vec = []
+        var p_vec = []
+        var r_vec = []
         var u_vec = []
         var v_vec = []
         var s_vec = []
         var h_vec = []
-        for(var i = 0; i < inputControllerWfas.ui_num_comp; i++) {
+        for(var i = 0; i < componentsSectionTabView.children[0].count - 2; i++) {
             componentsSectionTabView.children[0].getTab(i).active = true
             var N = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[0].textFieldText
-            var G = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[1].textFieldText
-            var f = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[2].textFieldText
+            var p = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[1].textFieldText
+            var r = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[2].textFieldText
             var u = componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[0].textFieldText
             var v = componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[1].textFieldText
             var s = componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[0].textFieldText
             var h = componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[1].textFieldText
             N_vec.push(N)
-            G_vec.push(G)
-            f_vec.push(f)
+            r_vec.push(r)
+            p_vec.push(p)
             u_vec.push(u)
             v_vec.push(v)
             s_vec.push(s)
             h_vec.push(h)
         }
 
-        for(i = 0; i < inputControllerWfas.ui_num_comp; i++) {
+        for(i = 0; i < inputControllerWfesSwitching.ui_num_comp; i++) {
             if(parseInt(N_vec[i]) < 2)
                 error += " - Population Size (N" + (i + 1) + ") is quite small, it must be at least 2. \n \n"
             if(!inputForce.checked && parseInt(N_vec[i]) > 50000)
                 error +=  " - Population Size (N" + (i + 1) + ") is quite large, the computations will take a long time. Check 'Force' to ignore. \n \n"
         }
 
-        for(i = 0; i < inputControllerWfas.ui_num_comp; i++) {
-            if(parseInt(G_vec[i]) < 0)
-                error += " - Generations (G" + (i + 1) + ") is quite small, it must be at least 2. \n \n"
+        for(i = 0; i < inputControllerWfesSwitching.ui_num_comp; i++) {
+            if(parseInt(p_vec[i]) < 0)
+                error += " - Probability of starting (p" + (i + 1) + ") is quite small, it must be at least 2. \n \n"
+            if(parseInt(p_vec[i]) > 1)
+                error += " - Probability of starting (p" + (i + 1) + ") is quite large, the computations will take a long time. Check 'Force' to ignore. \n \n"
         }
 
-        for(i = 0; i < inputControllerWfas.ui_num_comp; i++) {
-            if(parseInt(f_vec[i]) < 1)
-                error += " - Approximation Factor (f" + (i + 1) + ") is quite small, it must be at least 1. \n \n"
-            if(parseInt(f_vec[i]) > N_vec[i])
-                error +=  " - Approximation Factor (f" + (i + 1) + ") is quite large. The maximum value allowed is N. \n \n"
+        for(i = 0; i < inputControllerWfesSwitching.ui_num_comp; i++) {
+            var splitted = r_vec[i].split(", ")
+            if(splitted.length !== parseInt(inputControllerWfesSwitching.ui_num_comp))
+                error += " - Relative Probability of Switching (r" + (i + 1) + ") has " + splitted.length + " components. It should have " + inputControllerWfesSwitching.ui_num_comp + " components. \n \n"
+            if(splitted.length > 1) {
+                var valid = true;
+                for(var j = 0; j < splitted.length; j++) {
+                    if(parseFloat(splitted[j]) < 0) {
+                        error += " - The element " + j + " of Relative Probability of Switching (r" + (i + 1) + ") is quite small, it must be at least 0. \n \n"
+                        break;
+                    } else if (parseFloat(splitted[j]) > 1) {
+                        error += " - The element " + j + " of Relative Probability of Switching (r" + (i + 1) + ") is quite large. The maximum value allowed is 1. \n \n"
+                        break;
+                    }
+                }
+            } else {
+                if(parseFloat(r_vec[i]) < 0) {
+                    error += " - The element " + j + " of Relative Probability of Switching (r" + (i + 1) + ") is quite small, it must be at least 0. \n \n"
+                    break;
+                } else if (parseFloat(r_vec[i]) > 1) {
+                    error += " - The element " + j + " of Relative Probability of Switching (r" + (i + 1) + ") is quite large. The maximum value allowed is 1. \n \n"
+                    break;
+                }
+            }
         }
 
-        for(i = 0; i < inputControllerWfas.ui_num_comp; i++) {
+        for(i = 0; i < inputControllerWfesSwitching.ui_num_comp; i++) {
             if(parseFloat(u_vec[i]) < 0)
                 error += " - Backward Mutation (u" + (i + 1) + ") is quite small. It must be at least 0. \n \n"
             if(!inputForce.checked && (4 * parseInt(N_vec[i]) * parseFloat(u_vec[i])) > 1)
                 error += " - Backward Mutation (u" + (i + 1) + ") is quite large and might violate the Wright-Fisher assumptions. Check 'Force' to ignore. \n \n"
         }
 
-        for(i = 0; i < inputControllerWfas.ui_num_comp; i++) {
+        for(i = 0; i < inputControllerWfesSwitching.ui_num_comp; i++) {
             if(parseFloat(v_vec[i]) < 0)
                 error += " - Forward Mutation (v" + (i + 1) + ") is quite small. It must be at least 0. \n \n"
             if(!inputForce.checked && (4 * parseInt(N_vec[i]) * parseFloat(v_vec[i])) > 1)
                 error += " - Forward Mutation (v" + (i + 1) + ") is quite large and might violate the Wright-Fisher assumptions. Check 'Force' to ignore. \n \n"
         }
 
-        for(i = 0; i < inputControllerWfas.ui_num_comp; i++) {
+        for(i = 0; i < inputControllerWfesSwitching.ui_num_comp; i++) {
             if(parseFloat(s_vec[i]) < -1)
                 error += " - Selection Coefficient (s" + (i + 1) + ") is quite negative. Fixations might be impossible. It must be at least -1. \n \n"
             if(parseFloat(s_vec[i]) > 1)
@@ -797,7 +937,7 @@ ApplicationWindow {
             }
         }
 
-        for(i = 0; i < inputControllerWfas.ui_num_comp; i++) {
+        for(i = 0; i < inputControllerWfesSwitching.ui_num_comp; i++) {
             if(parseFloat(h_vec[i]) < 0)
                 error += " - Dominance Coefficient (h" + (i + 1) + ") is quite small. It must be at least 0. \n \n"
             if(parseFloat(h_vec[i]) > 1)
@@ -811,7 +951,5 @@ ApplicationWindow {
         //TODO Check if Initial Distribution (I) file exists.
 
         return error.split("\n \n")[0];
-
-
     }
 }
