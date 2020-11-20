@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.0
+import QtQuick.Controls.Styles 1.4
 
 Rectangle {
     id: rect
@@ -18,6 +19,9 @@ Rectangle {
         id:tb
         width: parent.width
         height: parent.height
+        style: TabViewStyle {
+
+        }
 
         function addTab() {
             onAdd()
@@ -44,6 +48,8 @@ Rectangle {
         Tab {
             id:viewComp1
             title: tabNames + " 1"
+            width: implicitWidth
+
             component: {
                 var component = Qt.createComponent(urlComponent)
                 var object = component.createObject(tb, {})
@@ -58,11 +64,14 @@ Rectangle {
         Tab {
             id: addTab
             title: "+"
+            width: implicitWidth
+
             Rectangle {
                 width: parent.width
                 height: parent.height
                 color:"black"
             }
+
             onVisibleChanged: {
                 if(this.visible) {
                     onAdd()
@@ -78,6 +87,8 @@ Rectangle {
         Tab {
             id:removeTab
             title: "-"
+            width: implicitWidth
+
             Rectangle{
                 width: parent.width
                 height: parent.height
