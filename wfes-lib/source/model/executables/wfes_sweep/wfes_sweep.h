@@ -25,21 +25,58 @@
 
 #include <model/visualization/imageresults.h>
 
-class wfes_sweep : public Subject
-{
+/**
+ * @brief The wfes_sweep class implements the wfes sweep executables.
+ * Fixation: Only fixation state is absorbing.
+ */
+class wfes_sweep : public Subject {
+    public:
+        /**
+         * @brief Starting point of measuring execution time.
+         */
+        time_point t_start;
 
-public:
-    time_point t_start, t_end;
-    llong msg_level;
-    dvec starting_copies_p;
-    llong z;
+        /**
+         * @brief Ending point of measuring execution time.
+         */
+        time_point t_end;
 
-    ResultsWfesSweep* execute();
+        /**
+         * @brief Verbose level.
+         */
+        llong msg_level;
 
-    ResultsWfesSweep* fixation();
+        /**
+         * @brief Vector containing starting copies.
+         */
+        dvec starting_copies_p;
 
-    void calculateStartingCopies();
-    void calculateZ();
+        /**
+         * @brief TODO Description of z.
+         */
+        llong z;
+
+        /**
+         * @brief Starts an execution of a wfes sweep model.
+         * @return Results of the execution.
+         */
+        ResultsWfesSweep* execute();
+
+        /**
+         * @brief Only fixation state is absorbing.
+         * @return Results of the execution.
+         */
+        ResultsWfesSweep* fixation();
+
+        /**
+         * @brief Calculate starting copies of allele.
+         */
+        void calculateStartingCopies();
+
+        /**
+         * @brief Calculate z.
+         */
+        void calculateZ();
 };
 
 #endif // WFES_SWEEP_H

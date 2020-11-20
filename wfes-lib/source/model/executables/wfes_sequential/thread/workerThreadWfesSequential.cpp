@@ -5,6 +5,7 @@ WorkerThreadWfesSequential::WorkerThreadWfesSequential(QObject *parent) : QThrea
 }
 
 WorkerThreadWfesSequential::~WorkerThreadWfesSequential(){
+    // If not done when finished, aborted by user.
     if (!done) {
         exit();
         emit updateProgress(wfes::utils::ExecutionStatus::ABORTED);
@@ -23,7 +24,6 @@ void WorkerThreadWfesSequential::run() {
     emit resultReady(results);
 }
 
-void WorkerThreadWfesSequential::update(int value)
-{
+void WorkerThreadWfesSequential::update(int value) {
     emit updateProgress(value);
 }

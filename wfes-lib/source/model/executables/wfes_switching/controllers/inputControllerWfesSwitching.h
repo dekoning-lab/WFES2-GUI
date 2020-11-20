@@ -1,24 +1,25 @@
 #ifndef INPUTCONTROLLERWFESSWITCHING_H
 #define INPUTCONTROLLERWFESSWITCHING_H
 
+#include <QString>
 #include <QObject>
-#include <QDebug>
+
+#include <boost/math/special_functions/fpclassify.hpp>
+#include <boost/lexical_cast.hpp>
+#include <boost/format.hpp>
 
 #include <wfes-lib_global.h>
 
 #include <model/executables/wfes_switching/config/configWfesSwitching.h>
-
-#include <boost/format.hpp>
-#include <boost/lexical_cast.hpp>
+#include "utils/utils.h"
 
 namespace wfes {
     namespace controllers {
 
-        /**
-         * @brief The InputController class contains a set of configuration values that can be set in the GUI by the user.
-         * It has methods for setting GUI values from backend (for example, when starting the application and loading a previous configuration),
-         * or getting input values set by the user in the GUI.
-         */
+    /**
+     * @brief The InputControllerWfesSwitching class is a controller for input parameters
+     * of wfes switching.
+     */
         class WFESLIBSHARED_EXPORT InputControllerWfesSwitching : public QObject{
             Q_OBJECT
             Q_PROPERTY(QString ui_a READ get_a WRITE set_a NOTIFY input_changed)
@@ -47,7 +48,7 @@ namespace wfes {
 
             public:
                 /**
-                 * @brief InputControllerWfesSequential Constructor.
+                 * @brief InputControllerWfesSwitching Constructor.
                  * @param parent To be used by Qt.
                  */
                 explicit InputControllerWfesSwitching(QObject* parent = nullptr);
@@ -55,7 +56,7 @@ namespace wfes {
                 /**
                  * @brief InputControllerWfesSwitching Destructor.
                  */
-                ~InputControllerWfesSwitching();
+                ~InputControllerWfesSwitching() = default;
 
                 /**
                  * @brief Send a to GUI.
@@ -112,7 +113,6 @@ namespace wfes {
                  */
                 void set_output_Q(bool output_Q) const;
 
-
                 /**
                  * @brief Send if output R to GUI.
                  * @return boolean containing if output R.
@@ -123,7 +123,6 @@ namespace wfes {
                  * @param output_R value of output R in GUI.
                  */
                 void set_output_R(bool output_R) const;
-
 
                 /**
                  * @brief Send if output N to GUI.
@@ -157,7 +156,6 @@ namespace wfes {
                  * @param output_NExt value of output NExt in GUI.
                  */
                 void set_output_N_Ext(bool output_NExt) const;
-
 
                 /**
                  * @brief Send if output NFix to GUI.
@@ -235,7 +233,6 @@ namespace wfes {
                  * @param initial_distribution_path value of initial_distribution_path in GUI.
                  */
                 void set_initial_distribution_path(QString initial_distribution_path) const;
-
 
                 /**
                  * @brief Send vector of N to GUI.

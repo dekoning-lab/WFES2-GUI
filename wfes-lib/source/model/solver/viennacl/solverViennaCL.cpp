@@ -3,32 +3,24 @@
 
 using namespace wfes::vienna;
 
-SolverViennaCL::SolverViennaCL(SparseMatrixViennaCL &A, std::string solver, std::string preconditioner) : Solver(A), solver(solver), preconditioner(preconditioner)
-{
+SolverViennaCL::SolverViennaCL(SparseMatrixViennaCL &A, std::string solver, std::string preconditioner) : Solver(A), solver(solver), preconditioner(preconditioner) {
 
-/*
-#ifdef VIENNACL_WITH_OPENMP
-    omp_set_num_threads(wfes::config::Config::n_threads);
-#endif
+    /*
+    //If ViennaCL with OpenMp instead of Open CL, set number of threads.
+    #ifdef VIENNACL_WITH_OPENMP
+        omp_set_num_threads(wfes::config::Config::n_threads);
+    #endif
 
-#ifdef VIENNACL_WITH_OPENCL
-    qDebug() << QString::fromStdString(viennacl::ocl::current_device().info());
-#endif
-*/
+    // If viennaCL with openCL, you can print the current device with this.
+    #ifdef VIENNACL_WITH_OPENCL
+        qDebug() << QString::fromStdString(viennacl::ocl::current_device().info());
+    #endif
+    */
 }
 
-SolverViennaCL::~SolverViennaCL()
-{
+void SolverViennaCL::preprocess() {}
 
-}
-
-void SolverViennaCL::preprocess()
-{
-
-}
-
-dvec SolverViennaCL::solve(dvec &b, bool transpose)
-{
+dvec SolverViennaCL::solve(dvec &b, bool transpose) {
     dvec res = dvec(b.size());
 
     if(this->solver.compare("MixedCG") == 0) {
@@ -47,9 +39,7 @@ dvec SolverViennaCL::solve(dvec &b, bool transpose)
     return res;
 }
 
-dvec SolverViennaCL::solve_mixed_cg(dvec &b, bool transpose)
-{
-
+dvec SolverViennaCL::solve_mixed_cg(dvec &b, bool transpose) {
     // Eigen vector to ViennaCL vector.
     viennacl::vector<double> vcl_vec(b.size());
     copy(b, vcl_vec);
@@ -74,8 +64,7 @@ dvec SolverViennaCL::solve_mixed_cg(dvec &b, bool transpose)
     return res;
 }
 
-dvec SolverViennaCL::solve_cg(dvec &b, bool transpose)
-{
+dvec SolverViennaCL::solve_cg(dvec &b, bool transpose) {
     // Eigen vector to ViennaCL vector.
     viennacl::vector<double> vcl_vec(b.size());
     copy(b, vcl_vec);
@@ -100,11 +89,9 @@ dvec SolverViennaCL::solve_cg(dvec &b, bool transpose)
     return res;
 }
 
-dvec SolverViennaCL::solve_bicgstab(dvec &b, bool transpose)
-{
+dvec SolverViennaCL::solve_bicgstab(dvec &b, bool transpose) {
     // configuration of preconditioner:
     viennacl::linalg::ilut_tag ilut_config(100, 1e-2, true);
-
 
     // Eigen vector to ViennaCL vector.
     viennacl::vector<double> vcl_vec(b.size());
@@ -120,7 +107,6 @@ dvec SolverViennaCL::solve_bicgstab(dvec &b, bool transpose)
         viennacl::compressed_matrix<double> vcl_transposed(mat.vcl_matrix.size1(), mat.vcl_matrix.size2());
         viennacl::linalg::detail::amg::amg_transpose(mat.vcl_matrix, vcl_transposed);
 
-
         // create and compute preconditioner:
         viennacl::linalg::ilut_tag ilut_config;
         viennacl::linalg::ilut_precond< viennacl::compressed_matrix<double> > vcl_ilut(vcl_transposed, ilut_config);
@@ -128,8 +114,6 @@ dvec SolverViennaCL::solve_bicgstab(dvec &b, bool transpose)
         // Solve transposed.
         vcl_res = viennacl::linalg::solve(vcl_transposed, vcl_vec, my_bicgstab_tag, vcl_ilut);
     } else {
-
-
         // create and compute preconditioner:
         viennacl::linalg::ilut_tag ilut_config;
         viennacl::linalg::ilut_precond< viennacl::compressed_matrix<double> > vcl_ilut(mat.vcl_matrix, ilut_config);
@@ -146,8 +130,7 @@ dvec SolverViennaCL::solve_bicgstab(dvec &b, bool transpose)
     return res;
 }
 
-dvec SolverViennaCL::solve_gmres(dvec &b, bool transpose)
-{
+dvec SolverViennaCL::solve_gmres(dvec &b, bool transpose) {
     // Eigen vector to ViennaCL vector.
     viennacl::vector<double> vcl_vec(b.size());
     copy(b, vcl_vec);
@@ -173,7 +156,7 @@ dvec SolverViennaCL::solve_gmres(dvec &b, bool transpose)
     return res;
 }
 
-dmat SolverViennaCL::solve_multiple(dmat &b, bool transpose)
-{
+dmat SolverViennaCL::solve_multiple(dmat &b, bool transpose) {
+    //TODO Implement this function.
     return dmat();
 }

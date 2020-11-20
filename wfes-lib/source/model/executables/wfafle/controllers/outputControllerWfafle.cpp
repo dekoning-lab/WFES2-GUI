@@ -7,6 +7,8 @@ OutputControllerWfafle::OutputControllerWfafle(QObject *parent)
     : QObject(parent), executing(false){}
 
 QString OutputControllerWfafle::execute() {
+    ImageResults::clear();
+
     // Set executing to true.
     executing = true;
 
@@ -32,7 +34,7 @@ QString OutputControllerWfafle::stop() {
     worker->wait();
     worker->exit();
 
-    return QString();
+    return "";
 }
 
 QString OutputControllerWfafle::save_config() {

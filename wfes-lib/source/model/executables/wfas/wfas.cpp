@@ -5,14 +5,13 @@ using namespace wfes::solver;
 using namespace wfes::utils;
 using namespace wfes;
 
-ResultsWfas *wfas::execute()
-{
-
+ResultsWfas *wfas::execute() {
     // Start counting execution time.
     t_start = std::chrono::system_clock::now();
 
     // Select verbose level for Intel MKL Pardiso.
-    msg_level = ConfigWfas::verbose ? MKL_PARDISO_MSG_VERBOSE : MKL_PARDISO_MSG_QUIET;
+    // Since it is a GUI application, always quiet for a better performance.
+    msg_level = MKL_PARDISO_MSG_QUIET;
 
     // Set number of threads for intel MKL Pardiso.
     omp_set_num_threads(ConfigWfas::n_threads);
@@ -21,12 +20,12 @@ ResultsWfas *wfas::execute()
     //Notify starting.
     this->notify(ExecutionStatus::STARTING);
 
+    // Start execution.
     return this->function();
 
 }
 
-ResultsWfas *wfas::function()
-{
+ResultsWfas *wfas::function() {
     try {
         dvec s_scal = ConfigWfas::s.array() * ConfigWfas::f.array();
         dvec u_scal = ConfigWfas::u.array() * ConfigWfas::f.array();
@@ -145,6 +144,7 @@ ResultsWfas *wfas::function()
         //Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
 
+        // Save data into file.
         if(ConfigWfas::output_Dist) {
             utils::writeVectorToFile(d, ConfigWfas::path_output_Dist);
         }
@@ -152,6 +152,7 @@ ResultsWfas *wfas::function()
             utils::writeMatrixToFile(B, ConfigWfas::path_output_B);
         }
 
+        // Generate images.
         QImage *imageQ = nullptr, *imageR = nullptr, *imageB = nullptr;
         if(ConfigWfas::output_Q) {
             imageQ = utils::generateImage(W.Q->dense());
@@ -168,7 +169,6 @@ ResultsWfas *wfas::function()
             //utils::saveImage(imageB, "Image_B");
             ImageResults::B = imageB;
         }
-
 
         //Calculate time.
         t_end = std::chrono::system_clock::now();

@@ -7,6 +7,8 @@ OutputControllerPhaseType::OutputControllerPhaseType(QObject *parent)
     : QObject(parent), executing(false) {}
 
 QString OutputControllerPhaseType::execute() {
+    ImageResults::clear();
+
     // Set executing to true.
     executing = true;
 

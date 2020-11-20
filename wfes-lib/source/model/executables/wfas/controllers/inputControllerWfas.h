@@ -2,25 +2,23 @@
 #define INPUTCONTROLLERWFAS_H
 
 #include <QObject>
-#include <QDebug>
-
-#include <wfes-lib_global.h>
-
-#include <model/executables/wfas/config/configWfas.h>
 
 #include <boost/format.hpp>
 #include <boost/lexical_cast.hpp>
+
+#include <wfes-lib_global.h>
+
+#include "model/executables/wfas/config/configWfas.h"
+
 
 namespace wfes {
     namespace controllers {
 
         /**
-         * @brief The InputController class contains a set of configuration values that can be set in the GUI by the user.
-         * It has methods for setting GUI values from backend (for example, when starting the application and loading a previous configuration),
-         * or getting input values set by the user in the GUI.
+         * @brief The InputControllerWfas class is a controller for input parameters
+         * of wfas.
          */
-        class WFESLIBSHARED_EXPORT InputControllerWfas : public QObject
-        {
+        class WFESLIBSHARED_EXPORT InputControllerWfas : public QObject {
             Q_OBJECT
             Q_PROPERTY(QString ui_a READ get_a WRITE set_a NOTIFY input_changed)
             Q_PROPERTY(QString ui_p READ get_p WRITE set_p NOTIFY input_changed)
@@ -50,7 +48,7 @@ namespace wfes {
 
         public:
             /**
-             * @brief InputControllerWfesSweep Constructor.
+             * @brief InputControllerWfas Constructor.
              * @param parent To be used by Qt.
              */
             explicit InputControllerWfas(QObject* parent = nullptr);
@@ -58,7 +56,7 @@ namespace wfes {
             /**
              * @brief InputControllerWfas Destructor.
              */
-            ~InputControllerWfas();
+            ~InputControllerWfas() = default;
 
             /**
              * @brief Send a to GUI.
@@ -127,7 +125,6 @@ namespace wfes {
              */
             void set_output_R(bool output_R) const;
 
-
             /**
              * @brief Send if output N to GUI.
              * @return boolean containing if output N in GUI.
@@ -150,7 +147,6 @@ namespace wfes {
              */
             void set_output_B(bool output_B) const;
 
-
             /**
              * @brief Send if output NExt to GUI.
              * @return boolean containing if output NExt.
@@ -161,7 +157,6 @@ namespace wfes {
              * @param output_NExt value of output NExt in GUI.
              */
             void set_output_N_Ext(bool output_NExt) const;
-
 
             /**
              * @brief Send if output NFix to GUI.
@@ -182,7 +177,7 @@ namespace wfes {
             bool get_output_N_Tmo() const;
             /**
              * @brief Get if output NTmo from GUI.
-             * @param output_NTmo value of output NTmo in GUI.
+             * @param output_NTmo value of NTmo in GUI.
              */
             void set_output_N_Tmo(bool output_NTmo) const;
 
@@ -194,7 +189,7 @@ namespace wfes {
             bool get_output_Dist() const;
             /**
              * @brief Get if output Dist from GUI.
-             * @param output_Dist value of output_Dist in GUI.
+             * @param output_Dist value of Dist in GUI.
              */
             void set_output_Dist(bool output_Dist) const;
 

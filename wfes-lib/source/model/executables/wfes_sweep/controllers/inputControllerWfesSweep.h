@@ -1,20 +1,26 @@
 #ifndef INPUTCONTROLLERWFESSWEEP_H
 #define INPUTCONTROLLERWFESSWEEP_H
 
+#include <QString>
 #include <QObject>
-#include <QDebug>
+
+#include <boost/math/special_functions/fpclassify.hpp>
+#include <boost/lexical_cast.hpp>
+#include <boost/format.hpp>
 
 #include <wfes-lib_global.h>
 
-#include <model/executables/wfes_sweep/config/configWfesSweep.h>
-
-#include <boost/format.hpp>
-#include <boost/lexical_cast.hpp>
+#include "model/executables/wfes_sweep/config/configWfesSweep.h"
+#include "utils/utils.h"
 
 namespace wfes {
     namespace controllers {
-        class WFESLIBSHARED_EXPORT InputControllerWfesSweep : public QObject
-        {
+
+        /**
+         * @brief The InputControllerWfesSweep class is a controller for input parameters
+         * of wfes sweep.
+         */
+        class WFESLIBSHARED_EXPORT InputControllerWfesSweep : public QObject {
             Q_OBJECT
             Q_PROPERTY(QString ui_n READ get_n WRITE set_n NOTIFY input_changed)
             Q_PROPERTY(QString ui_p READ get_p WRITE set_p NOTIFY input_changed)
@@ -48,7 +54,7 @@ namespace wfes {
             /**
              * @brief InputControllerWfesSweep Destructor.
              */
-            ~InputControllerWfesSweep();
+            ~InputControllerWfesSweep() = default;
 
             /**
              * @brief Send N to GUI.
@@ -239,7 +245,6 @@ namespace wfes {
              * @param initial_distribution_path value of initial_distribution_path in GUI.
              */
             void set_initial_distribution_path(QString initial_distribution_path) const;
-
 
             /**
              * @brief Send vector of u to GUI.

@@ -33,8 +33,7 @@ PardisoSolver::PardisoSolver(SparseMatrixPardiso& A, llong matrix_type, llong me
     control(MKL_PARDISO_PIVOT_OPTION) = MKL_PARDISO_PIVOT_CALLBACK; // allow calling get_diag                                   // iparm[55] = 1
 }
 
-void PardisoSolver::preprocess()
-{
+void PardisoSolver::preprocess() {
     phase = MKL_PARDISO_SOLVER_PHASE_ANALYSIS;
     pardiso_64(internal.data(), &max_factors, &matrix_number,
                &matrix_type, &phase, &size,
@@ -54,8 +53,7 @@ void PardisoSolver::preprocess()
     if(error != 0) throw std::runtime_error("Pardiso: Numerical factorization error. Phase " + std::to_string(phase) + ". \n" + this->errorMessage(error));
 }
 
-dvec PardisoSolver::solve(dvec& b, bool transpose)
-{
+dvec PardisoSolver::solve(dvec& b, bool transpose) {
     phase = MKL_PARDISO_SOLVER_PHASE_SOLVE_ITERATIVE_REFINEMENT;
     if(transpose) control(MKL_PARDISO_SOLVE_OPTION) = MKL_PARDISO_SOLVE_TRANSPOSED;
     else control(MKL_PARDISO_SOLVE_OPTION) = MKL_PARDISO_DEFAULT;
@@ -73,8 +71,7 @@ dvec PardisoSolver::solve(dvec& b, bool transpose)
     return x;
 }
 
-dmat PardisoSolver::solve_multiple(dmat& B, bool transpose)
-{
+dmat PardisoSolver::solve_multiple(dmat& B, bool transpose) {
     assert(B.rows() == n_right_hand_sides);
     phase = MKL_PARDISO_SOLVER_PHASE_SOLVE_ITERATIVE_REFINEMENT;
     if(transpose) control(MKL_PARDISO_SOLVE_OPTION) = MKL_PARDISO_SOLVE_TRANSPOSED;
@@ -98,8 +95,7 @@ dmat PardisoSolver::solve_multiple(dmat& B, bool transpose)
     return X;
 }
 
-dvec PardisoSolver::get_diagonal()
-{
+dvec PardisoSolver::get_diagonal() {
   dvec d_factorized(size);
   dvec d_initial(size);
 
@@ -110,8 +106,7 @@ dvec PardisoSolver::get_diagonal()
   return d_factorized;
 }
 
-std::string PardisoSolver::errorMessage(long long code)
-{
+std::string PardisoSolver::errorMessage(long long code) {
     switch (code) {
         case -1:
             return "Error Code is " + std::to_string(code) + ". Input inconsistency.";

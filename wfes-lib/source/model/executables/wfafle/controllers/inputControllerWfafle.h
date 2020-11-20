@@ -12,8 +12,12 @@
 
 namespace wfes {
     namespace controllers {
-        class WFESLIBSHARED_EXPORT InputControllerWfafle : public QObject
-        {
+
+        /**
+         * @brief The InputControllerWfafle class is a controller for input parameters
+         * of wfafle.
+         */
+        class WFESLIBSHARED_EXPORT InputControllerWfafle : public QObject {
             Q_OBJECT
             Q_PROPERTY(QString ui_a READ get_a WRITE set_a NOTIFY input_changed)
             Q_PROPERTY(QString ui_p READ get_p WRITE set_p NOTIFY input_changed)
@@ -34,7 +38,7 @@ namespace wfes {
 
             public:
                 /**
-                 * @brief InputControllerWfesSweep Constructor.
+                 * @brief InputControllerWfafle Constructor.
                  * @param parent To be used by Qt.
                  */
                 explicit InputControllerWfafle(QObject* parent = nullptr);

@@ -4,8 +4,7 @@ using namespace wfes::controllers;
 
 ImageOutputController::ImageOutputController(QObject* parent) : QObject(parent), count(0){}
 
-QString ImageOutputController::get_image_I()
-{
+QString ImageOutputController::get_image_I() {
     if(ImageResults::I == nullptr)
         return "image://visualizationImageProvider/null";
     else {
@@ -14,8 +13,7 @@ QString ImageOutputController::get_image_I()
     }
 }
 
-QString ImageOutputController::get_image_Q()
-{
+QString ImageOutputController::get_image_Q() {
     if(ImageResults::Q == nullptr)
         return "image://visualizationImageProvider/null";
     else {
@@ -24,8 +22,7 @@ QString ImageOutputController::get_image_Q()
     }
 }
 
-QString ImageOutputController::get_image_R()
-{
+QString ImageOutputController::get_image_R() {
     if(ImageResults::R == nullptr)
         return "image://visualizationImageProvider/null";
     else {
@@ -34,8 +31,7 @@ QString ImageOutputController::get_image_R()
     }
 }
 
-QString ImageOutputController::get_image_B()
-{
+QString ImageOutputController::get_image_B() {
     if(ImageResults::B == nullptr)
         return "image://visualizationImageProvider/null";
     else {
@@ -44,8 +40,7 @@ QString ImageOutputController::get_image_B()
     }
 }
 
-QString ImageOutputController::get_image_N()
-{
+QString ImageOutputController::get_image_N() {
     if(ImageResults::N == nullptr)
         return "image://visualizationImageProvider/null";
     else {
@@ -54,8 +49,7 @@ QString ImageOutputController::get_image_N()
     }
 }
 
-QString ImageOutputController::get_image_N_ext()
-{
+QString ImageOutputController::get_image_N_ext() {
     if(ImageResults::N_ext == nullptr)
         return "image://visualizationImageProvider/null";
     else {
@@ -64,8 +58,7 @@ QString ImageOutputController::get_image_N_ext()
     }
 }
 
-QString ImageOutputController::get_image_N_fix()
-{
+QString ImageOutputController::get_image_N_fix() {
     if(ImageResults::N_fix == nullptr)
         return "image://visualizationImageProvider/null";
     else {
@@ -74,8 +67,7 @@ QString ImageOutputController::get_image_N_fix()
     }
 }
 
-QString ImageOutputController::get_image_N_tmo()
-{
+QString ImageOutputController::get_image_N_tmo() {
     if(ImageResults::N_tmo == nullptr)
         return "image://visualizationImageProvider/null";
     else {
@@ -84,8 +76,7 @@ QString ImageOutputController::get_image_N_tmo()
         }
 }
 
-QString ImageOutputController::get_image_V()
-{
+QString ImageOutputController::get_image_V() {
     if(ImageResults::V == nullptr)
         return "image://visualizationImageProvider/null";
     else {
@@ -94,8 +85,7 @@ QString ImageOutputController::get_image_V()
     }
 }
 
-QString ImageOutputController::get_image_E()
-{
+QString ImageOutputController::get_image_E() {
     if(ImageResults::E == nullptr)
         return "image://visualizationImageProvider/null";
     else {
@@ -104,8 +94,7 @@ QString ImageOutputController::get_image_E()
     }
 }
 
-QString ImageOutputController::get_image_P()
-{
+QString ImageOutputController::get_image_P() {
     if(ImageResults::P == nullptr)
         return "image://visualizationImageProvider/null";
     else {
@@ -114,15 +103,11 @@ QString ImageOutputController::get_image_P()
     }
 }
 
-void ImageOutputController::set_image_to_download(QString imageName)
-{
+void ImageOutputController::set_image_to_download(QString imageName) {
     this->image_to_download = imageName;
 }
 
-QString ImageOutputController::download()
-{
-
-    //TODO put outputPath in global configuration.
+QString ImageOutputController::download(){
     QString outputPath(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/Wfes/");
     QDir dir;
 

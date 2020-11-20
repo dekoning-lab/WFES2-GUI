@@ -52,7 +52,7 @@ ResultsWfafle *wfafle::function() {
 
         iterate_generations(d[k - 1], ConfigWfafle::N(k - 1), ConfigWfafle::G(k - 1), ConfigWfafle::ConfigWfafle::s(k - 1), ConfigWfafle::h(k - 1), ConfigWfafle::u(k - 1), ConfigWfafle::v(k - 1), ConfigWfafle::a, msg_level);
 
-        //Notify saving data.
+        // Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
 
         // Save data into file.

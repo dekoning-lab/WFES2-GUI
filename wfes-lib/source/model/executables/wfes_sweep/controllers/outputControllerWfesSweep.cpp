@@ -3,53 +3,51 @@
 using namespace wfes::controllers;
 using namespace wfes::config;
 
-OutputControllerWfesSweep::OutputControllerWfesSweep(QObject *parent): QObject(parent), executing(false){}
+OutputControllerWfesSweep::OutputControllerWfesSweep(QObject *parent)
+    : QObject(parent), executing(false){}
 
-OutputControllerWfesSweep::~OutputControllerWfesSweep() {}
-
-QString OutputControllerWfesSweep::execute()
-{
+QString OutputControllerWfesSweep::execute() {
     ImageResults::clear();
 
+    // Set executing to true.
     executing = true;
+
+    // Register results class as metatype, so it can be passed between Q_OBJECTS as slot.
     qRegisterMetaType<ResultsWfesSweep>("ResultsWfesSweep");
 
+    // Instantiate worker and connect signals of this controller with the worker.
     worker = new WorkerThreadWfesSweep();
     connect(worker, SIGNAL(resultReady(ResultsWfesSweep)), this, SLOT(handleResults(ResultsWfesSweep)));
     connect(worker, SIGNAL(updateProgress(int)), this, SLOT(handleProgress(int)));
     connect(worker, SIGNAL(finished()), worker, SLOT(deleteLater()));
+
+    // Start execution.
     worker->start();
 
-    return QString();
+    return "";
 }
 
-QString OutputControllerWfesSweep::stop()
-{
+QString OutputControllerWfesSweep::stop() {
     // TODO Looks that using terminate is a bad practice because it can stop the thread, for example, while writting a file,
     // and the file will be corrupt then. Look for a better way of doing this.
     worker->terminate();
     worker->wait();
     worker->exit();
 
-    return QString();
+    return "";
 }
 
-QString OutputControllerWfesSweep::save_config()
-{
+QString OutputControllerWfesSweep::save_config() {
     ConfigWfesSweep::saveConfigWfesSweep();
-
-    return QString();
+    return "";
 }
 
-QString OutputControllerWfesSweep::load_config()
-{
+QString OutputControllerWfesSweep::load_config() {
     ConfigWfesSweep::loadConfigWfesSweep();
-
-    return QString();
+    return "";
 }
 
-QString OutputControllerWfesSweep::get_t_fix() const
-{
+QString OutputControllerWfesSweep::get_t_fix() const {
     boost::format fmt = boost::format(DPF) % (this->results.tFix);
 
     if((boost::math::isnan)(this->results.tFix))
@@ -58,8 +56,7 @@ QString OutputControllerWfesSweep::get_t_fix() const
         return QString::fromStdString(fmt.str());
 }
 
-QString OutputControllerWfesSweep::get_rate() const
-{
+QString OutputControllerWfesSweep::get_rate() const {
     boost::format fmt = boost::format(DPF) % (this->results.rate);
 
     if((boost::math::isnan)(this->results.rate))
@@ -68,19 +65,16 @@ QString OutputControllerWfesSweep::get_rate() const
         return QString::fromStdString(fmt.str());
 }
 
-QString OutputControllerWfesSweep::get_error_message() const
-{
+QString OutputControllerWfesSweep::get_error_message() const {
     return QString::fromStdString(this->results.error);
 }
 
-QString OutputControllerWfesSweep::reset_error()
-{
+QString OutputControllerWfesSweep::reset_error() {
     this->results.error = "";
     return QString();
 }
 
-QString OutputControllerWfesSweep::get_time() const
-{
+QString OutputControllerWfesSweep::get_time() const {
     boost::format fmt = boost::format("%1$.2f") % (this->results.time);
 
     if((boost::math::isnan)(this->results.time))
@@ -89,12 +83,10 @@ QString OutputControllerWfesSweep::get_time() const
         return QString::fromStdString(fmt.str());
 }
 
-bool OutputControllerWfesSweep::get_not_exec() const
-{
+bool OutputControllerWfesSweep::get_not_exec() const {
     return !executing;
 }
 
-QString OutputControllerWfesSweep::get_progress() const
-{
+QString OutputControllerWfesSweep::get_progress() const {
     return this->progress;
 }

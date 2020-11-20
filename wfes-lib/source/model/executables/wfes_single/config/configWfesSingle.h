@@ -1,14 +1,14 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#include <string>
-#include "utils/types.h"
-
-#include <QDir>
 #include <QStandardPaths>
-#include <QDebug>
-
+#include <QTextStream>
 #include <QString>
+#include <QDir>
+
+#include <string>
+
+#include "utils/types.h"
 
 namespace wfes {
     namespace config {
@@ -25,16 +25,24 @@ namespace wfes {
          */
         static const char *ModelTypeNames[] = { "None", "Absorption", "Fixation", "Establishment", "Fundamental", "Equilibrium", "Non Absorbing", "Allele Age"};
 
-        static const int numModelTypes = 8;
-
+        /**
+         * @brief The ConfigWfesSingle class contains the configuration parameters of Wfes Single as well as some functions for
+         * saving and loading the configuration.
+         */
         class ConfigWfesSingle {
             public:
                 /**
-                 * @brief Default constructor for class Config.
+                 * @brief Default constructor for class ConfigWfesSingle.
                  */
-                ConfigWfesSingle();
+                ConfigWfesSingle() = default;
 
+                /**
+                 * @brief Get an integer representing a model type (Position in the enum).
+                 * @param modelType Model Type that we want to extract the numer (position).
+                 * @return Position of the Model Type in the enum.
+                 */
                 static int ModelTypeWfesSingleToInt(ModelTypeWfesSingle modelType);
+
                 /**
                  * @brief Library used for solving matrix systems (e.g. pardiso, viennacl...).
                  */
@@ -231,69 +239,19 @@ namespace wfes {
                 static bool force;
 
                 /**
-                 * @brief Verbose solver output (TODO Not Used In GUI.)
+                 * @brief Save configuration into a file.
                  */
-                static bool verbose;
-
-                /**
-                 * @brief TODO Not used.
-                 */
-                static bool help;
-
-                /**
-                 * @brief Error messages to show if there is an error.
-                 */
-                static std::string error;
-
-                /**
-                 * @brief Save matrix I (Initial probability distribution) as image for visualization.
-                 */
-                static bool saveImageI;
-
-                /**
-                 * @brief Save matrix Q as image for visualization.
-                 */
-                static bool saveImageQ;
-
-                /**
-                 * @brief Save matrix R as image for visualization.
-                 */
-                static bool saveImageR;
-
-                /**
-                 * @brief Save matrix N as image for visualization.
-                 */
-                static bool saveImageN;
-
-                /**
-                 * @brief Save matrix N_Ext (extintion-conditional sojourn) as image for visualization.
-                 */
-                static bool saveImageNExt;
-
-                /**
-                 * @brief Save matrix N_fix (fixation-conditional sojourn) as image for visualization.
-                 */
-                static bool saveImageNFix;
-
-                /**
-                 * @brief Save matrix B as image for visualization.
-                 */
-                static bool saveImageB;
-
-                /**
-                 * @brief Save matrix V (Variance time matrix) as image for visualization (Fundamental mode only).
-                 */
-                static bool saveImageV;
-
-                /**
-                 * @brief Save matrix E (Equilibrium frequencies) as image for visualization (Equilibrium mode only).
-                 */
-                static bool saveImageE;
-
                 static void saveConfigWfesSingle();
 
+                /**
+                 * @brief Load configuration from a file.
+                 */
                 static void loadConfigWfesSingle();
 
+                /**
+                 * @brief Process a line from the configuration file.
+                 * @param line Current line being processed in the configuration file.
+                 */
                 static void processLine(QString line);
         };
     }

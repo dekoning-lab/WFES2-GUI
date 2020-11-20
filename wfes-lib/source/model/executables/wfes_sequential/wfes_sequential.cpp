@@ -5,14 +5,13 @@ using namespace wfes::solver;
 using namespace wfes::utils;
 using namespace wfes;
 
-ResultsWfesSequential *wfes_sequential::execute()
-{
-
+ResultsWfesSequential *wfes_sequential::execute() {
     // Start counting execution time.
     t_start = std::chrono::system_clock::now();
 
     // Select verbose level for Intel MKL Pardiso.
-    msg_level = ConfigWfesSequential::verbose ? MKL_PARDISO_MSG_VERBOSE : MKL_PARDISO_MSG_QUIET;
+    // Since it is a GUI application, always quiet for a better performance.
+    msg_level = MKL_PARDISO_MSG_QUIET;
 
     // Set number of threads for intel MKL Pardiso.
     omp_set_num_threads(ConfigWfesSequential::n_threads);
@@ -21,14 +20,12 @@ ResultsWfesSequential *wfes_sequential::execute()
     //Notify starting.
     this->notify(ExecutionStatus::STARTING);
 
+    // Start execution.
     return this->function();
 }
 
-ResultsWfesSequential *wfes_sequential::function()
-{
+ResultsWfesSequential *wfes_sequential::function() {
     try {
-        //Force was here, but since it is now implemented in view, deleted here.
-
         //Notify building matrix.
         this->notify(ExecutionStatus::BUILDING_MATRICES);
 
@@ -164,7 +161,7 @@ ResultsWfesSequential *wfes_sequential::function()
         //Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
 
-        // Output {{{
+        // Save data into file.
         if(ConfigWfesSequential::output_N_Ext)
             writeVectorToFile(E_ext, ConfigWfesSequential::path_output_N_Ext);
         if(ConfigWfesSequential::output_N_Fix)
@@ -176,15 +173,14 @@ ResultsWfesSequential *wfes_sequential::function()
         if(ConfigWfesSequential::output_B)
             writeMatrixToFile(B, ConfigWfesSequential::path_output_B);
 
+        // Generate images.
         QImage *imageQ = nullptr, *imageR = nullptr,  *imageN = nullptr, *imageB = nullptr, *imageN_ext = nullptr, *imageN_fix = nullptr, *imageN_tmo = nullptr;
         if(ConfigWfesSequential::output_Q) {
             imageQ = utils::generateImage(W.Q->dense());
-            //utils::saveImage(imageI, "Image_I");
             ImageResults::Q = imageQ;
         }
         if(ConfigWfesSequential::output_R) {
             imageR = utils::generateImage(W.R);
-            //utils::saveImage(imageI, "Image_I");
             ImageResults::R = imageR;
         }
         if(ConfigWfesSequential::output_N) {
@@ -196,27 +192,22 @@ ResultsWfesSequential *wfes_sequential::function()
                 i++;
             }
             imageN = utils::generateImage(N);
-            //utils::saveImage(imageN, "Image_N");
             ImageResults::N = imageN;
         }
         if(ConfigWfesSequential::output_B) {
             imageB = utils::generateImage(B);
-            //utils::saveImage(imageB, "Image_B");
             ImageResults::B = imageB;
         }
         if(ConfigWfesSequential::output_N_Ext) {
             imageN_ext = utils::generateImage(E_ext);
-            //utils::saveImage(imageB, "Image_B");
             ImageResults::N_ext = imageN_ext;
         }
         if(ConfigWfesSequential::output_N_Fix) {
             imageN_fix = utils::generateImage(E_fix);
-            //utils::saveImage(imageB, "Image_B");
             ImageResults::N_fix = imageN_fix;
         }
         if(ConfigWfesSequential::output_N_Tmo) {
             imageN_tmo = utils::generateImage(E_tmo);
-            //utils::saveImage(imageB, "Image_B");
             ImageResults::N_tmo = imageN_tmo;
         }
 
@@ -226,6 +217,10 @@ ResultsWfesSequential *wfes_sequential::function()
 
         ResultsWfesSequential *res =  new ResultsWfesSequential(P_ext, P_fix, P_tmo, T_ext, T_ext_std, T_fix, T_fix_std, T_tmo, T_tmo_std, dt.count());
 
+        //Notify saving data.
+        this->notify(ExecutionStatus::SAVING_DATA);
+
+        // Save data into file.
         if(ConfigWfesSequential::output_Res)
            res->writeResultsToFile(res, ConfigWfesSequential::path_output_Res);
 

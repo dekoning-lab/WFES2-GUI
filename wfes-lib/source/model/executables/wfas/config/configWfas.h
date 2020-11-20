@@ -1,24 +1,28 @@
 #ifndef CONFIGWFAS_H
 #define CONFIGWFAS_H
 
-#include <string>
-#include "utils/types.h"
-
-#include <QString>
-
-#include <QDir>
 #include <QStandardPaths>
-#include <QDebug>
+#include <QTextStream>
+#include <QString>
+#include <QDir>
+
+#include <string>
+
+#include "utils/types.h"
 
 namespace wfes {
     namespace config {
 
+        /**
+         * @brief The ConfigWfas class contains the configuration parameters of WFAS as well as some functions for
+         * saving and loading the configuration.
+         */
         class ConfigWfas {
             public:
                 /**
                  * @brief Default constructor for class ConfigWfas.
                  */
-                ConfigWfas();
+                ConfigWfas() = default;
 
                 /**
                  * @brief Library used for solving matrix systems (e.g. pardiso, viennacl...).
@@ -31,12 +35,12 @@ namespace wfes {
                 static std::string vienna_solver;
 
                 /**
-                 * @brief Population size for each of the k epochs (N)
+                 * @brief Size of the population for each component (N).
                  */
                 static lvec N;
 
                 /**
-                 * @brief Number of generations each of the k epochs last (G)
+                 * @brief Maximum number of generations (G).
                  */
                 static lvec G;
 
@@ -46,27 +50,42 @@ namespace wfes {
                 static dvec f;
 
                 /**
-                 * @brief Individial selection coefficient (s)
+                 * @brief Selection coefficients for each component (s).
                  */
                 static dvec s;
 
+                /**
+                 * @brief Dominance coefficients for each component (h).
+                 */
                 static dvec h;
 
+                /**
+                 * @brief Backward mutation rates for each component (u).
+                 */
                 static dvec u;
 
+                /**
+                 * @brief Forward mutation rates for each component (u).
+                 */
                 static dvec v;
 
+                /**
+                 * @brief Tail truncation weight (a).
+                 */
                 static double a;
 
                 /**
-                 * @brief p Initial number of alleles (i will be ignored)
+                 * @brief Initial allele count (p) (i will be ignored).
                  */
                 static int p;
 
+                /**
+                 * @brief Number of threads for OpenMP (t).
+                 */
                 static int n_threads;
 
                 /**
-                 * @brief no_proj Do not project the distribution down.
+                 * @brief Do not project the distribution down.
                  */
                 static bool no_proj;
 
@@ -74,9 +93,6 @@ namespace wfes {
                  * @brief Path to initial probability distribution CSV (I).
                  */
                 static std::string initial_distribution_csv;
-
-
-
 
                 /**
                  * @brief Output Q.
@@ -114,12 +130,9 @@ namespace wfes {
                 static bool output_N_Tmo;
 
                 /**
-                 * @brief Output Res (Generated results).
+                 * @brief Output Dist (Generated distribution).
                  */
                 static bool output_Dist;
-
-
-
 
                 /**
                  * @brief Path output Q.
@@ -157,11 +170,9 @@ namespace wfes {
                 static std::string path_output_N_Tmo;
 
                 /**
-                 * @brief Path output Dist (Generated results).
+                 * @brief Path output Dist (Generated distribution).
                  */
                 static std::string path_output_Dist;
-
-
 
                 /**
                  * @brief Do not perform parameter checks.
@@ -169,24 +180,24 @@ namespace wfes {
                 static bool force;
 
                 /**
-                 * @brief Verbose solver output (TODO Not Used In GUI.)
-                 */
-                static bool verbose;
-
-                /**
-                 * @brief Error messages to show if there is an error.
-                 */
-                static std::string error;
-
-                /**
                  * @brief Number of components used.
                  */
                 static int num_comp;
 
+                /**
+                 * @brief Save configuration into a file.
+                 */
                 static void saveConfigWfas();
 
+                /**
+                 * @brief Load configuration from a file.
+                 */
                 static void loadConfigWfas();
 
+                /**
+                 * @brief Process a line from the configuration file.
+                 * @param line Current line being processed in the configuration file.
+                 */
                 static void processLine(QString line);
             };
     }

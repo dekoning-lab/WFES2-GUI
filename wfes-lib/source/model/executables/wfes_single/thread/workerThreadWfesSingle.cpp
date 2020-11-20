@@ -6,6 +6,7 @@ WorkerThreadWfesSingle::WorkerThreadWfesSingle(QObject *parent) : QThread(parent
 }
 
 WorkerThreadWfesSingle::~WorkerThreadWfesSingle() {
+    // If not done when finished, aborted by user.
     if (!done) {
         exit();
         emit updateProgress(wfes::utils::ExecutionStatus::ABORTED);

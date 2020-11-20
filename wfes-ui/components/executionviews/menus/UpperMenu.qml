@@ -88,13 +88,12 @@ Rectangle {
 
                     }
                 }
-                MenuItem {
-                    text: "Global Settings"
-                    onClicked: {
-                        console.warn("WARNING: Settings->Global Settings clicked - Not implemented yet.")
-                        chartVisualization.updatePhaseTypeMomentsChart()
-                    }
-                }
+//                MenuItem {
+//                    text: "Global Settings"
+//                    onClicked: {
+//                        console.warn("WARNING: Settings->Global Settings clicked - Not implemented yet.")
+//                    }
+//                }
             }
         }
 

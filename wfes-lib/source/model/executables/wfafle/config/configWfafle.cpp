@@ -65,7 +65,6 @@ void ConfigWfafle::saveConfigWfafle() {
     outStream << ConfigWfafle::v[ConfigWfafle::num_comp - 1] << "\n";
 
     file.close();
-
 }
 
 void ConfigWfafle::loadConfigWfafle() {
@@ -145,7 +144,6 @@ void ConfigWfafle::processLine(QString line) {
         }
         ConfigWfafle::v = newv;
     }
-
 }
 
 

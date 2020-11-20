@@ -7,10 +7,7 @@ SparseMatrixPardiso::SparseMatrixPardiso() :
     SparseMatrix(0, 0),
     current_row(0), full(false),
     row_index_start(-1),
-    data(nullptr), cols(nullptr), row_index(nullptr)
-{
-
-}
+    data(nullptr), cols(nullptr), row_index(nullptr) {}
 
 SparseMatrixPardiso::SparseMatrixPardiso(llong numRows, llong numCols) :
   SparseMatrix(numRows, numCols),
@@ -55,9 +52,7 @@ SparseMatrixPardiso::SparseMatrixPardiso(dmat& eigenDenseMatrix) :
 
 }
 
-SparseMatrix* SparseMatrixPardiso::LeftPaddedDiagonal(int dim, double x, int padLeft)
-{
-
+SparseMatrix* SparseMatrixPardiso::LeftPaddedDiagonal(int dim, double x, int padLeft) {
     SparseMatrixPardiso* I = new SparseMatrixPardiso(dim, padLeft + dim);
     I->full = true;
     I->num_non_zeros = dim;
@@ -80,21 +75,19 @@ SparseMatrix* SparseMatrixPardiso::LeftPaddedDiagonal(int dim, double x, int pad
     return I;
 }
 
-SparseMatrixPardiso::~SparseMatrixPardiso(){
+SparseMatrixPardiso::~SparseMatrixPardiso() {
     free(data);
     free(cols);
     free(row_index);
     mkl_sparse_destroy(handler);
 }
 
-void SparseMatrixPardiso::appendRow(dvec &row, int col_start, int size)
-{
+void SparseMatrixPardiso::appendRow(dvec &row, int col_start, int size) {
     appendChunk(row, col_start, col_start, size);
     nextRow();
 }
 
-void SparseMatrixPardiso::appendChunk(dvec &row, int m0, int r0, int size)
-{
+void SparseMatrixPardiso::appendChunk(dvec &row, int m0, int r0, int size) {
     // Test not full
     assert(!full);
     // Update size
@@ -117,8 +110,7 @@ void SparseMatrixPardiso::appendChunk(dvec &row, int m0, int r0, int size)
     num_non_zeros += size;
 }
 
-void SparseMatrixPardiso::appendValue(double value, int j)
-{
+void SparseMatrixPardiso::appendValue(double value, int j) {
     llong new_size = num_non_zeros + 1;
 
     row_index_start = positiveMin(row_index_start, num_non_zeros);
@@ -136,8 +128,7 @@ void SparseMatrixPardiso::appendValue(double value, int j)
     num_non_zeros += 1;
 }
 
-void SparseMatrixPardiso::nextRow()
-{
+void SparseMatrixPardiso::nextRow() {
     assert(!full);
     row_index[current_row] = row_index_start;
     current_row += 1;
@@ -150,8 +141,7 @@ void SparseMatrixPardiso::nextRow()
     }
 }
 
-void SparseMatrixPardiso::debugPrint()
-{
+void SparseMatrixPardiso::debugPrint() {
     std::cout << "data:    " << std::endl;
     printBuffer(data, (size_t)num_non_zeros);
     std::cout << "cols:   " << std::endl;
@@ -160,8 +150,7 @@ void SparseMatrixPardiso::debugPrint()
     printBuffer(row_index, (size_t)(num_rows + 1));
 }
 
-bool SparseMatrixPardiso::approxEquals(const SparseMatrix &rhs, double tol, bool verbose)
-{
+bool SparseMatrixPardiso::approxEquals(const SparseMatrix &rhs, double tol, bool verbose) {
     if(num_rows != static_cast<const SparseMatrixPardiso&>(rhs).num_rows) return false;
     if(num_cols != static_cast<const SparseMatrixPardiso&>(rhs).num_cols) return false;
     if(num_non_zeros != static_cast<const SparseMatrixPardiso&>(rhs).num_non_zeros) return false;
@@ -180,8 +169,7 @@ bool SparseMatrixPardiso::approxEquals(const SparseMatrix &rhs, double tol, bool
     return true;
 }
 
-dmat SparseMatrixPardiso::dense()
-{
+dmat SparseMatrixPardiso::dense() {
     dmat dns(num_rows, num_cols);
 
     llong info = 0;
@@ -201,8 +189,7 @@ dmat SparseMatrixPardiso::dense()
     return dns;
 }
 
-dvec SparseMatrixPardiso::getDiagCopy()
-{
+dvec SparseMatrixPardiso::getDiagCopy() {
     assert(num_rows == num_cols);
 
     dvec diag(num_rows);
@@ -220,8 +207,7 @@ dvec SparseMatrixPardiso::getDiagCopy()
     return diag;
 }
 
-dvec SparseMatrixPardiso::getColCopy(int c)
-{
+dvec SparseMatrixPardiso::getColCopy(int c) {
     dvec column = dvec::Zero(num_rows);
     for(llong i = 0; i < num_rows; i++) {
         for(llong j = row_index[i]; j < row_index[i + 1]; j++) {
@@ -234,14 +220,13 @@ dvec SparseMatrixPardiso::getColCopy(int c)
     return column;
 }
 
-dvec SparseMatrixPardiso::getRowCopy(int i)
-{
+dvec SparseMatrixPardiso::getRowCopy(int i) {
     //TODO Implementation (Not used).
+    (void)i;
     return dvec();
 }
 
-dvec SparseMatrixPardiso::multiply(dvec &x, bool transpose)
-{
+dvec SparseMatrixPardiso::multiply(dvec &x, bool transpose) {
     llong v_size = transpose ? num_cols : num_rows;
     transpose ? assert(x.size() == num_rows) : assert(x.size() == num_cols);
     dvec y(v_size);
@@ -255,8 +240,7 @@ dvec SparseMatrixPardiso::multiply(dvec &x, bool transpose)
     return y;
 }
 
-void SparseMatrixPardiso::multiplyInPlaceRep(dvec &x, int times, bool transpose)
-{
+void SparseMatrixPardiso::multiplyInPlaceRep(dvec &x, int times, bool transpose) {
     transpose ? assert(x.size() == num_rows) : assert(x.size() == num_cols);
     dvec workspace(x.size());
 
@@ -271,8 +255,7 @@ void SparseMatrixPardiso::multiplyInPlaceRep(dvec &x, int times, bool transpose)
     }
 }
 
-SparseMatrix* SparseMatrixPardiso::multiply(SparseMatrix &B, bool transpose)
-{
+SparseMatrix* SparseMatrixPardiso::multiply(SparseMatrix &B, bool transpose) {
     sparse_operation_t op = transpose ? SPARSE_OPERATION_TRANSPOSE : SPARSE_OPERATION_NON_TRANSPOSE;
 
     SparseMatrixPardiso *C = new SparseMatrixPardiso(num_rows, static_cast<SparseMatrixPardiso&>(B).num_cols);
@@ -285,8 +268,7 @@ SparseMatrix* SparseMatrixPardiso::multiply(SparseMatrix &B, bool transpose)
     return C;
 }
 
-void SparseMatrixPardiso::subtractIdentity()
-{
+void SparseMatrixPardiso::subtractIdentity() {
     for (llong i = 0; i < num_rows; ++i) {
         for (llong j = row_index[i]; j < row_index[i + 1]; ++j) {
             if (i == cols[j]) data[j] = 1.0 - data[j];
@@ -295,8 +277,7 @@ void SparseMatrixPardiso::subtractIdentity()
     }
 }
 
-double SparseMatrixPardiso::search(int i, int j)
-{
+double SparseMatrixPardiso::search(int i, int j) {
     if(i >= current_row) return NAN;
     for(llong k = row_index[i]; k < row_index[i + 1]; k++) {
         if (cols[k] == j) {
@@ -306,14 +287,14 @@ double SparseMatrixPardiso::search(int i, int j)
     return 0; // was not found
 }
 
-void SparseMatrixPardiso::setValue(double x, int i, int j)
-{
+void SparseMatrixPardiso::setValue(double x, int i, int j) {
     //TODO Implementation (Not used).
+    (void)x;
+    (void)i;
+    (void)j;
 }
 
-void SparseMatrixPardiso::saveMarket(std::string name)
-{
-    //TODO put outputPath in global configuration.
+void SparseMatrixPardiso::saveMarket(std::string name) {
     QString outputPath(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/Wfes/");
     QDir dir;
 

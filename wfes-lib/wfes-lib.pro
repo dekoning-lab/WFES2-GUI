@@ -164,7 +164,6 @@ SOURCES += \
     source/model/wright-fisher/rdist.cpp \
     source/model/wright-fisher/wrightFisher.cpp \
     source/model/executables/wfes_single/results/resultsWfesSingle.cpp \
-    source/utils/observer/observer.cpp \
     source/utils/observer/subject.cpp \
     source/utils/parsing.cpp \
     source/utils/utils.cpp

@@ -16,8 +16,8 @@ int ConfigPhaseType::ModelTypePhaseTypeToInt(enum ModelTypePhaseType modelType) 
 
 void ConfigPhaseType::saveConfigPhaseType() {
     QString outputPath(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/Wfes/Config/");
-    QDir dir;
 
+    QDir dir;
     if (!dir.exists(outputPath))
         dir.mkpath(outputPath);
 

@@ -1,9 +1,7 @@
 #include "utils.h"
 
 
-void wfes::utils::writeMatrixToFile(const dmat &A, std::string name, bool append)
-{
-    //TODO put outputPath in global configuration.
+void wfes::utils::writeMatrixToFile(const dmat &A, std::string name, bool append) {
     QString outputPath(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/Wfes/");
     QDir dir;
 
@@ -25,10 +23,7 @@ void wfes::utils::writeMatrixToFile(const dmat &A, std::string name, bool append
     file.close();
 }
 
-void wfes::utils::writeVectorMapToFile(const std::map<llong, dvec> &A, std::string name, bool append)
-{
-
-    //TODO put outputPath in global configuration.
+void wfes::utils::writeVectorMapToFile(const std::map<llong, dvec> &A, std::string name, bool append) {
     QString outputPath(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/Wfes/");
     QDir dir;
 
@@ -57,9 +52,7 @@ void wfes::utils::writeVectorMapToFile(const std::map<llong, dvec> &A, std::stri
 
 }
 
-void wfes::utils::writeVectorToFile(const dvec &A, std::string name, bool append)
-{
-    //TODO put outputPath in global configuration.
+void wfes::utils::writeVectorToFile(const dvec &A, std::string name, bool append) {
     QString outputPath(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/Wfes/");
     QDir dir;
 
@@ -82,8 +75,7 @@ void wfes::utils::writeVectorToFile(const dvec &A, std::string name, bool append
     file.close();
 }
 
-void wfes::utils::printVector(const dvec &src, const char *prefix, const char *postfix, const char *delim)
-{
+void wfes::utils::printVector(const dvec &src, const char *prefix, const char *postfix, const char *delim) {
     size_t size = src.size();
     printf("%s", prefix);
     for(size_t i = 0; i < size - 1; i++) {
@@ -94,8 +86,7 @@ void wfes::utils::printVector(const dvec &src, const char *prefix, const char *p
     printf("%s", postfix);
 }
 
-void wfes::utils::printVector(const lvec &src, const char *prefix, const char *postfix, const char *delim)
-{
+void wfes::utils::printVector(const lvec &src, const char *prefix, const char *postfix, const char *delim) {
     size_t size = src.size();
     printf("%s", prefix);
     for(size_t i = 0; i < size - 1; i++) {
@@ -106,8 +97,7 @@ void wfes::utils::printVector(const lvec &src, const char *prefix, const char *p
     printf("%s", postfix);
 }
 
-llong wfes::utils::positiveMin(llong a, llong b)
-{
+llong wfes::utils::positiveMin(llong a, llong b) {
     if (a == 0 && b == 0) return 0;
     if (a >= 0 && b <  0) return a;
     if (a <  0 && b >= 0) return b;
@@ -115,23 +105,19 @@ llong wfes::utils::positiveMin(llong a, llong b)
     else return b;
 }
 
-bool wfes::utils::approxEq(const dvec &a, const dvec &b, double tol)
-{
+bool wfes::utils::approxEq(const dvec &a, const dvec &b, double tol) {
     return ((a - b).array().abs() < tol).all();
 }
 
-bool wfes::utils::approxEq(const dmat &a, const dmat &b, double tol)
-{
+bool wfes::utils::approxEq(const dmat &a, const dmat &b, double tol) {
     return ((a - b).array().abs() < tol).all();
 }
 
-double wfes::utils::totalDiff(const dmat &a, const dmat &b)
-{
+double wfes::utils::totalDiff(const dmat &a, const dmat &b) {
     return (a - b).array().abs().sum();
 }
 
-lvec wfes::utils::startIndeces(lvec n)
-{
+lvec wfes::utils::startIndeces(lvec n) {
     lvec si = lvec::Zero(n.size());
     for (llong i = 1; i < n.size(); i++) {
         si[i] = si[i-1] + n[i-1];
@@ -139,8 +125,7 @@ lvec wfes::utils::startIndeces(lvec n)
     return si;
 }
 
-lvec wfes::utils::endIndeces(lvec n)
-{
+lvec wfes::utils::endIndeces(lvec n) {
     lvec ei = lvec::Zero(n.size());
     ei(0) = n[0];
     for (llong i = 1; i < n.size(); i++) {
@@ -149,8 +134,7 @@ lvec wfes::utils::endIndeces(lvec n)
     return ei;
 }
 
-lvec wfes::utils::rangeStep(llong a, llong b, llong s)
-{
+lvec wfes::utils::rangeStep(llong a, llong b, llong s) {
     lvec r = lvec::Zero(ceil((b-a)/double(s)));
     for(llong v = a, i = 0; v < b; v += s, i++) {
         r[i] = v;
@@ -158,22 +142,19 @@ lvec wfes::utils::rangeStep(llong a, llong b, llong s)
     return r;
 }
 
-lvec wfes::utils::closedRange(llong start, llong stop)
-{
+lvec wfes::utils::closedRange(llong start, llong stop) {
     lvec r(stop - start + 1);
     for(llong i = start; i <= stop; i++) r(i - start) = i;
     return r;
 }
 
-ivec wfes::utils::closedRangeInt(int start, int stop)
-{
+ivec wfes::utils::closedRangeInt(int start, int stop) {
     ivec r(stop - start + 1);
     for(int i = start; i <= stop; i++) r(i - start) = i;
     return r;
 }
 
-QImage* wfes::utils::generateImage(const dmat &a)
-{
+QImage* wfes::utils::generateImage(const dmat &a) {
     // Get minimum and maximum value
     double max = std::numeric_limits<double>::min();
     double min = std::numeric_limits<double>::max();
@@ -208,7 +189,6 @@ QImage* wfes::utils::generateImage(const dmat &a)
 }
 
 
-bool wfes::utils::saveImage(QImage *image, std::string path)
-{
+bool wfes::utils::saveImage(QImage *image, std::string path) {
     return image->save(QString::fromStdString(path), "PNG");
 }

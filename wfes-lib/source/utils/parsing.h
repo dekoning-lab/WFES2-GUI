@@ -8,16 +8,15 @@
 template<typename T>
 T from_string(std::string const& str, size_t* pos = 0);
 
-struct TokenReader
-{
+struct TokenReader {
     void split_string(const std::string &s, char delim, std::back_insert_iterator<std::deque<std::string>> result);
     std::deque<std::string> split(const std::string &s, char delim = ',');
 };
 
 template<typename T>
-struct NumericVectorReader : TokenReader
-{
+struct NumericVectorReader : TokenReader {
     void operator()(const std::string& name, const std::string& value, Eigen::Matrix<T, Eigen::Dynamic, 1>& destination, char delim = ',') {
+        (void)name;
         std::deque<std::string> tokens = split(value, delim);
         destination.resize(tokens.size());
         for(size_t i = 0; i < tokens.size(); i++) {
@@ -27,9 +26,9 @@ struct NumericVectorReader : TokenReader
 };
 
 template<typename T>
-struct NumericMatrixReader : TokenReader
-{
+struct NumericMatrixReader : TokenReader {
     void operator()(const std::string& name, const std::string& value, Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic>& destination, char delim = ',') {
+        (void)name;
         std::deque<std::string> rows = split(value, ';');
         size_t n_row = rows.size();
         std::deque<std::deque<std::string>> m(n_row);

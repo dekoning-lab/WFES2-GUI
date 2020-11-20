@@ -9,13 +9,12 @@ using namespace wfes::config;
 using namespace wfes::utils;
 using namespace wfes;
 
-ResultsWfesSingle* wfes_single::execute()
-{
+ResultsWfesSingle* wfes_single::execute() {
     // Start counting execution time.
     t_start = std::chrono::system_clock::now();
 
     // Select verbose level for Intel MKL Pardiso.
-    msg_level = ConfigWfesSingle::verbose ? MKL_PARDISO_MSG_VERBOSE : MKL_PARDISO_MSG_QUIET;
+    msg_level = MKL_PARDISO_MSG_QUIET;
 
     // Set number of threads for intel MKL Pardiso.
     omp_set_num_threads(ConfigWfesSingle::n_threads);
@@ -23,10 +22,6 @@ ResultsWfesSingle* wfes_single::execute()
 
     //Notify starting.
     this->notify(ExecutionStatus::STARTING);
-
-    // If force is not activated, show error when values are not in expected ranges.
-    // This has been implemented in view, so it is not necessary here anymore.
-    //this->force();
 
     // Set value for starting copies if the user has provided an initial distribution,
     // load it and calculate starting copies p.
@@ -40,7 +35,7 @@ ResultsWfesSingle* wfes_single::execute()
     // load it and calculate z value.
     this->calculateZ();
 
-    // All cases (models) are wrapped in this switch instruction.
+    // Select the mode from configuration.
     switch(ConfigWfesSingle::modelType) {
         case ModelTypeWfesSingle::ABSORPTION:
             return this->absorption();
@@ -56,32 +51,26 @@ ResultsWfesSingle* wfes_single::execute()
             return this->alleleAge();
         case ModelTypeWfesSingle::NON_ABSORBING:
             return this->nonAbsorbing();
-
         // If for some reason there is an error and the selected model type is none, or any of the previous one,
         // return default results, which is formed by nan values, so the GUI does not show anything.
         case ModelTypeWfesSingle::NONE:
         default:
-            // TODO Show error as dialog.
             return new ResultsWfesSingle();
     }
-
-    // If for some reason the code reaches this line (it shouldn't because all cases are covered by the switch),
-    // return default results, which is formed by nan values, so the GUI does not show anything.
-    return new ResultsWfesSingle();
 }
 
-ResultsWfesSingle *wfes_single::absorption()
-{
+ResultsWfesSingle *wfes_single::absorption() {
     try {
         //Notify building matrix.
         this->notify(ExecutionStatus::BUILDING_MATRICES);
 
         wrightfisher::Matrix W = wrightfisher::Single(ConfigWfesSingle::population_size, ConfigWfesSingle::population_size, wrightfisher::BOTH_ABSORBING, ConfigWfesSingle::s, ConfigWfesSingle::h, ConfigWfesSingle::u, ConfigWfesSingle::v,
-                                  ConfigWfesSingle::rem, ConfigWfesSingle::a, ConfigWfesSingle::verbose, ConfigWfesSingle::b, ConfigWfesSingle::library);
+                                  ConfigWfesSingle::rem, ConfigWfesSingle::a, msg_level, ConfigWfesSingle::b, ConfigWfesSingle::library);
 
         //Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
 
+        //Save data into file.
         if (ConfigWfesSingle::output_Q)
             W.Q->saveMarket(ConfigWfesSingle::path_output_Q);
         if (ConfigWfesSingle::output_R)
@@ -212,42 +201,34 @@ ResultsWfesSingle *wfes_single::absorption()
 
         // Generate images from matrices and save to file.
         QImage *imageI = nullptr, *imageQ = nullptr, *imageR = nullptr, *imageN = nullptr, *imageNExt = nullptr, *imageNFix = nullptr, *imageB = nullptr;
-
         if(ConfigWfesSingle::output_I) {
             imageI = utils::generateImage(starting_copies_p);
-            //utils::saveImage(imageI, "Image_I");
             ImageResults::I = imageI;
         }
         if(ConfigWfesSingle::output_Q) {
             imageQ = utils::generateImage(W.Q->dense());
-            //utils::saveImage(imageQ, "Image_Q");
             ImageResults::Q = imageQ;
         }
         if(ConfigWfesSingle::output_R) {
             imageR = utils::generateImage(W.R);
-            //utils::saveImage(imageR, "Image_R");
             ImageResults::R = imageR;
         }
         if(ConfigWfesSingle::output_N) {
             imageN = utils::generateImage(N_mat);
-            //utils::saveImage(imageN, "Image_N");
             ImageResults::N = imageN;
         }
         if(ConfigWfesSingle::output_N_ext) {
             imageNExt = utils::generateImage(E_ext_mat);
-            //utils::saveImage(imageNExt, "Image_NExt");
             ImageResults::N_ext = imageNExt;
         }
         if(ConfigWfesSingle::output_N_fix) {
             imageNFix = utils::generateImage(E_fix_mat);
-            //utils::saveImage(imageNFix, "Image_NFix");
             ImageResults::N_fix = imageNFix;
         }
         if(ConfigWfesSingle::output_B) {
             B.col(0) = B_ext;
             B.col(1) = B_fix;
             imageB = utils::generateImage(B);
-            //utils::saveImage(imageB, "Image_B");
             ImageResults::B = imageB;
         }
 
@@ -271,14 +252,13 @@ ResultsWfesSingle *wfes_single::absorption()
 
 }
 
-ResultsWfesSingle *wfes_single::fixation()
-{
+ResultsWfesSingle *wfes_single::fixation() {
     try {
         //Notify building matrix.
         this->notify(ExecutionStatus::BUILDING_MATRICES);
 
         wrightfisher::Matrix W = wrightfisher::Single(ConfigWfesSingle::population_size, ConfigWfesSingle::population_size, wrightfisher::FIXATION_ONLY, ConfigWfesSingle::s, ConfigWfesSingle::h, ConfigWfesSingle::u, ConfigWfesSingle::v,
-                                  ConfigWfesSingle::rem, ConfigWfesSingle::a, ConfigWfesSingle::verbose, ConfigWfesSingle::b, ConfigWfesSingle::library);
+                                  ConfigWfesSingle::rem, ConfigWfesSingle::a, msg_level, ConfigWfesSingle::b, ConfigWfesSingle::library);
 
         //Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
@@ -334,27 +314,22 @@ ResultsWfesSingle *wfes_single::fixation()
 
         if(ConfigWfesSingle::output_I) {
             imageI = utils::generateImage(starting_copies_p);
-            //utils::saveImage(imageI, "Image_I");
             ImageResults::I = imageI;
         }
         if(ConfigWfesSingle::output_Q) {
             imageQ = utils::generateImage(W.Q->dense());
-            //utils::saveImage(imageQ, "Image_Q");
             ImageResults::Q = imageQ;
         }
         if(ConfigWfesSingle::output_R) {
             imageR = utils::generateImage(W.R);
-            //utils::saveImage(imageR, "Image_R");
             ImageResults::R = imageR;
         }
         if(ConfigWfesSingle::output_N) {
             imageN = utils::generateImage(N_mat);
-            //utils::saveImage(imageN, "Image_N");
             ImageResults::N = imageN;
         }
         if(ConfigWfesSingle::output_B) {
             imageB = utils::generateImage(B);
-            //utils::saveImage(imageB, "Image_B");
             ImageResults::B = imageB;
         }
 
@@ -377,15 +352,14 @@ ResultsWfesSingle *wfes_single::fixation()
     }
 }
 
-ResultsWfesSingle *wfes_single::fundamental()
-{
+ResultsWfesSingle *wfes_single::fundamental() {
     try {
         //Notify building matrix.
         this->notify(ExecutionStatus::BUILDING_MATRICES);
 
         llong size = (2 * ConfigWfesSingle::population_size) - 1;
         wrightfisher::Matrix W = wrightfisher::Single(ConfigWfesSingle::population_size, ConfigWfesSingle::population_size, wrightfisher::BOTH_ABSORBING, ConfigWfesSingle::s, ConfigWfesSingle::h, ConfigWfesSingle::u, ConfigWfesSingle::v,
-                                  ConfigWfesSingle::rem, ConfigWfesSingle::a, ConfigWfesSingle::verbose, ConfigWfesSingle::b, ConfigWfesSingle::library);
+                                  ConfigWfesSingle::rem, ConfigWfesSingle::a, msg_level, ConfigWfesSingle::b, ConfigWfesSingle::library);
 
         //Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
@@ -432,22 +406,18 @@ ResultsWfesSingle *wfes_single::fundamental()
         QImage *imageI = nullptr, *imageQ = nullptr, *imageR = nullptr, *imageN = nullptr, *imageV = nullptr;
         if(ConfigWfesSingle::output_I) {
             imageI = utils::generateImage(starting_copies_p);
-            //utils::saveImage(imageI, "Image_I");
             ImageResults::I = imageI;
         }
         if(ConfigWfesSingle::output_Q) {
             imageQ = utils::generateImage(W.Q->dense());
-            //utils::saveImage(imageQ, "Image_Q");
             ImageResults::Q = imageQ;
         }
         if(ConfigWfesSingle::output_R) {
             imageR = utils::generateImage(W.R);
-            //utils::saveImage(imageR, "Image_R");
             ImageResults::R = imageR;
         }
         if(ConfigWfesSingle::output_N) {
             imageN = utils::generateImage(N);
-            //utils::saveImage(imageN, "Image_N");
             ImageResults::N = imageN;
         }
         if(ConfigWfesSingle::output_V) {
@@ -455,7 +425,6 @@ ResultsWfesSingle *wfes_single::fundamental()
             dmat Nsq = N.array().square();
             V = (N * diagmat(Ndg)) - Nsq;
             imageV = utils::generateImage(V);
-            //utils::saveImage(imageV, "Image_V");
             ImageResults::V = imageV;
         }
 
@@ -474,16 +443,14 @@ ResultsWfesSingle *wfes_single::fundamental()
     }
 }
 
-ResultsWfesSingle *wfes_single::equilibrium()
-{
+ResultsWfesSingle *wfes_single::equilibrium() {
     try {
         //Notify building matrix.
         this->notify(ExecutionStatus::BUILDING_MATRICES);
 
         llong size = (2 * ConfigWfesSingle::population_size) + 1;
         wrightfisher::Matrix W = wrightfisher::EquilibriumSolvingMatrix(ConfigWfesSingle::population_size, ConfigWfesSingle::s, ConfigWfesSingle::h, ConfigWfesSingle::u, ConfigWfesSingle::v,
-                                                                        ConfigWfesSingle::a, ConfigWfesSingle::verbose, ConfigWfesSingle::b, ConfigWfesSingle::library);
-
+                                                                        ConfigWfesSingle::a, msg_level, ConfigWfesSingle::b, ConfigWfesSingle::library);
         //Notify solving
         this->notify(ExecutionStatus::SOLVING_MATRICES);
 
@@ -519,12 +486,10 @@ ResultsWfesSingle *wfes_single::equilibrium()
         QImage *imageI = nullptr, *imageE = nullptr;
         if(ConfigWfesSingle::output_I) {
             imageI = utils::generateImage(starting_copies_p);
-            //utils::saveImage(imageI, "Image_I");
             ImageResults::I = imageI;
         }
         if(ConfigWfesSingle::output_E) {
             imageE = utils::generateImage(pi);
-            //utils::saveImage(imageI, "Image_I");
             ImageResults::E = imageE;
         }
 
@@ -550,15 +515,14 @@ ResultsWfesSingle *wfes_single::equilibrium()
     }
 }
 
-ResultsWfesSingle *wfes_single::establishment()
-{
+ResultsWfesSingle *wfes_single::establishment() {
     try {
         //Notify building matrix.
         this->notify(ExecutionStatus::BUILDING_MATRICES);
 
         // Full Wright-Fisher
         wrightfisher::Matrix W_full = wrightfisher::Single(ConfigWfesSingle::population_size, ConfigWfesSingle::population_size, wrightfisher::BOTH_ABSORBING, ConfigWfesSingle::s, ConfigWfesSingle::h,
-                                       ConfigWfesSingle::u, ConfigWfesSingle::v, ConfigWfesSingle::rem, ConfigWfesSingle::a, ConfigWfesSingle::verbose, ConfigWfesSingle::b, ConfigWfesSingle::library);
+                                       ConfigWfesSingle::u, ConfigWfesSingle::v, ConfigWfesSingle::rem, ConfigWfesSingle::a, msg_level, ConfigWfesSingle::b, ConfigWfesSingle::library);
 
         //Notify solving
         this->notify(ExecutionStatus::SOLVING_MATRICES);
@@ -623,7 +587,7 @@ ResultsWfesSingle *wfes_single::establishment()
 
         // Truncated model
         wrightfisher::Matrix W_tr = wrightfisher::Truncated(ConfigWfesSingle::population_size, ConfigWfesSingle::population_size, est_idx, ConfigWfesSingle::s, ConfigWfesSingle::h, ConfigWfesSingle::u, ConfigWfesSingle::v, ConfigWfesSingle::rem,
-                                        ConfigWfesSingle::a, ConfigWfesSingle::verbose, ConfigWfesSingle::b, ConfigWfesSingle::library);
+                                        ConfigWfesSingle::a, msg_level, ConfigWfesSingle::b, ConfigWfesSingle::library);
 
         //Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
@@ -724,17 +688,14 @@ ResultsWfesSingle *wfes_single::establishment()
         QImage *imageI = nullptr, *imageQ = nullptr, *imageR = nullptr;
         if(ConfigWfesSingle::output_I) {
             imageI = utils::generateImage(starting_copies_p);
-            //utils::saveImage(imageI, "Image_I");
             ImageResults::I = imageI;
         }
         if(ConfigWfesSingle::output_Q) {
             imageQ = utils::generateImage(W_tr.Q->dense());
-            //utils::saveImage(imageI, "Image_I");
             ImageResults::Q = imageQ;
         }
         if(ConfigWfesSingle::output_R) {
             imageR = utils::generateImage(W_tr.R);
-            //utils::saveImage(imageI, "Image_I");
             ImageResults::R = imageR;
         }
 
@@ -761,8 +722,7 @@ ResultsWfesSingle *wfes_single::establishment()
     }
 }
 
-ResultsWfesSingle *wfes_single::alleleAge()
-{
+ResultsWfesSingle *wfes_single::alleleAge() {
     try {
         //Notify building matrix.
         this->notify(ExecutionStatus::BUILDING_MATRICES);
@@ -773,7 +733,7 @@ ResultsWfesSingle *wfes_single::alleleAge()
 
         llong size = (2 * ConfigWfesSingle::population_size) - 1;
         wrightfisher::Matrix W = wrightfisher::Single(ConfigWfesSingle::population_size, ConfigWfesSingle::population_size, wrightfisher::BOTH_ABSORBING, ConfigWfesSingle::s, ConfigWfesSingle::h, ConfigWfesSingle::u, ConfigWfesSingle::v,
-                                  ConfigWfesSingle::rem, ConfigWfesSingle::a, ConfigWfesSingle::verbose, ConfigWfesSingle::b, ConfigWfesSingle::library);
+                                  ConfigWfesSingle::rem, ConfigWfesSingle::a, msg_level, ConfigWfesSingle::b, ConfigWfesSingle::library);
 
         //Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
@@ -834,17 +794,14 @@ ResultsWfesSingle *wfes_single::alleleAge()
         QImage *imageI = nullptr, *imageQ = nullptr, *imageR = nullptr;
         if(ConfigWfesSingle::output_I) {
             imageI = utils::generateImage(starting_copies_p);
-            //utils::saveImage(imageI, "Image_I");
             ImageResults::I = imageI;
         }
         if(ConfigWfesSingle::output_Q) {
             imageQ = utils::generateImage(W.Q->dense());
-            //utils::saveImage(imageI, "Image_I");
             ImageResults::Q = imageQ;
         }
         if(ConfigWfesSingle::output_R) {
             imageR = utils::generateImage(W.R);
-            //utils::saveImage(imageI, "Image_I");
             ImageResults::R = imageR;
         }
 
@@ -872,14 +829,13 @@ ResultsWfesSingle *wfes_single::alleleAge()
     }
 }
 
-ResultsWfesSingle *wfes_single::nonAbsorbing()
-{
+ResultsWfesSingle *wfes_single::nonAbsorbing() {
     try {
         //Notify building matrix.
         this->notify(ExecutionStatus::BUILDING_MATRICES);
 
         wrightfisher::Matrix W = wrightfisher::Single(ConfigWfesSingle::population_size, ConfigWfesSingle::population_size, wrightfisher::NON_ABSORBING, ConfigWfesSingle::s, ConfigWfesSingle::h, ConfigWfesSingle::u, ConfigWfesSingle::v,
-                                  ConfigWfesSingle::rem, ConfigWfesSingle::a, ConfigWfesSingle::verbose, ConfigWfesSingle::b, ConfigWfesSingle::library);
+                                  ConfigWfesSingle::rem, ConfigWfesSingle::a, msg_level, ConfigWfesSingle::b, ConfigWfesSingle::library);
 
         //Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
@@ -893,12 +849,10 @@ ResultsWfesSingle *wfes_single::nonAbsorbing()
         QImage *imageI = nullptr, *imageQ = nullptr;
         if(ConfigWfesSingle::output_I) {
             imageI = utils::generateImage(starting_copies_p);
-            //utils::saveImage(imageI, "Image_I");
             ImageResults::I = imageI;
         }
         if(ConfigWfesSingle::output_Q) {
             imageQ = utils::generateImage(W.Q->dense());
-            //utils::saveImage(imageI, "Image_I");
             ImageResults::Q = imageQ;
         }
 
@@ -917,8 +871,7 @@ ResultsWfesSingle *wfes_single::nonAbsorbing()
     }
 }
 
-void wfes_single::calculateStartingCopies()
-{
+void wfes_single::calculateStartingCopies() {
     if (ConfigWfesSingle::initial_distribution_csv.compare("") != 0) {
         // TODO Show as dialog.
         // cout << "Reading initial from file" << args::get(initial_distributon_csv_f) << "" <<
@@ -931,8 +884,7 @@ void wfes_single::calculateStartingCopies()
     }
 }
 
-void wfes_single::calculateZ()
-{
+void wfes_single::calculateZ() {
     // Set value of z if the user has provided an initial distribution,
     // load it and calculate z value.
     z = 0;

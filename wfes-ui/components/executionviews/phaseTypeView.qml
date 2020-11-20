@@ -7,7 +7,6 @@ import QtQuick.Controls.Styles 1.4
 import QtQuick.Controls.Universal 2.3
 import components 1.0
 
-//TODO Implement value validators and return exceptions.
 ApplicationWindow {
     id: rootPhaseType
     title: qsTr("WFES - Wright-Fisher Exact Solver (Phase Type)")
@@ -33,14 +32,14 @@ ApplicationWindow {
         outputControllerPhaseType.ui_save_config
     }
 
-    // Center window in screen.
     Component.onCompleted: {
+        // Center window in screen.
         setX(Screen.width / 2 - width / 2);
         setY(Screen.height / 2 - height / 2);
+        // Load config when create window.
         outputControllerPhaseType.ui_load_config
         rootPhaseType.updateGUI()
     }
-
 
     Rectangle {
         anchors.fill: parent
@@ -379,8 +378,6 @@ ApplicationWindow {
                                     text: "Q: "
                                     toolTipText: "Output Q as CSV file."
                                     checked: inputControllerPhaseType.ui_output_Q
-                                    //enabled: //TODO
-
                                 }
 
                                 LabeledCheckBox {
@@ -388,7 +385,6 @@ ApplicationWindow {
                                     text: "R: "
                                     toolTipText: "Output R as CSV file."
                                     checked: inputControllerPhaseType.ui_output_R
-                                    //enabled: //TODO
                                 }
 
                                 LabeledCheckBox {
@@ -397,7 +393,6 @@ ApplicationWindow {
                                     toolTipText: "Output P as CSV file."
                                     checked: inputControllerPhaseType.ui_output_P
                                     enabled: inputControllerPhaseType.ui_modelType == "Phase Type Dist."
-
                                 }
 
                                 LabeledCheckBox {
@@ -442,7 +437,6 @@ ApplicationWindow {
                                 text: "Execution:"
                                 font.bold: true
                             }
-
 
                             ColumnLayout {
 

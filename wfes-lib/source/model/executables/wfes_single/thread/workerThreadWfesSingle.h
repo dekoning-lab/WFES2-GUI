@@ -1,26 +1,18 @@
 #ifndef THREADWFESSINGLE_H
 #define THREADWFESSINGLE_H
 
-#include <QObject>
-#include <QDebug>
-#include <wfes-lib_global.h>
-
-
-#include <QString>
 #include <QThread>
 
-#include <cmath>
-#include <boost/format.hpp>
-#include <utils/observer/observer.h>
+#include "model/executables/wfes_single/results/resultsWfesSingle.h"
+#include "model/executables/wfes_single/wfes_single.h"
+#include "utils/observer/observer.h"
 #include "utils/utils.h"
-#include <source/model/executables/wfes_single/results/resultsWfesSingle.h>
-#include <model/executables/wfes_single/wfes_single.h>
 
-#include "source/model/executables/wfes_single/config/configWfesSingle.h"
-
-
-class WorkerThreadWfesSingle : public QThread, public Observer
-{
+/**
+ * @brief The WorkerThreadWfesSingle class implements a Worker Thread that executes everything in a background thread.
+ * Observes wfes single for updating progress in GUI.
+ */
+class WorkerThreadWfesSingle : public QThread, public Observer {
     Q_OBJECT
 
     public:
@@ -29,18 +21,42 @@ class WorkerThreadWfesSingle : public QThread, public Observer
          */
         ResultsWfesSingle results;
 
+        /**
+         * @brief Indicates if the execution has finished.
+         */
         bool done = false;
 
+        /**
+         * @brief WorkerThreadWfesSingle Constructor
+         * @param parent To be used by Qt.
+         */
         explicit WorkerThreadWfesSingle(QObject* parent = nullptr);
 
+        /**
+         * @brief WorkerThreadWfesSingle Destructor.
+         */
         ~WorkerThreadWfesSingle();
 
+        /**
+         * @brief Start execution. Overrided from QThread.
+         */
         void run() override;
 
+        /**
+         * @brief Handle progress of an execution and notify GUI of the progress.
+         * @param value Progress message position in the array wfes::utils::ExecutionStatusName.
+         */
         void update(int value) override;
 
     signals:
+        /**
+         * @brief Signal for notifying when results are ready
+         */
         void resultReady(ResultsWfesSingle results);
+
+        /**
+         * @brief Signal for notifying progress of an execution.
+         */
         void updateProgress(int progress);
 };
 

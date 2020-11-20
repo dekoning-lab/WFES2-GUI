@@ -2,23 +2,21 @@
 #define OUTPUTCONTROLLERWFESSWEEP_H
 
 #include <QObject>
-#include <QDebug>
-#include <wfes-lib_global.h>
 
-#include "math.h"
 #include <boost/format.hpp>
 
-#include <model/executables/wfes_sweep/results/resultsWfesSweep.h>
+#include <wfes-lib_global.h>
 
 #include <model/executables/wfes_sweep/thread/workerThreadWfesSweep.h>
-
-#include <model/executables/wfes_sweep/config/configWfesSweep.h>
 
 namespace wfes {
     namespace controllers {
 
-        class WFESLIBSHARED_EXPORT OutputControllerWfesSweep: public QObject
-        {
+        /**
+         * @brief The OutputControllerWfesSweep class is a controller for output parameters
+         * and functions of wfes sweep.
+         */
+        class WFESLIBSHARED_EXPORT OutputControllerWfesSweep: public QObject {
             Q_OBJECT
             Q_PROPERTY(QString ui_execute READ execute CONSTANT)
             Q_PROPERTY(QString ui_stop READ stop CONSTANT)
@@ -33,12 +31,25 @@ namespace wfes {
             Q_PROPERTY(QString ui_progress READ get_progress NOTIFY updateProgress)
 
         public:
+
+            /**
+             * @brief Results of an execution.
+             */
             ResultsWfesSweep results;
 
+            /**
+             * @brief Indicate if phase type if being executed.
+             */
             bool executing;
 
+            /**
+             * @brief WorkerThread that manages the background execution of wfes sweep.
+             */
             WorkerThreadWfesSweep* worker;
 
+            /**
+             * @brief Message with the progress of an execution.
+             */
             QString progress = "";
 
             /**
@@ -50,27 +61,27 @@ namespace wfes {
             /**
              * @brief OutputControllerWfesSweep destructor.
              */
-            ~OutputControllerWfesSweep();
+            ~OutputControllerWfesSweep() = default;
 
             /**
-             * @brief Execute wfes_single and get results.
-             * @return Results of wfes_single execution.
+             * @brief Execute wfes sweep and get results.
+                 * @return Nothing.
              */
             QString execute();
 
             /**
-             * @brief Stop an execution of wfes_single.
+             * @brief Stop an execution of wfes sweep.
              * @return Nothing.
              */
             QString stop();
 
             /**
-             * @brief Save configuration of wfes_sweep.
+             * @brief Save configuration of wfes sweep.
              * @return Nothing.
              */
             QString save_config();
             /**
-             * @brief Load configuration of wfes_sweep.
+             * @brief Load configuration of wfes sweep.
              * @return Nothing.
              */
             QString load_config();
@@ -111,14 +122,27 @@ namespace wfes {
              */
             bool get_not_exec() const;
 
+            /**
+             * @brief Get progress message.
+             * @return Progress message.
+             */
             QString get_progress() const;
 
         public slots:
+            /**
+             * @brief Handle results of an execution and notify GUI that it has finished.
+             * @param results Results of an execution.
+             */
             void handleResults(ResultsWfesSweep results){
                 this->results = results;
                 this->executing = false;
                 emit results_changed();
             }
+
+            /**
+             * @brief Handle progress of an execution and notify GUI of the progress.
+             * @param progress Progress message position in the array wfes::utils::ExecutionStatusName.
+             */
             void handleProgress(int progress){
                 this->progress = wfes::utils::ExecutionStatusName[progress];
                 emit updateProgress();
@@ -126,10 +150,13 @@ namespace wfes {
 
         signals:
             /**
-             * @brief Signal for notifying when results has been calculated/changed in backend.
+             * @brief Signal for notifying when results have changed in backend.
              */
             void results_changed();
-            void operate();
+
+            /**
+             * @brief Signal for notifying progress of an execution.
+             */
             void updateProgress();
         };
     }

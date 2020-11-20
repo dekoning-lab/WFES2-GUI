@@ -65,9 +65,7 @@ SparseMatrixViennaCL::SparseMatrixViennaCL(dmat& eigenDenseMatrix) :
 
 }
 
-SparseMatrix* SparseMatrixViennaCL::LeftPaddedDiagonal(int dim, double x, int padLeft)
-{
-
+SparseMatrix* SparseMatrixViennaCL::LeftPaddedDiagonal(int dim, double x, int padLeft) {
     SparseMatrixViennaCL* I = new SparseMatrixViennaCL(dim, padLeft + dim);
     I->full = true;
     I->num_non_zeros = dim;
@@ -91,18 +89,12 @@ SparseMatrix* SparseMatrixViennaCL::LeftPaddedDiagonal(int dim, double x, int pa
     return I;
 }
 
-SparseMatrixViennaCL::~SparseMatrixViennaCL(){
-
-}
-
-void SparseMatrixViennaCL::appendRow(dvec &row, int col_start, int size)
-{
+void SparseMatrixViennaCL::appendRow(dvec &row, int col_start, int size) {
     appendChunk(row, col_start, col_start, size);
     nextRow();
 }
 
-void SparseMatrixViennaCL::appendChunk(dvec &row, int m0, int r0, int size)
-{
+void SparseMatrixViennaCL::appendChunk(dvec &row, int m0, int r0, int size) {
     // Test not full
     assert(!full);
     // Update size
@@ -125,8 +117,7 @@ void SparseMatrixViennaCL::appendChunk(dvec &row, int m0, int r0, int size)
     num_non_zeros += size;
 }
 
-void SparseMatrixViennaCL::appendValue(double value, int j)
-{
+void SparseMatrixViennaCL::appendValue(double value, int j) {
     int new_size = num_non_zeros + 1;
 
     row_index_start = positiveMin(row_index_start, num_non_zeros);
@@ -144,8 +135,7 @@ void SparseMatrixViennaCL::appendValue(double value, int j)
     num_non_zeros += 1;
 }
 
-void SparseMatrixViennaCL::nextRow()
-{
+void SparseMatrixViennaCL::nextRow() {
     assert(!full);
     row_index[current_row] = row_index_start;
     current_row += 1;
@@ -157,8 +147,7 @@ void SparseMatrixViennaCL::nextRow()
     }
 }
 
-void SparseMatrixViennaCL::debugPrint()
-{
+void SparseMatrixViennaCL::debugPrint() {
     qDebug() << "data:    ";
     for(int i = 0; i < num_non_zeros; i++)
         qDebug() << data[i];
@@ -170,8 +159,7 @@ void SparseMatrixViennaCL::debugPrint()
         qDebug() << row_index[i];
 }
 
-bool SparseMatrixViennaCL::approxEquals(const SparseMatrix &rhs, double tol, bool verbose)
-{
+bool SparseMatrixViennaCL::approxEquals(const SparseMatrix &rhs, double tol, bool verbose) {
     if(num_rows != static_cast<const SparseMatrixViennaCL&>(rhs).num_rows) return false;
     if(num_cols != static_cast<const SparseMatrixViennaCL&>(rhs).num_cols) return false;
     if(num_non_zeros != static_cast<const SparseMatrixViennaCL&>(rhs).num_non_zeros) return false;
@@ -190,8 +178,7 @@ bool SparseMatrixViennaCL::approxEquals(const SparseMatrix &rhs, double tol, boo
     return true;
 }
 
-dmat SparseMatrixViennaCL::dense()
-{
+dmat SparseMatrixViennaCL::dense() {
     dmat dense_matrix = dmat(this->vcl_matrix.size1(), this->vcl_matrix.size2());
     for(unsigned long i = 0; i < this->vcl_matrix.size1(); i++) {
         for(unsigned long j = 0; j < this->vcl_matrix.size2(); j++) {
@@ -201,8 +188,7 @@ dmat SparseMatrixViennaCL::dense()
     return dense_matrix;
 }
 
-dvec SparseMatrixViennaCL::getDiagCopy()
-{
+dvec SparseMatrixViennaCL::getDiagCopy() {
     assert(num_rows == num_cols);
 
     dvec diag(num_rows);
@@ -220,8 +206,7 @@ dvec SparseMatrixViennaCL::getDiagCopy()
     return diag;
 }
 
-dvec SparseMatrixViennaCL::getColCopy(int c)
-{
+dvec SparseMatrixViennaCL::getColCopy(int c) {
     dvec column = dvec::Zero(num_rows);
     for(int i = 0; i < num_rows; i++) {
         for(int j = row_index[i]; j < row_index[i + 1]; j++) {
@@ -234,14 +219,13 @@ dvec SparseMatrixViennaCL::getColCopy(int c)
     return column;
 }
 
-dvec SparseMatrixViennaCL::getRowCopy(int i)
-{
+dvec SparseMatrixViennaCL::getRowCopy(int i) {
     //TODO Implementation (Not used).
+    (void)i;
     return dvec();
 }
 
-dvec SparseMatrixViennaCL::multiply(dvec &x, bool transpose)
-{
+dvec SparseMatrixViennaCL::multiply(dvec &x, bool transpose) {
     // Eigen vector to ViennaCL vector.
     viennacl::vector<double> vcl_vec(x.size());
     copy(x, vcl_vec);
@@ -266,8 +250,7 @@ dvec SparseMatrixViennaCL::multiply(dvec &x, bool transpose)
     return res;
 }
 
-void SparseMatrixViennaCL::multiplyInPlaceRep(dvec &x, int times, bool transpose)
-{
+void SparseMatrixViennaCL::multiplyInPlaceRep(dvec &x, int times, bool transpose) {
     // Eigen vector to ViennaCL vector.
     viennacl::vector<double> vcl_vec(x.size());
     copy(x, vcl_vec);
@@ -293,9 +276,7 @@ void SparseMatrixViennaCL::multiplyInPlaceRep(dvec &x, int times, bool transpose
     copy(vcl_vec, x);
 }
 
-SparseMatrix* SparseMatrixViennaCL::multiply(SparseMatrix &B, bool transpose)
-{
-    //
+SparseMatrix* SparseMatrixViennaCL::multiply(SparseMatrix &B, bool transpose) {
     SparseMatrixViennaCL* res = new SparseMatrixViennaCL(0, 0);
 
     //Transpose if necessary.
@@ -343,8 +324,7 @@ SparseMatrix* SparseMatrixViennaCL::multiply(SparseMatrix &B, bool transpose)
     return res;
 }
 
-void SparseMatrixViennaCL::subtractIdentity()
-{
+void SparseMatrixViennaCL::subtractIdentity() {
     for (int i = 0; i < num_rows; ++i) {
         for (int j = row_index[i]; j < row_index[i + 1]; ++j) {
             if (i == cols[j]) data[j] = 1.0 - data[j];
@@ -354,8 +334,7 @@ void SparseMatrixViennaCL::subtractIdentity()
     vcl_matrix.set(row_index, cols, data, num_rows, num_cols, num_non_zeros);
 }
 
-double SparseMatrixViennaCL::search(int i, int j)
-{
+double SparseMatrixViennaCL::search(int i, int j) {
     //if(i >= current_row) return NAN;
     for(int k = row_index[i]; k < row_index[i + 1]; k++) {
         if (cols[k] == j) {
@@ -365,14 +344,15 @@ double SparseMatrixViennaCL::search(int i, int j)
     return 0; // was not found
 }
 
-void SparseMatrixViennaCL::setValue(double x, int i, int j)
-{
+void SparseMatrixViennaCL::setValue(double x, int i, int j) {
     //TODO Implementation (Not used).
+    (void)x;
+    (void)i;
+    (void)j;
 }
 
-void SparseMatrixViennaCL::saveMarket(std::string name)
-{
-    //TODO put outputPath in global configuration.
+void SparseMatrixViennaCL::saveMarket(std::string name) {
+
     QString outputPath(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/Wfes/");
     QDir dir;
 

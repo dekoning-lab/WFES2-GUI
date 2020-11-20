@@ -1,14 +1,14 @@
 #ifndef CONFIGWFESSWEEP_H
 #define CONFIGWFESSWEEP_H
 
-#include <string>
-#include "utils/types.h"
-
-#include <QString>
-
-#include <QDir>
 #include <QStandardPaths>
-#include <QDebug>
+#include <QTextStream>
+#include <QString>
+#include <QDir>
+
+#include <string>
+
+#include "utils/types.h"
 
 namespace wfes {
     namespace config {
@@ -25,18 +25,22 @@ namespace wfes {
          */
         static const char* ModelTypeWfesSweepNames[] = { "None", "Fixation"};
 
+        /**
+         * @brief The ConfigWfesSweep class contains the configuration parameters of Wfes Sweep as well as some functions for
+         * saving and loading the configuration.
+         */
         class ConfigWfesSweep {
             public:
 
                 /**
                  * @brief Default constructor for class ConfigWfesSweep.
                  */
-                ConfigWfesSweep();
+                ConfigWfesSweep() = default;
 
                 /**
-                 * @brief Get integer position of the enumeration value.
-                 * @param modelType Modeltype to test position.
-                 * @return Position of modelType in enumaration.
+                 * @brief Get an integer representing a model type (Position in the enum).
+                 * @param modelType Model Type that we want to extract the numer (position).
+                 * @return Position of the Model Type in the enum.
                  */
                 static int ModelTypeWfesSweepToInt(ModelTypeWfesSweep modelType);
 
@@ -195,10 +199,20 @@ namespace wfes {
                  */
                 static int num_comp;
 
+                /**
+                 * @brief Save configuration into a file.
+                 */
                 static void saveConfigWfesSweep();
 
+                /**
+                 * @brief Load configuration from a file.
+                 */
                 static void loadConfigWfesSweep();
 
+                /**
+                 * @brief Process a line from the configuration file.
+                 * @param line Current line being processed in the configuration file.
+                 */
                 static void processLine(QString line);
         };
     }
