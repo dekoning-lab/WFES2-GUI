@@ -34,6 +34,7 @@ ResultsWfesSingle::ResultsWfesSingle(double time)  :
 
       time(time), error(""){}
 
+// Empty constructor with error.
 ResultsWfesSingle::ResultsWfesSingle(std::string error)  :
     modelType(wfes::config::ModelTypeWfesSingle::NONE), pExt(std::nan("")), pFix(std::nan("")), tAbs(std::nan("")),
       tAbsStd(std::nan("")), tExt(std::nan("")), tExtStd(std::nan("")), nExt(std::nan("")),
@@ -165,30 +166,31 @@ ResultsWfesSingle::ResultsWfesSingle(wfes::config::ModelTypeWfesSingle modelType
 
 
 
-void ResultsWfesSingle::writeResultsToFile(ResultsWfesSingle *results, std::string name)
-{
-    time_t t = std::time(0);   // get time now
+void ResultsWfesSingle::writeResultsToFile(ResultsWfesSingle *results, std::string name) {
+    // Get current time for the name of the file.
+    time_t t = std::time(0);
     struct tm * now = localtime(&t);
     std::stringstream sstm;
     sstm << (now->tm_hour) << '-' << (now->tm_min) << '-' << now->tm_sec;
     std::string s = sstm.str();
 
-    //TODO put outputPath in global configuration.
+    // Output Path, save in a folder called Wfes inside documents folder.
     QString outputPath(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/Wfes/");
     QDir dir;
 
+    // If output path does not exist, create it.
     if (!dir.exists(outputPath))
         dir.mkpath(outputPath);
 
+    // Create file with generated name.
     QFile file(outputPath + QString::fromStdString("Wfes_Single_-_" + s + "_" + name));
-    file.open(QIODevice::WriteOnly);
 
-    if(!file.isOpen()) {
-        qDebug() << "The file is not open.";
-    }
+    // Open in write mode.
+    file.open(QIODevice::WriteOnly);
 
     QTextStream outStream(&file);
 
+    // Header of the file.
     outStream << "Result, Value" << "\n";
 
     if(!(boost::math::isnan)(ConfigWfesSingle::population_size))
@@ -284,10 +286,8 @@ void ResultsWfesSingle::writeResultsToFile(ResultsWfesSingle *results, std::stri
     if(!(boost::math::isnan)(results->sAlleleAge))
         outStream << "S(A), " << results->sAlleleAge << "\n";
 
-
     if(!(boost::math::isnan)(results->time))
         outStream << "Time, " << results->time << "\n";
-
 
     file.close();
 }

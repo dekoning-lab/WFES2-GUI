@@ -89,7 +89,7 @@ class ResultsWfesSequential {
         ResultsWfesSequential(std::string error);
 
         /**
-         * @brief ResultsWfesSequential
+         * @brief Constructor of ResultsWfesSequential for execution.
          * @param pExt Probability of extinction.
          * @param pFix Probability of fixation.
          * @param pTmo Probability of time out.

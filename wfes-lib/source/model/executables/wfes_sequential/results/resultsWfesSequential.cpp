@@ -25,7 +25,7 @@ ResultsWfesSequential::ResultsWfesSequential(double pExt, double pFix, double pT
 
 void ResultsWfesSequential::writeResultsToFile(ResultsWfesSequential *results, std::string name) {
     // Get current time for the name of the file.
-    time_t t = std::time(0);   // get time now
+    time_t t = std::time(0);
     struct tm * now = localtime(&t);
     std::stringstream sstm;
     sstm << (now->tm_hour) << '-' << (now->tm_min) << '-' << now->tm_sec;

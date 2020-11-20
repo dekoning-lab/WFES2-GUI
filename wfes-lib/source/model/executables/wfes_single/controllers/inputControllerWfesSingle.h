@@ -1,31 +1,26 @@
 #ifndef INPUTCONTROLLER_H
 #define INPUTCONTROLLER_H
 
-#include <QObject>
-#include <QDebug>
-#include <wfes-lib_global.h>
-#include "model/executables/wfes_single/wfes_single.h"
-
-#include "source/model/executables/wfes_single/results/resultsWfesSingle.h"
-
-#include "utils/utils.h"
-
 #include <QString>
-#include <boost/format.hpp>
-#include <boost/lexical_cast.hpp>
+#include <QObject>
 
 #include <boost/math/special_functions/fpclassify.hpp>
+#include <boost/lexical_cast.hpp>
+#include <boost/format.hpp>
+
+#include <wfes-lib_global.h>
+
+#include "model/executables/wfes_single/wfes_single.h"
+#include "utils/utils.h"
 
 namespace wfes {
     namespace controllers {
 
         /**
-         * @brief The InputController class contains a set of configuration values that can be set in the GUI by the user.
-         * It has methods for setting GUI values from backend (for example, when starting the application and loading a previous configuration),
-         * or getting input values set by the user in the GUI.
+         * @brief The InputControllerPhaseType class is a controller for input parameters
+         * of phase type.
          */
-        class WFESLIBSHARED_EXPORT InputControllerWfesSingle : public QObject
-        {
+        class WFESLIBSHARED_EXPORT InputControllerWfesSingle : public QObject {
             Q_OBJECT
             Q_PROPERTY(QString ui_n READ get_n WRITE set_n NOTIFY input_changed)
             Q_PROPERTY(QString ui_a READ get_a WRITE set_a NOTIFY input_changed)
@@ -63,11 +58,10 @@ namespace wfes {
                  */
                 explicit InputControllerWfesSingle(QObject* parent = nullptr);
 
-
                 /**
-                 * @brief InputController Destructor.
+                 * @brief InputControllerWfesSingle Destructor.
                  */
-                ~InputControllerWfesSingle();
+                ~InputControllerWfesSingle() = default;
 
                 /**
                  * @brief Send N to GUI.
@@ -190,7 +184,6 @@ namespace wfes {
                  */
                 void set_t(QString h) const;
 
-
                 /**
                  * @brief Send if output Q to GUI.
                  * @return boolean containing if output Q.
@@ -201,7 +194,6 @@ namespace wfes {
                  * @param output_Q value of output_Q in GUI.
                  */
                 void set_output_Q(bool output_Q) const;
-
 
                 /**
                  * @brief Send if output R to GUI.
@@ -214,7 +206,6 @@ namespace wfes {
                  */
                 void set_output_R(bool output_R) const;
 
-
                 /**
                  * @brief Send if output N to GUI.
                  * @return boolean containing if output N in GUI.
@@ -225,7 +216,6 @@ namespace wfes {
                  * @param output_N value of output N in GUI.
                  */
                 void set_output_N(bool output_N) const;
-
 
                 /**
                  * @brief Send if output NExt to GUI.
@@ -238,7 +228,6 @@ namespace wfes {
                  */
                 void set_output_NExt(bool output_NExt) const;
 
-
                 /**
                  * @brief Send if output NFix to GUI.
                  * @return boolean containing if output NFix.
@@ -249,7 +238,6 @@ namespace wfes {
                  * @param output_NFix value of output NFix in GUI.
                  */
                 void set_output_NFix(bool output_NFix) const;
-
 
                 /**
                  * @brief Send if output B to GUI.
@@ -262,7 +250,6 @@ namespace wfes {
                  */
                 void set_output_B(bool output_B) const;
 
-
                 /**
                  * @brief Send if output I to GUI.
                  * @return boolean containing if output I.
@@ -273,7 +260,6 @@ namespace wfes {
                  * @param output_I value of output I in GUI.
                  */
                 void set_output_I(bool output_I) const;
-
 
                 /**
                  * @brief Send if output E to GUI.
@@ -286,7 +272,6 @@ namespace wfes {
                  */
                 void set_output_E(bool output_E) const;
 
-
                 /**
                  * @brief Send if output V to GUI.
                  * @return boolean containing if output V.
@@ -297,7 +282,6 @@ namespace wfes {
                  * @param output_V value of output V in GUI.
                  */
                 void set_output_V(bool output_V) const;
-
 
                 /**
                  * @brief Send if output Res to GUI.

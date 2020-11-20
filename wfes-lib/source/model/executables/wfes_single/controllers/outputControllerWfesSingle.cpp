@@ -3,52 +3,49 @@
 using namespace wfes::controllers;
 using namespace wfes::config;
 
-OutputControllerWfesSingle::OutputControllerWfesSingle(QObject* parent): QObject(parent), executing(false){}
+OutputControllerWfesSingle::OutputControllerWfesSingle(QObject* parent)
+    : QObject(parent), executing(false){}
 
-OutputControllerWfesSingle::~OutputControllerWfesSingle() {}
-
-QString OutputControllerWfesSingle::execute()
-{
-    ImageResults::clear();
-
+QString OutputControllerWfesSingle::execute() {
+    // Set executing to true.
     executing = true;
+
+    // Register results class as metatype, so it can be passed between Q_OBJECTS as slot.
     qRegisterMetaType<ResultsWfesSingle>("ResultsWfesSingle");
 
+    // Instantiate worker and connect signals of this controller with the worker.
     worker = new WorkerThreadWfesSingle();
     connect(worker, SIGNAL(resultReady(ResultsWfesSingle)), this, SLOT(handleResults(ResultsWfesSingle)));
     connect(worker, SIGNAL(updateProgress(int)), this, SLOT(handleProgress(int)));
     connect(worker, SIGNAL(finished()), worker, SLOT(deleteLater()));
+
+    // Start execution.
     worker->start();
-    return QString();
+
+    return "";
 }
 
-QString OutputControllerWfesSingle::stop()
-{
+QString OutputControllerWfesSingle::stop() {
     // TODO Looks that using terminate is a bad practice because it can stop the thread, for example, while writting a file,
     // and the file will be corrupt then. Look for a better way of doing this.
     worker->terminate();
     worker->wait();
     worker->exit();
 
-    return QString();
+    return "";
 }
 
-QString OutputControllerWfesSingle::save_config()
-{
+QString OutputControllerWfesSingle::save_config() {
     ConfigWfesSingle::saveConfigWfesSingle();
-
-    return QString();
+    return "";
 }
 
-QString OutputControllerWfesSingle::load_config()
-{
+QString OutputControllerWfesSingle::load_config() {
     ConfigWfesSingle::loadConfigWfesSingle();
-
-    return QString();
+    return "";
 }
 
-QString OutputControllerWfesSingle::get_p_ext() const
-{
+QString OutputControllerWfesSingle::get_p_ext() const {
     boost::format fmt = boost::format(DPF) % (this->results.pExt);
 
     if((boost::math::isnan)(this->results.pExt))
@@ -57,8 +54,7 @@ QString OutputControllerWfesSingle::get_p_ext() const
         return QString::fromStdString(fmt.str());
 }
 
-QString OutputControllerWfesSingle::get_p_fix() const
-{
+QString OutputControllerWfesSingle::get_p_fix() const {
     boost::format fmt = boost::format(DPF) % (this->results.pFix);
 
     if((boost::math::isnan)(this->results.pFix))
@@ -67,8 +63,7 @@ QString OutputControllerWfesSingle::get_p_fix() const
         return QString::fromStdString(fmt.str());
 }
 
-QString OutputControllerWfesSingle::get_t_abs() const
-{
+QString OutputControllerWfesSingle::get_t_abs() const {
     boost::format fmt = boost::format(DPF) % (this->results.tAbs);
 
     if((boost::math::isnan)(this->results.tAbs))
@@ -77,8 +72,7 @@ QString OutputControllerWfesSingle::get_t_abs() const
         return QString::fromStdString(fmt.str());
 }
 
-QString OutputControllerWfesSingle::get_t_abs_std() const
-{
+QString OutputControllerWfesSingle::get_t_abs_std() const {
     boost::format fmt = boost::format(DPF) % (this->results.tAbsStd);
 
     if((boost::math::isnan)(this->results.tAbsStd))
@@ -87,8 +81,7 @@ QString OutputControllerWfesSingle::get_t_abs_std() const
         return QString::fromStdString(fmt.str());
 }
 
-QString OutputControllerWfesSingle::get_t_ext() const
-{
+QString OutputControllerWfesSingle::get_t_ext() const {
     boost::format fmt = boost::format(DPF) % (this->results.tExt);
 
     if((boost::math::isnan)(this->results.tExt))
@@ -97,8 +90,7 @@ QString OutputControllerWfesSingle::get_t_ext() const
         return QString::fromStdString(fmt.str());
 }
 
-QString OutputControllerWfesSingle::get_t_ext_std() const
-{
+QString OutputControllerWfesSingle::get_t_ext_std() const {
     boost::format fmt = boost::format(DPF) % (this->results.tExtStd);
 
     if((boost::math::isnan)(this->results.tExtStd))
@@ -107,8 +99,7 @@ QString OutputControllerWfesSingle::get_t_ext_std() const
         return QString::fromStdString(fmt.str());
 }
 
-QString OutputControllerWfesSingle::get_n_ext() const
-{
+QString OutputControllerWfesSingle::get_n_ext() const {
     boost::format fmt = boost::format(DPF) % (this->results.nExt);
 
     if((boost::math::isnan)(this->results.nExt))
@@ -117,8 +108,7 @@ QString OutputControllerWfesSingle::get_n_ext() const
         return QString::fromStdString(fmt.str());
 }
 
-QString OutputControllerWfesSingle::get_t_fix() const
-{
+QString OutputControllerWfesSingle::get_t_fix() const {
     boost::format fmt = boost::format(DPF) % (this->results.tFix);
 
     if((boost::math::isnan)(this->results.tFix))
@@ -127,8 +117,7 @@ QString OutputControllerWfesSingle::get_t_fix() const
         return QString::fromStdString(fmt.str());
 }
 
-QString OutputControllerWfesSingle::get_t_fix_std() const
-{
+QString OutputControllerWfesSingle::get_t_fix_std() const {
     boost::format fmt = boost::format(DPF) % (this->results.tFixStd);
 
     if((boost::math::isnan)(this->results.tFixStd))
@@ -137,8 +126,7 @@ QString OutputControllerWfesSingle::get_t_fix_std() const
         return QString::fromStdString(fmt.str());
 }
 
-QString OutputControllerWfesSingle::get_t_fix_abs_mode() const
-{
+QString OutputControllerWfesSingle::get_t_fix_abs_mode() const {
     boost::format fmt = boost::format(DPF) % (this->results.tFixAbsMode);
 
     if((boost::math::isnan)(this->results.tFixAbsMode))
@@ -147,8 +135,7 @@ QString OutputControllerWfesSingle::get_t_fix_abs_mode() const
         return QString::fromStdString(fmt.str());
 }
 
-QString OutputControllerWfesSingle::get_t_fix_std_abs_mode() const
-{
+QString OutputControllerWfesSingle::get_t_fix_std_abs_mode() const {
     boost::format fmt = boost::format(DPF) % (this->results.tFixStdAbsMode);
 
     if((boost::math::isnan)(this->results.tFixStdAbsMode))
@@ -157,8 +144,7 @@ QString OutputControllerWfesSingle::get_t_fix_std_abs_mode() const
         return QString::fromStdString(fmt.str());
 }
 
-QString OutputControllerWfesSingle::get_rate() const
-{
+QString OutputControllerWfesSingle::get_rate() const {
     boost::format fmt = boost::format(DPF) % (this->results.rate);
 
     if((boost::math::isnan)(this->results.rate))
@@ -167,8 +153,7 @@ QString OutputControllerWfesSingle::get_rate() const
         return QString::fromStdString(fmt.str());
 }
 
-QString OutputControllerWfesSingle::get_e_freq_mut() const
-{
+QString OutputControllerWfesSingle::get_e_freq_mut() const {
     boost::format fmt = boost::format(DPF) % (this->results.freqMut);
 
     if((boost::math::isnan)(this->results.freqMut))
@@ -177,8 +162,7 @@ QString OutputControllerWfesSingle::get_e_freq_mut() const
         return QString::fromStdString(fmt.str());
 }
 
-QString OutputControllerWfesSingle::get_e_freq_wt() const
-{
+QString OutputControllerWfesSingle::get_e_freq_wt() const {
     boost::format fmt = boost::format(DPF) % (this->results.freqWt);
 
     if((boost::math::isnan)(this->results.freqWt))
@@ -187,8 +171,7 @@ QString OutputControllerWfesSingle::get_e_freq_wt() const
         return QString::fromStdString(fmt.str());
 }
 
-QString OutputControllerWfesSingle::get_f_est() const
-{
+QString OutputControllerWfesSingle::get_f_est() const {
     boost::format fmt = boost::format(DPF) % (this->results.fEst);
 
     if((boost::math::isnan)(this->results.fEst))
@@ -197,8 +180,7 @@ QString OutputControllerWfesSingle::get_f_est() const
         return QString::fromStdString(fmt.str());
 }
 
-QString OutputControllerWfesSingle::get_p_est() const
-{
+QString OutputControllerWfesSingle::get_p_est() const {
     boost::format fmt = boost::format(DPF) % (this->results.pEst);
 
     if((boost::math::isnan)(this->results.pEst))
@@ -207,8 +189,7 @@ QString OutputControllerWfesSingle::get_p_est() const
         return QString::fromStdString(fmt.str());
 }
 
-QString OutputControllerWfesSingle::get_t_seg() const
-{
+QString OutputControllerWfesSingle::get_t_seg() const {
     boost::format fmt = boost::format(DPF) % (this->results.tSeg);
 
     if((boost::math::isnan)(this->results.tSeg))
@@ -217,8 +198,7 @@ QString OutputControllerWfesSingle::get_t_seg() const
         return QString::fromStdString(fmt.str());
 }
 
-QString OutputControllerWfesSingle::get_t_seg_std() const
-{
+QString OutputControllerWfesSingle::get_t_seg_std() const {
     boost::format fmt = boost::format(DPF) % (this->results.tSegStd);
 
     if((boost::math::isnan)(this->results.tSegStd))
@@ -227,8 +207,7 @@ QString OutputControllerWfesSingle::get_t_seg_std() const
         return QString::fromStdString(fmt.str());
 }
 
-QString OutputControllerWfesSingle::get_t_seg_est() const
-{
+QString OutputControllerWfesSingle::get_t_seg_est() const {
     boost::format fmt = boost::format(DPF) % (this->results.tSegExt);
 
     if((boost::math::isnan)(this->results.tSegExt))
@@ -237,8 +216,7 @@ QString OutputControllerWfesSingle::get_t_seg_est() const
         return QString::fromStdString(fmt.str());
 }
 
-QString OutputControllerWfesSingle::get_t_seg_est_std() const
-{
+QString OutputControllerWfesSingle::get_t_seg_est_std() const {
     boost::format fmt = boost::format(DPF) % (this->results.tSegExtStd);
 
     if((boost::math::isnan)(this->results.tSegExtStd))
@@ -248,8 +226,7 @@ QString OutputControllerWfesSingle::get_t_seg_est_std() const
 
 }
 
-QString OutputControllerWfesSingle::get_t_seg_fix() const
-{
+QString OutputControllerWfesSingle::get_t_seg_fix() const {
     boost::format fmt = boost::format(DPF) % (this->results.tSegFix);
 
     if((boost::math::isnan)(this->results.tSegFix))
@@ -258,8 +235,7 @@ QString OutputControllerWfesSingle::get_t_seg_fix() const
         return QString::fromStdString(fmt.str());
 }
 
-QString OutputControllerWfesSingle::get_t_seg_fix_std() const
-{
+QString OutputControllerWfesSingle::get_t_seg_fix_std() const {
     boost::format fmt = boost::format(DPF) % (this->results.tSegFixStd);
 
     if((boost::math::isnan)(this->results.tSegFixStd))
@@ -268,8 +244,7 @@ QString OutputControllerWfesSingle::get_t_seg_fix_std() const
         return QString::fromStdString(fmt.str());
 }
 
-QString OutputControllerWfesSingle::get_t_est() const
-{
+QString OutputControllerWfesSingle::get_t_est() const {
     boost::format fmt = boost::format(DPF) % (this->results.tEst);
 
     if((boost::math::isnan)(this->results.tEst))
@@ -278,8 +253,7 @@ QString OutputControllerWfesSingle::get_t_est() const
         return QString::fromStdString(fmt.str());
 }
 
-QString OutputControllerWfesSingle::get_t_est_std() const
-{
+QString OutputControllerWfesSingle::get_t_est_std() const {
     boost::format fmt = boost::format(DPF) % (this->results.tEstStd);
 
     if((boost::math::isnan)(this->results.tEstStd))
@@ -288,8 +262,7 @@ QString OutputControllerWfesSingle::get_t_est_std() const
         return QString::fromStdString(fmt.str());
 }
 
-QString OutputControllerWfesSingle::get_e_a() const
-{
+QString OutputControllerWfesSingle::get_e_a() const {
     boost::format fmt = boost::format(DPF) % (this->results.eAlleleAge);
 
     if((boost::math::isnan)(this->results.eAlleleAge))
@@ -298,8 +271,7 @@ QString OutputControllerWfesSingle::get_e_a() const
         return QString::fromStdString(fmt.str());
 }
 
-QString OutputControllerWfesSingle::get_s_a() const
-{
+QString OutputControllerWfesSingle::get_s_a() const {
     boost::format fmt = boost::format(DPF) % (this->results.sAlleleAge);
 
     if((boost::math::isnan)(this->results.sAlleleAge))
@@ -308,19 +280,16 @@ QString OutputControllerWfesSingle::get_s_a() const
         return QString::fromStdString(fmt.str());
 }
 
-QString OutputControllerWfesSingle::get_error_message() const
-{
+QString OutputControllerWfesSingle::get_error_message() const {
     return QString::fromStdString(this->results.error);
 }
 
-QString OutputControllerWfesSingle::reset_error()
-{
+QString OutputControllerWfesSingle::reset_error() {
     this->results.error = "";
     return QString();
 }
 
-QString OutputControllerWfesSingle::get_time() const
-{
+QString OutputControllerWfesSingle::get_time() const {
     boost::format fmt = boost::format("%1$.2f") % (this->results.time);
 
     if((boost::math::isnan)(this->results.time))
@@ -329,12 +298,10 @@ QString OutputControllerWfesSingle::get_time() const
         return QString::fromStdString(fmt.str());
 }
 
-bool OutputControllerWfesSingle::get_not_exec() const
-{
+bool OutputControllerWfesSingle::get_not_exec() const {
     return !executing;
 }
 
-QString OutputControllerWfesSingle::get_progress() const
-{
+QString OutputControllerWfesSingle::get_progress() const {
     return this->progress;
 }
