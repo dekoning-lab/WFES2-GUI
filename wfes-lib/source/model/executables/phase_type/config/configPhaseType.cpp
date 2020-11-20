@@ -24,10 +24,6 @@ void ConfigPhaseType::saveConfigPhaseType() {
     QFile file(outputPath + QString::fromStdString("Phase_Type.cfg"));
     file.open(QIODevice::WriteOnly);
 
-    if(!file.isOpen()) {
-        qDebug() << "The file is not open.";
-    }
-
     QTextStream outStream(&file);
 
     outStream << "Library: " << QString::fromStdString(ConfigPhaseType::library) << "\n";

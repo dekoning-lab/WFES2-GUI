@@ -2,8 +2,8 @@
 #define CONFIGTIMEDISTSGV_H
 
 #include <QStandardPaths>
+#include <QTextStream>
 #include <QString>
-#include <QDebug>
 #include <QDir>
 
 #include <string>

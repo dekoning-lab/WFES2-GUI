@@ -36,9 +36,7 @@ void ResultsPhaseType::writeResultsToFile(ResultsPhaseType *results, std::string
 
     // Open in write mode.
     file.open(QIODevice::WriteOnly);
-    if(!file.isOpen()) {
-        qDebug() << "The file is not open.";
-    }
+
     QTextStream outStream(&file);
 
     // Header of the file.

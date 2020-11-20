@@ -13,10 +13,10 @@
 namespace wfes {
     namespace controllers {
 
-    /**
-     * @brief The OutputControllerTimeDist class is a controller for output parameters
-     * and functions of phase type.
-     */
+        /**
+         * @brief The OutputControllerTimeDist class is a controller for output parameters
+         * and functions of phase type.
+         */
         class WFESLIBSHARED_EXPORT OutputControllerTimeDist : public QObject {
             Q_OBJECT
             Q_PROPERTY(QString ui_execute READ execute CONSTANT)

@@ -4,8 +4,8 @@ WorkerThreadWfafle::WorkerThreadWfafle(QObject *parent) : QThread(parent) {
     results = ResultsWfafle();
 }
 
-WorkerThreadWfafle::~WorkerThreadWfafle()
-{
+WorkerThreadWfafle::~WorkerThreadWfafle() {
+    // If not done when finished, aborted by user.
     if (!done) {
         exit();
         emit updateProgress(wfes::utils::ExecutionStatus::ABORTED);
@@ -14,8 +14,7 @@ WorkerThreadWfafle::~WorkerThreadWfafle()
     }
 }
 
-void WorkerThreadWfafle::run()
-{
+void WorkerThreadWfafle::run() {
     QString result;
     wfafle w = wfafle();
     w.addObserver(this);
@@ -25,7 +24,6 @@ void WorkerThreadWfafle::run()
     emit resultReady(results);
 }
 
-void WorkerThreadWfafle::update(int value)
-{
+void WorkerThreadWfafle::update(int value) {
     emit updateProgress(value);
 }

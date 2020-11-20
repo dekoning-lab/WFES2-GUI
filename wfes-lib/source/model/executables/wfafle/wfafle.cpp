@@ -5,14 +5,13 @@ using namespace wfes::solver;
 using namespace wfes::utils;
 using namespace wfes;
 
-ResultsWfafle *wfafle::execute()
-{
-
+ResultsWfafle *wfafle::execute() {
     // Start counting execution time.
     t_start = std::chrono::system_clock::now();
 
     // Select verbose level for Intel MKL Pardiso.
-    msg_level = ConfigWfafle::verbose ? MKL_PARDISO_MSG_VERBOSE : MKL_PARDISO_MSG_QUIET;
+    // Since it is a GUI application, always quiet for a better performance.
+    msg_level = MKL_PARDISO_MSG_QUIET;
 
     // Set number of threads for intel MKL Pardiso.
     omp_set_num_threads(ConfigWfafle::n_threads);
@@ -21,12 +20,12 @@ ResultsWfafle *wfafle::execute()
     //Notify starting.
     this->notify(ExecutionStatus::STARTING);
 
+    // Start execution.
     return this->function();
 
 }
 
-ResultsWfafle *wfafle::function()
-{
+ResultsWfafle *wfafle::function() {
     try{
         //Notify building matrix.
         this->notify(ExecutionStatus::BUILDING_MATRICES);
@@ -56,6 +55,7 @@ ResultsWfafle *wfafle::function()
         //Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
 
+        // Save data into file.
         if(ConfigWfafle::output_Dist) {
             utils::writeVectorToFile(d[k - 1], ConfigWfafle::path_output_Dist);
         }

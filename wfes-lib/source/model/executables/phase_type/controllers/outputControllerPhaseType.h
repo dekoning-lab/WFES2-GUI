@@ -2,7 +2,6 @@
 #define OUTPUTCONTROLLERPHASETYPE_H
 
 #include <QObject>
-#include <QDebug>
 
 #include <boost/format.hpp>
 

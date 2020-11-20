@@ -3,7 +3,6 @@
 
 #include <QString>
 #include <QObject>
-#include <QDebug>
 
 #include <boost/math/special_functions/fpclassify.hpp>
 #include <boost/lexical_cast.hpp>

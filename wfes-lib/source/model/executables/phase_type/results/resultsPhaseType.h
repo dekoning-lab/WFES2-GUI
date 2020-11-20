@@ -2,7 +2,7 @@
 #define RESULTSPHASETYPE_H
 
 #include <QStandardPaths>
-#include <QDebug>
+#include <QTextStream>
 #include <QDir>
 
 #include <ctime>

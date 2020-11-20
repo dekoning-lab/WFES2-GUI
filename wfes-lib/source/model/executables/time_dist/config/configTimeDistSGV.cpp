@@ -4,17 +4,14 @@ using namespace wfes::config;
 
 void ConfigTimeDistSGV::saveConfigTimeDistSGV() {
     QString outputPath(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/Wfes/Config/");
-    QDir dir;
 
+    QDir dir;
     if (!dir.exists(outputPath))
         dir.mkpath(outputPath);
 
     QFile file(outputPath + QString::fromStdString("Time_Dist.cfg"));
 
     file.open(QIODevice::WriteOnly | QIODevice::Append);
-    if(!file.isOpen()) {
-        qDebug() << "The file is not open.";
-    }
 
     QTextStream outStream(&file);
 

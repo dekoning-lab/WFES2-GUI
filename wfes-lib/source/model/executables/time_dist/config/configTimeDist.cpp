@@ -28,9 +28,6 @@ void ConfigTimeDist::saveConfigTimeDist() {
     QFile file(outputPath + QString::fromStdString("Time_Dist.cfg"));
 
     file.open(QIODevice::WriteOnly);
-    if(!file.isOpen()) {
-        qDebug() << "The file is not open.";
-    }
 
     QTextStream outStream(&file);
 
