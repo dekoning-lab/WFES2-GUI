@@ -90,7 +90,7 @@ namespace wfes {
                 /**
                  * @brief Destructor of a Sparse Matrix.
                  */
-                ~SparseMatrixViennaCL();
+                ~SparseMatrixViennaCL() = default;
 
             public: // Append functions.
 

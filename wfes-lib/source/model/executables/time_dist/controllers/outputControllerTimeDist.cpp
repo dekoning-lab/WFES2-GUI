@@ -7,6 +7,8 @@ OutputControllerTimeDist::OutputControllerTimeDist(QObject *parent)
     : QObject(parent), executing(false){}
 
 QString OutputControllerTimeDist::execute() {
+    ImageResults::clear();
+
     // Set executing to true.
     executing = true;
 

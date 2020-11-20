@@ -7,6 +7,8 @@ OutputControllerWfas::OutputControllerWfas(QObject *parent)
     : QObject(parent), executing(false){}
 
 QString OutputControllerWfas::execute() {
+    ImageResults::clear();
+
     // Set executing to true.
     executing = true;
 

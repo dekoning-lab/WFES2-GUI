@@ -1,21 +1,6 @@
 #include "imageresults.h"
 
-QImage* ImageResults::I = nullptr;
-QImage* ImageResults::Q = nullptr;
-QImage* ImageResults::R = nullptr;
-QImage* ImageResults::N = nullptr;
-QImage* ImageResults::N_ext = nullptr;
-QImage* ImageResults::N_fix = nullptr;
-QImage* ImageResults::N_tmo = nullptr;
-QImage* ImageResults::B = nullptr;
-QImage* ImageResults::V = nullptr;
-QImage* ImageResults::E = nullptr;
-QImage* ImageResults::P = nullptr;
-
-ImageResults::ImageResults() {}
-
-QImage ImageResults::getImage(QString id)
-{
+QImage ImageResults::getImage(QString id) {
     if(id.compare("I") == 0 && ImageResults::I != nullptr)
         return *ImageResults::I;
     if(id.compare("Q") == 0 && ImageResults::Q != nullptr)
@@ -45,8 +30,7 @@ QImage ImageResults::getImage(QString id)
     }
 }
 
-void ImageResults::clear()
-{
+void ImageResults::clear() {
     ImageResults::I = nullptr;
     ImageResults::Q = nullptr;
     ImageResults::R = nullptr;
@@ -59,3 +43,20 @@ void ImageResults::clear()
     ImageResults::E = nullptr;
     ImageResults::P = nullptr;
 }
+
+
+////////////////////////////////
+// Static initializations here//
+////////////////////////////////
+
+QImage* ImageResults::I = nullptr;
+QImage* ImageResults::Q = nullptr;
+QImage* ImageResults::R = nullptr;
+QImage* ImageResults::N = nullptr;
+QImage* ImageResults::N_ext = nullptr;
+QImage* ImageResults::N_fix = nullptr;
+QImage* ImageResults::N_tmo = nullptr;
+QImage* ImageResults::B = nullptr;
+QImage* ImageResults::V = nullptr;
+QImage* ImageResults::E = nullptr;
+QImage* ImageResults::P = nullptr;

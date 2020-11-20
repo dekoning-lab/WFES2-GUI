@@ -7,6 +7,8 @@ OutputControllerWfesSequential::OutputControllerWfesSequential(QObject* parent)
     : QObject(parent), executing(false){}
 
 QString OutputControllerWfesSequential::execute() {
+    ImageResults::clear();
+
     // Set executing to true.
     executing = true;
 

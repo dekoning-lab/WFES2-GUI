@@ -7,9 +7,10 @@
 
 namespace wfes {
     namespace exception{
-
-        class Error : public std::runtime_error
-        {
+        /**
+         * @brief The Error class represents an exception that happens in the application.
+         */
+        class Error : public std::runtime_error {
             public:
                 Error(const std::string &problem) : std::runtime_error(problem) {}
                 virtual ~Error() {}

@@ -7,6 +7,8 @@ OutputControllerWfafle::OutputControllerWfafle(QObject *parent)
     : QObject(parent), executing(false){}
 
 QString OutputControllerWfafle::execute() {
+    ImageResults::clear();
+
     // Set executing to true.
     executing = true;
 

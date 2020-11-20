@@ -7,6 +7,8 @@ OutputControllerWfesSingle::OutputControllerWfesSingle(QObject* parent)
     : QObject(parent), executing(false){}
 
 QString OutputControllerWfesSingle::execute() {
+    ImageResults::clear();
+
     // Set executing to true.
     executing = true;
 

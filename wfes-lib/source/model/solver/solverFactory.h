@@ -25,7 +25,6 @@ namespace wfes {
                  * @param n_rhs Right side of linear system.
                  * @return A pointer to a solver.
                  */
-                //TODO Default preconditioner.
                 static Solver* createSolver(std::string solver, SparseMatrix& A, llong matrix_type = MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, llong message_level = 0LL, std::string vienna_solver = "GMRes", std::string preconditioner = "", llong n_rhs = 1LL);
         };
     }

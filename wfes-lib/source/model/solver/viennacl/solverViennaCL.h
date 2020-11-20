@@ -50,7 +50,7 @@ namespace wfes{
                 /**
                  * Destructor of ViennaCL solver.
                  */
-                ~SolverViennaCL();
+                ~SolverViennaCL() = default;
 
                 /**
                  * Preprocess data before solving the matrix.
