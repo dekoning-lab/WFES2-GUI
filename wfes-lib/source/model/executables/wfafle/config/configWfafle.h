@@ -1,24 +1,28 @@
 #ifndef CONFIGWFAFLE_H
 #define CONFIGWFAFLE_H
 
-#include <string>
-#include "utils/types.h"
-
-#include <QString>
-
-#include <QDir>
 #include <QStandardPaths>
-#include <QDebug>
+#include <QTextStream>
+#include <QString>
+#include <QDir>
+
+#include <string>
+
+#include "utils/types.h"
 
 namespace wfes {
     namespace config {
 
+        /**
+         * @brief The ConfigWfafle class contains the configuration parameters of WFAFLE as well as some functions for
+         * saving and loading the configuration.
+         */
         class ConfigWfafle {
             public:
                 /**
                  * @brief Default constructor for class ConfigWfafle.
                  */
-                ConfigWfafle();
+                ConfigWfafle() = default;
 
                 /**
                  * @brief Library used for solving matrix systems (e.g. pardiso, viennacl...).
@@ -30,22 +34,49 @@ namespace wfes {
                  */
                 static std::string vienna_solver;
 
+                /**
+                 * @brief Size of the population for each component (N).
+                 */
                 static ivec N;
 
+                /**
+                 * @brief Maximum number of generations (G).
+                 */
                 static ivec G;
 
+                /**
+                 * @brief Selection coefficients for each component (s).
+                 */
                 static dvec s;
 
+                /**
+                 * @brief Dominance coefficients for each component (h).
+                 */
                 static dvec h;
 
+                /**
+                 * @brief Backward mutation rates for each component (u).
+                 */
                 static dvec u;
 
+                /**
+                 * @brief Forward mutation rates for each component (u).
+                 */
                 static dvec v;
 
+                /**
+                 * @brief Tail truncation weight (a).
+                 */
                 static double a;
 
+                /**
+                 * @brief Initial allele count (p).
+                 */
                 static int p;
 
+                /**
+                 * @brief Number of threads for OpenMP (t).
+                 */
                 static int n_threads;
 
                 /**
@@ -79,24 +110,24 @@ namespace wfes {
                 static bool force;
 
                 /**
-                 * @brief Verbose solver output (TODO Not Used In GUI.)
-                 */
-                static bool verbose;
-
-                /**
-                 * @brief Error messages to show if there is an error.
-                 */
-                static std::string error;
-
-                /**
                  * @brief Number of components used.
                  */
                 static int num_comp;
 
+                /**
+                 * @brief Save configuration into a file.
+                 */
                 static void saveConfigWfafle();
 
+                /**
+                 * @brief Load configuration from a file.
+                 */
                 static void loadConfigWfafle();
 
+                /**
+                 * @brief Process a line from the configuration file.
+                 * @param line Current line being processed in the configuration file.
+                 */
                 static void processLine(QString line);
         };
     }

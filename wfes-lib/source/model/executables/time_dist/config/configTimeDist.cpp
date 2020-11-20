@@ -1,30 +1,24 @@
 #include "configTimeDist.h"
 
-
 using namespace wfes::config;
 
-ConfigTimeDist::ConfigTimeDist() {}
-
-int ConfigTimeDist::ModelTypeTimeDistToInt(ModelTypeTimeDist modelType)
-{
+int ConfigTimeDist::ModelTypeTimeDistToInt(ModelTypeTimeDist modelType) {
     switch(modelType){
-    case ModelTypeTimeDist::TIME_DIST:
-        return 1;
-    case ModelTypeTimeDist::TIME_DIST_SGV:
-        return 2;
-    case ModelTypeTimeDist::TIME_DIST_SKIP:
-        return 3;
-    case ModelTypeTimeDist::TIME_DIST_DUAL:
-        return 4;
-    case ModelTypeTimeDist::NONE:
-    default:
-        return 0;
+        case ModelTypeTimeDist::TIME_DIST:
+            return 1;
+        case ModelTypeTimeDist::TIME_DIST_SGV:
+            return 2;
+        case ModelTypeTimeDist::TIME_DIST_SKIP:
+            return 3;
+        case ModelTypeTimeDist::TIME_DIST_DUAL:
+            return 4;
+        case ModelTypeTimeDist::NONE:
+        default:
+            return 0;
     }
 }
 
-void ConfigTimeDist::saveConfigTimeDist()
-{
-
+void ConfigTimeDist::saveConfigTimeDist() {
     QString outputPath(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/Wfes/Config/");
     QDir dir;
 
@@ -32,11 +26,8 @@ void ConfigTimeDist::saveConfigTimeDist()
         dir.mkpath(outputPath);
 
     QFile file(outputPath + QString::fromStdString("Time_Dist.cfg"));
-    file.open(QIODevice::WriteOnly);
 
-    if(!file.isOpen()) {
-        qDebug() << "The file is not open.";
-    }
+    file.open(QIODevice::WriteOnly);
 
     QTextStream outStream(&file);
 
@@ -62,8 +53,7 @@ void ConfigTimeDist::saveConfigTimeDist()
     file.close();
 }
 
-void ConfigTimeDist::loadConfigTimeDist()
-{
+void ConfigTimeDist::loadConfigTimeDist() {
     QString outputPath(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/Wfes/Config/" + "Time_Dist.cfg");
 
     QFile file(outputPath);
@@ -77,8 +67,7 @@ void ConfigTimeDist::loadConfigTimeDist()
     }
 }
 
-void ConfigTimeDist::processLine(QString line)
-{
+void ConfigTimeDist::processLine(QString line) {
     QStringList splitted = line.split(": ");
     if(splitted.at(0).compare("Library") == 0) {
         ConfigTimeDist::library = splitted.at(1).toStdString();
@@ -129,6 +118,11 @@ void ConfigTimeDist::processLine(QString line)
     }
 }
 
+
+////////////////////////////////
+// Static initializations here//
+////////////////////////////////
+
 ModelTypeTimeDist ConfigTimeDist::modelType = ModelTypeTimeDist::TIME_DIST;
 std::string ConfigTimeDist::library = "Pardiso";
 std::string ConfigTimeDist::vienna_solver = "BicGStab";
@@ -145,7 +139,6 @@ int ConfigTimeDist::max_t = 100;
 
 int ConfigTimeDist::n_threads = 1;
 double ConfigTimeDist::integration_cutoff = 1-1e-8;
-bool ConfigTimeDist::verbose = false;
 
 std::string ConfigTimeDist::initial_distribution_csv = "";
 std::string ConfigTimeDist::path_output_P = "output_P.csv";
@@ -156,5 +149,3 @@ bool ConfigTimeDist::output_P = true;
 bool ConfigTimeDist::output_Q = false;
 bool ConfigTimeDist::output_R = false;
 bool ConfigTimeDist::output_I = false;
-
-std::string ConfigTimeDist::error = "";

@@ -3,18 +3,21 @@
 
 #include <QObject>
 
+#include <boost/lexical_cast.hpp>
+#include <boost/format.hpp>
+
 #include <wfes-lib_global.h>
 
-#include <model/executables/time_dist/config/configTimeDist.h>
 #include <model/executables/time_dist/config/configTimeDistSGV.h>
-
-
-#include <boost/format.hpp>
-#include <boost/lexical_cast.hpp>
+#include <model/executables/time_dist/config/configTimeDist.h>
 
 namespace wfes {
     namespace controllers {
 
+        /**
+         * @brief The InputControllerTimeDist class is a controller for input parameters
+         * of time dist.
+         */
         class WFESLIBSHARED_EXPORT InputControllerTimeDist : public QObject {
             Q_OBJECT
             Q_PROPERTY(QString ui_n READ get_n WRITE set_n NOTIFY input_changed)
@@ -53,11 +56,10 @@ namespace wfes {
              */
             explicit InputControllerTimeDist(QObject* parent = nullptr);
 
-
             /**
              * @brief InputControllerTimeDist Destructor.
              */
-            ~InputControllerTimeDist();
+            ~InputControllerTimeDist() = default;
 
             /**
              * @brief Send N to GUI.

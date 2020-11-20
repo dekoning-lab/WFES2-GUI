@@ -2,24 +2,22 @@
 #define OUTPUTCONTROLLERWFAFLE_H
 
 #include <QObject>
-#include <QDebug>
-#include <wfes-lib_global.h>
 
-#include "math.h"
 #include <boost/format.hpp>
 
+#include <wfes-lib_global.h>
+
 #include <model/executables/wfafle/results/resultsWfafle.h>
-
 #include <model/executables/wfafle/thread/workerThreadWfafle.h>
-
-#include <model/executables/wfafle/config/configWfafle.h>
-
 
 namespace wfes {
     namespace controllers {
 
-        class WFESLIBSHARED_EXPORT OutputControllerWfafle: public QObject
-        {
+        /**
+         * @brief The OutputControllerWfafle class is a controller for output parameters
+         * and functions of wfafle.
+         */
+        class WFESLIBSHARED_EXPORT OutputControllerWfafle: public QObject {
             Q_OBJECT
             Q_PROPERTY(QString ui_execute READ execute CONSTANT)
             Q_PROPERTY(QString ui_stop READ stop CONSTANT)
@@ -33,45 +31,57 @@ namespace wfes {
             Q_PROPERTY(QStringList ui_probs READ get_probs NOTIFY results_changed)
 
         public:
+            /**
+             * @brief Results of an execution.
+             */
             ResultsWfafle results;
 
+            /**
+             * @brief Indicate if wfafle if being executed.
+             */
             bool executing;
 
+            /**
+             * @brief WorkerThread that manages the background execution of Wfafle.
+             */
             WorkerThreadWfafle* worker;
 
+            /**
+             * @brief Message with the progress of an execution.
+             */
             QString progress = "";
 
             /**
-             * @brief OutputControllerWfesSweep constructor
+             * @brief OutputControllerWfafle constructor
              * @param parent To be used by Qt.
              */
             OutputControllerWfafle(QObject* parent = nullptr);
 
             /**
-             * @brief OutputControllerWfesSweep destructor.
+             * @brief OutputControllerWfafle destructor.
              */
-            ~OutputControllerWfafle();
+            ~OutputControllerWfafle() = default;
 
             /**
-             * @brief Execute wfes_single and get results.
-             * @return Results of wfes_single execution.
+             * @brief Execute wfafle and get results.
+             * @return Nothing.
              */
             QString execute();
 
             /**
-             * @brief Stop an execution of wfes_single.
+             * @brief Stop an execution of wfafle.
              * @return Nothing.
              */
             QString stop();
 
             /**
-             * @brief Save configuration of wfas.
+             * @brief Save configuration of wfafle.
              * @return Nothing.
              */
             QString save_config();
 
             /**
-             * @brief Load configuration of wfas.
+             * @brief Load configuration of wfafle.
              * @return Nothing.
              */
             QString load_config();
@@ -106,14 +116,27 @@ namespace wfes {
              */
             bool get_not_exec() const;
 
+            /**
+             * @brief Get progress message.
+             * @return Progress message.
+             */
             QString get_progress() const;
 
         public slots:
+            /**
+             * @brief Handle results of an execution and notify GUI that it has finished.
+             * @param results Results of an execution.
+             */
             void handleResults(ResultsWfafle results){
                 this->results = results;
                 this->executing = false;
                 emit results_changed();
             }
+
+            /**
+             * @brief Handle progress of an execution and notify GUI of the progress.
+             * @param progress Progress message position in the array wfes::utils::ExecutionStatusName.
+             */
             void handleProgress(int progress){
                 this->progress = wfes::utils::ExecutionStatusName[progress];
                 emit updateProgress();
@@ -121,10 +144,13 @@ namespace wfes {
 
         signals:
             /**
-             * @brief Signal for notifying when results has been calculated/changed in backend.
+             * @brief Signal for notifying when results have changed in backend.
              */
             void results_changed();
-            void operate();
+
+            /**
+             * @brief Signal for notifying progress of an execution.
+             */
             void updateProgress();
         };
     }

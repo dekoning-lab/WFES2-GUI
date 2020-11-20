@@ -2,14 +2,13 @@
 #define INPUTCONTROLLERWFAFLE_H
 
 #include <QObject>
-#include <QDebug>
-
-#include <wfes-lib_global.h>
-
-#include <model/executables/wfafle/config/configWfafle.h>
 
 #include <boost/format.hpp>
 #include <boost/lexical_cast.hpp>
+
+#include <wfes-lib_global.h>
+
+#include "model/executables/wfafle/config/configWfafle.h"
 
 namespace wfes {
     namespace controllers {
@@ -43,7 +42,7 @@ namespace wfes {
                 /**
                  * @brief InputControllerWfafle Destructor.
                  */
-                ~InputControllerWfafle();
+                ~InputControllerWfafle() = default;
 
                 /**
                  * @brief Send a to GUI.

@@ -1,25 +1,26 @@
 #ifndef INPUTCONTROLLERPHASETYPE_H
 #define INPUTCONTROLLERPHASETYPE_H
 
-#include <QObject>
-#include <QDebug>
-#include <wfes-lib_global.h>
-
-#include "utils/utils.h"
-
 #include <QString>
-#include <boost/format.hpp>
-#include <boost/lexical_cast.hpp>
+#include <QObject>
 
 #include <boost/math/special_functions/fpclassify.hpp>
+#include <boost/lexical_cast.hpp>
+#include <boost/format.hpp>
 
-#include <model/executables/phase_type/config/configPhaseType.h>
+#include <wfes-lib_global.h>
+
+#include "model/executables/phase_type/config/configPhaseType.h"
+#include "utils/utils.h"
 
 namespace wfes {
     namespace controllers {
 
-        class WFESLIBSHARED_EXPORT InputControllerPhaseType : public QObject
-        {
+        /**
+         * @brief The InputControllerPhaseType class is a controller for input parameters
+         * of phase type.
+         */
+        class WFESLIBSHARED_EXPORT InputControllerPhaseType : public QObject {
             Q_OBJECT
             Q_PROPERTY(QString ui_n READ get_n WRITE set_n NOTIFY input_changed)
             Q_PROPERTY(QString ui_a READ get_a WRITE set_a NOTIFY input_changed)
@@ -45,16 +46,15 @@ namespace wfes {
             public:
 
                 /**
-                 * @brief InputControllerWfesSingle Constructor.
+                 * @brief InputControllerPhaseType Constructor.
                  * @param parent To be used by Qt.
                  */
                 explicit InputControllerPhaseType(QObject* parent = nullptr);
 
-
                 /**
-                 * @brief InputController Destructor.
+                 * @brief InputControllerPhaseType Destructor.
                  */
-                ~InputControllerPhaseType();
+                ~InputControllerPhaseType() = default;
 
                 /**
                  * @brief Send N to GUI.
@@ -91,7 +91,7 @@ namespace wfes {
 
                 /**
                  * @brief Send k to GUI.
-                 * @return QString containing x.
+                 * @return QString containing k.
                  */
                 QString get_k() const;
                 /**

@@ -1,14 +1,14 @@
 ﻿#ifndef CONFIGTIMEDIST_H
 #define CONFIGTIMEDIST_H
 
-#include <string>
-#include "utils/types.h"
-
-#include <QDir>
 #include <QStandardPaths>
-#include <QDebug>
-
+#include <QTextStream>
 #include <QString>
+#include <QDir>
+
+#include <string>
+
+#include "utils/types.h"
 
 namespace wfes {
     namespace config {
@@ -25,152 +25,155 @@ namespace wfes {
          */
         static const char* ModelTypeTimeDistNames[] = { "None", "Time Dist.", "Time Dist. SGV", "Time Dist. Skip", "Time Dist. Dual"};
 
-        class ConfigTimeDist
-        {
-        public:
-            /**
-             * @brief Default constructor for class ConfigTimeDist.
-             */
-            ConfigTimeDist();
+        /**
+         * @brief The ConfigTimeDist class contains the configuration parameters of Time Dist, as well as some functions for
+         * saving and loading the configuration.
+         */
+        class ConfigTimeDist {
+            public:
+                /**
+                 * @brief Default constructor for class ConfigTimeDist.
+                 */
+                ConfigTimeDist() = default;
 
-            /**
-             * @brief Get integer position of the enumeration value.
-             * @param modelType Modeltype to test position.
-             * @return Position of modelType in enumaration.
-             */
-            static int ModelTypeTimeDistToInt(ModelTypeTimeDist modelType);
+                /**
+                 * @brief Get an integer representing a model type (Position in the enum).
+                 * @param modelType Model Type that we want to extract the numer (position).
+                 * @return Position of the Model Type in the enum.
+                 */
+                static int ModelTypeTimeDistToInt(ModelTypeTimeDist modelType);
 
-            /**
-             * @brief Library used for solving matrix systems (e.g. pardiso, viennacl...).
-             */
-            static std::string library;
+                /**
+                 * @brief Library used for solving matrix systems (e.g. pardiso, viennacl...).
+                 */
+                static std::string library;
 
-            /**
-             * @brief Solver used in viennacl. (e.g. biCGStab, GMRes...).
-             */
-            static std::string vienna_solver;
+                /**
+                 * @brief Solver used in viennacl. (e.g. biCGStab, GMRes...).
+                 */
+                static std::string vienna_solver;
 
-            /**
-             * @brief Type of model used. (e.g. TimeDist, TimeDistDual...).
-             */
-            static ModelTypeTimeDist modelType;
+                /**
+                 * @brief Type of model used. (e.g. TimeDist, TimeDistDual...).
+                 */
+                static ModelTypeTimeDist modelType;
 
-            /**
-             * @brief Size of the population in the Wright Fisher Model (N).
-             */
-            static int population_size;
+                /**
+                 * @brief Size of the population in the Wright Fisher Model (N).
+                 */
+                static int population_size;
 
-            /**
-             * @brief Selection coefficient (s).
-             */
-            static double s;
+                /**
+                 * @brief Selection coefficient (s).
+                 */
+                static double s;
 
-            /**
-             * @brief Dominance coefficient (h).
-             */
-            static double h;
+                /**
+                 * @brief Dominance coefficient (h).
+                 */
+                static double h;
 
-            /**
-             * @brief Backward mutation rate (u).
-             */
-            static double u;
+                /**
+                 * @brief Backward mutation rate (u).
+                 */
+                static double u;
 
-            /**
-             * @brief Forward mutation rate (v).
-             */
-            static double v;
+                /**
+                 * @brief Forward mutation rate (v).
+                 */
+                static double v;
 
 
-            /**
-             * @brief No recurrent mutation (m).
-             */
-            static bool no_rem;
+                /**
+                 * @brief No recurrent mutation (m).
+                 */
+                static bool no_rem;
 
-            /**
-             * @brief Recurrent mutation.
-             */
-            static bool rem;
+                /**
+                 * @brief Recurrent mutation.
+                 */
+                static bool rem;
 
-            /**
-             * @brief Tail truncation weight (a).
-             */
-            static double a;
+                /**
+                 * @brief Tail truncation weight (a).
+                 */
+                static double a;
 
-            /**
-             * @brief Block Size (b).
-             */
-            static int b;
+                /**
+                 * @brief Block Size (b).
+                 */
+                static int b;
 
-            /**
-             * @brief Maximum number of generations.
-             */
-            static int max_t;
+                /**
+                 * @brief Maximum number of generations.
+                 */
+                static int max_t;
 
-            /**
-             * @brief Number of threads for OpenMP (t).
-             */
-            static int n_threads;
+                /**
+                 * @brief Number of threads for OpenMP (t).
+                 */
+                static int n_threads;
 
-            /**
-             * @brief Starting number of copies integration cutoff (c).
-             */
-            static double integration_cutoff;
+                /**
+                 * @brief Integration Cutoff (c).
+                 */
+                static double integration_cutoff;
 
-            /**
-             * @brief Path to initial probability distribution CSV (I).
-             */
-            static std::string initial_distribution_csv;
+                /**
+                 * @brief Path to initial probability distribution CSV (I).
+                 */
+                static std::string initial_distribution_csv;
 
-            /**
-             * @brief Path output P.
-             */
-            static std::string path_output_P;
+                /**
+                 * @brief Path output P.
+                 */
+                static std::string path_output_P;
 
-            /**
-             * @brief Path output Q.
-             */
-            static std::string path_output_Q;
+                /**
+                 * @brief Path output Q.
+                 */
+                static std::string path_output_Q;
 
-            /**
-             * @brief Path output R.
-             */
-            static std::string path_output_R;
+                /**
+                 * @brief Path output R.
+                 */
+                static std::string path_output_R;
 
-            /**
-             * @brief Output P.
-             */
-            static bool output_P;
+                /**
+                 * @brief Output P.
+                 */
+                static bool output_P;
 
-            /**
-             * @brief Output Q.
-             */
-            static bool output_Q;
+                /**
+                 * @brief Output Q.
+                 */
+                static bool output_Q;
 
-            /**
-             * @brief Output R.
-             */
-            static bool output_R;
+                /**
+                 * @brief Output R.
+                 */
+                static bool output_R;
 
-            /**
-             * @brief Output I (Initial probability distribution).
-             */
-            static bool output_I;
+                /**
+                 * @brief Output I (Initial probability distribution).
+                 */
+                static bool output_I;
 
-            /**
-             * @brief Verbose solver output (TODO Not Used In GUI.)
-             */
-            static bool verbose;
+                /**
+                 * @brief Save configuration into a file.
+                 */
+                static void saveConfigTimeDist();
 
-            /**
-             * @brief Error messages to show if there is an error.
-             */
-            static std::string error;
+                /**
+                 * @brief Load configuration from a file.
+                 */
+                static void loadConfigTimeDist();
 
-            static void saveConfigTimeDist();
-
-            static void loadConfigTimeDist();
-
-            static void processLine(QString line);
+                /**
+                 * @brief Process a line from the configuration file.
+                 * @param line Current line being processed in the configuration file.
+                 */
+                static void processLine(QString line);
         };
     }
 }

@@ -2,22 +2,16 @@
 
 using namespace wfes::config;
 
-ConfigWfafle::ConfigWfafle() {}
-
-void ConfigWfafle::saveConfigWfafle()
-{
+void ConfigWfafle::saveConfigWfafle() {
     QString outputPath(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/Wfes/Config/");
-    QDir dir;
 
+    QDir dir;
     if (!dir.exists(outputPath))
         dir.mkpath(outputPath);
 
     QFile file(outputPath + QString::fromStdString("Wfafle.cfg"));
-    file.open(QIODevice::WriteOnly);
 
-    if(!file.isOpen()) {
-        qDebug() << "The file is not open.";
-    }
+    file.open(QIODevice::WriteOnly);
 
     QTextStream outStream(&file);
 
@@ -74,8 +68,7 @@ void ConfigWfafle::saveConfigWfafle()
 
 }
 
-void ConfigWfafle::loadConfigWfafle()
-{
+void ConfigWfafle::loadConfigWfafle() {
     QString outputPath(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/Wfes/Config/" + "Wfafle.cfg");
 
     QFile file(outputPath);
@@ -89,8 +82,7 @@ void ConfigWfafle::loadConfigWfafle()
     }
 }
 
-void ConfigWfafle::processLine(QString line)
-{
+void ConfigWfafle::processLine(QString line) {
     QStringList splitted = line.split(": ");
     if(splitted.at(0).compare("Library") == 0) {
         ConfigWfafle::library = splitted.at(1).toStdString();
@@ -156,6 +148,11 @@ void ConfigWfafle::processLine(QString line)
 
 }
 
+
+////////////////////////////////
+// Static initializations here//
+////////////////////////////////
+
 ivec ConfigWfafle::N = [] {
     ivec tmp(1);
     tmp << 100;
@@ -207,6 +204,4 @@ std::string ConfigWfafle::path_output_I = "output_I.csv";
 std::string ConfigWfafle::path_output_Dist = "output_Dist.csv";
 
 bool ConfigWfafle::force = false;
-bool ConfigWfafle::verbose = false;
-std::string ConfigWfafle::error = "";
 int ConfigWfafle::num_comp = 1;

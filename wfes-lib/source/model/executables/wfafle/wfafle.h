@@ -1,43 +1,81 @@
 #ifndef WFES_WFAFLE_H
 #define WFES_WFAFLE_H
 
-#include "utils/exceptions.h"
 #include "utils/types.h"
 #include "utils/utils.h"
 #include "utils/parsing.h"
-
-#include "model/solver/solver.h"
-#include "model/solver/solverFactory.h"
-
-#include "model/sparse-matrix/sparseMatrix.h"
-#include "model/sparse-matrix/sparseMatrixFactory.h"
-
-#include "model/wright-fisher/wrightFisher.h"
-
-#include "model/solver/pardiso/solverPardiso.h"
-#include "model/sparse-matrix/pardiso/sparseMatrixPardiso.h"
-
-#include <model/executables/wfafle/results/resultsWfafle.h>
+#include "utils/exceptions.h"
 
 #include <utils/observer/subject.h>
 
-#include <model/executables/wfafle/config/configWfafle.h>
+#include "model/wright-fisher/wrightFisher.h"
 
+#include "model/visualization/imageresults.h"
 
-class wfafle : public Subject
-{
-public:
-    time_point t_start, t_end;
-    llong msg_level;
+#include "model/executables/wfafle/config/configWfafle.h"
+#include "model/executables/wfafle/results/resultsWfafle.h"
 
-    ResultsWfafle* execute();
+/**
+ * @brief The wfafle class implements the phase type executables.
+ * wfafle: WFAFLE - Wright-Fisher Allele Frequency calculation.
+ */
+class wfafle : public Subject {
+    public:
+        /**
+         * @brief Starting point of measuring execution time.
+         */
+        time_point t_start;
 
-    ResultsWfafle* function();
+        /**
+         * @brief Ending point of measuring execution time.
+         */
+        time_point t_end;
 
+        /**
+         * @brief Verbose level.
+         */
+        llong msg_level;
 
-    void iterate_generations(dvec& x, llong N, llong t, double s, double h, double u, double v, double alpha, bool verbose = false);
+        /**
+         * @brief Starts an execution of a wfafle model.
+         * @return Results of the execution.
+         */
+        ResultsWfafle* execute();
 
-    dvec switch_population_size(dvec& x, llong Nx, llong Ny, double s, double h, double u, double v, double alpha, bool verbose = false);
+        /**
+         * @brief Calculates Wright-Fisher Allele Frequency.
+         * @return Results of the execution.
+         */
+        ResultsWfafle* function();
+
+        /**
+         * @brief //TODO fill this.
+         * @param x
+         * @param N
+         * @param t
+         * @param s
+         * @param h
+         * @param u
+         * @param v
+         * @param alpha
+         * @param verbose
+         */
+        void iterate_generations(dvec& x, llong N, llong t, double s, double h, double u, double v, double alpha, bool verbose = false);
+
+        /**
+         * @brief //TODO fill this.
+         * @param x
+         * @param Nx
+         * @param Ny
+         * @param s
+         * @param h
+         * @param u
+         * @param v
+         * @param alpha
+         * @param verbose
+         * @return
+         */
+        dvec switch_population_size(dvec& x, llong Nx, llong Ny, double s, double h, double u, double v, double alpha, bool verbose = false);
 
 
 };

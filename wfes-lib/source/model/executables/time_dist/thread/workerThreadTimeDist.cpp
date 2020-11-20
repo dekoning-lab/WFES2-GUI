@@ -1,12 +1,11 @@
 #include "workerThreadTimeDist.h"
 
-WorkerThreadTimeDist::WorkerThreadTimeDist(QObject *parent) : QThread(parent)
-{
+WorkerThreadTimeDist::WorkerThreadTimeDist(QObject *parent) : QThread(parent) {
     results = ResultsTimeDist();
 }
 
-WorkerThreadTimeDist::~WorkerThreadTimeDist()
-{
+WorkerThreadTimeDist::~WorkerThreadTimeDist() {
+    // If not done when finished, aborted by user.
     if (!done) {
         exit();
         emit updateProgress(wfes::utils::ExecutionStatus::ABORTED);
@@ -15,17 +14,15 @@ WorkerThreadTimeDist::~WorkerThreadTimeDist()
     }
 }
 
-void WorkerThreadTimeDist::run()
-{
-    time_dist single = time_dist();
-    single.addObserver(this);
-    results = *single.execute();
+void WorkerThreadTimeDist::run() {
+    time_dist exec = time_dist();
+    exec.addObserver(this);
+    results = *exec.execute();
 
     done = true;
     emit resultReady(results);
 }
 
-void WorkerThreadTimeDist::update(int value)
-{
+void WorkerThreadTimeDist::update(int value) {
     emit updateProgress(value);
 }
