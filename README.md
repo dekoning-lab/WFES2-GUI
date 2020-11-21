@@ -10,7 +10,7 @@ Wright-Fisher Exact Solver (`WFES`) implements a variety of exact calculations w
 
 ## Installation
 
-Download the binaries for your OS in the releases page [Releases]().
+Download the binaries for your OS in the [releases]() page.
 
 ## Usage
 
