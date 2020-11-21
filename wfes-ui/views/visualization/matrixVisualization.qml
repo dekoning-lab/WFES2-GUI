@@ -207,7 +207,7 @@ ApplicationWindow {
             Layout.preferredWidth: 100
 
             enabled: true
-            text: "I Matrix"
+            text: "I"
 
             onClicked: {
                 buttonI.enabled = false
@@ -244,7 +244,7 @@ ApplicationWindow {
             }
             Layout.preferredWidth: 100
 
-            text: "Q Matrix"
+            text: "Q"
 
             onClicked: {
                 buttonI.enabled = true
@@ -281,7 +281,7 @@ ApplicationWindow {
             }
             Layout.preferredWidth: 100
 
-            text: "R Matrix"
+            text: "R"
 
             onClicked: {
                 buttonI.enabled = true
@@ -318,7 +318,7 @@ ApplicationWindow {
             }
             Layout.preferredWidth: 100
 
-            text: "B Matrix"
+            text: "B"
 
             onClicked: {
                 buttonI.enabled = true
@@ -355,7 +355,7 @@ ApplicationWindow {
             }
             Layout.preferredWidth: 100
 
-            text: "N Matrix"
+            text: "N"
 
             onClicked: {
                 buttonI.enabled = true
@@ -392,7 +392,7 @@ ApplicationWindow {
             }
             Layout.preferredWidth: 100
 
-            text: "N ext Matrix"
+            text: "N ext"
 
             onClicked: {
                 buttonI.enabled = true
@@ -429,7 +429,7 @@ ApplicationWindow {
             }
             Layout.preferredWidth: 100
 
-            text: "N fix Matrix"
+            text: "N fix"
 
             onClicked: {
                 buttonI.enabled = true
@@ -466,7 +466,7 @@ ApplicationWindow {
             }
             Layout.preferredWidth: 100
 
-            text: "N tmo Matrix"
+            text: "N tmo"
 
             onClicked: {
                 buttonI.enabled = true
@@ -503,7 +503,7 @@ ApplicationWindow {
             }
             Layout.preferredWidth: 100
 
-            text: "V Matrix"
+            text: "V"
 
             onClicked: {
                 buttonI.enabled = true
@@ -540,7 +540,7 @@ ApplicationWindow {
             }
             Layout.preferredWidth: 100
 
-            text: "E Matrix"
+            text: "E"
 
             onClicked: {
                 buttonI.enabled = true
@@ -577,7 +577,7 @@ ApplicationWindow {
             }
             Layout.preferredWidth: 100
 
-            text: "P Matrix"
+            text: "P"
 
             onClicked: {
                 buttonI.enabled = true

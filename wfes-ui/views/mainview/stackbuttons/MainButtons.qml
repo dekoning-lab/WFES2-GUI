@@ -32,16 +32,16 @@ Item {
             height: childrenRect.height
             width: parent.width
             ChangeStackViewButton {
-                ToolTip.text: "Wright Fisher Exact Solver"
+                text: "WFES"
+                ToolTip.text: "Wright Fisher Exact Solver."
                 ToolTip.delay: 1000
                 ToolTip.timeout: 5000
                 ToolTip.visible: hovered
-                text: "WFES"
                 view: "qrc:/views/mainview/stackbuttons/wfesButtons.qml"
             }
             Button {
                 text: "WFAF-S"
-                ToolTip.text: "Wright-Fisher Allele Frequency Stochastic"
+                ToolTip.text: "Wright-Fisher Allele Frequency Stochastic."
                 ToolTip.delay: 1000
                 ToolTip.timeout: 5000
                 ToolTip.visible: hovered
@@ -53,7 +53,7 @@ Item {
             }
             Button {
                 text: "WFAF-D"
-                ToolTip.text: "Wright-Fisher Allele Frequency Deterministic"
+                ToolTip.text: "Wright-Fisher Allele Frequency Deterministic."
                 ToolTip.delay: 1000
                 ToolTip.timeout: 5000
                 ToolTip.visible: hovered
@@ -76,7 +76,7 @@ Item {
             }
             Button {
                 text: "Time Dist."
-                ToolTip.text: "Distribution of Time to Fixation/Extinction"
+                ToolTip.text: "Distribution of Time to Fixation/Extinction."
                 ToolTip.delay: 1000
                 ToolTip.timeout: 5000
                 ToolTip.visible: hovered
@@ -88,7 +88,7 @@ Item {
             }
             Button {
                 text: "Phase Type"
-                ToolTip.text: "Calculate Moments and Distributions of Absorption Times for a Fixation-only Model"
+                ToolTip.text: "Calculate Moments and Distributions of Absorption Times for a Fixation-only Model."
                 ToolTip.delay: 1000
                 ToolTip.timeout: 5000
                 ToolTip.visible: hovered

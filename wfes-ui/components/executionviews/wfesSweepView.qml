@@ -440,7 +440,7 @@ ApplicationWindow {
                             LabeledTextField {
                                 id: inputL
                                 text: "l: "
-                                toolTipText: "TODO."
+                                toolTipText: "Transition probability."
                                 validator: DoubleValidator {bottom: 1e-20; top: 1;}
                                 textFieldText: inputControllerWfesSweep.ui_l
                             }
@@ -456,7 +456,7 @@ ApplicationWindow {
                             LabeledTextField {
                                 id: inputP
                                 text: "p: "
-                                toolTipText: "TODO."
+                                toolTipText: "Starting number of copies integration cutoff."
                                 validator: IntValidator {bottom: 2; top: 500000;}
                                 textFieldText: inputControllerWfesSweep.ui_c
                             }
@@ -777,7 +777,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "T fix.: "
-                                toolTipText: "Fixation time."
+                                toolTipText: "Expected number of generations between two fixation events."
                                 textFieldText: outputControllerWfesSweep.ui_get_t_fix
                                 readOnly: true
                                 visible: radioButtonFixation.checked || radioButtonAbsorption.checked
@@ -788,7 +788,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "Rate: "
-                                toolTipText: "Rate."
+                                toolTipText: "Rate of substitution."
                                 textFieldText: outputControllerWfesSweep.ui_get_rate
                                 readOnly: true
                                 visible: radioButtonFixation.checked

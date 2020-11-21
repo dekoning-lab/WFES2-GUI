@@ -288,7 +288,7 @@ ApplicationWindow {
         var minY1 = 0
         var maxY2 = 0
         var minY2 = 0
-        if(typeof(input) != "undefined") {
+        if(typeof(input) !== "undefined" || input.length !== 0) {
             var splitted = input[0].split(", ")
             var splitLength = splitted.length
 

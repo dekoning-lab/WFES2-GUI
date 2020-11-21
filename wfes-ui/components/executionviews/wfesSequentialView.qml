@@ -174,7 +174,7 @@ ApplicationWindow {
                             LabeledTextField {
                                 id: inputC
                                 text: "c: "
-                                toolTipText: "Starting number of copies integration cutoff."
+                                toolTipText: "Integration cutoff."
                                 validator: DoubleValidator {bottom: 0; top: 1;}
                                 textFieldText: inputControllerWfesSequential.ui_c
                             }
@@ -527,7 +527,7 @@ ApplicationWindow {
                             labelPreferredWidth: 100
                             textFieldPreferredWidth: 180
                             text: "T ext.: "
-                            toolTipText: "Extintion time."
+                            toolTipText: "Expected number of generations till extinction."
                             textFieldText: outputControllerWfesSequential.ui_get_t_ext
                             readOnly: true
                         }
@@ -537,7 +537,7 @@ ApplicationWindow {
                             labelPreferredWidth: 100
                             textFieldPreferredWidth: 180
                             text: "T ext. std.: "
-                            toolTipText: "Standard extintion time."
+                            toolTipText: "Standard deviation of expected number of generations till extinction."
                             textFieldText: outputControllerWfesSequential.ui_get_t_ext_std
                             readOnly: true
                         }
@@ -548,7 +548,7 @@ ApplicationWindow {
                             labelPreferredWidth: 100
                             textFieldPreferredWidth: 180
                             text: "T fix.: "
-                            toolTipText: "Fixation time."
+                            toolTipText: "Expected number of generations till fixation."
                             textFieldText: outputControllerWfesSequential.ui_get_t_fix
                             readOnly: true
                         }
@@ -558,7 +558,7 @@ ApplicationWindow {
                             labelPreferredWidth: 100
                             textFieldPreferredWidth: 180
                             text: "T fix. std.: "
-                            toolTipText: "Standard fixation time."
+                            toolTipText: "Standard deviation of expected number of generations till fixation."
                             textFieldText: outputControllerWfesSequential.ui_get_t_fix_std
                             readOnly: true
                         }
@@ -568,7 +568,7 @@ ApplicationWindow {
                             labelPreferredWidth: 100
                             textFieldPreferredWidth: 180
                             text: "T tmo.: "
-                            toolTipText: "Timeout time."
+                            toolTipText: "Expected number of generations till time out."
                             textFieldText: outputControllerWfesSequential.ui_get_t_tmo
                             readOnly: true
                         }
@@ -578,7 +578,7 @@ ApplicationWindow {
                             labelPreferredWidth: 100
                             textFieldPreferredWidth: 180
                             text: "T tmo. std.: "
-                            toolTipText: "Standard timeout time."
+                            toolTipText: "Standard deviation of expected number of generations till time out."
                             textFieldText: outputControllerWfesSequential.ui_get_t_tmo_std
                             readOnly: true
                         }

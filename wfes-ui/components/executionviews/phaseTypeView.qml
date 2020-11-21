@@ -214,7 +214,7 @@ ApplicationWindow {
                             LabeledTextField {
                                 id: inputM
                                 text: "m: "
-                                toolTipText: "TODO."
+                                toolTipText: "Maximum number of generations."
                                 validator: IntValidator {bottom: 2; top: 500000;}
                                 textFieldText: inputControllerPhaseType.ui_m
                                 enabled: inputControllerPhaseType.ui_modelType == "Phase Type Dist."
@@ -398,7 +398,7 @@ ApplicationWindow {
                                 LabeledCheckBox {
                                     id: inputWriteMoments
                                     text: "Moments: "
-                                    toolTipText: "//TODO. (Always enabled)."
+                                    toolTipText: "Output Moments as CSV file. (Always enabled)."
                                     checked: true
                                     enabledCheckBox: false
                                     enabled: inputControllerPhaseType.ui_modelType == "Phase Type Moments"
@@ -622,6 +622,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "Mean: "
+                                toolTipText: "Mean of the calculated moments."
                                 textFieldText: outputControllerPhaseType.ui_get_mean
                                 readOnly: true
                                 enabled: radioButtonPhaseTypeMoments.checked
@@ -632,6 +633,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "Std: "
+                                toolTipText: "Standard deviation of the calculated moments."
                                 textFieldText: outputControllerPhaseType.ui_get_std
                                 readOnly: true
                                 enabled: radioButtonPhaseTypeMoments.checked

@@ -32,7 +32,7 @@ Item {
             width: parent.width
             Button {
                 text: "WFES Single"
-                ToolTip.text: "Calculations for the Standard Wright-Fisher Model"
+                ToolTip.text: "Calculations for the Standard Wright-Fisher Model."
                 ToolTip.delay: 1000
                 ToolTip.timeout: 5000
                 ToolTip.visible: hovered
@@ -45,7 +45,7 @@ Item {
             }
             Button {
                 text: "WFES Sweep"
-                ToolTip.text: "Model of Positive Selection with Standing Genetic Variation"
+                ToolTip.text: "Model of Positive Selection with Standing Genetic Variation."
                 ToolTip.delay: 1000
                 ToolTip.timeout: 5000
                 ToolTip.visible: hovered
@@ -69,7 +69,7 @@ Item {
 
             Button {
                 text: "WFES Sequential"
-                ToolTip.text: "// TODO"
+                ToolTip.text: "Implements calculations for a set of standard Wright-Fisher models sequentially."
                 ToolTip.delay: 1000
                 ToolTip.timeout: 5000
                 ToolTip.visible: hovered

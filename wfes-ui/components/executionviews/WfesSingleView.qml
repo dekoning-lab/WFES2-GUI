@@ -539,7 +539,7 @@ ApplicationWindow {
                             LabeledTextField {
                                 id: inputp
                                 text: "p: "
-                                toolTipText: "Starting number of copies - no integration."
+                                toolTipText: "Starting number of copies."
                                 validator: IntValidator {bottom: 0; top: 500000;}
                                 textFieldText: inputControllerWfesSingle.ui_p
                                 enabled: (inputControllerWfesSingle.ui_modelType == "Fixation" ||
@@ -551,7 +551,7 @@ ApplicationWindow {
                             LabeledTextField {
                                 id: inputc
                                 text: "c: "
-                                toolTipText: "Starting number of copies integration cutoff."
+                                toolTipText: "Integration cutoff."
                                 validator: DoubleValidator {bottom: 0; top: 10e-3;}
                                 textFieldText: inputControllerWfesSingle.ui_c
                             }
@@ -559,7 +559,7 @@ ApplicationWindow {
                             LabeledTextField {
                                 id: inputX
                                 text: "x: "
-                                toolTipText: "Observed number of copies (--allele-age only)."
+                                toolTipText: "Observed number of copies (allele age only)."
                                 validator: IntValidator {bottom: 0; top: 500000;}
                                 textFieldText: inputControllerWfesSingle.ui_x
                                 enabled: (inputControllerWfesSingle.ui_modelType == "Allele Age")
@@ -568,7 +568,7 @@ ApplicationWindow {
                             LabeledTextField {
                                 id: inputK
                                 text: "k: "
-                                toolTipText: "Odds ratio (--establishment only)."
+                                toolTipText: "Odds ratio (establishment only)."
                                 textFieldText: inputControllerWfesSingle.ui_k
                                 enabled: (inputControllerWfesSingle.ui_modelType == "Establishment")
                             }
@@ -1068,7 +1068,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "T abs. : "
-                                toolTipText: "Absorption time."
+                                toolTipText: "Expected number of generations till absorption."
                                 textFieldText: outputControllerWfesSingle.ui_get_t_abs
                                 readOnly: true
                                 visible: radioButtonAbsorption.checked
@@ -1079,7 +1079,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "T abs. std.: "
-                                toolTipText: "Standard absorption time."
+                                toolTipText: "Standard deviation of expected number of generations till absorption."
                                 textFieldText: outputControllerWfesSingle.ui_get_t_abs_std
                                 readOnly: true
                                 visible: radioButtonAbsorption.checked
@@ -1090,7 +1090,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "T ext.: "
-                                toolTipText: "Extintion time."
+                                toolTipText: "Expected number of generations till extinction."
                                 textFieldText: outputControllerWfesSingle.ui_get_t_ext
                                 readOnly: true
                                 visible: radioButtonAbsorption.checked
@@ -1101,7 +1101,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "T ext. std.: "
-                                toolTipText: "Standard extintion time."
+                                toolTipText: "Standard deviation of expected number of generations till extinction."
                                 textFieldText: outputControllerWfesSingle.ui_get_t_ext_std
                                 readOnly: true
                                 visible: radioButtonAbsorption.checked
@@ -1123,7 +1123,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "T fix.: "
-                                toolTipText: "Fixation time."
+                                toolTipText: "Expected number of generations between two fixation events."
                                 textFieldText: outputControllerWfesSingle.ui_get_t_fix
                                 readOnly: true
                                 visible: radioButtonFixation.checked
@@ -1134,7 +1134,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "T fix. std.: "
-                                toolTipText: "Standard fixation time."
+                                toolTipText: "Standard deviation of expected number of generations between two fixation events."
                                 textFieldText: outputControllerWfesSingle.ui_get_t_fix_std
                                 readOnly: true
                                 visible: radioButtonFixation.checked
@@ -1145,7 +1145,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "T fix.: "
-                                toolTipText: "Fixation time."
+                                toolTipText: "Expected number of generations till fixation."
                                 textFieldText: outputControllerWfesSingle.ui_get_t_fix_abs_mode
                                 readOnly: true
                                 visible: radioButtonAbsorption.checked
@@ -1156,7 +1156,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "T fix. std.: "
-                                toolTipText: "Standard fixation time."
+                                toolTipText: "Standard deviation of expected number of generations till fixation."
                                 textFieldText: outputControllerWfesSingle.ui_get_t_fix_std_abs_mode
                                 readOnly: true
                                 visible: radioButtonAbsorption.checked
@@ -1167,7 +1167,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "Rate: "
-                                toolTipText: "Rate."
+                                toolTipText: "Rate of substitution."
                                 textFieldText: outputControllerWfesSingle.ui_get_rate
                                 readOnly: true
                                 visible: radioButtonFixation.checked
@@ -1178,6 +1178,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "E[freq mut]: "
+                                toolTipText: "Expected frequency."
                                 textFieldText: outputControllerWfesSingle.ui_get_e_freq_mut
                                 readOnly: true
                                 visible: radioButtonEquilibrium.checked
@@ -1188,6 +1189,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "E[freq  wt]: "
+                                toolTipText: "One minus expected frequency."
                                 textFieldText: outputControllerWfesSingle.ui_get_e_freq_wt
                                 readOnly: true
                                 visible: radioButtonEquilibrium.checked
@@ -1198,6 +1200,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "F est.: "
+                                toolTipText: "Frequency of establishment."
                                 textFieldText: outputControllerWfesSingle.ui_get_f_est
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
@@ -1208,6 +1211,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "P est.: "
+                                toolTipText: "Probability of establishment."
                                 textFieldText: outputControllerWfesSingle.ui_get_p_est
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
@@ -1218,6 +1222,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "T seg.: "
+                                toolTipText: "Expected number of generations till segregation."
                                 textFieldText: outputControllerWfesSingle.ui_get_t_seg
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
@@ -1228,6 +1233,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "T seg. std.: "
+                                toolTipText: "Standard deviation of expected number of generations till segregation."
                                 textFieldText: outputControllerWfesSingle.ui_get_t_seg_std
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
@@ -1238,6 +1244,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "T seg. ext.: "
+                                toolTipText: "Expected number of generations till segregation (Extinction)."
                                 textFieldText: outputControllerWfesSingle.ui_get_t_seg_est
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
@@ -1248,6 +1255,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "T seg. ext. std.: "
+                                toolTipText: "Standard deviation of expected number of generations till segregation (Extinction)."
                                 textFieldText: outputControllerWfesSingle.ui_get_t_seg_est_std
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
@@ -1258,6 +1266,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "T seg. fix.: "
+                                toolTipText: "Expected number of generations till segregation (Fixation)."
                                 textFieldText: outputControllerWfesSingle.ui_get_t_seg_fix
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
@@ -1268,6 +1277,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "T seg. fix. std.: "
+                                toolTipText: "Standard deviation of expected number of generations till segregation (Fixation)."
                                 textFieldText: outputControllerWfesSingle.ui_get_t_seg_fix_std
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
@@ -1278,6 +1288,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "T est.: "
+                                toolTipText: "Expected number of generations till establishment."
                                 textFieldText: outputControllerWfesSingle.ui_get_t_est
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
@@ -1288,6 +1299,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "T est. std.: "
+                                toolTipText: "Standard deviation of expected number of generations till establishment."
                                 textFieldText: outputControllerWfesSingle.ui_get_t_est_std
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
@@ -1298,6 +1310,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "E(A): "
+                                toolTipText: "Expectation of the allele age."
                                 textFieldText: outputControllerWfesSingle.ui_get_e_a
                                 readOnly: true
                                 visible: radioButtonAlleleAge.checked
@@ -1308,6 +1321,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "S(A): "
+                                toolTipText: "Standard deviation of the allele age."
                                 textFieldText: outputControllerWfesSingle.ui_get_s_a
                                 readOnly: true
                                 visible: radioButtonAlleleAge.checked

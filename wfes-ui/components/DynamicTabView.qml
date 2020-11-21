@@ -40,7 +40,6 @@ Rectangle {
                     tb.removeTab(tb.count-3)
                 }
             }else {
-                console.log("Cannot remove last Tab!")
                 tb.currentIndex = tb.count-3
             }
         }
@@ -102,7 +101,6 @@ Rectangle {
                         tb.removeTab(tb.count-3)
                     }
                 }else {
-                    console.log("Cannot remove last Tab!")
                     tb.currentIndex = tb.count-3
                 }
             }

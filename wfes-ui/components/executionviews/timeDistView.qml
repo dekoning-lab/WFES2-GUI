@@ -101,7 +101,7 @@ ApplicationWindow {
                                 ToolTip.visible: hovered
                                 ToolTip.delay: 1000
                                 ToolTip.timeout: 5000
-                                ToolTip.text: qsTr("Distribution of time to fixation / extinction.")
+                                ToolTip.text: qsTr("Distribution of time to fixation/extinction.")
 
                                 onCheckedChanged: {
                                     inputN.enabled = checked;
@@ -228,7 +228,7 @@ ApplicationWindow {
                                 ToolTip.visible: hovered
                                 ToolTip.delay: 1000
                                 ToolTip.timeout: 5000
-                                ToolTip.text: qsTr("TODO.")
+                                ToolTip.text: qsTr("This calculates the distribution of time to fixation, extinction using a dual mutation model.")
 
                                 onCheckedChanged: {
                                     inputN.enabled = checked;
@@ -590,7 +590,7 @@ ApplicationWindow {
                             LabeledTextField {
                                 id: inputC
                                 text: "c: "
-                                toolTipText: "Stop once this probability mass is reached."
+                                toolTipText: "Integration cutoff."
                                 validator: DoubleValidator {bottom: 0; top: 10e-3;}
                                 textFieldText: inputControllerTimeDist.ui_c
                             }
@@ -665,7 +665,7 @@ ApplicationWindow {
                             LabeledTextField {
                                 id: inputC1
                                 text: "c: "
-                                toolTipText: "Stop once this probability mass is reached."
+                                toolTipText: "Integration cutoff."
                                 validator: DoubleValidator {bottom: 0; top: 10e-3;}
                                 textFieldText: inputControllerTimeDist.ui_c_sgv
                             }
@@ -842,7 +842,7 @@ ApplicationWindow {
                                 LabeledCheckBox {
                                     id: inputWriteP
                                     text: "P: "
-                                    toolTipText: "TODO. (Always enabled)."
+                                    toolTipText: "Output R as CSV file. (Always enabled)."
                                     checked: true
                                     enabledCheckBox: false
                                 }

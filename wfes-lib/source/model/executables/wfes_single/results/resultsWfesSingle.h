@@ -145,12 +145,12 @@ class ResultsWfesSingle {
         double tEstStd;
 
         /**
-         * @brief Expectation of the allele age
+         * @brief Expectation of the allele age.
          */
         double eAlleleAge;
 
         /**
-         * @brief Standard deviation of the allele age
+         * @brief Standard deviation of the allele age.
          */
         double sAlleleAge;
 

@@ -99,7 +99,7 @@ ApplicationWindow {
                                 ToolTip.visible: hovered
                                 ToolTip.delay: 1000
                                 ToolTip.timeout: 5000
-                                ToolTip.text: qsTr("//TODO.")
+                                ToolTip.text: qsTr("Both fixation and extinction states are absorbing.")
 
                                 onCheckedChanged: {
                                     inputA.enabled = checked;
@@ -129,7 +129,7 @@ ApplicationWindow {
                                 ToolTip.visible: hovered
                                 ToolTip.delay: 1000
                                 ToolTip.timeout: 5000
-                                ToolTip.text: qsTr("//TODO.")
+                                ToolTip.text: qsTr("Only fixation state is absorbing..")
 
                                 onCheckedChanged: {
                                     inputA.enabled = checked;
@@ -611,7 +611,7 @@ ApplicationWindow {
                             labelPreferredWidth: 100
                             textFieldPreferredWidth: 180
                             text: "T ext.: "
-                            toolTipText: "Extintion time."
+                            toolTipText: "Expected number of generations till absorption."
                             textFieldText: outputControllerWfesSwitching.ui_get_t_ext
                             readOnly: true
                             visible: (inputControllerWfesSwitching.ui_modelType == "Absorption")
@@ -622,7 +622,7 @@ ApplicationWindow {
                             labelPreferredWidth: 100
                             textFieldPreferredWidth: 180
                             text: "T ext. std.: "
-                            toolTipText: "Standard extintion time."
+                            toolTipText: "Standard deviation of expected number of generations till absorption."
                             textFieldText: outputControllerWfesSwitching.ui_get_t_ext_std
                             readOnly: true
                             visible: (inputControllerWfesSwitching.ui_modelType == "Absorption")
@@ -634,7 +634,7 @@ ApplicationWindow {
                             labelPreferredWidth: 100
                             textFieldPreferredWidth: 180
                             text: "T fix.: "
-                            toolTipText: "Fixation time."
+                            toolTipText: "Expected number of generations between two fixation events (Fixation mode)."
                             textFieldText: outputControllerWfesSwitching.ui_get_t_fix
                             readOnly: true
                         }
@@ -644,7 +644,7 @@ ApplicationWindow {
                             labelPreferredWidth: 100
                             textFieldPreferredWidth: 180
                             text: "T fix. std.: "
-                            toolTipText: "Standard fixation time."
+                            toolTipText: "Standard deviation of expected number of generations between two fixation events."
                             textFieldText: outputControllerWfesSwitching.ui_get_t_fix_std
                             readOnly: true
                             visible: (inputControllerWfesSwitching.ui_modelType == "Absorption")
@@ -655,13 +655,13 @@ ApplicationWindow {
                             labelPreferredWidth: 100
                             textFieldPreferredWidth: 180
                             text: "Rate: "
-                            toolTipText: "//TODO"
+                            toolTipText: "Rate of substitution."
                             textFieldText: outputControllerWfesSwitching.ui_get_rate
                             readOnly: true
                             visible: (inputControllerWfesSwitching.ui_modelType == "Fixation")
                         }
 
-                        //TODO Vectors P_cond_ext, V_cond_ext... cannot be shown in the GUI, takes too much space, so
+                        //Vectors P_cond_ext, V_cond_ext... cannot be shown in the GUI, takes too much space, so
                         //those vectors are printed directly into the csv file.
                     }
 

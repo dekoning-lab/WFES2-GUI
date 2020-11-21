@@ -13,7 +13,6 @@ ApplicationWindow {
 
     visible: true
 
-
     width: 600
     minimumWidth: 600
     maximumWidth: 600
@@ -30,8 +29,8 @@ ApplicationWindow {
         rootHelp.hide();
     }
 
-    // Center window in screen.
     Component.onCompleted: {
+        // Center window in screen.
         setX(Screen.width / 2 - width / 2);
         setY(Screen.height / 2 - height / 2);
     }
