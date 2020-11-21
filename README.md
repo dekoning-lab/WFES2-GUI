@@ -6,18 +6,15 @@ Wright-Fisher Exact Solver (`WFES`) implements a variety of exact calculations w
 
 ## Upcoming features
 
-* Graphical User Interface for all functions of wfes2.
-* [ViennaCL](https://github.com/viennacl/viennacl-dev) integration for execution on GPUs.
-* Configuration files.
-* Windows, Linux and Mac support.
+* Windows support.
 
 ## Installation
 
-In development.
+Download the binaries for your OS in the releases page [Releases]().
 
 ## Usage
 
-In development.
+Consult the manual of the application in the [wiki](https://github.com/dekoning-lab/wfes-gui/wiki) of this repository.
 
 ## Third party libraries:
 
@@ -27,3 +24,4 @@ In development.
 * [Font Awesome](https://fontawesome.com/) ([MIT License](https://opensource.org/licenses/mit-license.html), [SIL OFL 1.1 License](https://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL))
 * [Tenderness Font](https://fontlibrary.org/en/font/tenderness) ([CC-0](https://creativecommons.org/share-your-work/public-domain/cc0/))
 * [Boost Libraries](https://www.boost.org/) ([Boost License](https://www.boost.org/users/license.html))
+* [Open CL Khronos Headers](https://github.com/KhronosGroup/OpenCL-Headers) ([Apache License](https://github.com/KhronosGroup/OpenCL-Headers/blob/master/LICENSE))
