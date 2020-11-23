@@ -67,8 +67,8 @@ ResultsWfas *wfas::function() {
 
 
         dvec initial;
-        if (ConfigWfesSingle::initial_distribution_csv.compare("") != 0) {
-            initial = load_csv_col_vector(ConfigWfesSingle::initial_distribution_csv);
+        if (ConfigWfas::initial_distribution_csv.compare("") != 0) {
+            initial = load_csv_col_vector(ConfigWfas::initial_distribution_csv);
         } else if (ConfigWfas::p != 0) {
             llong p = ConfigWfas::p;
             initial = dvec::Zero(2 * popSizes(0) + 1);
@@ -84,6 +84,11 @@ ResultsWfas *wfas::function() {
         Solver* solver = SolverFactory::createSolver(ConfigWfas::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, ConfigWfas::vienna_solver, "", n_rhs);
 
         solver->preprocess();
+
+        //dvec R_ext = W.R.col(0);
+        //dvec B_ext = solver->solve(R_ext, false);
+        //dvec B_fix = dvec::Ones(size) - B_ext;
+
 
         // dmat R = dmat::Identity(size, 2 * population_sizes(ConfigWfas::num_comp - 1) + 1).reverse() * (1 / t(ConfigWfas::num_comp - 1));
         llong nk = 2 * popSizes(ConfigWfas::num_comp - 1) + 1;
@@ -141,32 +146,39 @@ ResultsWfas *wfas::function() {
             }
         }
 
+        dmat Nt = dmat::Zero(size, n_rhs);
+        for(llong i = 0; i < n_rhs; i++) {
+            dvec id_tmp = id.col(i);
+            Nt.col(i) = solver->solve(id_tmp, true);
+        }
+
         //Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
 
+
         // Save data into file.
-        if(ConfigWfas::output_Dist) {
-            utils::writeVectorToFile(d, ConfigWfas::path_output_Dist);
-        }
+        if (ConfigWfas::output_N)
+            utils::writeMatrixToFile(Nt, ConfigWfas::path_output_N);
         if (ConfigWfas::output_B) {
             utils::writeMatrixToFile(B, ConfigWfas::path_output_B);
         }
+        if(ConfigWfas::output_Dist) {
+            utils::writeVectorToFile(d, ConfigWfas::path_output_Dist);
+        }
 
         // Generate images.
-        QImage *imageQ = nullptr, *imageR = nullptr, *imageB = nullptr;
+        QImage *imageQ = nullptr, *imageR = nullptr, *imageB = nullptr, *imageN = nullptr;
         if(ConfigWfas::output_Q) {
             imageQ = utils::generateImage(W.Q->dense());
             //utils::saveImage(imageI, "Image_I");
             ImageResults::Q = imageQ;
         }
-        //if(ConfigWfas::output_R) {
-        //    imageR = utils::generateImage(W.R);
-        //    //utils::saveImage(imageI, "Image_I");
-        //    ImageResults::R = imageR;
-        //}
+        if(ConfigWfas::output_N) {
+            imageN = utils::generateImage(Nt);
+            ImageResults::N = imageN;
+        }
         if(ConfigWfas::output_B) {
             imageB = utils::generateImage(B);
-            //utils::saveImage(imageB, "Image_B");
             ImageResults::B = imageB;
         }
 

@@ -239,52 +239,26 @@ ApplicationWindow {
                                         toolTipText: "Output Q matrix to file."
                                         checked: inputControllerWfas.ui_output_Q
                                     }
-                                    // TODO Not implemented in original code.
-                                    /*
-                                    LabeledCheckBox {
+
+                                    /*LabeledCheckBox {
                                         id: inputWriteR
                                         text: "R: "
                                         toolTipText: "Output R vectors to file."
                                         checked: inputControllerWfas.ui_output_R
-                                    }
+                                    }*/
 
                                    LabeledCheckBox {
                                         id: inputWriteN
                                         text: "N: "
                                         toolTipText: "Output N matrix to file."
                                         checked: inputControllerWfas.ui_output_N
-                                    }*/
+                                    }
 
                                     LabeledCheckBox {
                                         id: inputWriteB
                                         text: "B: "
                                         toolTipText: "Output B vectors to file."
                                         checked: inputControllerWfas.ui_output_B
-                                    }
-
-                                    // TODO Not implemented in original code.
-                                    /*LabeledCheckBox {
-                                        id: inputWriteNExt
-                                        text: "N Ext.: "
-                                        toolTipText: "Output extinction-conditional sojourn to file."
-                                        checked: inputControllerWfas.ui_output_N_Ext
-                                    }
-
-                                    LabeledCheckBox {
-                                        id: inputWriteNFix
-                                        text: "N Fix.: "
-                                        toolTipText: "Output fixation-conditional sojourn to file."
-                                        checked: inputControllerWfas.ui_output_N_Fix
-                                    }
-                                    LabeledCheckBox {
-                                        id: inputWriteNTmo
-                                        text: "N Tmo.: "
-                                        toolTipText: "Output timeout-conditional sojourn to file."
-                                        checked: inputControllerWfas.ui_output_N_Tmo
-                                    }*/
-
-                                    Label {
-                                        // Empty, so Res is always at right.
                                     }
 
                                     LabeledCheckBox {
@@ -637,11 +611,8 @@ ApplicationWindow {
         }
         inputWriteQ.checked = inputControllerWfas.ui_output_Q
         //inputWriteR.checked = inputControllerWfas.ui_output_R
-        //inputWriteN.checked = inputControllerWfas.ui_output_N
+        inputWriteN.checked = inputControllerWfas.ui_output_N
         inputWriteB.checked = inputControllerWfas.ui_output_B
-        //inputControllerWfas.ui_output_N_Ext = inputWriteNExt.checked
-        //inputWriteNFix.checked = inputControllerWfas.ui_output_N_Fix
-        //inputWriteNTmo.checked = inputControllerWfas.ui_output_N_Tmo
         inputWriteDist.checked = inputControllerWfas.ui_output_Dist
         inputT.textFieldText = inputControllerWfas.ui_t
         inputForce.checked = inputControllerWfas.ui_force
@@ -699,12 +670,9 @@ ApplicationWindow {
 
         inputControllerWfas.ui_output_Q = inputWriteQ.checked
         //inputControllerWfas.ui_output_R = inputWriteR.checked
-        //inputControllerWfas.ui_output_N = inputWriteN.checked
+        inputControllerWfas.ui_output_N = inputWriteN.checked
         inputControllerWfas.ui_output_B = inputWriteB.checked
-        //inputControllerWfas.ui_output_N_Ext = inputWriteNExt.checked
-        //inputControllerWfas.ui_output_N_Fix = inputWriteNFix.checked
-        //inputControllerWfas.ui_output_N_Tmo = inputWriteNTmo.checked
-        inputControllerWfas.ui_output_Dist = inputWriteDist.checked
+        //inputControllerWfas.ui_output_Dist = inputWriteDist.checked
         inputControllerWfas.ui_t = inputT.textFieldText
         inputControllerWfas.ui_force = inputForce.checked
 
