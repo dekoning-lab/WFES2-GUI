@@ -1,8 +1,10 @@
 #include "phase_type.h"
 
+
 using namespace wfes::config;
 using namespace wfes::solver;
 using namespace wfes::utils;
+using namespace wfes::controllers;
 using namespace wfes;
 
 ResultsPhaseType *phase_type::execute() {
@@ -37,6 +39,11 @@ ResultsPhaseType *phase_type::execute() {
 
 ResultsPhaseType *phase_type::phaseTypeDist() {
     try {
+        // This is for chart visualization.
+        QList<QPointF> dist;
+        QList<QPointF> acum;
+        // This is for chart visualization.
+
         // Notify building matrix.
         this->notify(ExecutionStatus::BUILDING_MATRICES);
 
@@ -63,6 +70,14 @@ ResultsPhaseType *phase_type::phaseTypeDist() {
         dvec R = wf.R.col(0);
         double cdf = 0;
         llong i;
+
+        // This is for chart visualization.
+        double minDist = std::numeric_limits<double>::max();
+        double maxDist = std::numeric_limits<double>::min();
+        double minAcum = std::numeric_limits<double>::max();
+        double maxAcum = std::numeric_limits<double>::min();
+        // This is for chart visualization.
+
         for (i = 0; cdf < ConfigPhaseType::integration_cutoff && i < ConfigPhaseType::max_t; i++) {
 
             double P_abs_t = R.dot(c);
@@ -73,7 +88,29 @@ ResultsPhaseType *phase_type::phaseTypeDist() {
             PH(i, 2) = cdf;
 
             c = wf.Q->multiply(c, true);
+
+            // This is for chart visualization.
+            if(minDist >= P_abs_t)
+                minDist = P_abs_t;
+            if(maxDist <= P_abs_t)
+                maxDist = P_abs_t;
+            if(minAcum >= cdf)
+                minAcum = cdf;
+            if(maxAcum <= cdf)
+                maxAcum = cdf;
+            dist.append(QPointF(i+1, P_abs_t));
+            acum.append(QPointF(i+1, cdf));
+            // This is for chart visualization.
         }
+
+        // This is for chart visualization.
+        ChartResults::phaseTypeDist = dist;
+        ChartResults::phaseTypeDistAcum = acum;
+        ChartResults::minMaxPhaseTypeDist = QPointF(minDist, maxDist);
+        ChartResults::minMaxPhaseTypeAcum = QPointF(minAcum, maxAcum);
+        // This is for chart visualization.
+
+
         PH.conservativeResize(i, 3);
 
         // Notify saving data.
@@ -167,6 +204,7 @@ ResultsPhaseType *phase_type::phaseTypeMoment() {
             // TODO Note that we only need the first row of M - do we need to solve every time?
             m.col(i+1) = solver->solve(rhs, false);
         }
+
         double m1 = m(0, 1);
         double m2 = m(0, 2);
 

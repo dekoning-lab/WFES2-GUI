@@ -169,10 +169,6 @@ Rectangle {
         visibleWindow: false
     }
 
-    function updatePhaseTypeMomentsChart() {
-        chartVisualization.updatePhaseTypeMomentsChart()
-    }
-
     function updateDistWfas() {
         chartVisualization.updateDistWfas()
     }

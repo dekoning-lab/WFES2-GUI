@@ -1,5 +1,6 @@
 #include "wfafle.h"
 
+using namespace wfes::controllers;
 using namespace wfes::config;
 using namespace wfes::solver;
 using namespace wfes::utils;
@@ -61,6 +62,22 @@ ResultsWfafle *wfafle::function() {
         }
         // write_vector_to_file(d[k - 1], "stdout");
         std::cout << d[k - 1] << std::endl;
+
+
+        // This is for chart visualization.
+        QList<QPointF> dist;
+        double minDist = std::numeric_limits<double>::max();
+        double maxDist = std::numeric_limits<double>::min();
+        for(int i = 0; i < d[k - 1].size(); i++) {
+            if(minDist >= d[k - 1][i])
+                minDist = d[k - 1][i];
+            if(maxDist <= d[k - 1][i])
+                maxDist = d[k - 1][i];
+            dist.append(QPointF(i+1, d[k - 1][i]));
+        }
+        ChartResults::wfafleDist = dist;
+        ChartResults::minMaxwfafleDist = QPointF(minDist, maxDist);
+        // This is for chart visualization.
 
         //Calculate time.
         t_end = std::chrono::system_clock::now();

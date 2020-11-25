@@ -1,5 +1,6 @@
 #include "wfas.h"
 
+using namespace wfes::controllers;
 using namespace wfes::config;
 using namespace wfes::solver;
 using namespace wfes::utils;
@@ -27,6 +28,7 @@ ResultsWfas *wfas::execute() {
 
 ResultsWfas *wfas::function() {
     try {
+
         dvec s_scal = ConfigWfas::s.array() * ConfigWfas::f.array();
         dvec u_scal = ConfigWfas::u.array() * ConfigWfas::f.array();
         dvec v_scal = ConfigWfas::v.array() * ConfigWfas::f.array();
@@ -139,6 +141,7 @@ ResultsWfas *wfas::function() {
                 for (llong i = 0; i < m-2; i++) {
                     llong j = int(i / diag_f);
                     prj_d[j + 1] += prj_u[i + 1] / row_integral_counts[j + 1];
+
                 }
                 d = prj_d;
             } else {
@@ -146,6 +149,22 @@ ResultsWfas *wfas::function() {
             }
         }
 
+        // This is for chart visualization.
+        QList<QPointF> dist;
+        double minDist = std::numeric_limits<double>::max();
+        double maxDist = std::numeric_limits<double>::min();
+        for(int i = 0; i < d.size(); i++) {
+            if(minDist >= d[i])
+                minDist = d[i];
+            if(maxDist <= d[i])
+                maxDist = d[i];
+            dist.append(QPointF(i+1, d[i]));
+        }
+        ChartResults::wfasDist = dist;
+        ChartResults::minMaxwfasDist = QPointF(minDist, maxDist);
+        // This is for chart visualization.
+
+        // Calculate fundamental matrix
         dmat Nt = dmat::Zero(size, n_rhs);
         for(llong i = 0; i < n_rhs; i++) {
             dvec id_tmp = id.col(i);
@@ -167,10 +186,9 @@ ResultsWfas *wfas::function() {
         }
 
         // Generate images.
-        QImage *imageQ = nullptr, *imageR = nullptr, *imageB = nullptr, *imageN = nullptr;
+        QImage *imageQ = nullptr, *imageB = nullptr, *imageN = nullptr;
         if(ConfigWfas::output_Q) {
             imageQ = utils::generateImage(W.Q->dense());
-            //utils::saveImage(imageI, "Image_I");
             ImageResults::Q = imageQ;
         }
         if(ConfigWfas::output_N) {

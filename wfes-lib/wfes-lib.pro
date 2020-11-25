@@ -1,7 +1,7 @@
 include(../qmake-target-platform.pri)
 include(../qmake-destination-path.pri)
 
-QT += gui quick
+QT += gui quick charts
 
 TARGET = wfes-lib
 TEMPLATE = lib
@@ -87,6 +87,7 @@ HEADERS += \
     source/model/solver/viennacl/solverViennaCL.h \
     source/model/sparse-matrix/viennacl/sparseMatrixViennacl.h \
     source/model/executables/wfes_single/wfes_single.h \
+    source/model/visualization/charts/chartResults.h \
     source/model/visualization/imageOutputController.h \
     source/model/visualization/imageresults.h \
     source/model/visualization/visualizationImageProvider.h \
@@ -158,6 +159,7 @@ SOURCES += \
     source/model/solver/viennacl/solverViennaCL.cpp \
     source/model/sparse-matrix/viennacl/sparseMatrixViennacl.cpp \
     source/model/executables/wfes_single/wfes_single.cpp \
+    source/model/visualization/charts/chartResults.cpp \
     source/model/visualization/imageOutputController.cpp \
     source/model/visualization/imageresults.cpp \
     source/model/visualization/visualizationImageProvider.cpp \

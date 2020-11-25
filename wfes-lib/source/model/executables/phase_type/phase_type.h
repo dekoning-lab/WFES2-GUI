@@ -11,6 +11,7 @@
 #include "model/wright-fisher/wrightFisher.h"
 
 #include <model/visualization/imageresults.h>
+#include <model/visualization/charts/chartResults.h>
 
 #include "model/executables/phase_type/config/configPhaseType.h"
 #include "model/executables/phase_type/results/resultsPhaseType.h"

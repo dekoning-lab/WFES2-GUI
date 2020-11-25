@@ -11,6 +11,7 @@
 #include "model/wright-fisher/wrightFisher.h"
 
 #include "model/visualization/imageresults.h"
+#include <model/visualization/charts/chartResults.h>
 
 #include "model/executables/wfafle/config/configWfafle.h"
 #include "model/executables/wfafle/results/resultsWfafle.h"

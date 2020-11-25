@@ -48,20 +48,34 @@ ApplicationWindow {
         legend.font.pointSize: 12
 
         ValueAxis {
-            id: axisY
-            gridVisible: true
-            tickCount: 5
-            min: 0
-            max: 1
-        }
-
-        ValueAxis {
             id: axisX
             min: 0
             max: 1
-            gridVisible: true
+            tickCount: 5
+            labelFormat: "%i"
+        }
+
+        ValueAxis {
+            id: axisY
+            min: 0
+            max: 1
             tickCount: 5
         }
+
+        // Plot line
+        LineSeries {
+            id: lineSeries0Chart1
+            axisX: axisX
+            axisY: axisY
+        }
+
+        // Plot line
+        LineSeries {
+            id: lineSeries1Chart1
+            axisX: axisX
+            axisY: axisY
+        }
+
     }
 
     ChartView {
@@ -75,20 +89,35 @@ ApplicationWindow {
         visible: false
 
         ValueAxis {
-            id: axisY2
-            gridVisible: true
-            tickCount: 5
-            min: 0
-            max: 1
-        }
-
-        ValueAxis {
             id: axisX2
             min: 0
             max: 1
-            gridVisible: true
+            tickCount: 5
+            labelFormat: "%i"
+        }
+
+        ValueAxis {
+            id: axisY2
+            min: 0
+            max: 1
             tickCount: 5
         }
+
+
+        // Plot line
+        LineSeries {
+            id: lineSeries0Chart2
+            axisX: axisX2
+            axisY: axisY2
+        }
+
+        // Plot line
+        LineSeries {
+            id: lineSeries1Chart2
+            axisX: axisX2
+            axisY: axisY2
+        }
+
     }
 
     Button {
@@ -124,214 +153,82 @@ ApplicationWindow {
         }
     }
 
-    function updatePhaseTypeMomentsChart() {
-        bt1.visible = false
-        bt2.visible = false
-        chart1.visible = true
-        chart2.visible = false
-        bt1.enabled = false
-        bt2.enabled = true
-
-        chart1.removeAllSeries()
-        chart1.title = "Phase Type Moments"
-        var line = chart1.createSeries(ChartView.SeriesTypeLine, "Moments", axisX, axisY);
-
-        var input = outputControllerPhaseType.ui_moments
-        var numbers = []
-        for(var i = 0; i < input.length; i++) {
-            numbers[i] = parseInt(input[i])
-            line.append(i, numbers[i])
-        }
-        axisX.min = 0;
-        axisX.max = i-1;
-
-        axisY.min = 0;
-        axisY.max = Math.max(...numbers) + 1;
-    }
-
     function updatePhaseTypeDistChart() {
-        bt1.visible = true
-        bt2.visible = true
-        chart1.visible = true
-        chart2.visible = false
+        var minMaxDist = chartResults.updateChart("Phase Type Dist.", chart1.series(0));
+        var minMaxAcum = chartResults.updateChart("Phase Type Acum.", chart2.series(0));
+
         bt1.enabled = false
         bt2.enabled = true
 
-        chart1.removeAllSeries()
-        chart2.removeAllSeries()
+        chart1.visible = true
+        chart2.visible = false
+
+        chart1.series(1).visible = false
+        chart2.series(1).visible = false
+
         chart1.title = "Phase Type Dist."
         chart2.title = "Phase Type Dist."
 
-        var names = []
+        chart1.series(0).name = "Probability of subs."
+        chart2.series(0).name = "Cumulative prob. of subs."
 
-        var input = outputControllerPhaseType.ui_probs
-        var numbers = []
-        var maxY1 = 0
-        var minY1 = 0
-        var maxY2 = 0
-        var minY2 = 0
-        if(typeof(input) != "undefined") {
-            var splitted = input[0].split(", ")
-            var splitLength = splitted.length
+        axisY.min = minMaxDist.x
+        axisY.max = minMaxDist.y
+        axisX.min = 1
+        axisX.max = inputControllerPhaseType.ui_m
 
-            if(splitLength === 3) {
-                names[0] = "Prob. substitution"
-                names[1] = "Cumulative prob. of subs."
-            }
-            if(splitLength === 5) {
-                names[0] = "Prob. of extinction"
-                names[1] = "Prob. of fixation"
-                names[2] = "Prob. of absorption (either)"
-                names[3] = "Cumulative prob. of abs."
-            }
+        axisY2.min = minMaxAcum.x
+        axisY2.max = minMaxAcum.y
+        axisX2.min = 1
+        axisX2.max = inputControllerPhaseType.ui_m
 
-            for(var i = 1; i < splitLength; i++) {
-                var line;
-                if(splitLength === 5 && i > 2 || splitLength === 3 && i > 1) {
-                    line = chart2.createSeries(ChartView.SeriesTypeLine, names[i-1], axisX2, axisY2);
-                } else {
-                    line = chart1.createSeries(ChartView.SeriesTypeLine, names[i-1], axisX, axisY);
-                }
-                splitted = []
-                numbers = []
-                for(var j = 0; j < input.length; j++) {
-                    splitted = input[j].split(", ")
-                    numbers[j] = parseFloat(splitted[i])
-                    line.append(j, numbers[j])
-                }
-
-                if(splitLength === 5 && i > 2 || splitLength === 3 && i > 1) {
-                    if(Math.max(...numbers) > maxY2) maxY2 = Math.max(...numbers);
-                } else {
-                    if(Math.max(...numbers) > maxY1) maxY1 = Math.max(...numbers);
-                }
-            }
-
-            axisY.max = maxY1
-            axisY2.max = maxY2
-            axisX.max = input.length;
-            axisX2.max = input.length;
-
-            console.log(maxY2)
-            console.log(maxY1)
-        }
     }
 
     function updateDistWfas() {
-        bt1.visible = false
-        bt2.visible = false
+        var minMaxDist = chartResults.updateChart("Wfas Dist.", chart1.series(0));
+
+        bt1.enabled = false
+        bt2.enabled = false
+
         chart1.visible = true
         chart2.visible = false
-        bt1.enabled = false
-        bt2.enabled = true
 
-        chart1.removeAllSeries()
-        chart1.title = "WFAF-S"
-        var line = chart1.createSeries(ChartView.SeriesTypeLine, "Dist.", axisX, axisY);
+        chart1.series(1).visible = false
+        chart2.series(1).visible = false
 
-        var input = outputControllerWfas.ui_probs
-        var numbers = []
-        for(var i = 0; i < input.length; i++) {
-            numbers[i] = parseInt(input[i])
-            line.append(i, numbers[i])
-        }
-        axisX.min = 0;
-        axisX.max = i-1;
+        chart1.title = "Wfas Dist."
 
-        axisY.min = 0;
-        axisY.max = Math.max(...numbers) + 1;
+        chart1.series(0).name = "Allele frequency distribution"
+
+        axisY.min = minMaxDist.x
+        axisY.max = minMaxDist.y
+        axisX.min = 1
+        axisX.max = lineSeries0Chart1.count
     }
 
     function updateDistWfafle() {
-        bt1.visible = false
-        bt2.visible = false
+        var minMaxDist = chartResults.updateChart("Wfafle Dist.", chart1.series(0));
+
+        bt1.enabled = false
+        bt2.enabled = false
+
         chart1.visible = true
         chart2.visible = false
-        bt1.enabled = false
-        bt2.enabled = true
 
-        chart1.removeAllSeries()
-        chart1.title = "WFAF-D"
-        var line = chart1.createSeries(ChartView.SeriesTypeLine, "Dist.", axisX, axisY);
+        chart1.series(1).visible = false
+        chart2.series(1).visible = false
 
-        var input = outputControllerWfafle.ui_probs
-        var numbers = []
-        for(var i = 0; i < input.length; i++) {
-            numbers[i] = parseInt(input[i])
-            line.append(i, numbers[i])
-        }
-        axisX.min = 0;
-        axisX.max = i-1;
+        chart1.title = "Wfafle Dist."
 
-        axisY.min = 0;
-        axisY.max = Math.max(...numbers) + 1;
+        chart1.series(0).name = "Allele frequency distribution"
+
+        axisY.min = minMaxDist.x
+        axisY.max = minMaxDist.y
+        axisX.min = 1
+        axisX.max = lineSeries0Chart1.count
     }
 
     function updateProbTimeDist(name) {
-        bt1.visible = true
-        bt2.visible = true
-        chart1.visible = true
-        chart2.visible = false
-        bt1.enabled = false
-        bt2.enabled = true
 
-        chart1.removeAllSeries()
-        chart2.removeAllSeries()
-        chart1.title = name
-        chart2.title = name
-
-        var names = []
-
-        var input = outputControllerTimeDist.ui_probs
-        var numbers = []
-        var maxY1 = 0
-        var minY1 = 0
-        var maxY2 = 0
-        var minY2 = 0
-        if(typeof(input) !== "undefined" || input.length !== 0) {
-            var splitted = input[0].split(", ")
-            var splitLength = splitted.length
-
-            if(splitLength === 3) {
-                names[0] = "Prob. substitution"
-                names[1] = "Cumulative prob. of subs."
-            }
-            if(splitLength === 5) {
-                names[0] = "Prob. of extinction"
-                names[1] = "Prob. of fixation"
-                names[2] = "Prob. of absorption (either)"
-                names[3] = "Cumulative prob. of abs."
-            }
-
-            for(var i = 1; i < splitLength; i++) {
-                var line;
-                if(splitLength === 5 && i > 2 || splitLength === 3 && i > 1) {
-                    line = chart2.createSeries(ChartView.SeriesTypeLine, names[i-1], axisX2, axisY2);
-                } else {
-                    line = chart1.createSeries(ChartView.SeriesTypeLine, names[i-1], axisX, axisY);
-                }
-                splitted = []
-                numbers = []
-                for(var j = 0; j < input.length; j++) {
-                    splitted = input[j].split(", ")
-                    numbers[j] = parseFloat(splitted[i])
-                    line.append(j, numbers[j])
-                }
-
-                if(splitLength === 5 && i > 2 || splitLength === 3 && i > 1) {
-                    if(Math.max(...numbers) > maxY2) maxY2 = Math.max(...numbers);
-                } else {
-                    if(Math.max(...numbers) > maxY1) maxY1 = Math.max(...numbers);
-                }
-            }
-
-            axisY.max = maxY1
-            axisY2.max = maxY2
-            axisX.max = input.length;
-            axisX2.max = input.length;
-
-            console.log(maxY2)
-            console.log(maxY1)
-        }
     }
 }
