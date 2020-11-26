@@ -126,7 +126,7 @@ ResultsTimeDist *time_dist::timeDist() {
         ChartResults::timeDistAbs = abs;
         ChartResults::timeDistAcum = acum;
         ChartResults::minMaxTimeDistExt = QPointF(minExt, maxExt);
-        ChartResults::minMaxTimeDistFix = QPointF(minFix, minFix);
+        ChartResults::minMaxTimeDistFix = QPointF(minFix, maxFix);
         ChartResults::minMaxTimeDistAbs = QPointF(minAbs, maxAbs);
         ChartResults::minMaxTimeDistAcum = QPointF(minAcum, maxAcum);
         // This is for chart visualization.
@@ -479,7 +479,7 @@ ResultsTimeDist *time_dist::timeDistDual() {
         ChartResults::timeDistDualAbs = abs;
         ChartResults::timeDistDualAcum = acum;
         ChartResults::minMaxTimeDistDualExt = QPointF(minExt, maxExt);
-        ChartResults::minMaxTimeDistDualFix = QPointF(minFix, minFix);
+        ChartResults::minMaxTimeDistDualFix = QPointF(minFix, maxFix);
         ChartResults::minMaxTimeDistDualAbs = QPointF(minAbs, maxAbs);
         ChartResults::minMaxTimeDistDualAcum = QPointF(minAcum, maxAcum);
         // This is for chart visualization.

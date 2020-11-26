@@ -60,6 +60,7 @@ ApplicationWindow {
             min: 0
             max: 1
             tickCount: 5
+            labelFormat: "%.2e"
         }
 
         // Plot line
@@ -101,6 +102,7 @@ ApplicationWindow {
             min: 0
             max: 1
             tickCount: 5
+            labelFormat: "%.2e"
         }
 
 
@@ -120,6 +122,49 @@ ApplicationWindow {
 
     }
 
+    ChartView {
+        id: chart3
+        title: "A chart will appear here when you execute an executable with Dist, Moments or Probs (P)."
+        anchors.fill: parent
+        antialiasing: true
+        anchors { fill: parent; margins: -10 }
+        legend.alignment: Qt.AlignRight
+        legend.font.pointSize: 12
+        visible: false
+
+        ValueAxis {
+            id: axisX3
+            min: 0
+            max: 1
+            tickCount: 5
+            labelFormat: "%i"
+        }
+
+        ValueAxis {
+            id: axisY3
+            min: 0
+            max: 1
+            tickCount: 5
+            labelFormat: "%.2e"
+        }
+
+
+        // Plot line
+        LineSeries {
+            id: lineSeries0Chart3
+            axisX: axisX3
+            axisY: axisY3
+        }
+
+        // Plot line
+        LineSeries {
+            id: lineSeries1Chart3
+            axisX: axisX3
+            axisY: axisY3
+        }
+
+    }
+
     Button {
         id: bt1
         text: "Data 1"
@@ -130,9 +175,11 @@ ApplicationWindow {
         onClicked: {
             chart1.visible = true
             chart2.visible = false
+            chart3.visible = false
 
             bt1.enabled = false
             bt2.enabled = true
+            bt3.enabled = true
         }
     }
 
@@ -147,9 +194,30 @@ ApplicationWindow {
         onClicked: {
             chart1.visible = false
             chart2.visible = true
+            chart3.visible = false
 
             bt1.enabled = true
             bt2.enabled = false
+            bt3.enabled = true
+        }
+    }
+
+    Button {
+        id: bt3
+        text: "Data 3"
+        enabled: true
+        anchors {
+            right: parent.right
+            top: bt2.bottom
+        }
+        onClicked: {
+            chart1.visible = false
+            chart2.visible = false
+            chart3.visible = true
+
+            bt1.enabled = true
+            bt2.enabled = true
+            bt3.enabled = false
         }
     }
 
@@ -157,11 +225,16 @@ ApplicationWindow {
         var minMaxDist = chartResults.updateChart("Phase Type Dist.", chart1.series(0));
         var minMaxAcum = chartResults.updateChart("Phase Type Acum.", chart2.series(0));
 
+        bt1.visible = true;
+        bt2.visible = true;
+        bt3.visible = false;
+
         bt1.enabled = false
         bt2.enabled = true
 
         chart1.visible = true
         chart2.visible = false
+        chart3.visible = false
 
         chart1.series(1).visible = false
         chart2.series(1).visible = false
@@ -187,8 +260,11 @@ ApplicationWindow {
     function updateDistWfas() {
         var minMaxDist = chartResults.updateChart("Wfas Dist.", chart1.series(0));
 
+        bt1.visible = true;
+        bt2.visible = false;
+        bt3.visible = false;
+
         bt1.enabled = false
-        bt2.enabled = false
 
         chart1.visible = true
         chart2.visible = false
@@ -209,8 +285,11 @@ ApplicationWindow {
     function updateDistWfafle() {
         var minMaxDist = chartResults.updateChart("Wfafle Dist.", chart1.series(0));
 
+        bt1.visible = true;
+        bt2.visible = false;
+        bt3.visible = false;
+
         bt1.enabled = false
-        bt2.enabled = false
 
         chart1.visible = true
         chart2.visible = false
@@ -231,41 +310,60 @@ ApplicationWindow {
     function updateProbTimeDist(name) {
         if(name === "Time Dist.") {
             var minMaxExt = chartResults.updateChart("Time Dist. Ext.", chart1.series(0));
-            var minMaxFix = chartResults.updateChart("Time Dist. Fix.", chart1.series(1));
-            var minMaxAbs = chartResults.updateChart("Time Dist. Abs.", chart2.series(0));
-            var minMaxAcum = chartResults.updateChart("Time Dist. Acum.", chart2.series(1));
+            var minMaxFix = chartResults.updateChart("Time Dist. Fix.", chart2.series(0));
+            var minMaxAbs = chartResults.updateChart("Time Dist. Abs.", chart3.series(0));
+            var minMaxAcum = chartResults.updateChart("Time Dist. Acum.", chart3.series(1));
+
+            bt1.visible = true;
+            bt2.visible = true;
+            bt3.visible = true;
 
             bt1.enabled = false
             bt2.enabled = true
+            bt3.enabled = true
 
             chart1.visible = true
             chart2.visible = false
+            chart3.visible = false
 
             chart1.series(0).visible = true
-            chart1.series(1).visible = true
+            chart1.series(1).visible = false
             chart2.series(0).visible = true
-            chart2.series(1).visible = true
+            chart2.series(1).visible = false
+            chart3.series(0).visible = true
+            chart3.series(1).visible = true
 
             chart1.title = "Time Dist."
             chart2.title = "Time Dist."
+            chart3.title = "Time Dist."
 
             chart1.series(0).name = "Probability of ext."
-            chart1.series(1).name = "Probability of fix."
-            chart2.series(0).name = "Probability of abs."
-            chart2.series(1).name = "Cumulative prob. of abs."
+            chart2.series(0).name = "Probability of fix."
+            chart3.series(0).name = "Probability of abs."
+            chart3.series(1).name = "Cumulative prob. of abs."
 
-            axisY.min = Math.min (minMaxExt.x, minMaxFix.x)
-            axisY.max = Math.max(minMaxExt.y, minMaxFix.y)
+            axisY.min = minMaxExt.x
+            axisY.max = minMaxExt.y
             axisX.min = 1
             axisX.max = lineSeries0Chart1.count
 
-            axisY2.min = Math.min (minMaxAbs.x, minMaxAcum.x)
-            axisY2.max = Math.max(minMaxAbs.y, minMaxAcum.y)
+            axisY2.min = minMaxFix.x
+            axisY2.max = minMaxFix.y
             axisX2.min = 1
             axisX2.max = lineSeries0Chart2.count
+
+            axisY3.min = Math.min (minMaxAbs.x, minMaxAcum.x)
+            axisY3.max = Math.max(minMaxAbs.y, minMaxAcum.y)
+            axisX3.min = 1
+            axisX3.max = lineSeries0Chart3.count
+
         } else if(name === "Time Dist. SGV") {
             var minMaxSGVSubs = chartResults.updateChart("Time Dist. SGV Sub.", chart1.series(0));
             var minMaxSGVAcum = chartResults.updateChart("Time Dist. SGV Acum.", chart2.series(0));
+
+            bt1.visible = true;
+            bt2.visible = true;
+            bt3.visible = false;
 
             bt1.enabled = false
             bt2.enabled = true
@@ -295,6 +393,10 @@ ApplicationWindow {
             var minMaxSkipSubs = chartResults.updateChart("Time Dist. Skip Sub.", chart1.series(0));
             var minMaxSkipAcum = chartResults.updateChart("Time Dist. Skip Acum.", chart2.series(0));
 
+            bt1.visible = true;
+            bt2.visible = true;
+            bt3.visible = false;
+
             bt1.enabled = false
             bt2.enabled = true
 
@@ -321,38 +423,52 @@ ApplicationWindow {
             axisX2.max = lineSeries0Chart2.count
         } else if(name === "Time Dist. Dual") {
             var minMaxDualExt = chartResults.updateChart("Time Dist. Dual Ext.", chart1.series(0));
-            var minMaxDualFix = chartResults.updateChart("Time Dist. Dual Fix.", chart1.series(1));
-            var minMaxDualAbs = chartResults.updateChart("Time Dist. Dual Abs.", chart2.series(0));
-            var minMaxDualAcum = chartResults.updateChart("Time Dist. Dual Acum.", chart2.series(1));
+            var minMaxDualFix = chartResults.updateChart("Time Dist. Dual Fix.", chart2.series(0));
+            var minMaxDualAbs = chartResults.updateChart("Time Dist. Dual Abs.", chart3.series(0));
+            var minMaxDualAcum = chartResults.updateChart("Time Dist. Dual Acum.", chart3.series(1));
+
+            bt1.visible = true;
+            bt2.visible = true;
+            bt3.visible = true;
 
             bt1.enabled = false
             bt2.enabled = true
+            bt3.enabled = true
 
             chart1.visible = true
             chart2.visible = false
+            chart3.visible = false
 
             chart1.series(0).visible = true
-            chart1.series(1).visible = true
+            chart1.series(1).visible = false
             chart2.series(0).visible = true
-            chart2.series(1).visible = true
+            chart2.series(1).visible = false
+            chart3.series(0).visible = true
+            chart3.series(1).visible = true
 
             chart1.title = "Time Dist. Dual"
             chart2.title = "Time Dist. Dual"
+            chart3.title = "Time Dist. Dual"
 
             chart1.series(0).name = "Probability of ext."
-            chart1.series(1).name = "Probability of fix."
-            chart2.series(0).name = "Probability of abs."
-            chart2.series(1).name = "Cumulative prob. of abs."
+            chart2.series(0).name = "Probability of fix."
+            chart3.series(0).name = "Probability of abs."
+            chart3.series(1).name = "Cumulative prob. of abs."
 
-            axisY.min = Math.min (minMaxDualExt.x, minMaxDualFix.x)
-            axisY.max = Math.max(minMaxDualExt.y, minMaxDualFix.y)
+            axisY.min = minMaxDualExt.x
+            axisY.max = minMaxDualExt.y
             axisX.min = 1
             axisX.max = lineSeries0Chart1.count
 
-            axisY2.min = Math.min (minMaxDualAbs.x, minMaxDualAcum.x)
-            axisY2.max = Math.max(minMaxDualAbs.y, minMaxDualAcum.y)
+            axisY2.min = minMaxDualFix.x
+            axisY2.max = minMaxDualFix.y
             axisX2.min = 1
-            axisX2.max = lineSeries0Chart2.count
+            axisX2.max = lineSeries0Chart1.count
+
+            axisY3.min = Math.min (minMaxDualAbs.x, minMaxDualAcum.x)
+            axisY3.max = Math.max(minMaxDualAbs.y, minMaxDualAcum.y)
+            axisX3.min = 1
+            axisX3.max = lineSeries0Chart2.count
         }
     }
 }
