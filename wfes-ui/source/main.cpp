@@ -49,8 +49,6 @@ int main(int argc, char *argv[]) {
     app.setOrganizationName("University of Calgary");
     app.setOrganizationDomain("www.ucalgary.ca");
 
-    qDebug() << QDir::currentPath();
-
     qmlRegisterType<wfes::controllers::OutputControllerWfesSingle>("WFES", 1, 0, "OutputControllerWfesSingle");
     qmlRegisterType<wfes::controllers::InputControllerWfesSingle>("WFES", 1, 0, "InputControllerWfesSingle");
     qmlRegisterType<wfes::controllers::OutputControllerTimeDist>("WFES", 1, 0, "OutputControllerTimeDist");

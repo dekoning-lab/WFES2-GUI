@@ -11,6 +11,7 @@
 #include "model/wright-fisher/wrightFisher.h"
 
 #include <model/visualization/imageresults.h>
+#include <model/visualization/charts/chartResults.h>
 
 #include <model/executables/time_dist/config/configTimeDist.h>
 #include <model/executables/time_dist/results/resultsTimeDist.h>

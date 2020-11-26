@@ -1,6 +1,6 @@
 #include "time_dist.h"
 
-
+using namespace wfes::controllers;
 using namespace wfes::wrightfisher;
 using namespace wfes::utils;
 using namespace wfes::config;
@@ -41,6 +41,21 @@ ResultsTimeDist *time_dist::execute() {
 
 ResultsTimeDist *time_dist::timeDist() {
     try {
+        // This is for chart visualization.
+        QList<QPointF> ext;
+        QList<QPointF> fix;
+        QList<QPointF> abs;
+        QList<QPointF> acum;
+        double minExt = std::numeric_limits<double>::max();
+        double maxExt = std::numeric_limits<double>::min();
+        double minFix = std::numeric_limits<double>::max();
+        double maxFix = std::numeric_limits<double>::min();
+        double minAbs = std::numeric_limits<double>::max();
+        double maxAbs = std::numeric_limits<double>::min();
+        double minAcum = std::numeric_limits<double>::max();
+        double maxAcum = std::numeric_limits<double>::min();
+        // This is for chart visualization.
+
         // Notify building matrix.
         this->notify(ExecutionStatus::BUILDING_MATRICES);
 
@@ -78,8 +93,43 @@ ResultsTimeDist *time_dist::timeDist() {
             PH(i, 4) = cdf;
 
             c = wf.Q->multiply(c, true);
+
+            // This is for chart visualization.
+            ext.append(QPointF(i + 1, P_ext_t));
+            fix.append(QPointF(i + 1, P_fix_t));
+            abs.append(QPointF(i + 1, P_ext_t + P_fix_t));
+            acum.append(QPointF(i + 1, cdf));
+            if(minExt >= P_ext_t)
+                minExt = P_ext_t;
+            if(maxExt <= P_ext_t)
+                maxExt = P_ext_t;
+            if(minFix >= P_fix_t)
+                minFix = P_fix_t;
+            if(maxFix <= P_fix_t)
+                maxFix = P_fix_t;
+            if(minAbs >= P_ext_t + P_fix_t)
+                minAbs = P_ext_t + P_fix_t;
+            if(maxAbs <= P_ext_t + P_fix_t)
+                maxAbs = P_ext_t + P_fix_t;
+            if(minAcum >= cdf)
+                minAcum = cdf;
+            if(maxAcum <= cdf)
+                maxAcum = cdf;
+            // This is for chart visualization.
+
         }
         PH.conservativeResize(i, 5);
+
+        // This is for chart visualization.
+        ChartResults::timeDistExt = ext;
+        ChartResults::timeDistFix = fix;
+        ChartResults::timeDistAbs = abs;
+        ChartResults::timeDistAcum = acum;
+        ChartResults::minMaxTimeDistExt = QPointF(minExt, maxExt);
+        ChartResults::minMaxTimeDistFix = QPointF(minFix, minFix);
+        ChartResults::minMaxTimeDistAbs = QPointF(minAbs, maxAbs);
+        ChartResults::minMaxTimeDistAcum = QPointF(minAcum, maxAcum);
+        // This is for chart visualization.
 
         // Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
@@ -121,6 +171,15 @@ ResultsTimeDist *time_dist::timeDist() {
 
 ResultsTimeDist *time_dist::timeDistSGV() {
     try {
+        // This is for chart visualization.
+        QList<QPointF> subs;
+        QList<QPointF> acum;
+        double minSubs = std::numeric_limits<double>::max();
+        double maxSubs = std::numeric_limits<double>::min();
+        double minAcum = std::numeric_limits<double>::max();
+        double maxAcum = std::numeric_limits<double>::min();
+        // This is for chart visualization.
+
         //Notify building matrix.
         this->notify(ExecutionStatus::BUILDING_MATRICES);
 
@@ -158,8 +217,29 @@ ResultsTimeDist *time_dist::timeDistSGV() {
             PH(i, 2) = cdf;
 
             c = wf.Q->multiply(c, true);
+
+            // This is for chart visualization.
+            subs.append(QPointF(i + 1, P_abs_t));
+            acum.append(QPointF(i + 1, cdf));
+            if(minSubs >= P_abs_t)
+                minSubs = P_abs_t;
+            if(maxSubs <= P_abs_t)
+                maxSubs = P_abs_t;
+            if(minAcum >= cdf)
+                minAcum = cdf;
+            if(maxAcum <= cdf)
+                maxAcum = cdf;
+            // This is for chart visualization.
         }
         PH.conservativeResize(i, 3);
+
+        // This is for chart visualization.
+        ChartResults::timeDistSGVSub = subs;
+        ChartResults::timeDistSGVAcum = acum;
+        ChartResults::minMaxTimeDistSGVSub = QPointF(minSubs, maxSubs);
+        ChartResults::minMaxTimeDistSGVAcum = QPointF(minAcum, maxAcum);
+        // This is for chart visualization.
+
 
         // Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
@@ -201,6 +281,15 @@ ResultsTimeDist *time_dist::timeDistSGV() {
 
 ResultsTimeDist *time_dist::timeDistSkip() {
     try {
+        // This is for chart visualization.
+        QList<QPointF> subs;
+        QList<QPointF> acum;
+        double minSubs = std::numeric_limits<double>::max();
+        double maxSubs = std::numeric_limits<double>::min();
+        double minAcum = std::numeric_limits<double>::max();
+        double maxAcum = std::numeric_limits<double>::min();
+        // This is for chart visualization.
+
         //Notify building matrix.
         this->notify(ExecutionStatus::BUILDING_MATRICES);
 
@@ -237,8 +326,28 @@ ResultsTimeDist *time_dist::timeDistSkip() {
             PH(i, 1) = P_abs_t;
             PH(i, 2) = cdf;
             c = wf.Q->multiply(c, true);
+
+            // This is for chart visualization.
+            subs.append(QPointF(i + 1, P_abs_t));
+            acum.append(QPointF(i + 1, cdf));
+            if(minSubs >= P_abs_t)
+                minSubs = P_abs_t;
+            if(maxSubs <= P_abs_t)
+                maxSubs = P_abs_t;
+            if(minAcum >= cdf)
+                minAcum = cdf;
+            if(maxAcum <= cdf)
+                maxAcum = cdf;
+            // This is for chart visualization.
         }
         PH.conservativeResize(i, 3);
+
+        // This is for chart visualization.
+        ChartResults::timeDistSkipSub = subs;
+        ChartResults::timeDistSkipAcum = acum;
+        ChartResults::minMaxTimeDistSkipSub = QPointF(minSubs, maxSubs);
+        ChartResults::minMaxTimeDistSkipAcum = QPointF(minAcum, maxAcum);
+        // This is for chart visualization.
 
         //Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
@@ -279,6 +388,21 @@ ResultsTimeDist *time_dist::timeDistSkip() {
 
 ResultsTimeDist *time_dist::timeDistDual() {
     try {
+        // This is for chart visualization.
+        QList<QPointF> ext;
+        QList<QPointF> fix;
+        QList<QPointF> abs;
+        QList<QPointF> acum;
+        double minExt = std::numeric_limits<double>::max();
+        double maxExt = std::numeric_limits<double>::min();
+        double minFix = std::numeric_limits<double>::max();
+        double maxFix = std::numeric_limits<double>::min();
+        double minAbs = std::numeric_limits<double>::max();
+        double maxAbs = std::numeric_limits<double>::min();
+        double minAcum = std::numeric_limits<double>::max();
+        double maxAcum = std::numeric_limits<double>::min();
+        // This is for chart visualization.
+
         //Notify building matrix.
         this->notify(ExecutionStatus::BUILDING_MATRICES);
 
@@ -316,8 +440,43 @@ ResultsTimeDist *time_dist::timeDistDual() {
             PH(i, 4) = cdf;
 
             c = wf.Q->multiply(c, true);
+
+
+            // This is for chart visualization.
+            ext.append(QPointF(i + 1, P_ext_t));
+            fix.append(QPointF(i + 1, P_fix_t));
+            abs.append(QPointF(i + 1, P_ext_t + P_fix_t));
+            acum.append(QPointF(i + 1, cdf));
+            if(minExt >= P_ext_t)
+                minExt = P_ext_t;
+            if(maxExt <= P_ext_t)
+                maxExt = P_ext_t;
+            if(minFix >= P_fix_t)
+                minFix = P_fix_t;
+            if(maxFix <= P_fix_t)
+                maxFix = P_fix_t;
+            if(minAbs >= P_ext_t + P_fix_t)
+                minAbs = P_ext_t + P_fix_t;
+            if(maxAbs <= P_ext_t + P_fix_t)
+                maxAbs = P_ext_t + P_fix_t;
+            if(minAcum >= cdf)
+                minAcum = cdf;
+            if(maxAcum <= cdf)
+                maxAcum = cdf;
+            // This is for chart visualization.
         }
         PH.conservativeResize(i, 5);
+
+        // This is for chart visualization.
+        ChartResults::timeDistDualExt = ext;
+        ChartResults::timeDistDualFix = fix;
+        ChartResults::timeDistDualAbs = abs;
+        ChartResults::timeDistDualAcum = acum;
+        ChartResults::minMaxTimeDistDualExt = QPointF(minExt, maxExt);
+        ChartResults::minMaxTimeDistDualFix = QPointF(minFix, minFix);
+        ChartResults::minMaxTimeDistDualAbs = QPointF(minAbs, maxAbs);
+        ChartResults::minMaxTimeDistDualAcum = QPointF(minAcum, maxAcum);
+        // This is for chart visualization.
 
         //Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);

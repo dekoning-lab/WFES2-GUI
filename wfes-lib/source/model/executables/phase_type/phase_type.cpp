@@ -42,6 +42,10 @@ ResultsPhaseType *phase_type::phaseTypeDist() {
         // This is for chart visualization.
         QList<QPointF> dist;
         QList<QPointF> acum;
+        double minDist = std::numeric_limits<double>::max();
+        double maxDist = std::numeric_limits<double>::min();
+        double minAcum = std::numeric_limits<double>::max();
+        double maxAcum = std::numeric_limits<double>::min();
         // This is for chart visualization.
 
         // Notify building matrix.
@@ -70,13 +74,6 @@ ResultsPhaseType *phase_type::phaseTypeDist() {
         dvec R = wf.R.col(0);
         double cdf = 0;
         llong i;
-
-        // This is for chart visualization.
-        double minDist = std::numeric_limits<double>::max();
-        double maxDist = std::numeric_limits<double>::min();
-        double minAcum = std::numeric_limits<double>::max();
-        double maxAcum = std::numeric_limits<double>::min();
-        // This is for chart visualization.
 
         for (i = 0; cdf < ConfigPhaseType::integration_cutoff && i < ConfigPhaseType::max_t; i++) {
 
@@ -109,7 +106,6 @@ ResultsPhaseType *phase_type::phaseTypeDist() {
         ChartResults::minMaxPhaseTypeDist = QPointF(minDist, maxDist);
         ChartResults::minMaxPhaseTypeAcum = QPointF(minAcum, maxAcum);
         // This is for chart visualization.
-
 
         PH.conservativeResize(i, 3);
 

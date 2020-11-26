@@ -175,12 +175,12 @@ ApplicationWindow {
         axisY.min = minMaxDist.x
         axisY.max = minMaxDist.y
         axisX.min = 1
-        axisX.max = inputControllerPhaseType.ui_m
+        axisX.max = lineSeries0Chart1.count
 
         axisY2.min = minMaxAcum.x
         axisY2.max = minMaxAcum.y
         axisX2.min = 1
-        axisX2.max = inputControllerPhaseType.ui_m
+        axisX2.max = lineSeries0Chart2.count
 
     }
 
@@ -229,6 +229,130 @@ ApplicationWindow {
     }
 
     function updateProbTimeDist(name) {
+        if(name === "Time Dist.") {
+            var minMaxExt = chartResults.updateChart("Time Dist. Ext.", chart1.series(0));
+            var minMaxFix = chartResults.updateChart("Time Dist. Fix.", chart1.series(1));
+            var minMaxAbs = chartResults.updateChart("Time Dist. Abs.", chart2.series(0));
+            var minMaxAcum = chartResults.updateChart("Time Dist. Acum.", chart2.series(1));
 
+            bt1.enabled = false
+            bt2.enabled = true
+
+            chart1.visible = true
+            chart2.visible = false
+
+            chart1.series(0).visible = true
+            chart1.series(1).visible = true
+            chart2.series(0).visible = true
+            chart2.series(1).visible = true
+
+            chart1.title = "Time Dist."
+            chart2.title = "Time Dist."
+
+            chart1.series(0).name = "Probability of ext."
+            chart1.series(1).name = "Probability of fix."
+            chart2.series(0).name = "Probability of abs."
+            chart2.series(1).name = "Cumulative prob. of abs."
+
+            axisY.min = Math.min (minMaxExt.x, minMaxFix.x)
+            axisY.max = Math.max(minMaxExt.y, minMaxFix.y)
+            axisX.min = 1
+            axisX.max = lineSeries0Chart1.count
+
+            axisY2.min = Math.min (minMaxAbs.x, minMaxAcum.x)
+            axisY2.max = Math.max(minMaxAbs.y, minMaxAcum.y)
+            axisX2.min = 1
+            axisX2.max = lineSeries0Chart2.count
+        } else if(name === "Time Dist. SGV") {
+            var minMaxSGVSubs = chartResults.updateChart("Time Dist. SGV Sub.", chart1.series(0));
+            var minMaxSGVAcum = chartResults.updateChart("Time Dist. SGV Acum.", chart2.series(0));
+
+            bt1.enabled = false
+            bt2.enabled = true
+
+            chart1.visible = true
+            chart2.visible = false
+
+            chart1.series(1).visible = false
+            chart2.series(1).visible = false
+
+            chart1.title = "Time Dist. SGV"
+            chart2.title = "Time Dist. SGV"
+
+            chart1.series(0).name = "Probability of subs."
+            chart2.series(0).name = "Cumulative prob. of subs."
+
+            axisY.min = minMaxSGVSubs.x
+            axisY.max = minMaxSGVSubs.y
+            axisX.min = 1
+            axisX.max = lineSeries0Chart1.count
+
+            axisY2.min = minMaxSGVAcum.x
+            axisY2.max = minMaxSGVAcum.y
+            axisX2.min = 1
+            axisX2.max = lineSeries0Chart2.count
+        } else if(name === "Time Dist. Skip") {
+            var minMaxSkipSubs = chartResults.updateChart("Time Dist. Skip Sub.", chart1.series(0));
+            var minMaxSkipAcum = chartResults.updateChart("Time Dist. Skip Acum.", chart2.series(0));
+
+            bt1.enabled = false
+            bt2.enabled = true
+
+            chart1.visible = true
+            chart2.visible = false
+
+            chart1.series(1).visible = false
+            chart2.series(1).visible = false
+
+            chart1.title = "Time Dist. Skip"
+            chart2.title = "Time Dist. Skip"
+
+            chart1.series(0).name = "Probability of subs."
+            chart2.series(0).name = "Cumulative prob. of subs."
+
+            axisY.min = minMaxSkipSubs.x
+            axisY.max = minMaxSkipSubs.y
+            axisX.min = 1
+            axisX.max = lineSeries0Chart1.count
+
+            axisY2.min = minMaxSkipAcum.x
+            axisY2.max = minMaxSkipAcum.y
+            axisX2.min = 1
+            axisX2.max = lineSeries0Chart2.count
+        } else if(name === "Time Dist. Dual") {
+            var minMaxDualExt = chartResults.updateChart("Time Dist. Dual Ext.", chart1.series(0));
+            var minMaxDualFix = chartResults.updateChart("Time Dist. Dual Fix.", chart1.series(1));
+            var minMaxDualAbs = chartResults.updateChart("Time Dist. Dual Abs.", chart2.series(0));
+            var minMaxDualAcum = chartResults.updateChart("Time Dist. Dual Acum.", chart2.series(1));
+
+            bt1.enabled = false
+            bt2.enabled = true
+
+            chart1.visible = true
+            chart2.visible = false
+
+            chart1.series(0).visible = true
+            chart1.series(1).visible = true
+            chart2.series(0).visible = true
+            chart2.series(1).visible = true
+
+            chart1.title = "Time Dist. Dual"
+            chart2.title = "Time Dist. Dual"
+
+            chart1.series(0).name = "Probability of ext."
+            chart1.series(1).name = "Probability of fix."
+            chart2.series(0).name = "Probability of abs."
+            chart2.series(1).name = "Cumulative prob. of abs."
+
+            axisY.min = Math.min (minMaxDualExt.x, minMaxDualFix.x)
+            axisY.max = Math.max(minMaxDualExt.y, minMaxDualFix.y)
+            axisX.min = 1
+            axisX.max = lineSeries0Chart1.count
+
+            axisY2.min = Math.min (minMaxDualAbs.x, minMaxDualAcum.x)
+            axisY2.max = Math.max(minMaxDualAbs.y, minMaxDualAcum.y)
+            axisX2.min = 1
+            axisX2.max = lineSeries0Chart2.count
+        }
     }
 }
