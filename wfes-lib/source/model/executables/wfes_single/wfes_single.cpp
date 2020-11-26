@@ -1,6 +1,6 @@
 #include "wfes_single.h"
 
-
+using namespace wfes::controllers;
 using namespace wfes::wrightfisher;
 using namespace wfes::solver;
 using namespace wfes::sparsematrix;
@@ -199,37 +199,39 @@ ResultsWfesSingle *wfes_single::absorption() {
 
         delete solver;
 
-        // Generate images from matrices and save to file.
-        QImage *imageI = nullptr, *imageQ = nullptr, *imageR = nullptr, *imageN = nullptr, *imageNExt = nullptr, *imageNFix = nullptr, *imageB = nullptr;
-        if(ConfigWfesSingle::output_I) {
-            imageI = utils::generateImage(starting_copies_p);
-            ImageResults::I = imageI;
-        }
-        if(ConfigWfesSingle::output_Q) {
-            imageQ = utils::generateImage(W.Q->dense());
-            ImageResults::Q = imageQ;
-        }
-        if(ConfigWfesSingle::output_R) {
-            imageR = utils::generateImage(W.R);
-            ImageResults::R = imageR;
-        }
-        if(ConfigWfesSingle::output_N) {
-            imageN = utils::generateImage(N_mat);
-            ImageResults::N = imageN;
-        }
-        if(ConfigWfesSingle::output_N_ext) {
-            imageNExt = utils::generateImage(E_ext_mat);
-            ImageResults::N_ext = imageNExt;
-        }
-        if(ConfigWfesSingle::output_N_fix) {
-            imageNFix = utils::generateImage(E_fix_mat);
-            ImageResults::N_fix = imageNFix;
-        }
-        if(ConfigWfesSingle::output_B) {
-            B.col(0) = B_ext;
-            B.col(1) = B_fix;
-            imageB = utils::generateImage(B);
-            ImageResults::B = imageB;
+        if(GlobalConfiguration::generateImages) {
+            // Generate images from matrices and save to file.
+            QImage *imageI = nullptr, *imageQ = nullptr, *imageR = nullptr, *imageN = nullptr, *imageNExt = nullptr, *imageNFix = nullptr, *imageB = nullptr;
+            if(ConfigWfesSingle::output_I) {
+                imageI = utils::generateImage(starting_copies_p);
+                ImageResults::I = imageI;
+            }
+            if(ConfigWfesSingle::output_Q) {
+                imageQ = utils::generateImage(W.Q->dense());
+                ImageResults::Q = imageQ;
+            }
+            if(ConfigWfesSingle::output_R) {
+                imageR = utils::generateImage(W.R);
+                ImageResults::R = imageR;
+            }
+            if(ConfigWfesSingle::output_N) {
+                imageN = utils::generateImage(N_mat);
+                ImageResults::N = imageN;
+            }
+            if(ConfigWfesSingle::output_N_ext) {
+                imageNExt = utils::generateImage(E_ext_mat);
+                ImageResults::N_ext = imageNExt;
+            }
+            if(ConfigWfesSingle::output_N_fix) {
+                imageNFix = utils::generateImage(E_fix_mat);
+                ImageResults::N_fix = imageNFix;
+            }
+            if(ConfigWfesSingle::output_B) {
+                B.col(0) = B_ext;
+                B.col(1) = B_fix;
+                imageB = utils::generateImage(B);
+                ImageResults::B = imageB;
+            }
         }
 
         //Calculate time.
@@ -309,28 +311,30 @@ ResultsWfesSingle *wfes_single::fixation() {
 
         delete solver;
 
-        // Generate images from matrices and save to file.
-        QImage *imageI = nullptr, *imageQ = nullptr, *imageR = nullptr, *imageN = nullptr, *imageB = nullptr;
+        if(GlobalConfiguration::generateImages) {
+            // Generate images from matrices and save to file.
+            QImage *imageI = nullptr, *imageQ = nullptr, *imageR = nullptr, *imageN = nullptr, *imageB = nullptr;
 
-        if(ConfigWfesSingle::output_I) {
-            imageI = utils::generateImage(starting_copies_p);
-            ImageResults::I = imageI;
-        }
-        if(ConfigWfesSingle::output_Q) {
-            imageQ = utils::generateImage(W.Q->dense());
-            ImageResults::Q = imageQ;
-        }
-        if(ConfigWfesSingle::output_R) {
-            imageR = utils::generateImage(W.R);
-            ImageResults::R = imageR;
-        }
-        if(ConfigWfesSingle::output_N) {
-            imageN = utils::generateImage(N_mat);
-            ImageResults::N = imageN;
-        }
-        if(ConfigWfesSingle::output_B) {
-            imageB = utils::generateImage(B);
-            ImageResults::B = imageB;
+            if(ConfigWfesSingle::output_I) {
+                imageI = utils::generateImage(starting_copies_p);
+                ImageResults::I = imageI;
+            }
+            if(ConfigWfesSingle::output_Q) {
+                imageQ = utils::generateImage(W.Q->dense());
+                ImageResults::Q = imageQ;
+            }
+            if(ConfigWfesSingle::output_R) {
+                imageR = utils::generateImage(W.R);
+                ImageResults::R = imageR;
+            }
+            if(ConfigWfesSingle::output_N) {
+                imageN = utils::generateImage(N_mat);
+                ImageResults::N = imageN;
+            }
+            if(ConfigWfesSingle::output_B) {
+                imageB = utils::generateImage(B);
+                ImageResults::B = imageB;
+            }
         }
 
         //Calculate time.
@@ -402,30 +406,32 @@ ResultsWfesSingle *wfes_single::fundamental() {
         }
         delete solver;
 
-        // Generate images from matrices and save to file.
-        QImage *imageI = nullptr, *imageQ = nullptr, *imageR = nullptr, *imageN = nullptr, *imageV = nullptr;
-        if(ConfigWfesSingle::output_I) {
-            imageI = utils::generateImage(starting_copies_p);
-            ImageResults::I = imageI;
-        }
-        if(ConfigWfesSingle::output_Q) {
-            imageQ = utils::generateImage(W.Q->dense());
-            ImageResults::Q = imageQ;
-        }
-        if(ConfigWfesSingle::output_R) {
-            imageR = utils::generateImage(W.R);
-            ImageResults::R = imageR;
-        }
-        if(ConfigWfesSingle::output_N) {
-            imageN = utils::generateImage(N);
-            ImageResults::N = imageN;
-        }
-        if(ConfigWfesSingle::output_V) {
-            dvec Ndg = (2 * N.diagonal().array()) - 1;
-            dmat Nsq = N.array().square();
-            V = (N * diagmat(Ndg)) - Nsq;
-            imageV = utils::generateImage(V);
-            ImageResults::V = imageV;
+        if(GlobalConfiguration::generateImages) {
+            // Generate images from matrices and save to file.
+            QImage *imageI = nullptr, *imageQ = nullptr, *imageR = nullptr, *imageN = nullptr, *imageV = nullptr;
+            if(ConfigWfesSingle::output_I) {
+                imageI = utils::generateImage(starting_copies_p);
+                ImageResults::I = imageI;
+            }
+            if(ConfigWfesSingle::output_Q) {
+                imageQ = utils::generateImage(W.Q->dense());
+                ImageResults::Q = imageQ;
+            }
+            if(ConfigWfesSingle::output_R) {
+                imageR = utils::generateImage(W.R);
+                ImageResults::R = imageR;
+            }
+            if(ConfigWfesSingle::output_N) {
+                imageN = utils::generateImage(N);
+                ImageResults::N = imageN;
+            }
+            if(ConfigWfesSingle::output_V) {
+                dvec Ndg = (2 * N.diagonal().array()) - 1;
+                dmat Nsq = N.array().square();
+                V = (N * diagmat(Ndg)) - Nsq;
+                imageV = utils::generateImage(V);
+                ImageResults::V = imageV;
+            }
         }
 
         //Calculate time.
@@ -482,15 +488,17 @@ ResultsWfesSingle *wfes_single::equilibrium() {
 
         delete solver;
 
-        // Generate images from matrices and save to file.
-        QImage *imageI = nullptr, *imageE = nullptr;
-        if(ConfigWfesSingle::output_I) {
-            imageI = utils::generateImage(starting_copies_p);
-            ImageResults::I = imageI;
-        }
-        if(ConfigWfesSingle::output_E) {
-            imageE = utils::generateImage(pi);
-            ImageResults::E = imageE;
+        if(GlobalConfiguration::generateImages) {
+            // Generate images from matrices and save to file.
+            QImage *imageI = nullptr, *imageE = nullptr;
+            if(ConfigWfesSingle::output_I) {
+                imageI = utils::generateImage(starting_copies_p);
+                ImageResults::I = imageI;
+            }
+            if(ConfigWfesSingle::output_E) {
+                imageE = utils::generateImage(pi);
+                ImageResults::E = imageE;
+            }
         }
 
         //Calculate time.
@@ -684,19 +692,21 @@ ResultsWfesSingle *wfes_single::establishment() {
         delete solver_full;
         delete solver_tr;
 
-        // Generate images from matrices and save to file.
-        QImage *imageI = nullptr, *imageQ = nullptr, *imageR = nullptr;
-        if(ConfigWfesSingle::output_I) {
-            imageI = utils::generateImage(starting_copies_p);
-            ImageResults::I = imageI;
-        }
-        if(ConfigWfesSingle::output_Q) {
-            imageQ = utils::generateImage(W_tr.Q->dense());
-            ImageResults::Q = imageQ;
-        }
-        if(ConfigWfesSingle::output_R) {
-            imageR = utils::generateImage(W_tr.R);
-            ImageResults::R = imageR;
+        if(GlobalConfiguration::generateImages) {
+            // Generate images from matrices and save to file.
+            QImage *imageI = nullptr, *imageQ = nullptr, *imageR = nullptr;
+            if(ConfigWfesSingle::output_I) {
+                imageI = utils::generateImage(starting_copies_p);
+                ImageResults::I = imageI;
+            }
+            if(ConfigWfesSingle::output_Q) {
+                imageQ = utils::generateImage(W_tr.Q->dense());
+                ImageResults::Q = imageQ;
+            }
+            if(ConfigWfesSingle::output_R) {
+                imageR = utils::generateImage(W_tr.R);
+                ImageResults::R = imageR;
+            }
         }
 
         //Calculate time.
@@ -790,19 +800,21 @@ ResultsWfesSingle *wfes_single::alleleAge() {
             S_allele_age = sqrt((M3.dot(A_x) / M1(x)) - pow(E_allele_age, 2));
         }
 
-        // Generate images from matrices and save to file.
-        QImage *imageI = nullptr, *imageQ = nullptr, *imageR = nullptr;
-        if(ConfigWfesSingle::output_I) {
-            imageI = utils::generateImage(starting_copies_p);
-            ImageResults::I = imageI;
-        }
-        if(ConfigWfesSingle::output_Q) {
-            imageQ = utils::generateImage(W.Q->dense());
-            ImageResults::Q = imageQ;
-        }
-        if(ConfigWfesSingle::output_R) {
-            imageR = utils::generateImage(W.R);
-            ImageResults::R = imageR;
+        if(GlobalConfiguration::generateImages) {
+            // Generate images from matrices and save to file.
+            QImage *imageI = nullptr, *imageQ = nullptr, *imageR = nullptr;
+            if(ConfigWfesSingle::output_I) {
+                imageI = utils::generateImage(starting_copies_p);
+                ImageResults::I = imageI;
+            }
+            if(ConfigWfesSingle::output_Q) {
+                imageQ = utils::generateImage(W.Q->dense());
+                ImageResults::Q = imageQ;
+            }
+            if(ConfigWfesSingle::output_R) {
+                imageR = utils::generateImage(W.R);
+                ImageResults::R = imageR;
+            }
         }
 
         t_end = std::chrono::system_clock::now();
@@ -844,16 +856,17 @@ ResultsWfesSingle *wfes_single::nonAbsorbing() {
         if (ConfigWfesSingle::output_Q)
             W.Q->saveMarket(ConfigWfesSingle::path_output_Q);
 
-        // Generate images from matrices and save to file.
-        //TODO Set if show and print from GUI.
-        QImage *imageI = nullptr, *imageQ = nullptr;
-        if(ConfigWfesSingle::output_I) {
-            imageI = utils::generateImage(starting_copies_p);
-            ImageResults::I = imageI;
-        }
-        if(ConfigWfesSingle::output_Q) {
-            imageQ = utils::generateImage(W.Q->dense());
-            ImageResults::Q = imageQ;
+        if(GlobalConfiguration::generateImages) {
+            // Generate images from matrices and save to file.
+            QImage *imageI = nullptr, *imageQ = nullptr;
+            if(ConfigWfesSingle::output_I) {
+                imageI = utils::generateImage(starting_copies_p);
+                ImageResults::I = imageI;
+            }
+            if(ConfigWfesSingle::output_Q) {
+                imageQ = utils::generateImage(W.Q->dense());
+                ImageResults::Q = imageQ;
+            }
         }
 
         //Calculate time.

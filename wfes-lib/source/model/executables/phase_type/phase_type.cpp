@@ -1,10 +1,9 @@
 #include "phase_type.h"
 
-
+using namespace wfes::controllers;
 using namespace wfes::config;
 using namespace wfes::solver;
 using namespace wfes::utils;
-using namespace wfes::controllers;
 using namespace wfes;
 
 ResultsPhaseType *phase_type::execute() {
@@ -117,19 +116,21 @@ ResultsPhaseType *phase_type::phaseTypeDist() {
             utils::writeMatrixToFile(PH, ConfigPhaseType::path_output_P);
         }
 
-        // Generate images.
-        QImage *imageQ = nullptr, *imageR = nullptr, *imageP = nullptr;
-        if(ConfigPhaseType::output_Q) {
-            imageQ = utils::generateImage(wf.Q->dense());
-            ImageResults::Q = imageQ;
-        }
-        if(ConfigPhaseType::output_R) {
-            imageR = utils::generateImage(wf.R);
-            ImageResults::R = imageR;
-        }
-        if(ConfigPhaseType::output_P) {
-            imageP = utils::generateImage(PH);
-            ImageResults::P = imageP;
+        if(GlobalConfiguration::generateImages) {
+            // Generate images.
+            QImage *imageQ = nullptr, *imageR = nullptr, *imageP = nullptr;
+            if(ConfigPhaseType::output_Q) {
+                imageQ = utils::generateImage(wf.Q->dense());
+                ImageResults::Q = imageQ;
+            }
+            if(ConfigPhaseType::output_R) {
+                imageR = utils::generateImage(wf.R);
+                ImageResults::R = imageR;
+            }
+            if(ConfigPhaseType::output_P) {
+                imageP = utils::generateImage(PH);
+                ImageResults::P = imageP;
+            }
         }
 
         // Calculate time.
@@ -213,17 +214,19 @@ ResultsPhaseType *phase_type::phaseTypeMoment() {
         if(ConfigPhaseType::output_Moments)
             utils::writeVectorToFile(m.row(0), ConfigPhaseType::path_output_Moments);
 
-        // Generate images.
-        QImage *imageQ = nullptr, *imageR = nullptr;
-        if(ConfigPhaseType::output_Q) {
-            imageQ = utils::generateImage(wf.Q->dense());
-            //utils::saveImage(imageI, "Image_I");
-            ImageResults::Q = imageQ;
-        }
-        if(ConfigPhaseType::output_R) {
-            imageR = utils::generateImage(wf.R);
-            //utils::saveImage(imageI, "Image_I");
-            ImageResults::R = imageR;
+        if(GlobalConfiguration::generateImages) {
+            // Generate images.
+            QImage *imageQ = nullptr, *imageR = nullptr;
+            if(ConfigPhaseType::output_Q) {
+                imageQ = utils::generateImage(wf.Q->dense());
+                //utils::saveImage(imageI, "Image_I");
+                ImageResults::Q = imageQ;
+            }
+            if(ConfigPhaseType::output_R) {
+                imageR = utils::generateImage(wf.R);
+                //utils::saveImage(imageI, "Image_I");
+                ImageResults::R = imageR;
+            }
         }
 
         //Calculate time.

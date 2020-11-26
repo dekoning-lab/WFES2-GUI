@@ -15,7 +15,7 @@ namespace wfes {
         /**
          * @brief The ChartResults class stores the LineSeries for be plotted in a chart.
          */
-        class WFESLIBSHARED_EXPORT ChartResults :public QObject {
+        class WFESLIBSHARED_EXPORT ChartResults : public QObject {
             Q_OBJECT
 
             public:

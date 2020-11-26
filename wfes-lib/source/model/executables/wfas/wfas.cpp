@@ -185,19 +185,21 @@ ResultsWfas *wfas::function() {
             utils::writeVectorToFile(d, ConfigWfas::path_output_Dist);
         }
 
-        // Generate images.
-        QImage *imageQ = nullptr, *imageB = nullptr, *imageN = nullptr;
-        if(ConfigWfas::output_Q) {
-            imageQ = utils::generateImage(W.Q->dense());
-            ImageResults::Q = imageQ;
-        }
-        if(ConfigWfas::output_N) {
-            imageN = utils::generateImage(Nt);
-            ImageResults::N = imageN;
-        }
-        if(ConfigWfas::output_B) {
-            imageB = utils::generateImage(B);
-            ImageResults::B = imageB;
+        if(GlobalConfiguration::generateImages) {
+            // Generate images.
+            QImage *imageQ = nullptr, *imageB = nullptr, *imageN = nullptr;
+            if(ConfigWfas::output_Q) {
+                imageQ = utils::generateImage(W.Q->dense());
+                ImageResults::Q = imageQ;
+            }
+            if(ConfigWfas::output_N) {
+                imageN = utils::generateImage(Nt);
+                ImageResults::N = imageN;
+            }
+            if(ConfigWfas::output_B) {
+                imageB = utils::generateImage(B);
+                ImageResults::B = imageB;
+            }
         }
 
         //Calculate time.

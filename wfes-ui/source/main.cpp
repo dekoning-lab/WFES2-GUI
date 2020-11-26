@@ -24,6 +24,7 @@
 #include <model/visualization/imageOutputController.h>
 #include <model/visualization/visualizationImageProvider.h>
 #include <model/visualization/charts/chartResults.h>
+#include <model/config/globalConfiguration.h>
 
 void signalHandler( int signum ) {
    std::cout << "Interrupt signal (" << signum << ") received.\n";
@@ -67,6 +68,8 @@ int main(int argc, char *argv[]) {
     qmlRegisterType<wfes::controllers::InputControllerWfesSwitching>("WFES", 1, 0, "InputControllerWfesSwitching");
     qmlRegisterType<wfes::controllers::ImageOutputController>("WFES", 1, 0, "ImageOutputController");
     qmlRegisterType<wfes::controllers::ChartResults>("WFES", 1, 0, "ChartResults");
+    qmlRegisterType<wfes::controllers::ChartResults>("WFES", 1, 0, "ChartResults");
+    qmlRegisterType<wfes::controllers::GlobalConfiguration>("WFES", 1, 0, "GlobalConfiguration");
 
     wfes::controllers::OutputControllerWfesSingle outputControllerWfesSingle;
     wfes::controllers::InputControllerWfesSingle inputControllerWfesSingle;
@@ -86,6 +89,7 @@ int main(int argc, char *argv[]) {
     wfes::controllers::InputControllerWfesSwitching inputControllerWfesSwitching;
     wfes::controllers::ImageOutputController imageOutputController;
     wfes::controllers::ChartResults chartResults;
+    wfes::controllers::GlobalConfiguration globalConfiguration;
 
     QQmlApplicationEngine engine;
     engine.addImportPath("qrc:/");
@@ -110,6 +114,7 @@ int main(int argc, char *argv[]) {
     engine.rootContext()->setContextProperty("inputControllerWfesSwitching", &inputControllerWfesSwitching);
     engine.rootContext()->setContextProperty("imageOutputController", &imageOutputController);
     engine.rootContext()->setContextProperty("chartResults", &chartResults);
+    engine.rootContext()->setContextProperty("globalConfiguration", &globalConfiguration);
 
     const QUrl url(QStringLiteral("qrc:/views/mainview/MainView.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,

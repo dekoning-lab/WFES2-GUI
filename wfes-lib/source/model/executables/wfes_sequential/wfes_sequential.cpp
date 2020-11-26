@@ -1,5 +1,6 @@
 #include "wfes_sequential.h"
 
+using namespace wfes::controllers;
 using namespace wfes::config;
 using namespace wfes::solver;
 using namespace wfes::utils;
@@ -173,42 +174,44 @@ ResultsWfesSequential *wfes_sequential::function() {
         if(ConfigWfesSequential::output_B)
             writeMatrixToFile(B, ConfigWfesSequential::path_output_B);
 
-        // Generate images.
-        QImage *imageQ = nullptr, *imageR = nullptr,  *imageN = nullptr, *imageB = nullptr, *imageN_ext = nullptr, *imageN_fix = nullptr, *imageN_tmo = nullptr;
-        if(ConfigWfesSequential::output_Q) {
-            imageQ = utils::generateImage(W.Q->dense());
-            ImageResults::Q = imageQ;
-        }
-        if(ConfigWfesSequential::output_R) {
-            imageR = utils::generateImage(W.R);
-            ImageResults::R = imageR;
-        }
-        if(ConfigWfesSequential::output_N) {
-            dmat N(N_rows.size(), N_rows[0].size());
-            int i = 0;
-            for(auto const &item : N_rows) {
-                dvec v = item.second;
-                N.row(i) = v.transpose();
-                i++;
+        if(GlobalConfiguration::generateImages) {
+            // Generate images.
+            QImage *imageQ = nullptr, *imageR = nullptr,  *imageN = nullptr, *imageB = nullptr, *imageN_ext = nullptr, *imageN_fix = nullptr, *imageN_tmo = nullptr;
+            if(ConfigWfesSequential::output_Q) {
+                imageQ = utils::generateImage(W.Q->dense());
+                ImageResults::Q = imageQ;
             }
-            imageN = utils::generateImage(N);
-            ImageResults::N = imageN;
-        }
-        if(ConfigWfesSequential::output_B) {
-            imageB = utils::generateImage(B);
-            ImageResults::B = imageB;
-        }
-        if(ConfigWfesSequential::output_N_Ext) {
-            imageN_ext = utils::generateImage(E_ext);
-            ImageResults::N_ext = imageN_ext;
-        }
-        if(ConfigWfesSequential::output_N_Fix) {
-            imageN_fix = utils::generateImage(E_fix);
-            ImageResults::N_fix = imageN_fix;
-        }
-        if(ConfigWfesSequential::output_N_Tmo) {
-            imageN_tmo = utils::generateImage(E_tmo);
-            ImageResults::N_tmo = imageN_tmo;
+            if(ConfigWfesSequential::output_R) {
+                imageR = utils::generateImage(W.R);
+                ImageResults::R = imageR;
+            }
+            if(ConfigWfesSequential::output_N) {
+                dmat N(N_rows.size(), N_rows[0].size());
+                int i = 0;
+                for(auto const &item : N_rows) {
+                    dvec v = item.second;
+                    N.row(i) = v.transpose();
+                    i++;
+                }
+                imageN = utils::generateImage(N);
+                ImageResults::N = imageN;
+            }
+            if(ConfigWfesSequential::output_B) {
+                imageB = utils::generateImage(B);
+                ImageResults::B = imageB;
+            }
+            if(ConfigWfesSequential::output_N_Ext) {
+                imageN_ext = utils::generateImage(E_ext);
+                ImageResults::N_ext = imageN_ext;
+            }
+            if(ConfigWfesSequential::output_N_Fix) {
+                imageN_fix = utils::generateImage(E_fix);
+                ImageResults::N_fix = imageN_fix;
+            }
+            if(ConfigWfesSequential::output_N_Tmo) {
+                imageN_tmo = utils::generateImage(E_tmo);
+                ImageResults::N_tmo = imageN_tmo;
+            }
         }
 
         //Calculate time.

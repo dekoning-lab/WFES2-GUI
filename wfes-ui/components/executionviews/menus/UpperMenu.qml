@@ -120,12 +120,26 @@ Rectangle {
                         windowvisualizer.visible
                     }
                 }
+
+                MenuItem {
+                    CheckBox {
+                        anchors.fill: parent
+                        text: "Generate Images"
+                        checked: globalConfiguration.ui_generate_images
+                        onCheckedChanged: {
+                            globalConfiguration.ui_generate_images = this.checked
+                        }
+                    }
+                }
+
                 MenuItem {
                     text: "Chart Visualization"
                     onClicked: {
                         chartVisualization.visible = true
                     }
                 }
+
+
             }
         }
         

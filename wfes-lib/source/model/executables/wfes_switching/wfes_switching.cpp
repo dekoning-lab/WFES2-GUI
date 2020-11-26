@@ -1,5 +1,6 @@
 #include "wfes_switching.h"
 
+using namespace wfes::controllers;
 using namespace wfes::config;
 using namespace wfes::solver;
 using namespace wfes::utils;
@@ -208,39 +209,41 @@ ResultsWfesSwitching *wfes_switching::absorption() {
         }
         delete solver;
 
-        // Generate images.
-        QImage *imageQ = nullptr, *imageR = nullptr,  *imageN = nullptr, *imageB = nullptr, *imageN_ext = nullptr, *imageN_fix = nullptr;
-        if(ConfigWfesSwitching::output_Q) {
-            imageQ = utils::generateImage(W.Q->dense());
-            ImageResults::Q = imageQ;
-        }
-        if(ConfigWfesSwitching::output_R) {
-            imageR = utils::generateImage(W.R);
-            ImageResults::R = imageR;
-        }
-        if(ConfigWfesSwitching::output_N) {
-            dmat N(N_rows.size(), N_rows[0].size());
-            int i = 0;
-            for(auto const &item : N_rows) {
-                dvec v = item.second;
-                N.row(i) = v.transpose();
-                i++;
+        if(GlobalConfiguration::generateImages) {
+            // Generate images.
+            QImage *imageQ = nullptr, *imageR = nullptr,  *imageN = nullptr, *imageB = nullptr, *imageN_ext = nullptr, *imageN_fix = nullptr;
+            if(ConfigWfesSwitching::output_Q) {
+                imageQ = utils::generateImage(W.Q->dense());
+                ImageResults::Q = imageQ;
             }
-            imageN = utils::generateImage(N);
-            utils::saveImage(imageN, "Image_N");
-            ImageResults::N = imageN;
-        }
-        if(ConfigWfesSwitching::output_B) {
-            imageB = utils::generateImage(B);
-            ImageResults::B = imageB;
-        }
-        if(ConfigWfesSwitching::output_N_Ext) {
-            imageN_ext = utils::generateImage(E_ext);
-            ImageResults::N_ext = imageN_ext;
-        }
-        if(ConfigWfesSwitching::output_N_Fix) {
-            imageN_fix = utils::generateImage(E_fix);
-            ImageResults::N_fix = imageN_fix;
+            if(ConfigWfesSwitching::output_R) {
+                imageR = utils::generateImage(W.R);
+                ImageResults::R = imageR;
+            }
+            if(ConfigWfesSwitching::output_N) {
+                dmat N(N_rows.size(), N_rows[0].size());
+                int i = 0;
+                for(auto const &item : N_rows) {
+                    dvec v = item.second;
+                    N.row(i) = v.transpose();
+                    i++;
+                }
+                imageN = utils::generateImage(N);
+                utils::saveImage(imageN, "Image_N");
+                ImageResults::N = imageN;
+            }
+            if(ConfigWfesSwitching::output_B) {
+                imageB = utils::generateImage(B);
+                ImageResults::B = imageB;
+            }
+            if(ConfigWfesSwitching::output_N_Ext) {
+                imageN_ext = utils::generateImage(E_ext);
+                ImageResults::N_ext = imageN_ext;
+            }
+            if(ConfigWfesSwitching::output_N_Fix) {
+                imageN_fix = utils::generateImage(E_fix);
+                ImageResults::N_fix = imageN_fix;
+            }
         }
 
         //Calculate time.
@@ -329,22 +332,26 @@ ResultsWfesSwitching *wfes_switching::fixation() {
             utils::writeMatrixToFile(B, ConfigWfesSwitching::path_output_B);
         }
         delete solver;
-        QImage *imageQ = nullptr, *imageR = nullptr,  *imageN = nullptr, *imageB = nullptr;
-        if(ConfigWfesSwitching::output_Q) {
-            imageQ = utils::generateImage(W.Q->dense());
-            ImageResults::Q = imageQ;
-        }
-        if(ConfigWfesSwitching::output_R) {
-            imageR = utils::generateImage(W.R);
-            ImageResults::R = imageR;
-        }
-        if(ConfigWfesSwitching::output_N) {
-            imageN = utils::generateImage(N);
-            ImageResults::N = imageN;
-        }
-        if(ConfigWfesSwitching::output_B) {
-            imageB = utils::generateImage(B);
-            ImageResults::B = imageB;
+
+        if(GlobalConfiguration::generateImages) {
+            // Generate images.
+            QImage *imageQ = nullptr, *imageR = nullptr,  *imageN = nullptr, *imageB = nullptr;
+            if(ConfigWfesSwitching::output_Q) {
+                imageQ = utils::generateImage(W.Q->dense());
+                ImageResults::Q = imageQ;
+            }
+            if(ConfigWfesSwitching::output_R) {
+                imageR = utils::generateImage(W.R);
+                ImageResults::R = imageR;
+            }
+            if(ConfigWfesSwitching::output_N) {
+                imageN = utils::generateImage(N);
+                ImageResults::N = imageN;
+            }
+            if(ConfigWfesSwitching::output_B) {
+                imageB = utils::generateImage(B);
+                ImageResults::B = imageB;
+            }
         }
 
         //Calculate time.

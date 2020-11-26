@@ -10,6 +10,8 @@
 
 #include "model/wright-fisher/wrightFisher.h"
 
+#include "model/config/globalConfiguration.h"
+
 #include "model/visualization/imageresults.h"
 
 #include <model/executables/wfes_sequential/config/configWfesSequential.h>

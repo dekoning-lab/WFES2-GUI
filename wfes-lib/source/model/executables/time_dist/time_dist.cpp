@@ -139,19 +139,21 @@ ResultsTimeDist *time_dist::timeDist() {
             utils::writeMatrixToFile(PH, ConfigTimeDist::path_output_P);
         }
 
-        // Generate images.
-        QImage *imageQ = nullptr, *imageR = nullptr, *imageP = nullptr;
-        if(ConfigTimeDist::output_Q) {
-            imageQ = utils::generateImage(wf.Q->dense());
-            ImageResults::Q = imageQ;
-        }
-        if(ConfigTimeDist::output_R) {
-            imageR = utils::generateImage(wf.R);
-            ImageResults::R = imageR;
-        }
-        if(ConfigTimeDist::output_P) {
-            imageP = utils::generateImage(PH);
-            ImageResults::P = imageP;
+        if(GlobalConfiguration::generateImages) {
+            // Generate images.
+            QImage *imageQ = nullptr, *imageR = nullptr, *imageP = nullptr;
+            if(ConfigTimeDist::output_Q) {
+                imageQ = utils::generateImage(wf.Q->dense());
+                ImageResults::Q = imageQ;
+            }
+            if(ConfigTimeDist::output_R) {
+                imageR = utils::generateImage(wf.R);
+                ImageResults::R = imageR;
+            }
+            if(ConfigTimeDist::output_P) {
+                imageP = utils::generateImage(PH);
+                ImageResults::P = imageP;
+            }
         }
 
         //Calculate time.
@@ -249,19 +251,21 @@ ResultsTimeDist *time_dist::timeDistSGV() {
             utils::writeMatrixToFile(PH, ConfigTimeDist::path_output_P);
         }
 
-        // Generate images.
-        QImage *imageQ = nullptr, *imageR = nullptr, *imageP = nullptr;
-        if(ConfigTimeDist::output_Q) {
-            imageQ = utils::generateImage(wf.Q->dense());
-            ImageResults::Q = imageQ;
-        }
-        if(ConfigTimeDist::output_R) {
-            imageR = utils::generateImage(wf.R);
-            ImageResults::R = imageR;
-        }
-        if(ConfigTimeDist::output_P) {
-            imageP = utils::generateImage(PH);
-            ImageResults::P = imageP;
+        if(GlobalConfiguration::generateImages) {
+            // Generate images.
+            QImage *imageQ = nullptr, *imageR = nullptr, *imageP = nullptr;
+            if(ConfigTimeDist::output_Q) {
+                imageQ = utils::generateImage(wf.Q->dense());
+                ImageResults::Q = imageQ;
+            }
+            if(ConfigTimeDist::output_R) {
+                imageR = utils::generateImage(wf.R);
+                ImageResults::R = imageR;
+            }
+            if(ConfigTimeDist::output_P) {
+                imageP = utils::generateImage(PH);
+                ImageResults::P = imageP;
+            }
         }
 
         //Calculate time.
@@ -357,19 +361,21 @@ ResultsTimeDist *time_dist::timeDistSkip() {
             utils::writeMatrixToFile(PH, ConfigTimeDist::path_output_P);
         }
 
-        // Generate images.
-        QImage *imageQ = nullptr, *imageR = nullptr, *imageP = nullptr;
-        if(ConfigTimeDist::output_Q) {
-            imageQ = utils::generateImage(wf.Q->dense());
-            ImageResults::Q = imageQ;
-        }
-        if(ConfigTimeDist::output_R) {
-            imageR = utils::generateImage(wf.R);
-            ImageResults::R = imageR;
-        }
-        if(ConfigTimeDist::output_P) {
-            imageP = utils::generateImage(PH);
-            ImageResults::P = imageP;
+        if(GlobalConfiguration::generateImages) {
+            // Generate images.
+            QImage *imageQ = nullptr, *imageR = nullptr, *imageP = nullptr;
+            if(ConfigTimeDist::output_Q) {
+                imageQ = utils::generateImage(wf.Q->dense());
+                ImageResults::Q = imageQ;
+            }
+            if(ConfigTimeDist::output_R) {
+                imageR = utils::generateImage(wf.R);
+                ImageResults::R = imageR;
+            }
+            if(ConfigTimeDist::output_P) {
+                imageP = utils::generateImage(PH);
+                ImageResults::P = imageP;
+            }
         }
 
         //Calculate time.
@@ -486,19 +492,21 @@ ResultsTimeDist *time_dist::timeDistDual() {
             utils::writeMatrixToFile(PH, ConfigTimeDist::path_output_P);
         }
 
-        // Generate images.
-        QImage *imageQ = nullptr, *imageR = nullptr, *imageP = nullptr;
-        if(ConfigTimeDist::output_Q) {
-            imageQ = utils::generateImage(wf.Q->dense());
-            ImageResults::Q = imageQ;
-        }
-        if(ConfigTimeDist::output_R) {
-            imageR = utils::generateImage(wf.R);
-            ImageResults::R = imageR;
-        }
-        if(ConfigTimeDist::output_P) {
-            imageP = utils::generateImage(PH);
-            ImageResults::P = imageP;
+        if(GlobalConfiguration::generateImages) {
+            // Generate images.
+            QImage *imageQ = nullptr, *imageR = nullptr, *imageP = nullptr;
+            if(ConfigTimeDist::output_Q) {
+                imageQ = utils::generateImage(wf.Q->dense());
+                ImageResults::Q = imageQ;
+            }
+            if(ConfigTimeDist::output_R) {
+                imageR = utils::generateImage(wf.R);
+                ImageResults::R = imageR;
+            }
+            if(ConfigTimeDist::output_P) {
+                imageP = utils::generateImage(PH);
+                ImageResults::P = imageP;
+            }
         }
 
         //Calculate time.
