@@ -215,7 +215,7 @@ ApplicationWindow {
                                 id: inputM
                                 text: "m: "
                                 toolTipText: "Maximum number of generations."
-                                validator: IntValidator {bottom: 2; top: 500000;}
+                                validator: IntValidator {bottom: 2;}
                                 textFieldText: inputControllerPhaseType.ui_m
                                 enabled: inputControllerPhaseType.ui_modelType == "Phase Type Dist."
                             }
@@ -815,8 +815,7 @@ ApplicationWindow {
 
         if(parseInt(inputM.textFieldText) < 2)
             error += " - Maximum Number of Generations (m) is quite small, it must be at least 2. \n \n"
-        if(!inputForce.checked && parseInt(inputM.textFieldText) > 50000)
-            error += " - Maximum Number of Generations (m) is quite large, the computations will take a long time. Check 'Force' to ignore. \n \n"
+        // Deleted limit for m in phase_type_dist.
 
         // Moments (k) does not have upper limits, at least in the code. The default value is 20.
         if(parseInt(inputK.textFieldText) < 2)
