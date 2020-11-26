@@ -205,7 +205,7 @@ ApplicationWindow {
                             LabeledTextField {
                                 id: inputC
                                 text: "c: "
-                                toolTipText: "Starting number of copies integration cutoff."
+                                toolTipText: "Integration cutoff."
                                 validator: DoubleValidator {bottom: 0; top: 10e-3;}
                                 textFieldText: inputControllerPhaseType.ui_c
                                 enabled: inputControllerPhaseType.ui_modelType == "Phase Type Dist."
