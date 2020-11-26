@@ -1,5 +1,7 @@
 #include "resultsPhaseType.h"
 
+using namespace wfes::config;
+
 ResultsPhaseType::ResultsPhaseType()
     : mean(std::nan("")), std(std::nan("")), time(std::nan("")), error("") {}
 
@@ -41,6 +43,38 @@ void ResultsPhaseType::writeResultsToFile(ResultsPhaseType *results, std::string
 
     // Header of the file.
     outStream << "Result, Value" << "\n";
+
+
+    if(!(boost::math::isnan)(ConfigPhaseType::population_size))
+        outStream << "N, " << ConfigPhaseType::population_size << "\n";
+
+    if(!(boost::math::isnan)(ConfigPhaseType::a))
+        outStream << "a, " << ConfigPhaseType::a << "\n";
+
+    if(!(boost::math::isnan)(ConfigPhaseType::s))
+        outStream << "s, " << ConfigPhaseType::s << "\n";
+
+    if(!(boost::math::isnan)(ConfigPhaseType::h))
+        outStream << "h, " << ConfigPhaseType::h << "\n";
+
+    if(!(boost::math::isnan)(ConfigPhaseType::u))
+        outStream << "u, " << ConfigPhaseType::u << "\n";
+
+    if(!(boost::math::isnan)(ConfigPhaseType::v))
+        outStream << "v, " << ConfigPhaseType::v << "\n";
+
+    if(ConfigPhaseType::modelType == ModelTypePhaseType::PHASE_TYPE_DIST) {
+        if(!(boost::math::isnan)(ConfigPhaseType::integration_cutoff))
+            outStream << "c, " << ConfigPhaseType::integration_cutoff << "\n";
+
+        if(!(boost::math::isnan)(ConfigPhaseType::max_t))
+            outStream << "m, " << ConfigPhaseType::max_t << "\n";
+
+        outStream << "r, " << (ConfigPhaseType::no_rem ? "true" : "false") << "\n";
+    } else if (ConfigPhaseType::modelType == ModelTypePhaseType::PHASE_TYPE_MOMENTS) {
+        if(!(boost::math::isnan)(ConfigPhaseType::k))
+            outStream << "k, " << ConfigPhaseType::k << "\n";
+    }
 
     if(!(boost::math::isnan)(results->mean))
         outStream << "Mean, " << results->mean << "\n";

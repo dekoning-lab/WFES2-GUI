@@ -197,6 +197,12 @@ void ResultsWfesSingle::writeResultsToFile(ResultsWfesSingle *results, std::stri
     if(!(boost::math::isnan)(ConfigWfesSingle::population_size))
         outStream << "N, " << ConfigWfesSingle::population_size << "\n";
 
+    if(!(boost::math::isnan)(ConfigWfesSingle::a))
+        outStream << "a, " << ConfigWfesSingle::a << "\n";
+
+    if(!(boost::math::isnan)(ConfigWfesSingle::integration_cutoff))
+        outStream << "c, " << ConfigWfesSingle::integration_cutoff << "\n";
+
     if(!(boost::math::isnan)(ConfigWfesSingle::s))
         outStream << "s, " << ConfigWfesSingle::s << "\n";
 
@@ -208,6 +214,37 @@ void ResultsWfesSingle::writeResultsToFile(ResultsWfesSingle *results, std::stri
 
     if(!(boost::math::isnan)(ConfigWfesSingle::v))
         outStream << "v, " << ConfigWfesSingle::v << "\n";
+
+    switch(ConfigWfesSingle::modelType) {
+        case ModelTypeWfesSingle::ABSORPTION:
+        case ModelTypeWfesSingle::FIXATION:
+            if(!(boost::math::isnan)(ConfigWfesSingle::starting_copies))
+                outStream << "p, " << ConfigWfesSingle::starting_copies << "\n";
+            outStream << "m, " << (ConfigWfesSingle::no_rem ? "true" : "false") << "\n";
+            break;
+        case ModelTypeWfesSingle::ESTABLISHMENT:
+            if(!(boost::math::isnan)(ConfigWfesSingle::starting_copies))
+                outStream << "p, " << ConfigWfesSingle::starting_copies << "\n";
+            outStream << "m, " << (ConfigWfesSingle::no_rem ? "true" : "false") << "\n";
+            if(!(boost::math::isnan)(ConfigWfesSingle::odds_ratio))
+                outStream << "k, " << ConfigWfesSingle::odds_ratio << "\n";
+            break;
+        case ModelTypeWfesSingle::FUNDAMENTAL:
+        case ModelTypeWfesSingle::NON_ABSORBING:
+            outStream << "m, " << (ConfigWfesSingle::no_rem ? "true" : "false") << "\n";
+            break;
+        case ModelTypeWfesSingle::ALLELE_AGE:
+            if(!(boost::math::isnan)(ConfigWfesSingle::starting_copies))
+                outStream << "p, " << ConfigWfesSingle::starting_copies << "\n";
+            outStream << "m, " << (ConfigWfesSingle::no_rem ? "true" : "false") << "\n";
+            if(!(boost::math::isnan)(ConfigWfesSingle::observed_copies))
+                outStream << "x, " << ConfigWfesSingle::observed_copies << "\n";
+            break;
+        case ModelTypeWfesSingle::EQUILIBRIUM:
+        case ModelTypeWfesSingle::NONE:
+        default:
+            break;
+    }
 
     if(!(boost::math::isnan)(results->pExt))
         outStream << "P_ext, " << results->pExt << "\n";

@@ -24,10 +24,11 @@ ResultsWfesSwitching *wfes_switching::execute() {
 
     // switching.diagonal() = dvec::Zero(n_models);
     // switching /= switching.sum();
+    r = ConfigWfesSwitching::r;
     dvec row_sums = ConfigWfesSwitching::r.rowwise().sum();
     for (llong i = 0; i < ConfigWfesSwitching::num_comp; i++) {
         for (llong j = 0; j < ConfigWfesSwitching::num_comp; j++) {
-            ConfigWfesSwitching::r(i, j) /= row_sums(i);
+            r(i, j) /= row_sums(i);
         }
     }
 
@@ -53,7 +54,7 @@ ResultsWfesSwitching *wfes_switching::absorption() {
         this->notify(ExecutionStatus::BUILDING_MATRICES);
 
         wrightfisher::Matrix W = wrightfisher::Switching(ConfigWfesSwitching::N, wrightfisher::BOTH_ABSORBING,
-                ConfigWfesSwitching::s, ConfigWfesSwitching::h, ConfigWfesSwitching::u, ConfigWfesSwitching::v, ConfigWfesSwitching::r, ConfigWfesSwitching::a, msg_level);
+                ConfigWfesSwitching::s, ConfigWfesSwitching::h, ConfigWfesSwitching::u, ConfigWfesSwitching::v, r, ConfigWfesSwitching::a, msg_level);
 
         // SI are start indeces - a vector of size n_models
         lvec si = startIndeces(2 * ConfigWfesSwitching::N - lvec::Ones(ConfigWfesSwitching::num_comp));
@@ -274,7 +275,7 @@ ResultsWfesSwitching *wfes_switching::fixation() {
         //Notify building matrix.
         this->notify(ExecutionStatus::BUILDING_MATRICES);
 
-        wrightfisher::Matrix W = wrightfisher::Switching(ConfigWfesSwitching::N, wrightfisher::FIXATION_ONLY, ConfigWfesSwitching::s, ConfigWfesSwitching::h, ConfigWfesSwitching::u, ConfigWfesSwitching::v, ConfigWfesSwitching::r, ConfigWfesSwitching::a, msg_level);
+        wrightfisher::Matrix W = wrightfisher::Switching(ConfigWfesSwitching::N, wrightfisher::FIXATION_ONLY, ConfigWfesSwitching::s, ConfigWfesSwitching::h, ConfigWfesSwitching::u, ConfigWfesSwitching::v, r, ConfigWfesSwitching::a, msg_level);
 
         //Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);

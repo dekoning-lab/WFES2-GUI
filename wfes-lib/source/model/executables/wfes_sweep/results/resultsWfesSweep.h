@@ -11,6 +11,8 @@
 
 #include "utils/types.h"
 
+#include <model/executables/wfes_sweep/config/configWfesSweep.h>
+
 class ResultsWfesSweep {
     public:
         /**

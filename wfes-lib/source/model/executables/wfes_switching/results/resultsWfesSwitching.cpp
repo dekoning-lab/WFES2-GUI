@@ -1,5 +1,7 @@
 #include "resultsWfesSwitching.h"
 
+using namespace wfes::config;
+
 ResultsWfesSwitching::ResultsWfesSwitching() : pExt(std::nan("")), pFix(std::nan("")),
     tExt(std::nan("")), tExtStd(std::nan("")), tFix(std::nan("")), tFixStd(std::nan("")),
     rate(std::nan("")), time(std::nan("")), error(""){}
@@ -43,7 +45,7 @@ void ResultsWfesSwitching::writeResultsToFile(ResultsWfesSwitching *results, std
         dir.mkpath(outputPath);
 
     // Create file with generated name.
-    QFile file(outputPath + QString::fromStdString("Wfes_Single_-_" + s + "_" + name));
+    QFile file(outputPath + QString::fromStdString("Wfes_Switching_-_" + s + "_" + name));
 
     // Open in write mode.
     file.open(QIODevice::WriteOnly);
@@ -52,6 +54,84 @@ void ResultsWfesSwitching::writeResultsToFile(ResultsWfesSwitching *results, std
 
     // Header of the file.
     outStream << "Result, Value" << "\n";
+
+    outStream << "N, ";
+    for(int i = 0; i < ConfigWfesSwitching::N.size() - 1; i++) {
+        if(!(boost::math::isnan)(ConfigWfesSwitching::N[i]))
+            outStream << ConfigWfesSwitching::N[i] << ", ";
+    }
+    if(!(boost::math::isnan)(ConfigWfesSwitching::N[ConfigWfesSwitching::N.size()-1]))
+        outStream << ConfigWfesSwitching::N[ConfigWfesSwitching::N.size()-1] << "\n";
+
+    outStream << "p, ";
+    for(int i = 0; i < ConfigWfesSwitching::p.size() - 1; i++) {
+        if(!(boost::math::isnan)(ConfigWfesSwitching::p[i]))
+            outStream << ConfigWfesSwitching::p[i] << ", ";
+    }
+    if(!(boost::math::isnan)(ConfigWfesSwitching::p[ConfigWfesSwitching::p.size()-1]))
+        outStream << ConfigWfesSwitching::p[ConfigWfesSwitching::p.size()-1] << "\n";
+
+    outStream << "r, ";
+    for(int i = 0; i < ConfigWfesSwitching::r.rows() - 1; i++) {
+        for(int j = 0; j < ConfigWfesSwitching::r.cols() -1; j++) {
+            if(!(boost::math::isnan)(ConfigWfesSwitching::r(i, j)))
+                outStream << ConfigWfesSwitching::r(i, j) << "; ";
+        }
+        if(!(boost::math::isnan)(ConfigWfesSwitching::r(i, ConfigWfesSwitching::r.cols() -1)))
+            outStream << ConfigWfesSwitching::r(i, ConfigWfesSwitching::r.cols() -1);
+        outStream << ", ";
+    }
+    for(int j = 0; j < ConfigWfesSwitching::r.cols() -1; j++) {
+        if(!(boost::math::isnan)(ConfigWfesSwitching::r(ConfigWfesSwitching::r.rows() - 1, j)))
+            outStream << ConfigWfesSwitching::r(ConfigWfesSwitching::r.rows() - 1, j) << "; ";
+    }
+    if(!(boost::math::isnan)(ConfigWfesSwitching::r(ConfigWfesSwitching::r.rows() - 1, ConfigWfesSwitching::r.cols() -1)))
+        outStream << ConfigWfesSwitching::r(ConfigWfesSwitching::r.rows() - 1, ConfigWfesSwitching::r.cols() -1);
+    outStream << "\n";
+
+    outStream << "u, ";
+    for(int i = 0; i < ConfigWfesSwitching::u.size() - 1; i++) {
+        if(!(boost::math::isnan)(ConfigWfesSwitching::u[i]))
+            outStream << ConfigWfesSwitching::u[i] << ", ";
+    }
+    if(!(boost::math::isnan)(ConfigWfesSwitching::u[ConfigWfesSwitching::u.size()-1]))
+        outStream << ConfigWfesSwitching::u[ConfigWfesSwitching::u.size()-1] << "\n";
+
+    outStream << "v, ";
+    for(int i = 0; i < ConfigWfesSwitching::v.size() - 1; i++) {
+        if(!(boost::math::isnan)(ConfigWfesSwitching::v[i]))
+            outStream << ConfigWfesSwitching::v[i] << ", ";
+    }
+    if(!(boost::math::isnan)(ConfigWfesSwitching::v[ConfigWfesSwitching::v.size()-1]))
+        outStream << ConfigWfesSwitching::v[ConfigWfesSwitching::v.size()-1] << "\n";
+
+    outStream << "s, ";
+    for(int i = 0; i < ConfigWfesSwitching::s.size() - 1; i++) {
+        if(!(boost::math::isnan)(ConfigWfesSwitching::s[i]))
+            outStream << ConfigWfesSwitching::s[i] << ", ";
+    }
+    if(!(boost::math::isnan)(ConfigWfesSwitching::s[ConfigWfesSwitching::s.size()-1]))
+        outStream << ConfigWfesSwitching::s[ConfigWfesSwitching::s.size()-1] << "\n";
+
+    outStream << "h, ";
+    for(int i = 0; i < ConfigWfesSwitching::h.size() - 1; i++) {
+        if(!(boost::math::isnan)(ConfigWfesSwitching::h[i]))
+            outStream << ConfigWfesSwitching::h[i] << ", ";
+    }
+    if(!(boost::math::isnan)(ConfigWfesSwitching::h[ConfigWfesSwitching::h.size()-1]))
+        outStream << ConfigWfesSwitching::h[ConfigWfesSwitching::h.size()-1] << "\n";
+
+    if(!(boost::math::isnan)(ConfigWfesSwitching::a))
+        outStream << "a, " << ConfigWfesSwitching::a << "\n";
+
+    if(ConfigWfesSwitching::modelType == ModelTypeWfesSwitching::FIXATION) {
+        if(!(boost::math::isnan)(ConfigWfesSwitching::c))
+            outStream << "c, " << ConfigWfesSwitching::c << "\n";
+    }
+
+
+
+
 
     if(!(boost::math::isnan)(results->pExt))
         outStream << "P_ext, " << results->pExt << "\n";
