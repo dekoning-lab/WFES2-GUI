@@ -9,6 +9,7 @@
 
 #include <boost/math/special_functions/fpclassify.hpp>
 
+#include <model/executables/phase_type/config/configPhaseType.h>
 #include "utils/types.h"
 
 /**

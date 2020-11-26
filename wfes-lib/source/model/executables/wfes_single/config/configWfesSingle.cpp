@@ -38,7 +38,7 @@ void ConfigWfesSingle::saveConfigWfesSingle() {
 
     outStream << "Library: " << QString::fromStdString(ConfigWfesSingle::library) << "\n";
     outStream << "ViennaCL Solver: " << QString::fromStdString(ConfigWfesSingle::vienna_solver) << "\n";
-    outStream << "Model Type: " << QString::fromStdString(ModelTypeNames[ModelTypeWfesSingleToInt(ConfigWfesSingle::modelType)]) << "\n";
+    outStream << "Model Type: " << QString::fromStdString(ModelTypeWfesSingleNames[ModelTypeWfesSingleToInt(ConfigWfesSingle::modelType)]) << "\n";
     outStream << "Population Size (N): " << ConfigWfesSingle::population_size << "\n";
     outStream << "Selection Coefficient (s): " << ConfigWfesSingle::s << "\n";
     outStream << "Dominance Coefficient (h): " << ConfigWfesSingle::h << "\n";

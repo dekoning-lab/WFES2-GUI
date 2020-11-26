@@ -1,5 +1,7 @@
 #include "resultsWfesSequential.h"
 
+using namespace wfes::config;
+
 ResultsWfesSequential::ResultsWfesSequential()
     : pExt(std::nan("")), pFix(std::nan("")), pTmo(std::nan(""))
     , tExt(std::nan("")), tExtStd(std::nan("")), tFix(std::nan(""))
@@ -48,7 +50,74 @@ void ResultsWfesSequential::writeResultsToFile(ResultsWfesSequential *results, s
     QTextStream outStream(&file);
 
     // Header of the file.
+    outStream << "Parameter, Value" << "\n";
+
+    outStream << "N, ";
+    for(int i = 0; i < ConfigWfesSequential::N.size() - 1; i++) {
+        if(!(boost::math::isnan)(ConfigWfesSequential::N[i]))
+            outStream << ConfigWfesSequential::N[i] << ", ";
+    }
+    if(!(boost::math::isnan)(ConfigWfesSequential::N[ConfigWfesSequential::N.size()-1]))
+        outStream << ConfigWfesSequential::N[ConfigWfesSequential::N.size()-1] << "\n";
+
+    outStream << "t, ";
+    for(int i = 0; i < ConfigWfesSequential::t.size() - 1; i++) {
+        if(!(boost::math::isnan)(ConfigWfesSequential::t[i]))
+            outStream << ConfigWfesSequential::t[i] << ", ";
+    }
+    if(!(boost::math::isnan)(ConfigWfesSequential::t[ConfigWfesSequential::t.size()-1]))
+        outStream << ConfigWfesSequential::t[ConfigWfesSequential::t.size()-1] << "\n";
+
+    outStream << "p, ";
+    for(int i = 0; i < ConfigWfesSequential::p.size() - 1; i++) {
+        if(!(boost::math::isnan)(ConfigWfesSequential::p[i]))
+            outStream << ConfigWfesSequential::p[i] << ", ";
+    }
+    if(!(boost::math::isnan)(ConfigWfesSequential::p[ConfigWfesSequential::p.size()-1]))
+        outStream << ConfigWfesSequential::p[ConfigWfesSequential::p.size()-1] << "\n";
+
+    outStream << "u, ";
+    for(int i = 0; i < ConfigWfesSequential::u.size() - 1; i++) {
+        if(!(boost::math::isnan)(ConfigWfesSequential::u[i]))
+            outStream << ConfigWfesSequential::u[i] << ", ";
+    }
+    if(!(boost::math::isnan)(ConfigWfesSequential::u[ConfigWfesSequential::u.size()-1]))
+        outStream << ConfigWfesSequential::u[ConfigWfesSequential::u.size()-1] << "\n";
+
+    outStream << "v, ";
+    for(int i = 0; i < ConfigWfesSequential::v.size() - 1; i++) {
+        if(!(boost::math::isnan)(ConfigWfesSequential::v[i]))
+            outStream << ConfigWfesSequential::v[i] << ", ";
+    }
+    if(!(boost::math::isnan)(ConfigWfesSequential::v[ConfigWfesSequential::v.size()-1]))
+        outStream << ConfigWfesSequential::v[ConfigWfesSequential::v.size()-1] << "\n";
+
+    outStream << "s, ";
+    for(int i = 0; i < ConfigWfesSequential::s.size() - 1; i++) {
+        if(!(boost::math::isnan)(ConfigWfesSequential::s[i]))
+            outStream << ConfigWfesSequential::s[i] << ", ";
+    }
+    if(!(boost::math::isnan)(ConfigWfesSequential::s[ConfigWfesSequential::s.size()-1]))
+        outStream << ConfigWfesSequential::s[ConfigWfesSequential::s.size()-1] << "\n";
+
+    outStream << "h, ";
+    for(int i = 0; i < ConfigWfesSequential::h.size() - 1; i++) {
+        if(!(boost::math::isnan)(ConfigWfesSequential::h[i]))
+            outStream << ConfigWfesSequential::h[i] << ", ";
+    }
+    if(!(boost::math::isnan)(ConfigWfesSequential::h[ConfigWfesSequential::h.size()-1]))
+        outStream << ConfigWfesSequential::h[ConfigWfesSequential::h.size()-1] << "\n";
+
+    if(!(boost::math::isnan)(ConfigWfesSequential::a))
+        outStream << "a, " << ConfigWfesSequential::a << "\n";
+
+    if(!(boost::math::isnan)(ConfigWfesSequential::c))
+        outStream << "c, " << ConfigWfesSequential::c << "\n";
+
+
     outStream << "Result, Value" << "\n";
+
+    outStream << "Executable, " << "WFES Sequential" << "\n";
 
     if(!(boost::math::isnan)(results->pExt))
         outStream << "P_ext, " << results->pExt << "\n";

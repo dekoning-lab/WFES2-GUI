@@ -40,6 +40,11 @@ class wfes_switching : public Subject {
     llong msg_level;
 
     /**
+     * @brief Probabilities of switching between models.
+     */
+    dmat r;
+
+    /**
      * @brief Starts an execution of a wfes single model.
      * @return Results of the execution.
      */
