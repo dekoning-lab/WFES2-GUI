@@ -192,7 +192,11 @@ void ResultsWfesSingle::writeResultsToFile(ResultsWfesSingle *results, std::stri
     QTextStream outStream(&file);
 
     // Header of the file.
-    outStream << "Result, Value" << "\n";
+    outStream << "Parameter, Value" << "\n";
+
+    outStream << "Executable, " << "WFES Single" << "\n";
+
+    outStream << "Model type, " << ModelTypeWfesSingleNames[ConfigWfesSingle::ModelTypeWfesSingleToInt(ConfigWfesSingle::modelType)] << "\n";
 
     if(!(boost::math::isnan)(ConfigWfesSingle::population_size))
         outStream << "N, " << ConfigWfesSingle::population_size << "\n";
@@ -245,6 +249,8 @@ void ResultsWfesSingle::writeResultsToFile(ResultsWfesSingle *results, std::stri
         default:
             break;
     }
+
+    outStream << "Result, Value" << "\n";
 
     if(!(boost::math::isnan)(results->pExt))
         outStream << "P_ext, " << results->pExt << "\n";

@@ -43,8 +43,11 @@ void ResultsWfesSweep::writeResultsToFile(ResultsWfesSweep *results, std::string
     QTextStream outStream(&file);
 
     // Header of the file.
-    outStream << "Result, Value" << "\n";
+    outStream << "Parameter, Value" << "\n";
 
+    outStream << "Executable, " << "WFES Sweep" << "\n";
+
+    outStream << "Model type, " << ModelTypeWfesSweepNames[ConfigWfesSweep::ModelTypeWfesSweepToInt(ConfigWfesSweep::modelType)] << "\n";
 
     if(!(boost::math::isnan)(ConfigWfesSweep::population_size))
         outStream << "N, " << ConfigWfesSweep::population_size << "\n";
@@ -93,9 +96,7 @@ void ResultsWfesSweep::writeResultsToFile(ResultsWfesSweep *results, std::string
     if(!(boost::math::isnan)(ConfigWfesSweep::h[ConfigWfesSweep::h.size()-1]))
         outStream << ConfigWfesSweep::h[ConfigWfesSweep::h.size()-1] << "\n";
 
-
-
-
+    outStream << "Result, Value" << "\n";
 
     if(!(boost::math::isnan)(results->tFix))
         outStream << "T_fix, " << results->tFix << "\n";

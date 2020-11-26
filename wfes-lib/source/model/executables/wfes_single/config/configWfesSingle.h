@@ -23,7 +23,7 @@ namespace wfes {
         /**
          * @brief Model Type Names as string, same order as enumeration above to obtain the name of a given enumeration value.
          */
-        static const char *ModelTypeNames[] = { "None", "Absorption", "Fixation", "Establishment", "Fundamental", "Equilibrium", "Non Absorbing", "Allele Age"};
+        static const char *ModelTypeWfesSingleNames[] = { "None", "Absorption", "Fixation", "Establishment", "Fundamental", "Equilibrium", "Non Absorbing", "Allele Age"};
 
         /**
          * @brief The ConfigWfesSingle class contains the configuration parameters of Wfes Single as well as some functions for

@@ -281,25 +281,25 @@ void InputControllerWfesSingle::set_force(bool force) const {
 }
 
 QString InputControllerWfesSingle::get_model_type() const {
-    return wfes::config::ModelTypeNames[wfes::config::ConfigWfesSingle::ModelTypeWfesSingleToInt(wfes::config::ConfigWfesSingle::modelType)];
+    return wfes::config::ModelTypeWfesSingleNames[wfes::config::ConfigWfesSingle::ModelTypeWfesSingleToInt(wfes::config::ConfigWfesSingle::modelType)];
 }
 
 void InputControllerWfesSingle::set_model_type(QString model_type) const {
-    if(model_type.compare(wfes::config::ModelTypeNames[wfes::config::ConfigWfesSingle::ModelTypeWfesSingleToInt(wfes::config::ModelTypeWfesSingle::NONE)]) == 0)
+    if(model_type.compare(wfes::config::ModelTypeWfesSingleNames[wfes::config::ConfigWfesSingle::ModelTypeWfesSingleToInt(wfes::config::ModelTypeWfesSingle::NONE)]) == 0)
         wfes::config::ConfigWfesSingle::modelType = wfes::config::ModelTypeWfesSingle::NONE;
-    if(model_type.compare(wfes::config::ModelTypeNames[wfes::config::ConfigWfesSingle::ModelTypeWfesSingleToInt(wfes::config::ModelTypeWfesSingle::FIXATION)]) == 0)
+    if(model_type.compare(wfes::config::ModelTypeWfesSingleNames[wfes::config::ConfigWfesSingle::ModelTypeWfesSingleToInt(wfes::config::ModelTypeWfesSingle::FIXATION)]) == 0)
         wfes::config::ConfigWfesSingle::modelType = wfes::config::ModelTypeWfesSingle::FIXATION;
-    if(model_type.compare(wfes::config::ModelTypeNames[wfes::config::ConfigWfesSingle::ModelTypeWfesSingleToInt(wfes::config::ModelTypeWfesSingle::ABSORPTION)]) == 0)
+    if(model_type.compare(wfes::config::ModelTypeWfesSingleNames[wfes::config::ConfigWfesSingle::ModelTypeWfesSingleToInt(wfes::config::ModelTypeWfesSingle::ABSORPTION)]) == 0)
         wfes::config::ConfigWfesSingle::modelType = wfes::config::ModelTypeWfesSingle::ABSORPTION;
-    if(model_type.compare(wfes::config::ModelTypeNames[wfes::config::ConfigWfesSingle::ModelTypeWfesSingleToInt(wfes::config::ModelTypeWfesSingle::ESTABLISHMENT)]) == 0)
+    if(model_type.compare(wfes::config::ModelTypeWfesSingleNames[wfes::config::ConfigWfesSingle::ModelTypeWfesSingleToInt(wfes::config::ModelTypeWfesSingle::ESTABLISHMENT)]) == 0)
         wfes::config::ConfigWfesSingle::modelType = wfes::config::ModelTypeWfesSingle::ESTABLISHMENT;
-    if(model_type.compare(wfes::config::ModelTypeNames[wfes::config::ConfigWfesSingle::ModelTypeWfesSingleToInt(wfes::config::ModelTypeWfesSingle::FUNDAMENTAL)]) == 0)
+    if(model_type.compare(wfes::config::ModelTypeWfesSingleNames[wfes::config::ConfigWfesSingle::ModelTypeWfesSingleToInt(wfes::config::ModelTypeWfesSingle::FUNDAMENTAL)]) == 0)
         wfes::config::ConfigWfesSingle::modelType = wfes::config::ModelTypeWfesSingle::FUNDAMENTAL;
-    if(model_type.compare(wfes::config::ModelTypeNames[wfes::config::ConfigWfesSingle::ModelTypeWfesSingleToInt(wfes::config::ModelTypeWfesSingle::EQUILIBRIUM)]) == 0)
+    if(model_type.compare(wfes::config::ModelTypeWfesSingleNames[wfes::config::ConfigWfesSingle::ModelTypeWfesSingleToInt(wfes::config::ModelTypeWfesSingle::EQUILIBRIUM)]) == 0)
         wfes::config::ConfigWfesSingle::modelType = wfes::config::ModelTypeWfesSingle::EQUILIBRIUM;
-    if(model_type.compare(wfes::config::ModelTypeNames[wfes::config::ConfigWfesSingle::ModelTypeWfesSingleToInt(wfes::config::ModelTypeWfesSingle::NON_ABSORBING)]) == 0)
+    if(model_type.compare(wfes::config::ModelTypeWfesSingleNames[wfes::config::ConfigWfesSingle::ModelTypeWfesSingleToInt(wfes::config::ModelTypeWfesSingle::NON_ABSORBING)]) == 0)
         wfes::config::ConfigWfesSingle::modelType = wfes::config::ModelTypeWfesSingle::NON_ABSORBING;
-    if(model_type.compare(wfes::config::ModelTypeNames[wfes::config::ConfigWfesSingle::ModelTypeWfesSingleToInt(wfes::config::ModelTypeWfesSingle::ALLELE_AGE)]) == 0)
+    if(model_type.compare(wfes::config::ModelTypeWfesSingleNames[wfes::config::ConfigWfesSingle::ModelTypeWfesSingleToInt(wfes::config::ModelTypeWfesSingle::ALLELE_AGE)]) == 0)
         wfes::config::ConfigWfesSingle::modelType = wfes::config::ModelTypeWfesSingle::ALLELE_AGE;
 }
 

@@ -53,7 +53,11 @@ void ResultsWfesSwitching::writeResultsToFile(ResultsWfesSwitching *results, std
     QTextStream outStream(&file);
 
     // Header of the file.
-    outStream << "Result, Value" << "\n";
+    outStream << "Parameter, Value" << "\n";
+
+    outStream << "Executable, " << "WFES Switching" << "\n";
+
+    outStream << "Model type, " << ModelTypeWfesSwitchingNames[ConfigWfesSwitching::ModelTypeWfesSwitchingToInt(ConfigWfesSwitching::modelType)] << "\n";
 
     outStream << "N, ";
     for(int i = 0; i < ConfigWfesSwitching::N.size() - 1; i++) {
@@ -129,9 +133,7 @@ void ResultsWfesSwitching::writeResultsToFile(ResultsWfesSwitching *results, std
             outStream << "c, " << ConfigWfesSwitching::c << "\n";
     }
 
-
-
-
+    outStream << "Result, Value" << "\n";
 
     if(!(boost::math::isnan)(results->pExt))
         outStream << "P_ext, " << results->pExt << "\n";

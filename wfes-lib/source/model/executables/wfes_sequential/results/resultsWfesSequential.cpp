@@ -50,7 +50,7 @@ void ResultsWfesSequential::writeResultsToFile(ResultsWfesSequential *results, s
     QTextStream outStream(&file);
 
     // Header of the file.
-    outStream << "Result, Value" << "\n";
+    outStream << "Parameter, Value" << "\n";
 
     outStream << "N, ";
     for(int i = 0; i < ConfigWfesSequential::N.size() - 1; i++) {
@@ -113,6 +113,11 @@ void ResultsWfesSequential::writeResultsToFile(ResultsWfesSequential *results, s
 
     if(!(boost::math::isnan)(ConfigWfesSequential::c))
         outStream << "c, " << ConfigWfesSequential::c << "\n";
+
+
+    outStream << "Result, Value" << "\n";
+
+    outStream << "Executable, " << "WFES Sequential" << "\n";
 
     if(!(boost::math::isnan)(results->pExt))
         outStream << "P_ext, " << results->pExt << "\n";

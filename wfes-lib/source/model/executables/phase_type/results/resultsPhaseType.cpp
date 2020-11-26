@@ -42,8 +42,11 @@ void ResultsPhaseType::writeResultsToFile(ResultsPhaseType *results, std::string
     QTextStream outStream(&file);
 
     // Header of the file.
-    outStream << "Result, Value" << "\n";
+    outStream << "Parameter, Value" << "\n";
 
+    outStream << "Executable, " << "Phase Type" << "\n";
+
+    outStream << "Model type, " << ModelTypePhaseTypeNames[ConfigPhaseType::ModelTypePhaseTypeToInt(ConfigPhaseType::modelType)] << "\n";
 
     if(!(boost::math::isnan)(ConfigPhaseType::population_size))
         outStream << "N, " << ConfigPhaseType::population_size << "\n";
@@ -75,6 +78,8 @@ void ResultsPhaseType::writeResultsToFile(ResultsPhaseType *results, std::string
         if(!(boost::math::isnan)(ConfigPhaseType::k))
             outStream << "k, " << ConfigPhaseType::k << "\n";
     }
+
+    outStream << "Result, Value" << "\n";
 
     if(!(boost::math::isnan)(results->mean))
         outStream << "Mean, " << results->mean << "\n";
