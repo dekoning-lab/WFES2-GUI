@@ -661,6 +661,16 @@ ApplicationWindow {
                             visible: (inputControllerWfesSwitching.ui_modelType == "Fixation")
                         }
 
+
+                        Button {
+                            text: "Copy to Clipboard"
+
+                            Layout.alignment: Qt.AlignHCenter
+
+                            onClicked: {
+
+                            }
+                        }
                         //Vectors P_cond_ext, V_cond_ext... cannot be shown in the GUI, takes too much space, so
                         //those vectors are printed directly into the csv file.
                     }

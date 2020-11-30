@@ -1326,6 +1326,20 @@ ApplicationWindow {
                                 readOnly: true
                                 visible: radioButtonAlleleAge.checked
                             }
+
+                            Button {
+                                text: "Copy to Clipboard"
+
+                                visible: {
+                                    !radioButtonNonAbsorbing.checked && !radioButtonFundamental.checked
+                                }
+
+                                Layout.alignment: Qt.AlignHCenter
+
+                                onClicked: {
+
+                                }
+                            }
                         }
 
                     }
