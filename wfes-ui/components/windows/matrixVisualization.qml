@@ -9,11 +9,12 @@ import components 1.0
 
 
 ApplicationWindow {
-    id: rootHelp
+    property alias visibleWindow: rootMatrixVisualization.visible
+
+    id: rootMatrixVisualization
     title: qsTr("WFES - Wright-Fisher Exact Solver")
 
     visible: true
-
 
     width: 500
     minimumWidth: 500
@@ -28,7 +29,7 @@ ApplicationWindow {
     color: Universal.chromeLowColor
 
     onClosing: {
-        rootHelp.hide();
+        rootMatrixVisualization.hide();
     }
 
     // Center window in screen.

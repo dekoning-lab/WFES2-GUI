@@ -9,9 +9,9 @@ import assets 1.0
 import components 1.0
 
 ApplicationWindow {
-    property alias visibleWindow: rootChart.visible
+    property alias visibleWindow: rootChartVisualization.visible
 
-    id: rootChart
+    id: rootChartVisualization
     title: qsTr("WFES - Wright-Fisher Exact Solver")
 
     visible: visibleWindow
@@ -35,7 +35,7 @@ ApplicationWindow {
     }
 
     onClosing: {
-        rootChart.hide()
+        rootChartVisualization.hide()
     }
 
     ChartView {

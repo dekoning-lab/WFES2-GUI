@@ -17,6 +17,7 @@ Rectangle {
         margins: 20
     }
     color: "transparent"
+
     RowLayout {
         id: row3
 
@@ -29,15 +30,13 @@ Rectangle {
         Button {
             text: "About"
             onClicked: {
-                var h = Qt.createComponent("qrc:/views/mainview/help/helpView.qml")
-                if( h.status !== Component.Ready )
-                {
-                    if( h.status === Component.Error )
-                        console.debug("Error:"+ h.errorString() );
-                    return;
-                }
-                var windowPhaseType    = h.createObject(root, {})
+                helpView.visible = true
             }
         }
+    }
+
+    HelpView {
+        id:helpView
+        visibleWindow: false
     }
 }

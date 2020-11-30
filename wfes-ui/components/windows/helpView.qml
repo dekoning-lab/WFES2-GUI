@@ -8,6 +8,8 @@ import assets 1.0
 import components 1.0
 
 ApplicationWindow {
+    property alias visibleWindow: rootHelp.visible
+
     id: rootHelp
     title: qsTr("WFES - Wright-Fisher Exact Solver")
 

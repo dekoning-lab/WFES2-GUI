@@ -10,6 +10,8 @@
         <file alias="DynamicTabView.qml">components/DynamicTabView.qml</file>
         <file alias="DisplayImage.qml">components/DisplayImage.qml</file>
         <file alias="windows/chartVisualization.qml">components/windows/chartVisualization.qml</file>
+        <file alias="windows/matrixVisualization.qml">components/windows/matrixVisualization.qml</file>
+        <file alias="windows/helpView.qml">components/windows/helpView.qml</file>
 
         <file alias="executionviews/wfesSingleView.qml">components/executionviews/WfesSingleView.qml</file>
         <file alias="executionviews/wfesSweepView.qml">components/executionviews/wfesSweepView.qml</file>

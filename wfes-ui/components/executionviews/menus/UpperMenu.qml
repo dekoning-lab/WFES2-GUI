@@ -109,15 +109,7 @@ Rectangle {
                 MenuItem {
                     text: "Matrix Visualization"
                     onClicked: {
-                        var visualizer = Qt.createComponent("qrc:/views/visualization/matrixVisualization.qml")
-                        if( visualizer.status !== Component.Ready )
-                        {
-                            if( visualizer.status === Component.Error )
-                                console.debug("Error:"+ visualizer.errorString() );
-                            return;
-                        }
-                        var windowvisualizer = visualizer.createObject(upperMenu, {})
-                        windowvisualizer.visible
+                        matrixVisualization.visible = true
                     }
                 }
 
@@ -163,15 +155,7 @@ Rectangle {
                 MenuItem {
                     text: "About"
                     onClicked: {
-                        var h = Qt.createComponent("qrc:/views/mainview/help/helpView.qml")
-                        if( h.status !== Component.Ready )
-                        {
-                            if( h.status === Component.Error )
-                                console.debug("Error:"+ h.errorString() );
-                            return;
-                        }
-                        var windowh = h.createObject(upperMenu.parent.parent, {})
-                        windowh.visible
+                        helpView.visible = true
                     }
                 }
             }
@@ -180,6 +164,16 @@ Rectangle {
 
     ChartVisualization {
         id:chartVisualization
+        visibleWindow: false
+    }
+
+    MatrixVisualization {
+        id:matrixVisualization
+        visibleWindow: false
+    }
+
+    HelpView {
+        id:helpView
         visibleWindow: false
     }
 

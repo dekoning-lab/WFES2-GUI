@@ -8,6 +8,8 @@ LabeledComboBox 1.0 LabeledComboBox.qml
 DynamicTabView 1.0 DynamicTabView.qml
 DisplayImage 1.0 DisplayImage.qml
 ChartVisualization 1.0 windows/chartVisualization.qml
+MatrixVisualization 1.0 windows/matrixVisualization.qml
+HelpView 1.0 windows/helpView.qml
 
 WfesSingleView 1.0 executionviews/wfesSingleView.qml
 WfesSweepView 1.0 executionviews/wfesSweepView.qml
