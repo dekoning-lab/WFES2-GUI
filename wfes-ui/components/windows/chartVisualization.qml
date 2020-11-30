@@ -398,6 +398,7 @@ ApplicationWindow {
     Button {
         id: scaleButton
         text: "Log10 Scale"
+        width: 100
         anchors {
             right: parent.right
             bottom: parent.bottom
