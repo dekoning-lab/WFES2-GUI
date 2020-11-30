@@ -43,7 +43,7 @@ ApplicationWindow {
         title: "A chart will appear here when you execute an executable with Dist, Moments or Probs (P)."
         anchors.fill: parent
         antialiasing: true
-        anchors { fill: parent; margins: -10 }
+        anchors { fill: parent; margins: -10;}
         legend.alignment: Qt.AlignRight
         legend.font.pointSize: 12
 
@@ -297,92 +297,101 @@ ApplicationWindow {
 
     }
 
-    Button {
-        id: bt1
-        text: "Data 1"
-        enabled: false
+    ColumnLayout {
+
         anchors {
+            top: parent.top
             right: parent.right
         }
-        onClicked: {
-            if(scaleButton.text != "Linear Scale") {
-                chart1Linear.visible = true
-                chart2Linear.visible = false
-                chart3Linear.visible = false
-                chart1Log.visible = false
-                chart2Log.visible = false
-                chart3Log.visible = false
-            } else {
-                chart1Linear.visible = false
-                chart2Linear.visible = false
-                chart3Linear.visible = false
-                chart1Log.visible = true
-                chart2Log.visible = false
-                chart3Log.visible = false
+
+        Button {
+            id: bt1
+            text: "Data 1"
+
+            Layout.preferredWidth: 100
+
+            enabled: false
+
+            onClicked: {
+                if(scaleButton.text != "Linear Scale") {
+                    chart1Linear.visible = true
+                    chart2Linear.visible = false
+                    chart3Linear.visible = false
+                    chart1Log.visible = false
+                    chart2Log.visible = false
+                    chart3Log.visible = false
+                } else {
+                    chart1Linear.visible = false
+                    chart2Linear.visible = false
+                    chart3Linear.visible = false
+                    chart1Log.visible = true
+                    chart2Log.visible = false
+                    chart3Log.visible = false
+                }
+                    bt1.enabled = false
+                    bt2.enabled = true
+                    bt3.enabled = true
             }
-                bt1.enabled = false
-                bt2.enabled = true
+        }
+
+        Button {
+            id: bt2
+            text: "Data 2"
+
+            Layout.preferredWidth: 100
+
+            enabled: true
+
+            onClicked: {
+                if(scaleButton.text != "Linear Scale") {
+                    chart1Linear.visible = false
+                    chart2Linear.visible = true
+                    chart3Linear.visible = false
+                    chart1Log.visible = false
+                    chart2Log.visible = false
+                    chart3Log.visible = false
+                } else {
+                    chart1Linear.visible = false
+                    chart2Linear.visible = false
+                    chart3Linear.visible = false
+                    chart1Log.visible = false
+                    chart2Log.visible = true
+                    chart3Log.visible = false
+                }
+                bt1.enabled = true
+                bt2.enabled = false
                 bt3.enabled = true
-        }
-    }
-
-    Button {
-        id: bt2
-        text: "Data 2"
-        enabled: true
-        anchors {
-            right: parent.right
-            top: bt1.bottom
-        }
-        onClicked: {
-            if(scaleButton.text != "Linear Scale") {
-                chart1Linear.visible = false
-                chart2Linear.visible = true
-                chart3Linear.visible = false
-                chart1Log.visible = false
-                chart2Log.visible = false
-                chart3Log.visible = false
-            } else {
-                chart1Linear.visible = false
-                chart2Linear.visible = false
-                chart3Linear.visible = false
-                chart1Log.visible = false
-                chart2Log.visible = true
-                chart3Log.visible = false
             }
-            bt1.enabled = true
-            bt2.enabled = false
-            bt3.enabled = true
         }
-    }
 
-    Button {
-        id: bt3
-        text: "Data 3"
-        enabled: true
-        anchors {
-            right: parent.right
-            top: bt2.bottom
-        }
-        onClicked: {
-            if(scaleButton.text != "Linear Scale") {
-                chart1Linear.visible = false
-                chart2Linear.visible = false
-                chart3Linear.visible = true
-                chart1Log.visible = false
-                chart2Log.visible = false
-                chart3Log.visible = false
-            } else {
-                chart1Linear.visible = false
-                chart2Linear.visible = false
-                chart3Linear.visible = false
-                chart1Log.visible = false
-                chart2Log.visible = false
-                chart3Log.visible = true
+        Button {
+            id: bt3
+            text: "Data 3"
+
+            Layout.preferredWidth: 100
+
+            enabled: true
+
+            onClicked: {
+                if(scaleButton.text != "Linear Scale") {
+                    chart1Linear.visible = false
+                    chart2Linear.visible = false
+                    chart3Linear.visible = true
+                    chart1Log.visible = false
+                    chart2Log.visible = false
+                    chart3Log.visible = false
+                } else {
+                    chart1Linear.visible = false
+                    chart2Linear.visible = false
+                    chart3Linear.visible = false
+                    chart1Log.visible = false
+                    chart2Log.visible = false
+                    chart3Log.visible = true
+                }
+                bt1.enabled = true
+                bt2.enabled = true
+                bt3.enabled = false
             }
-            bt1.enabled = true
-            bt2.enabled = true
-            bt3.enabled = false
         }
     }
 
@@ -502,6 +511,12 @@ ApplicationWindow {
         axisX.max = maxX
     }
 
+    function changeButtonsName(name_bt_1, name_bt_2, name_bt_3) {
+        bt1.text = name_bt_1
+        bt2.text = name_bt_2
+        bt3.text = name_bt_3
+    }
+
     function updatePhaseTypeDistChart() {
         var minMaxDist = chartResults.updateChart("Phase Type Dist.", chart1Linear.series(0));
         var minMaxAcum = chartResults.updateChart("Phase Type Acum.", chart2Linear.series(0));
@@ -510,6 +525,7 @@ ApplicationWindow {
 
         visibleButtons(true, true, false)
         enableButtons(false, true, true)
+        changeButtonsName("Subs.", "Acum.", "")
 
         visibleChart(true, false, false)
 
@@ -534,6 +550,7 @@ ApplicationWindow {
 
         visibleButtons(false, false, false)
         enableButtons(false, true, true)
+        changeButtonsName("Dist.", "", "")
 
         visibleChart(true, false, false)
 
@@ -554,6 +571,7 @@ ApplicationWindow {
 
         visibleButtons(false, false, false)
         enableButtons(false, true, true)
+        changeButtonsName("Dist.", "", "")
 
         visibleChart(true, false, false)
 
@@ -584,6 +602,7 @@ ApplicationWindow {
 
             visibleButtons(true, true, true)
             enableButtons(false, true, true)
+            changeButtonsName("Ext.", "Fix.", "Abs.")
 
             visibleChart(true, false, false)
 
@@ -618,6 +637,7 @@ ApplicationWindow {
 
             visibleButtons(true, true, false)
             enableButtons(false, true, true)
+            changeButtonsName("Subs.", "Acum.", "")
 
             visibleChart(true, false, false)
 
@@ -642,6 +662,7 @@ ApplicationWindow {
 
             visibleButtons(true, true, false)
             enableButtons(false, true, true)
+            changeButtonsName("Subs.", "Acum.", "")
 
             visibleChart(true, false, false)
 
@@ -671,6 +692,7 @@ ApplicationWindow {
 
             visibleButtons(true, true, true)
             enableButtons(false, true, true)
+            changeButtonsName("Ext.", "Fix.", "Abs.")
 
             visibleChart(true, false, false)
 
