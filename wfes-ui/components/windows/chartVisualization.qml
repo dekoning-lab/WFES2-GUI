@@ -519,18 +519,20 @@ ApplicationWindow {
 
         setSeriesName("Probability of subs.", "", "Cumulative prob. of subs.", "", "", "")
 
-        setValuesAxis(axisXLinear, axisYLinear, 1, lineSeries0Chart1.count, minMaxDist.x, minMaxDist.y)
-        setValuesAxis(axisX1Log, axisY1Log, 1, lineSeries0Chart1Log.count, minMaxDist.x, minMaxDist.y)
+        var axisPadding = ((minMaxDist.y - minMaxDist.x) - minMaxDist.x) * 0.01
+        setValuesAxis(axisXLinear, axisYLinear, 1, lineSeries0Chart1.count, minMaxDist.x - axisPadding, minMaxDist.y + axisPadding)
+        setValuesAxis(axisX1Log, axisY1Log, 1, lineSeries0Chart1Log.count, minMaxDist.x - axisPadding, minMaxDist.y + axisPadding)
 
-        setValuesAxis(axisX2Linear, axisY2Linear, 1, lineSeries0Chart2.count, minMaxAcum.x, minMaxAcum.y)
-        setValuesAxis(axisX2Log, axisY2Log, 1, lineSeries0Chart2Log.count, minMaxAcum.x, minMaxAcum.y)
+        axisPadding = ((minMaxAcum.y - minMaxAcum.x) - minMaxAcum.x) * 0.01
+        setValuesAxis(axisX2Linear, axisY2Linear, 1, lineSeries0Chart2.count, minMaxAcum.x - axisPadding, minMaxAcum.y + axisPadding)
+        setValuesAxis(axisX2Log, axisY2Log, 1, lineSeries0Chart2Log.count, minMaxAcum.x - axisPadding, minMaxAcum.y + axisPadding)
     }
 
     function updateDistWfas() {
         var minMaxDist = chartResults.updateChart("Wfas Dist.", chart1Linear.series(0));
         minMaxDist = chartResults.updateChart("Wfas Dist.", chart1Log.series(0));
 
-        visibleButtons(true, false, false)
+        visibleButtons(false, false, false)
         enableButtons(false, true, true)
 
         visibleChart(true, false, false)
@@ -541,15 +543,16 @@ ApplicationWindow {
 
         setSeriesName("Allele frequency distribution", "", "", "", "", "")
 
-        setValuesAxis(axisXLinear, axisYLinear, 1, lineSeries0Chart1.count, minMaxDist.x, minMaxDist.y)
-        setValuesAxis(axisX1Log, axisY1Log, 1, lineSeries0Chart1Log.count, minMaxDist.x, minMaxDist.y)
+        var axisPadding = ((minMaxDist.y - minMaxDist.x) - minMaxDist.x) * 0.01
+        setValuesAxis(axisXLinear, axisYLinear, 1, lineSeries0Chart1.count, minMaxDist.x - axisPadding, minMaxDist.y + axisPadding)
+        setValuesAxis(axisX1Log, axisY1Log, 1, lineSeries0Chart1Log.count, minMaxDist.x - axisPadding, minMaxDist.y + axisPadding)
     }
 
     function updateDistWfafle() {
         var minMaxDist = chartResults.updateChart("Wfafle Dist.", chart1Linear.series(0));
         minMaxDist = chartResults.updateChart("Wfafle Dist.", chart1Log.series(0));
 
-        visibleButtons(true, false, false)
+        visibleButtons(false, false, false)
         enableButtons(false, true, true)
 
         visibleChart(true, false, false)
@@ -560,13 +563,15 @@ ApplicationWindow {
 
         setSeriesName("Allele frequency distribution", "", "", "", "", "")
 
-        setValuesAxis(axisXLinear, axisYLinear, 1, lineSeries0Chart1.count, minMaxDist.x, minMaxDist.y)
-        setValuesAxis(axisX1Log, axisY1Log, 1, lineSeries0Chart1Log.count, minMaxDist.x, minMaxDist.y)
+        var axisPadding = ((minMaxDist.y - minMaxDist.x) - minMaxDist.x) * 0.01
+        setValuesAxis(axisXLinear, axisYLinear, 1, lineSeries0Chart1.count, minMaxDist.x - axisPadding, minMaxDist.y + axisPadding)
+        setValuesAxis(axisX1Log, axisY1Log, 1, lineSeries0Chart1Log.count, minMaxDist.x - axisPadding, minMaxDist.y + axisPadding)
     }
 
     function updateProbTimeDist(name) {
         var minChart3;
         var maxChart3;
+        var axisPadding;
         if(name === "Time Dist.") {
             var minMaxExt = chartResults.updateChart("Time Dist. Ext.", chart1Linear.series(0));
             var minMaxFix = chartResults.updateChart("Time Dist. Fix.", chart2Linear.series(0));
@@ -588,20 +593,23 @@ ApplicationWindow {
 
             setSeriesName("Probability of ext.", "", "Probability of fix.", "", "Probability of abs.", "Cumulative prob. of abs.")
 
-            setValuesAxis(axisXLinear, axisYLinear, 1, lineSeries0Chart1.count, minMaxExt.x, minMaxExt.y)
-            setValuesAxis(axisX1Log, axisY1Log, 1, lineSeries0Chart1Log.count, minMaxExt.x, minMaxExt.y)
+            axisPadding = ((minMaxExt.y - minMaxExt.x) - minMaxExt.x) * 0.01
+            setValuesAxis(axisXLinear, axisYLinear, 1, lineSeries0Chart1.count, minMaxExt.x - axisPadding, minMaxExt.y + axisPadding)
+            setValuesAxis(axisX1Log, axisY1Log, 1, lineSeries0Chart1Log.count, minMaxExt.x - axisPadding, minMaxExt.y + axisPadding)
 
-            setValuesAxis(axisX2Linear, axisY2Linear, 1, lineSeries0Chart2.count, minMaxFix.x, minMaxFix.y)
-            setValuesAxis(axisX2Log, axisY2Log, 1, lineSeries0Chart2Log.count, minMaxFix.x, minMaxFix.y)
+            axisPadding = ((minMaxFix.y - minMaxFix.x) - minMaxFix.x) * 0.01
+            setValuesAxis(axisX2Linear, axisY2Linear, 1, lineSeries0Chart2.count, minMaxFix.x - axisPadding, minMaxFix.y + axisPadding)
+            setValuesAxis(axisX2Log, axisY2Log, 1, lineSeries0Chart2Log.count, minMaxFix.x - axisPadding, minMaxFix.y + axisPadding)
 
             minChart3 = Math.min(minMaxAbs.x, minMaxAcum.x)
             maxChart3 = Math.max(minMaxAbs.y, minMaxAcum.y)
 
-            setValuesAxis(axisX3Linear, axisY3Linear, 1, lineSeries0Chart3.count, minChart3, maxChart3)
-            setValuesAxis(axisX3Log, axisY3Log, 1, lineSeries0Chart3Log.count, minChart3, maxChart3)
+            axisPadding = ((maxChart3 - maxChart3) - minChart3) * 0.01
+            setValuesAxis(axisX3Linear, axisY3Linear, 1, lineSeries0Chart3.count, minChart3 - axisPadding, maxChart3 + axisPadding)
+            setValuesAxis(axisX3Log, axisY3Log, 1, lineSeries0Chart3Log.count, minChart3 - axisPadding, maxChart3 + axisPadding)
 
-            setValuesAxis(axisX3Linear, axisY3Linear, 1, lineSeries1Chart3.count, minChart3, maxChart3)
-            setValuesAxis(axisX3Log, axisY3Log, 1, lineSeries1Chart3Log.count, minChart3, maxChart3)
+            setValuesAxis(axisX3Linear, axisY3Linear, 1, lineSeries1Chart3.count, minChart3 - axisPadding, maxChart3 + axisPadding)
+            setValuesAxis(axisX3Log, axisY3Log, 1, lineSeries1Chart3Log.count, minChart3 - axisPadding, maxChart3 + axisPadding)
         } else if(name === "Time Dist. SGV") {
             var minMaxSGVSubs = chartResults.updateChart("Time Dist. SGV Sub.", chart1Linear.series(0));
             var minMaxSGVAcum = chartResults.updateChart("Time Dist. SGV Acum.", chart2Linear.series(0));
@@ -619,11 +627,13 @@ ApplicationWindow {
 
             setSeriesName("Probability of subs.", "", "Cumulative prob. of subs.", "", "", "")
 
-            setValuesAxis(axisXLinear, axisYLinear, 1, lineSeries0Chart1.count, minMaxSGVSubs.x, minMaxSGVSubs.y)
-            setValuesAxis(axisX1Log, axisY1Log, 1, lineSeries0Chart1Log.count, minMaxSGVSubs.x, minMaxSGVSubs.y)
+            axisPadding = ((minMaxSGVSubs.y - minMaxSGVSubs.x) - minMaxSGVSubs.x) * 0.01
+            setValuesAxis(axisXLinear, axisYLinear, 1, lineSeries0Chart1.count, minMaxSGVSubs.x - axisPadding, minMaxSGVSubs.y + axisPadding)
+            setValuesAxis(axisX1Log, axisY1Log, 1, lineSeries0Chart1Log.count, minMaxSGVSubs.x - axisPadding, minMaxSGVSubs.y + axisPadding)
 
-            setValuesAxis(axisX2Linear, axisY2Linear, 1, lineSeries0Chart2.count, minMaxSGVAcum.x, minMaxSGVAcum.y)
-            setValuesAxis(axisX2Log, axisY2Log, 1, lineSeries0Chart2Log.count, minMaxSGVAcum.x, minMaxSGVAcum.y)
+            axisPadding = ((minMaxSGVAcum.y - minMaxSGVAcum.x) - minMaxSGVAcum.x) * 0.01
+            setValuesAxis(axisX2Linear, axisY2Linear, 1, lineSeries0Chart2.count, minMaxSGVAcum.x - axisPadding, minMaxSGVAcum.y + axisPadding)
+            setValuesAxis(axisX2Log, axisY2Log, 1, lineSeries0Chart2Log.count, minMaxSGVAcum.x - axisPadding, minMaxSGVAcum.y + axisPadding)
         } else if(name === "Time Dist. Skip") {
             var minMaxSkipSubs = chartResults.updateChart("Time Dist. Skip Sub.", chart1Linear.series(0));
             var minMaxSkipAcum = chartResults.updateChart("Time Dist. Skip Acum.", chart2Linear.series(0));
@@ -641,11 +651,13 @@ ApplicationWindow {
 
             setSeriesName("Probability of subs.", "", "Cumulative prob. of subs.", "", "", "")
 
-            setValuesAxis(axisXLinear, axisYLinear, 1, lineSeries0Chart1.count, minMaxSkipSubs.x, minMaxSkipSubs.y)
-            setValuesAxis(axisX1Log, axisY1Log, 1, lineSeries0Chart1Log.count, minMaxSkipSubs.x, minMaxSkipSubs.y)
+            axisPadding = ((minMaxSkipSubs.y - minMaxSkipSubs.x) - minMaxSkipSubs.x) * 0.01
+            setValuesAxis(axisXLinear, axisYLinear, 1, lineSeries0Chart1.count, minMaxSkipSubs.x - axisPadding, minMaxSkipSubs.y + axisPadding)
+            setValuesAxis(axisX1Log, axisY1Log, 1, lineSeries0Chart1Log.count, minMaxSkipSubs.x - axisPadding, minMaxSkipSubs.y + axisPadding)
 
-            setValuesAxis(axisX2Linear, axisY2Linear, 1, lineSeries0Chart2.count, minMaxSkipAcum.x, minMaxSkipAcum.y)
-            setValuesAxis(axisX2Log, axisY2Log, 1, lineSeries0Chart2Log.count, minMaxSkipAcum.x, minMaxSkipAcum.y)
+            axisPadding = ((minMaxSkipAcum.y - minMaxSkipAcum.x) - minMaxSkipAcum.x) * 0.01
+            setValuesAxis(axisX2Linear, axisY2Linear, 1, lineSeries0Chart2.count, minMaxSkipAcum.x - axisPadding, minMaxSkipAcum.y + axisPadding)
+            setValuesAxis(axisX2Log, axisY2Log, 1, lineSeries0Chart2Log.count, minMaxSkipAcum.x - axisPadding, minMaxSkipAcum.y + axisPadding)
 
         } else if(name === "Time Dist. Dual") {
             var minMaxDualExt = chartResults.updateChart("Time Dist. Dual Ext.", chart1Linear.series(0));
@@ -668,20 +680,23 @@ ApplicationWindow {
 
             setSeriesName("Probability of ext.", "", "Probability of fix.", "", "Probability of abs.", "Cumulative prob. of abs.")
 
-            setValuesAxis(axisXLinear, axisYLinear, 1, lineSeries0Chart1.count, minMaxDualExt.x, minMaxDualExt.y)
-            setValuesAxis(axisX1Log, axisY1Log, 1, lineSeries0Chart1Log.count, minMaxDualExt.x, minMaxDualExt.y)
+            axisPadding = ((minMaxDualExt.y - minMaxDualExt.x) - minMaxDualExt.x) * 0.01
+            setValuesAxis(axisXLinear, axisYLinear, 1, lineSeries0Chart1.count, minMaxDualExt.x - axisPadding, minMaxDualExt.y + axisPadding)
+            setValuesAxis(axisX1Log, axisY1Log, 1, lineSeries0Chart1Log.count, minMaxDualExt.x - axisPadding, minMaxDualExt.y + axisPadding)
 
-            setValuesAxis(axisX2Linear, axisY2Linear, 1, lineSeries0Chart2.count, minMaxDualFix.x, minMaxDualFix.y)
-            setValuesAxis(axisX2Log, axisY2Log, 1, lineSeries0Chart2Log.count, minMaxDualFix.x, minMaxDualFix.y)
+            axisPadding = ((minMaxDualFix.y - minMaxDualFix.x) - minMaxDualFix.x) * 0.01
+            setValuesAxis(axisX2Linear, axisY2Linear, 1, lineSeries0Chart2.count, minMaxDualFix.x - axisPadding, minMaxDualFix.y + axisPadding)
+            setValuesAxis(axisX2Log, axisY2Log, 1, lineSeries0Chart2Log.count, minMaxDualFix.x - axisPadding, minMaxDualFix.y + axisPadding)
 
             minChart3 = Math.min(minMaxDualAbs.x, minMaxDualAcum.x)
             maxChart3 = Math.max(minMaxDualAbs.y, minMaxDualAcum.y)
 
-            setValuesAxis(axisX3Linear, axisY3Linear, 1, lineSeries0Chart3.count, minChart3, maxChart3)
-            setValuesAxis(axisX3Log, axisY3Log, 1, lineSeries0Chart3Log.count, minChart3, maxChart3)
+            axisPadding = ((maxChart3 - maxChart3) - minChart3) * 0.01
+            setValuesAxis(axisX3Linear, axisY3Linear, 1, lineSeries0Chart3.count, minChart3 - axisPadding, maxChart3 + axisPadding)
+            setValuesAxis(axisX3Log, axisY3Log, 1, lineSeries0Chart3Log.count, minChart3 - axisPadding, maxChart3 + axisPadding)
 
-            setValuesAxis(axisX3Linear, axisY3Linear, 1, lineSeries1Chart3.count, minChart3, maxChart3)
-            setValuesAxis(axisX3Log, axisY3Log, 1, lineSeries1Chart3Log.count, minChart3, maxChart3)
+            setValuesAxis(axisX3Linear, axisY3Linear, 1, lineSeries1Chart3.count, minChart3 - axisPadding, maxChart3 + axisPadding)
+            setValuesAxis(axisX3Log, axisY3Log, 1, lineSeries1Chart3Log.count, minChart3 - axisPadding, maxChart3 + axisPadding)
         }
     }
 }
