@@ -2,10 +2,16 @@
 #define CHARTRESULTS_H
 
 #include <QAbstractSeries>
+#include <QChartView>
 #include <QXYSeries>
 #include <QObject>
 #include <QPointF>
+#include <QChart>
 #include <QList>
+
+#include <QAbstractAxis>
+#include <QLineSeries>
+#include <QLogValueAxis>
 
 #include <wfes-lib_global.h>
 
@@ -77,6 +83,8 @@ namespace wfes {
                  * @return Min and max value in the series.
                  */
                 Q_INVOKABLE QPointF updateChart(QString name, QtCharts::QAbstractSeries *p_series);
+
+                Q_INVOKABLE void switchAxis(QtCharts::QAbstractAxis* abstractAxis, QString axis);
 
                 /**
                  * @brief Clear all values in the series.

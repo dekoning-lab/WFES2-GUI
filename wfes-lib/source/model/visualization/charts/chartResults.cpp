@@ -1,7 +1,5 @@
 #include "chartResults.h"
 
-#include <QLineSeries>
-
 using namespace QtCharts;
 using namespace wfes::controllers;
 
@@ -96,6 +94,15 @@ QPointF ChartResults::updateChart(QString name, QAbstractSeries *p_series) {
         return minMaxTimeDistDualAcum;
     } else {
         return QPointF(0, 0);
+    }
+}
+
+void ChartResults::switchAxis(QAbstractAxis* abstractAxis, QString axis) {
+    if(axis.compare("Linear Scale") == 0) {
+        QLogValueAxis *axisX = new QLogValueAxis();
+        axisX->setTitleText("Generations");
+        axisX->setBase(10.0);
+        abstractAxis = axisX;
     }
 }
 
