@@ -614,7 +614,7 @@ ApplicationWindow {
                             labelPreferredWidth: 100
                             textFieldPreferredWidth: 180
                             text: "T ext.: "
-                            toolTipText: "Expected number of generations till absorption."
+                            toolTipText: "Expected number of generations until absorption."
                             textFieldText: outputControllerWfesSwitching.ui_get_t_ext
                             readOnly: true
                             visible: (inputControllerWfesSwitching.ui_modelType == "Absorption")
@@ -625,7 +625,7 @@ ApplicationWindow {
                             labelPreferredWidth: 100
                             textFieldPreferredWidth: 180
                             text: "T ext. std.: "
-                            toolTipText: "Standard deviation of expected number of generations till absorption."
+                            toolTipText: "Standard deviation of expected number of generations until absorption."
                             textFieldText: outputControllerWfesSwitching.ui_get_t_ext_std
                             readOnly: true
                             visible: (inputControllerWfesSwitching.ui_modelType == "Absorption")

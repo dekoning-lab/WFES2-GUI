@@ -1069,7 +1069,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "T abs. : "
-                                toolTipText: "Expected number of generations till absorption."
+                                toolTipText: "Expected number of generations until absorption."
                                 textFieldText: outputControllerWfesSingle.ui_get_t_abs
                                 readOnly: true
                                 visible: radioButtonAbsorption.checked
@@ -1080,7 +1080,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "T abs. std.: "
-                                toolTipText: "Standard deviation of expected number of generations till absorption."
+                                toolTipText: "Standard deviation of expected number of generations until absorption."
                                 textFieldText: outputControllerWfesSingle.ui_get_t_abs_std
                                 readOnly: true
                                 visible: radioButtonAbsorption.checked
@@ -1091,7 +1091,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "T ext.: "
-                                toolTipText: "Expected number of generations till extinction."
+                                toolTipText: "Expected number of generations until extinction."
                                 textFieldText: outputControllerWfesSingle.ui_get_t_ext
                                 readOnly: true
                                 visible: radioButtonAbsorption.checked
@@ -1102,7 +1102,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "T ext. std.: "
-                                toolTipText: "Standard deviation of expected number of generations till extinction."
+                                toolTipText: "Standard deviation of expected number of generations until extinction."
                                 textFieldText: outputControllerWfesSingle.ui_get_t_ext_std
                                 readOnly: true
                                 visible: radioButtonAbsorption.checked
@@ -1113,7 +1113,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "N ext.: "
-                                toolTipText: "Number of generations till extintion."
+                                toolTipText: "Number of generations until extintion."
                                 textFieldText: outputControllerWfesSingle.ui_get_n_ext
                                 readOnly: true
                                 visible: radioButtonAbsorption.checked
@@ -1146,7 +1146,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "T fix.: "
-                                toolTipText: "Expected number of generations till fixation."
+                                toolTipText: "Expected number of generations until fixation."
                                 textFieldText: outputControllerWfesSingle.ui_get_t_fix_abs_mode
                                 readOnly: true
                                 visible: radioButtonAbsorption.checked
@@ -1157,7 +1157,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "T fix. std.: "
-                                toolTipText: "Standard deviation of expected number of generations till fixation."
+                                toolTipText: "Standard deviation of expected number of generations until fixation."
                                 textFieldText: outputControllerWfesSingle.ui_get_t_fix_std_abs_mode
                                 readOnly: true
                                 visible: radioButtonAbsorption.checked
@@ -1223,7 +1223,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "T seg.: "
-                                toolTipText: "Expected number of generations till segregation."
+                                toolTipText: "Expected number of generations until segregation."
                                 textFieldText: outputControllerWfesSingle.ui_get_t_seg
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
@@ -1234,7 +1234,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "T seg. std.: "
-                                toolTipText: "Standard deviation of expected number of generations till segregation."
+                                toolTipText: "Standard deviation of expected number of generations until segregation."
                                 textFieldText: outputControllerWfesSingle.ui_get_t_seg_std
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
@@ -1245,7 +1245,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "T seg. ext.: "
-                                toolTipText: "Expected number of generations till segregation (Extinction)."
+                                toolTipText: "Expected number of generations until segregation (Extinction)."
                                 textFieldText: outputControllerWfesSingle.ui_get_t_seg_est
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
@@ -1256,7 +1256,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "T seg. ext. std.: "
-                                toolTipText: "Standard deviation of expected number of generations till segregation (Extinction)."
+                                toolTipText: "Standard deviation of expected number of generations until segregation (Extinction)."
                                 textFieldText: outputControllerWfesSingle.ui_get_t_seg_est_std
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
@@ -1267,7 +1267,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "T seg. fix.: "
-                                toolTipText: "Expected number of generations till segregation (Fixation)."
+                                toolTipText: "Expected number of generations until segregation (Fixation)."
                                 textFieldText: outputControllerWfesSingle.ui_get_t_seg_fix
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
@@ -1278,7 +1278,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "T seg. fix. std.: "
-                                toolTipText: "Standard deviation of expected number of generations till segregation (Fixation)."
+                                toolTipText: "Standard deviation of expected number of generations until segregation (Fixation)."
                                 textFieldText: outputControllerWfesSingle.ui_get_t_seg_fix_std
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
@@ -1289,7 +1289,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "T est.: "
-                                toolTipText: "Expected number of generations till establishment."
+                                toolTipText: "Expected number of generations until establishment."
                                 textFieldText: outputControllerWfesSingle.ui_get_t_est
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
@@ -1300,7 +1300,7 @@ ApplicationWindow {
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
                                 text: "T est. std.: "
-                                toolTipText: "Standard deviation of expected number of generations till establishment."
+                                toolTipText: "Standard deviation of expected number of generations until establishment."
                                 textFieldText: outputControllerWfesSingle.ui_get_t_est_std
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked

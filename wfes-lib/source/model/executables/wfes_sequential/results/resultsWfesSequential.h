@@ -33,32 +33,32 @@ class ResultsWfesSequential {
         double pTmo;
 
         /**
-         * @brief Expected number of generations till extinction.
+         * @brief Expected number of generations until extinction.
          */
         double tExt;
 
         /**
-         * @brief Standard deviation of expected number of generations till extinction.
+         * @brief Standard deviation of expected number of generations until extinction.
          */
         double tExtStd;
 
         /**
-         * @brief Expected number of generations till fixation.
+         * @brief Expected number of generations until fixation.
          */
         double tFix;
 
         /**
-         * @brief Standard deviation of expected number of generations till fixation.
+         * @brief Standard deviation of expected number of generations until fixation.
          */
         double tFixStd;
 
         /**
-         * @brief Expected number of generations till time out.
+         * @brief Expected number of generations until time out.
          */
         double tTmo;
 
         /**
-         * @brief Standard deviation of expected number of generations till time out.
+         * @brief Standard deviation of expected number of generations until time out.
          */
         double tTmoStd;
 
@@ -95,12 +95,12 @@ class ResultsWfesSequential {
          * @param pExt Probability of extinction.
          * @param pFix Probability of fixation.
          * @param pTmo Probability of time out.
-         * @param tExt Expected number of generations till extinction.
-         * @param tExtStd Standard deviation of expected number of generations till extinction.
-         * @param tFix Expected number of generations till fixation.
-         * @param tFixStd Standard deviation of expected number of generations till fixation.
-         * @param tTmo Expected number of generations till time out.
-         * @param tTmoStd Standard deviation of expected number of generations till time out.
+         * @param tExt Expected number of generations until extinction.
+         * @param tExtStd Standard deviation of expected number of generations until extinction.
+         * @param tFix Expected number of generations until fixation.
+         * @param tFixStd Standard deviation of expected number of generations until fixation.
+         * @param tTmo Expected number of generations until time out.
+         * @param tTmoStd Standard deviation of expected number of generations until time out.
          * @param time Execution time.
          */
         ResultsWfesSequential(double pExt, double pFix, double pTmo, double tExt, double tExtStd, double tFix, double tFixStd, double tTmo, double tTmoStd, double time);

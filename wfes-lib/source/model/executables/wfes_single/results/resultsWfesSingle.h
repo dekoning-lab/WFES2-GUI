@@ -35,27 +35,27 @@ class ResultsWfesSingle {
         double pFix;
 
         /**
-         * @brief Expected number of generations till absorption.
+         * @brief Expected number of generations until absorption.
          */
         double tAbs;
 
         /**
-         * @brief Standard deviation of expected number of generations till absorption.
+         * @brief Standard deviation of expected number of generations until absorption.
          */
         double tAbsStd;
 
         /**
-         * @brief Expected number of generations till extinction.
+         * @brief Expected number of generations until extinction.
          */
         double tExt;
 
         /**
-         * @brief Standard deviation of expected number of generations till extinction.
+         * @brief Standard deviation of expected number of generations until extinction.
          */
         double tExtStd;
 
         /**
-         * @brief Number of generations till extinction.
+         * @brief Number of generations until extinction.
          */
         double nExt;
 
@@ -70,12 +70,12 @@ class ResultsWfesSingle {
         double tFixStd;
 
         /**
-         * @brief Expected number of generations till fixation (Absorption mode).
+         * @brief Expected number of generations until fixation (Absorption mode).
          */
         double tFixAbsMode;
 
         /**
-         * @brief Standard deviation of expected number of generations till fixation (Absorption mode).
+         * @brief Standard deviation of expected number of generations until fixation (Absorption mode).
          */
         double tFixStdAbsMode;
 
@@ -105,42 +105,42 @@ class ResultsWfesSingle {
         double pEst;
 
         /**
-         * @brief Expected number of generations till segregation.
+         * @brief Expected number of generations until segregation.
          */
         double tSeg;
 
         /**
-         * @brief Standard deviation of expected number of generations till segregation.
+         * @brief Standard deviation of expected number of generations until segregation.
          */
         double tSegStd;
 
         /**
-         * @brief Expected number of generations till segregation (Extinction).
+         * @brief Expected number of generations until segregation (Extinction).
          */
         double tSegExt;
 
         /**
-         * @brief Standard deviation of expected number of generations till segregation (Extinction).
+         * @brief Standard deviation of expected number of generations until segregation (Extinction).
          */
         double tSegExtStd;
 
         /**
-         * @brief Expected number of generations till segregation (Fixation).
+         * @brief Expected number of generations until segregation (Fixation).
          */
         double tSegFix;
 
         /**
-         * @brief Standard deviation of expected number of generations till segregation (Fixation).
+         * @brief Standard deviation of expected number of generations until segregation (Fixation).
          */
         double tSegFixStd;
 
         /**
-         * @brief Expected number of generations till establishment.
+         * @brief Expected number of generations until establishment.
          */
         double tEst;
 
         /**
-         * @brief Standard deviation of expected number of generations till establishment.
+         * @brief Standard deviation of expected number of generations until establishment.
          */
         double tEstStd;
 
@@ -187,13 +187,13 @@ class ResultsWfesSingle {
          * @param modelType Selected model type.
          * @param pExt Probability of extinction.
          * @param pFix Probability of fixation.
-         * @param tAbs Expected number of generations till absorption.
-         * @param tAbsStd Standard deviation of expected number of generations till absorption.
-         * @param tExt Expected number of generations till extinction.
-         * @param tExtStd Standard deviation of expected number of generations till extinction.
-         * @param nExt Number of generations till extinction.
-         * @param tFixAbsMode Expected number of generations till fixation (Absorption mode).
-         * @param tFixStdAbsMode Standard deviation of expected number of generations till fixation (Absorption mode).
+         * @param tAbs Expected number of generations until absorption.
+         * @param tAbsStd Standard deviation of expected number of generations until absorption.
+         * @param tExt Expected number of generations until extinction.
+         * @param tExtStd Standard deviation of expected number of generations until extinction.
+         * @param nExt Number of generations until extinction.
+         * @param tFixAbsMode Expected number of generations until fixation (Absorption mode).
+         * @param tFixStdAbsMode Standard deviation of expected number of generations until fixation (Absorption mode).
          * @param time Execution time.
          */
         ResultsWfesSingle(wfes::config::ModelTypeWfesSingle modelType, double pExt,
@@ -231,14 +231,14 @@ class ResultsWfesSingle {
          * @param modelType Selected model type.
          * @param fEst Frequency of establishment.
          * @param pEst Probability of establishment.
-         * @param tSeg Expected number of generations till segregation.
-         * @param tSegStd Standard deviation of expected number of generations till segregation.
-         * @param tSegExt Expected number of generations till segregation (Extinction).
-         * @param tSegExtStd Standard deviation of expected number of generations till segregation (Extinction).
-         * @param tSegFix Expected number of generations till segregation (Fixation).
-         * @param tSegFixStd Standard deviation of expected number of generations till segregation (Fixation).
-         * @param tEst Expected number of generations till establishment.
-         * @param tEstStd Standard deviation of expected number of generations till establishment.
+         * @param tSeg Expected number of generations until segregation.
+         * @param tSegStd Standard deviation of expected number of generations until segregation.
+         * @param tSegExt Expected number of generations until segregation (Extinction).
+         * @param tSegExtStd Standard deviation of expected number of generations until segregation (Extinction).
+         * @param tSegFix Expected number of generations until segregation (Fixation).
+         * @param tSegFixStd Standard deviation of expected number of generations until segregation (Fixation).
+         * @param tEst Expected number of generations until establishment.
+         * @param tEstStd Standard deviation of expected number of generations until establishment.
          * @param time Execution time.
          */
         ResultsWfesSingle(wfes::config::ModelTypeWfesSingle modelType, double fEst, double pEst, double tSeg, double tSegStd,

@@ -30,12 +30,12 @@ class ResultsWfesSwitching {
         double pFix;
 
         /**
-         * @brief Expected number of generations till extinction.
+         * @brief Expected number of generations until extinction.
          */
         double tExt;
 
         /**
-         * @brief Standard deviation of expected number of generations till extinction.
+         * @brief Standard deviation of expected number of generations until extinction.
          */
         double tExtStd;
 
@@ -114,7 +114,7 @@ class ResultsWfesSwitching {
 
         /**
          * @brief Constructor of wfes switching with fixation mode.
-         * @param tFix Expected number of generations till fixation.
+         * @param tFix Expected number of generations until fixation.
          * @param rate Rate of substitution.
          * @param time Execution time.
          */
@@ -124,8 +124,8 @@ class ResultsWfesSwitching {
          * @brief Constructor of wfes switching with absorption mode.
          * @param pExt Probability of extinction.
          * @param pFix Probability of fixation.
-         * @param tExt Expected number of generations till extinction.
-         * @param tExtStd Standard deviation of expected number of generations till extinction.
+         * @param tExt Expected number of generations until extinction.
+         * @param tExtStd Standard deviation of expected number of generations until extinction.
          * @param tFix Expected number of generations between two fixation events.
          * @param tFixStd Standard deviation of expected number of generations between two fixation events.
          * @param pCondExt Conditional probability of extinction.

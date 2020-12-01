@@ -527,7 +527,7 @@ ApplicationWindow {
                             labelPreferredWidth: 100
                             textFieldPreferredWidth: 180
                             text: "T ext.: "
-                            toolTipText: "Expected number of generations till extinction."
+                            toolTipText: "Expected number of generations until extinction."
                             textFieldText: outputControllerWfesSequential.ui_get_t_ext
                             readOnly: true
                         }
@@ -537,7 +537,7 @@ ApplicationWindow {
                             labelPreferredWidth: 100
                             textFieldPreferredWidth: 180
                             text: "T ext. std.: "
-                            toolTipText: "Standard deviation of expected number of generations till extinction."
+                            toolTipText: "Standard deviation of expected number of generations until extinction."
                             textFieldText: outputControllerWfesSequential.ui_get_t_ext_std
                             readOnly: true
                         }
@@ -548,7 +548,7 @@ ApplicationWindow {
                             labelPreferredWidth: 100
                             textFieldPreferredWidth: 180
                             text: "T fix.: "
-                            toolTipText: "Expected number of generations till fixation."
+                            toolTipText: "Expected number of generations until fixation."
                             textFieldText: outputControllerWfesSequential.ui_get_t_fix
                             readOnly: true
                         }
@@ -558,7 +558,7 @@ ApplicationWindow {
                             labelPreferredWidth: 100
                             textFieldPreferredWidth: 180
                             text: "T fix. std.: "
-                            toolTipText: "Standard deviation of expected number of generations till fixation."
+                            toolTipText: "Standard deviation of expected number of generations until fixation."
                             textFieldText: outputControllerWfesSequential.ui_get_t_fix_std
                             readOnly: true
                         }
@@ -568,7 +568,7 @@ ApplicationWindow {
                             labelPreferredWidth: 100
                             textFieldPreferredWidth: 180
                             text: "T tmo.: "
-                            toolTipText: "Expected number of generations till time out."
+                            toolTipText: "Expected number of generations until time out."
                             textFieldText: outputControllerWfesSequential.ui_get_t_tmo
                             readOnly: true
                         }
@@ -578,7 +578,7 @@ ApplicationWindow {
                             labelPreferredWidth: 100
                             textFieldPreferredWidth: 180
                             text: "T tmo. std.: "
-                            toolTipText: "Standard deviation of expected number of generations till time out."
+                            toolTipText: "Standard deviation of expected number of generations until time out."
                             textFieldText: outputControllerWfesSequential.ui_get_t_tmo_std
                             readOnly: true
                         }

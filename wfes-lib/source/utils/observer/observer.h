@@ -3,7 +3,7 @@
 
 /**
  * @brief The Observer class is an implementation of an observer from the observer pattern.
- * Observes a subject till it notifies the observer.
+ * Observes a subject until it notifies the observer.
  */
 class Observer {
     public:

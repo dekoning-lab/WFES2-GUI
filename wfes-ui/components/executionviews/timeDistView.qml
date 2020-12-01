@@ -418,7 +418,7 @@ ApplicationWindow {
 
                                 }
                                 onLoaded: function() {
-                                    // Liad configuration on open here. Wait till everything loaded.
+                                    // Liad configuration on open here. Wait until everything loaded.
                                     var dummyString = outputControllerTimeDist.ui_load_config
                                     rootTimeDist.updateGUI()
                                 }
