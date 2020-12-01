@@ -1,6 +1,8 @@
 #ifndef OUTPUTCONTROLLERWFAS_H
 #define OUTPUTCONTROLLERWFAS_H
 
+#include <QApplication>
+#include <QClipboard>
 #include <QObject>
 
 #include <boost/format.hpp>
@@ -122,6 +124,22 @@ namespace wfes {
                  */
                 QString get_progress() const;
 
+                Q_INVOKABLE void coppyToClipboard() {
+                    QClipboard* clipboard = QApplication::clipboard();
+                    QString text = "";
+                    text += QString::fromStdString("Allele freq. dist.\n");
+                    for(int i = 0; i < results.probs.size(); i++) {
+                        text += QString::fromStdString((boost::format(DPF) % (results.probs[i])).str()) + "\n";
+                    }
+                    clipboard->setText(text, QClipboard::Clipboard);
+                    if (clipboard->supportsSelection()) {
+                        clipboard->setText(text, QClipboard::Selection);
+                    }
+
+                    #if defined(Q_OS_LINUX)
+                        QThread::msleep(1); //workaround for copied text not being available...
+                    #endif
+                }
             public slots:
                 /**
                  * @brief Handle results of an execution and notify GUI that it has finished.

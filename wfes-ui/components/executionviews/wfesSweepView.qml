@@ -793,6 +793,17 @@ ApplicationWindow {
                                 readOnly: true
                                 visible: radioButtonFixation.checked
                             }
+
+
+                            Button {
+                                text: "Copy to Clipboard"
+
+                                Layout.alignment: Qt.AlignHCenter
+
+                                onClicked: {
+                                    outputControllerWfesSweep.coppyToClipboard()
+                                }
+                            }
                         }
                     }
                 }

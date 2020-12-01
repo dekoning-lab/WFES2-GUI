@@ -522,6 +522,15 @@ ApplicationWindow {
 
                     }
 
+                    Button {
+                        text: "Copy to Clipboard"
+
+                        Layout.alignment: Qt.AlignHCenter
+
+                        onClicked: {
+                            outputControllerWfas.coppyToClipboard()
+                        }
+                    }
 
                 }
             }

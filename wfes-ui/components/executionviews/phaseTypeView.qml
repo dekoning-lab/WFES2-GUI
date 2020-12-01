@@ -687,6 +687,18 @@ ApplicationWindow {
 
                     }
 
+                    Button {
+                        text: "Copy to Clipboard"
+
+                        Layout.alignment: Qt.AlignHCenter
+
+                        visible: radioButtonPhaseTypeMoments.checked
+
+                        onClicked: {
+                            outputControllerPhaseType.coppyToClipboard()
+                        }
+                    }
+
                 }
             }
         }

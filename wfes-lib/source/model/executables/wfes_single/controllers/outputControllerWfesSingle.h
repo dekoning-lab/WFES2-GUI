@@ -1,6 +1,8 @@
 #ifndef OUTPUTCONTROLLER_H
 #define OUTPUTCONTROLLER_H
 
+#include <QApplication>
+#include <QClipboard>
 #include <QObject>
 
 #include <boost/format.hpp>
@@ -297,6 +299,50 @@ namespace wfes {
                  */
                 QString get_progress() const;
 
+                Q_INVOKABLE void coppyToClipboard() {
+                    QClipboard* clipboard = QApplication::clipboard();
+                    QString text = "";
+                    if(wfes::config::ConfigWfesSingle::modelType == wfes::config::ModelTypeWfesSingle::ABSORPTION) {
+                        text += QString::fromStdString("P. ext., " + (boost::format(DPF) % (results.pExt)).str()) + "\n";
+                        text += QString::fromStdString("P. fix., " + (boost::format(DPF) % (results.pFix)).str()) + "\n";
+                        text += QString::fromStdString("T. abs., " + (boost::format(DPF) % (results.tAbs)).str()) + "\n";
+                        text += QString::fromStdString("T. abs. std., " + (boost::format(DPF) % (results.tAbsStd)).str()) + "\n";
+                        text += QString::fromStdString("T. ext., " + (boost::format(DPF) % (results.tExt)).str()) + "\n";
+                        text += QString::fromStdString("T. ext. std., " + (boost::format(DPF) % (results.tExtStd)).str()) + "\n";
+                        text += QString::fromStdString("N. ext., " + (boost::format(DPF) % (results.nExt)).str()) + "\n";
+                        text += QString::fromStdString("T. fix., " + (boost::format(DPF) % (results.tFixAbsMode)).str()) + "\n";
+                        text += QString::fromStdString("T. fix. std., " + (boost::format(DPF) % (results.tFixStdAbsMode)).str()) + "\n";
+                    } else if (wfes::config::ConfigWfesSingle::modelType == wfes::config::ModelTypeWfesSingle::FIXATION) {
+                        text += QString::fromStdString("T. fix., " + (boost::format(DPF) % (results.tFix)).str()) + "\n";
+                        text += QString::fromStdString("T. fix. std., " + (boost::format(DPF) % (results.tFixStd)).str()) + "\n";
+                        text += QString::fromStdString("Rate, " + (boost::format(DPF) % (results.rate)).str()) + "\n";
+                    } else if (wfes::config::ConfigWfesSingle::modelType == wfes::config::ModelTypeWfesSingle::ESTABLISHMENT) {
+                        text += QString::fromStdString("F. est., " + (boost::format(DPF) % (results.fEst)).str()) + "\n";
+                        text += QString::fromStdString("P. est., " + (boost::format(DPF) % (results.pEst)).str()) + "\n";
+                        text += QString::fromStdString("T. seg., " + (boost::format(DPF) % (results.tSeg)).str()) + "\n";
+                        text += QString::fromStdString("T. seg. std., " + (boost::format(DPF) % (results.tSegStd)).str()) + "\n";
+                        text += QString::fromStdString("T. seg. ext., " + (boost::format(DPF) % (results.tSegExt)).str()) + "\n";
+                        text += QString::fromStdString("T. seg. ext. std., " + (boost::format(DPF) % (results.tSegExtStd)).str()) + "\n";
+                        text += QString::fromStdString("T. seg. fix., " + (boost::format(DPF) % (results.tSegFix)).str()) + "\n";
+                        text += QString::fromStdString("T. seg. fix. std., " + (boost::format(DPF) % (results.tSegFixStd)).str()) + "\n";
+                        text += QString::fromStdString("T. est., " + (boost::format(DPF) % (results.tEst)).str()) + "\n";
+                        text += QString::fromStdString("T. est. std., " + (boost::format(DPF) % (results.tEstStd)).str()) + "\n";
+                    } else if (wfes::config::ConfigWfesSingle::modelType == wfes::config::ModelTypeWfesSingle::EQUILIBRIUM) {
+                        text += QString::fromStdString("E[freq mut], " + (boost::format(DPF) % (results.freqMut)).str()) + "\n";
+                        text += QString::fromStdString("E[freq wt], " + (boost::format(DPF) % (results.freqWt)).str()) + "\n";
+                    } else if (wfes::config::ConfigWfesSingle::modelType == wfes::config::ModelTypeWfesSingle::ALLELE_AGE) {
+                        text += QString::fromStdString("E[A], " + (boost::format(DPF) % (results.eAlleleAge)).str()) + "\n";
+                        text += QString::fromStdString("S[A], " + (boost::format(DPF) % (results.sAlleleAge)).str()) + "\n";
+                    }
+                    clipboard->setText(text, QClipboard::Clipboard);
+                    if (clipboard->supportsSelection()) {
+                        clipboard->setText(text, QClipboard::Selection);
+                    }
+
+                    #if defined(Q_OS_LINUX)
+                        QThread::msleep(1); //workaround for copied text not being available...
+                    #endif
+                }
             public slots:
                 /**
                  * @brief Handle results of an execution and notify GUI that it has finished.

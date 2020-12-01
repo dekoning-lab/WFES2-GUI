@@ -94,6 +94,15 @@ QString OutputControllerWfesSwitching::get_t_fix() const {
         return QString::fromStdString(fmt.str());
 }
 
+QString OutputControllerWfesSwitching::get_t_fix_abs_mode() const{
+    boost::format fmt = boost::format(DPF) % (this->results.tFixAbsMode);
+
+    if((boost::math::isnan)(this->results.tFixAbsMode))
+        return "";
+    else
+        return QString::fromStdString(fmt.str());
+}
+
 QString OutputControllerWfesSwitching::get_t_fix_std() const {
     boost::format fmt = boost::format(DPF) % (this->results.tFixStd);
 
