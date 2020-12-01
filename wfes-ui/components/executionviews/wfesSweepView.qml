@@ -801,7 +801,7 @@ ApplicationWindow {
                                 Layout.alignment: Qt.AlignHCenter
 
                                 onClicked: {
-
+                                    outputControllerWfesSweep.coppyToClipboard()
                                 }
                             }
                         }

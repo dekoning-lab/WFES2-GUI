@@ -1,6 +1,8 @@
 #ifndef OUTPUTCONTROLLERWFESSWITCHING_H
 #define OUTPUTCONTROLLERWFESSWITCHING_H
 
+#include <QApplication>
+#include <QClipboard>
 #include <QObject>
 
 #include <boost/format.hpp>
@@ -164,6 +166,33 @@ namespace wfes {
                  */
                 QString get_progress() const;
 
+                Q_INVOKABLE void coppyToClipboard() {
+                    QClipboard* clipboard = QApplication::clipboard();
+                    if(wfes::config::ConfigWfesSwitching::modelType == wfes::config::ModelTypeWfesSwitching::ABSORPTION) {
+                        QString text = "";
+                        text += QString::fromStdString("P. ext., " + (boost::format(DPF) % (results.pExt)).str()) + "\n";
+                        text += QString::fromStdString("P. fix., " + (boost::format(DPF) % (results.pFix)).str()) + "\n";
+                        text += QString::fromStdString("T. ext., " + (boost::format(DPF) % (results.tExt)).str()) + "\n";
+                        text += QString::fromStdString("T. ext. std., " + (boost::format(DPF) % (results.tExtStd)).str()) + "\n";
+                        text += QString::fromStdString("T. fix., " + (boost::format(DPF) % (results.tFix)).str()) + "\n";
+                        text += QString::fromStdString("T. fix. std., " + (boost::format(DPF) % (results.tFixStd)).str()) + "\n";
+                        clipboard->setText(text, QClipboard::Clipboard);
+                        if (clipboard->supportsSelection()) {
+                            clipboard->setText(text, QClipboard::Selection);
+                        }
+                    } else if(wfes::config::ConfigWfesSwitching::modelType == wfes::config::ModelTypeWfesSwitching::FIXATION) {
+                        QString text = "";
+                        text += QString::fromStdString("T. fix., " + (boost::format(DPF) % (results.tFix)).str()) + "\n";
+                        text += QString::fromStdString("Rate, " + (boost::format(DPF) % (results.rate)).str()) + "\n";
+                        clipboard->setText(text, QClipboard::Clipboard);
+                        if (clipboard->supportsSelection()) {
+                            clipboard->setText(text, QClipboard::Selection);
+                        }
+                    }
+                    #if defined(Q_OS_LINUX)
+                        QThread::msleep(1); //workaround for copied text not being available...
+                    #endif
+                }
             public slots:
                 /**
                  * @brief Handle results of an execution and notify GUI that it has finished.

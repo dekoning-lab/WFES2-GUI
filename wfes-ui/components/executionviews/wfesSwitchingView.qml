@@ -668,7 +668,7 @@ ApplicationWindow {
                             Layout.alignment: Qt.AlignHCenter
 
                             onClicked: {
-
+                                outputControllerWfesSwitching.coppyToClipboard()
                             }
                         }
                         //Vectors P_cond_ext, V_cond_ext... cannot be shown in the GUI, takes too much space, so

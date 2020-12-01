@@ -692,8 +692,10 @@ ApplicationWindow {
 
                         Layout.alignment: Qt.AlignHCenter
 
-                        onClicked: {
+                        visible: radioButtonPhaseTypeMoments.checked
 
+                        onClicked: {
+                            outputControllerPhaseType.coppyToClipboard()
                         }
                     }
 

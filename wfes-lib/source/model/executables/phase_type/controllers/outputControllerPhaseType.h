@@ -1,6 +1,8 @@
 #ifndef OUTPUTCONTROLLERPHASETYPE_H
 #define OUTPUTCONTROLLERPHASETYPE_H
 
+#include <QApplication>
+#include <QClipboard>
 #include <QObject>
 
 #include <boost/format.hpp>
@@ -8,6 +10,7 @@
 #include <wfes-lib_global.h>
 
 #include "model/executables/phase_type/thread/workerThreadPhaseType.h"
+#include <model/executables/phase_type/config/configPhaseType.h>
 
 namespace wfes {
     namespace controllers {
@@ -143,6 +146,26 @@ namespace wfes {
                  */
                 QString get_progress() const;
 
+                Q_INVOKABLE void coppyToClipboard() {
+                    QClipboard* clipboard = QApplication::clipboard();
+                    if(wfes::config::ConfigPhaseType::modelType == wfes::config::ModelTypePhaseType::PHASE_TYPE_MOMENTS) {
+                        QString text = "";
+                        text += QString::fromStdString("Mean, " + (boost::format(DPF) % (results.mean)).str()) + "\n";
+                        text += QString::fromStdString("Std, " + (boost::format(DPF) % (results.std)).str()) + "\n";
+                        text += QString::fromStdString("Moments\n");
+                        for(int i = 0; i < results.moments.size(); i++) {
+                            text += QString::fromStdString((boost::format(DPF) % (results.moments[i])).str()) + "\n";
+                        }
+                        clipboard->setText(text, QClipboard::Clipboard);
+                        if (clipboard->supportsSelection()) {
+                            clipboard->setText(text, QClipboard::Selection);
+                        }
+                    }
+
+                    #if defined(Q_OS_LINUX)
+                        QThread::msleep(1); //workaround for copied text not being available...
+                    #endif
+                }
             public slots:
                 /**
                  * @brief Handle results of an execution and notify GUI that it has finished.

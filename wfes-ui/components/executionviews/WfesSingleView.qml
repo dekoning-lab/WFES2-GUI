@@ -1337,7 +1337,7 @@ ApplicationWindow {
                                 Layout.alignment: Qt.AlignHCenter
 
                                 onClicked: {
-
+                                    outputControllerWfesSingle.coppyToClipboard()
                                 }
                             }
                         }
