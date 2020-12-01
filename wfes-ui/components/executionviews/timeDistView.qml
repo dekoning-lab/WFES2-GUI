@@ -7,6 +7,7 @@ import QtQuick.Controls 2.5
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Controls.Universal 2.3
 import components 1.0
+import assets 1.0
 
 ApplicationWindow {
     id: rootTimeDist
@@ -99,8 +100,8 @@ ApplicationWindow {
                                 text: qsTr("Time Dist.")
 
                                 ToolTip.visible: hovered
-                                ToolTip.delay: 1000
-                                ToolTip.timeout: 5000
+                                ToolTip.delay: Style.tooltipDelay
+                                ToolTip.timeout: Style.tooltipTimeout
                                 ToolTip.text: qsTr("Distribution of time to fixation/extinction.")
 
                                 onCheckedChanged: {
@@ -141,8 +142,8 @@ ApplicationWindow {
                                 text: qsTr("Time Dist. SGV")
 
                                 ToolTip.visible: hovered
-                                ToolTip.delay: 1000
-                                ToolTip.timeout: 5000
+                                ToolTip.delay: Style.tooltipDelay
+                                ToolTip.timeout: Style.tooltipTimeout
                                 ToolTip.text: qsTr("Time distribution of fixation with standing genetics variation.")
 
                                 onCheckedChanged: {
@@ -184,8 +185,8 @@ ApplicationWindow {
                                 text: qsTr("Time Dist. Skip")
 
                                 ToolTip.visible: hovered
-                                ToolTip.delay: 1000
-                                ToolTip.timeout: 5000
+                                ToolTip.delay: Style.tooltipDelay
+                                ToolTip.timeout: Style.tooltipTimeout
                                 ToolTip.text: qsTr("Distribution of time to absorption, excluding mutation time.")
 
                                 onCheckedChanged: {
@@ -226,8 +227,8 @@ ApplicationWindow {
                                 text: qsTr("Time Dist. Dual")
 
                                 ToolTip.visible: hovered
-                                ToolTip.delay: 1000
-                                ToolTip.timeout: 5000
+                                ToolTip.delay: Style.tooltipDelay
+                                ToolTip.timeout: Style.tooltipTimeout
                                 ToolTip.text: qsTr("This calculates the distribution of time to fixation, extinction using a dual mutation model.")
 
                                 onCheckedChanged: {

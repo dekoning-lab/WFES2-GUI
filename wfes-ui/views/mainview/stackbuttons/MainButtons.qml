@@ -3,6 +3,7 @@ import QtQuick.Controls 2.5
 import QtQuick.Layouts 1.15
 
 import components 1.0
+import assets 1.0
 
 Item {
 
@@ -34,16 +35,16 @@ Item {
             ChangeStackViewButton {
                 text: "WFES"
                 ToolTip.text: "Wright Fisher Exact Solver."
-                ToolTip.delay: 1000
-                ToolTip.timeout: 5000
+                ToolTip.delay: Style.tooltipDelay
+                ToolTip.timeout: Style.tooltipTimeout
                 ToolTip.visible: hovered
                 view: "qrc:/views/mainview/stackbuttons/wfesButtons.qml"
             }
             Button {
                 text: "WFAF-S"
                 ToolTip.text: "Wright-Fisher Allele Frequency Stochastic."
-                ToolTip.delay: 1000
-                ToolTip.timeout: 5000
+                ToolTip.delay: Style.tooltipDelay
+                ToolTip.timeout: Style.tooltipTimeout
                 ToolTip.visible: hovered
                 onClicked: {
                     wfasView.visible = true;
@@ -54,8 +55,8 @@ Item {
             Button {
                 text: "WFAF-D"
                 ToolTip.text: "Wright-Fisher Allele Frequency Deterministic."
-                ToolTip.delay: 1000
-                ToolTip.timeout: 5000
+                ToolTip.delay: Style.tooltipDelay
+                ToolTip.timeout: Style.tooltipTimeout
                 ToolTip.visible: hovered
                 onClicked: {
                     wfafleView.visible = true
@@ -77,8 +78,8 @@ Item {
             Button {
                 text: "Time Dist."
                 ToolTip.text: "Distribution of Time to Fixation/Extinction."
-                ToolTip.delay: 1000
-                ToolTip.timeout: 5000
+                ToolTip.delay: Style.tooltipDelay
+                ToolTip.timeout: Style.tooltipTimeout
                 ToolTip.visible: hovered
                 onClicked: {
                     timeDistView.visible = true
@@ -89,8 +90,8 @@ Item {
             Button {
                 text: "Phase Type"
                 ToolTip.text: "Calculate Moments and Distributions of Absorption Times for a Fixation-only Model."
-                ToolTip.delay: 1000
-                ToolTip.timeout: 5000
+                ToolTip.delay: Style.tooltipDelay
+                ToolTip.timeout: Style.tooltipTimeout
                 ToolTip.visible: hovered
                 onClicked: {
                     phaseTypeView.visible = true
