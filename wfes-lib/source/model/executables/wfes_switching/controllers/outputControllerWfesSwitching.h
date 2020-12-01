@@ -1,4 +1,4 @@
-#ifndef OUTPUTCONTROLLERWFESSWITCHING_H
+﻿#ifndef OUTPUTCONTROLLERWFESSWITCHING_H
 #define OUTPUTCONTROLLERWFESSWITCHING_H
 
 #include <QApplication>
@@ -29,6 +29,7 @@ namespace wfes {
                 Q_PROPERTY(QString ui_get_t_ext READ get_t_ext NOTIFY results_changed)
                 Q_PROPERTY(QString ui_get_t_ext_std READ get_t_ext_std NOTIFY results_changed)
                 Q_PROPERTY(QString ui_get_t_fix READ get_t_fix NOTIFY results_changed)
+                Q_PROPERTY(QString ui_get_t_fix_abs_mode READ get_t_fix_abs_mode NOTIFY results_changed)
                 Q_PROPERTY(QString ui_get_t_fix_std READ get_t_fix_std NOTIFY results_changed)
                 Q_PROPERTY(QString ui_get_rate READ get_rate NOTIFY results_changed)
                 Q_PROPERTY(QString ui_get_error_message READ get_error_message NOTIFY results_changed)
@@ -125,6 +126,12 @@ namespace wfes {
                 QString get_t_fix() const;
 
                 /**
+                 * @brief Send t_fix to GUI.
+                 * @return QString containing t_fix.
+                 */
+                QString get_t_fix_abs_mode() const;
+
+                /**
                  * @brief Send t_fix_std to GUI.
                  * @return QString containing t_fix_std.
                  */
@@ -174,7 +181,7 @@ namespace wfes {
                         text += QString::fromStdString("P. fix., " + (boost::format(DPF) % (results.pFix)).str()) + "\n";
                         text += QString::fromStdString("T. ext., " + (boost::format(DPF) % (results.tExt)).str()) + "\n";
                         text += QString::fromStdString("T. ext. std., " + (boost::format(DPF) % (results.tExtStd)).str()) + "\n";
-                        text += QString::fromStdString("T. fix., " + (boost::format(DPF) % (results.tFix)).str()) + "\n";
+                        text += QString::fromStdString("T. fix., " + (boost::format(DPF) % (results.tFixAbsMode)).str()) + "\n";
                         text += QString::fromStdString("T. fix. std., " + (boost::format(DPF) % (results.tFixStd)).str()) + "\n";
                         clipboard->setText(text, QClipboard::Clipboard);
                         if (clipboard->supportsSelection()) {

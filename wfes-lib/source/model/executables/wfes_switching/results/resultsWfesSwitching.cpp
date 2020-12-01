@@ -3,25 +3,25 @@
 using namespace wfes::config;
 
 ResultsWfesSwitching::ResultsWfesSwitching() : pExt(std::nan("")), pFix(std::nan("")),
-    tExt(std::nan("")), tExtStd(std::nan("")), tFix(std::nan("")), tFixStd(std::nan("")),
+    tExt(std::nan("")), tExtStd(std::nan("")), tFix(std::nan("")), tFixAbsMode(std::nan("")), tFixStd(std::nan("")),
     rate(std::nan("")), time(std::nan("")), error(""){}
 
 ResultsWfesSwitching::ResultsWfesSwitching(double time) : pExt(std::nan("")), pFix(std::nan("")),
-    tExt(std::nan("")), tExtStd(std::nan("")), tFix(std::nan("")), tFixStd(std::nan("")),
+    tExt(std::nan("")), tExtStd(std::nan("")), tFix(std::nan("")), tFixAbsMode(std::nan("")), tFixStd(std::nan("")),
     rate(std::nan("")), time(time), error(""){}
 
 ResultsWfesSwitching::ResultsWfesSwitching(std::string error) : pExt(std::nan("")), pFix(std::nan("")),
-    tExt(std::nan("")), tExtStd(std::nan("")), tFix(std::nan("")), tFixStd(std::nan("")),
+    tExt(std::nan("")), tExtStd(std::nan("")), tFix(std::nan("")), tFixAbsMode(std::nan("")), tFixStd(std::nan("")),
     rate(std::nan("")), time(std::nan("")), error(error){}
 
 ResultsWfesSwitching::ResultsWfesSwitching(double tFix, double rate, double time) : pExt(std::nan("")), pFix(std::nan("")),
-    tExt(std::nan("")), tExtStd(std::nan("")), tFix(tFix), tFixStd(std::nan("")),
+    tExt(std::nan("")), tExtStd(std::nan("")), tFix(tFix), tFixAbsMode(std::nan("")), tFixStd(std::nan("")),
     rate(rate), time(time), error(""){}
 
 ResultsWfesSwitching::ResultsWfesSwitching(double pExt, double pFix, double tExt, double tExtStd, double tFix, double tFixStd, dvec pCondExt, dvec pCondFix, dvec tUncond, dvec tCondExt, dvec tCondFix, double time) :
     pExt(pExt), pFix(pFix),
     tExt(tExt), tExtStd(tExtStd),
-    tFix(tFix), tFixStd(tFixStd),
+    tFix(std::nan("")), tFixAbsMode(tFix), tFixStd(tFixStd),
     rate(std::nan("")),
     pCondExt(pCondExt), pCondFix(pCondFix),
     tUncond(tUncond),
@@ -149,6 +149,9 @@ void ResultsWfesSwitching::writeResultsToFile(ResultsWfesSwitching *results, std
 
     if(!(boost::math::isnan)(results->tFix))
         outStream << "T_fix, " << results->tFix << "\n";
+
+    if(!(boost::math::isnan)(results->tFixAbsMode))
+        outStream << "T_fix, " << results->tFixAbsMode << "\n";
 
     if(!(boost::math::isnan)(results->tFixStd))
         outStream << "T_fix_std, " << results->tFixStd << "\n";

@@ -116,7 +116,8 @@ ApplicationWindow {
                                     outputPFix.visible = checked;
                                     outputText.visible = checked;
                                     outputTextStd.visible = checked;
-                                    outputTFix.visible = checked;
+                                    outputTFix.visible = !checked;
+                                    outputTFixAbsMode.visible = checked;
                                     outputTFixStd.visible = checked;
                                     outputRate.visible = !checked;
                                 }
@@ -147,6 +148,7 @@ ApplicationWindow {
                                     outputText.visible = !checked;
                                     outputTextStd.visible = !checked;
                                     outputTFix.visible = checked;
+                                    outputTFixAbsMode.visible = !checked;
                                     outputTFixStd.visible = !checked;
                                     outputRate.visible = checked;
                                 }
@@ -637,6 +639,18 @@ ApplicationWindow {
                             toolTipText: "Expected number of generations between two fixation events (Fixation mode)."
                             textFieldText: outputControllerWfesSwitching.ui_get_t_fix
                             readOnly: true
+                            visible: (inputControllerWfesSwitching.ui_modelType == "Fixation")
+                        }
+
+                        LabeledTextField {
+                            id: outputTFixAbsMode
+                            labelPreferredWidth: 100
+                            textFieldPreferredWidth: 180
+                            text: "T fix.: "
+                            toolTipText: "Expected number of generations between two fixation events (Fixation mode)."
+                            textFieldText: outputControllerWfesSwitching.ui_get_t_fix_abs_mode
+                            readOnly: true
+                            visible: (inputControllerWfesSwitching.ui_modelType == "Absorption")
                         }
 
                         LabeledTextField {

@@ -45,6 +45,11 @@ class ResultsWfesSwitching {
         double tFix;
 
         /**
+         * @brief Expected number of generations between two fixation events.
+         */
+        double tFixAbsMode;
+
+        /**
          * @brief Standard deviation of expected number of generations between two fixation events.
          */
         double tFixStd;
