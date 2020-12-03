@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import QtQuick.Window 2.3
 import QtQuick.Controls 2.5
 import QtQuick.Layouts 1.15
 
@@ -72,7 +73,14 @@ Item {
                 ToolTip.timeout: Style.tooltipTimeout
                 ToolTip.visible: hovered
                 onClicked: {
-                    wfasView.visible = true;
+                    if(wfasView.visible) {
+                        wfasView.raise()
+                    } else {
+                        wfasView.visible = true;
+                    }
+                    // Center window in screen.
+                    wfasView.setX(Screen.width / 2 - wfasView.width / 2);
+                    wfasView.setY(Screen.height / 2 - wfasView.height / 2);
                 }
                 Layout.alignment: Qt.AlignHCenter
                 Layout.preferredWidth: 160
@@ -84,7 +92,14 @@ Item {
                 ToolTip.timeout: Style.tooltipTimeout
                 ToolTip.visible: hovered
                 onClicked: {
-                    wfafleView.visible = true
+                    if(wfafleView.visible) {
+                        wfafleView.raise()
+                    } else {
+                        wfafleView.visible = true;
+                    }
+                    // Center window in screen.
+                    wfafleView.setX(Screen.width / 2 - wfafleView.width / 2);
+                    wfafleView.setY(Screen.height / 2 - wfafleView.height / 2);
                 }
                 Layout.alignment: Qt.AlignHCenter
                 Layout.preferredWidth: 160
@@ -107,7 +122,14 @@ Item {
                 ToolTip.timeout: Style.tooltipTimeout
                 ToolTip.visible: hovered
                 onClicked: {
-                    timeDistView.visible = true
+                    if(timeDistView.visible) {
+                        timeDistView.raise()
+                    } else {
+                        timeDistView.visible = true;
+                    }
+                    // Center window in screen.
+                    timeDistView.setX(Screen.width / 2 - timeDistView.width / 2);
+                    timeDistView.setY(Screen.height / 2 - timeDistView.height / 2);
                 }
                 Layout.alignment: Qt.AlignHCenter
                 Layout.preferredWidth: 160
@@ -119,7 +141,14 @@ Item {
                 ToolTip.timeout: Style.tooltipTimeout
                 ToolTip.visible: hovered
                 onClicked: {
-                    phaseTypeView.visible = true
+                    if(phaseTypeView.visible) {
+                        phaseTypeView.raise()
+                    } else {
+                        phaseTypeView.visible = true;
+                    }
+                    // Center window in screen.
+                    phaseTypeView.setX(Screen.width / 2 - phaseTypeView.width / 2);
+                    phaseTypeView.setY(Screen.height / 2 - phaseTypeView.height / 2);
                 }
                 Layout.alignment: Qt.AlignHCenter
                 Layout.preferredWidth: 160
@@ -146,7 +175,14 @@ Item {
                 ToolTip.visible: hovered
 
                 onClicked: {
-                    wfesSingleView.visible = true
+                    if(wfesSingleView.visible) {
+                        wfesSingleView.raise()
+                    } else {
+                        wfesSingleView.visible = true;
+                    }
+                    // Center window in screen.
+                    wfesSingleView.setX(Screen.width / 2 - wfesSingleView.width / 2);
+                    wfesSingleView.setY(Screen.height / 2 - wfesSingleView.height / 2);
                 }
                 Layout.alignment: Qt.AlignHCenter
                 Layout.preferredWidth: 160
@@ -159,7 +195,14 @@ Item {
                 ToolTip.visible: hovered
 
                 onClicked: {
-                    wfesSweep.visible = true
+                    if(wfesSweep.visible) {
+                        wfesSweep.raise()
+                    } else {
+                        wfesSweep.visible = true;
+                    }
+                    // Center window in screen.
+                    wfesSweep.setX(Screen.width / 2 - wfesSweep.width / 2);
+                    wfesSweep.setY(Screen.height / 2 - wfesSweep.height / 2);
                 }
                 Layout.alignment: Qt.AlignHCenter
                 Layout.preferredWidth: 160
@@ -182,7 +225,14 @@ Item {
                 ToolTip.timeout: Style.tooltipTimeout
                 ToolTip.visible: hovered
                 onClicked: {
-                    wfesSequential.visible = true
+                    if(wfesSequential.visible) {
+                        wfesSequential.raise()
+                    } else {
+                        wfesSequential.visible = true;
+                    }
+                    // Center window in screen.
+                    wfesSequential.setX(Screen.width / 2 - wfesSequential.width / 2);
+                    wfesSequential.setY(Screen.height / 2 - wfesSequential.height / 2);
                 }
                 Layout.alignment: Qt.AlignHCenter
                 Layout.preferredWidth: 160
@@ -195,7 +245,14 @@ Item {
                 ToolTip.visible: hovered
 
                 onClicked: {
-                    wfesSwitching.visible = true
+                    if(wfesSwitching.visible) {
+                        wfesSwitching.raise()
+                    } else {
+                        wfesSwitching.visible = true;
+                    }
+                    // Center window in screen.
+                    wfesSwitching.setX(Screen.width / 2 - wfesSwitching.width / 2);
+                    wfesSwitching.setY(Screen.height / 2 - wfesSwitching.height / 2);
                 }
                 Layout.alignment: Qt.AlignHCenter
                 Layout.preferredWidth: 160
