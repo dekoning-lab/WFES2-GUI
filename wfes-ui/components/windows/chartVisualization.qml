@@ -43,6 +43,7 @@ ApplicationWindow {
         title: "A chart will appear here when you execute an executable with Dist, Moments or Probs (P)."
         anchors.fill: parent
         antialiasing: true
+
         anchors { fill: parent; margins: -10;}
         legend.alignment: Qt.AlignRight
         legend.font.pointSize: 12
@@ -68,6 +69,7 @@ ApplicationWindow {
             id: lineSeries0Chart1
             axisX: axisXLinear
             axisY: axisYLinear
+            useOpenGL: true
         }
 
         // Plot line
@@ -75,6 +77,7 @@ ApplicationWindow {
             id: lineSeries1Chart1
             axisX: axisXLinear
             axisY: axisYLinear
+            useOpenGL: true
         }
 
     }
@@ -111,6 +114,7 @@ ApplicationWindow {
             id: lineSeries0Chart2
             axisX: axisX2Linear
             axisY: axisY2Linear
+            useOpenGL: true
         }
 
         // Plot line
@@ -118,6 +122,7 @@ ApplicationWindow {
             id: lineSeries1Chart2
             axisX: axisX2Linear
             axisY: axisY2Linear
+            useOpenGL: true
         }
 
     }
@@ -154,6 +159,7 @@ ApplicationWindow {
             id: lineSeries0Chart3
             axisX: axisX3Linear
             axisY: axisY3Linear
+            useOpenGL: true
         }
 
         // Plot line
@@ -161,6 +167,7 @@ ApplicationWindow {
             id: lineSeries1Chart3
             axisX: axisX3Linear
             axisY: axisY3Linear
+            useOpenGL: true
         }
 
     }
@@ -198,6 +205,7 @@ ApplicationWindow {
             id: lineSeries0Chart1Log
             axisX: axisX1Log
             axisY: axisY1Log
+            useOpenGL: true
         }
 
         // Plot line
@@ -205,6 +213,7 @@ ApplicationWindow {
             id: lineSeries1Chart1Log
             axisX: axisX1Log
             axisY: axisY1Log
+            useOpenGL: true
         }
 
     }
@@ -242,6 +251,7 @@ ApplicationWindow {
             id: lineSeries0Chart2Log
             axisX: axisX2Log
             axisY: axisY2Log
+            useOpenGL: true
         }
 
         // Plot line
@@ -249,6 +259,7 @@ ApplicationWindow {
             id: lineSeries1Chart2Log
             axisX: axisX2Log
             axisY: axisY2Log
+            useOpenGL: true
         }
 
     }
@@ -286,6 +297,7 @@ ApplicationWindow {
             id: lineSeries0Chart3Log
             axisX: axisX3Log
             axisY: axisY3Log
+            useOpenGL: true
         }
 
         // Plot line
@@ -293,6 +305,7 @@ ApplicationWindow {
             id: lineSeries1Chart3Log
             axisX: axisX3Log
             axisY: axisY3Log
+            useOpenGL: true
         }
 
     }
