@@ -1,2 +1,3 @@
 module components
 BottomMenu 1.0 bottommenu/BottomMenu.qml
+MainButtons 1.0 stackbuttons/MainButtons.qml

@@ -8,6 +8,7 @@ import QtQuick.Controls.Universal 2.3
 
 
 Item {
+    property alias onCLick: backButton.onClicked
     visible: false
     width: childrenRect.width
     height: childrenRect.height
@@ -18,6 +19,7 @@ Item {
     }
 
     Button {
+        id: backButton
         background: Rectangle {
             color: "transparent"
         }
@@ -28,7 +30,8 @@ Item {
         text: "\uf060"
         onClicked: {
             back.visible = false;
-            menu.pop()
+            wfesButtons.visible = false;
+            mainButtons.visible = true;
         }
         Layout.alignment: Qt.AlignHCenter
     }
