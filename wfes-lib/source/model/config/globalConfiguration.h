@@ -11,9 +11,11 @@ namespace wfes {
         class WFESLIBSHARED_EXPORT GlobalConfiguration : public QObject {
             Q_OBJECT
             Q_PROPERTY(bool ui_generate_images READ getGenerateImages WRITE setGenerateImages NOTIFY generateImagesChanged)
-
+            Q_PROPERTY(QString ui_save_path READ getSavePath WRITE setSavePath NOTIFY savePathChanged)
             public:
                 static bool generateImages;
+
+                static QString savePath;
 
                 GlobalConfiguration() = default;
 
@@ -21,9 +23,13 @@ namespace wfes {
 
                 void setGenerateImages(bool generate);
 
-            signals:
+                QString getSavePath();
 
+                void setSavePath(QString savePath);
+
+            signals:
                 void generateImagesChanged();
+                void savePathChanged();
         };
     }
 }

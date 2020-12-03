@@ -26,7 +26,7 @@ ApplicationWindow {
     // Select theme for the application.
     Universal.theme: Universal.Light
 
-    color: Universal.chromeLowColor
+    color: "white"
 
     Component.onCompleted: {
         // Center window in screen.
@@ -43,8 +43,7 @@ ApplicationWindow {
         title: "A chart will appear here when you execute an executable with Dist, Moments or Probs (P)."
         anchors.fill: parent
         antialiasing: true
-
-        anchors { fill: parent; margins: -10;}
+        anchors { fill: parent; margins: 10;}
         legend.alignment: Qt.AlignRight
         legend.font.pointSize: 12
 
@@ -87,7 +86,7 @@ ApplicationWindow {
         title: "A chart will appear here when you execute an executable with Dist, Moments or Probs (P)."
         anchors.fill: parent
         antialiasing: true
-        anchors { fill: parent; margins: -10 }
+        anchors { fill: parent; margins: 10;}
         legend.alignment: Qt.AlignRight
         legend.font.pointSize: 12
         visible: false
@@ -132,7 +131,7 @@ ApplicationWindow {
         title: "A chart will appear here when you execute an executable with Dist, Moments or Probs (P)."
         anchors.fill: parent
         antialiasing: true
-        anchors { fill: parent; margins: -10 }
+        anchors { fill: parent; margins: 10;}
         legend.alignment: Qt.AlignRight
         legend.font.pointSize: 12
         visible: false
@@ -177,7 +176,7 @@ ApplicationWindow {
         title: "A chart will appear here when you execute an executable with Dist, Moments or Probs (P)."
         anchors.fill: parent
         antialiasing: true
-        anchors { fill: parent; margins: -10 }
+        anchors { fill: parent; margins: 10;}
         legend.alignment: Qt.AlignRight
         legend.font.pointSize: 12
         visible: false
@@ -223,7 +222,7 @@ ApplicationWindow {
         title: "A chart will appear here when you execute an executable with Dist, Moments or Probs (P)."
         anchors.fill: parent
         antialiasing: true
-        anchors { fill: parent; margins: -10 }
+        anchors { fill: parent; margins: 10;}
         legend.alignment: Qt.AlignRight
         legend.font.pointSize: 12
         visible: false
@@ -269,7 +268,7 @@ ApplicationWindow {
         title: "A chart will appear here when you execute an executable with Dist, Moments or Probs (P)."
         anchors.fill: parent
         antialiasing: true
-        anchors { fill: parent; margins: -10 }
+        anchors { fill: parent; margins: 10;}
         legend.alignment: Qt.AlignRight
         legend.font.pointSize: 12
         visible: false
@@ -413,8 +412,8 @@ ApplicationWindow {
         text: "Log10 Scale"
         width: 100
         anchors {
-            right: parent.right
-            bottom: parent.bottom
+            top: parent.top
+            horizontalCenter: parent.horizontalCenter
         }
         onClicked: {
             if(scaleButton.text == "Log10 Scale") {
@@ -445,6 +444,49 @@ ApplicationWindow {
                     chart3Log.visible = false
                     chart3Linear.visible = true
                 }
+            }
+        }
+    }
+
+    Button {
+        id: downloadButton
+        text: "Download"
+        width: 100
+        anchors {
+            bottom: parent.bottom
+            horizontalCenter: parent.horizontalCenter
+        }
+        onClicked: {
+            if(chart1Linear.visible) {
+                chart1Linear.grabToImage(function(result) {
+                    print(globalConfiguration.ui_save_path)
+                    result.saveToFile(globalConfiguration.ui_save_path + "/Wfes/chart-" + bt1.text + ".png");
+                });
+            } else if(chart1Log.visible) {
+                chart1Log.grabToImage(function(result) {
+                    print(globalConfiguration.ui_save_path)
+                    result.saveToFile(globalConfiguration.ui_save_path + "/Wfes/chart-" + bt1.text + ".png");
+                });
+            } else if(chart2Linear.visible) {
+                chart2Linear.grabToImage(function(result) {
+                    print(globalConfiguration.ui_save_path)
+                    result.saveToFile(globalConfiguration.ui_save_path + "/Wfes/chart-" + bt2.text + ".png");
+                });
+            } else if(chart2Log.visible) {
+                chart2Log.grabToImage(function(result) {
+                    print(globalConfiguration.ui_save_path)
+                    result.saveToFile(globalConfiguration.ui_save_path + "/Wfes/chart-" + bt2.text + ".png");
+                });
+            } else if(chart3Linear.visible) {
+                chart3Linear.grabToImage(function(result) {
+                    print(globalConfiguration.ui_save_path)
+                    result.saveToFile(globalConfiguration.ui_save_path + "/Wfes/chart-" + bt3.text + ".png");
+                });
+            } else if(chart3Log.visible) {
+                chart3Log.grabToImage(function(result) {
+                    print(globalConfiguration.ui_save_path)
+                    result.saveToFile(globalConfiguration.ui_save_path + "/Wfes/chart-" + bt3.text + ".png");
+                });
             }
         }
     }
