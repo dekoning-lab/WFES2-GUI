@@ -135,36 +135,11 @@ Rectangle {
             }
         }
         
-        
-        Button {
-            id: helpButton
-            text: "Help"
-            onClicked: menu4.open()
-            
-            Menu {
-                id: menu4
-                y: helpButton.height
-
-
-                MenuItem {
-                    text: "Manual"
-                    onClicked: {
-                        Qt.openUrlExternally("https://github.com/dekoning-lab/wfes-gui/wiki");
-                    }
-                }
-                MenuItem {
-                    text: "About"
-                    onClicked: {
-                        helpView.visible = true
-                    }
-                }
-            }
-        }
 
 
         Button {
             id: switchButton
-            text: "Open Views"
+            text: "Windows"
             onClicked: menu5.open()
 
             Menu {
@@ -273,6 +248,33 @@ Rectangle {
                 }
             }
         }
+
+
+        Button {
+            id: helpButton
+            text: "Help"
+            onClicked: menu4.open()
+
+            Menu {
+                id: menu4
+                y: helpButton.height
+
+
+                MenuItem {
+                    text: "Manual"
+                    onClicked: {
+                        Qt.openUrlExternally("https://github.com/dekoning-lab/wfes-gui/wiki");
+                    }
+                }
+                MenuItem {
+                    text: "About"
+                    onClicked: {
+                        helpView.visible = true
+                    }
+                }
+            }
+        }
+
     }
 
     ChartVisualization {
