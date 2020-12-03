@@ -14,7 +14,6 @@ Window {
 
     visible: true
 
-
     width: 600
     minimumWidth: 600
     maximumWidth: 600
@@ -35,11 +34,31 @@ Window {
 
     // Everything is located in this Rectangle.
     Rectangle {
+        id: container
         anchors.fill: parent
         color: "transparent"
 
-        BackButton {
+        Button {
             id: back
+            visible: false
+            anchors{
+                top: root.top
+                left: root.left
+            }
+
+            background: Rectangle {
+                color: "transparent"
+            }
+            font {
+                family: Style.fontAwesome
+                pixelSize: 30
+            }
+            text: "\uf060"
+            onClicked: {
+                menu.visibleMainButtons = true;
+                menu.visibleWfesButtons = false
+                back.visible = false;
+            }
         }
 
         Image {
@@ -57,7 +76,7 @@ Window {
             horizontalAlignment: Image.AlignHCenter;
         }
 
-        StackView {
+        MainButtons {
             id: menu
             width: parent.width
             height: childrenRect.height
@@ -65,7 +84,6 @@ Window {
                 top: logo.bottom
                 topMargin: 50
             }
-            initialItem: 'qrc:/views/mainview/stackbuttons/MainButtons.qml'
         }
 
         BottomMenu {

@@ -17,7 +17,7 @@ Item {
         Layout.preferredWidth: 160
         text: ""
         onClicked: {
-            menu.push(view);
+            menu.push(view, {}, StackView.Immediate);
             back.visible = true;
         }
     }
