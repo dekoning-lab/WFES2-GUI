@@ -550,12 +550,12 @@ ApplicationWindow {
         setSeriesName("Probability of subs.", "", "Cumulative prob. of subs.", "", "", "")
 
         var axisPadding = ((minMaxDist.y - minMaxDist.x) - minMaxDist.x) * 0.01
-        setValuesAxis(axisXLinear, axisYLinear, 1, lineSeries0Chart1.count, minMaxDist.x - axisPadding, minMaxDist.y + axisPadding)
-        setValuesAxis(axisX1Log, axisY1Log, 1, lineSeries0Chart1Log.count, minMaxDist.x - axisPadding, minMaxDist.y + axisPadding)
+        setValuesAxis(axisXLinear, axisYLinear, 1, lineSeries0Chart1.at(lineSeries0Chart1.count-1).x, minMaxDist.x - axisPadding, minMaxDist.y + axisPadding)
+        setValuesAxis(axisX1Log, axisY1Log, 1, lineSeries0Chart1Log.at(lineSeries0Chart1Log.count-1).x, minMaxDist.x - axisPadding, minMaxDist.y + axisPadding)
 
         axisPadding = ((minMaxAcum.y - minMaxAcum.x) - minMaxAcum.x) * 0.01
-        setValuesAxis(axisX2Linear, axisY2Linear, 1, lineSeries0Chart2.count, minMaxAcum.x - axisPadding, minMaxAcum.y + axisPadding)
-        setValuesAxis(axisX2Log, axisY2Log, 1, lineSeries0Chart2Log.count, minMaxAcum.x - axisPadding, minMaxAcum.y + axisPadding)
+        setValuesAxis(axisX2Linear, axisY2Linear, 1, lineSeries0Chart2.at(lineSeries0Chart2.count-1).x, minMaxAcum.x - axisPadding, minMaxAcum.y + axisPadding)
+        setValuesAxis(axisX2Log, axisY2Log, 1, lineSeries0Chart2Log.at(lineSeries0Chart2Log.count-1).x, minMaxAcum.x - axisPadding, minMaxAcum.y + axisPadding)
     }
 
     function updateDistWfas() {

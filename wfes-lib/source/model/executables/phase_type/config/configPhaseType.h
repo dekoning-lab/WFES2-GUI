@@ -184,6 +184,11 @@ namespace wfes {
                 static bool force;
 
                 /**
+                 * @brief Sampling frequency of dist. for chart visualization.
+                 */
+                static int samplingFrequency;
+
+                /**
                  * @brief Save configuration into a file.
                  */
                 static void saveConfigPhaseType();

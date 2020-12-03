@@ -50,6 +50,8 @@ void ConfigPhaseType::saveConfigPhaseType() {
     outStream << "Output Res: " << (ConfigPhaseType::output_Res ? QString("true") : QString("false")) << "\n";
     outStream << "Force: " << (ConfigPhaseType::force ? QString("true") : QString("false")) << "\n";
 
+    outStream << "Sampling Frequency: " << ConfigPhaseType::samplingFrequency << "\n";
+
     file.close();
 }
 
@@ -119,6 +121,8 @@ void ConfigPhaseType::processLine(QString line) {
         ConfigPhaseType::output_Res = splitted.at(1).compare("true") == 0 ? true : false;
     } else if(splitted.at(0).compare("Force") == 0) {
         ConfigPhaseType::force = splitted.at(1).compare("true") == 0 ? true : false;
+    } else if(splitted.at(0).compare("Sampling Frequency") == 0) {
+        ConfigPhaseType::samplingFrequency = std::stoi(splitted.at(1).toStdString());
     }
 }
 
@@ -157,6 +161,6 @@ bool ConfigPhaseType::output_Moments = true;
 bool ConfigPhaseType::output_Res = true;
 
 bool ConfigPhaseType::force = false;
-
+int ConfigPhaseType::samplingFrequency = 1;
 
 

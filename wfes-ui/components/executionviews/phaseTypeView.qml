@@ -457,7 +457,7 @@ ApplicationWindow {
                                             id: inputForce
                                             toolTipText: "Do not perform parameter checks."
                                             text: "Force: "
-                                            checked: inputControllerWfesSingle.ui_force
+                                            checked: inputControllerPhaseType.ui_force
                                         }
 
                                         LabeledTextField {
@@ -466,9 +466,21 @@ ApplicationWindow {
                                             toolTipText: "Number of threads for OpenMP."
                                             labelPreferredWidth: 10
                                             validator: IntValidator {bottom: 1;}
-                                            textFieldText: inputControllerWfesSingle.ui_t
+                                            textFieldText: inputControllerPhaseType.ui_t
                                         }
                                     }
+
+                                    LabeledTextField {
+                                        id: inputSamplingFrequency
+                                        text: "Sf: "
+                                        toolTipText: "Sampling frequency of dist. for generating chart."
+                                        labelPreferredWidth: 75
+                                        textFieldPreferredWidth: 185
+                                        validator: IntValidator {bottom: 1;}
+                                        enabled: radioButtonPhaseTypeDist.checked
+                                        textFieldText: inputControllerPhaseType.ui_sampling_frequency
+                                    }
+
                                     LabeledComboBox {
                                         id: comboBoxLibrary
                                         text: "Library:"
@@ -761,6 +773,8 @@ ApplicationWindow {
         inputWriteRes.checked = inputControllerPhaseType.ui_output_Res
         inputWriteMoments.checked = inputControllerPhaseType.ui_output_Moments
 
+        inputSamplingFrequency.textFieldText = inputControllerPhaseType.ui_sampling_frequency
+
         var library = inputControllerPhaseType.ui_library
         if(library === "Pardiso")
             comboBoxLibrary.currentIndex = 0
@@ -775,7 +789,6 @@ ApplicationWindow {
     }
 
     function updateBackend() {
-
         // Set mode in backend.
         if(radioButtonPhaseTypeDist.checked)
             inputControllerPhaseType.ui_modelType = "Phase Type Dist."
@@ -804,6 +817,8 @@ ApplicationWindow {
 
         inputControllerPhaseType.ui_library = comboBoxLibrary.currentText;
         inputControllerPhaseType.ui_solver = comboBoxSolver.currentText;
+
+        inputControllerPhaseType.ui_sampling_frequency = inputSamplingFrequency.textFieldText
 
     }
 
@@ -859,6 +874,10 @@ ApplicationWindow {
         // Number of threads (t) does not have upper limites, since it depends on the hardware available.
         if(parseInt(inputT.textFieldText) < 1)
             error += " - Number of Threads (t) is quite small, it must be at least 1. \n \n"
+
+        // Sampling frequency does not have upper limites, since it depends on the hardware available.
+        if(parseInt(inputSamplingFrequency.textFieldText) < 1)
+            error += " - Sampling frequency (Sf) is quite small, it must be at least 1. \n \n"
 
         //TODO Check if Initial Distribution (I) file exists.
 
