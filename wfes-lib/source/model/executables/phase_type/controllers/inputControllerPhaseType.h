@@ -32,6 +32,7 @@ namespace wfes {
             Q_PROPERTY(QString ui_h READ get_h WRITE set_h NOTIFY input_changed)
             Q_PROPERTY(QString ui_t READ get_t WRITE set_t NOTIFY input_changed)
             Q_PROPERTY(QString ui_m READ get_m WRITE set_m NOTIFY input_changed)
+            Q_PROPERTY(QString ui_sampling_frequency READ get_sampling_frequency WRITE set_sampling_frequency NOTIFY input_changed)
             Q_PROPERTY(bool ui_output_P READ get_output_P WRITE set_output_P NOTIFY input_changed)
             Q_PROPERTY(bool ui_output_Q READ get_output_Q WRITE set_output_Q NOTIFY input_changed)
             Q_PROPERTY(bool ui_output_R READ get_output_R WRITE set_output_R NOTIFY input_changed)
@@ -165,6 +166,18 @@ namespace wfes {
                  * @param t value in GUI.
                  */
                 void set_t(QString t) const;
+
+                /**
+                 * @brief Send sampling frequency to GUI.
+                 * @return QString containing sampling frequency.
+                 */
+                QString get_sampling_frequency() const;
+                /**
+                 * @brief Set sampling frequency from  GUI.
+                 * @param sampling frequency value in GUI.
+                 */
+                void set_sampling_frequency(QString sampling_frequency) const;
+
 
                 /**
                  * @brief Send if output P to GUI.

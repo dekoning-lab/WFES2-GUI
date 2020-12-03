@@ -174,6 +174,22 @@ void InputControllerPhaseType::set_t(QString t) const {
 
 }
 
+QString InputControllerPhaseType::get_sampling_frequency() const {
+    boost::format fmt = boost::format(DPFS) % (ConfigPhaseType::samplingFrequency);
+
+    if((boost::math::isnan)(ConfigPhaseType::samplingFrequency))
+        return "";
+    else
+        return QString::fromStdString(fmt.str());
+}
+
+void InputControllerPhaseType::set_sampling_frequency(QString sampling_frequency) const {
+    std::string sampling_frequency_str = sampling_frequency.toStdString();
+
+    double sampling_frequency_d = boost::lexical_cast<double>(sampling_frequency_str);
+    ConfigPhaseType::samplingFrequency = sampling_frequency_d;
+}
+
 bool InputControllerPhaseType::get_output_P() const {
     return ConfigPhaseType::output_P;
 }

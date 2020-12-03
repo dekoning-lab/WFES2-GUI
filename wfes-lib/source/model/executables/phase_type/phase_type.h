@@ -1,6 +1,9 @@
 #ifndef PHASE_TYPE_H
 #define PHASE_TYPE_H
 
+#include <QDebug>
+#include <QString>
+
 #include "utils/types.h"
 #include "utils/utils.h"
 #include "utils/parsing.h"

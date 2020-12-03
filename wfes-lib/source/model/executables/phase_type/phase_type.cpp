@@ -86,16 +86,18 @@ ResultsPhaseType *phase_type::phaseTypeDist() {
             c = wf.Q->multiply(c, true);
 
             // This is for chart visualization.
-            if(minDist >= P_abs_t)
-                minDist = P_abs_t;
-            if(maxDist <= P_abs_t)
-                maxDist = P_abs_t;
-            if(minAcum >= cdf)
-                minAcum = cdf;
-            if(maxAcum <= cdf)
-                maxAcum = cdf;
-            dist.append(QPointF(i+1, P_abs_t));
-            acum.append(QPointF(i+1, cdf));
+            if(i % ConfigPhaseType::samplingFrequency == 0) {
+                if(minDist >= P_abs_t)
+                    minDist = P_abs_t;
+                if(maxDist <= P_abs_t)
+                    maxDist = P_abs_t;
+                if(minAcum >= cdf)
+                    minAcum = cdf;
+                if(maxAcum <= cdf)
+                    maxAcum = cdf;
+                dist.append(QPointF(i+1, P_abs_t));
+                acum.append(QPointF(i+1, cdf));
+            }
             // This is for chart visualization.
         }
 
