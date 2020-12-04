@@ -856,7 +856,7 @@ ApplicationWindow {
 
         inputControllerWfesSwitching.ui_library = comboBoxLibrary.currentText;
         inputControllerWfesSwitching.ui_solver = comboBoxSolver.currentText;
-
+        inputControllerWfesSwitching.ui_num_comp = componentsSectionTabView.children[0].count - 2
     }
 
     function checkIntegrity() {

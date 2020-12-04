@@ -11,6 +11,8 @@
 
 #include "source/model/executables/wfes_single/thread/workerThreadWfesSingle.h"
 
+using namespace wfes::config;
+
 namespace wfes {
     namespace controllers {
 
@@ -302,7 +304,22 @@ namespace wfes {
                 Q_INVOKABLE void coppyToClipboard() {
                     QClipboard* clipboard = QApplication::clipboard();
                     QString text = "";
+                    // Input parameters
+                    text += QString::fromStdString("Parameter, Value") + "\n";
+                    text += QString::fromStdString("N, " + (boost::format(DPF) % (ConfigWfesSingle::population_size)).str()) + "\n";
+                    text += QString::fromStdString("a, " + (boost::format(DPF) % (ConfigWfesSingle::a)).str()) + "\n";
+                    text += QString::fromStdString("c, " + (boost::format(DPF) % (ConfigWfesSingle::integration_cutoff)).str()) + "\n";
+                    text += QString::fromStdString("s, " + (boost::format(DPF) % (ConfigWfesSingle::s)).str()) + "\n";
+                    text += QString::fromStdString("h, " + (boost::format(DPF) % (ConfigWfesSingle::h)).str()) + "\n";
+                    text += QString::fromStdString("u, " + (boost::format(DPF) % (ConfigWfesSingle::u)).str()) + "\n";
+                    text += QString::fromStdString("v, " + (boost::format(DPF) % (ConfigWfesSingle::v)).str()) + "\n";
+
                     if(wfes::config::ConfigWfesSingle::modelType == wfes::config::ModelTypeWfesSingle::ABSORPTION) {
+                        text += QString::fromStdString("p, " + (boost::format(DPF) % (ConfigWfesSingle::starting_copies)).str()) + "\n";
+                        text += QString::fromStdString("m, ") + (ConfigWfesSingle::no_rem ? "true" : "false") + "\n";
+
+                        // Output
+                        text += QString::fromStdString("Result, Value") + "\n";
                         text += QString::fromStdString("P. ext., " + (boost::format(DPF) % (results.pExt)).str()) + "\n";
                         text += QString::fromStdString("P. fix., " + (boost::format(DPF) % (results.pFix)).str()) + "\n";
                         text += QString::fromStdString("T. abs., " + (boost::format(DPF) % (results.tAbs)).str()) + "\n";
@@ -313,10 +330,21 @@ namespace wfes {
                         text += QString::fromStdString("T. fix., " + (boost::format(DPF) % (results.tFixAbsMode)).str()) + "\n";
                         text += QString::fromStdString("T. fix. std., " + (boost::format(DPF) % (results.tFixStdAbsMode)).str()) + "\n";
                     } else if (wfes::config::ConfigWfesSingle::modelType == wfes::config::ModelTypeWfesSingle::FIXATION) {
+                        text += QString::fromStdString("p, " + (boost::format(DPF) % (ConfigWfesSingle::starting_copies)).str()) + "\n";
+                        text += QString::fromStdString("m, ") + (ConfigWfesSingle::no_rem ? "true" : "false") + "\n";
+
+                        // Output
+                        text += QString::fromStdString("Result, Value") + "\n";
                         text += QString::fromStdString("T. fix., " + (boost::format(DPF) % (results.tFix)).str()) + "\n";
                         text += QString::fromStdString("T. fix. std., " + (boost::format(DPF) % (results.tFixStd)).str()) + "\n";
                         text += QString::fromStdString("Rate, " + (boost::format(DPF) % (results.rate)).str()) + "\n";
                     } else if (wfes::config::ConfigWfesSingle::modelType == wfes::config::ModelTypeWfesSingle::ESTABLISHMENT) {
+                        text += QString::fromStdString("p, " + (boost::format(DPF) % (ConfigWfesSingle::starting_copies)).str()) + "\n";
+                        text += QString::fromStdString("m, ") + (ConfigWfesSingle::no_rem ? "true" : "false") + "\n";
+                        text += QString::fromStdString("k, " + (boost::format(DPF) % (ConfigWfesSingle::odds_ratio)).str()) + "\n";
+
+                        // Output
+                        text += QString::fromStdString("Result, Value") + "\n";
                         text += QString::fromStdString("F. est., " + (boost::format(DPF) % (results.fEst)).str()) + "\n";
                         text += QString::fromStdString("P. est., " + (boost::format(DPF) % (results.pEst)).str()) + "\n";
                         text += QString::fromStdString("T. seg., " + (boost::format(DPF) % (results.tSeg)).str()) + "\n";
@@ -328,9 +356,16 @@ namespace wfes {
                         text += QString::fromStdString("T. est., " + (boost::format(DPF) % (results.tEst)).str()) + "\n";
                         text += QString::fromStdString("T. est. std., " + (boost::format(DPF) % (results.tEstStd)).str()) + "\n";
                     } else if (wfes::config::ConfigWfesSingle::modelType == wfes::config::ModelTypeWfesSingle::EQUILIBRIUM) {
+                        text += QString::fromStdString("Result, Value") + "\n";
                         text += QString::fromStdString("E[freq mut], " + (boost::format(DPF) % (results.freqMut)).str()) + "\n";
                         text += QString::fromStdString("E[freq wt], " + (boost::format(DPF) % (results.freqWt)).str()) + "\n";
                     } else if (wfes::config::ConfigWfesSingle::modelType == wfes::config::ModelTypeWfesSingle::ALLELE_AGE) {
+                        text += QString::fromStdString("p, " + (boost::format(DPF) % (ConfigWfesSingle::starting_copies)).str()) + "\n";
+                        text += QString::fromStdString("m, ") + (ConfigWfesSingle::no_rem ? "true" : "false") + "\n";
+                        text += QString::fromStdString("x, " + (boost::format(DPF) % (ConfigWfesSingle::observed_copies)).str()) + "\n";
+
+                        // Output
+                        text += QString::fromStdString("Result, Value") + "\n";
                         text += QString::fromStdString("E[A], " + (boost::format(DPF) % (results.eAlleleAge)).str()) + "\n";
                         text += QString::fromStdString("S[A], " + (boost::format(DPF) % (results.sAlleleAge)).str()) + "\n";
                     }

@@ -12,6 +12,8 @@
 #include <model/executables/wfes_sequential/results/resultsWfesSequential.h>
 #include <model/executables/wfes_sequential/thread/workerThreadWfesSequential.h>
 
+using namespace wfes::config;
+
 namespace wfes {
     namespace controllers {
 
@@ -183,6 +185,57 @@ namespace wfes {
                 Q_INVOKABLE void coppyToClipboard() {
                     QClipboard* clipboard = QApplication::clipboard();
                     QString text = "";
+                    // Input parameters
+                    text += QString::fromStdString("Parameter, Value") + "\n";
+
+                    text += QString::fromStdString("N, ");
+                    for(int i = 0; i < ConfigWfesSequential::N.size() - 1; i++) {
+                        text += QString::fromStdString((std::to_string(ConfigWfesSequential::N(i)) + "; "));
+                    }
+                    text += QString::fromStdString((std::to_string(ConfigWfesSequential::N(ConfigWfesSequential::N.size() - 1)) + "\n"));
+
+                    text += QString::fromStdString("t, ");
+                    for(int i = 0; i < ConfigWfesSequential::t.size() - 1; i++) {
+                        text += QString::fromStdString((std::to_string(ConfigWfesSequential::t(i)) + "; "));
+                    }
+                    text += QString::fromStdString((std::to_string(ConfigWfesSequential::t(ConfigWfesSequential::t.size() - 1)) + "\n"));
+
+                    text += QString::fromStdString("p, ");
+                    for(int i = 0; i < ConfigWfesSequential::p.size() - 1; i++) {
+                        text += QString::fromStdString((std::to_string(ConfigWfesSequential::p(i)) + "; "));
+                    }
+                    text += QString::fromStdString((std::to_string(ConfigWfesSequential::p(ConfigWfesSequential::p.size() - 1)) + "\n"));
+
+                    text += QString::fromStdString("s, ");
+                    for(int i = 0; i < ConfigWfesSequential::s.size() - 1; i++) {
+                        text += QString::fromStdString((std::to_string(ConfigWfesSequential::s(i)) + "; "));
+                    }
+                    text += QString::fromStdString((std::to_string(ConfigWfesSequential::s(ConfigWfesSequential::s.size() - 1)) + "\n"));
+
+                    text += QString::fromStdString("h, ");
+                    for(int i = 0; i < ConfigWfesSequential::h.size() - 1; i++) {
+                        text += QString::fromStdString((std::to_string(ConfigWfesSequential::h(i)) + "; "));
+                    }
+                    text += QString::fromStdString((std::to_string(ConfigWfesSequential::h(ConfigWfesSequential::h.size() - 1)) + "\n"));
+
+                    text += QString::fromStdString("u, ");
+                    for(int i = 0; i < ConfigWfesSequential::u.size() - 1; i++) {
+                        text += QString::fromStdString((std::to_string(ConfigWfesSequential::u(i)) + "; "));
+                    }
+                    text += QString::fromStdString((std::to_string(ConfigWfesSequential::u(ConfigWfesSequential::u.size() - 1)) + "\n"));
+
+                    text += QString::fromStdString("v, ");
+                    for(int i = 0; i < ConfigWfesSequential::v.size() - 1; i++) {
+                        text += QString::fromStdString((std::to_string(ConfigWfesSequential::v(i)) + "; "));
+                    }
+                    text += QString::fromStdString((std::to_string(ConfigWfesSequential::v(ConfigWfesSequential::v.size() - 1)) + "\n"));
+
+                    text += QString::fromStdString("a, " + (boost::format(DPF) % (ConfigWfesSequential::a)).str()) + "\n";
+                    text += QString::fromStdString("c, " + (boost::format(DPF) % (ConfigWfesSequential::c)).str()) + "\n";
+
+
+                    // Output
+                    text += QString::fromStdString("Result, Value") + "\n";
                     text += QString::fromStdString("P. ext., " + (boost::format(DPF) % (results.pExt)).str()) + "\n";
                     text += QString::fromStdString("P. fix., " + (boost::format(DPF) % (results.pFix)).str()) + "\n";
                     text += QString::fromStdString("P. tmo., " + (boost::format(DPF) % (results.pTmo)).str()) + "\n";
