@@ -12,6 +12,8 @@
 #include <model/executables/wfas/results/resultsWfas.h>
 #include <model/executables/wfas/thread/workerThreadWfas.h>
 
+using namespace wfes::config;
+
 namespace wfes {
     namespace controllers {
 
@@ -127,6 +129,55 @@ namespace wfes {
                 Q_INVOKABLE void coppyToClipboard() {
                     QClipboard* clipboard = QApplication::clipboard();
                     QString text = "";
+                    // Input parameters
+                    text += QString::fromStdString("Parameter, Value") + "\n";
+
+                    text += QString::fromStdString("N, ");
+                    for(int i = 0; i < ConfigWfas::N.size() - 1; i++) {
+                        text += QString::fromStdString((std::to_string(ConfigWfas::N(i)) + "; "));
+                    }
+                    text += QString::fromStdString((std::to_string(ConfigWfas::N(ConfigWfas::N.size() - 1)) + "\n"));
+
+                    text += QString::fromStdString("G, ");
+                    for(int i = 0; i < ConfigWfas::G.size() - 1; i++) {
+                        text += QString::fromStdString((std::to_string(ConfigWfas::G(i)) + "; "));
+                    }
+                    text += QString::fromStdString((std::to_string(ConfigWfas::G(ConfigWfas::G.size() - 1)) + "\n"));
+
+                    text += QString::fromStdString("F, ");
+                    for(int i = 0; i < ConfigWfas::f.size() - 1; i++) {
+                        text += QString::fromStdString((std::to_string(ConfigWfas::f(i)) + "; "));
+                    }
+                    text += QString::fromStdString((std::to_string(ConfigWfas::G(ConfigWfas::G.size() - 1)) + "\n"));
+
+                    text += QString::fromStdString("s, ");
+                    for(int i = 0; i < ConfigWfas::s.size() - 1; i++) {
+                        text += QString::fromStdString((std::to_string(ConfigWfas::s(i)) + "; "));
+                    }
+                    text += QString::fromStdString((std::to_string(ConfigWfas::s(ConfigWfas::s.size() - 1)) + "\n"));
+
+                    text += QString::fromStdString("h, ");
+                    for(int i = 0; i < ConfigWfas::h.size() - 1; i++) {
+                        text += QString::fromStdString((std::to_string(ConfigWfas::h(i)) + "; "));
+                    }
+                    text += QString::fromStdString((std::to_string(ConfigWfas::h(ConfigWfas::h.size() - 1)) + "\n"));
+
+                    text += QString::fromStdString("u, ");
+                    for(int i = 0; i < ConfigWfas::u.size() - 1; i++) {
+                        text += QString::fromStdString((std::to_string(ConfigWfas::u(i)) + "; "));
+                    }
+                    text += QString::fromStdString((std::to_string(ConfigWfas::u(ConfigWfas::u.size() - 1)) + "\n"));
+
+                    text += QString::fromStdString("v, ");
+                    for(int i = 0; i < ConfigWfas::v.size() - 1; i++) {
+                        text += QString::fromStdString((std::to_string(ConfigWfas::v(i)) + "; "));
+                    }
+                    text += QString::fromStdString((std::to_string(ConfigWfas::v(ConfigWfas::v.size() - 1)) + "\n"));
+
+                    text += QString::fromStdString("a, " + (boost::format(DPF) % (ConfigWfas::a)).str()) + "\n";
+                    text += QString::fromStdString("p, " + (boost::format(DPF) % (ConfigWfas::p)).str()) + "\n";
+                    text += QString::fromStdString("No proj, ") + (ConfigWfas::no_proj ? "true" : "false") + "\n";
+
                     text += QString::fromStdString("Allele freq. dist.\n");
                     for(int i = 0; i < results.probs.size(); i++) {
                         text += QString::fromStdString((boost::format(DPF) % (results.probs[i])).str()) + "\n";

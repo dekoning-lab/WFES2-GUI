@@ -11,6 +11,8 @@
 
 #include <model/executables/wfes_switching/thread/workerThreadWfesSwitching.h>
 
+using namespace wfes::config;
+
 namespace wfes {
     namespace controllers {
 
@@ -175,8 +177,60 @@ namespace wfes {
 
                 Q_INVOKABLE void coppyToClipboard() {
                     QClipboard* clipboard = QApplication::clipboard();
+                    QString text = "";
+                    // Input parameters
+                    text += QString::fromStdString("Parameter, Value") + "\n";
+
+                    text += QString::fromStdString("N, ");
+                    for(int i = 0; i < ConfigWfesSwitching::N.size() - 1; i++) {
+                        text += QString::fromStdString((std::to_string(ConfigWfesSwitching::N(i)) + "; "));
+                    }
+                    text += QString::fromStdString((std::to_string(ConfigWfesSwitching::N(ConfigWfesSwitching::N.size() - 1)) + "\n"));
+
+                    text += QString::fromStdString("p, ");
+                    for(int i = 0; i < ConfigWfesSwitching::p.size() - 1; i++) {
+                        text += QString::fromStdString((std::to_string(ConfigWfesSwitching::p(i)) + "; "));
+                    }
+                    text += QString::fromStdString((std::to_string(ConfigWfesSwitching::p(ConfigWfesSwitching::p.size() - 1)) + "\n"));
+
+                    text += QString::fromStdString("r, ");
+                    for(int i = 0; i < ConfigWfesSwitching::r.size() - 1; i++) {
+                        if((i + 1) % (ConfigWfesSwitching::N.size()) == 0)
+                            text += QString::fromStdString((std::to_string(ConfigWfesSwitching::r(i)) + " - "));
+                        else
+                            text += QString::fromStdString((std::to_string(ConfigWfesSwitching::r(i)) + "; "));
+                    }
+                    text += QString::fromStdString((std::to_string(ConfigWfesSwitching::r(ConfigWfesSwitching::r.size() - 1)) + "\n"));
+
+                    text += QString::fromStdString("s, ");
+                    for(int i = 0; i < ConfigWfesSwitching::s.size() - 1; i++) {
+                        text += QString::fromStdString((std::to_string(ConfigWfesSwitching::s(i)) + "; "));
+                    }
+                    text += QString::fromStdString((std::to_string(ConfigWfesSwitching::s(ConfigWfesSwitching::s.size() - 1)) + "\n"));
+
+                    text += QString::fromStdString("h, ");
+                    for(int i = 0; i < ConfigWfesSwitching::h.size() - 1; i++) {
+                        text += QString::fromStdString((std::to_string(ConfigWfesSwitching::h(i)) + "; "));
+                    }
+                    text += QString::fromStdString((std::to_string(ConfigWfesSwitching::h(ConfigWfesSwitching::h.size() - 1)) + "\n"));
+
+                    text += QString::fromStdString("u, ");
+                    for(int i = 0; i < ConfigWfesSwitching::u.size() - 1; i++) {
+                        text += QString::fromStdString((std::to_string(ConfigWfesSwitching::u(i)) + "; "));
+                    }
+                    text += QString::fromStdString((std::to_string(ConfigWfesSwitching::u(ConfigWfesSwitching::u.size() - 1)) + "\n"));
+
+                    text += QString::fromStdString("v, ");
+                    for(int i = 0; i < ConfigWfesSwitching::v.size() - 1; i++) {
+                        text += QString::fromStdString((std::to_string(ConfigWfesSwitching::v(i)) + "; "));
+                    }
+                    text += QString::fromStdString((std::to_string(ConfigWfesSwitching::v(ConfigWfesSwitching::v.size() - 1)) + "\n"));
+
+                    text += QString::fromStdString("a, " + (boost::format(DPF) % (ConfigWfesSwitching::a)).str()) + "\n";
+
                     if(wfes::config::ConfigWfesSwitching::modelType == wfes::config::ModelTypeWfesSwitching::ABSORPTION) {
-                        QString text = "";
+                        // Output
+                        text += QString::fromStdString("Result, Value") + "\n";
                         text += QString::fromStdString("P. ext., " + (boost::format(DPF) % (results.pExt)).str()) + "\n";
                         text += QString::fromStdString("P. fix., " + (boost::format(DPF) % (results.pFix)).str()) + "\n";
                         text += QString::fromStdString("T. ext., " + (boost::format(DPF) % (results.tExt)).str()) + "\n";
@@ -188,7 +242,11 @@ namespace wfes {
                             clipboard->setText(text, QClipboard::Selection);
                         }
                     } else if(wfes::config::ConfigWfesSwitching::modelType == wfes::config::ModelTypeWfesSwitching::FIXATION) {
-                        QString text = "";
+
+                        text += QString::fromStdString("c, " + (boost::format(DPF) % (ConfigWfesSwitching::c)).str()) + "\n";
+
+                        // Output
+                        text += QString::fromStdString("Result, Value") + "\n";
                         text += QString::fromStdString("T. fix., " + (boost::format(DPF) % (results.tFix)).str()) + "\n";
                         text += QString::fromStdString("Rate, " + (boost::format(DPF) % (results.rate)).str()) + "\n";
                         clipboard->setText(text, QClipboard::Clipboard);

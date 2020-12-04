@@ -11,6 +11,8 @@
 
 #include <model/executables/wfes_sweep/thread/workerThreadWfesSweep.h>
 
+using namespace wfes::config;
+
 namespace wfes {
     namespace controllers {
 
@@ -134,6 +136,40 @@ namespace wfes {
                 QClipboard* clipboard = QApplication::clipboard();
                 if(wfes::config::ConfigWfesSweep::modelType == wfes::config::ModelTypeWfesSweep::FIXATION) {
                     QString text = "";
+                    // Input parameters
+                    text += QString::fromStdString("Parameter, Value") + "\n";
+                    text += QString::fromStdString("N, " + (boost::format(DPF) % (ConfigWfesSweep::population_size)).str()) + "\n";
+                    text += QString::fromStdString("a, " + (boost::format(DPF) % (ConfigWfesSweep::a)).str()) + "\n";
+                    text += QString::fromStdString("c, " + (boost::format(DPF) % (ConfigWfesSweep::integration_cutoff)).str()) + "\n";
+                    text += QString::fromStdString("l, " + (boost::format(DPF) % (ConfigWfesSweep::l)).str()) + "\n";
+                    text += QString::fromStdString("p, " + (boost::format(DPF) % (ConfigWfesSweep::starting_copies)).str()) + "\n";
+
+                    text += QString::fromStdString("s, ");
+                    for(int i = 0; i < ConfigWfesSweep::s.size() - 1; i++) {
+                        text += QString::fromStdString((std::to_string(ConfigWfesSweep::s(i)) + "; "));
+                    }
+                    text += QString::fromStdString((std::to_string(ConfigWfesSweep::s(ConfigWfesSweep::s.size() - 1)) + "\n"));
+
+                    text += QString::fromStdString("h, ");
+                    for(int i = 0; i < ConfigWfesSweep::h.size() - 1; i++) {
+                        text += QString::fromStdString((std::to_string(ConfigWfesSweep::h(i)) + "; "));
+                    }
+                    text += QString::fromStdString((std::to_string(ConfigWfesSweep::h(ConfigWfesSweep::h.size() - 1)) + "\n"));
+
+                    text += QString::fromStdString("u, ");
+                    for(int i = 0; i < ConfigWfesSweep::u.size() - 1; i++) {
+                        text += QString::fromStdString((std::to_string(ConfigWfesSweep::u(i)) + "; "));
+                    }
+                    text += QString::fromStdString((std::to_string(ConfigWfesSweep::u(ConfigWfesSweep::u.size() - 1)) + "\n"));
+
+                    text += QString::fromStdString("v, ");
+                    for(int i = 0; i < ConfigWfesSweep::v.size() - 1; i++) {
+                        text += QString::fromStdString((std::to_string(ConfigWfesSweep::v(i)) + "; "));
+                    }
+                    text += QString::fromStdString((std::to_string(ConfigWfesSweep::v(ConfigWfesSweep::v.size() - 1)) + "\n"));
+
+                    // Output
+                    text += QString::fromStdString("Result, Value") + "\n";
                     text += QString::fromStdString("T. fix., " + (boost::format(DPF) % (results.tFix)).str()) + "\n";
                     text += QString::fromStdString("Rate, " + (boost::format(DPF) % (results.rate)).str()) + "\n";
                     clipboard->setText(text, QClipboard::Clipboard);

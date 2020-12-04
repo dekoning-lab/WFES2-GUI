@@ -12,6 +12,8 @@
 #include "model/executables/phase_type/thread/workerThreadPhaseType.h"
 #include <model/executables/phase_type/config/configPhaseType.h>
 
+using namespace wfes::config;
+
 namespace wfes {
     namespace controllers {
 
@@ -146,10 +148,24 @@ namespace wfes {
                  */
                 QString get_progress() const;
 
+                /**
+                 * @brief Copy parameters and results to clipboard.
+                 */
                 Q_INVOKABLE void coppyToClipboard() {
                     QClipboard* clipboard = QApplication::clipboard();
                     if(wfes::config::ConfigPhaseType::modelType == wfes::config::ModelTypePhaseType::PHASE_TYPE_MOMENTS) {
                         QString text = "";
+                        // Input parameters
+                        text += QString::fromStdString("Parameter, Value") + "\n";
+                        text += QString::fromStdString("N, " + (boost::format(DPF) % (ConfigPhaseType::population_size)).str()) + "\n";
+                        text += QString::fromStdString("a, " + (boost::format(DPF) % (ConfigPhaseType::a)).str()) + "\n";
+                        text += QString::fromStdString("s, " + (boost::format(DPF) % (ConfigPhaseType::s)).str()) + "\n";
+                        text += QString::fromStdString("h, " + (boost::format(DPF) % (ConfigPhaseType::h)).str()) + "\n";
+                        text += QString::fromStdString("u, " + (boost::format(DPF) % (ConfigPhaseType::u)).str()) + "\n";
+                        text += QString::fromStdString("v, " + (boost::format(DPF) % (ConfigPhaseType::v)).str()) + "\n";
+                        text += QString::fromStdString("k, " + (boost::format(DPF) % (ConfigPhaseType::k)).str()) + "\n";
+                        // Output
+                        text += QString::fromStdString("Result, Value") + "\n";
                         text += QString::fromStdString("Mean, " + (boost::format(DPF) % (results.mean)).str()) + "\n";
                         text += QString::fromStdString("Std, " + (boost::format(DPF) % (results.std)).str()) + "\n";
                         text += QString::fromStdString("Moments\n");
