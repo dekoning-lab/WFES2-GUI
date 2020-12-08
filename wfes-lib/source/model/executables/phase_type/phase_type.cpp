@@ -170,12 +170,10 @@ ResultsPhaseType *phase_type::phaseTypeMoment() {
 
         // Population-scaled values.
         double s = ConfigPhaseType::s;
-        double h = ConfigPhaseType::h;
         double u = ConfigPhaseType::u;
         double v = ConfigPhaseType::v;
         if(GlobalConfiguration::populationScaled) {
             s = ConfigPhaseType::s / (2 * ConfigPhaseType::population_size);
-            h = ConfigPhaseType::h / (2 * ConfigPhaseType::population_size);
             u = ConfigPhaseType::u / (4 * ConfigPhaseType::population_size);
             v = ConfigPhaseType::v / (4 * ConfigPhaseType::population_size);
         }
@@ -184,7 +182,7 @@ ResultsPhaseType *phase_type::phaseTypeMoment() {
         this->notify(ExecutionStatus::BUILDING_MATRICES);
 
         wrightfisher::Matrix wf = wrightfisher::Single(ConfigPhaseType::population_size, ConfigPhaseType::population_size, wrightfisher::FIXATION_ONLY,
-                                                       s, h, u, v,
+                                                       s, ConfigPhaseType::h, u, v,
                                                        true, ConfigPhaseType::a, msg_level, ConfigPhaseType::b);
 
         //Notify saving data.

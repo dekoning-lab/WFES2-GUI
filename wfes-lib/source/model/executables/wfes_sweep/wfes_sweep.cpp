@@ -22,13 +22,11 @@ ResultsWfesSweep *wfes_sweep::execute() {
 
     // Population-scaled values.
     dvec s = ConfigWfesSweep::s;
-    dvec h = ConfigWfesSweep::h;
     dvec u = ConfigWfesSweep::u;
     dvec v = ConfigWfesSweep::v;
     if(GlobalConfiguration::populationScaled) {
         for (int i = 0; i < ConfigWfesSweep::num_comp; i++) {
             s[i] = ConfigWfesSweep::s[i] / (2.0 * ConfigWfesSweep::population_size);
-            h[i] = ConfigWfesSweep::h[i] / (2.0 * ConfigWfesSweep::population_size);
             u[i] = ConfigWfesSweep::u[i] / (4.0 * ConfigWfesSweep::population_size);
             v[i] = ConfigWfesSweep::v[i] / (4.0 * ConfigWfesSweep::population_size);
         }
@@ -36,7 +34,7 @@ ResultsWfesSweep *wfes_sweep::execute() {
 
     // Set value for starting copies if the user has provided an initial distribution,
     // load it and calculate starting copies p.
-    this->calculateStartingCopies(s, h, u, v);
+    this->calculateStartingCopies(s, u, v);
 
     // Save initial distribution if resquested by the user.
     if (ConfigWfesSweep::output_I)
@@ -49,7 +47,7 @@ ResultsWfesSweep *wfes_sweep::execute() {
     // Select the mode from configuration.
     switch(ConfigWfesSweep::modelType) {
         case ModelTypeWfesSweep::FIXATION:
-            return this->fixation(s, h, u, v);
+            return this->fixation(s, u, v);
         // If for some reason there is an error and the selected model type is none, or any of the previous one,
         // return default results, which is formed by nan values, so the GUI does not show anything.
         case ModelTypeWfesSweep::NONE:
@@ -60,14 +58,14 @@ ResultsWfesSweep *wfes_sweep::execute() {
 
 }
 
-ResultsWfesSweep *wfes_sweep::fixation(dvec s, dvec h, dvec u, dvec v) {
+ResultsWfesSweep *wfes_sweep::fixation(dvec s, dvec u, dvec v) {
     try {
         //Notify building matrix.
         this->notify(ExecutionStatus::BUILDING_MATRICES);
 
         dmat switching(2, 2); switching << 1 - ConfigWfesSweep::l, ConfigWfesSweep::l, 0, 1;
 
-        wrightfisher::Matrix wf = wrightfisher::NonAbsorbingToFixationOnly(ConfigWfesSweep::population_size, s, h, u, v, switching, ConfigWfesSweep::a, msg_level, ConfigWfesSweep::b, ConfigWfesSweep::library);
+        wrightfisher::Matrix wf = wrightfisher::NonAbsorbingToFixationOnly(ConfigWfesSweep::population_size, s, ConfigWfesSweep::h, u, v, switching, ConfigWfesSweep::a, msg_level, ConfigWfesSweep::b, ConfigWfesSweep::library);
 
         //Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
@@ -163,8 +161,8 @@ ResultsWfesSweep *wfes_sweep::fixation(dvec s, dvec h, dvec u, dvec v) {
     }
 }
 
-void wfes_sweep::calculateStartingCopies(dvec s, dvec h, dvec u, dvec v) {
-    dvec first_row = wrightfisher::binom_row(2 * ConfigWfesSweep::population_size, wrightfisher::psi_diploid(0, ConfigWfesSweep::population_size, s(0), h(0), u(0), v(0)), ConfigWfesSweep::a).Q;
+void wfes_sweep::calculateStartingCopies(dvec s, dvec u, dvec v) {
+    dvec first_row = wrightfisher::binom_row(2 * ConfigWfesSweep::population_size, wrightfisher::psi_diploid(0, ConfigWfesSweep::population_size, s(0), ConfigWfesSweep::h(0), u(0), v(0)), ConfigWfesSweep::a).Q;
     starting_copies_p = first_row.tail(first_row.size() - 1); // renormalize
     starting_copies_p /= 1 - first_row(0);
 }
