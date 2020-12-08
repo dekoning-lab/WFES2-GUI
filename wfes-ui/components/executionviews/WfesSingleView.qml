@@ -667,7 +667,12 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 id: inputS
-                                text: "s: "
+                                text: {
+                                    if(globalConfiguration.ui_population_scaled)
+                                        return "2Ns: "
+                                    else
+                                        return "s: "
+                                }
                                 toolTipText: "Selection coefficient."
                                 validator: DoubleValidator {bottom: -1; top: 1;}
                                 textFieldText: inputControllerWfesSingle.ui_s
