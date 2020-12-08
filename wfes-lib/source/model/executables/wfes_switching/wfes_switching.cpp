@@ -50,11 +50,25 @@ ResultsWfesSwitching *wfes_switching::execute() {
 
 ResultsWfesSwitching *wfes_switching::absorption() {
     try {
+        // Population-scaled values.
+        dvec s = ConfigWfesSwitching::s;
+        dvec h = ConfigWfesSwitching::h;
+        dvec u = ConfigWfesSwitching::u;
+        dvec v = ConfigWfesSwitching::v;
+        if(GlobalConfiguration::populationScaled) {
+            for (int i = 0; i < ConfigWfesSwitching::num_comp; i++) {
+                s[i] = ConfigWfesSwitching::s[i] / (2.0 * ConfigWfesSwitching::N[i]);
+                h[i] = ConfigWfesSwitching::h[i] / (2.0 * ConfigWfesSwitching::N[i]);
+                u[i] = ConfigWfesSwitching::u[i] / (4.0 * ConfigWfesSwitching::N[i]);
+                v[i] = ConfigWfesSwitching::v[i] / (4.0 * ConfigWfesSwitching::N[i]);
+            }
+        }
+
         //Notify building matrix.
         this->notify(ExecutionStatus::BUILDING_MATRICES);
 
         wrightfisher::Matrix W = wrightfisher::Switching(ConfigWfesSwitching::N, wrightfisher::BOTH_ABSORBING,
-                ConfigWfesSwitching::s, ConfigWfesSwitching::h, ConfigWfesSwitching::u, ConfigWfesSwitching::v, r, ConfigWfesSwitching::a, msg_level);
+                s, h, u, v, r, ConfigWfesSwitching::a, msg_level);
 
         // SI are start indeces - a vector of size n_models
         lvec si = startIndeces(2 * ConfigWfesSwitching::N - lvec::Ones(ConfigWfesSwitching::num_comp));
@@ -84,7 +98,7 @@ ResultsWfesSwitching *wfes_switching::absorption() {
         std::vector<dvec> p0(ConfigWfesSwitching::num_comp);
         for (llong i = 0; i < ConfigWfesSwitching::num_comp; i++) {
             llong pop_size = ConfigWfesSwitching::N(i);
-            dvec first_row = wrightfisher::binom_row(2 * pop_size, wrightfisher::psi_diploid(0, pop_size, ConfigWfesSwitching::ConfigWfesSwitching::s(i), ConfigWfesSwitching::h(i), ConfigWfesSwitching::u(i), ConfigWfesSwitching::v(i)), ConfigWfesSwitching::a).Q;
+            dvec first_row = wrightfisher::binom_row(2 * pop_size, wrightfisher::psi_diploid(0, pop_size, s(i), h(i), u(i), v(i)), ConfigWfesSwitching::a).Q;
             p0[i] = first_row.tail(first_row.size() - 1) / (1 - first_row(0)); // renormalize
             nnz_p0[i] = (p0[i].array() > ConfigWfesSwitching::c).count();
         }
@@ -272,10 +286,24 @@ ResultsWfesSwitching *wfes_switching::absorption() {
 
 ResultsWfesSwitching *wfes_switching::fixation() {
     try {
+        // Population-scaled values.
+        dvec s = ConfigWfesSwitching::s;
+        dvec h = ConfigWfesSwitching::h;
+        dvec u = ConfigWfesSwitching::u;
+        dvec v = ConfigWfesSwitching::v;
+        if(GlobalConfiguration::populationScaled) {
+            for (int i = 0; i < ConfigWfesSwitching::num_comp; i++) {
+                s[i] = ConfigWfesSwitching::s[i] / (2.0 * ConfigWfesSwitching::N[i]);
+                h[i] = ConfigWfesSwitching::h[i] / (2.0 * ConfigWfesSwitching::N[i]);
+                u[i] = ConfigWfesSwitching::u[i] / (4.0 * ConfigWfesSwitching::N[i]);
+                v[i] = ConfigWfesSwitching::v[i] / (4.0 * ConfigWfesSwitching::N[i]);
+            }
+        }
+
         //Notify building matrix.
         this->notify(ExecutionStatus::BUILDING_MATRICES);
 
-        wrightfisher::Matrix W = wrightfisher::Switching(ConfigWfesSwitching::N, wrightfisher::FIXATION_ONLY, ConfigWfesSwitching::s, ConfigWfesSwitching::h, ConfigWfesSwitching::u, ConfigWfesSwitching::v, r, ConfigWfesSwitching::a, msg_level);
+        wrightfisher::Matrix W = wrightfisher::Switching(ConfigWfesSwitching::N, wrightfisher::FIXATION_ONLY, s, h, u, v, r, ConfigWfesSwitching::a, msg_level);
 
         //Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);

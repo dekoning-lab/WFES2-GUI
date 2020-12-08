@@ -11,9 +11,12 @@ namespace wfes {
         class WFESLIBSHARED_EXPORT GlobalConfiguration : public QObject {
             Q_OBJECT
             Q_PROPERTY(bool ui_generate_images READ getGenerateImages WRITE setGenerateImages NOTIFY generateImagesChanged)
+            Q_PROPERTY(bool ui_population_scaled READ getPopulationScaled WRITE setPopulationScaled NOTIFY populationScaledChanged)
             Q_PROPERTY(QString ui_save_path READ getSavePath WRITE setSavePath NOTIFY savePathChanged)
+
             public:
                 static bool generateImages;
+                static bool populationScaled;
 
                 static QString savePath;
 
@@ -23,6 +26,10 @@ namespace wfes {
 
                 void setGenerateImages(bool generate);
 
+                bool getPopulationScaled();
+
+                void setPopulationScaled(bool populationScaled);
+
                 QString getSavePath();
 
                 void setSavePath(QString savePath);
@@ -30,6 +37,7 @@ namespace wfes {
             signals:
                 void generateImagesChanged();
                 void savePathChanged();
+                void populationScaledChanged();
         };
     }
 }

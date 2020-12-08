@@ -5,6 +5,7 @@ import QtQuick.Controls 2.5
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Controls.Universal 2.3
 import components 1.0
+import assets 1.0
 
 Rectangle {
     id: upperMenu
@@ -88,6 +89,42 @@ Rectangle {
 
                     }
                 }
+
+
+                MenuItem {
+                    CheckBox {
+                        anchors.fill: parent
+                        text: "Generate Images"
+                        checked: globalConfiguration.ui_generate_images
+
+                        ToolTip.visible: hovered
+                        ToolTip.delay: Style.tooltipDelay
+                        ToolTip.timeout: Style.tooltipTimeout
+                        ToolTip.text: qsTr("Generate matrix/vector images.")
+
+                        onCheckedChanged: {
+                            globalConfiguration.ui_generate_images = this.checked
+                        }
+                    }
+                }
+
+                MenuItem {
+                    CheckBox {
+                        anchors.fill: parent
+                        text: "Population-Scaled"
+                        checked: globalConfiguration.ui_population_scaled
+
+                        ToolTip.visible: hovered
+                        ToolTip.delay: Style.tooltipDelay
+                        ToolTip.timeout: Style.tooltipTimeout
+                        ToolTip.text: qsTr("Use population-scaled parameters.")
+
+                        onCheckedChanged: {
+                            globalConfiguration.ui_population_scaled = this.checked
+                        }
+                    }
+                }
+
 //                MenuItem {
 //                    text: "Global Settings"
 //                    onClicked: {
@@ -110,17 +147,6 @@ Rectangle {
                     text: "Matrix Visualization"
                     onClicked: {
                         matrixVisualization.visible = true
-                    }
-                }
-
-                MenuItem {
-                    CheckBox {
-                        anchors.fill: parent
-                        text: "Generate Images"
-                        checked: globalConfiguration.ui_generate_images
-                        onCheckedChanged: {
-                            globalConfiguration.ui_generate_images = this.checked
-                        }
                     }
                 }
 

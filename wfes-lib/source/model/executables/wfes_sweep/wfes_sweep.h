@@ -58,12 +58,12 @@ class wfes_sweep : public Subject {
          * @brief Only fixation state is absorbing.
          * @return Results of the execution.
          */
-        ResultsWfesSweep* fixation();
+        ResultsWfesSweep* fixation(dvec s, dvec h, dvec u, dvec v);
 
         /**
          * @brief Calculate starting copies of allele.
          */
-        void calculateStartingCopies();
+        void calculateStartingCopies(dvec s, dvec h, dvec u, dvec v);
 
         /**
          * @brief Calculate z.

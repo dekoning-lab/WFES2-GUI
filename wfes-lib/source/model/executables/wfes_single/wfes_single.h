@@ -68,53 +68,53 @@ class wfes_single : public Subject{
          * @brief Both fixation and extinction states are absorbing.
          * @return Results of the execution.
          */
-        ResultsWfesSingle* absorption();
+        ResultsWfesSingle* absorption(double s, double h, double u, double v);
 
         /**
          * @brief Only fixation state is absorbing.
          * @return Results of the execution.
          */
-        ResultsWfesSingle* fixation();
+        ResultsWfesSingle* fixation(double s, double h, double u, double v);
 
         /**
          * @brief Calculate the entire fundamental matrix (slow).
          * @return Results of the execution.
          */
-        ResultsWfesSingle* fundamental();
+        ResultsWfesSingle* fundamental(double s, double h, double u, double v);
 
         /**
          * @brief Calculate the equilibrium distribtion of allele states.
          * @return Results of the execution.
          */
-        ResultsWfesSingle* equilibrium();
+        ResultsWfesSingle* equilibrium(double s, double h, double u, double v);
 
         /**
          * @brief Calculate establishment properties.
          * @return Results of the execution.
          */
-        ResultsWfesSingle* establishment();
+        ResultsWfesSingle* establishment(double s, double h, double u, double v);
 
         /**
          * @brief Calculate age of an allele.
          * @return Results of the execution.
          */
-        ResultsWfesSingle* alleleAge();
+        ResultsWfesSingle* alleleAge(double s, double h, double u, double v);
 
         /**
          * @brief Build a non-absorbing WF matrix.
          * @return Results of the execution.
          */
-        ResultsWfesSingle* nonAbsorbing();
+        ResultsWfesSingle* nonAbsorbing(double s, double h, double u, double v);
 
         /**
          * @brief Calculate starting copies of allele.
          */
-        void calculateStartingCopies();
+        void calculateStartingCopies(double s, double h, double u, double v);
 
         /**
          * @brief Calculate z.
          */
-        void calculateZ();
+        void calculateZ(double v);
 };
 
 #endif // WFES_SINGLE_H

@@ -47,6 +47,18 @@ ResultsPhaseType *phase_type::phaseTypeDist() {
         double maxAcum = std::numeric_limits<double>::min();
         // This is for chart visualization.
 
+        // Population-scaled values.
+        double s = ConfigPhaseType::s;
+        double h = ConfigPhaseType::h;
+        double u = ConfigPhaseType::u;
+        double v = ConfigPhaseType::v;
+        if(GlobalConfiguration::populationScaled) {
+            s = ConfigPhaseType::s / (2 * ConfigPhaseType::population_size);
+            h = ConfigPhaseType::h / (2 * ConfigPhaseType::population_size);
+            u = ConfigPhaseType::u / (4 * ConfigPhaseType::population_size);
+            v = ConfigPhaseType::v / (4 * ConfigPhaseType::population_size);
+        }
+
         // Notify building matrix.
         this->notify(ExecutionStatus::BUILDING_MATRICES);
 
@@ -55,7 +67,7 @@ ResultsPhaseType *phase_type::phaseTypeDist() {
         c(0) = 1;
 
         wrightfisher::Matrix wf = wrightfisher::Single(ConfigPhaseType::population_size, ConfigPhaseType::population_size, wrightfisher::FIXATION_ONLY,
-                                                       ConfigPhaseType::s, ConfigPhaseType::h, ConfigPhaseType::u, ConfigPhaseType::v,
+                                                       s, h, u, v,
                                                        ConfigPhaseType::rem, ConfigPhaseType::a, msg_level, ConfigPhaseType::b);
 
         // Notify saving data.
@@ -155,11 +167,24 @@ ResultsPhaseType *phase_type::phaseTypeDist() {
 
 ResultsPhaseType *phase_type::phaseTypeMoment() {
     try {
+
+        // Population-scaled values.
+        double s = ConfigPhaseType::s;
+        double h = ConfigPhaseType::h;
+        double u = ConfigPhaseType::u;
+        double v = ConfigPhaseType::v;
+        if(GlobalConfiguration::populationScaled) {
+            s = ConfigPhaseType::s / (2 * ConfigPhaseType::population_size);
+            h = ConfigPhaseType::h / (2 * ConfigPhaseType::population_size);
+            u = ConfigPhaseType::u / (4 * ConfigPhaseType::population_size);
+            v = ConfigPhaseType::v / (4 * ConfigPhaseType::population_size);
+        }
+
         //Notify building matrix.
         this->notify(ExecutionStatus::BUILDING_MATRICES);
 
         wrightfisher::Matrix wf = wrightfisher::Single(ConfigPhaseType::population_size, ConfigPhaseType::population_size, wrightfisher::FIXATION_ONLY,
-                                                       ConfigPhaseType::s, ConfigPhaseType::h, ConfigPhaseType::u, ConfigPhaseType::v,
+                                                       s, h, u, v,
                                                        true, ConfigPhaseType::a, msg_level, ConfigPhaseType::b);
 
         //Notify saving data.

@@ -5,6 +5,7 @@
 using namespace wfes::controllers;
 
 bool GlobalConfiguration::generateImages = false;
+bool GlobalConfiguration::populationScaled = false;
 QString GlobalConfiguration::savePath =  QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
 
 bool GlobalConfiguration::getGenerateImages() {
@@ -13,6 +14,14 @@ bool GlobalConfiguration::getGenerateImages() {
 
 void GlobalConfiguration::setGenerateImages(bool generate) {
     GlobalConfiguration::generateImages = generate;
+}
+
+bool GlobalConfiguration::getPopulationScaled() {
+    return GlobalConfiguration::populationScaled;
+}
+
+void GlobalConfiguration::setPopulationScaled(bool populationScaled) {
+    GlobalConfiguration::populationScaled = populationScaled;
 }
 
 QString GlobalConfiguration::getSavePath() {

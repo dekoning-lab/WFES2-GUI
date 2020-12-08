@@ -41,6 +41,19 @@ ResultsTimeDist *time_dist::execute() {
 
 ResultsTimeDist *time_dist::timeDist() {
     try {
+
+        // Population-scaled values.
+        double s = ConfigTimeDist::s;
+        double h = ConfigTimeDist::h;
+        double u = ConfigTimeDist::u;
+        double v = ConfigTimeDist::v;
+        if(GlobalConfiguration::populationScaled) {
+            s = ConfigTimeDist::s / (2 * ConfigTimeDist::population_size);
+            h = ConfigTimeDist::h / (2 * ConfigTimeDist::population_size);
+            u = ConfigTimeDist::u / (4 * ConfigTimeDist::population_size);
+            v = ConfigTimeDist::v / (4 * ConfigTimeDist::population_size);
+        }
+
         // This is for chart visualization.
         QList<QPointF> ext;
         QList<QPointF> fix;
@@ -59,7 +72,7 @@ ResultsTimeDist *time_dist::timeDist() {
         // Notify building matrix.
         this->notify(ExecutionStatus::BUILDING_MATRICES);
 
-        wrightfisher::Matrix wf = wrightfisher::Single(ConfigTimeDist::population_size, ConfigTimeDist::population_size, wrightfisher::BOTH_ABSORBING, ConfigTimeDist::s, ConfigTimeDist::h, ConfigTimeDist::u, ConfigTimeDist::v,
+        wrightfisher::Matrix wf = wrightfisher::Single(ConfigTimeDist::population_size, ConfigTimeDist::population_size, wrightfisher::BOTH_ABSORBING, s, h, u, v,
                                    ConfigTimeDist::rem, ConfigTimeDist::a, msg_level, ConfigTimeDist::b);
 
         // Notify saving data.
@@ -173,6 +186,18 @@ ResultsTimeDist *time_dist::timeDist() {
 
 ResultsTimeDist *time_dist::timeDistSGV() {
     try {
+        // Population-scaled values.
+        dvec s = ConfigTimeDistSGV::s;
+        dvec h = ConfigTimeDistSGV::h;
+        dvec u = ConfigTimeDistSGV::u;
+        dvec v = ConfigTimeDistSGV::v;
+        if(GlobalConfiguration::populationScaled) {
+            s = ConfigTimeDistSGV::s / (2 * ConfigTimeDistSGV::population_size);
+            h = ConfigTimeDistSGV::h / (2 * ConfigTimeDistSGV::population_size);
+            u = ConfigTimeDistSGV::u / (4 * ConfigTimeDistSGV::population_size);
+            v = ConfigTimeDistSGV::v / (4 * ConfigTimeDistSGV::population_size);
+        }
+
         // This is for chart visualization.
         QList<QPointF> subs;
         QList<QPointF> acum;
@@ -285,6 +310,18 @@ ResultsTimeDist *time_dist::timeDistSGV() {
 
 ResultsTimeDist *time_dist::timeDistSkip() {
     try {
+        // Population-scaled values.
+        double s = ConfigTimeDist::s;
+        double h = ConfigTimeDist::h;
+        double u = ConfigTimeDist::u;
+        double v = ConfigTimeDist::v;
+        if(GlobalConfiguration::populationScaled) {
+            s = ConfigTimeDist::s / (2 * ConfigTimeDist::population_size);
+            h = ConfigTimeDist::h / (2 * ConfigTimeDist::population_size);
+            u = ConfigTimeDist::u / (4 * ConfigTimeDist::population_size);
+            v = ConfigTimeDist::v / (4 * ConfigTimeDist::population_size);
+        }
+
         // This is for chart visualization.
         QList<QPointF> subs;
         QList<QPointF> acum;
@@ -298,7 +335,7 @@ ResultsTimeDist *time_dist::timeDistSkip() {
         this->notify(ExecutionStatus::BUILDING_MATRICES);
 
         wrightfisher::Matrix wf = wrightfisher::Bounce(ConfigTimeDist::population_size, ConfigTimeDist::population_size,
-                                                       ConfigTimeDist::s, ConfigTimeDist::h, ConfigTimeDist::u, ConfigTimeDist::v,
+                                                       s, h, u, v,
                                                        ConfigTimeDist::rem, ConfigTimeDist::a, msg_level, ConfigTimeDist::b);
 
         //Notify saving data.
@@ -394,6 +431,18 @@ ResultsTimeDist *time_dist::timeDistSkip() {
 
 ResultsTimeDist *time_dist::timeDistDual() {
     try {
+        // Population-scaled values.
+        double s = ConfigTimeDist::s;
+        double h = ConfigTimeDist::h;
+        double u = ConfigTimeDist::u;
+        double v = ConfigTimeDist::v;
+        if(GlobalConfiguration::populationScaled) {
+            s = ConfigTimeDist::s / (2 * ConfigTimeDist::population_size);
+            h = ConfigTimeDist::h / (2 * ConfigTimeDist::population_size);
+            u = ConfigTimeDist::u / (4 * ConfigTimeDist::population_size);
+            v = ConfigTimeDist::v / (4 * ConfigTimeDist::population_size);
+        }
+
         // This is for chart visualization.
         QList<QPointF> ext;
         QList<QPointF> fix;
@@ -412,7 +461,7 @@ ResultsTimeDist *time_dist::timeDistDual() {
         //Notify building matrix.
         this->notify(ExecutionStatus::BUILDING_MATRICES);
 
-        wrightfisher::Matrix wf = wrightfisher::DualMutation(ConfigTimeDist::population_size, ConfigTimeDist::population_size, ConfigTimeDist::s, ConfigTimeDist::h, ConfigTimeDist::u, ConfigTimeDist::v, ConfigTimeDist::rem, ConfigTimeDist::a, msg_level, ConfigTimeDist::b);
+        wrightfisher::Matrix wf = wrightfisher::DualMutation(ConfigTimeDist::population_size, ConfigTimeDist::population_size, s, h, u, v, ConfigTimeDist::rem, ConfigTimeDist::a, msg_level, ConfigTimeDist::b);
 
         //Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);

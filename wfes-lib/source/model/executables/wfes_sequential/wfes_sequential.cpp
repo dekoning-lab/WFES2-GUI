@@ -27,6 +27,20 @@ ResultsWfesSequential *wfes_sequential::execute() {
 
 ResultsWfesSequential *wfes_sequential::function() {
     try {
+        // Population-scaled values.
+        dvec s = ConfigWfesSequential::s;
+        dvec h = ConfigWfesSequential::h;
+        dvec u = ConfigWfesSequential::u;
+        dvec v = ConfigWfesSequential::v;
+        if(GlobalConfiguration::populationScaled) {
+            for (int i = 0; i < ConfigWfesSequential::num_comp; i++) {
+                s[i] = ConfigWfesSequential::s[i] / (2.0 * ConfigWfesSequential::N[i]);
+                h[i] = ConfigWfesSequential::h[i] / (2.0 * ConfigWfesSequential::N[i]);
+                u[i] = ConfigWfesSequential::u[i] / (4.0 * ConfigWfesSequential::N[i]);
+                v[i] = ConfigWfesSequential::v[i] / (4.0 * ConfigWfesSequential::N[i]);
+            }
+        }
+
         //Notify building matrix.
         this->notify(ExecutionStatus::BUILDING_MATRICES);
 
@@ -45,7 +59,7 @@ ResultsWfesSequential *wfes_sequential::function() {
         Z.tail(last_size) = dvec::Constant(last_size, 1 / (ConfigWfesSequential::t(ConfigWfesSequential::num_comp - 1)));
 
         wrightfisher::Matrix W = wrightfisher::Switching(ConfigWfesSequential::N, wrightfisher::BOTH_ABSORBING,
-                ConfigWfesSequential::s, ConfigWfesSequential::h, ConfigWfesSequential::u, ConfigWfesSequential::v, switching, ConfigWfesSequential::a, msg_level);
+                s, h, u, v, switching, ConfigWfesSequential::a, msg_level);
 
         W.R.conservativeResize(W.R.rows(), W.R.cols() + 1);
         W.R.col(W.R.cols() - 1) = Z;
@@ -76,7 +90,7 @@ ResultsWfesSequential *wfes_sequential::function() {
         std::vector<dvec> p0(ConfigWfesSequential::num_comp);
         for (llong i = 0; i < ConfigWfesSequential::num_comp; i++) {
             llong pop_size = ConfigWfesSequential::N(i);
-            dvec first_row = wrightfisher::binom_row(2 * pop_size, wrightfisher::psi_diploid(0, pop_size, ConfigWfesSequential::s(i), ConfigWfesSequential::h(i), ConfigWfesSequential::u(i), ConfigWfesSequential::v(i)), ConfigWfesSequential::a).Q;
+            dvec first_row = wrightfisher::binom_row(2 * pop_size, wrightfisher::psi_diploid(0, pop_size, s(i), h(i), u(i), v(i)), ConfigWfesSequential::a).Q;
             p0[i] = first_row.tail(first_row.size() - 1) / (1 - first_row(0)); // renormalize
             nnz_p0[i] = (p0[i].array() > ConfigWfesSequential::c).count();
         }

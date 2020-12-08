@@ -28,10 +28,23 @@ ResultsWfas *wfas::execute() {
 
 ResultsWfas *wfas::function() {
     try {
+        // Population-scaled values.
+        dvec s = ConfigWfas::s;
+        dvec h = ConfigWfas::h;
+        dvec u = ConfigWfas::u;
+        dvec v = ConfigWfas::v;
+        if(GlobalConfiguration::populationScaled) {
+            for (int i = 0; i < ConfigWfas::num_comp; i++) {
+                s[i] = ConfigWfas::s[i] / (2.0 * ConfigWfas::N[i]);
+                h[i] = ConfigWfas::h[i] / (2.0 * ConfigWfas::N[i]);
+                u[i] = ConfigWfas::u[i] / (4.0 * ConfigWfas::N[i]);
+                v[i] = ConfigWfas::v[i] / (4.0 * ConfigWfas::N[i]);
+            }
+        }
 
-        dvec s_scal = ConfigWfas::s.array() * ConfigWfas::f.array();
-        dvec u_scal = ConfigWfas::u.array() * ConfigWfas::f.array();
-        dvec v_scal = ConfigWfas::v.array() * ConfigWfas::f.array();
+        dvec s_scal = s.array() * ConfigWfas::f.array();
+        dvec u_scal = u.array() * ConfigWfas::f.array();
+        dvec v_scal = v.array() * ConfigWfas::f.array();
 
         dvec ps_tmp = ConfigWfas::N.cast<double>().array() / ConfigWfas::f.array();
         lvec popSizes = ps_tmp.cast<llong>();
@@ -51,7 +64,7 @@ ResultsWfas *wfas::function() {
         switching(ConfigWfas::num_comp - 1, ConfigWfas::num_comp - 1) = 1 - (1 / gens(ConfigWfas::num_comp - 1));
 
         wrightfisher::Matrix W = wrightfisher::Switching(popSizes, wrightfisher::NON_ABSORBING,
-                s_scal, ConfigWfas::h, u_scal, v_scal, switching, ConfigWfas::a, msg_level);
+                s_scal, h, u_scal, v_scal, switching, ConfigWfas::a, msg_level);
 
         //Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
@@ -76,7 +89,7 @@ ResultsWfas *wfas::function() {
             initial = dvec::Zero(2 * popSizes(0) + 1);
             initial[p] = 1;
         } else {
-            initial = wrightfisher::Equilibrium(popSizes(0), s_scal(0), ConfigWfas::h(0), u_scal(0), v_scal(0), ConfigWfas::a, msg_level);
+            initial = wrightfisher::Equilibrium(popSizes(0), s_scal(0), h(0), u_scal(0), v_scal(0), ConfigWfas::a, msg_level);
         }
 
         // llong n_rhs = 2 * population_sizes(0) + 1;
@@ -118,7 +131,7 @@ ResultsWfas *wfas::function() {
             llong n = 2 * popSizes(lt) + 1;
             llong m = 2 * (popSizes(lt) * gens(lt)) + 1;
             wrightfisher::Matrix sw_up = wrightfisher::Single(popSizes(lt), popSizes(lt) * gens(lt),
-                    wrightfisher::NON_ABSORBING, ConfigWfas::s(lt), ConfigWfas::h(lt), ConfigWfas::u(lt), ConfigWfas::v(lt), true, ConfigWfas::a, msg_level);
+                    wrightfisher::NON_ABSORBING, s(lt), h(lt), u(lt), v(lt), true, ConfigWfas::a, msg_level);
 
             // projected up
             dvec prj_u = sw_up.Q->multiply(d, true);
