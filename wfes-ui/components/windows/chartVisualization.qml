@@ -325,18 +325,18 @@ ApplicationWindow {
             enabled: false
 
             onClicked: {
-                if(scaleButton.text != "Linear Scale") {
-                    chart1Linear.visible = true
-                    chart2Linear.visible = false
-                    chart3Linear.visible = false
-                    chart1Log.visible = false
-                    chart2Log.visible = false
-                    chart3Log.visible = false
-                } else {
+                if(scaleButton.checked) {
                     chart1Linear.visible = false
                     chart2Linear.visible = false
                     chart3Linear.visible = false
                     chart1Log.visible = true
+                    chart2Log.visible = false
+                    chart3Log.visible = false
+                } else {
+                    chart1Linear.visible = true
+                    chart2Linear.visible = false
+                    chart3Linear.visible = false
+                    chart1Log.visible = false
                     chart2Log.visible = false
                     chart3Log.visible = false
                 }
@@ -355,19 +355,19 @@ ApplicationWindow {
             enabled: true
 
             onClicked: {
-                if(scaleButton.text != "Linear Scale") {
-                    chart1Linear.visible = false
-                    chart2Linear.visible = true
-                    chart3Linear.visible = false
-                    chart1Log.visible = false
-                    chart2Log.visible = false
-                    chart3Log.visible = false
-                } else {
+                if(scaleButton.checked) {
                     chart1Linear.visible = false
                     chart2Linear.visible = false
                     chart3Linear.visible = false
                     chart1Log.visible = false
                     chart2Log.visible = true
+                    chart3Log.visible = false
+                } else {
+                    chart1Linear.visible = false
+                    chart2Linear.visible = true
+                    chart3Linear.visible = false
+                    chart1Log.visible = false
+                    chart2Log.visible = false
                     chart3Log.visible = false
                 }
                 bt1.enabled = true
@@ -385,20 +385,20 @@ ApplicationWindow {
             enabled: true
 
             onClicked: {
-                if(scaleButton.text != "Linear Scale") {
-                    chart1Linear.visible = false
-                    chart2Linear.visible = false
-                    chart3Linear.visible = true
-                    chart1Log.visible = false
-                    chart2Log.visible = false
-                    chart3Log.visible = false
-                } else {
+                if(scaleButton.checked) {
                     chart1Linear.visible = false
                     chart2Linear.visible = false
                     chart3Linear.visible = false
                     chart1Log.visible = false
                     chart2Log.visible = false
                     chart3Log.visible = true
+                } else {
+                    chart1Linear.visible = false
+                    chart2Linear.visible = false
+                    chart3Linear.visible = true
+                    chart1Log.visible = false
+                    chart2Log.visible = false
+                    chart3Log.visible = false
                 }
                 bt1.enabled = true
                 bt2.enabled = true
@@ -407,17 +407,15 @@ ApplicationWindow {
         }
     }
 
-    Button {
+    Switch {
         id: scaleButton
-        text: "Log10 Scale"
-        width: 100
+        text: "Log Scale"
         anchors {
             top: parent.top
             horizontalCenter: parent.horizontalCenter
         }
-        onClicked: {
-            if(scaleButton.text == "Log10 Scale") {
-                scaleButton.text = "Linear Scale"
+        onCheckedChanged: {
+            if(scaleButton.checked) {
                 if(chart1Linear.visible) {
                     chart1Linear.visible = false
                     chart1Log.visible = true
@@ -430,8 +428,7 @@ ApplicationWindow {
                     chart3Linear.visible = false
                     chart3Log.visible = true
                 }
-            } else if(scaleButton.text == "Linear Scale") {
-                scaleButton.text = "Log10 Scale"
+            } else{
                 if(chart1Log.visible) {
                     chart1Log.visible = false
                     chart1Linear.visible = true
@@ -507,20 +504,20 @@ ApplicationWindow {
     }
 
     function visibleChart(chart1_visible, chart2_visible, chart3_visible) {
-        if(scaleButton.text != "Linear Scale") {
-            chart1Linear.visible = chart1_visible
-            chart2Linear.visible = chart2_visible
-            chart3Linear.visible = chart3_visible
-            chart1Log.visible = false
-            chart2Log.visible = false
-            chart3Log.visible = false
-        } else if (scaleButton.text != "Log10 Scale"){
+        if(scaleButton.checked) {
             chart1Linear.visible = false
             chart1Linear.visible = false
             chart1Linear.visible = false
             chart1Log.visible = chart1_visible
             chart2Log.visible = chart2_visible
             chart3Log.visible = chart3_visible
+        } else {
+            chart1Linear.visible = chart1_visible
+            chart2Linear.visible = chart2_visible
+            chart3Linear.visible = chart3_visible
+            chart1Log.visible = false
+            chart2Log.visible = false
+            chart3Log.visible = false
         }
     }
 
@@ -540,12 +537,12 @@ ApplicationWindow {
     }
 
     function setTitle(title) {
-        chart1Linear.title = "Phase Type Dist."
-        chart2Linear.title = "Phase Type Dist."
-        chart3Linear.title = "Phase Type Dist."
-        chart1Log.title = "Phase Type Dist."
-        chart2Log.title = "Phase Type Dist."
-        chart3Log.title = "Phase Type Dist."
+        chart1Linear.title = title
+        chart2Linear.title = title
+        chart3Linear.title = title
+        chart1Log.title = title
+        chart2Log.title = title
+        chart3Log.title = title
     }
 
     function setSeriesName(char1_serie1, chart1_serie2, chart2_serie1, chart2_serie2, chart3_serie1, chart3_serie2) {
@@ -636,7 +633,7 @@ ApplicationWindow {
 
         visibleSeries(true, false, true, false, true, false)
 
-        setTitle("Wfas Dist.")
+        setTitle("Wfafle Dist.")
 
         setSeriesName("Allele frequency distribution", "", "", "", "", "")
 
