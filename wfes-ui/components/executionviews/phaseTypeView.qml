@@ -849,22 +849,37 @@ ApplicationWindow {
         if(parseInt(inputK.textFieldText) < 2)
             error += " - Number of Moments (k) is quite small, it must be at least 1. \n \n"
 
-        if(parseFloat(inputU.textFieldText) < 0)
-            error += " - Backward Mutation (u) is quite small. It must be at least 0. \n \n"
-        if(!inputForce.checked && (4 * parseInt(inputN.textFieldText) * parseFloat(inputU.textFieldText)) > 1)
-            error += " - Backward Mutation (u) is quite large and might violate the Wright-Fisher assumptions. Check 'Force' to ignore. \n \n"
+        if(globalConfiguration.ui_population_scaled) {
+            if(parseFloat(inputU.textFieldText) <= 0)
+                error += " - Backward Mutation (u) is quite small. It must be at least 0. \n \n"
+            if(!inputForce.checked && parseFloat(inputU.textFieldText) > 1)
+                error += " - Backward Mutation (u) is quite large and might violate the Wright-Fisher assumptions. It should be less than 1. Check 'Force' to ignore. \n \n"
 
-        if(parseFloat(inputV.textFieldText) < 0)
-            error += " - Forward Mutation (v) is quite small. It must be at least 0. \n \n"
-        if(!inputForce.checked && (4 * parseInt(inputN.textFieldText) * parseFloat(inputV.textFieldText)) > 1)
-            error += " - Forward Mutation (v) is quite large and might violate the Wright-Fisher assumptions. Check 'Force' to ignore. \n \n"
+            if(parseFloat(inputV.textFieldText) <= 0)
+                error += " - Forward Mutation (v) is quite small. It must be at least 0. \n \n"
+            if(!inputForce.checked && parseFloat(inputV.textFieldText) > 1)
+                error += " - Forward Mutation (v) is quite large and might violate the Wright-Fisher assumptions. It should be less than 1. Check 'Force' to ignore. \n \n"
 
-        if(parseFloat(inputS.textFieldText) < -1)
-            error += " - Selection Coefficient (s) is quite small. It must be at least -1. \n \n"
-        if(parseFloat(inputS.textFieldText) > 1)
-            error += " - Selection Coefficient (s) is quite large. The maximum value allowed is 1. \n \n"
-        if(!inputForce.checked && parseFloat(inputS.textFieldText) * (2 * parseInt(inputN.textFieldText)) <= -100)
-            error += " - Selection Coefficient (s) is quite negative. Fixations might be impossible. Check 'Force' to ignore. \n \n"
+            if(parseFloat(inputS.textFieldText) < -1 * (2 * parseInt(inputN.textFieldText)))
+                error += " - Selection Coefficient (s) is quite small. It must be at least -2N. \n \n"
+            if(parseFloat(inputS.textFieldText) > 1 * (2 * parseInt(inputN.textFieldText)))
+                error += " - Selection Coefficient (s) is quite large. The maximum value allowed is 2N. \n \n"
+        } else {
+            if(parseFloat(inputU.textFieldText) <= 0)
+                error += " - Backward Mutation (u) is quite small. It must be at least 0. \n \n"
+            if(!inputForce.checked && parseFloat(inputU.textFieldText) > 1 / (4 * parseInt(inputN.textFieldText)))
+                error += " - Backward Mutation (u) is quite large and might violate the Wright-Fisher assumptions. It should be less than 1/4N. Check 'Force' to ignore. \n \n"
+
+            if(parseFloat(inputV.textFieldText) <= 0)
+                error += " - Forward Mutation (v) is quite small. It must be at least 0. \n \n"
+            if(!inputForce.checked && parseFloat(inputV.textFieldText) > 1 / (4 * parseInt(inputN.textFieldText)))
+                error += " - Forward Mutation (v) is quite large and might violate the Wright-Fisher assumptions. It should be less than 1/4N. Check 'Force' to ignore. \n \n"
+
+            if(parseFloat(inputS.textFieldText) < -1)
+                error += " - Selection Coefficient (s) is quite small. It must be at least -1. \n \n"
+            if(parseFloat(inputS.textFieldText) > 1)
+                error += " - Selection Coefficient (s) is quite large. The maximum value allowed is 1. \n \n"
+        }
 
         if(parseFloat(inputH.textFieldText) < 0)
             error += " - Dominance Coefficient (h) is quite small. It must be at least 0. \n \n"

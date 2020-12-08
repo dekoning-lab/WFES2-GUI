@@ -682,27 +682,47 @@ ApplicationWindow {
                 error += " - Generations (G" + (i + 1) + ") is quite small, it must be at least 2. \n \n"
         }
 
-        for(i = 0; i < inputControllerWfafle.ui_num_comp; i++) {
-            if(parseFloat(u_vec[i]) < 0)
-                error += " - Backward Mutation (u" + (i + 1) + ") is quite small. It must be at least 0. \n \n"
-            if(!inputForce.checked && (4 * parseInt(N_vec[i]) * parseFloat(u_vec[i])) > 1)
-                error += " - Backward Mutation (u" + (i + 1) + ") is quite large and might violate the Wright-Fisher assumptions. Check 'Force' to ignore. \n \n"
-        }
+        if(globalConfiguration.ui_population_scaled) {
+            for(i = 0; i < inputControllerWfafle.ui_num_comp; i++) {
+                if(parseFloat(u_vec[i].textFieldText) <= 0)
+                    error += " - Backward Mutation (u" + (i + 1) + ") is quite small. It must be at least 0. \n \n"
+                if(!inputForce.checked && parseFloat(u_vec[i]) > 1)
+                    error += " - Backward Mutation (u" + (i + 1) + ") is quite large and might violate the Wright-Fisher assumptions. It should be less than 1. Check 'Force' to ignore. \n \n"
+            }
 
-        for(i = 0; i < inputControllerWfafle.ui_num_comp; i++) {
-            if(parseFloat(v_vec[i]) < 0)
-                error += " - Forward Mutation (v" + (i + 1) + ") is quite small. It must be at least 0. \n \n"
-            if(!inputForce.checked && (4 * parseInt(N_vec[i]) * parseFloat(v_vec[i])) > 1)
-                error += " - Forward Mutation (v" + (i + 1) + ") is quite large and might violate the Wright-Fisher assumptions. Check 'Force' to ignore. \n \n"
-        }
+            for(i = 0; i < inputControllerWfafle.ui_num_comp; i++) {
+                if(parseFloat(v_vec[i].textFieldText) <= 0)
+                    error += " - Backward Mutation (v" + (i + 1) + ") is quite small. It must be at least 0. \n \n"
+                if(!inputForce.checked && parseFloat(v_vec[i]) > 1)
+                    error += " - Backward Mutation (v" + (i + 1) + ") is quite large and might violate the Wright-Fisher assumptions. It should be less than 1. Check 'Force' to ignore. \n \n"
+            }
 
-        for(i = 0; i < inputControllerWfafle.ui_num_comp; i++) {
-            if(parseFloat(s_vec[i]) < -1)
-                error += " - Selection Coefficient (s" + (i + 1) + ") is quite negative. Fixations might be impossible. It must be at least -1. \n \n"
-            if(parseFloat(s_vec[i]) > 1)
-                error += " - Selection Coefficient (s" + (i + 1) + ") is quite large. The maximum value allowed is 1. \n \n"
-            if(parseFloat(s_vec[i]) * 2 * parseInt(N_vec[i]) <= -100) {
-                error += " - Selection Coefficient (s" + (i + 1) + ") is quite negative. Fixations might be impossible. It must be at least -1. \n \n"
+            for(i = 0; i < inputControllerWfafle.ui_num_comp; i++) {
+                if(parseFloat(s_vec[i]) < -1 * (2 * parseInt(N_vec[i])))
+                    error += " - Selection Coefficient (s" + (i + 1) + ") is quite negative. It must be at least -2N \n \n"
+                if(parseFloat(s_vec[i]) > 1 * (2 * parseInt(N_vec[i])))
+                    error += " - Selection Coefficient (s" + (i + 1) + ") is quite large. The maximum value allowed is 2N. \n \n"
+            }
+        } else {
+            for(i = 0; i < inputControllerWfafle.ui_num_comp; i++) {
+                if(parseFloat(u_vec[i].textFieldText) <= 0)
+                    error += " - Backward Mutation (u" + (i + 1) + ") is quite small. It must be at least 0. \n \n"
+                if(!inputForce.checked && parseFloat(u_vec[i]) > 1 / (4 * parseInt(N_vec[i])))
+                    error += " - Backward Mutation (u" + (i + 1) + ") is quite large and might violate the Wright-Fisher assumptions. It should be less than 1/4N. Check 'Force' to ignore. \n \n"
+            }
+
+            for(i = 0; i < inputControllerWfafle.ui_num_comp; i++) {
+                if(parseFloat(v_vec[i].textFieldText) <= 0)
+                    error += " - Backward Mutation (v" + (i + 1) + ") is quite small. It must be at least 0. \n \n"
+                if(!inputForce.checked && parseFloat(v_vec[i]) > 1 / (4 * parseInt(N_vec[i])))
+                    error += " - Backward Mutation (v" + (i + 1) + ") is quite large and might violate the Wright-Fisher assumptions. It should be less than 1/4N. Check 'Force' to ignore. \n \n"
+            }
+
+            for(i = 0; i < inputControllerWfafle.ui_num_comp; i++) {
+                if(parseFloat(s_vec[i]) < -1)
+                    error += " - Selection Coefficient (s" + (i + 1) + ") is quite negative. It must be at least -2N \n \n"
+                if(parseFloat(s_vec[i]) > 1 )
+                    error += " - Selection Coefficient (s" + (i + 1) + ") is quite large. The maximum value allowed is 2N. \n \n"
             }
         }
 
