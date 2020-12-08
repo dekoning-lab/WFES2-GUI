@@ -31,6 +31,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 HEADERS += \
     source/model/config/globalConfiguration.h \
+    source/model/config/systemoperations.h \
     source/model/executables/phase_type/config/configPhaseType.h \
     source/model/executables/phase_type/controllers/inputControllerPhaseType.h \
     source/model/executables/phase_type/controllers/outputControllerPhaseType.h \
@@ -105,6 +106,7 @@ HEADERS += \
 
 SOURCES += \
     source/model/config/globalConfiguration.cpp \
+    source/model/config/systemoperations.cpp \
     source/model/executables/phase_type/config/configPhaseType.cpp \
     source/model/executables/phase_type/controllers/inputControllerPhaseType.cpp \
     source/model/executables/phase_type/controllers/outputControllerPhaseType.cpp \

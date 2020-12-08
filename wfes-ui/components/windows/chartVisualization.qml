@@ -457,37 +457,40 @@ ApplicationWindow {
             horizontalCenter: parent.horizontalCenter
         }
         onClicked: {
+            var url = globalConfiguration.ui_save_path + "/Wfes/"
             if(chart1Linear.visible) {
                 chart1Linear.grabToImage(function(result) {
                     print(globalConfiguration.ui_save_path)
-                    result.saveToFile(globalConfiguration.ui_save_path + "/Wfes/chart-" + bt1.text + ".png");
+                    result.saveToFile(url + "chart-" + bt1.text + ".png");
                 });
             } else if(chart1Log.visible) {
                 chart1Log.grabToImage(function(result) {
                     print(globalConfiguration.ui_save_path)
-                    result.saveToFile(globalConfiguration.ui_save_path + "/Wfes/chart-" + bt1.text + ".png");
+                    result.saveToFile(url + "chart-" + bt1.text + ".png");
                 });
             } else if(chart2Linear.visible) {
                 chart2Linear.grabToImage(function(result) {
                     print(globalConfiguration.ui_save_path)
-                    result.saveToFile(globalConfiguration.ui_save_path + "/Wfes/chart-" + bt2.text + ".png");
+                    result.saveToFile(url + "chart-" + bt2.text + ".png");
                 });
             } else if(chart2Log.visible) {
                 chart2Log.grabToImage(function(result) {
                     print(globalConfiguration.ui_save_path)
-                    result.saveToFile(globalConfiguration.ui_save_path + "/Wfes/chart-" + bt2.text + ".png");
+                    result.saveToFile(url + "chart-" + bt2.text + ".png");
                 });
             } else if(chart3Linear.visible) {
                 chart3Linear.grabToImage(function(result) {
                     print(globalConfiguration.ui_save_path)
-                    result.saveToFile(globalConfiguration.ui_save_path + "/Wfes/chart-" + bt3.text + ".png");
+                    result.saveToFile(url + "chart-" + bt3.text + ".png");
                 });
             } else if(chart3Log.visible) {
                 chart3Log.grabToImage(function(result) {
                     print(globalConfiguration.ui_save_path)
-                    result.saveToFile(globalConfiguration.ui_save_path + "/Wfes/chart-" + bt3.text + ".png");
+                    result.saveToFile(url + "chart-" + bt3.text + ".png");
                 });
             }
+            systemOperations.openUrlInFileExplorer(url)
+
         }
     }
 

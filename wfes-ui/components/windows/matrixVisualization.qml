@@ -156,6 +156,7 @@ ApplicationWindow {
             horizontalCenter: parent.horizontalCenter
         }
         onClicked: {
+            var url = globalConfiguration.ui_save_path + "/Wfes/"
             if(displayI.visible == true) {
                 imageOutputController.ui_image_to_download = "I"
                 imageOutputController.ui_download
@@ -190,6 +191,7 @@ ApplicationWindow {
                 imageOutputController.ui_image_to_download = "P"
                 imageOutputController.ui_download
             }
+            systemOperations.openUrlInFileExplorer(url)
         }
     }
 
