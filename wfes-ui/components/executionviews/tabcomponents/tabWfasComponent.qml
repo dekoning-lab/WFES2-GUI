@@ -124,7 +124,12 @@ Component{
 
                 LabeledTextField {
                     id: inputU
-                    text: "u<sub>" + number + "</sub>: "
+                    text: {
+                        if(globalConfiguration.ui_population_scaled)
+                            return "4Nu<sub>" + number + "</sub>: "
+                        else
+                            return "u<sub>" + number + "</sub>: "
+                    }
                     toolTipText: "Backward mutation rate."
                     validator: DoubleValidator {bottom: 0;}
                     textFieldText: {
@@ -139,7 +144,12 @@ Component{
 
                 LabeledTextField {
                     id: inputV
-                    text: "v<sub>" + number + "</sub>: "
+                    text: {
+                        if(globalConfiguration.ui_population_scaled)
+                            return "4Nv<sub>" + number + "</sub>: "
+                        else
+                            return "v<sub>" + number + "</sub>: "
+                    }
                     toolTipText: "Forward mutation rate."
                     validator: DoubleValidator {bottom: 0;}
                     textFieldText: {

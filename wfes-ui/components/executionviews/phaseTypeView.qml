@@ -263,7 +263,12 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 id: inputU
-                                text: "u: "
+                                text: {
+                                    if(globalConfiguration.ui_population_scaled)
+                                        return "2Nu: "
+                                    else
+                                        return "u: "
+                                }
                                 toolTipText: "Backward mutation rate."
                                 validator: DoubleValidator {bottom: 0;}
                                 textFieldText: inputControllerPhaseType.ui_u
@@ -271,7 +276,12 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 id: inputV
-                                text: "v: "
+                                text: {
+                                    if(globalConfiguration.ui_population_scaled)
+                                        return "2Nv: "
+                                    else
+                                        return "v: "
+                                }
                                 toolTipText: "Forward mutation rate."
                                 validator: DoubleValidator {bottom: 0;}
                                 textFieldText: inputControllerPhaseType.ui_v
