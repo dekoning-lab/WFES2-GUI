@@ -48,7 +48,7 @@ Component{
 
                 LabeledTextField {
                     id: inputN
-                    text: "N" + number + ": "
+                    text: "N<sub>" + number + "</sub>: "
                     toolTipText: "Size of the population in the Wright Fisher Model."
                     validator: IntValidator {bottom: 2; top: 500000;}
                     textFieldText: {
@@ -63,7 +63,7 @@ Component{
 
                 LabeledTextField {
                     id: inputP
-                    text: "p" + number + ": "
+                    text: "p<sub>" + number + "</sub>: "
                     toolTipText: "Starting probabilities."
                     validator: DoubleValidator {bottom: 0; top: 1;}
                     textFieldText: {
@@ -78,7 +78,7 @@ Component{
 
                 LabeledTextField {
                     id: inputR
-                    text: "r" + number + ": "
+                    text: "r<sub>" + number + "</sub>: "
                     toolTipText: "//Transition probabiluity matrix between the WF component models."
                     textFieldPreferredWidth: 250
                     textFieldText: {
@@ -125,7 +125,7 @@ Component{
 
                 LabeledTextField {
                     id: inputU
-                    text: "u" + number + ": "
+                    text: "u<sub>" + number + "</sub>: "
                     toolTipText: "Backward mutation rate."
                     validator: DoubleValidator {bottom: 0;}
                     textFieldText: {
@@ -140,7 +140,7 @@ Component{
 
                 LabeledTextField {
                     id: inputV
-                    text: "v" + number + ": "
+                    text: "v<sub>" + number + "</sub>: "
                     toolTipText: "Forward mutation rate."
                     validator: DoubleValidator {bottom: 0;}
                     textFieldText: {
@@ -185,7 +185,12 @@ Component{
 
                 LabeledTextField {
                     id: inputS
-                    text: "s" + number + ": "
+                    text: {
+                        if(globalConfiguration.ui_population_scaled)
+                            return "2Ns<sub>" + number + "</sub>: "
+                        else
+                            return "s<sub>" + number + "</sub>: "
+                    }
                     toolTipText: "Selection coefficient."
                     validator: DoubleValidator {bottom: -1; top: 1;}
                     textFieldText: {
@@ -200,7 +205,7 @@ Component{
 
                 LabeledTextField {
                     id: inputH
-                    text: "h" + number + ": "
+                    text: "h<sub>" + number + "</sub>: "
                     toolTipText: "Dominance coefficient."
                     validator: DoubleValidator {bottom: 0; top: 1;}
                     textFieldText: {

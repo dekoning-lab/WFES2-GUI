@@ -255,20 +255,20 @@ ApplicationWindow {
 
                                     LabeledCheckBox {
                                         id: inputWriteNExt
-                                        text: "N Ext.: "
+                                        text: "N<sub>Ext</sub>: "
                                         toolTipText: "Output extinction-conditional sojourn to file."
                                         checked: inputControllerWfesSequential.ui_output_N_Ext
                                     }
 
                                     LabeledCheckBox {
                                         id: inputWriteNFix
-                                        text: "N Fix.: "
+                                        text: "N<sub>Fix</sub>: "
                                         toolTipText: "Output fixation-conditional sojourn to file."
                                         checked: inputControllerWfesSequential.ui_output_N_Fix
                                     }
                                     LabeledCheckBox {
                                         id: inputWriteNTmo
-                                        text: "N Tmo.: "
+                                        text: "N<sub>Tmo</sub>: "
                                         toolTipText: "Output timeout-conditional sojourn to file."
                                         checked: inputControllerWfesSequential.ui_output_N_Tmo
                                     }
@@ -496,7 +496,7 @@ ApplicationWindow {
                             id: outputPExt
                             labelPreferredWidth: 100
                             textFieldPreferredWidth: 180
-                            text: "P ext. : "
+                            text: "P<sub>ext</sub>: "
                             toolTipText: "Probability of extintion."
                             textFieldText: outputControllerWfesSequential.ui_get_p_ext
                             readOnly: true
@@ -506,7 +506,7 @@ ApplicationWindow {
                             id: outputPFix
                             labelPreferredWidth: 100
                             textFieldPreferredWidth: 180
-                            text: "P fix. : "
+                            text: "P<sub>fix</sub>: "
                             toolTipText: "Probability of fixation."
                             textFieldText: outputControllerWfesSequential.ui_get_p_fix
                             readOnly: true
@@ -516,7 +516,7 @@ ApplicationWindow {
                             id: outputPtmo
                             labelPreferredWidth: 100
                             textFieldPreferredWidth: 180
-                            text: "P tmo. : "
+                            text: "P<sub>tmo</sub>: "
                             toolTipText: "Probability of timeout."
                             textFieldText: outputControllerWfesSequential.ui_get_p_tmo
                             readOnly: true
@@ -526,7 +526,7 @@ ApplicationWindow {
                             id: outputText
                             labelPreferredWidth: 100
                             textFieldPreferredWidth: 180
-                            text: "T ext.: "
+                            text: "T<sub>ext</sub>: "
                             toolTipText: "Expected number of generations until extinction."
                             textFieldText: outputControllerWfesSequential.ui_get_t_ext
                             readOnly: true
@@ -536,7 +536,7 @@ ApplicationWindow {
                             id: outputTextStd
                             labelPreferredWidth: 100
                             textFieldPreferredWidth: 180
-                            text: "T ext. std.: "
+                            text: "T<sub>ext std</sub>: "
                             toolTipText: "Standard deviation of expected number of generations until extinction."
                             textFieldText: outputControllerWfesSequential.ui_get_t_ext_std
                             readOnly: true
@@ -547,7 +547,7 @@ ApplicationWindow {
                             id: outputTFix
                             labelPreferredWidth: 100
                             textFieldPreferredWidth: 180
-                            text: "T fix.: "
+                            text: "T<sub>fix</sub>: "
                             toolTipText: "Expected number of generations until fixation."
                             textFieldText: outputControllerWfesSequential.ui_get_t_fix
                             readOnly: true
@@ -557,7 +557,7 @@ ApplicationWindow {
                             id: outputTFixStd
                             labelPreferredWidth: 100
                             textFieldPreferredWidth: 180
-                            text: "T fix. std.: "
+                            text: "T<sub>fix std</sub>: "
                             toolTipText: "Standard deviation of expected number of generations until fixation."
                             textFieldText: outputControllerWfesSequential.ui_get_t_fix_std
                             readOnly: true
@@ -567,7 +567,7 @@ ApplicationWindow {
                             id: outputTtmo
                             labelPreferredWidth: 100
                             textFieldPreferredWidth: 180
-                            text: "T tmo.: "
+                            text: "T<sub>tmo</sub>: "
                             toolTipText: "Expected number of generations until time out."
                             textFieldText: outputControllerWfesSequential.ui_get_t_tmo
                             readOnly: true
@@ -577,7 +577,7 @@ ApplicationWindow {
                             id: outputTtmoStd
                             labelPreferredWidth: 100
                             textFieldPreferredWidth: 180
-                            text: "T tmo. std.: "
+                            text: "T<sub>tmo std</sub>: "
                             toolTipText: "Standard deviation of expected number of generations until time out."
                             textFieldText: outputControllerWfesSequential.ui_get_t_tmo_std
                             readOnly: true

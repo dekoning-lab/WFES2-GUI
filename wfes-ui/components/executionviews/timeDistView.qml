@@ -340,7 +340,7 @@ ApplicationWindow {
 
                                             LabeledTextField {
                                                 id: inputU1
-                                                text: "u1: "
+                                                text: "u<sub>1</sub>: "
                                                 toolTipText: "Backward mutation rate."
                                                 validator: DoubleValidator {bottom: 0;}
                                                 textFieldText: {
@@ -351,7 +351,7 @@ ApplicationWindow {
 
                                             LabeledTextField {
                                                 id: inputV1
-                                                text: "v1: "
+                                                text: "v<sub>1</sub>: "
                                                 toolTipText: "Forward mutation rate."
                                                 validator: DoubleValidator {bottom: 0;}
                                                 textFieldText: {
@@ -393,7 +393,12 @@ ApplicationWindow {
 
                                             LabeledTextField {
                                                 id: inputS1
-                                                text: "s1: "
+                                                text: {
+                                                        if(globalConfiguration.ui_population_scaled)
+                                                            return "2Ns<sub>1</sub>: "
+                                                        else
+                                                            return "s<sub>1</sub>: "
+                                                    }
                                                 toolTipText: "Selection coefficient."
                                                 validator: DoubleValidator {bottom: -1; top: 1;}
                                                 textFieldText: {
@@ -404,7 +409,7 @@ ApplicationWindow {
 
                                             LabeledTextField {
                                                 id: inputH1
-                                                text: "h1: "
+                                                text: "h<sub>1</sub>: "
                                                 toolTipText: "Dominance coefficient."
                                                 validator: DoubleValidator {bottom: 0; top: 1;}
                                                 textFieldText: {
@@ -466,7 +471,7 @@ ApplicationWindow {
 
                                             LabeledTextField {
                                                 id: inputU2
-                                                text: "u2: "
+                                                text: "u<sub>2</sub>: "
                                                 toolTipText: "Backward mutation rate."
                                                 validator: DoubleValidator {bottom: 0;}
                                                 textFieldText: {
@@ -477,7 +482,7 @@ ApplicationWindow {
 
                                             LabeledTextField {
                                                 id: inputV2
-                                                text: "v2: "
+                                                text: "v<sub>2</sub>: "
                                                 toolTipText: "Forward mutation rate."
                                                 validator: DoubleValidator {bottom: 0;}
                                                 textFieldText: {
@@ -519,7 +524,12 @@ ApplicationWindow {
 
                                             LabeledTextField {
                                                 id: inputS2
-                                                text: "s2: "
+                                                text: {
+                                                    if(globalConfiguration.ui_population_scaled)
+                                                        return "2Ns<sub>2</sub>: "
+                                                    else
+                                                        return "s<sub>2</sub>: "
+                                                }
                                                 toolTipText: "Selection coefficient."
                                                 validator: DoubleValidator {bottom: -1; top: 1;}
                                                 textFieldText: {
@@ -530,7 +540,7 @@ ApplicationWindow {
 
                                             LabeledTextField {
                                                 id: inputH2
-                                                text: "h2: "
+                                                text: "h<sub>2</sub>: "
                                                 toolTipText: "Dominance coefficient."
                                                 validator: DoubleValidator {bottom: 0; top: 1;}
                                                 textFieldText: {
@@ -769,7 +779,12 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 id: inputS
-                                text: "s: "
+                                text: {
+                                    if(globalConfiguration.ui_population_scaled)
+                                        return "2Ns: "
+                                    else
+                                        return "s: "
+                                }
                                 toolTipText: "Selection coefficient."
                                 validator: DoubleValidator {bottom: -1; top: 1;}
                                 textFieldText: inputControllerTimeDist.ui_s

@@ -777,14 +777,14 @@ ApplicationWindow {
                                 LabeledCheckBox {
                                     id: inputWriteNExt
                                     toolTipText: "Output N ext. (extintion-conditional sojourn) as CSV file."
-                                    text: "N ext.: "
+                                    text: "N<sub>ext</sub>: "
                                     checked: inputControllerWfesSingle.ui_output_NExt
                                     enabled: (inputControllerWfesSingle.ui_modelType == "Absorption")
                                 }
 
                                 LabeledCheckBox {
                                     id: inputWriteNFix
-                                    text: "N fix.: "
+                                    text: "N<sub>fix</sub>: "
                                     toolTipText: "Output N fix. (fixation-conditional sojourn) as CSV file."
                                     checked: inputControllerWfesSingle.ui_output_NFix
                                     enabled: (inputControllerWfesSingle.ui_modelType == "Absorption")
@@ -1051,7 +1051,7 @@ ApplicationWindow {
                                 id: outputPExt
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "P ext. : "
+                                text: "P<sub>ext</sub>: "
                                 toolTipText: "Probability of extintion."
                                 textFieldText: outputControllerWfesSingle.ui_get_p_ext
                                 readOnly: true
@@ -1062,7 +1062,7 @@ ApplicationWindow {
                                 id: outputPFix
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "P fix. : "
+                                text: "P<sub>fix</sub>: "
                                 toolTipText: "Probability of fixation."
                                 textFieldText: outputControllerWfesSingle.ui_get_p_fix
                                 readOnly: true
@@ -1073,7 +1073,7 @@ ApplicationWindow {
                                 id: outputTAbs
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "T abs. : "
+                                text: "T<sub>abs</sub>: "
                                 toolTipText: "Expected number of generations until absorption."
                                 textFieldText: outputControllerWfesSingle.ui_get_t_abs
                                 readOnly: true
@@ -1084,7 +1084,7 @@ ApplicationWindow {
                                 id: outputTAbsStd
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "T abs. std.: "
+                                text: "T<sub>abs std</sub>: "
                                 toolTipText: "Standard deviation of expected number of generations until absorption."
                                 textFieldText: outputControllerWfesSingle.ui_get_t_abs_std
                                 readOnly: true
@@ -1095,7 +1095,7 @@ ApplicationWindow {
                                 id: outputText
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "T ext.: "
+                                text: "T<sub>ext</sub>: "
                                 toolTipText: "Expected number of generations until extinction."
                                 textFieldText: outputControllerWfesSingle.ui_get_t_ext
                                 readOnly: true
@@ -1106,7 +1106,7 @@ ApplicationWindow {
                                 id: outputTextStd
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "T ext. std.: "
+                                text: "T<sub>ext std</sub>: "
                                 toolTipText: "Standard deviation of expected number of generations until extinction."
                                 textFieldText: outputControllerWfesSingle.ui_get_t_ext_std
                                 readOnly: true
@@ -1117,7 +1117,7 @@ ApplicationWindow {
                                 id: outputNext
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "N ext.: "
+                                text: "N<sub>ext</sub>: "
                                 toolTipText: "Number of generations until extintion."
                                 textFieldText: outputControllerWfesSingle.ui_get_n_ext
                                 readOnly: true
@@ -1128,7 +1128,7 @@ ApplicationWindow {
                                 id: outputTFix
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "T fix.: "
+                                text: "T<sub>fix</sub>: "
                                 toolTipText: "Expected number of generations between two fixation events."
                                 textFieldText: outputControllerWfesSingle.ui_get_t_fix
                                 readOnly: true
@@ -1139,7 +1139,7 @@ ApplicationWindow {
                                 id: outputTFixStd
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "T fix. std.: "
+                                text: "T<sub>fix std</sub>: "
                                 toolTipText: "Standard deviation of expected number of generations between two fixation events."
                                 textFieldText: outputControllerWfesSingle.ui_get_t_fix_std
                                 readOnly: true
@@ -1150,7 +1150,7 @@ ApplicationWindow {
                                 id: outputTFixAbsMode
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "T fix.: "
+                                text: "T<sub>fix</sub>: "
                                 toolTipText: "Expected number of generations until fixation."
                                 textFieldText: outputControllerWfesSingle.ui_get_t_fix_abs_mode
                                 readOnly: true
@@ -1161,7 +1161,7 @@ ApplicationWindow {
                                 id: outputTFixStdAbsMode
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "T fix. std.: "
+                                text: "T<sub>fix std</sub>: "
                                 toolTipText: "Standard deviation of expected number of generations until fixation."
                                 textFieldText: outputControllerWfesSingle.ui_get_t_fix_std_abs_mode
                                 readOnly: true
@@ -1205,7 +1205,7 @@ ApplicationWindow {
                                 id: outputFEst
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "F est.: "
+                                text: "F<sub>est</sub>: "
                                 toolTipText: "Frequency of establishment."
                                 textFieldText: outputControllerWfesSingle.ui_get_f_est
                                 readOnly: true
@@ -1216,7 +1216,7 @@ ApplicationWindow {
                                 id: outputPEst
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "P est.: "
+                                text: "P<sub>est</sub>: "
                                 toolTipText: "Probability of establishment."
                                 textFieldText: outputControllerWfesSingle.ui_get_p_est
                                 readOnly: true
@@ -1227,7 +1227,7 @@ ApplicationWindow {
                                 id: outputTSeg
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "T seg.: "
+                                text: "T<sub>seg</sub>: "
                                 toolTipText: "Expected number of generations until segregation."
                                 textFieldText: outputControllerWfesSingle.ui_get_t_seg
                                 readOnly: true
@@ -1238,7 +1238,7 @@ ApplicationWindow {
                                 id: outputTSegStd
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "T seg. std.: "
+                                text: "T<sub>seg std</sub>: "
                                 toolTipText: "Standard deviation of expected number of generations until segregation."
                                 textFieldText: outputControllerWfesSingle.ui_get_t_seg_std
                                 readOnly: true
@@ -1249,7 +1249,7 @@ ApplicationWindow {
                                 id: outputTSegEst
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "T seg. ext.: "
+                                text: "T<sub>seg ext</sub>: "
                                 toolTipText: "Expected number of generations until segregation (Extinction)."
                                 textFieldText: outputControllerWfesSingle.ui_get_t_seg_est
                                 readOnly: true
@@ -1260,7 +1260,7 @@ ApplicationWindow {
                                 id: outputTSegEstStd
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "T seg. ext. std.: "
+                                text: "T<sub>seg ext std<sub>: "
                                 toolTipText: "Standard deviation of expected number of generations until segregation (Extinction)."
                                 textFieldText: outputControllerWfesSingle.ui_get_t_seg_est_std
                                 readOnly: true
@@ -1271,7 +1271,7 @@ ApplicationWindow {
                                 id: outputTSegFix
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "T seg. fix.: "
+                                text: "T<sub>seg fix</sub>: "
                                 toolTipText: "Expected number of generations until segregation (Fixation)."
                                 textFieldText: outputControllerWfesSingle.ui_get_t_seg_fix
                                 readOnly: true
@@ -1282,7 +1282,7 @@ ApplicationWindow {
                                 id: outputTSegFixStd
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "T seg. fix. std.: "
+                                text: "T<sub>seg fix std</sub>: "
                                 toolTipText: "Standard deviation of expected number of generations until segregation (Fixation)."
                                 textFieldText: outputControllerWfesSingle.ui_get_t_seg_fix_std
                                 readOnly: true
@@ -1293,7 +1293,7 @@ ApplicationWindow {
                                 id: outputTEst
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "T est.: "
+                                text: "T<sub>est</sub>: "
                                 toolTipText: "Expected number of generations until establishment."
                                 textFieldText: outputControllerWfesSingle.ui_get_t_est
                                 readOnly: true
@@ -1304,7 +1304,7 @@ ApplicationWindow {
                                 id: outputTEstStd
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "T est. std.: "
+                                text: "T<sub>est std</sub>: "
                                 toolTipText: "Standard deviation of expected number of generations until establishment."
                                 textFieldText: outputControllerWfesSingle.ui_get_t_est_std
                                 readOnly: true

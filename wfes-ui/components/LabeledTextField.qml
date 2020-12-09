@@ -27,6 +27,7 @@ Rectangle {
             id: label
             Layout.preferredWidth: labelPreferredWidth
             text: "v:"
+            textFormat: Text.RichText
 
             ToolTip.visible: toolTipText ? ma.containsMouse : false
             ToolTip.delay: Style.tooltipDelay
