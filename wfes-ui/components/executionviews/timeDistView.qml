@@ -744,7 +744,12 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 id: inputU
-                                text: "u: "
+                                text: {
+                                    if(globalConfiguration.ui_population_scaled)
+                                        return "4Nu: "
+                                    else
+                                        return "u: "
+                                }
                                 toolTipText: "Backward mutation rate."
                                 validator: DoubleValidator {bottom: 0;}
                                 textFieldText: inputControllerTimeDist.ui_u
@@ -752,7 +757,12 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 id: inputV
-                                text: "v: "
+                                text: {
+                                    if(globalConfiguration.ui_population_scaled)
+                                        return "4Nv: "
+                                    else
+                                        return "v: "
+                                }
                                 toolTipText: "Forward mutation rate."
                                 validator: DoubleValidator {bottom: 0;}
                                 textFieldText: inputControllerTimeDist.ui_v
@@ -1351,5 +1361,68 @@ ApplicationWindow {
         //TODO Check if Initial Distribution (I) file exists.
 
         return error.split("\n \n")[0];
+    }
+
+
+    function updateScaledParameters() {
+         var u, v, s, i
+         var u_vec, v_vec, s_vec = []
+        if(globalConfiguration.ui_population_scaled) {
+            inputControllerTimeDist.ui_s = parseFloat(inputControllerTimeDist.ui_s) * (2 * parseInt(inputControllerTimeDist.ui_n))
+            inputS.textFieldText = inputControllerTimeDist.ui_s
+            inputControllerTimeDist.ui_u = parseFloat(inputControllerTimeDist.ui_u) * (4 * parseInt(inputControllerTimeDist.ui_n))
+            inputU.textFieldText = inputControllerTimeDist.ui_u
+            inputControllerTimeDist.ui_v = parseFloat(inputControllerTimeDist.ui_v) * (4 * parseInt(inputControllerTimeDist.ui_n))
+            inputV.textFieldText = inputControllerTimeDist.ui_v
+
+            u = inputControllerTimeDist.ui_u_vec
+            v = inputControllerTimeDist.ui_v_vec
+            s = inputControllerTimeDist.ui_s_vec
+            u_vec = []
+            v_vec = []
+            s_vec = []
+            for(i = 0; i < 2; i++) {
+                timeDistSGVSectionTabView.getTab(i).active = true
+                u_vec.push((u[i] * (4 * parseInt(inputControllerTimeDist.ui_n))).toString())
+                v_vec.push((v[i] * (4 * parseInt(inputControllerTimeDist.ui_n))).toString())
+                s_vec.push((s[i] * (2 * parseInt(inputControllerTimeDist.ui_n))).toString())
+                timeDistSGVSectionTabView.getTab(i).item.children[0].children[1].children[0].textFieldText = u_vec[i]
+                timeDistSGVSectionTabView.getTab(i).item.children[0].children[1].children[1].textFieldText = v_vec[i]
+                timeDistSGVSectionTabView.getTab(i).item.children[1].children[1].children[0].textFieldText = s_vec[i]
+            }
+            inputControllerTimeDist.ui_u_vec = u_vec
+            inputControllerTimeDist.ui_v_vec = v_vec
+            inputControllerTimeDist.ui_s_vec = s_vec
+
+
+        } else {
+            inputControllerTimeDist.ui_s = parseFloat(inputControllerTimeDist.ui_s) / (2 * parseInt(inputControllerTimeDist.ui_n))
+            inputS.textFieldText = inputControllerTimeDist.ui_s
+            inputControllerTimeDist.ui_u = parseFloat(inputControllerTimeDist.ui_u) / (4 * parseInt(inputControllerTimeDist.ui_n))
+            inputU.textFieldText = inputControllerTimeDist.ui_u
+            inputControllerTimeDist.ui_v = parseFloat(inputControllerTimeDist.ui_v) / (4 * parseInt(inputControllerTimeDist.ui_n))
+            inputV.textFieldText = inputControllerTimeDist.ui_v
+
+
+            u = inputControllerTimeDist.ui_u_vec
+            v = inputControllerTimeDist.ui_v_vec
+            s = inputControllerTimeDist.ui_s_vec
+            u_vec = []
+            v_vec = []
+            s_vec = []
+            for(i = 0; i < 2; i++) {
+                timeDistSGVSectionTabView.getTab(i).active = true
+                u_vec.push((u[i] / (4 * parseInt(inputControllerTimeDist.ui_n))).toString())
+                v_vec.push((v[i] / (4 * parseInt(inputControllerTimeDist.ui_n))).toString())
+                s_vec.push((s[i] / (2 * parseInt(inputControllerTimeDist.ui_n))).toString())
+                timeDistSGVSectionTabView.getTab(i).item.children[0].children[1].children[0].textFieldText = u_vec[i]
+                timeDistSGVSectionTabView.getTab(i).item.children[0].children[1].children[1].textFieldText = v_vec[i]
+                timeDistSGVSectionTabView.getTab(i).item.children[1].children[1].children[0].textFieldText = s_vec[i]
+            }
+            inputControllerTimeDist.ui_u_vec = u_vec
+            inputControllerTimeDist.ui_v_vec = v_vec
+            inputControllerTimeDist.ui_s_vec = s_vec
+
+        }
     }
 }

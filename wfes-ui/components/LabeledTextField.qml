@@ -45,6 +45,7 @@ Rectangle {
             text: ""
             Layout.preferredWidth: textFieldPreferredWidth
             focus: false
+            leftPadding: 5
             selectByMouse: true
             onTextChanged: fun()
         }
