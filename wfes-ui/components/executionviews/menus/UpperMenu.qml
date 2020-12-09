@@ -103,7 +103,10 @@ Rectangle {
                         ToolTip.text: qsTr("Generate matrix/vector images.")
 
                         onCheckedChanged: {
-                            globalConfiguration.ui_generate_images = this.checked
+                            if(globalConfiguration.ui_generate_images !== this.checked) {
+                                globalConfiguration.ui_generate_images = this.checked
+                                globalConfiguration.generateImagesChanged()
+                            }
                         }
                     }
                 }
@@ -120,7 +123,10 @@ Rectangle {
                         ToolTip.text: qsTr("Use population-scaled parameters.")
 
                         onCheckedChanged: {
-                            globalConfiguration.ui_population_scaled = this.checked
+                            if(globalConfiguration.ui_population_scaled !== this.checked) {
+                                globalConfiguration.ui_population_scaled = this.checked
+                                globalConfiguration.populationScaledChanged()
+                            }
                         }
                     }
                 }

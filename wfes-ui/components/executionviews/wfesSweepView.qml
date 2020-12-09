@@ -181,7 +181,12 @@ ApplicationWindow {
 
                                             LabeledTextField {
                                                 id: inputU1
-                                                text: "u1: "
+                                                text: {
+                                                    if(globalConfiguration.ui_population_scaled)
+                                                        return "4Nu<sub>1</sub>: "
+                                                    else
+                                                        return "u<sub>1</sub>: "
+                                                }
                                                 toolTipText: "Backward mutation rate."
                                                 validator: DoubleValidator {bottom: 0;}
                                                 textFieldText: {
@@ -192,7 +197,12 @@ ApplicationWindow {
 
                                             LabeledTextField {
                                                 id: inputV1
-                                                text: "v1: "
+                                                text: {
+                                                    if(globalConfiguration.ui_population_scaled)
+                                                        return "4Nv<sub>1</sub>: "
+                                                    else
+                                                        return "v<sub>1</sub>: "
+                                                }
                                                 toolTipText: "Forward mutation rate."
                                                 validator: DoubleValidator {bottom: 0;}
                                                 textFieldText: {
@@ -236,7 +246,12 @@ ApplicationWindow {
 
                                             LabeledTextField {
                                                 id: inputS1
-                                                text: "s1: "
+                                                text: {
+                                                    if(globalConfiguration.ui_population_scaled)
+                                                        return "2Ns<sub>1</sub>: "
+                                                    else
+                                                        return "s<sub>1</sub>: "
+                                                }
                                                 toolTipText: "Selection coefficient."
                                                 validator: DoubleValidator {bottom: -1; top: 1;}
                                                 textFieldText: {
@@ -247,7 +262,7 @@ ApplicationWindow {
 
                                             LabeledTextField {
                                                 id: inputH1
-                                                text: "h1: "
+                                                text: "h<sub>1</sub>: "
                                                 toolTipText: "Dominance coefficient."
                                                 validator: DoubleValidator {bottom: 0; top: 1;}
                                                 textFieldText: {
@@ -310,7 +325,12 @@ ApplicationWindow {
 
                                             LabeledTextField {
                                                 id: inputU2
-                                                text: "u2: "
+                                                text: {
+                                                    if(globalConfiguration.ui_population_scaled)
+                                                        return "4Nu<sub>2</sub>: "
+                                                    else
+                                                        return "u<sub>2</sub>: "
+                                                }
                                                 toolTipText: "Backward mutation rate."
                                                 validator: DoubleValidator {bottom: 0;}
                                                 textFieldText: {
@@ -321,7 +341,12 @@ ApplicationWindow {
 
                                             LabeledTextField {
                                                 id: inputV2
-                                                text: "v2: "
+                                                text: {
+                                                    if(globalConfiguration.ui_population_scaled)
+                                                        return "4Nv<sub>2</sub>: "
+                                                    else
+                                                        return "v<sub>2</sub>: "
+                                                }
                                                 toolTipText: "Forward mutation rate."
                                                 validator: DoubleValidator {bottom: 0;}
                                                 textFieldText: {
@@ -365,7 +390,12 @@ ApplicationWindow {
 
                                             LabeledTextField {
                                                 id: inputS2
-                                                text: "s2: "
+                                                text: {
+                                                    if(globalConfiguration.ui_population_scaled)
+                                                        return "2Ns<sub>2</sub>: "
+                                                    else
+                                                        return "s<sub>2</sub>: "
+                                                }
                                                 toolTipText: "Selection coefficient."
                                                 validator: DoubleValidator {bottom: -1; top: 1;}
                                                 textFieldText: {
@@ -376,7 +406,7 @@ ApplicationWindow {
 
                                             LabeledTextField {
                                                 id: inputH2
-                                                text: "h2: "
+                                                text: "h<sub>2</sub>: "
                                                 toolTipText: "Dominance coefficient."
                                                 validator: DoubleValidator {bottom: 0; top: 1;}
                                                 textFieldText: {
@@ -777,7 +807,7 @@ ApplicationWindow {
                                 id: outputTFix
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "T fix.: "
+                                text: "T<sub>fix</sub>: "
                                 toolTipText: "Expected number of generations between two fixation events."
                                 textFieldText: outputControllerWfesSweep.ui_get_t_fix
                                 readOnly: true
@@ -983,30 +1013,49 @@ ApplicationWindow {
             h_vec.push(h)
         }
 
-        for(i = 0; i < 2; i++) {
-            if(parseFloat(u_vec[i].textFieldText) < 0)
-                error += " - Backward Mutation (u" + (i + 1) + ") is quite small. It must be at least 0. \n \n"
-            if(!inputForce.checked && (4 * parseInt(inputN.textFieldText) * parseFloat(u_vec[i])) > 1)
-                error += " - Backward Mutation (u" + (i + 1) + ") is quite large and might violate the Wright-Fisher assumptions. Check 'Force' to ignore. \n \n"
-        }
+        if(globalConfiguration.ui_population_scaled) {
+            for(i = 0; i < 2; i++) {
+                if(parseFloat(u_vec[i].textFieldText) <= 0)
+                    error += " - Backward Mutation (u" + (i + 1) + ") of SGV is quite small. It must be at least 0. \n \n"
+                if(!inputForce.checked && parseFloat(u_vec[i]) > 1)
+                    error += " - Backward Mutation (u" + (i + 1) + ") of SGV is quite large and might violate the Wright-Fisher assumptions. It should be less than 1. Check 'Force' to ignore. \n \n"
+            }
 
-        for(i = 0; i < 2; i++) {
-            if(parseFloat(v_vec[i]) < 0)
-                error += " - Forward Mutation (v" + (i + 1) + ") is quite small. It must be at least 0. \n \n"
-            if(!inputForce.checked && (4 * parseInt(inputN.textFieldText) * parseFloat(v_vec[i])) > 1)
-                error += " - Forward Mutation (v" + (i + 1) + ") is quite large and might violate the Wright-Fisher assumptions. Check 'Force' to ignore. \n \n"
-        }
+            for(i = 0; i < 2; i++) {
+                if(parseFloat(v_vec[i].textFieldText) <= 0)
+                    error += " - Backward Mutation (v" + (i + 1) + ") of SGV is quite small. It must be at least 0. \n \n"
+                if(!inputForce.checked && parseFloat(v_vec[i]) > 1)
+                    error += " - Backward Mutation (v" + (i + 1) + ") of SGV is quite large and might violate the Wright-Fisher assumptions. It should be less than 1. Check 'Force' to ignore. \n \n"
+            }
 
-        for(i = 0; i < 2; i++) {
-            if(parseFloat(s_vec[i]) < -1)
-                error += " - Selection Coefficient (s" + (i + 1) + ") is quite negative. Fixations might be impossible. It must be at least -1. \n \n"
-            if(parseFloat(s_vec[i]) > 1)
-                error += " - Selection Coefficient (s" + (i + 1) + ") is quite large. The maximum value allowed is 1. \n \n"
-            if(parseFloat(s_vec[i]) * 2 * parseInt(inputN.textFieldText) <= -100) {
-                error += " - Selection Coefficient (s" + (i + 1) + ") is quite negative. Fixations might be impossible. It must be at least -1. \n \n"
+            for(i = 0; i < 2; i++) {
+                if(parseFloat(s_vec[i]) < -1 * (2 * parseInt(inputN.textFieldText)))
+                    error += " - Selection Coefficient (s" + (i + 1) + ") of SGV is quite negative. It must be at least -2N \n \n"
+                if(parseFloat(s_vec[i]) > 1 * (2 * parseInt(inputN.textFieldText)))
+                    error += " - Selection Coefficient (s" + (i + 1) + ") of SGV is quite large. The maximum value allowed is 2N. \n \n"
+            }
+        } else {
+            for(i = 0; i < 2; i++) {
+                if(parseFloat(u_vec[i].textFieldText) <= 0)
+                    error += " - Backward Mutation (u" + (i + 1) + ") of SGV is quite small. It must be at least 0. \n \n"
+                if(!inputForce.checked && parseFloat(u_vec[i]) > 1 / (4 * parseInt(inputN.textFieldText)))
+                    error += " - Backward Mutation (u" + (i + 1) + ") of SGV is quite large and might violate the Wright-Fisher assumptions. It should be less than 1/4N. Check 'Force' to ignore. \n \n"
+            }
+
+            for(i = 0; i < 2; i++) {
+                if(parseFloat(v_vec[i].textFieldText) <= 0)
+                    error += " - Backward Mutation (v" + (i + 1) + ") of SGV is quite small. It must be at least 0. \n \n"
+                if(!inputForce.checked && parseFloat(v_vec[i]) > 1 / (4 * parseInt(inputN.textFieldText)))
+                    error += " - Backward Mutation (v" + (i + 1) + ") of SGV is quite large and might violate the Wright-Fisher assumptions. It should be less than 1/4N. Check 'Force' to ignore. \n \n"
+            }
+
+            for(i = 0; i < 2; i++) {
+                if(parseFloat(s_vec[i]) < -1)
+                    error += " - Selection Coefficient (s" + (i + 1) + ") of SGV is quite negative. It must be at least -2N \n \n"
+                if(parseFloat(s_vec[i]) > 1 )
+                    error += " - Selection Coefficient (s" + (i + 1) + ") of SGV is quite large. The maximum value allowed is 2N. \n \n"
             }
         }
-
         for(i = 0; i < 2; i++) {
             if(parseFloat(h_vec[i]) < 0)
                 error += " - Dominance Coefficient (h" + (i + 1) + ") is quite small. It must be at least 0. \n \n"

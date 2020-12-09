@@ -30,13 +30,11 @@ ResultsWfafle *wfafle::function() {
     try{
         // Population-scaled values.
         dvec s = ConfigWfafle::s;
-        dvec h = ConfigWfafle::h;
         dvec u = ConfigWfafle::u;
         dvec v = ConfigWfafle::v;
         if(GlobalConfiguration::populationScaled) {
             for (int i = 0; i < ConfigWfafle::num_comp; i++) {
                 s[i] = ConfigWfafle::s[i] / (2.0 * ConfigWfafle::N[i]);
-                h[i] = ConfigWfafle::h[i] / (2.0 * ConfigWfafle::N[i]);
                 u[i] = ConfigWfafle::u[i] / (4.0 * ConfigWfafle::N[i]);
                 v[i] = ConfigWfafle::v[i] / (4.0 * ConfigWfafle::N[i]);
             }
@@ -56,16 +54,16 @@ ResultsWfafle *wfafle::function() {
             initial = dvec::Zero(2 * ConfigWfafle::N(0) + 1);
             initial[p] = 1;
         } else {
-            initial = wrightfisher::Equilibrium(ConfigWfafle::N(0), s(0), h(0), u(0), v(0), ConfigWfafle::a, msg_level);
+            initial = wrightfisher::Equilibrium(ConfigWfafle::N(0), s(0), ConfigWfafle::h(0), u(0), v(0), ConfigWfafle::a, msg_level);
         }
         d.push_back(initial);
 
         for(llong i = 0; i < k - 1; i++) {
-            iterate_generations(d[i], ConfigWfafle::N(i), ConfigWfafle::G(i), s(i), h(i), u(i), v(i), ConfigWfafle::a, msg_level);
-            d.push_back(switch_population_size(d[i], ConfigWfafle::N(i), ConfigWfafle::N(i + 1), s(i + 1), h(i + 1), u(i + 1), v(i + 1), ConfigWfafle::a));
+            iterate_generations(d[i], ConfigWfafle::N(i), ConfigWfafle::G(i), s(i), ConfigWfafle::h(i), u(i), v(i), ConfigWfafle::a, msg_level);
+            d.push_back(switch_population_size(d[i], ConfigWfafle::N(i), ConfigWfafle::N(i + 1), s(i + 1), ConfigWfafle::h(i + 1), u(i + 1), v(i + 1), ConfigWfafle::a));
         }
 
-        iterate_generations(d[k - 1], ConfigWfafle::N(k - 1), ConfigWfafle::G(k - 1), s(k - 1), h(k - 1), u(k - 1), v(k - 1), ConfigWfafle::a, msg_level);
+        iterate_generations(d[k - 1], ConfigWfafle::N(k - 1), ConfigWfafle::G(k - 1), s(k - 1), ConfigWfafle::h(k - 1), u(k - 1), v(k - 1), ConfigWfafle::a, msg_level);
 
         // Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);

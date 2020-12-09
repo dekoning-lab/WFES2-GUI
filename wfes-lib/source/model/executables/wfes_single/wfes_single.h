@@ -68,48 +68,48 @@ class wfes_single : public Subject{
          * @brief Both fixation and extinction states are absorbing.
          * @return Results of the execution.
          */
-        ResultsWfesSingle* absorption(double s, double h, double u, double v);
+        ResultsWfesSingle* absorption(double s, double u, double v);
 
         /**
          * @brief Only fixation state is absorbing.
          * @return Results of the execution.
          */
-        ResultsWfesSingle* fixation(double s, double h, double u, double v);
+        ResultsWfesSingle* fixation(double s, double u, double v);
 
         /**
          * @brief Calculate the entire fundamental matrix (slow).
          * @return Results of the execution.
          */
-        ResultsWfesSingle* fundamental(double s, double h, double u, double v);
+        ResultsWfesSingle* fundamental(double s, double u, double v);
 
         /**
          * @brief Calculate the equilibrium distribtion of allele states.
          * @return Results of the execution.
          */
-        ResultsWfesSingle* equilibrium(double s, double h, double u, double v);
+        ResultsWfesSingle* equilibrium(double s, double u, double v);
 
         /**
          * @brief Calculate establishment properties.
          * @return Results of the execution.
          */
-        ResultsWfesSingle* establishment(double s, double h, double u, double v);
+        ResultsWfesSingle* establishment(double s, double u, double v);
 
         /**
          * @brief Calculate age of an allele.
          * @return Results of the execution.
          */
-        ResultsWfesSingle* alleleAge(double s, double h, double u, double v);
+        ResultsWfesSingle* alleleAge(double s, double u, double v);
 
         /**
          * @brief Build a non-absorbing WF matrix.
          * @return Results of the execution.
          */
-        ResultsWfesSingle* nonAbsorbing(double s, double h, double u, double v);
+        ResultsWfesSingle* nonAbsorbing(double s, double u, double v);
 
         /**
          * @brief Calculate starting copies of allele.
          */
-        void calculateStartingCopies(double s, double h, double u, double v);
+        void calculateStartingCopies(double s, double u, double v);
 
         /**
          * @brief Calculate z.

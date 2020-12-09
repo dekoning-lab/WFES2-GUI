@@ -11,9 +11,9 @@ import assets 1.0
 Rectangle {
     property alias text: label.text
     property alias validator: textField.validator
-    property int labelPreferredWidth: 20
+    property int labelPreferredWidth: 35
     property alias textFieldText: textField.text
-    property int textFieldPreferredWidth: 110
+    property int textFieldPreferredWidth: 95
     property alias readOnly: textField.readOnly
     property string toolTipText: "This is a tooltip"
     property var fun: function(){}
@@ -27,6 +27,7 @@ Rectangle {
             id: label
             Layout.preferredWidth: labelPreferredWidth
             text: "v:"
+            textFormat: Text.RichText
 
             ToolTip.visible: toolTipText ? ma.containsMouse : false
             ToolTip.delay: Style.tooltipDelay
