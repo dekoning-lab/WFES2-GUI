@@ -159,10 +159,16 @@ namespace wfes {
                         text += QString::fromStdString("Parameter, Value") + "\n";
                         text += QString::fromStdString("N, " + (boost::format(DPF) % (ConfigPhaseType::population_size)).str()) + "\n";
                         text += QString::fromStdString("a, " + (boost::format(DPF) % (ConfigPhaseType::a)).str()) + "\n";
-                        text += QString::fromStdString("s, " + (boost::format(DPF) % (ConfigPhaseType::s)).str()) + "\n";
+                        if(GlobalConfiguration::populationScaled) {
+                            text += QString::fromStdString("4Nu, " + (boost::format(DPF) % (ConfigPhaseType::u)).str()) + "\n";
+                            text += QString::fromStdString("4Nv, " + (boost::format(DPF) % (ConfigPhaseType::v)).str()) + "\n";
+                            text += QString::fromStdString("2Ns, " + (boost::format(DPF) % (ConfigPhaseType::s)).str()) + "\n";
+                        } else {
+                            text += QString::fromStdString("u, " + (boost::format(DPF) % (ConfigPhaseType::u)).str()) + "\n";
+                            text += QString::fromStdString("v, " + (boost::format(DPF) % (ConfigPhaseType::v)).str()) + "\n";
+                            text += QString::fromStdString("s, " + (boost::format(DPF) % (ConfigPhaseType::s)).str()) + "\n";
+                        }
                         text += QString::fromStdString("h, " + (boost::format(DPF) % (ConfigPhaseType::h)).str()) + "\n";
-                        text += QString::fromStdString("u, " + (boost::format(DPF) % (ConfigPhaseType::u)).str()) + "\n";
-                        text += QString::fromStdString("v, " + (boost::format(DPF) % (ConfigPhaseType::v)).str()) + "\n";
                         text += QString::fromStdString("k, " + (boost::format(DPF) % (ConfigPhaseType::k)).str()) + "\n";
                         // Output
                         text += QString::fromStdString("Result, Value") + "\n";

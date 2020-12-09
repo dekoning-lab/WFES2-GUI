@@ -309,10 +309,16 @@ namespace wfes {
                     text += QString::fromStdString("N, " + (boost::format(DPF) % (ConfigWfesSingle::population_size)).str()) + "\n";
                     text += QString::fromStdString("a, " + (boost::format(DPF) % (ConfigWfesSingle::a)).str()) + "\n";
                     text += QString::fromStdString("c, " + (boost::format(DPF) % (ConfigWfesSingle::integration_cutoff)).str()) + "\n";
-                    text += QString::fromStdString("s, " + (boost::format(DPF) % (ConfigWfesSingle::s)).str()) + "\n";
+                    if(GlobalConfiguration::populationScaled) {
+                        text += QString::fromStdString("4Nu, " + (boost::format(DPF) % (ConfigWfesSingle::u)).str()) + "\n";
+                        text += QString::fromStdString("4Nv, " + (boost::format(DPF) % (ConfigWfesSingle::v)).str()) + "\n";
+                        text += QString::fromStdString("2Ns, " + (boost::format(DPF) % (ConfigWfesSingle::s)).str()) + "\n";
+                    } else {
+                        text += QString::fromStdString("u, " + (boost::format(DPF) % (ConfigWfesSingle::u)).str()) + "\n";
+                        text += QString::fromStdString("v, " + (boost::format(DPF) % (ConfigWfesSingle::v)).str()) + "\n";
+                        text += QString::fromStdString("s, " + (boost::format(DPF) % (ConfigWfesSingle::s)).str()) + "\n";
+                    }
                     text += QString::fromStdString("h, " + (boost::format(DPF) % (ConfigWfesSingle::h)).str()) + "\n";
-                    text += QString::fromStdString("u, " + (boost::format(DPF) % (ConfigWfesSingle::u)).str()) + "\n";
-                    text += QString::fromStdString("v, " + (boost::format(DPF) % (ConfigWfesSingle::v)).str()) + "\n";
 
                     if(wfes::config::ConfigWfesSingle::modelType == wfes::config::ModelTypeWfesSingle::ABSORPTION) {
                         text += QString::fromStdString("p, " + (boost::format(DPF) % (ConfigWfesSingle::starting_copies)).str()) + "\n";

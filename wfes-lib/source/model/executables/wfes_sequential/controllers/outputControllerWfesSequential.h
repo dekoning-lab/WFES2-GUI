@@ -206,29 +206,50 @@ namespace wfes {
                     }
                     text += QString::fromStdString((std::to_string(ConfigWfesSequential::p(ConfigWfesSequential::p.size() - 1)) + "\n"));
 
-                    text += QString::fromStdString("s, ");
-                    for(int i = 0; i < ConfigWfesSequential::s.size() - 1; i++) {
-                        text += QString::fromStdString((std::to_string(ConfigWfesSequential::s(i)) + "; "));
+                    if(GlobalConfiguration::populationScaled) {
+                        text += QString::fromStdString("4Nu, ");
+                        for(int i = 0; i < ConfigWfesSequential::u.size() - 1; i++) {
+                            text += QString::fromStdString((std::to_string(ConfigWfesSequential::u(i)) + "; "));
+                        }
+                        text += QString::fromStdString((std::to_string(ConfigWfesSequential::u(ConfigWfesSequential::u.size() - 1)) + "\n"));
+
+                        text += QString::fromStdString("4Nv, ");
+                        for(int i = 0; i < ConfigWfesSequential::v.size() - 1; i++) {
+                            text += QString::fromStdString((std::to_string(ConfigWfesSequential::v(i)) + "; "));
+                        }
+                        text += QString::fromStdString((std::to_string(ConfigWfesSequential::v(ConfigWfesSequential::v.size() - 1)) + "\n"));
+
+                        text += QString::fromStdString("2Ns, ");
+                        for(int i = 0; i < ConfigWfesSequential::s.size() - 1; i++) {
+                            text += QString::fromStdString((std::to_string(ConfigWfesSequential::s(i)) + "; "));
+                        }
+                        text += QString::fromStdString((std::to_string(ConfigWfesSequential::s(ConfigWfesSequential::s.size() - 1)) + "\n"));
+
+                    } else {
+                        text += QString::fromStdString("u, ");
+                        for(int i = 0; i < ConfigWfesSequential::u.size() - 1; i++) {
+                            text += QString::fromStdString((std::to_string(ConfigWfesSequential::u(i)) + "; "));
+                        }
+                        text += QString::fromStdString((std::to_string(ConfigWfesSequential::u(ConfigWfesSequential::u.size() - 1)) + "\n"));
+
+                        text += QString::fromStdString("v, ");
+                        for(int i = 0; i < ConfigWfesSequential::v.size() - 1; i++) {
+                            text += QString::fromStdString((std::to_string(ConfigWfesSequential::v(i)) + "; "));
+                        }
+                        text += QString::fromStdString((std::to_string(ConfigWfesSequential::v(ConfigWfesSequential::v.size() - 1)) + "\n"));
+
+                        text += QString::fromStdString("s, ");
+                        for(int i = 0; i < ConfigWfesSequential::s.size() - 1; i++) {
+                            text += QString::fromStdString((std::to_string(ConfigWfesSequential::s(i)) + "; "));
+                        }
+                        text += QString::fromStdString((std::to_string(ConfigWfesSequential::s(ConfigWfesSequential::s.size() - 1)) + "\n"));
                     }
-                    text += QString::fromStdString((std::to_string(ConfigWfesSequential::s(ConfigWfesSequential::s.size() - 1)) + "\n"));
 
                     text += QString::fromStdString("h, ");
                     for(int i = 0; i < ConfigWfesSequential::h.size() - 1; i++) {
                         text += QString::fromStdString((std::to_string(ConfigWfesSequential::h(i)) + "; "));
                     }
                     text += QString::fromStdString((std::to_string(ConfigWfesSequential::h(ConfigWfesSequential::h.size() - 1)) + "\n"));
-
-                    text += QString::fromStdString("u, ");
-                    for(int i = 0; i < ConfigWfesSequential::u.size() - 1; i++) {
-                        text += QString::fromStdString((std::to_string(ConfigWfesSequential::u(i)) + "; "));
-                    }
-                    text += QString::fromStdString((std::to_string(ConfigWfesSequential::u(ConfigWfesSequential::u.size() - 1)) + "\n"));
-
-                    text += QString::fromStdString("v, ");
-                    for(int i = 0; i < ConfigWfesSequential::v.size() - 1; i++) {
-                        text += QString::fromStdString((std::to_string(ConfigWfesSequential::v(i)) + "; "));
-                    }
-                    text += QString::fromStdString((std::to_string(ConfigWfesSequential::v(ConfigWfesSequential::v.size() - 1)) + "\n"));
 
                     text += QString::fromStdString("a, " + (boost::format(DPF) % (ConfigWfesSequential::a)).str()) + "\n";
                     text += QString::fromStdString("c, " + (boost::format(DPF) % (ConfigWfesSequential::c)).str()) + "\n";

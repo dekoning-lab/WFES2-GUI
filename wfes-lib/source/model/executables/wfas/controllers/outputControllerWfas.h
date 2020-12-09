@@ -150,29 +150,50 @@ namespace wfes {
                     }
                     text += QString::fromStdString((std::to_string(ConfigWfas::G(ConfigWfas::G.size() - 1)) + "\n"));
 
-                    text += QString::fromStdString("s, ");
-                    for(int i = 0; i < ConfigWfas::s.size() - 1; i++) {
-                        text += QString::fromStdString((std::to_string(ConfigWfas::s(i)) + "; "));
+                    if(GlobalConfiguration::populationScaled) {
+                        text += QString::fromStdString("4Nu, ");
+                        for(int i = 0; i < ConfigWfas::u.size() - 1; i++) {
+                            text += QString::fromStdString((std::to_string(ConfigWfas::u(i)) + "; "));
+                        }
+                        text += QString::fromStdString((std::to_string(ConfigWfas::u(ConfigWfas::u.size() - 1)) + "\n"));
+
+                        text += QString::fromStdString("4Nv, ");
+                        for(int i = 0; i < ConfigWfas::v.size() - 1; i++) {
+                            text += QString::fromStdString((std::to_string(ConfigWfas::v(i)) + "; "));
+                        }
+                        text += QString::fromStdString((std::to_string(ConfigWfas::v(ConfigWfas::v.size() - 1)) + "\n"));
+
+                        text += QString::fromStdString("2Ns, ");
+                        for(int i = 0; i < ConfigWfas::s.size() - 1; i++) {
+                            text += QString::fromStdString((std::to_string(ConfigWfas::s(i)) + "; "));
+                        }
+                        text += QString::fromStdString((std::to_string(ConfigWfas::s(ConfigWfas::s.size() - 1)) + "\n"));
+
+                    } else {
+                        text += QString::fromStdString("u, ");
+                        for(int i = 0; i < ConfigWfas::u.size() - 1; i++) {
+                            text += QString::fromStdString((std::to_string(ConfigWfas::u(i)) + "; "));
+                        }
+                        text += QString::fromStdString((std::to_string(ConfigWfas::u(ConfigWfas::u.size() - 1)) + "\n"));
+
+                        text += QString::fromStdString("v, ");
+                        for(int i = 0; i < ConfigWfas::v.size() - 1; i++) {
+                            text += QString::fromStdString((std::to_string(ConfigWfas::v(i)) + "; "));
+                        }
+                        text += QString::fromStdString((std::to_string(ConfigWfas::v(ConfigWfas::v.size() - 1)) + "\n"));
+
+                        text += QString::fromStdString("s, ");
+                        for(int i = 0; i < ConfigWfas::s.size() - 1; i++) {
+                            text += QString::fromStdString((std::to_string(ConfigWfas::s(i)) + "; "));
+                        }
+                        text += QString::fromStdString((std::to_string(ConfigWfas::s(ConfigWfas::s.size() - 1)) + "\n"));
                     }
-                    text += QString::fromStdString((std::to_string(ConfigWfas::s(ConfigWfas::s.size() - 1)) + "\n"));
 
                     text += QString::fromStdString("h, ");
                     for(int i = 0; i < ConfigWfas::h.size() - 1; i++) {
                         text += QString::fromStdString((std::to_string(ConfigWfas::h(i)) + "; "));
                     }
                     text += QString::fromStdString((std::to_string(ConfigWfas::h(ConfigWfas::h.size() - 1)) + "\n"));
-
-                    text += QString::fromStdString("u, ");
-                    for(int i = 0; i < ConfigWfas::u.size() - 1; i++) {
-                        text += QString::fromStdString((std::to_string(ConfigWfas::u(i)) + "; "));
-                    }
-                    text += QString::fromStdString((std::to_string(ConfigWfas::u(ConfigWfas::u.size() - 1)) + "\n"));
-
-                    text += QString::fromStdString("v, ");
-                    for(int i = 0; i < ConfigWfas::v.size() - 1; i++) {
-                        text += QString::fromStdString((std::to_string(ConfigWfas::v(i)) + "; "));
-                    }
-                    text += QString::fromStdString((std::to_string(ConfigWfas::v(ConfigWfas::v.size() - 1)) + "\n"));
 
                     text += QString::fromStdString("a, " + (boost::format(DPF) % (ConfigWfas::a)).str()) + "\n";
                     text += QString::fromStdString("p, " + (boost::format(DPF) % (ConfigWfas::p)).str()) + "\n";
