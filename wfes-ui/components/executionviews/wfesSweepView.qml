@@ -1072,4 +1072,50 @@ ApplicationWindow {
         return error.split("\n \n")[0];
     }
 
+    function updateScaledParameters() {
+         var u, v, s, i
+         var u_vec, v_vec, s_vec = []
+        if(globalConfiguration.ui_population_scaled) {
+            u = inputControllerWfesSweep.ui_u_vec
+            v = inputControllerWfesSweep.ui_v_vec
+            s = inputControllerWfesSweep.ui_s_vec
+            u_vec = []
+            v_vec = []
+            s_vec = []
+            for(i = 0; i < 2; i++) {
+                componentsSectionTabView.getTab(i).active = true
+                u_vec.push((u[i] * (4 * parseInt(inputControllerWfesSweep.ui_n))).toString())
+                v_vec.push((v[i] * (4 * parseInt(inputControllerWfesSweep.ui_n))).toString())
+                s_vec.push((s[i] * (2 * parseInt(inputControllerWfesSweep.ui_n))).toString())
+                componentsSectionTabView.getTab(i).item.children[0].children[1].children[0].textFieldText = u_vec[i]
+                componentsSectionTabView.getTab(i).item.children[0].children[1].children[1].textFieldText = v_vec[i]
+                componentsSectionTabView.getTab(i).item.children[1].children[1].children[0].textFieldText = s_vec[i]
+            }
+            inputControllerWfesSweep.ui_u_vec = u_vec
+            inputControllerWfesSweep.ui_v_vec = v_vec
+            inputControllerWfesSweep.ui_s_vec = s_vec
+
+
+        } else {
+            u = inputControllerWfesSweep.ui_u_vec
+            v = inputControllerWfesSweep.ui_v_vec
+            s = inputControllerWfesSweep.ui_s_vec
+            u_vec = []
+            v_vec = []
+            s_vec = []
+            for(i = 0; i < 2; i++) {
+                componentsSectionTabView.getTab(i).active = true
+                u_vec.push((u[i] / (4 * parseInt(inputControllerWfesSweep.ui_n))).toString())
+                v_vec.push((v[i] / (4 * parseInt(inputControllerWfesSweep.ui_n))).toString())
+                s_vec.push((s[i] / (2 * parseInt(inputControllerWfesSweep.ui_n))).toString())
+                componentsSectionTabView.getTab(i).item.children[0].children[1].children[0].textFieldText = u_vec[i]
+                componentsSectionTabView.getTab(i).item.children[0].children[1].children[1].textFieldText = v_vec[i]
+                componentsSectionTabView.getTab(i).item.children[1].children[1].children[0].textFieldText = s_vec[i]
+            }
+            inputControllerWfesSweep.ui_u_vec = u_vec
+            inputControllerWfesSweep.ui_v_vec = v_vec
+            inputControllerWfesSweep.ui_s_vec = s_vec
+
+        }
+    }
 }

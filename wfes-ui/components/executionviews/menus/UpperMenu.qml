@@ -136,6 +136,24 @@ Rectangle {
                             if(typeof(rootTimeDist) != "undefined") {
                                 rootTimeDist.updateScaledParameters()
                             }
+                            if(typeof(rootWfas) != "undefined") {
+                                rootWfas.updateScaledParameters()
+                            }
+                            if(typeof(rootWfafle) != "undefined") {
+                                rootWfafle.updateScaledParameters()
+                            }
+                            if(typeof(rootWfesSingle) != "undefined") {
+                                rootWfesSingle.updateScaledParameters()
+                            }
+                            if(typeof(rootWfesSequential) != "undefined") {
+                                rootWfesSequential.updateScaledParameters()
+                            }
+                            if(typeof(rootWfesSwitching) != "undefined") {
+                                rootWfesSwitching.updateScaledParameters()
+                            }
+                            if(typeof(rootWfesSweep) != "undefined") {
+                                rootWfesSweep.updateScaledParameters()
+                            }
                         }
                     }
                 }
