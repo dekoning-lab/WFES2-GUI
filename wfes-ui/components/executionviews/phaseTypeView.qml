@@ -914,4 +914,22 @@ ApplicationWindow {
         return error.split("\n \n")[0];
 
     }
+
+    function updateScaledParameters() {
+        if(globalConfiguration.ui_population_scaled) {
+            inputControllerPhaseType.ui_s = parseFloat(inputControllerPhaseType.ui_s) * (2 * parseInt(inputControllerPhaseType.ui_n))
+            inputS.textFieldText = inputControllerPhaseType.ui_s
+            inputControllerPhaseType.ui_u = parseFloat(inputControllerPhaseType.ui_u) * (4 * parseInt(inputControllerPhaseType.ui_n))
+            inputU.textFieldText = inputControllerPhaseType.ui_u
+            inputControllerPhaseType.ui_v = parseFloat(inputControllerPhaseType.ui_v) * (4 * parseInt(inputControllerPhaseType.ui_n))
+            inputV.textFieldText = inputControllerPhaseType.ui_v
+        } else {
+            inputControllerPhaseType.ui_s = parseFloat(inputControllerPhaseType.ui_s) / (2 * parseInt(inputControllerPhaseType.ui_n))
+            inputS.textFieldText = inputControllerPhaseType.ui_s
+            inputControllerPhaseType.ui_u = parseFloat(inputControllerPhaseType.ui_u) / (4 * parseInt(inputControllerPhaseType.ui_n))
+            inputU.textFieldText = inputControllerPhaseType.ui_u
+            inputControllerPhaseType.ui_v = parseFloat(inputControllerPhaseType.ui_v) / (4 * parseInt(inputControllerPhaseType.ui_n))
+            inputV.textFieldText = inputControllerPhaseType.ui_v
+        }
+    }
 }

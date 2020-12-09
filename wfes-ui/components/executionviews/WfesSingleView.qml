@@ -1570,4 +1570,23 @@ ApplicationWindow {
 
         return error.split("\n \n")[0];
     }
+
+
+    function updateScaledParameters() {
+        if(globalConfiguration.ui_population_scaled) {
+            inputControllerWfesSingle.ui_s = parseFloat(inputControllerWfesSingle.ui_s) * (2 * parseInt(inputControllerWfesSingle.ui_n))
+            inputS.textFieldText = inputControllerWfesSingle.ui_s
+            inputControllerWfesSingle.ui_u = parseFloat(inputControllerWfesSingle.ui_u) * (4 * parseInt(inputControllerWfesSingle.ui_n))
+            inputU.textFieldText = inputControllerWfesSingle.ui_u
+            inputControllerWfesSingle.ui_v = parseFloat(inputControllerWfesSingle.ui_v) * (4 * parseInt(inputControllerWfesSingle.ui_n))
+            inputV.textFieldText = inputControllerWfesSingle.ui_v
+        } else {
+            inputControllerWfesSingle.ui_s = parseFloat(inputControllerWfesSingle.ui_s) / (2 * parseInt(inputControllerWfesSingle.ui_n))
+            inputS.textFieldText = inputControllerWfesSingle.ui_s
+            inputControllerWfesSingle.ui_u = parseFloat(inputControllerWfesSingle.ui_u) / (4 * parseInt(inputControllerWfesSingle.ui_n))
+            inputU.textFieldText = inputControllerWfesSingle.ui_u
+            inputControllerWfesSingle.ui_v = parseFloat(inputControllerWfesSingle.ui_v) / (4 * parseInt(inputControllerWfesSingle.ui_n))
+            inputV.textFieldText = inputControllerWfesSingle.ui_v
+        }
+    }
 }

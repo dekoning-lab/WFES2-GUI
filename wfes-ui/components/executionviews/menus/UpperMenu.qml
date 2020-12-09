@@ -123,9 +123,36 @@ Rectangle {
                         ToolTip.text: qsTr("Use population-scaled parameters.")
 
                         onCheckedChanged: {
+                            // Update other windows.
                             if(globalConfiguration.ui_population_scaled !== this.checked) {
                                 globalConfiguration.ui_population_scaled = this.checked
                                 globalConfiguration.populationScaledChanged()
+                            }
+
+                            // Update scaled parameters.
+                            if(typeof(rootPhaseType) != "undefined") {
+                                rootPhaseType.updateScaledParameters()
+                            }
+                            if(typeof(rootTimeDist) != "undefined") {
+                                rootTimeDist.updateScaledParameters()
+                            }
+                            if(typeof(rootWfas) != "undefined") {
+                                rootWfas.updateScaledParameters()
+                            }
+                            if(typeof(rootWfafle) != "undefined") {
+                                rootWfafle.updateScaledParameters()
+                            }
+                            if(typeof(rootWfesSingle) != "undefined") {
+                                rootWfesSingle.updateScaledParameters()
+                            }
+                            if(typeof(rootWfesSequential) != "undefined") {
+                                rootWfesSequential.updateScaledParameters()
+                            }
+                            if(typeof(rootWfesSwitching) != "undefined") {
+                                rootWfesSwitching.updateScaledParameters()
+                            }
+                            if(typeof(rootWfesSweep) != "undefined") {
+                                rootWfesSweep.updateScaledParameters()
                             }
                         }
                     }

@@ -997,4 +997,52 @@ ApplicationWindow {
 
         return error.split("\n \n")[0];
     }
+
+
+    function updateScaledParameters() {
+        var u, v, s, i
+        var u_vec, v_vec, s_vec = []
+        if(globalConfiguration.ui_population_scaled) {
+            u = inputControllerWfesSwitching.ui_u_vec
+            v = inputControllerWfesSwitching.ui_v_vec
+            s = inputControllerWfesSwitching.ui_s_vec
+            u_vec = []
+            v_vec = []
+            s_vec = []
+            for(i = 0; i < inputControllerWfesSwitching.ui_num_comp; i++) {
+                componentsSectionTabView.children[0].getTab(i).active = true
+                u_vec.push((u[i] * (4 * parseInt(inputControllerWfesSwitching.ui_N_vec[i]))).toString())
+                v_vec.push((v[i] * (4 * parseInt(inputControllerWfesSwitching.ui_N_vec[i]))).toString())
+                s_vec.push((s[i] * (2 * parseInt(inputControllerWfesSwitching.ui_N_vec[i]))).toString())
+                componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[0].textFieldText = u_vec[i]
+                componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[1].textFieldText = v_vec[i]
+                componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[0].textFieldText = s_vec[i]
+            }
+            inputControllerWfesSwitching.ui_u_vec = u_vec
+            inputControllerWfesSwitching.ui_v_vec = v_vec
+            inputControllerWfesSwitching.ui_s_vec = s_vec
+
+
+        } else {
+            u = inputControllerWfesSwitching.ui_u_vec
+            v = inputControllerWfesSwitching.ui_v_vec
+            s = inputControllerWfesSwitching.ui_s_vec
+            u_vec = []
+            v_vec = []
+            s_vec = []
+            for(i = 0; i < inputControllerWfesSwitching.ui_num_comp; i++) {
+                componentsSectionTabView.children[0].getTab(i).active = true
+                u_vec.push((u[i] / (4 * parseInt(inputControllerWfesSwitching.ui_N_vec[i]))).toString())
+                v_vec.push((v[i] / (4 * parseInt(inputControllerWfesSwitching.ui_N_vec[i]))).toString())
+                s_vec.push((s[i] / (2 * parseInt(inputControllerWfesSwitching.ui_N_vec[i]))).toString())
+                componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[0].textFieldText = u_vec[i]
+                componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[1].textFieldText = v_vec[i]
+                componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[0].textFieldText = s_vec[i]
+            }
+            inputControllerWfesSwitching.ui_u_vec = u_vec
+            inputControllerWfesSwitching.ui_v_vec = v_vec
+            inputControllerWfesSwitching.ui_s_vec = s_vec
+
+        }
+    }
 }
