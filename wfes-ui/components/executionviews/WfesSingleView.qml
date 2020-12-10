@@ -527,14 +527,30 @@ ApplicationWindow {
                                 toolTipText: "Size of the population in the Wright Fisher Model."
                                 validator: IntValidator {bottom: 2; top: 500000;}
                                 textFieldText: inputControllerWfesSingle.ui_n
+                                textFieldTextEdited: function(){
+                                    if(parseInt(inputN.textFieldText) > 1) {
+                                        inputControllerWfesSingle.ui_n = inputN.textFieldText
+                                        borderColor = "#555555"
+                                    } else {
+                                        borderColor = "#ff0000"
+                                    }
+                                }
                             }
 
                             LabeledTextField {
                                 id: inputA
                                 text: "a: "
                                 toolTipText: "Tail truncation weight."
-                                validator: DoubleValidator {bottom: 0; top: 10e-10;}
+                                validator: DoubleValidator {bottom: 0;}
                                 textFieldText: inputControllerWfesSingle.ui_a
+                                textFieldTextEdited: function(){
+                                    if(parseFloat(inputA.textFieldText) >= 0) {
+                                        inputControllerWfesSingle.ui_a = inputA.textFieldText
+                                        borderColor = "#555555"
+                                    } else {
+                                        borderColor = "#ff0000"
+                                    }
+                                }
                             }
 
                             LabeledTextField {
@@ -543,6 +559,14 @@ ApplicationWindow {
                                 toolTipText: "Starting number of copies."
                                 validator: IntValidator {bottom: 0; top: 500000;}
                                 textFieldText: inputControllerWfesSingle.ui_p
+                                textFieldTextEdited: function(){
+                                    if(parseInt(inputp.textFieldText) >= 0 && parseInt(inputp.textFieldText) <= parseInt(inputN.textFieldText)) {
+                                        inputControllerWfesSingle.ui_p = inputp.textFieldText
+                                        borderColor = "#555555"
+                                    } else {
+                                        borderColor = "#ff0000"
+                                    }
+                                }
                                 enabled: (inputControllerWfesSingle.ui_modelType == "Fixation" ||
                                           inputControllerWfesSingle.ui_modelType == "Absorption" ||
                                           inputControllerWfesSingle.ui_modelType == "Establishment" ||
@@ -553,7 +577,15 @@ ApplicationWindow {
                                 id: inputc
                                 text: "c: "
                                 toolTipText: "Integration cutoff."
-                                validator: DoubleValidator {bottom: 0; top: 10e-3;}
+                                validator: DoubleValidator {bottom: 0;}
+                                textFieldTextEdited: function(){
+                                    if(parseFloat(inputc.textFieldText) >= 0) {
+                                        inputControllerWfesSingle.ui_c = inputc.textFieldText
+                                        borderColor = "#555555"
+                                    } else {
+                                        borderColor = "#ff0000"
+                                    }
+                                }
                                 textFieldText: inputControllerWfesSingle.ui_c
                             }
 
@@ -563,6 +595,14 @@ ApplicationWindow {
                                 toolTipText: "Observed number of copies (allele age only)."
                                 validator: IntValidator {bottom: 0; top: 500000;}
                                 textFieldText: inputControllerWfesSingle.ui_x
+                                textFieldTextEdited: function(){
+                                    if(parseInt(inputX.textFieldText) >= 0 && parseInt(inputX.textFieldText) <= parseInt(inputN.textFieldText)) {
+                                        inputControllerWfesSingle.ui_x = inputX.textFieldText
+                                        borderColor = "#555555"
+                                    } else {
+                                        borderColor = "#ff0000"
+                                    }
+                                }
                                 enabled: (inputControllerWfesSingle.ui_modelType == "Allele Age")
                             }
 
@@ -570,6 +610,7 @@ ApplicationWindow {
                                 id: inputK
                                 text: "k: "
                                 toolTipText: "Odds ratio (establishment only)."
+                                // Odds ratio (k) does not have limits, at least in the code.
                                 textFieldText: inputControllerWfesSingle.ui_k
                                 enabled: (inputControllerWfesSingle.ui_modelType == "Establishment")
                             }
@@ -615,6 +656,23 @@ ApplicationWindow {
                                         return "u: "
                                 }
                                 toolTipText: "Backward mutation rate."
+                                textFieldTextEdited: function(){
+                                    if(globalConfiguration.ui_population_scaled) {
+                                        if(parseFloat(inputU.textFieldText) >= 0 && parseFloat(inputU.textFieldText) <= 1) {
+                                            inputControllerWfesSingle.ui_u = inputU.textFieldText
+                                            borderColor = "#555555"
+                                        } else {
+                                            borderColor = "#ff0000"
+                                        }
+                                    } else {
+                                        if(parseFloat(inputU.textFieldText) >= 0 && parseFloat(inputU.textFieldText) <= 1 / (4 * parseInt(inputN.textFieldText))) {
+                                            inputControllerWfesSingle.ui_u = inputU.textFieldText
+                                            borderColor = "#555555"
+                                        } else {
+                                            borderColor = "#ff0000"
+                                        }
+                                    }
+                                }
                                 validator: DoubleValidator {bottom: 0;}
                                 textFieldText: inputControllerWfesSingle.ui_u
                             }
@@ -626,6 +684,23 @@ ApplicationWindow {
                                         return "4Nv: "
                                     else
                                         return "v: "
+                                }
+                                textFieldTextEdited: function(){
+                                    if(globalConfiguration.ui_population_scaled) {
+                                        if(parseFloat(inputV.textFieldText) >= 0 && parseFloat(inputV.textFieldText) <= 1) {
+                                            inputControllerWfesSingle.ui_v = inputV.textFieldText
+                                            borderColor = "#555555"
+                                        } else {
+                                            borderColor = "#ff0000"
+                                        }
+                                    } else {
+                                        if(parseFloat(inputV.textFieldText) >= 0 && parseFloat(inputV.textFieldText) <= 1 / (4 * parseInt(inputN.textFieldText))) {
+                                            inputControllerWfesSingle.ui_v = inputV.textFieldText
+                                            borderColor = "#555555"
+                                        } else {
+                                            borderColor = "#ff0000"
+                                        }
+                                    }
                                 }
                                 toolTipText: "Forward mutation rate."
                                 validator: DoubleValidator {bottom: 0;}
@@ -683,8 +758,25 @@ ApplicationWindow {
                                     else
                                         return "s: "
                                 }
+                                textFieldTextEdited: function(){
+                                    if(globalConfiguration.ui_population_scaled) {
+                                        if(parseFloat(inputS.textFieldText) >= -1 * (2 * parseInt(inputN.textFieldText)) && parseFloat(inputS.textFieldText) <= 1 * (2 * parseInt(inputN.textFieldText))) {
+                                            inputControllerWfesSingle.ui_s = inputS.textFieldText
+                                            borderColor = "#555555"
+                                        } else {
+                                            borderColor = "#ff0000"
+                                        }
+                                    } else {
+                                        if(parseFloat(inputS.textFieldText) >= -1 && parseFloat(inputS.textFieldText) <= 1) {
+                                            inputControllerWfesSingle.ui_s = inputS.textFieldText
+                                            borderColor = "#555555"
+                                        } else {
+                                            borderColor = "#ff0000"
+                                        }
+                                    }
+                                }
                                 toolTipText: "Selection coefficient."
-                                validator: DoubleValidator {bottom: -1; top: 1;}
+                                // Validator has no sense here, since any range from -2N to 2N is allowed.
                                 textFieldText: inputControllerWfesSingle.ui_s
                             }
 
@@ -692,6 +784,14 @@ ApplicationWindow {
                                 id: inputH
                                 text: "h: "
                                 toolTipText: "Dominance coefficient."
+                                textFieldTextEdited: function(){
+                                    if(parseFloat(inputH.textFieldText) >= 0 && parseFloat(inputH.textFieldText) <= 1) {
+                                        inputControllerWfesSingle.ui_h = inputH.textFieldText
+                                        borderColor = "#555555"
+                                    } else {
+                                        borderColor = "#ff0000"
+                                    }
+                                }
                                 validator: DoubleValidator {bottom: 0; top: 1;}
                                 textFieldText: inputControllerWfesSingle.ui_h
                             }
@@ -882,6 +982,14 @@ ApplicationWindow {
                                         text: "t: "
                                         toolTipText: "Number of threads for OpenMP."
                                         labelPreferredWidth: 10
+                                        textFieldTextEdited: function(){
+                                            if(parseFloat(inputT.textFieldText) >= 1) {
+                                                inputControllerWfesSingle.ui_t = inputT.textFieldText
+                                                borderColor = "#555555"
+                                            } else {
+                                                borderColor = "#ff0000"
+                                            }
+                                        }
                                         validator: IntValidator {bottom: 1;}
                                         textFieldText: inputControllerWfesSingle.ui_t
                                     }
