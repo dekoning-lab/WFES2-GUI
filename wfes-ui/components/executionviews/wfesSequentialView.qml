@@ -800,6 +800,8 @@ ApplicationWindow {
     function checkIntegrity() {
         var error = ""
 
+        if(inputA.textFieldText == "")
+            error += " - Tail Truncation Cutoff (a) is empty. \n \n"
         if(Number.isNaN(Number(inputA.textFieldText)))
             error += " - Tail Truncation Cutoff (a) is not a valid number. \n \n"
         if(parseFloat(inputA.textFieldText) < 0)
@@ -807,6 +809,8 @@ ApplicationWindow {
         if(!inputForce.checked && parseFloat(inputA.textFieldText) > 1e-5)
             error += " - Tail Truncation Cutoff (a) value is quite high. This might produce inaccurate results. A good value should be between 0 and 10e-10. Check 'Force' to ignore. \n \n"
 
+        if(inputC.textFieldText == "")
+            error += " - Integration Cutoff (c) is empty. \n \n"
         if(Number.isNaN(Number(inputC.textFieldText)))
             error += " - Integration Cutoff (c) is not a valid number. \n \n"
         if(parseFloat(inputC.textFieldText) < 0)
@@ -840,8 +844,11 @@ ApplicationWindow {
         }
 
         for(i = 0; i < inputControllerWfesSequential.ui_num_comp; i++) {
+            N = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[0].textFieldText
+            if(N === "")
+                error += " - Population Size (N" + (i + 1) + ") is empty. \n \n"
             if(Number.isNaN(Number(N_vec[i])))
-                error += " - Population Size (N) is not a valid number. \n \n"
+                error += " - Population Size (N" + (i + 1) + ") is not a valid number. \n \n"
             if(parseInt(N_vec[i]) < 2)
                 error += " - Population Size (N" + (i + 1) + ") is quite small, it must be at least 2. \n \n"
             if(!inputForce.checked && parseInt(N_vec[i]) > 50000)
@@ -849,6 +856,9 @@ ApplicationWindow {
         }
 
         for(i = 0; i < inputControllerWfesSequential.ui_num_comp; i++) {
+            t = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[1].textFieldText
+            if(t === "")
+                error += " - Expected Time (t" + (i + 1) + ") is empty. \n \n"
             if(Number.isNaN(Number(t_vec[i])))
                 error += " - Expected Time (t" + (i + 1) + ") is not a valid number. \n \n"
             if(parseInt(t_vec[i]) < 1)
@@ -858,8 +868,11 @@ ApplicationWindow {
 
 
         for(i = 0; i < inputControllerWfesSequential.ui_num_comp; i++) {
+            p = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[2].textFieldText
+            if(p === "")
+                error += " - Probability of starting (p" + (i + 1) + ") is empty. \n \n"
             if(Number.isNaN(Number(p_vec[i])))
-                error += " - Starting probabilities (p) is not a valid number. \n \n"
+                error += " - Probability of starting (p" + (i + 1) + ") is not a valid number. \n \n"
             if(parseInt(p_vec[i]) < 0)
                 error += " - Probability of starting (p" + (i + 1) + ") is quite small, it must be at least 2. \n \n"
             if(parseInt(p_vec[i]) > 1)
@@ -867,7 +880,10 @@ ApplicationWindow {
         }
 
         if(globalConfiguration.ui_population_scaled) {
-            for(i = 0; i < inputControllerWfafle.ui_num_comp; i++) {
+            for(i = 0; i < inputControllerWfesSequential.ui_num_comp; i++) {
+                u = componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[0].textFieldText
+                if(u === "")
+                    error += " - Backward Mutation (u" + (i + 1) + ") is empty. \n \n"
                 if(Number.isNaN(Number(u_vec[i])))
                     error += " - Backward Mutation (u" + (i + 1) + ") is not a valid number. \n \n"
                 if(parseFloat(u_vec[i].textFieldText) <= 0)
@@ -876,7 +892,10 @@ ApplicationWindow {
                     error += " - Backward Mutation (u" + (i + 1) + ") is quite large and might violate the Wright-Fisher assumptions. It should be less than 1. Check 'Force' to ignore. \n \n"
             }
 
-            for(i = 0; i < inputControllerWfafle.ui_num_comp; i++) {
+            for(i = 0; i < inputControllerWfesSequential.ui_num_comp; i++) {
+                v = componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[1].textFieldText
+                if(v === "")
+                    error += " - Forward Mutation (v" + (i + 1) + ") is empty. \n \n"
                 if(Number.isNaN(Number(v_vec[i])))
                     error += " - Forward Mutation (v" + (i + 1) + ") is not a valid number. \n \n"
                 if(parseFloat(v_vec[i].textFieldText) <= 0)
@@ -885,7 +904,10 @@ ApplicationWindow {
                     error += " - Forward Mutation (v" + (i + 1) + ") is quite large and might violate the Wright-Fisher assumptions. It should be less than 1. Check 'Force' to ignore. \n \n"
             }
 
-            for(i = 0; i < inputControllerWfafle.ui_num_comp; i++) {
+            for(i = 0; i < inputControllerWfesSequential.ui_num_comp; i++) {
+                s = componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[0].textFieldText
+                if(s === "")
+                    error += " - Selection Coefficient (s" + (i + 1) + ") is empty. \n \n"
                 if(Number.isNaN(Number(s_vec[i])))
                     error += " - Selection Coefficient (s" + (i + 1) + ") is not a valid number. \n \n"
                 if(parseFloat(s_vec[i]) < -1 * (2 * parseInt(N_vec[i])))
@@ -894,7 +916,10 @@ ApplicationWindow {
                     error += " - Selection Coefficient (s" + (i + 1) + ") is quite large. The maximum value allowed is 2N. \n \n"
             }
         } else {
-            for(i = 0; i < inputControllerWfafle.ui_num_comp; i++) {
+            for(i = 0; i < inputControllerWfesSequential.ui_num_comp; i++) {
+                u = componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[0].textFieldText
+                if(u === "")
+                    error += " - Backward Mutation (u" + (i + 1) + ") is empty. \n \n"
                 if(Number.isNaN(Number(u_vec[i])))
                     error += " - Backward Mutation (u" + (i + 1) + ") is not a valid number. \n \n"
                 if(parseFloat(u_vec[i].textFieldText) <= 0)
@@ -903,7 +928,10 @@ ApplicationWindow {
                     error += " - Backward Mutation (u" + (i + 1) + ") is quite large and might violate the Wright-Fisher assumptions. It should be less than 1/4N. Check 'Force' to ignore. \n \n"
             }
 
-            for(i = 0; i < inputControllerWfafle.ui_num_comp; i++) {
+            for(i = 0; i < inputControllerWfesSequential.ui_num_comp; i++) {
+                v = componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[1].textFieldText
+                if(v === "")
+                    error += " - Forward Mutation (v" + (i + 1) + ") is empty. \n \n"
                 if(Number.isNaN(Number(v_vec[i])))
                     error += " - Forward Mutation (v" + (i + 1) + ") is not a valid number. \n \n"
                 if(parseFloat(v_vec[i].textFieldText) <= 0)
@@ -912,7 +940,10 @@ ApplicationWindow {
                     error += " - Backward Mutation (v" + (i + 1) + ") is quite large and might violate the Wright-Fisher assumptions. It should be less than 1/4N. Check 'Force' to ignore. \n \n"
             }
 
-            for(i = 0; i < inputControllerWfafle.ui_num_comp; i++) {
+            for(i = 0; i < inputControllerWfesSequential.ui_num_comp; i++) {
+                s = componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[0].textFieldText
+                if(s === "")
+                    error += " - Selection Coefficient (s" + (i + 1) + ") is empty. \n \n"
                 if(Number.isNaN(Number(s_vec[i])))
                     error += " - Selection Coefficient (s" + (i + 1) + ") is not a valid number. \n \n"
                 if(parseFloat(s_vec[i]) < -1)
@@ -924,6 +955,9 @@ ApplicationWindow {
 
 
         for(i = 0; i < inputControllerWfesSequential.ui_num_comp; i++) {
+            h = componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[1].textFieldText
+            if(h === "")
+                error += " - Dominance Coefficient (h" + (i + 1) + ") is empty. \n \n"
             if(Number.isNaN(Number(h_vec[i])))
                 error += " - Dominance Coefficient (h" + (i + 1) + ") is not a valid number. \n \n"
             if(parseFloat(h_vec[i]) < 0)
@@ -932,6 +966,8 @@ ApplicationWindow {
                 error += " - Dominance Coefficient (h" + (i + 1) + ") is quite large. The maximum value allowed is 1. \n \n"
         }
 
+        if(inputT.textFieldText == "")
+            error += " - Number of Threads (t) is empty. \n \n"
         if(Number.isNaN(Number(inputT.textFieldText)))
             error += " - Number of Threads (t) is not a valid number. \n \n"
         // Number of threads (t) does not have upper limites, since it depends on the hardware available.
