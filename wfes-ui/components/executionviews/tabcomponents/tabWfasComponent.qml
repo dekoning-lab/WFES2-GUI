@@ -110,7 +110,7 @@ Component{
                 LabeledTextField {
                     id: inputF
                     text: "F<sub>" + number + "</sub>: "
-                    toolTipText: "Number of generations for each epoch."
+                    toolTipText: "Approximating (down) factor for each population size."
                     validator: IntValidator {bottom: 1; top: 500000;}
                     textFieldText: {
                         if(number != 0) {
