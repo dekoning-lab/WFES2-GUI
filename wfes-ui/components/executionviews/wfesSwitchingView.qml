@@ -264,16 +264,32 @@ ApplicationWindow {
                                 id: inputA
                                 text: "a: "
                                 toolTipText: "Tail truncation weight."
-                                validator: DoubleValidator {bottom: 0; top: 10e-10;}
+                                validator: DoubleValidator {bottom: 0}
                                 textFieldText: inputControllerWfesSwitching.ui_a
+                                textFieldTextEdited: function(){
+                                    if(!Number.isNaN(Number(inputA.textFieldText)) && parseFloat(inputA.textFieldText) >= 0) {
+                                        inputControllerWfesSwitching.ui_a = inputA.textFieldText
+                                        borderColor = "#555555"
+                                    } else {
+                                        borderColor = "#ff0000"
+                                    }
+                                }
                             }
 
                             LabeledTextField {
                                 id: inputC
                                 text: "c: "
                                 toolTipText: "Starting number of copies integration cutoff."
-                                validator: DoubleValidator {bottom: 0; top: 10e-3;}
+                                validator: DoubleValidator {bottom: 0}
                                 textFieldText: inputControllerWfesSwitching.ui_c
+                                textFieldTextEdited: function(){
+                                    if(!Number.isNaN(Number(inputC.textFieldText)) && parseFloat(inputC.textFieldText) >= 0) {
+                                        inputControllerWfesSwitching.ui_c = inputC.textFieldText
+                                        borderColor = "#555555"
+                                    } else {
+                                        borderColor = "#ff0000"
+                                    }
+                                }
                             }
 
                         }
@@ -423,6 +439,14 @@ ApplicationWindow {
                                             toolTipText: "Number of threads for OpenMP."
                                             validator: IntValidator {bottom: 1;}
                                             textFieldText: inputControllerWfesSwitching.ui_t
+                                            textFieldTextEdited: function(){
+                                                if(parseInt(inputT.textFieldText) >= 1) {
+                                                    inputControllerWfesSwitching.ui_t = inputT.textFieldText
+                                                    borderColor = "#555555"
+                                                } else {
+                                                    borderColor = "#ff0000"
+                                                }
+                                            }
                                         }
                                     }
 
@@ -539,9 +563,9 @@ ApplicationWindow {
                                 onClicked: {
                                     var error = checkIntegrity()
 
-                                    updateBackend()
 
                                     if(error === "") {
+                                        updateBackend()
                                         executeButton.enabled = false
                                         stopButton.enabled = true
                                         bottomMenu.visibleProgressBar = true
@@ -862,11 +886,15 @@ ApplicationWindow {
     function checkIntegrity() {
         var error = ""
 
+        if(Number.isNaN(Number(inputA.textFieldText)))
+            error += " - Tail Truncation Cutoff (a) is not a valid number. \n \n"
         if(parseFloat(inputA.textFieldText) < 0)
             error += " - Tail Truncation Cutoff (a) is quite small. It must be at least 0. \n \n"
         if(!inputForce.checked && parseFloat(inputA.textFieldText) > 1e-5)
             error += " - Tail Truncation Cutoff (a) value is quite high. This might produce inaccurate results. A good value should be between 0 and 10e-10. Check 'Force' to ignore. \n \n"
 
+        if(Number.isNaN(Number(inputC.textFieldText)))
+            error += " - Integration Cutoff (c) is not a valid number. \n \n"
         if(parseFloat(inputC.textFieldText) < 0)
             error += " - Integration Cutoff (c) is quite small. It must be at least 0. \n \n"
         if(parseFloat(inputC.textFieldText) > 10e-3)
@@ -898,6 +926,8 @@ ApplicationWindow {
         }
 
         for(i = 0; i < inputControllerWfesSwitching.ui_num_comp; i++) {
+            if(Number.isNaN(Number(N_vec[i])))
+                error += " - Population Size (N) is not a valid number. \n \n"
             if(parseInt(N_vec[i]) < 2)
                 error += " - Population Size (N" + (i + 1) + ") is quite small, it must be at least 2. \n \n"
             if(!inputForce.checked && parseInt(N_vec[i]) > 50000)
@@ -905,6 +935,8 @@ ApplicationWindow {
         }
 
         for(i = 0; i < inputControllerWfesSwitching.ui_num_comp; i++) {
+            if(Number.isNaN(Number(p_vec[i])))
+                error += " - Starting probabilities (p) is not a valid number. \n \n"
             if(parseInt(p_vec[i]) < 0)
                 error += " - Probability of starting (p" + (i + 1) + ") is quite small, it must be at least 2. \n \n"
             if(parseInt(p_vec[i]) > 1)
@@ -918,6 +950,8 @@ ApplicationWindow {
             if(splitted.length > 1) {
                 var valid = true;
                 for(var j = 0; j < splitted.length; j++) {
+                    if(Number.isNaN(Number(splitted[j])))
+                        error += " - The element " + j + " of Relative Probability of Switching (r" + (i + 1) + ") is not a valid number. \n \n"
                     if(parseFloat(splitted[j]) < 0) {
                         error += " - The element " + j + " of Relative Probability of Switching (r" + (i + 1) + ") is quite small, it must be at least 0. \n \n"
                         break;
@@ -927,6 +961,8 @@ ApplicationWindow {
                     }
                 }
             } else {
+                if(Number.isNaN(Number(r_vec[i])))
+                    error += " - The element " + j + " of Relative Probability of Switching (r" + (i + 1) + ") is not a valid number. \n \n"
                 if(parseFloat(r_vec[i]) < 0) {
                     error += " - The element " + j + " of Relative Probability of Switching (r" + (i + 1) + ") is quite small, it must be at least 0. \n \n"
                     break;
@@ -938,42 +974,54 @@ ApplicationWindow {
         }
 
         if(globalConfiguration.ui_population_scaled) {
-            for(i = 0; i < inputControllerWfafle.ui_num_comp; i++) {
+            for(i = 0; i < inputControllerWfesSwitching.ui_num_comp; i++) {
+                if(Number.isNaN(Number(u_vec[i])))
+                    error += " - Backward Mutation (u" + (i + 1) + ") is not a valid number. \n \n"
                 if(parseFloat(u_vec[i].textFieldText) <= 0)
                     error += " - Backward Mutation (u" + (i + 1) + ") is quite small. It must be at least 0. \n \n"
                 if(!inputForce.checked && parseFloat(u_vec[i]) > 1)
                     error += " - Backward Mutation (u" + (i + 1) + ") is quite large and might violate the Wright-Fisher assumptions. It should be less than 1. Check 'Force' to ignore. \n \n"
             }
 
-            for(i = 0; i < inputControllerWfafle.ui_num_comp; i++) {
+            for(i = 0; i < inputControllerWfesSwitching.ui_num_comp; i++) {
+                if(Number.isNaN(Number(v_vec[i])))
+                    error += " - Forward Mutation (v" + (i + 1) + ") is not a valid number. \n \n"
                 if(parseFloat(v_vec[i].textFieldText) <= 0)
                     error += " - Backward Mutation (v" + (i + 1) + ") is quite small. It must be at least 0. \n \n"
                 if(!inputForce.checked && parseFloat(v_vec[i]) > 1)
                     error += " - Backward Mutation (v" + (i + 1) + ") is quite large and might violate the Wright-Fisher assumptions. It should be less than 1. Check 'Force' to ignore. \n \n"
             }
 
-            for(i = 0; i < inputControllerWfafle.ui_num_comp; i++) {
+            for(i = 0; i < inputControllerWfesSwitching.ui_num_comp; i++) {
+                if(Number.isNaN(Number(s_vec[i])))
+                    error += " - Selection Coefficient (s" + (i + 1) + ") is not a valid number. \n \n"
                 if(parseFloat(s_vec[i]) < -1 * (2 * parseInt(N_vec[i])))
                     error += " - Selection Coefficient (s" + (i + 1) + ") is quite negative. It must be at least -2N \n \n"
                 if(parseFloat(s_vec[i]) > 1 * (2 * parseInt(N_vec[i])))
                     error += " - Selection Coefficient (s" + (i + 1) + ") is quite large. The maximum value allowed is 2N. \n \n"
             }
         } else {
-            for(i = 0; i < inputControllerWfafle.ui_num_comp; i++) {
+            for(i = 0; i < inputControllerWfesSwitching.ui_num_comp; i++) {
+                if(Number.isNaN(Number(u_vec[i])))
+                    error += " - Backward Mutation (u" + (i + 1) + ") is not a valid number. \n \n"
                 if(parseFloat(u_vec[i].textFieldText) <= 0)
                     error += " - Backward Mutation (u" + (i + 1) + ") is quite small. It must be at least 0. \n \n"
                 if(!inputForce.checked && parseFloat(u_vec[i]) > 1 / (4 * parseInt(N_vec[i])))
                     error += " - Backward Mutation (u" + (i + 1) + ") is quite large and might violate the Wright-Fisher assumptions. It should be less than 1/4N. Check 'Force' to ignore. \n \n"
             }
 
-            for(i = 0; i < inputControllerWfafle.ui_num_comp; i++) {
+            for(i = 0; i < inputControllerWfesSwitching.ui_num_comp; i++) {
+                if(Number.isNaN(Number(v_vec[i])))
+                    error += " - Forward Mutation (v" + (i + 1) + ") is not a valid number. \n \n"
                 if(parseFloat(v_vec[i].textFieldText) <= 0)
                     error += " - Backward Mutation (v" + (i + 1) + ") is quite small. It must be at least 0. \n \n"
                 if(!inputForce.checked && parseFloat(v_vec[i]) > 1 / (4 * parseInt(N_vec[i])))
                     error += " - Backward Mutation (v" + (i + 1) + ") is quite large and might violate the Wright-Fisher assumptions. It should be less than 1/4N. Check 'Force' to ignore. \n \n"
             }
 
-            for(i = 0; i < inputControllerWfafle.ui_num_comp; i++) {
+            for(i = 0; i < inputControllerWfesSwitching.ui_num_comp; i++) {
+                if(Number.isNaN(Number(s_vec[i])))
+                    error += " - Selection Coefficient (s" + (i + 1) + ") is not a valid number. \n \n"
                 if(parseFloat(s_vec[i]) < -1)
                     error += " - Selection Coefficient (s" + (i + 1) + ") is quite negative. It must be at least -2N \n \n"
                 if(parseFloat(s_vec[i]) > 1 )
@@ -983,12 +1031,16 @@ ApplicationWindow {
 
 
         for(i = 0; i < inputControllerWfesSwitching.ui_num_comp; i++) {
+            if(Number.isNaN(Number(h_vec[i])))
+                error += " - Dominance Coefficient (h" + (i + 1) + ") is not a valid number. \n \n"
             if(parseFloat(h_vec[i]) < 0)
                 error += " - Dominance Coefficient (h" + (i + 1) + ") is quite small. It must be at least 0. \n \n"
             if(parseFloat(h_vec[i]) > 1)
                 error += " - Dominance Coefficient (h" + (i + 1) + ") is quite large. The maximum value allowed is 1. \n \n"
         }
 
+        if(Number.isNaN(Number(inputT.textFieldText)))
+            error += " - Number of Threads (t) is not a valid number. \n \n"
         // Number of threads (t) does not have upper limites, since it depends on the hardware available.
         if(parseInt(inputT.textFieldText) < 1)
             error += " - Number of Threads (t) is quite small, it must be at least 1. \n \n"

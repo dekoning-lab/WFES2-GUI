@@ -167,7 +167,7 @@ ApplicationWindow {
                                 id: inputA
                                 text: "a: "
                                 toolTipText: "Tail truncation weight."
-                                validator: DoubleValidator {bottom: 0; top: 2e-10;}
+                                validator: DoubleValidator {bottom: 0;}
                                 textFieldText: inputControllerWfesSequential.ui_a
                                 textFieldTextEdited: function(){
                                     if(!Number.isNaN(Number(inputA.textFieldText)) && parseFloat(inputA.textFieldText) >= 0) {
@@ -183,7 +183,7 @@ ApplicationWindow {
                                 id: inputC
                                 text: "c: "
                                 toolTipText: "Integration cutoff."
-                                validator: DoubleValidator {bottom: 0; top: 1;}
+                                validator: DoubleValidator {bottom: 0;}
                                 textFieldText: inputControllerWfesSequential.ui_c
                                 textFieldTextEdited: function(){
                                     if(!Number.isNaN(Number(inputC.textFieldText)) && parseFloat(inputC.textFieldText) >= 0) {
@@ -841,7 +841,10 @@ ApplicationWindow {
         for(i = 0; i < inputControllerWfesSequential.ui_num_comp; i++) {
             if(Number.isNaN(Number(p_vec[i])))
                 error += " - Starting probabilities (p) is not a valid number. \n \n"
-            //TODO Starting probabilities.
+            if(parseInt(p_vec[i]) < 0)
+                error += " - Probability of starting (p" + (i + 1) + ") is quite small, it must be at least 2. \n \n"
+            if(parseInt(p_vec[i]) > 1)
+                error += " - Probability of starting (p" + (i + 1) + ") is quite large, the computations will take a long time. Check 'Force' to ignore. \n \n"
         }
 
         if(globalConfiguration.ui_population_scaled) {
