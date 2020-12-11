@@ -441,8 +441,8 @@ ApplicationWindow {
                                                 toolTipText: "Forward mutation rate."
                                                 textFieldTextEdited: function(){
                                                     var v_vec = []
-                                                    u_vec[0] = inputControllerWfesSweep.ui_u_vec[0]
-                                                    u_vec[1] = inputU2.textFieldText
+                                                    v_vec[0] = inputControllerWfesSweep.ui_u_vec[0]
+                                                    v_vec[1] = inputV2.textFieldText
                                                     if(globalConfiguration.ui_population_scaled) {
                                                         if(!Number.isNaN(Number(inputV2.textFieldText)) && parseFloat(inputV2.textFieldText) >= 0 && parseFloat(inputV2.textFieldText) <= 1) {
                                                             inputControllerWfesSweep.ui_v_vec = v_vec
