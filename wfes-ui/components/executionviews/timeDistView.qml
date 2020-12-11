@@ -1303,6 +1303,8 @@ ApplicationWindow {
                                     outputControllerTimeDist.ui_reset_error
                                 }
                                 upperMenu.updateProbTimeDist(inputControllerTimeDist.ui_modelType)
+                                if(enabled)
+                                    upperMenu.chartVisible = true
                             }
 
                             Binding {

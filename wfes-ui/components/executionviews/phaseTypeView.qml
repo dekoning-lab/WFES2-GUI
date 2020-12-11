@@ -704,8 +704,10 @@ ApplicationWindow {
                                     outputControllerPhaseType.ui_reset_error
                                 }
 
-                                if(inputControllerPhaseType.ui_modelType == "Phase Type Dist.")
+                                if(inputControllerPhaseType.ui_modelType == "Phase Type Dist.") {
                                     upperMenu.updatePhaseTypeDistChart()
+                                    upperMenu.chartVisible = true
+                                }
                             }
 
                             Binding {

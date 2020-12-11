@@ -8,6 +8,7 @@ import components 1.0
 import assets 1.0
 
 Rectangle {
+    property alias chartVisible: chartVisualization.visible
     id: upperMenu
     width:parent.width
     height: childrenRect.height

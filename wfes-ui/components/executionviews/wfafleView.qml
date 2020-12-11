@@ -427,6 +427,9 @@ ApplicationWindow {
                                     outputControllerWfafle.ui_reset_error
                                 }
                                 upperMenu.updateDistWfafle()
+
+                                if(enabled)
+                                    upperMenu.chartVisible = true
                             }
 
                             Binding {

@@ -465,6 +465,9 @@ ApplicationWindow {
                                         outputControllerWfas.ui_reset_error
                                     }
                                     upperMenu.updateDistWfas()
+
+                                    if(enabled)
+                                        upperMenu.chartVisible = true
                                 }
 
                                 Binding {
