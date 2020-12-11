@@ -60,6 +60,10 @@ Rectangle {
                 border.width: 2
                 border.color: enabled ? borderColor : "#aaaaaa"
             }
+            onFocusChanged: {
+                if(focus)
+                    selectAll()
+            }
         }
 
     }
