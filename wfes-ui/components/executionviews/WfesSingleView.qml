@@ -632,9 +632,17 @@ ApplicationWindow {
                                 id: inputK
                                 text: "k: "
                                 toolTipText: "Odds ratio (establishment only)."
-                                // Odds ratio (k) does not have limits, at least in the code.
                                 textFieldText: inputControllerWfesSingle.ui_k
                                 enabled: (inputControllerWfesSingle.ui_modelType == "Establishment")
+                                textFieldTextEdited: function(){
+                                    // Odds ratio (k) does not have limits, at least in the code.
+                                    if(!Number.isNaN(Number(inputK.textFieldText))) {
+                                        inputControllerWfesSingle.ui_k = inputK.textFieldText
+                                        borderColor = "#555555"
+                                    } else {
+                                        borderColor = "#ff0000"
+                                    }
+                                }
                             }
                         }
 
@@ -1664,6 +1672,9 @@ ApplicationWindow {
             error += " - Observed Copies (x) is quite large. The maximum value allowed is N. \n \n"
 
         // Odds ratio (k) does not have limits, at least in the code. The default value is 1.
+
+        if(Number.isNaN(Number(inputK.textFieldText)))
+            error += " - Odds ratio (k) is not a valid number. \n \n"
 
         if(globalConfiguration.ui_population_scaled) {
             if(Number.isNaN(Number(inputU.textFieldText)))

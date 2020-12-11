@@ -11,6 +11,7 @@ import QtGraphicalEffects 1.0
 
 
 Rectangle {
+    id: mainRectangle
     property alias text: label.text
     property alias validator: textField.validator
     property int labelPreferredWidth: 35
@@ -56,8 +57,8 @@ Rectangle {
             }
             background: Rectangle {
                 id: wrongValue
-                border.color: borderColor
                 border.width: 2
+                border.color: enabled ? borderColor : "#aaaaaa"
             }
         }
 
