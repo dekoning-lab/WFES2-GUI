@@ -128,7 +128,7 @@ Component{
                             else
                                 p_vec[i] = inputControllerWfesSequential.ui_p_vec[i]
                         }
-                        if(!Number.isNaN(Number(inputP.textFieldText)) && parseFloat(inputP.textFieldText) >= 0) {
+                        if(!Number.isNaN(Number(inputP.textFieldText)) && parseFloat(inputP.textFieldText) >= 0 && parseFloat(inputP.textFieldText) <= 1) {
                             inputControllerWfesSequential.ui_p_vec = p_vec
                             borderColor = "#555555"
                         } else {

@@ -28,11 +28,32 @@ ApplicationWindow {
     Universal.theme: Universal.Light
 
     onClosing: {
-        rootWfesSweep.hide();
-        root.visible = true;
-        rootWfesSweep.updateBackend()
-        outputControllerWfesSweep.ui_save_config
+        close.accepted = false
+
+        if(checkIntegrity() !== "") {
+            messageDialogOnClose.text = "Some input parameters are incorrect. The configuration will be available in this session, but cannot be saved for future sessions until you fix those values. Do you want to exit anyway?"
+            messageDialogOnClose.open()
+
+        } else {
+            rootWfesSweep.hide();
+            root.visible = true;
+            rootWfesSweep.updateBackend()
+            outputControllerWfesSweep.ui_save_config
+        }
     }
+
+    MessageDialog {
+        id: messageDialogOnClose
+        title: "Warning"
+        text: ""
+        icon: StandardIcon.Warning
+        standardButtons: Dialog.Ok | Dialog.Cancel
+        onAccepted: {
+            rootWfesSweep.hide();
+            root.visible = true;
+        }
+    }
+
 
     Component.onCompleted: {
         // Center window in screen.

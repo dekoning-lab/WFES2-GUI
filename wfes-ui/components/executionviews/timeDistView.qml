@@ -28,10 +28,29 @@ ApplicationWindow {
     Universal.theme: Universal.Light
 
     onClosing: {
-        rootTimeDist.hide();
-        root.visible = true;
-        rootTimeDist.updateBackend()
-        outputControllerTimeDist.ui_save_config
+        close.accepted = false
+
+        if(checkIntegrity() !== "") {
+            messageDialogOnClose.text = "Some input parameters are incorrect. The configuration will be available in this session, but cannot be saved for future sessions until you fix those values. Do you want to exit anyway?"
+            messageDialogOnClose.open()
+        } else {
+            rootTimeDist.hide();
+            root.visible = true;
+            rootTimeDist.updateBackend()
+            outputControllerTimeDist.ui_save_config
+        }
+    }
+
+    MessageDialog {
+        id: messageDialogOnClose
+        title: "Warning"
+        text: ""
+        icon: StandardIcon.Warning
+        standardButtons: Dialog.Ok | Dialog.Cancel
+        onAccepted: {
+            rootTimeDist.hide();
+            root.visible = true;
+        }
     }
 
     Component.onCompleted: {

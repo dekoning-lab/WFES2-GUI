@@ -27,10 +27,29 @@ ApplicationWindow {
     Universal.theme: Universal.Light
 
     onClosing: {
-        rootWfas.hide();
-        root.visible = true;
-        rootWfas.updateBackend()
-        outputControllerWfas.ui_save_config
+        close.accepted = false
+
+        if(checkIntegrity() !== "") {
+            messageDialogOnClose.text = "Some input parameters are incorrect. The configuration will be available in this session, but cannot be saved for future sessions until you fix those values. Do you want to exit anyway?"
+            messageDialogOnClose.open()
+        } else {
+            rootWfas.hide();
+            root.visible = true;
+            rootWfas.updateBackend()
+            outputControllerWfas.ui_save_config
+        }
+    }
+
+    MessageDialog {
+        id: messageDialogOnClose
+        title: "Warning"
+        text: ""
+        icon: StandardIcon.Warning
+        standardButtons: Dialog.Ok | Dialog.Cancel
+        onAccepted: {
+            rootWfas.hide();
+            root.visible = true;
+        }
     }
 
     Component.onCompleted: {
@@ -784,7 +803,7 @@ ApplicationWindow {
         }
 
         if(globalConfiguration.ui_population_scaled) {
-            for(i = 0; i < inputControllerWfafle.ui_num_comp; i++) {
+            for(i = 0; i < inputControllerWfas.ui_num_comp; i++) {
                 if(Number.isNaN(Number(u_vec[i])))
                     error += " - Backward Mutation (u" + (i + 1) + ") is not a valid number. \n \n"
                 if(parseFloat(u_vec[i].textFieldText) <= 0)
@@ -793,7 +812,7 @@ ApplicationWindow {
                     error += " - Backward Mutation (u" + (i + 1) + ") is quite large and might violate the Wright-Fisher assumptions. It should be less than 1. Check 'Force' to ignore. \n \n"
             }
 
-            for(i = 0; i < inputControllerWfafle.ui_num_comp; i++) {
+            for(i = 0; i < inputControllerWfas.ui_num_comp; i++) {
                 if(Number.isNaN(Number(v_vec[i])))
                     error += " - Forward Mutation (v" + (i + 1) + ") is not a valid number. \n \n"
                 if(parseFloat(v_vec[i].textFieldText) <= 0)
@@ -802,7 +821,7 @@ ApplicationWindow {
                     error += " - Backward Mutation (v" + (i + 1) + ") is quite large and might violate the Wright-Fisher assumptions. It should be less than 1. Check 'Force' to ignore. \n \n"
             }
 
-            for(i = 0; i < inputControllerWfafle.ui_num_comp; i++) {
+            for(i = 0; i < inputControllerWfas.ui_num_comp; i++) {
                 if(Number.isNaN(Number(s_vec[i])))
                     error += " - Selection Coefficient (s" + (i + 1) + ") is not a valid number. \n \n"
                 if(parseFloat(s_vec[i]) < -1 * (2 * parseInt(N_vec[i])))
@@ -811,7 +830,7 @@ ApplicationWindow {
                     error += " - Selection Coefficient (s" + (i + 1) + ") is quite large. The maximum value allowed is 2N. \n \n"
             }
         } else {
-            for(i = 0; i < inputControllerWfafle.ui_num_comp; i++) {
+            for(i = 0; i < inputControllerWfas.ui_num_comp; i++) {
                 if(Number.isNaN(Number(u_vec[i])))
                     error += " - Backward Mutation (u" + (i + 1) + ") is not a valid number. \n \n"
                 if(parseFloat(u_vec[i].textFieldText) <= 0)
@@ -820,7 +839,7 @@ ApplicationWindow {
                     error += " - Backward Mutation (u" + (i + 1) + ") is quite large and might violate the Wright-Fisher assumptions. It should be less than 1/4N. Check 'Force' to ignore. \n \n"
             }
 
-            for(i = 0; i < inputControllerWfafle.ui_num_comp; i++) {
+            for(i = 0; i < inputControllerWfas.ui_num_comp; i++) {
                 if(Number.isNaN(Number(v_vec[i])))
                     error += " - Forward Mutation (v" + (i + 1) + ") is not a valid number. \n \n"
                 if(parseFloat(v_vec[i].textFieldText) <= 0)
@@ -829,7 +848,7 @@ ApplicationWindow {
                     error += " - Backward Mutation (v" + (i + 1) + ") is quite large and might violate the Wright-Fisher assumptions. It should be less than 1/4N. Check 'Force' to ignore. \n \n"
             }
 
-            for(i = 0; i < inputControllerWfafle.ui_num_comp; i++) {
+            for(i = 0; i < inputControllerWfas.ui_num_comp; i++) {
                 if(Number.isNaN(Number(s_vec[i])))
                     error += " - Selection Coefficient (s" + (i + 1) + ") is not a valid number. \n \n"
                 if(parseFloat(s_vec[i]) < -1)

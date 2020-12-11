@@ -27,11 +27,33 @@ ApplicationWindow {
     Universal.theme: Universal.Light
 
     onClosing: {
-        rootWfesSingle.hide();
-        root.visible = true;
-        rootWfesSingle.updateBackend()
-        outputControllerWfesSingle.ui_save_config
+        close.accepted = false
+
+        if(checkIntegrity() !== "") {
+            messageDialogOnClose.text = "Some input parameters are incorrect. The configuration will be available in this session, but cannot be saved for future sessions until you fix those values. Do you want to exit anyway?"
+            messageDialogOnClose.open()
+
+        } else {
+            rootWfesSingle.hide();
+            root.visible = true;
+            rootWfesSingle.updateBackend()
+            outputControllerWfesSingle.ui_save_config
+        }
     }
+
+    MessageDialog {
+        id: messageDialogOnClose
+        title: "Warning"
+        text: ""
+        icon: StandardIcon.Warning
+        standardButtons: Dialog.Ok | Dialog.Cancel
+        onAccepted: {
+            rootWfesSingle.hide();
+            root.visible = true;
+        }
+    }
+
+
 
     Component.onCompleted: {
         // Center window in screen.
