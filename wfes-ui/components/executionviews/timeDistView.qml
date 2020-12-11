@@ -1503,6 +1503,8 @@ ApplicationWindow {
         var error = ""
 
         if(!radioButtonTimeDistSGV.checked) {
+            if(inputN.textFieldText == "")
+                error += " - Population Size (N) is empty. \n \n"
             if(Number.isNaN(Number(inputN.textFieldText)))
                 error += " - Population Size (N) is not a valid number. \n \n"
             if(parseInt(inputN.textFieldText) < 2)
@@ -1510,6 +1512,8 @@ ApplicationWindow {
             if(!inputForce.checked && parseInt(inputN.textFieldText) > 50000)
                 error += " - Population Size (N) is quite large, the computations will take a long time. Check 'Force' to ignore. \n \n"
 
+            if(inputA.textFieldText == "")
+                error += " - Tail Truncation Cutoff (a) is empty. \n \n"
             if(Number.isNaN(Number(inputA.textFieldText)))
                 error += " - Tail Truncation Cutoff (a) is not a valid number. \n \n"
             if(parseFloat(inputA.textFieldText) < 0)
@@ -1517,6 +1521,8 @@ ApplicationWindow {
             if(!inputForce.checked && parseFloat(inputA.textFieldText) > 1e-5)
                 error += " - Tail Truncation Cutoff (a) value is quite high. This might produce inaccurate results. A good value should be between 0 and 10e-10. Check 'Force' to ignore. \n \n"
 
+            if(inputC.textFieldText == "")
+                error += " - Integration Cutoff (c) is empty. \n \n"
             if(Number.isNaN(Number(inputC.textFieldText)))
                 error += " - Integration Cutoff (c) is not a valid number. \n \n"
             if(parseFloat(inputC.textFieldText) < 0)
@@ -1524,6 +1530,8 @@ ApplicationWindow {
             if(parseFloat(inputC.textFieldText) > 1)
                 error += " - Integration Cutoff (c) is quite large. The maximum value allowed is 1. \n \n"
 
+            if(inputM.textFieldText == "")
+                error += " - Maximum Number of Generations (m)  is empty. \n \n"
             if(Number.isNaN(Number(inputM.textFieldText)))
                 error += " - Maximum Number of Generations (m) is not a valid number. \n \n"
             if(parseInt(inputM.textFieldText) < 2)
@@ -1532,6 +1540,8 @@ ApplicationWindow {
                 error += " - Maximum Number of Generations (m) is quite large, the computations will take a long time. Check 'Force' to ignore. \n \n"
 
             if(globalConfiguration.ui_population_scaled) {
+                if(inputU.textFieldText == "")
+                    error += " - Backward Mutation (u) is empty. \n \n"
                 if(Number.isNaN(Number(inputU.textFieldText)))
                     error += " - Backward Mutation (u) is not a valid number. \n \n"
                 if(parseFloat(inputU.textFieldText) <= 0)
@@ -1539,6 +1549,8 @@ ApplicationWindow {
                 if(!inputForce.checked && parseFloat(inputU.textFieldText) > 1)
                     error += " - Backward Mutation (u) is quite large and might violate the Wright-Fisher assumptions. It should be less than 1. Check 'Force' to ignore. \n \n"
 
+                if(inputV.textFieldText == "")
+                    error += " - Forward Mutation (v) is empty. \n \n"
                 if(Number.isNaN(Number(inputV.textFieldText)))
                     error += " - Forward Mutation (v) is not a valid number. \n \n"
                 if(parseFloat(inputV.textFieldText) <= 0)
@@ -1546,6 +1558,8 @@ ApplicationWindow {
                 if(!inputForce.checked && parseFloat(inputV.textFieldText) > 1)
                     error += " - Forward Mutation (v) is quite large and might violate the Wright-Fisher assumptions. It should be less than 1. Check 'Force' to ignore. \n \n"
 
+                if(inputS.textFieldText == "")
+                    error += " - Selection Coefficient (s) is empty. \n \n"
                 if(Number.isNaN(Number(inputS.textFieldText)))
                     error += " - Selection Coefficient (s) is not a valid number. \n \n"
                 if(parseFloat(inputS.textFieldText) < -1 * (2 * parseInt(inputN.textFieldText)))
@@ -1553,6 +1567,8 @@ ApplicationWindow {
                 if(parseFloat(inputS.textFieldText) > 1 * (2 * parseInt(inputN.textFieldText)))
                     error += " - Selection Coefficient (s) is quite large. The maximum value allowed is 2N. \n \n"
             } else {
+                if(inputU.textFieldText == "")
+                    error += " - Backward Mutation (u) is empty. \n \n"
                 if(Number.isNaN(Number(inputU.textFieldText)))
                     error += " - Backward Mutation (u) is not a valid number. \n \n"
                 if(parseFloat(inputU.textFieldText) <= 0)
@@ -1560,6 +1576,8 @@ ApplicationWindow {
                 if(!inputForce.checked && parseFloat(inputU.textFieldText) > 1 / (4 * parseInt(inputN.textFieldText)))
                     error += " - Backward Mutation (u) is quite large and might violate the Wright-Fisher assumptions. It should be less than 1/4N. Check 'Force' to ignore. \n \n"
 
+                if(inputV.textFieldText == "")
+                    error += " - Forward Mutation (v) is empty. \n \n"
                 if(Number.isNaN(Number(inputV.textFieldText)))
                     error += " - Forward Mutation (v) is not a valid number. \n \n"
                 if(parseFloat(inputV.textFieldText) <= 0)
@@ -1567,6 +1585,8 @@ ApplicationWindow {
                 if(!inputForce.checked && parseFloat(inputV.textFieldText) > 1 / (4 * parseInt(inputN.textFieldText)))
                     error += " - Forward Mutation (v) is quite large and might violate the Wright-Fisher assumptions. It should be less than 1/4N. Check 'Force' to ignore. \n \n"
 
+                if(inputS.textFieldText == "")
+                    error += " - Selection Coefficient (s) is empty. \n \n"
                 if(Number.isNaN(Number(inputS.textFieldText)))
                     error += " - Selection Coefficient (s) is not a valid number. \n \n"
                 if(parseFloat(inputS.textFieldText) < -1)
@@ -1575,6 +1595,8 @@ ApplicationWindow {
                     error += " - Selection Coefficient (s) is quite large. The maximum value allowed is 1. \n \n"
             }
 
+            if(inputH.textFieldText == "")
+                error += " - Dominance Coefficient (h) is empty. \n \n"
             if(Number.isNaN(Number(inputH.textFieldText)))
                 error += " - Dominance Coefficient (h) is not a valid number. \n \n"
             if(parseFloat(inputH.textFieldText) < 0)
@@ -1582,6 +1604,8 @@ ApplicationWindow {
             if(parseFloat(inputH.textFieldText) > 1)
                 error += " - Dominance Coefficient (h) is quite large. The maximum value allowed is 1. \n \n"
         } else {
+            if(inputN1.textFieldText == "")
+                error += " - Population Size (N) of SGV is empty. \n \n"
             if(Number.isNaN(Number(inputN1.textFieldText)))
                 error += " - Population Size (N) of SGV is not a valid number. \n \n"
             if(parseInt(inputN1.textFieldText) < 2)
@@ -1589,6 +1613,8 @@ ApplicationWindow {
             if(!inputForce.checked && parseInt(inputN1.textFieldText) > 50000)
                 error += " - Population Size (N) of SGV is quite large, the computations will take a long time. Check 'Force' to ignore. \n \n"
 
+            if(inputL.textFieldText == "")
+                error += " - Rate of Switching to pre-adaptive phase (l) of SGV is empty. \n \n"
             if(Number.isNaN(Number(inputL.textFieldText)))
                 error += " - Rate of Switching to pre-adaptive phase (l) of SGV is not a valid number. \n \n"
             if(parseFloat(inputL.textFieldText) < 1e-20)
@@ -1596,6 +1622,8 @@ ApplicationWindow {
             if(parseFloat(inputL.textFieldText) > 1)
                 error += " - Rate of switching to pre-adaptive phase (l) of SGV is quite large. The maximum value allowed is 10e-3. \n \n"
 
+            if(inputA1.textFieldText == "")
+                error += " - Tail Truncation Cutoff (a) of SGV is empty. \n \n"
             if(Number.isNaN(Number(inputA1.textFieldText)))
                 error += " - Tail Truncation Cutoff (a) of SGV is not a valid number. \n \n"
             if(parseFloat(inputA1.textFieldText) < 0)
@@ -1603,6 +1631,8 @@ ApplicationWindow {
             if(!inputForce.checked && parseFloat(inputA1.textFieldText) > 1e-5)
                 error += " - Tail Truncation Cutoff (a) of SGV value is quite high. This might produce inaccurate results. A good value should be between 0 and 10e-10. Check 'Force' to ignore. \n \n"
 
+            if(inputC1.textFieldText == "")
+                error += " - Integration Cutoff (c) of SGV is empty. \n \n"
             if(Number.isNaN(Number(inputC1.textFieldText)))
                 error += " - Integration Cutoff (c) of SGV is not a valid number. \n \n"
             if(parseFloat(inputC1.textFieldText) < 0)
@@ -1610,6 +1640,8 @@ ApplicationWindow {
             if(parseFloat(inputC1.textFieldText) > 10e-3)
                 error += " - Integration Cutoff (c) of SGV is quite large. The maximum value allowed is 10e-3. \n \n"
 
+            if(inputM1.textFieldText == "")
+                error += " - Maximum Number of Generations (m) of SGV is empty. \n \n"
             if(Number.isNaN(Number(inputM1.textFieldText)))
                 error += " - Maximum Number of Generations (m) of SGV is not a valid number. \n \n"
             if(parseInt(inputM1.textFieldText) < 2)
@@ -1635,6 +1667,9 @@ ApplicationWindow {
 
             if(globalConfiguration.ui_population_scaled) {
                 for(i = 0; i < 2; i++) {
+                    u = timeDistSGVSectionTabView.getTab(i).item.children[0].children[1].children[0].textFieldText
+                    if(u === "")
+                        error += " - Backward Mutation (u" + (i + 1) + ") is empty. \n \n"
                     if(Number.isNaN(Number(u_vec[i])))
                         error += " - Backward Mutation (u" + (i + 1) + ") of SGV is not a valid number. \n \n"
                     if(parseFloat(u_vec[i]) <= 0)
@@ -1644,6 +1679,9 @@ ApplicationWindow {
                 }
 
                 for(i = 0; i < 2; i++) {
+                    v = timeDistSGVSectionTabView.getTab(i).item.children[0].children[1].children[1].textFieldText
+                    if(v === "")
+                        error += " - Forward Mutation (v" + (i + 1) + ") of SGV is empty. \n \n"
                     if(Number.isNaN(Number(v_vec[i])))
                         error += " - Forward Mutation (v" + (i + 1) + ") of SGV is not a valid number. \n \n"
                     if(parseFloat(v_vec[i]) <= 0)
@@ -1653,6 +1691,9 @@ ApplicationWindow {
                 }
 
                 for(i = 0; i < 2; i++) {
+                    s = timeDistSGVSectionTabView.getTab(i).item.children[1].children[1].children[0].textFieldText
+                    if(s === "")
+                        error += " - Selection Coefficient (s" + (i + 1) + ") is empty. \n \n"
                     if(Number.isNaN(Number(s_vec[i])))
                         error += " - Selection Coefficient (s" + (i + 1) + ") of SGV is not a valid number. \n \n"
                     if(parseFloat(s_vec[i]) < -1 * (2 * parseInt(inputN.textFieldText)))
@@ -1662,6 +1703,9 @@ ApplicationWindow {
                 }
             } else {
                 for(i = 0; i < 2; i++) {
+                    u = timeDistSGVSectionTabView.getTab(i).item.children[0].children[1].children[0].textFieldText
+                    if(u === "")
+                        error += " - Backward Mutation (u" + (i + 1) + ") is empty. \n \n"
                     if(Number.isNaN(Number(u_vec[i])))
                         error += " - Backward Mutation (u" + (i + 1) + ") of SGV is not a valid number. \n \n"
                     if(parseFloat(u_vec[i]) <= 0)
@@ -1671,6 +1715,9 @@ ApplicationWindow {
                 }
 
                 for(i = 0; i < 2; i++) {
+                    v = timeDistSGVSectionTabView.getTab(i).item.children[0].children[1].children[1].textFieldText
+                    if(v === "")
+                        error += " - Forward Mutation (v" + (i + 1) + ") of SGV is empty. \n \n"
                     if(Number.isNaN(Number(v_vec[i])))
                         error += " - Forward Mutation (v" + (i + 1) + ") of SGV is not a valid number. \n \n"
                     if(parseFloat(v_vec[i]) <= 0)
@@ -1680,6 +1727,9 @@ ApplicationWindow {
                 }
 
                 for(i = 0; i < 2; i++) {
+                    s = timeDistSGVSectionTabView.getTab(i).item.children[1].children[1].children[0].textFieldText
+                    if(s === "")
+                        error += " - Selection Coefficient (s" + (i + 1) + ") is empty. \n \n"
                     if(Number.isNaN(Number(s_vec[i])))
                         error += " - Selection Coefficient (s" + (i + 1) + ") of SGV is not a valid number. \n \n"
                     if(parseFloat(s_vec[i]) < -1)
@@ -1690,6 +1740,9 @@ ApplicationWindow {
             }
 
             for(i = 0; i < 2; i++) {
+                h = timeDistSGVSectionTabView.getTab(i).item.children[1].children[1].children[1].textFieldText
+                if(h === "")
+                    error += " - Dominance Coefficient (h" + (i + 1) + ") is empty. \n \n"
                 if(Number.isNaN(Number(h_vec[i])))
                     error += " - Dominance Coefficient (h" + (i + 1) + ") of SGV is not a valid number. \n \n"
                 if(parseFloat(h_vec[i]) < 0)
@@ -1701,6 +1754,8 @@ ApplicationWindow {
 
         }
 
+        if(inputT.textFieldText == "")
+            error += " - Number of Threads (t) is empty. \n \n"
         if(Number.isNaN(Number(inputT.textFieldText)))
             error += " - Number of Threads (t) is not a valid number. \n \n"
         // Number of threads (t) does not have upper limites, since it depends on the hardware available.

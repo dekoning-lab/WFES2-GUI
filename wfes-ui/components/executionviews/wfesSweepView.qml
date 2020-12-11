@@ -1248,7 +1248,7 @@ ApplicationWindow {
             for(i = 0; i < 2; i++) {
                 u = componentsSectionTabView.getTab(i).item.children[0].children[1].children[0].textFieldText
                 if(u === "")
-                    error += " - Backward Mutation  (u" + (i + 1) + ") is empty. \n \n"
+                    error += " - Backward Mutation (u" + (i + 1) + ") is empty. \n \n"
                 if(Number.isNaN(Number(u_vec[i])))
                     error += " - Backward Mutation (u" + (i + 1) + ") is not a valid number. \n \n"
                 if(parseFloat(u_vec[i]) <= 0)
@@ -1284,7 +1284,7 @@ ApplicationWindow {
             for(i = 0; i < 2; i++) {
                 u = componentsSectionTabView.getTab(i).item.children[0].children[1].children[0].textFieldText
                 if(u === "")
-                    error += " - Backward Mutation (u) is empty. \n \n"
+                    error += " - Backward Mutation (u" + (i + 1) + ") is empty. \n \n"
                 if(Number.isNaN(Number(u_vec[i])))
                     error += " - Backward Mutation (u" + (i + 1) + ") is not a valid number. \n \n"
                 if(Number.isNaN(Number(u_vec[i])) && parseFloat(u_vec[i]) <= 0)

@@ -134,15 +134,14 @@ Component{
                         console.log(splitted.length)
                         console.log(inputControllerWfesSwitching.ui_num_comp)
 
+                        borderColor = "#555555"
+
                         if(splitted.length !== parseInt(inputControllerWfesSwitching.ui_num_comp))
                             borderColor = "#ff0000"
                         else {
                             for(i = 0; i < splitted.length; i++) {
-                                if(splitted[i] !== "" && !Number.isNaN(Number(splitted[i])) && parseFloat(splitted[i]) >= 0 && parseFloat(splitted[i]) <= 1) {
-                                    borderColor = "#555555"
-                                } else {
+                                if(! (splitted[i] !== "" && !Number.isNaN(Number(splitted[i])) && parseFloat(splitted[i]) >= 0 && parseFloat(splitted[i]) <= 1)) {
                                     borderColor = "#ff0000"
-                                    break;
                                 }
                             }
                         }
