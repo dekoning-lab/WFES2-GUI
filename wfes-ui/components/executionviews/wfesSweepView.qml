@@ -28,11 +28,32 @@ ApplicationWindow {
     Universal.theme: Universal.Light
 
     onClosing: {
-        rootWfesSweep.hide();
-        root.visible = true;
-        rootWfesSweep.updateBackend()
-        outputControllerWfesSweep.ui_save_config
+        close.accepted = false
+
+        if(checkIntegrity() !== "") {
+            messageDialogOnClose.text = "Some input parameters are incorrect. The configuration will be available in this session, but cannot be saved for future sessions until you fix those values. Do you want to exit anyway?"
+            messageDialogOnClose.open()
+
+        } else {
+            rootWfesSweep.hide();
+            root.visible = true;
+            rootWfesSweep.updateBackend()
+            outputControllerWfesSweep.ui_save_config
+        }
     }
+
+    MessageDialog {
+        id: messageDialogOnClose
+        title: "Warning"
+        text: ""
+        icon: StandardIcon.Warning
+        standardButtons: Dialog.Ok | Dialog.Cancel
+        onAccepted: {
+            rootWfesSweep.hide();
+            root.visible = true;
+        }
+    }
+
 
     Component.onCompleted: {
         // Center window in screen.
@@ -188,6 +209,26 @@ ApplicationWindow {
                                                         return "u<sub>1</sub>: "
                                                 }
                                                 toolTipText: "Backward mutation rate."
+                                                textFieldTextEdited: function(){
+                                                    var u_vec = []
+                                                    u_vec[0] = inputU1.textFieldText
+                                                    u_vec[1] = inputControllerWfesSweep.ui_u_vec[1]
+                                                    if(globalConfiguration.ui_population_scaled) {
+                                                        if(!Number.isNaN(Number(inputU1.textFieldText)) && parseFloat(inputU1.textFieldText) >= 0 && parseFloat(inputU1.textFieldText) <= 1) {
+                                                            inputControllerWfesSweep.ui_u_vec = u_vec
+                                                            borderColor = "#555555"
+                                                        } else {
+                                                            borderColor = "#ff0000"
+                                                        }
+                                                    } else {
+                                                        if(!Number.isNaN(Number(inputU1.textFieldText)) && parseFloat(inputU1.textFieldText) >= 0 && parseFloat(inputU1.textFieldText) <= 1 / (4 * parseInt(inputN.textFieldText))) {
+                                                            inputControllerWfesSweep.ui_u_vec = u_vec
+                                                            borderColor = "#555555"
+                                                        } else {
+                                                            borderColor = "#ff0000"
+                                                        }
+                                                    }
+                                                }
                                                 validator: DoubleValidator {bottom: 0;}
                                                 textFieldText: {
                                                     var u_vec = inputControllerWfesSweep.ui_u_vec
@@ -204,6 +245,26 @@ ApplicationWindow {
                                                         return "v<sub>1</sub>: "
                                                 }
                                                 toolTipText: "Forward mutation rate."
+                                                textFieldTextEdited: function(){
+                                                    var v_vec = []
+                                                    v_vec[0] = inputV1.textFieldText
+                                                    v_vec[1] = inputControllerWfesSweep.ui_v_vec[1]
+                                                    if(globalConfiguration.ui_population_scaled) {
+                                                        if(!Number.isNaN(Number(inputV1.textFieldText)) && parseFloat(inputV1.textFieldText) >= 0 && parseFloat(inputV1.textFieldText) <= 1) {
+                                                            inputControllerWfesSweep.ui_v_vec = v_vec
+                                                            borderColor = "#555555"
+                                                        } else {
+                                                            borderColor = "#ff0000"
+                                                        }
+                                                    } else {
+                                                        if(!Number.isNaN(Number(inputV1.textFieldText)) && parseFloat(inputV1.textFieldText) >= 0 && parseFloat(inputV1.textFieldText) <= 1 / (4 * parseInt(inputN.textFieldText))) {
+                                                            inputControllerWfesSweep.ui_v_vec = v_vec
+                                                            borderColor = "#555555"
+                                                        } else {
+                                                            borderColor = "#ff0000"
+                                                        }
+                                                    }
+                                                }
                                                 validator: DoubleValidator {bottom: 0;}
                                                 textFieldText: {
                                                     var v_vec = inputControllerWfesSweep.ui_v_vec
@@ -253,7 +314,27 @@ ApplicationWindow {
                                                         return "s<sub>1</sub>: "
                                                 }
                                                 toolTipText: "Selection coefficient."
-                                                validator: DoubleValidator {bottom: -1; top: 1;}
+                                                textFieldTextEdited: function(){
+                                                    var s_vec = []
+                                                    s_vec[0] = inputS1.textFieldText
+                                                    s_vec[1] = inputControllerWfesSweep.ui_s_vec[1]
+                                                    if(globalConfiguration.ui_population_scaled) {
+                                                        if(!Number.isNaN(Number(inputS1.textFieldText)) && parseFloat(inputS1.textFieldText) >= -1 * (2 * parseInt(inputN.textFieldText)) && parseFloat(inputS1.textFieldText) <= 1 * (2 * parseInt(inputN.textFieldText))) {
+                                                            inputControllerWfesSweep.ui_s_vec = s_vec
+                                                            borderColor = "#555555"
+                                                        } else {
+                                                            borderColor = "#ff0000"
+                                                        }
+                                                    } else {
+                                                        if(parseFloat(!Number.isNaN(Number(inputS1.textFieldText)) && inputS1.textFieldText) >= -1 && parseFloat(inputS1.textFieldText) <= 1) {
+                                                            inputControllerWfesSweep.ui_s_vec = s_vec
+                                                            borderColor = "#555555"
+                                                        } else {
+                                                            borderColor = "#ff0000"
+                                                        }
+                                                    }
+                                                }
+                                                // Validator has no sense here, since any range from -2N to 2N is allowed.
                                                 textFieldText: {
                                                     var s_vec = inputControllerWfesSweep.ui_s_vec
                                                     return s_vec[0]
@@ -265,6 +346,17 @@ ApplicationWindow {
                                                 text: "h<sub>1</sub>: "
                                                 toolTipText: "Dominance coefficient."
                                                 validator: DoubleValidator {bottom: 0; top: 1;}
+                                                textFieldTextEdited: function(){
+                                                    var h_vec = []
+                                                    h_vec[0] = inputH1.textFieldText
+                                                    h_vec[1] = inputControllerWfesSweep.ui_h_vec[1]
+                                                    if(!Number.isNaN(Number(inputH1.textFieldText)) && parseFloat(inputH1.textFieldText) >= 0 && parseFloat(inputH1.textFieldText) <= 1) {
+                                                        inputControllerWfesSweep.ui_h_vec = h_vec
+                                                        borderColor = "#555555"
+                                                    } else {
+                                                        borderColor = "#ff0000"
+                                                    }
+                                                }
                                                 textFieldText: {
                                                     var h_vec = inputControllerWfesSweep.ui_h_vec
                                                     return h_vec[0]
@@ -332,6 +424,26 @@ ApplicationWindow {
                                                         return "u<sub>2</sub>: "
                                                 }
                                                 toolTipText: "Backward mutation rate."
+                                                textFieldTextEdited: function(){
+                                                    var u_vec = []
+                                                    u_vec[0] = inputControllerWfesSweep.ui_u_vec[0]
+                                                    u_vec[1] = inputU2.textFieldText
+                                                    if(globalConfiguration.ui_population_scaled) {
+                                                        if(!Number.isNaN(Number(inputU2.textFieldText)) && parseFloat(inputU2.textFieldText) >= 0 && parseFloat(inputU2.textFieldText) <= 1) {
+                                                            inputControllerWfesSweep.ui_u_vec = u_vec
+                                                            borderColor = "#555555"
+                                                        } else {
+                                                            borderColor = "#ff0000"
+                                                        }
+                                                    } else {
+                                                        if(!Number.isNaN(Number(inputU2.textFieldText)) && parseFloat(inputU2.textFieldText) >= 0 && parseFloat(inputU2.textFieldText) <= 1 / (4 * parseInt(inputN.textFieldText))) {
+                                                            inputControllerWfesSweep.ui_u_vec = u_vec
+                                                            borderColor = "#555555"
+                                                        } else {
+                                                            borderColor = "#ff0000"
+                                                        }
+                                                    }
+                                                }
                                                 validator: DoubleValidator {bottom: 0;}
                                                 textFieldText: {
                                                     var u_vec = inputControllerWfesSweep.ui_u_vec
@@ -348,6 +460,26 @@ ApplicationWindow {
                                                         return "v<sub>2</sub>: "
                                                 }
                                                 toolTipText: "Forward mutation rate."
+                                                textFieldTextEdited: function(){
+                                                    var v_vec = []
+                                                    v_vec[0] = inputControllerWfesSweep.ui_u_vec[0]
+                                                    v_vec[1] = inputV2.textFieldText
+                                                    if(globalConfiguration.ui_population_scaled) {
+                                                        if(!Number.isNaN(Number(inputV2.textFieldText)) && parseFloat(inputV2.textFieldText) >= 0 && parseFloat(inputV2.textFieldText) <= 1) {
+                                                            inputControllerWfesSweep.ui_v_vec = v_vec
+                                                            borderColor = "#555555"
+                                                        } else {
+                                                            borderColor = "#ff0000"
+                                                        }
+                                                    } else {
+                                                        if(!Number.isNaN(Number(inputV2.textFieldText)) && parseFloat(inputV2.textFieldText) >= 0 && parseFloat(inputV2.textFieldText) <= 1 / (4 * parseInt(inputN.textFieldText))) {
+                                                            inputControllerWfesSweep.ui_v_vec = v_vec
+                                                            borderColor = "#555555"
+                                                        } else {
+                                                            borderColor = "#ff0000"
+                                                        }
+                                                    }
+                                                }
                                                 validator: DoubleValidator {bottom: 0;}
                                                 textFieldText: {
                                                     var v_vec = inputControllerWfesSweep.ui_v_vec
@@ -397,7 +529,27 @@ ApplicationWindow {
                                                         return "s<sub>2</sub>: "
                                                 }
                                                 toolTipText: "Selection coefficient."
-                                                validator: DoubleValidator {bottom: -1; top: 1;}
+                                                textFieldTextEdited: function(){
+                                                    var s_vec = []
+                                                    s_vec[0] = inputControllerWfesSweep.ui_s_vec[0]
+                                                    s_vec[1] = inputS2.textFieldText
+                                                    if(globalConfiguration.ui_population_scaled) {
+                                                        if(!Number.isNaN(Number(inputS2.textFieldText)) && parseFloat(inputS2.textFieldText) >= -1 * (2 * parseInt(inputN.textFieldText)) && parseFloat(inputS2.textFieldText) <= 1 * (2 * parseInt(inputN.textFieldText))) {
+                                                            inputControllerWfesSweep.ui_s_vec = s_vec
+                                                            borderColor = "#555555"
+                                                        } else {
+                                                            borderColor = "#ff0000"
+                                                        }
+                                                    } else {
+                                                        if(!Number.isNaN(Number(inputS2.textFieldText)) && parseFloat(inputS2.textFieldText) >= -1 && parseFloat(inputS2.textFieldText) <= 1) {
+                                                            inputControllerWfesSweep.ui_s_vec = s_vec
+                                                            borderColor = "#555555"
+                                                        } else {
+                                                            borderColor = "#ff0000"
+                                                        }
+                                                    }
+                                                }
+                                                // Validator has no sense here, since any range from -2N to 2N is allowed.
                                                 textFieldText: {
                                                     var s_vec = inputControllerWfesSweep.ui_s_vec
                                                     return s_vec[1]
@@ -409,6 +561,17 @@ ApplicationWindow {
                                                 text: "h<sub>2</sub>: "
                                                 toolTipText: "Dominance coefficient."
                                                 validator: DoubleValidator {bottom: 0; top: 1;}
+                                                textFieldTextEdited: function(){
+                                                    var h_vec = []
+                                                    h_vec[0] = inputControllerWfesSweep.ui_h_vec[0]
+                                                    h_vec[1] = inputH2.textFieldText
+                                                    if(!Number.isNaN(Number(inputH2.textFieldText)) && parseFloat(inputH2.textFieldText) >= 0 && parseFloat(inputH2.textFieldText) <= 1) {
+                                                        inputControllerWfesSweep.ui_h_vec = h_vec
+                                                        borderColor = "#555555"
+                                                    } else {
+                                                        borderColor = "#ff0000"
+                                                    }
+                                                }
                                                 textFieldText: {
                                                     var h_vec = inputControllerWfesSweep.ui_h_vec
                                                     return h_vec[1]
@@ -458,14 +621,30 @@ ApplicationWindow {
                                 toolTipText: "Size of the population in the Wright Fisher Model."
                                 validator: IntValidator {bottom: 2; top: 500000;}
                                 textFieldText: inputControllerWfesSweep.ui_n
+                                textFieldTextEdited: function(){
+                                    if(parseInt(inputN.textFieldText) > 1) {
+                                        inputControllerWfesSweep.ui_n = inputN.textFieldText
+                                        borderColor = "#555555"
+                                    } else {
+                                        borderColor = "#ff0000"
+                                    }
+                                }
                             }
 
                             LabeledTextField {
                                 id: inputA
                                 text: "a: "
                                 toolTipText: "Tail truncation weight."
-                                validator: DoubleValidator {bottom: 0; top: 10e-10;}
+                                validator: DoubleValidator {bottom: 0;}
                                 textFieldText: inputControllerWfesSweep.ui_a
+                                textFieldTextEdited: function(){
+                                    if(!Number.isNaN(Number(inputA.textFieldText)) && parseFloat(inputA.textFieldText) >= 0) {
+                                        inputControllerWfesSweep.ui_a = inputA.textFieldText
+                                        borderColor = "#555555"
+                                    } else {
+                                        borderColor = "#ff0000"
+                                    }
+                                }
                             }
 
                             LabeledTextField {
@@ -474,14 +653,30 @@ ApplicationWindow {
                                 toolTipText: "Transition probability."
                                 validator: DoubleValidator {bottom: 1e-20; top: 1;}
                                 textFieldText: inputControllerWfesSweep.ui_l
+                                textFieldTextEdited: function(){
+                                    if(!Number.isNaN(Number(inputL.textFieldText)) && parseFloat(inputL.textFieldText) >= 1e-20 && parseFloat(inputL.textFieldText) <= 1) {
+                                        inputControllerWfesSweep.ui_l = inputL.textFieldText
+                                        borderColor = "#555555"
+                                    } else {
+                                        borderColor = "#ff0000"
+                                    }
+                                }
                             }
 
                             LabeledTextField {
                                 id: inputC
                                 text: "c: "
                                 toolTipText: "TODO."
-                                validator: DoubleValidator {bottom: 0; top: 10e-3;}
+                                validator: DoubleValidator {bottom: 0;}
                                 textFieldText: inputControllerWfesSweep.ui_c
+                                textFieldTextEdited: function(){
+                                    if(!Number.isNaN(Number(inputC.textFieldText)) && parseFloat(inputC.textFieldText) >= 0) {
+                                        inputControllerWfesSweep.ui_c = inputC.textFieldText
+                                        borderColor = "#555555"
+                                    } else {
+                                        borderColor = "#ff0000"
+                                    }
+                                }
                             }
 
                             LabeledTextField {
@@ -489,7 +684,15 @@ ApplicationWindow {
                                 text: "p: "
                                 toolTipText: "Starting number of copies integration cutoff."
                                 validator: IntValidator {bottom: 2; top: 500000;}
-                                textFieldText: inputControllerWfesSweep.ui_c
+                                textFieldText: inputControllerWfesSweep.ui_p
+                                textFieldTextEdited: function(){
+                                    if(parseInt(inputP.textFieldText) >= 0 && parseInt(inputP.textFieldText) <= parseInt(inputN.textFieldText)) {
+                                        inputControllerWfesSingle.ui_p = inputP.textFieldText
+                                        borderColor = "#555555"
+                                    } else {
+                                        borderColor = "#ff0000"
+                                    }
+                                }
                             }
 
                         }
@@ -627,6 +830,14 @@ ApplicationWindow {
                                         toolTipText: "Number of threads for OpenMP."
                                         validator: DoubleValidator {bottom: 1;}
                                         textFieldText: inputControllerWfesSweep.ui_t
+                                        textFieldTextEdited: function(){
+                                            if(parseInt(inputT.textFieldText) >= 1) {
+                                                inputControllerWfesSingle.ui_t = inputT.textFieldText
+                                                borderColor = "#555555"
+                                            } else {
+                                                borderColor = "#ff0000"
+                                            }
+                                        }
                                     }
                                 }
 
@@ -744,9 +955,9 @@ ApplicationWindow {
                             onClicked: {
                                 var error = checkIntegrity()
 
-                                updateBackend()
 
                                 if(error === "") {
+                                    updateBackend()
                                     executeButton.enabled = false
                                     stopButton.enabled = true
                                     bottomMenu.visibleProgressBar = true
@@ -970,26 +1181,36 @@ ApplicationWindow {
     function checkIntegrity() {
         var error = ""
 
+        if(Number.isNaN(Number(inputN.textFieldText)))
+            error += " - Population Size (N) is not a valid number. \n \n"
         if(parseInt(inputN.textFieldText) < 2)
             error += " - Population Size (N) is quite small, it must be at least 2. \n \n"
         if(!inputForce.checked && parseInt(inputN.textFieldText) > 50000)
             error += " - Population Size (N) is quite large, the computations will take a long time. Check 'Force' to ignore. \n \n"
 
+        if(Number.isNaN(Number(inputA.textFieldText)))
+            error += " - Tail Truncation Cutoff (a) is not a valid number. \n \n"
         if(parseFloat(inputA.textFieldText) < 0)
             error += " - Tail Truncation Cutoff (a) is quite small. It must be at least 0. \n \n"
         if(!inputForce.checked && parseFloat(inputA.textFieldText) > 1e-5)
             error += " - Tail Truncation Cutoff (a) value is quite high. This might produce inaccurate results. A good value should be between 0 and 10e-10. Check 'Force' to ignore. \n \n"
 
+        if(Number.isNaN(Number(inputL.textFieldText)))
+            error += " - Rate of Switching (l) is not a valid number. \n \n"
         if(parseFloat(inputL.textFieldText) < 1e-20)
             error += " - Rate of Switching (l) is quite small. It must be at least 0. \n \n"
         if(parseFloat(inputL.textFieldText) > 1)
             error += " - Rate of Switching (l) value is quite high. The maximum value allowed is 1. \n \n"
 
+        if(Number.isNaN(Number(inputC.textFieldText)))
+            error += " - Integration Cutoff (c) is not a valid number. \n \n"
         if(parseFloat(inputC.textFieldText) < 0)
             error += " - Integration Cutoff (c) is quite small. It must be at least 0. \n \n"
         if(parseFloat(inputC.textFieldText) > 10e-3)
             error += " - Integration Cutoff (c) is quite large. The maximum value allowed is 10e-3. \n \n"
 
+        if(Number.isNaN(Number(inputP.textFieldText)))
+            error += " - Starting copies (p) is not a valid number. \n \n"
         if(parseInt(inputP.textFieldText) < 0)
             error += " - Starting copies (p) is quite small, if you want to disable it just use 0. \n \n"
         if(parseInt(inputP.textFieldText) > parseInt(inputN.textFieldText))
@@ -1015,20 +1236,26 @@ ApplicationWindow {
 
         if(globalConfiguration.ui_population_scaled) {
             for(i = 0; i < 2; i++) {
-                if(parseFloat(u_vec[i].textFieldText) <= 0)
+                if(Number.isNaN(Number(u_vec[i])))
+                    error += " - Backward Mutation (u" + (i + 1) + ") is not a valid number. \n \n"
+                if(parseFloat(u_vec[i]) <= 0)
                     error += " - Backward Mutation (u" + (i + 1) + ") of SGV is quite small. It must be at least 0. \n \n"
                 if(!inputForce.checked && parseFloat(u_vec[i]) > 1)
                     error += " - Backward Mutation (u" + (i + 1) + ") of SGV is quite large and might violate the Wright-Fisher assumptions. It should be less than 1. Check 'Force' to ignore. \n \n"
             }
 
             for(i = 0; i < 2; i++) {
-                if(parseFloat(v_vec[i].textFieldText) <= 0)
-                    error += " - Backward Mutation (v" + (i + 1) + ") of SGV is quite small. It must be at least 0. \n \n"
+                if(Number.isNaN(Number(v_vec[i])))
+                    error += " - Forward Mutation (v" + (i + 1) + ") is not a valid number. \n \n"
+                if(parseFloat(v_vec[i]) <= 0)
+                    error += " - Forward Mutation (v" + (i + 1) + ") of SGV is quite small. It must be at least 0. \n \n"
                 if(!inputForce.checked && parseFloat(v_vec[i]) > 1)
-                    error += " - Backward Mutation (v" + (i + 1) + ") of SGV is quite large and might violate the Wright-Fisher assumptions. It should be less than 1. Check 'Force' to ignore. \n \n"
+                    error += " - Forward Mutation (v" + (i + 1) + ") of SGV is quite large and might violate the Wright-Fisher assumptions. It should be less than 1. Check 'Force' to ignore. \n \n"
             }
 
             for(i = 0; i < 2; i++) {
+                if(Number.isNaN(Number(s_vec[i])))
+                    error += " - Selection Coefficient (s" + (i + 1) + ") is not a valid number. \n \n"
                 if(parseFloat(s_vec[i]) < -1 * (2 * parseInt(inputN.textFieldText)))
                     error += " - Selection Coefficient (s" + (i + 1) + ") of SGV is quite negative. It must be at least -2N \n \n"
                 if(parseFloat(s_vec[i]) > 1 * (2 * parseInt(inputN.textFieldText)))
@@ -1036,33 +1263,43 @@ ApplicationWindow {
             }
         } else {
             for(i = 0; i < 2; i++) {
-                if(parseFloat(u_vec[i].textFieldText) <= 0)
+                if(Number.isNaN(Number(u_vec[i])))
+                    error += " - Backward Mutation (u" + (i + 1) + ") is not a valid number. \n \n"
+                if(Number.isNaN(Number(u_vec[i])) && parseFloat(u_vec[i]) <= 0)
                     error += " - Backward Mutation (u" + (i + 1) + ") of SGV is quite small. It must be at least 0. \n \n"
-                if(!inputForce.checked && parseFloat(u_vec[i]) > 1 / (4 * parseInt(inputN.textFieldText)))
+                if(Number.isNaN(Number(u_vec[i])) && !inputForce.checked && parseFloat(u_vec[i]) > 1 / (4 * parseInt(inputN.textFieldText)))
                     error += " - Backward Mutation (u" + (i + 1) + ") of SGV is quite large and might violate the Wright-Fisher assumptions. It should be less than 1/4N. Check 'Force' to ignore. \n \n"
             }
 
             for(i = 0; i < 2; i++) {
-                if(parseFloat(v_vec[i].textFieldText) <= 0)
-                    error += " - Backward Mutation (v" + (i + 1) + ") of SGV is quite small. It must be at least 0. \n \n"
-                if(!inputForce.checked && parseFloat(v_vec[i]) > 1 / (4 * parseInt(inputN.textFieldText)))
-                    error += " - Backward Mutation (v" + (i + 1) + ") of SGV is quite large and might violate the Wright-Fisher assumptions. It should be less than 1/4N. Check 'Force' to ignore. \n \n"
+                if(Number.isNaN(Number(v_vec[i])))
+                    error += " - Forward Mutation (v" + (i + 1) + ") is not a valid number. \n \n"
+                if(Number.isNaN(Number(v_vec[i])) && parseFloat(v_vec[i]) <= 0)
+                    error += " - Forward Mutation (v" + (i + 1) + ") of SGV is quite small. It must be at least 0. \n \n"
+                if(Number.isNaN(Number(v_vec[i])) && !inputForce.checked && parseFloat(v_vec[i]) > 1 / (4 * parseInt(inputN.textFieldText)))
+                    error += " - Forward Mutation (v" + (i + 1) + ") of SGV is quite large and might violate the Wright-Fisher assumptions. It should be less than 1/4N. Check 'Force' to ignore. \n \n"
             }
 
             for(i = 0; i < 2; i++) {
-                if(parseFloat(s_vec[i]) < -1)
+                if(Number.isNaN(Number(s_vec[i])))
+                    error += " - Selection Coefficient (s" + (i + 1) + ") is not a valid number. \n \n"
+                if(Number.isNaN(Number(s_vec[i])) && parseFloat(s_vec[i]) < -1)
                     error += " - Selection Coefficient (s" + (i + 1) + ") of SGV is quite negative. It must be at least -2N \n \n"
-                if(parseFloat(s_vec[i]) > 1 )
+                if(Number.isNaN(Number(s_vec[i])) && parseFloat(s_vec[i]) > 1 )
                     error += " - Selection Coefficient (s" + (i + 1) + ") of SGV is quite large. The maximum value allowed is 2N. \n \n"
             }
         }
         for(i = 0; i < 2; i++) {
-            if(parseFloat(h_vec[i]) < 0)
+            if(Number.isNaN(Number(h_vec[i])))
+                error += " - Dominance Coefficient (h" + (i + 1) + ") is not a valid number. \n \n"
+            if(Number.isNaN(Number(h_vec[i])) && parseFloat(h_vec[i]) < 0)
                 error += " - Dominance Coefficient (h" + (i + 1) + ") is quite small. It must be at least 0. \n \n"
-            if(parseFloat(h_vec[i]) > 1)
+            if(Number.isNaN(Number(h_vec[i])) && parseFloat(h_vec[i]) > 1)
                 error += " - Dominance Coefficient (h" + (i + 1) + ") is quite large. The maximum value allowed is 1. \n \n"
         }
 
+        if(Number.isNaN(Number(inputT.textFieldText)))
+            error += " - Number of Threads (t) is not a valid number. \n \n"
         // Number of threads (t) does not have upper limites, since it depends on the hardware available.
         if(parseInt(inputT.textFieldText) < 1)
             error += " - Number of Threads (t) is quite small, it must be at least 1. \n \n"

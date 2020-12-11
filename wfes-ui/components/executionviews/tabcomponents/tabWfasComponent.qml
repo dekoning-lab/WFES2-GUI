@@ -60,6 +60,21 @@ Component{
                             return "";
                         }
                     }
+                    textFieldTextEdited: function(){
+                        var n_vec = []
+                        for(var i = 0; i < inputControllerWfas.ui_num_comp; i++) {
+                            if(i+1 == number)
+                                n_vec[i] = inputN.textFieldText
+                            else
+                                n_vec[i] = inputControllerWfas.ui_N_vec[i]
+                        }
+                        if(!Number.isNaN(Number(inputN.textFieldText)) && parseInt(inputN.textFieldText) > 1) {
+                            inputControllerWfas.ui_N_vec = n_vec
+                            borderColor = "#555555"
+                        } else {
+                            borderColor = "#ff0000"
+                        }
+                    }
                 }
 
                 LabeledTextField {
@@ -75,6 +90,21 @@ Component{
                             return "";
                         }
                     }
+                    textFieldTextEdited: function(){
+                        var g_vec = []
+                        for(var i = 0; i < inputControllerWfas.ui_num_comp; i++) {
+                            if(i+1 == number)
+                                g_vec[i] = inputG.textFieldText
+                            else
+                                g_vec[i] = inputControllerWfas.ui_G_vec[i]
+                        }
+                        if(!Number.isNaN(Number(inputG.textFieldText)) && parseInt(inputG.textFieldText) > 1) {
+                            inputControllerWfas.ui_G_vec = g_vec
+                            borderColor = "#555555"
+                        } else {
+                            borderColor = "#ff0000"
+                        }
+                    }
                 }
 
                 LabeledTextField {
@@ -88,6 +118,21 @@ Component{
                             return f_vec[number - 1]
                         } else {
                             return "";
+                        }
+                    }
+                    textFieldTextEdited: function(){
+                        var f_vec = []
+                        for(var i = 0; i < inputControllerWfas.ui_num_comp; i++) {
+                            if(i+1 == number)
+                                f_vec[i] = inputF.textFieldText
+                            else
+                                f_vec[i] = inputControllerWfas.ui_f_vec[i]
+                        }
+                        if(!Number.isNaN(Number(inputF.textFieldText)) && parseInt(inputF.textFieldText) > 1) {
+                            inputControllerWfas.ui_f_vec = f_vec
+                            borderColor = "#555555"
+                        } else {
+                            borderColor = "#ff0000"
                         }
                     }
                 }
@@ -140,6 +185,30 @@ Component{
                             return "";
                         }
                     }
+                    textFieldTextEdited: function(){
+                        var u_vec = []
+                        for(var i = 0; i < inputControllerWfas.ui_num_comp; i++) {
+                            if(i+1 == number)
+                                u_vec[i] = inputU.textFieldText
+                            else
+                                u_vec[i] = inputControllerWfas.ui_u_vec[i]
+                        }
+                        if(globalConfiguration.ui_population_scaled) {
+                            if(!Number.isNaN(Number(inputU.textFieldText)) && parseFloat(inputU.textFieldText) >= 0 && parseFloat(inputU.textFieldText) <= 1) {
+                                inputControllerWfas.ui_u_vec = u_vec
+                                borderColor = "#555555"
+                            } else {
+                                borderColor = "#ff0000"
+                            }
+                        } else {
+                            if(!Number.isNaN(Number(inputU.textFieldText)) && parseFloat(inputU.textFieldText) >= 0 && parseFloat(inputU.textFieldText) <= 1 / (4 * parseInt(inputN.textFieldText))) {
+                                inputControllerWfas.ui_u_vec = u_vec
+                                borderColor = "#555555"
+                            } else {
+                                borderColor = "#ff0000"
+                            }
+                        }
+                    }
                 }
 
                 LabeledTextField {
@@ -158,6 +227,30 @@ Component{
                             return v_vec[number - 1]
                         } else {
                             return "";
+                        }
+                    }
+                    textFieldTextEdited: function(){
+                        var v_vec = []
+                        for(var i = 0; i < inputControllerWfas.ui_num_comp; i++) {
+                            if(i+1 == number)
+                                v_vec[i] = inputV.textFieldText
+                            else
+                                v_vec[i] = inputControllerWfas.ui_v_vec[i]
+                        }
+                        if(globalConfiguration.ui_population_scaled) {
+                            if(!Number.isNaN(Number(inputV.textFieldText)) && parseFloat(inputV.textFieldText) >= 0 && parseFloat(inputV.textFieldText) <= 1) {
+                                inputControllerWfas.ui_v_vec = v_vec
+                                borderColor = "#555555"
+                            } else {
+                                borderColor = "#ff0000"
+                            }
+                        } else {
+                            if(!Number.isNaN(Number(inputV.textFieldText)) && parseFloat(inputV.textFieldText) >= 0 && parseFloat(inputV.textFieldText) <= 1 / (4 * parseInt(inputN.textFieldText))) {
+                                inputControllerWfas.ui_v_vec = v_vec
+                                borderColor = "#555555"
+                            } else {
+                                borderColor = "#ff0000"
+                            }
                         }
                     }
                 }
@@ -212,6 +305,30 @@ Component{
                             return "";
                         }
                     }
+                    textFieldTextEdited: function(){
+                        var s_vec = []
+                        for(var i = 0; i < inputControllerWfas.ui_num_comp; i++) {
+                            if(i+1 == number)
+                                s_vec[i] = inputS.textFieldText
+                            else
+                                s_vec[i] = inputControllerWfas.ui_s_vec[i]
+                        }
+                        if(globalConfiguration.ui_population_scaled) {
+                            if(!Number.isNaN(Number(inputS.textFieldText)) && parseFloat(inputS.textFieldText) >= -1 * (2 * parseInt(inputN.textFieldText)) && parseFloat(inputS.textFieldText) <= 1 * (2 * parseInt(inputN.textFieldText))) {
+                                inputControllerWfas.ui_s_vec = s_vec
+                                borderColor = "#555555"
+                            } else {
+                                borderColor = "#ff0000"
+                            }
+                        } else {
+                            if(!Number.isNaN(Number(inputS.textFieldText)) && parseFloat(inputS.textFieldText) >= -1 && parseFloat(inputS.textFieldText) <= 1) {
+                                inputControllerWfas.ui_s_vec = s_vec
+                                borderColor = "#555555"
+                            } else {
+                                borderColor = "#ff0000"
+                            }
+                        }
+                    }
                 }
 
                 LabeledTextField {
@@ -225,6 +342,21 @@ Component{
                             return h_vec[number - 1]
                         } else {
                             return "";
+                        }
+                    }
+                    textFieldTextEdited: function(){
+                        var h_vec = []
+                        for(var i = 0; i < inputControllerWfas.ui_num_comp; i++) {
+                            if(i+1 == number)
+                                h_vec[i] = inputH.textFieldText
+                            else
+                                h_vec[i] = inputControllerWfas.ui_h_vec[i]
+                        }
+                        if(!Number.isNaN(Number(inputH.textFieldText)) && parseFloat(inputH.textFieldText) >= 0 && parseFloat(inputH.textFieldText) <= 1) {
+                            inputControllerWfas.ui_h_vec = h_vec
+                            borderColor = "#555555"
+                        } else {
+                            borderColor = "#ff0000"
                         }
                     }
                 }

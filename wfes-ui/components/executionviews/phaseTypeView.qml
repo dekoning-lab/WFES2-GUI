@@ -27,10 +27,29 @@ ApplicationWindow {
     Universal.theme: Universal.Light
 
     onClosing: {
-        rootPhaseType.hide();
-        root.visible = true;
-        rootPhaseType.updateBackend()
-        outputControllerPhaseType.ui_save_config
+        close.accepted = false
+
+        if(checkIntegrity() !== "") {
+            messageDialogOnClose.text = "Some input parameters are incorrect. The configuration will be available in this session, but cannot be saved for future sessions until you fix those values. Do you want to exit anyway?"
+            messageDialogOnClose.open()
+        } else {
+            rootPhaseType.hide();
+            root.visible = true;
+            rootPhaseType.updateBackend()
+            outputControllerPhaseType.ui_save_config
+        }
+    }
+
+    MessageDialog {
+        id: messageDialogOnClose
+        title: "Warning"
+        text: ""
+        icon: StandardIcon.Warning
+        standardButtons: Dialog.Ok | Dialog.Cancel
+        onAccepted: {
+            rootPhaseType.hide();
+            root.visible = true;
+        }
     }
 
     Component.onCompleted: {
@@ -193,6 +212,14 @@ ApplicationWindow {
                                 toolTipText: "Size of the population in the Wright Fisher Model."
                                 validator: IntValidator {bottom: 2; top: 500000;}
                                 textFieldText: inputControllerPhaseType.ui_n
+                                textFieldTextEdited: function(){
+                                    if(!Number.isNaN(Number(inputN.textFieldText)) && parseInt(inputN.textFieldText) > 1) {
+                                        inputControllerPhaseType.ui_n = inputN.textFieldText
+                                        borderColor = "#555555"
+                                    } else {
+                                        borderColor = "#ff0000"
+                                    }
+                                }
                             }
 
                             LabeledTextField {
@@ -201,6 +228,14 @@ ApplicationWindow {
                                 toolTipText: "Tail truncation weight."
                                 validator: DoubleValidator {bottom: 0; top: 10e-10;}
                                 textFieldText: inputControllerPhaseType.ui_a
+                                textFieldTextEdited: function(){
+                                    if(!Number.isNaN(Number(inputA.textFieldText)) && parseFloat(inputA.textFieldText) >= 0) {
+                                        inputControllerPhaseType.ui_a = inputA.textFieldText
+                                        borderColor = "#555555"
+                                    } else {
+                                        borderColor = "#ff0000"
+                                    }
+                                }
                             }
 
                             LabeledTextField {
@@ -210,6 +245,14 @@ ApplicationWindow {
                                 validator: DoubleValidator {bottom: 0; top: 10e-3;}
                                 textFieldText: inputControllerPhaseType.ui_c
                                 enabled: inputControllerPhaseType.ui_modelType == "Phase Type Dist."
+                                textFieldTextEdited: function(){
+                                    if(!Number.isNaN(Number(inputC.textFieldText)) && parseFloat(inputC.textFieldText) >= 0) {
+                                        inputControllerPhaseType.ui_c = inputC.textFieldText
+                                        borderColor = "#555555"
+                                    } else {
+                                        borderColor = "#ff0000"
+                                    }
+                                }
                             }
 
                             LabeledTextField {
@@ -219,14 +262,31 @@ ApplicationWindow {
                                 validator: IntValidator {bottom: 2;}
                                 textFieldText: inputControllerPhaseType.ui_m
                                 enabled: inputControllerPhaseType.ui_modelType == "Phase Type Dist."
+                                textFieldTextEdited: function(){
+                                    if(!Number.isNaN(Number(inputM.textFieldText)) && parseInt(inputM.textFieldText) > 1) {
+                                        inputControllerPhaseType.ui_m = inputM.textFieldText
+                                        borderColor = "#555555"
+                                    } else {
+                                        borderColor = "#ff0000"
+                                    }
+                                }
                             }
 
                             LabeledTextField {
                                 id: inputK
                                 text: "k: "
+                                validator: IntValidator {bottom: 1;}
                                 toolTipText: "Number of Moments."
                                 textFieldText: inputControllerPhaseType.ui_k
                                 enabled: inputControllerPhaseType.ui_modelType == "Phase Type Moments"
+                                textFieldTextEdited: function(){
+                                    if(!Number.isNaN(Number(inputK.textFieldText)) && parseInt(inputK.textFieldText) >= 1) {
+                                        inputControllerPhaseType.ui_k = inputK.textFieldText
+                                        borderColor = "#555555"
+                                    } else {
+                                        borderColor = "#ff0000"
+                                    }
+                                }
                             }
                         }
 
@@ -272,6 +332,23 @@ ApplicationWindow {
                                 toolTipText: "Backward mutation rate."
                                 validator: DoubleValidator {bottom: 0;}
                                 textFieldText: inputControllerPhaseType.ui_u
+                                textFieldTextEdited: function(){
+                                    if(globalConfiguration.ui_population_scaled) {
+                                        if(!Number.isNaN(Number(inputU.textFieldText)) && parseFloat(inputU.textFieldText) >= 0 && parseFloat(inputU.textFieldText) <= 1) {
+                                            inputControllerPhaseType.ui_u = inputU.textFieldText
+                                            borderColor = "#555555"
+                                        } else {
+                                            borderColor = "#ff0000"
+                                        }
+                                    } else {
+                                        if(!Number.isNaN(Number(inputU.textFieldText)) && parseFloat(inputU.textFieldText) >= 0 && parseFloat(inputU.textFieldText) <= 1 / (4 * parseInt(inputN.textFieldText))) {
+                                            inputControllerPhaseType.ui_u = inputU.textFieldText
+                                            borderColor = "#555555"
+                                        } else {
+                                            borderColor = "#ff0000"
+                                        }
+                                    }
+                                }
                             }
 
                             LabeledTextField {
@@ -285,6 +362,23 @@ ApplicationWindow {
                                 toolTipText: "Forward mutation rate."
                                 validator: DoubleValidator {bottom: 0;}
                                 textFieldText: inputControllerPhaseType.ui_v
+                                textFieldTextEdited: function(){
+                                    if(globalConfiguration.ui_population_scaled) {
+                                        if(!Number.isNaN(Number(inputV.textFieldText)) && parseFloat(inputV.textFieldText) >= 0 && parseFloat(inputV.textFieldText) <= 1) {
+                                            inputControllerPhaseType.ui_v = inputV.textFieldText
+                                            borderColor = "#555555"
+                                        } else {
+                                            borderColor = "#ff0000"
+                                        }
+                                    } else {
+                                        if(!Number.isNaN(Number(inputV.textFieldText)) && parseFloat(inputV.textFieldText) >= 0 && parseFloat(inputV.textFieldText) <= 1 / (4 * parseInt(inputN.textFieldText))) {
+                                            inputControllerPhaseType.ui_v = inputV.textFieldText
+                                            borderColor = "#555555"
+                                        } else {
+                                            borderColor = "#ff0000"
+                                        }
+                                    }
+                                }
                             }
 
                             LabeledCheckBox {
@@ -336,6 +430,23 @@ ApplicationWindow {
                                 toolTipText: "Selection coefficient."
                                 validator: DoubleValidator {bottom: -1; top: 1;}
                                 textFieldText: inputControllerPhaseType.ui_s
+                                textFieldTextEdited: function(){
+                                    if(globalConfiguration.ui_population_scaled) {
+                                        if(!Number.isNaN(Number(inputS.textFieldText)) && parseFloat(inputS.textFieldText) >= -1 * (2 * parseInt(inputN.textFieldText)) && parseFloat(inputS.textFieldText) <= 1 * (2 * parseInt(inputN.textFieldText))) {
+                                            inputControllerPhaseType.ui_s = inputS.textFieldText
+                                            borderColor = "#555555"
+                                        } else {
+                                            borderColor = "#ff0000"
+                                        }
+                                    } else {
+                                        if(!Number.isNaN(Number(inputS.textFieldText)) && parseFloat(inputS.textFieldText) >= -1 && parseFloat(inputS.textFieldText) <= 1) {
+                                            inputControllerPhaseType.ui_s = inputS.textFieldText
+                                            borderColor = "#555555"
+                                        } else {
+                                            borderColor = "#ff0000"
+                                        }
+                                    }
+                                }
                             }
 
                             LabeledTextField {
@@ -344,6 +455,14 @@ ApplicationWindow {
                                 toolTipText: "Dominance coefficient."
                                 validator: DoubleValidator {bottom: 0; top: 1;}
                                 textFieldText: inputControllerPhaseType.ui_h
+                                textFieldTextEdited: function(){
+                                    if(!Number.isNaN(Number(inputH.textFieldText)) && parseFloat(inputH.textFieldText) >= 0 && parseFloat(inputH.textFieldText) <= 1) {
+                                        inputControllerPhaseType.ui_h = inputH.textFieldText
+                                        borderColor = "#555555"
+                                    } else {
+                                        borderColor = "#ff0000"
+                                    }
+                                }
                             }
 
                         }
@@ -482,6 +601,14 @@ ApplicationWindow {
                                             labelPreferredWidth: 10
                                             validator: IntValidator {bottom: 1;}
                                             textFieldText: inputControllerPhaseType.ui_t
+                                            textFieldTextEdited: function(){
+                                                if(!Number.isNaN(Number(inputT.textFieldText)) && parseInt(inputT.textFieldText) >= 1) {
+                                                    inputControllerPhaseType.ui_t = inputT.textFieldText
+                                                    borderColor = "#555555"
+                                                } else {
+                                                    borderColor = "#ff0000"
+                                                }
+                                            }
                                         }
                                     }
 
@@ -494,6 +621,14 @@ ApplicationWindow {
                                         validator: IntValidator {bottom: 1;}
                                         enabled: radioButtonPhaseTypeDist.checked
                                         textFieldText: inputControllerPhaseType.ui_sampling_frequency
+                                        textFieldTextEdited: function(){
+                                            if(!Number.isNaN(Number(inputSamplingFrequency.textFieldText)) && parseInt(inputSamplingFrequency.textFieldText) >= 1 && parseInt(inputSamplingFrequency.textFieldText) <= parseInt(inputN.textFieldText)) {
+                                                inputControllerPhaseType.ui_sampling_frequency = inputSamplingFrequency.textFieldText
+                                                borderColor = "#555555"
+                                            } else {
+                                                borderColor = "#ff0000"
+                                            }
+                                        }
                                     }
 
                                     LabeledComboBox {
@@ -584,9 +719,9 @@ ApplicationWindow {
                             onClicked: {
                                 var error = checkIntegrity()
 
-                                updateBackend()
 
                                 if(error === "") {
+                                    updateBackend()
                                     executeButton.enabled = false
                                     stopButton.enabled = true
                                     bottomMenu.visibleProgressBar = true
@@ -841,73 +976,103 @@ ApplicationWindow {
     function checkIntegrity() {
         var error = ""
 
+        if(Number.isNaN(Number(inputN.textFieldText)))
+            error += " - Population Size (N) is not a valid number. \n \n"
         if(parseInt(inputN.textFieldText) < 2)
             error += " - Population Size (N) is quite small, it must be at least 2. \n \n"
         if(!inputForce.checked && parseInt(inputN.textFieldText) > 50000)
             error += " - Population Size (N) is quite large, the computations will take a long time. Check 'Force' to ignore. \n \n"
 
+        if(Number.isNaN(Number(inputA.textFieldText)))
+            error += " - Tail Truncation Cutoff (a) is not a valid number. \n \n"
         if(parseFloat(inputA.textFieldText) < 0)
             error += " - Tail Truncation Cutoff (a) is quite small. It must be at least 0. \n \n"
         if(!inputForce.checked && parseFloat(inputA.textFieldText) > 1e-5)
             error += " - Tail Truncation Cutoff (a) value is quite high. This might produce inaccurate results. A good value should be between 0 and 10e-10. Check 'Force' to ignore. \n \n"
 
+        if(Number.isNaN(Number(inputC.textFieldText)))
+            error += " - Integration Cutoff (c) is not a valid number. \n \n"
         if(parseFloat(inputC.textFieldText) < 0)
             error += " - Integration Cutoff (c) is quite small. It must be at least 0. \n \n"
         if(parseFloat(inputC.textFieldText) > 1)
             error += " - Integration Cutoff (c) is quite large. The maximum value allowed is 10e-3. \n \n"
 
+        if(Number.isNaN(Number(inputM.textFieldText)))
+            error += " - Maximum Number of Generations (m) is not a valid number. \n \n"
         if(parseInt(inputM.textFieldText) < 2)
             error += " - Maximum Number of Generations (m) is quite small, it must be at least 2. \n \n"
         // Deleted limit for m in phase_type_dist.
 
+        if(Number.isNaN(Number(inputK.textFieldText)))
+            error += " - Number of Moments (k) is not a valid number. \n \n"
         // Moments (k) does not have upper limits, at least in the code. The default value is 20.
-        if(parseInt(inputK.textFieldText) < 2)
+        if(parseInt(inputK.textFieldText) < 1)
             error += " - Number of Moments (k) is quite small, it must be at least 1. \n \n"
 
         if(globalConfiguration.ui_population_scaled) {
+            if(Number.isNaN(Number(inputU.textFieldText)))
+                error += " - Backward Mutation (u) is not a valid number. \n \n"
             if(parseFloat(inputU.textFieldText) <= 0)
                 error += " - Backward Mutation (u) is quite small. It must be at least 0. \n \n"
             if(!inputForce.checked && parseFloat(inputU.textFieldText) > 1)
                 error += " - Backward Mutation (u) is quite large and might violate the Wright-Fisher assumptions. It should be less than 1. Check 'Force' to ignore. \n \n"
 
+            if(Number.isNaN(Number(inputV.textFieldText)))
+                error += " - Forward Mutation (v) is not a valid number. \n \n"
             if(parseFloat(inputV.textFieldText) <= 0)
                 error += " - Forward Mutation (v) is quite small. It must be at least 0. \n \n"
             if(!inputForce.checked && parseFloat(inputV.textFieldText) > 1)
                 error += " - Forward Mutation (v) is quite large and might violate the Wright-Fisher assumptions. It should be less than 1. Check 'Force' to ignore. \n \n"
 
+            if(Number.isNaN(Number(inputS.textFieldText)))
+                error += " - Selection Coefficient (s) is not a valid number. \n \n"
             if(parseFloat(inputS.textFieldText) < -1 * (2 * parseInt(inputN.textFieldText)))
                 error += " - Selection Coefficient (s) is quite small. It must be at least -2N. \n \n"
             if(parseFloat(inputS.textFieldText) > 1 * (2 * parseInt(inputN.textFieldText)))
                 error += " - Selection Coefficient (s) is quite large. The maximum value allowed is 2N. \n \n"
         } else {
+            if(Number.isNaN(Number(inputU.textFieldText)))
+                error += " - Backward Mutation (u) is not a valid number. \n \n"
             if(parseFloat(inputU.textFieldText) <= 0)
                 error += " - Backward Mutation (u) is quite small. It must be at least 0. \n \n"
             if(!inputForce.checked && parseFloat(inputU.textFieldText) > 1 / (4 * parseInt(inputN.textFieldText)))
                 error += " - Backward Mutation (u) is quite large and might violate the Wright-Fisher assumptions. It should be less than 1/4N. Check 'Force' to ignore. \n \n"
 
+            if(Number.isNaN(Number(inputV.textFieldText)))
+                error += " - Forward Mutation (v) is not a valid number. \n \n"
             if(parseFloat(inputV.textFieldText) <= 0)
                 error += " - Forward Mutation (v) is quite small. It must be at least 0. \n \n"
             if(!inputForce.checked && parseFloat(inputV.textFieldText) > 1 / (4 * parseInt(inputN.textFieldText)))
                 error += " - Forward Mutation (v) is quite large and might violate the Wright-Fisher assumptions. It should be less than 1/4N. Check 'Force' to ignore. \n \n"
 
+            if(Number.isNaN(Number(inputS.textFieldText)))
+                error += " - Selection Coefficient (s) is not a valid number. \n \n"
             if(parseFloat(inputS.textFieldText) < -1)
                 error += " - Selection Coefficient (s) is quite small. It must be at least -1. \n \n"
             if(parseFloat(inputS.textFieldText) > 1)
                 error += " - Selection Coefficient (s) is quite large. The maximum value allowed is 1. \n \n"
         }
 
+        if(Number.isNaN(Number(inputH.textFieldText)))
+            error += " - Dominance Coefficient (h) is not a valid number. \n \n"
         if(parseFloat(inputH.textFieldText) < 0)
             error += " - Dominance Coefficient (h) is quite small. It must be at least 0. \n \n"
         if(parseFloat(inputH.textFieldText) > 1)
             error += " - Dominance Coefficient (h) is quite large. The maximum value allowed is 1. \n \n"
 
+        if(Number.isNaN(Number(inputT.textFieldText)))
+            error += " - Number of Threads (t) is not a valid number. \n \n"
         // Number of threads (t) does not have upper limites, since it depends on the hardware available.
         if(parseInt(inputT.textFieldText) < 1)
             error += " - Number of Threads (t) is quite small, it must be at least 1. \n \n"
 
+        if(Number.isNaN(Number(inputSamplingFrequency.textFieldText)))
+            error += " - Sampling frequency (Sf) is not a valid number. \n \n"
         // Sampling frequency does not have upper limites, since it depends on the hardware available.
         if(parseInt(inputSamplingFrequency.textFieldText) < 1)
             error += " - Sampling frequency (Sf) is quite small, it must be at least 1. \n \n"
+        if(parseInt(inputSamplingFrequency.textFieldText) > parseInt(inputN.textFieldText))
+            error += " - Sampling frequency (Sf) is quite large. The maximum value allowed is N. \n \n"
 
         //TODO Check if Initial Distribution (I) file exists.
 

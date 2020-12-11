@@ -7,6 +7,8 @@ import QtQuick.Controls.Universal 2.3
 import components 1.0
 import assets 1.0
 
+import QtGraphicalEffects 1.0
+
 
 Rectangle {
     property alias text: label.text
@@ -16,7 +18,8 @@ Rectangle {
     property int textFieldPreferredWidth: 95
     property alias readOnly: textField.readOnly
     property string toolTipText: "This is a tooltip"
-    property var fun: function(){}
+    property var textFieldTextEdited: function(){}
+    property string borderColor: "#555555"
 
     color: "transparent"
     width: childrenRect.width
@@ -47,7 +50,16 @@ Rectangle {
             focus: false
             leftPadding: 5
             selectByMouse: true
-            onTextChanged: fun()
+            inputMethodHints: Qt.ImhNoPredictiveText;
+            onTextEdited: {
+                textFieldTextEdited()
+            }
+            background: Rectangle {
+                id: wrongValue
+                border.color: borderColor
+                border.width: 2
+            }
         }
+
     }
 }

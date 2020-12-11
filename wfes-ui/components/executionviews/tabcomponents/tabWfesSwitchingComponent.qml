@@ -59,6 +59,21 @@ Component{
                             return "";
                         }
                     }
+                    textFieldTextEdited: function(){
+                        var n_vec = []
+                        for(var i = 0; i < inputControllerWfesSwitching.ui_num_comp; i++) {
+                            if(i+1 == number)
+                                n_vec[i] = inputN.textFieldText
+                            else
+                                n_vec[i] = inputControllerWfesSwitching.ui_N_vec[i]
+                        }
+                        if(!Number.isNaN(Number(inputN.textFieldText)) && parseInt(inputN.textFieldText) > 1) {
+                            inputControllerWfesSwitching.ui_N_vec = n_vec
+                            borderColor = "#555555"
+                        } else {
+                            borderColor = "#ff0000"
+                        }
+                    }
                 }
 
                 LabeledTextField {
@@ -74,6 +89,21 @@ Component{
                             return "";
                         }
                     }
+                    textFieldTextEdited: function(){
+                        var p_vec = []
+                        for(var i = 0; i < inputControllerWfesSwitching.ui_num_comp; i++) {
+                            if(i+1 == number)
+                                p_vec[i] = inputP.textFieldText
+                            else
+                                p_vec[i] = inputControllerWfesSwitching.ui_p_vec[i]
+                        }
+                        if(!Number.isNaN(Number(inputP.textFieldText)) && parseFloat(inputP.textFieldText) >= 0) {
+                            inputControllerWfesSwitching.ui_p_vec = p_vec
+                            borderColor = "#555555"
+                        } else {
+                            borderColor = "#ff0000"
+                        }
+                    }
                 }
 
                 LabeledTextField {
@@ -81,6 +111,7 @@ Component{
                     text: "r<sub>" + number + "</sub>: "
                     toolTipText: "Transition probability matrix between the WF component models."
                     textFieldPreferredWidth: 235
+                    Layout.columnSpan: 2
                     textFieldText: {
                         if(number != 0) {
                             var r_vec = inputControllerWfesSwitching.ui_r_vec
@@ -89,7 +120,35 @@ Component{
                             return "";
                         }
                     }
-                    Layout.columnSpan: 2
+                    textFieldTextEdited: function(){
+                        var r_vec = []
+                        for(var i = 0; i < inputControllerWfesSwitching.ui_num_comp; i++) {
+                            if(i+1 == number)
+                                r_vec[i] = inputR.textFieldText
+                            else
+                                r_vec[i] = inputControllerWfesSwitching.ui_r_vec[i]
+                        }
+
+                        var splitted = inputR.textFieldText.split(", ")
+
+                        console.log(splitted.length)
+                        console.log(inputControllerWfesSwitching.ui_num_comp)
+
+                        if(splitted.length !== parseInt(inputControllerWfesSwitching.ui_num_comp))
+                            borderColor = "#ff0000"
+                        else {
+                            for(i = 0; i < splitted.length; i++) {
+                                if(splitted[i] !== "" && !Number.isNaN(Number(splitted[i])) && parseFloat(splitted[i]) >= 0 && parseFloat(splitted[i]) <= 1) {
+                                    borderColor = "#555555"
+                                } else {
+                                    borderColor = "#ff0000"
+                                    break;
+                                }
+                            }
+                        }
+                        if(borderColor !== "#ff0000")
+                            inputControllerWfesSwitching.ui_r_vec = r_vec
+                    }
                 }
 
             }
@@ -141,6 +200,30 @@ Component{
                             return "";
                         }
                     }
+                    textFieldTextEdited: function(){
+                        var u_vec = []
+                        for(var i = 0; i < inputControllerWfesSwitching.ui_num_comp; i++) {
+                            if(i+1 == number)
+                                u_vec[i] = inputU.textFieldText
+                            else
+                                u_vec[i] = inputControllerWfesSwitching.ui_u_vec[i]
+                        }
+                        if(globalConfiguration.ui_population_scaled) {
+                            if(!Number.isNaN(Number(inputU.textFieldText)) && parseFloat(inputU.textFieldText) >= 0 && parseFloat(inputU.textFieldText) <= 1) {
+                                inputControllerWfesSwitching.ui_u_vec = u_vec
+                                borderColor = "#555555"
+                            } else {
+                                borderColor = "#ff0000"
+                            }
+                        } else {
+                            if(!Number.isNaN(Number(inputU.textFieldText)) && parseFloat(inputU.textFieldText) >= 0 && parseFloat(inputU.textFieldText) <= 1 / (4 * parseInt(inputN.textFieldText))) {
+                                inputControllerWfesSwitching.ui_u_vec = u_vec
+                                borderColor = "#555555"
+                            } else {
+                                borderColor = "#ff0000"
+                            }
+                        }
+                    }
                 }
 
                 LabeledTextField {
@@ -159,6 +242,30 @@ Component{
                             return v_vec[number - 1]
                         } else {
                             return "";
+                        }
+                    }
+                    textFieldTextEdited: function(){
+                        var v_vec = []
+                        for(var i = 0; i < inputControllerWfesSwitching.ui_num_comp; i++) {
+                            if(i+1 == number)
+                                v_vec[i] = inputV.textFieldText
+                            else
+                                v_vec[i] = inputControllerWfesSwitching.ui_v_vec[i]
+                        }
+                        if(globalConfiguration.ui_population_scaled) {
+                            if(!Number.isNaN(Number(inputV.textFieldText)) && parseFloat(inputV.textFieldText) >= 0 && parseFloat(inputV.textFieldText) <= 1) {
+                                inputControllerWfesSwitching.ui_v_vec = v_vec
+                                borderColor = "#555555"
+                            } else {
+                                borderColor = "#ff0000"
+                            }
+                        } else {
+                            if(!Number.isNaN(Number(inputV.textFieldText)) && parseFloat(inputV.textFieldText) >= 0 && parseFloat(inputV.textFieldText) <= 1 / (4 * parseInt(inputN.textFieldText))) {
+                                inputControllerWfesSwitching.ui_v_vec = v_vec
+                                borderColor = "#555555"
+                            } else {
+                                borderColor = "#ff0000"
+                            }
                         }
                     }
                 }
@@ -210,6 +317,29 @@ Component{
                         } else {
                             return "";
                         }
+                    }textFieldTextEdited: function(){
+                        var s_vec = []
+                        for(var i = 0; i < inputControllerWfesSequential.ui_num_comp; i++) {
+                            if(i+1 == number)
+                                s_vec[i] = inputS.textFieldText
+                            else
+                                s_vec[i] = inputControllerWfesSequential.ui_s_vec[i]
+                        }
+                        if(globalConfiguration.ui_population_scaled) {
+                            if(!Number.isNaN(Number(inputS.textFieldText)) && parseFloat(inputS.textFieldText) >= -1 * (2 * parseInt(inputN.textFieldText)) && parseFloat(inputS.textFieldText) <= 1 * (2 * parseInt(inputN.textFieldText))) {
+                                inputControllerWfesSequential.ui_s_vec = s_vec
+                                borderColor = "#555555"
+                            } else {
+                                borderColor = "#ff0000"
+                            }
+                        } else {
+                            if(!Number.isNaN(Number(inputS.textFieldText)) && parseFloat(inputS.textFieldText) >= -1 && parseFloat(inputS.textFieldText) <= 1) {
+                                inputControllerWfesSequential.ui_s_vec = s_vec
+                                borderColor = "#555555"
+                            } else {
+                                borderColor = "#ff0000"
+                            }
+                        }
                     }
                 }
 
@@ -224,6 +354,21 @@ Component{
                             return h_vec[number - 1]
                         } else {
                             return "";
+                        }
+                    }
+                    textFieldTextEdited: function(){
+                        var h_vec = []
+                        for(var i = 0; i < inputControllerWfesSequential.ui_num_comp; i++) {
+                            if(i+1 == number)
+                                h_vec[i] = inputH.textFieldText
+                            else
+                                h_vec[i] = inputControllerWfesSequential.ui_h_vec[i]
+                        }
+                        if(!Number.isNaN(Number(inputH.textFieldText)) && parseFloat(inputH.textFieldText) >= 0 && parseFloat(inputH.textFieldText) <= 1) {
+                            inputControllerWfesSequential.ui_h_vec = h_vec
+                            borderColor = "#555555"
+                        } else {
+                            borderColor = "#ff0000"
                         }
                     }
                 }
