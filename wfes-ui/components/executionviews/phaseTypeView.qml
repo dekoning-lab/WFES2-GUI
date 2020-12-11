@@ -280,7 +280,7 @@ ApplicationWindow {
                                 textFieldText: inputControllerPhaseType.ui_k
                                 enabled: inputControllerPhaseType.ui_modelType == "Phase Type Moments"
                                 textFieldTextEdited: function(){
-                                    if(!Number.isNaN(Number(inputK.textFieldText)) && parseInt(inputK.textFieldText) >= 1) {
+                                    if(!Number.isNaN(Number(inputK.textFieldText)) && parseInt(inputK.textFieldText) >= 2) {
                                         inputControllerPhaseType.ui_k = inputK.textFieldText
                                         borderColor = "#555555"
                                     } else {
@@ -622,7 +622,7 @@ ApplicationWindow {
                                         enabled: radioButtonPhaseTypeDist.checked
                                         textFieldText: inputControllerPhaseType.ui_sampling_frequency
                                         textFieldTextEdited: function(){
-                                            if(!Number.isNaN(Number(inputSamplingFrequency.textFieldText)) && parseInt(inputSamplingFrequency.textFieldText) >= 1 && parseInt(inputSamplingFrequency.textFieldText) <= parseInt(inputN.textFieldText)) {
+                                            if(!Number.isNaN(Number(inputSamplingFrequency.textFieldText)) && parseInt(inputSamplingFrequency.textFieldText) >= 1 && parseInt(inputSamplingFrequency.textFieldText) <= parseInt(inputM.textFieldText)) {
                                                 inputControllerPhaseType.ui_sampling_frequency = inputSamplingFrequency.textFieldText
                                                 borderColor = "#555555"
                                             } else {
@@ -976,6 +976,8 @@ ApplicationWindow {
     function checkIntegrity() {
         var error = ""
 
+        if(inputN.textFieldText == "")
+            error += " - Population Size (N) is empty. \n \n"
         if(Number.isNaN(Number(inputN.textFieldText)))
             error += " - Population Size (N) is not a valid number. \n \n"
         if(parseInt(inputN.textFieldText) < 2)
@@ -983,6 +985,8 @@ ApplicationWindow {
         if(!inputForce.checked && parseInt(inputN.textFieldText) > 50000)
             error += " - Population Size (N) is quite large, the computations will take a long time. Check 'Force' to ignore. \n \n"
 
+        if(inputA.textFieldText == "")
+            error += " - Tail Truncation Cutoff (a) is empty. \n \n"
         if(Number.isNaN(Number(inputA.textFieldText)))
             error += " - Tail Truncation Cutoff (a) is not a valid number. \n \n"
         if(parseFloat(inputA.textFieldText) < 0)
@@ -990,6 +994,8 @@ ApplicationWindow {
         if(!inputForce.checked && parseFloat(inputA.textFieldText) > 1e-5)
             error += " - Tail Truncation Cutoff (a) value is quite high. This might produce inaccurate results. A good value should be between 0 and 10e-10. Check 'Force' to ignore. \n \n"
 
+        if(inputC.textFieldText == "")
+            error += " - Integration Cutoff (c) is empty. \n \n"
         if(Number.isNaN(Number(inputC.textFieldText)))
             error += " - Integration Cutoff (c) is not a valid number. \n \n"
         if(parseFloat(inputC.textFieldText) < 0)
@@ -997,19 +1003,25 @@ ApplicationWindow {
         if(parseFloat(inputC.textFieldText) > 1)
             error += " - Integration Cutoff (c) is quite large. The maximum value allowed is 10e-3. \n \n"
 
+        if(inputM.textFieldText == "")
+            error += " - Maximum Number of Generations (m) is empty. \n \n"
         if(Number.isNaN(Number(inputM.textFieldText)))
             error += " - Maximum Number of Generations (m) is not a valid number. \n \n"
         if(parseInt(inputM.textFieldText) < 2)
             error += " - Maximum Number of Generations (m) is quite small, it must be at least 2. \n \n"
         // Deleted limit for m in phase_type_dist.
 
+        if(inputK.textFieldText == "")
+            error += " - Number of Moments (k) is empty. \n \n"
         if(Number.isNaN(Number(inputK.textFieldText)))
             error += " - Number of Moments (k) is not a valid number. \n \n"
         // Moments (k) does not have upper limits, at least in the code. The default value is 20.
-        if(parseInt(inputK.textFieldText) < 1)
-            error += " - Number of Moments (k) is quite small, it must be at least 1. \n \n"
+        if(parseInt(inputK.textFieldText) < 2)
+            error += " - Number of Moments (k) is quite small, it must be at least 2. \n \n"
 
         if(globalConfiguration.ui_population_scaled) {
+            if(inputU.textFieldText == "")
+                error += " - Backward Mutation (u) is empty. \n \n"
             if(Number.isNaN(Number(inputU.textFieldText)))
                 error += " - Backward Mutation (u) is not a valid number. \n \n"
             if(parseFloat(inputU.textFieldText) <= 0)
@@ -1017,6 +1029,8 @@ ApplicationWindow {
             if(!inputForce.checked && parseFloat(inputU.textFieldText) > 1)
                 error += " - Backward Mutation (u) is quite large and might violate the Wright-Fisher assumptions. It should be less than 1. Check 'Force' to ignore. \n \n"
 
+            if(inputV.textFieldText == "")
+                error += " - Forward Mutation (v) is empty. \n \n"
             if(Number.isNaN(Number(inputV.textFieldText)))
                 error += " - Forward Mutation (v) is not a valid number. \n \n"
             if(parseFloat(inputV.textFieldText) <= 0)
@@ -1024,6 +1038,8 @@ ApplicationWindow {
             if(!inputForce.checked && parseFloat(inputV.textFieldText) > 1)
                 error += " - Forward Mutation (v) is quite large and might violate the Wright-Fisher assumptions. It should be less than 1. Check 'Force' to ignore. \n \n"
 
+            if(inputS.textFieldText == "")
+                error += " - Selection Coefficient (s) is empty. \n \n"
             if(Number.isNaN(Number(inputS.textFieldText)))
                 error += " - Selection Coefficient (s) is not a valid number. \n \n"
             if(parseFloat(inputS.textFieldText) < -1 * (2 * parseInt(inputN.textFieldText)))
@@ -1031,6 +1047,8 @@ ApplicationWindow {
             if(parseFloat(inputS.textFieldText) > 1 * (2 * parseInt(inputN.textFieldText)))
                 error += " - Selection Coefficient (s) is quite large. The maximum value allowed is 2N. \n \n"
         } else {
+            if(inputU.textFieldText == "")
+                error += " - Backward Mutation (u) is empty. \n \n"
             if(Number.isNaN(Number(inputU.textFieldText)))
                 error += " - Backward Mutation (u) is not a valid number. \n \n"
             if(parseFloat(inputU.textFieldText) <= 0)
@@ -1038,6 +1056,8 @@ ApplicationWindow {
             if(!inputForce.checked && parseFloat(inputU.textFieldText) > 1 / (4 * parseInt(inputN.textFieldText)))
                 error += " - Backward Mutation (u) is quite large and might violate the Wright-Fisher assumptions. It should be less than 1/4N. Check 'Force' to ignore. \n \n"
 
+            if(inputV.textFieldText == "")
+                error += " - Forward Mutation (v) is empty. \n \n"
             if(Number.isNaN(Number(inputV.textFieldText)))
                 error += " - Forward Mutation (v) is not a valid number. \n \n"
             if(parseFloat(inputV.textFieldText) <= 0)
@@ -1045,6 +1065,8 @@ ApplicationWindow {
             if(!inputForce.checked && parseFloat(inputV.textFieldText) > 1 / (4 * parseInt(inputN.textFieldText)))
                 error += " - Forward Mutation (v) is quite large and might violate the Wright-Fisher assumptions. It should be less than 1/4N. Check 'Force' to ignore. \n \n"
 
+            if(inputS.textFieldText == "")
+                error += " - Selection Coefficient (s) is empty. \n \n"
             if(Number.isNaN(Number(inputS.textFieldText)))
                 error += " - Selection Coefficient (s) is not a valid number. \n \n"
             if(parseFloat(inputS.textFieldText) < -1)
@@ -1053,6 +1075,8 @@ ApplicationWindow {
                 error += " - Selection Coefficient (s) is quite large. The maximum value allowed is 1. \n \n"
         }
 
+        if(inputH.textFieldText == "")
+            error += " - Dominance Coefficient (h) is empty. \n \n"
         if(Number.isNaN(Number(inputH.textFieldText)))
             error += " - Dominance Coefficient (h) is not a valid number. \n \n"
         if(parseFloat(inputH.textFieldText) < 0)
@@ -1060,19 +1084,23 @@ ApplicationWindow {
         if(parseFloat(inputH.textFieldText) > 1)
             error += " - Dominance Coefficient (h) is quite large. The maximum value allowed is 1. \n \n"
 
+        if(inputT.textFieldText == "")
+            error += " - Number of Threads (t) is empty. \n \n"
         if(Number.isNaN(Number(inputT.textFieldText)))
             error += " - Number of Threads (t) is not a valid number. \n \n"
         // Number of threads (t) does not have upper limites, since it depends on the hardware available.
         if(parseInt(inputT.textFieldText) < 1)
             error += " - Number of Threads (t) is quite small, it must be at least 1. \n \n"
 
+        if(inputSamplingFrequency.textFieldText == "")
+            error += " - Sampling frequency (Sf) is empty. \n \n"
         if(Number.isNaN(Number(inputSamplingFrequency.textFieldText)))
             error += " - Sampling frequency (Sf) is not a valid number. \n \n"
         // Sampling frequency does not have upper limites, since it depends on the hardware available.
         if(parseInt(inputSamplingFrequency.textFieldText) < 1)
             error += " - Sampling frequency (Sf) is quite small, it must be at least 1. \n \n"
-        if(parseInt(inputSamplingFrequency.textFieldText) > parseInt(inputN.textFieldText))
-            error += " - Sampling frequency (Sf) is quite large. The maximum value allowed is N. \n \n"
+        if(parseInt(inputSamplingFrequency.textFieldText) > parseInt(inputM.textFieldText))
+            error += " - Sampling frequency (Sf) is quite large. The maximum value allowed is m. \n \n"
 
         //TODO Check if Initial Distribution (I) file exists.
 

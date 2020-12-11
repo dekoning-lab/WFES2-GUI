@@ -128,7 +128,7 @@ Component{
                             else
                                 f_vec[i] = inputControllerWfas.ui_f_vec[i]
                         }
-                        if(!Number.isNaN(Number(inputF.textFieldText)) && parseInt(inputF.textFieldText) > 1) {
+                        if(!Number.isNaN(Number(inputF.textFieldText)) && parseInt(inputF.textFieldText) > 0) {
                             inputControllerWfas.ui_f_vec = f_vec
                             borderColor = "#555555"
                         } else {

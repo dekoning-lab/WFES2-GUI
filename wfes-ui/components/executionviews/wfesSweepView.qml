@@ -1181,6 +1181,8 @@ ApplicationWindow {
     function checkIntegrity() {
         var error = ""
 
+        if(inputN.textFieldText == "")
+            error += " - Population Size (N) is empty. \n \n"
         if(Number.isNaN(Number(inputN.textFieldText)))
             error += " - Population Size (N) is not a valid number. \n \n"
         if(parseInt(inputN.textFieldText) < 2)
@@ -1188,6 +1190,8 @@ ApplicationWindow {
         if(!inputForce.checked && parseInt(inputN.textFieldText) > 50000)
             error += " - Population Size (N) is quite large, the computations will take a long time. Check 'Force' to ignore. \n \n"
 
+        if(inputA.textFieldText == "")
+            error += " - Tail Truncation Cutoff (a) is empty. \n \n"
         if(Number.isNaN(Number(inputA.textFieldText)))
             error += " - Tail Truncation Cutoff (a) is not a valid number. \n \n"
         if(parseFloat(inputA.textFieldText) < 0)
@@ -1195,6 +1199,8 @@ ApplicationWindow {
         if(!inputForce.checked && parseFloat(inputA.textFieldText) > 1e-5)
             error += " - Tail Truncation Cutoff (a) value is quite high. This might produce inaccurate results. A good value should be between 0 and 10e-10. Check 'Force' to ignore. \n \n"
 
+        if(inputL.textFieldText == "")
+            error += " - Rate of Switching (l) is empty. \n \n"
         if(Number.isNaN(Number(inputL.textFieldText)))
             error += " - Rate of Switching (l) is not a valid number. \n \n"
         if(parseFloat(inputL.textFieldText) < 1e-20)
@@ -1202,6 +1208,8 @@ ApplicationWindow {
         if(parseFloat(inputL.textFieldText) > 1)
             error += " - Rate of Switching (l) value is quite high. The maximum value allowed is 1. \n \n"
 
+        if(inputC.textFieldText == "")
+            error += " - Integration Cutoff (c) is empty. \n \n"
         if(Number.isNaN(Number(inputC.textFieldText)))
             error += " - Integration Cutoff (c) is not a valid number. \n \n"
         if(parseFloat(inputC.textFieldText) < 0)
@@ -1209,6 +1217,8 @@ ApplicationWindow {
         if(parseFloat(inputC.textFieldText) > 10e-3)
             error += " - Integration Cutoff (c) is quite large. The maximum value allowed is 10e-3. \n \n"
 
+        if(inputP.textFieldText == "")
+            error += " - Starting copies (p) is empty. \n \n"
         if(Number.isNaN(Number(inputP.textFieldText)))
             error += " - Starting copies (p) is not a valid number. \n \n"
         if(parseInt(inputP.textFieldText) < 0)
@@ -1236,6 +1246,9 @@ ApplicationWindow {
 
         if(globalConfiguration.ui_population_scaled) {
             for(i = 0; i < 2; i++) {
+                u = componentsSectionTabView.getTab(i).item.children[0].children[1].children[0].textFieldText
+                if(u === "")
+                    error += " - Backward Mutation (u" + (i + 1) + ") is empty. \n \n"
                 if(Number.isNaN(Number(u_vec[i])))
                     error += " - Backward Mutation (u" + (i + 1) + ") is not a valid number. \n \n"
                 if(parseFloat(u_vec[i]) <= 0)
@@ -1245,6 +1258,9 @@ ApplicationWindow {
             }
 
             for(i = 0; i < 2; i++) {
+                v = componentsSectionTabView.getTab(i).item.children[0].children[1].children[1].textFieldText
+                if(v === "")
+                    error += " - Forward Mutation (v" + (i + 1) + ") is empty. \n \n"
                 if(Number.isNaN(Number(v_vec[i])))
                     error += " - Forward Mutation (v" + (i + 1) + ") is not a valid number. \n \n"
                 if(parseFloat(v_vec[i]) <= 0)
@@ -1254,6 +1270,9 @@ ApplicationWindow {
             }
 
             for(i = 0; i < 2; i++) {
+                s = componentsSectionTabView.getTab(i).item.children[1].children[1].children[0].textFieldText
+                if(s === "")
+                    error += " - Selection Coefficient (s" + (i + 1) + ") is empty. \n \n"
                 if(Number.isNaN(Number(s_vec[i])))
                     error += " - Selection Coefficient (s" + (i + 1) + ") is not a valid number. \n \n"
                 if(parseFloat(s_vec[i]) < -1 * (2 * parseInt(inputN.textFieldText)))
@@ -1263,6 +1282,9 @@ ApplicationWindow {
             }
         } else {
             for(i = 0; i < 2; i++) {
+                u = componentsSectionTabView.getTab(i).item.children[0].children[1].children[0].textFieldText
+                if(u === "")
+                    error += " - Backward Mutation (u" + (i + 1) + ") is empty. \n \n"
                 if(Number.isNaN(Number(u_vec[i])))
                     error += " - Backward Mutation (u" + (i + 1) + ") is not a valid number. \n \n"
                 if(Number.isNaN(Number(u_vec[i])) && parseFloat(u_vec[i]) <= 0)
@@ -1272,6 +1294,9 @@ ApplicationWindow {
             }
 
             for(i = 0; i < 2; i++) {
+                v = componentsSectionTabView.getTab(i).item.children[0].children[1].children[1].textFieldText
+                if(v === "")
+                    error += " - Forward Mutation (v" + (i + 1) + ") is empty. \n \n"
                 if(Number.isNaN(Number(v_vec[i])))
                     error += " - Forward Mutation (v" + (i + 1) + ") is not a valid number. \n \n"
                 if(Number.isNaN(Number(v_vec[i])) && parseFloat(v_vec[i]) <= 0)
@@ -1281,6 +1306,9 @@ ApplicationWindow {
             }
 
             for(i = 0; i < 2; i++) {
+                s = componentsSectionTabView.getTab(i).item.children[1].children[1].children[0].textFieldText
+                if(s === "")
+                    error += " - Selection Coefficient (s" + (i + 1) + ") is empty. \n \n"
                 if(Number.isNaN(Number(s_vec[i])))
                     error += " - Selection Coefficient (s" + (i + 1) + ") is not a valid number. \n \n"
                 if(Number.isNaN(Number(s_vec[i])) && parseFloat(s_vec[i]) < -1)
@@ -1290,6 +1318,9 @@ ApplicationWindow {
             }
         }
         for(i = 0; i < 2; i++) {
+            h = componentsSectionTabView.getTab(i).item.children[1].children[1].children[1].textFieldText
+            if(h === "")
+                error += " - Dominance Coefficient (h" + (i + 1) + ") is empty. \n \n"
             if(Number.isNaN(Number(h_vec[i])))
                 error += " - Dominance Coefficient (h" + (i + 1) + ") is not a valid number. \n \n"
             if(Number.isNaN(Number(h_vec[i])) && parseFloat(h_vec[i]) < 0)
@@ -1298,6 +1329,8 @@ ApplicationWindow {
                 error += " - Dominance Coefficient (h" + (i + 1) + ") is quite large. The maximum value allowed is 1. \n \n"
         }
 
+        if(inputT.textFieldText == "")
+            error += " - Number of Threads (t) is empty. \n \n"
         if(Number.isNaN(Number(inputT.textFieldText)))
             error += " - Number of Threads (t) is not a valid number. \n \n"
         // Number of threads (t) does not have upper limites, since it depends on the hardware available.
