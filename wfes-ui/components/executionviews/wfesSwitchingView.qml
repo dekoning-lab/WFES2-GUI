@@ -248,6 +248,10 @@ ApplicationWindow {
                                 var dummyString = outputControllerWfesSwitching.ui_load_config
                                 rootWfesSwitching.updateGUI()
                             }
+                            changeBoxColor: function() {
+                                for(var i = 0; i < componentsSectionTabView.children[0].count - 2; i++)
+                                    componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[2].textFieldTextEdited()
+                            }
                         }
 
                     }

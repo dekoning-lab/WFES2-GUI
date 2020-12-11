@@ -11,6 +11,7 @@ Rectangle {
     property var onAdd: function(){}
     property var onDelete: function(){}
     property var onLoaded: function(){}
+    property var changeBoxColor: function(){}
     color: "transparent"
     width: widthTabView
     height: heightTabView
@@ -79,6 +80,7 @@ Rectangle {
                     tb.insertTab(tb.count-2, (tabNames + " " + (tb.count - 1)), object)
                     tb.currentIndex = tb.count-3
                     tb.getTab(tb.count-3).children[0].number = tb.count-2
+                    changeBoxColor()
                 }
             }
         }
@@ -99,6 +101,7 @@ Rectangle {
                         onDelete()
                         tb.currentIndex = tb.count-4
                         tb.removeTab(tb.count-3)
+                        changeBoxColor()
                     }
                 }else {
                     tb.currentIndex = tb.count-3
