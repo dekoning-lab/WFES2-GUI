@@ -208,7 +208,7 @@ Component{
                             }
                         }
 
-                        if(borderColor !== "#ff0000")
+                        if(save)
                             inputControllerWfesSwitching.ui_r_vec = r_vec
 
                     }
