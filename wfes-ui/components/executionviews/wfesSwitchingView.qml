@@ -983,6 +983,8 @@ ApplicationWindow {
             if(splitted.length > 1) {
                 var valid = true;
                 for(var j = 0; j < splitted.length; j++) {
+                    if(splitted[j] === "")
+                        error += " - The element " + j + " of Relative Probability of Switching (r" + (i + 1) + ") is empty. \n \n"
                     if(Number.isNaN(Number(splitted[j])))
                         error += " - The element " + j + " of Relative Probability of Switching (r" + (i + 1) + ") is not a valid number. \n \n"
                     if(parseFloat(splitted[j]) < 0) {
@@ -994,6 +996,8 @@ ApplicationWindow {
                     }
                 }
             } else {
+                if(r_vec[i] === "")
+                    error += " - The element " + j + " of Relative Probability of Switching (r" + (i + 1) + ") is empty. \n \n"
                 if(Number.isNaN(Number(r_vec[i])))
                     error += " - The element " + j + " of Relative Probability of Switching (r" + (i + 1) + ") is not a valid number. \n \n"
                 if(parseFloat(r_vec[i]) < 0) {

@@ -121,32 +121,96 @@ Component{
                         }
                     }
                     textFieldTextEdited: function(){
+                        // Check current to see if paint red.
                         var r_vec = []
-                        for(var i = 0; i < inputControllerWfesSwitching.ui_num_comp; i++) {
-                            if(i+1 == number)
-                                r_vec[i] = inputR.textFieldText
-                            else
-                                r_vec[i] = inputControllerWfesSwitching.ui_r_vec[i]
+                        for(var i = 0; i < componentsSectionTabView.children[0].count - 2; i++) {
+                            componentsSectionTabView.children[0].getTab(i).active = true
+                            var r = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[2].textFieldText
+                            r_vec.push(r)
                         }
-
-                        var splitted = inputR.textFieldText.split(", ")
-
-                        console.log(splitted.length)
-                        console.log(inputControllerWfesSwitching.ui_num_comp)
 
                         borderColor = "#555555"
 
-                        if(splitted.length !== parseInt(inputControllerWfesSwitching.ui_num_comp))
+                        var current = r_vec[number-1]
+                        if(r_vec[number] === "")
                             borderColor = "#ff0000"
-                        else {
-                            for(i = 0; i < splitted.length; i++) {
-                                if(! (splitted[i] !== "" && !Number.isNaN(Number(splitted[i])) && parseFloat(splitted[i]) >= 0 && parseFloat(splitted[i]) <= 1)) {
-                                    borderColor = "#ff0000"
+
+                        console.log(number)
+                        var splitted = r_vec[number-1].split(", ")
+                        if(splitted.length !== componentsSectionTabView.children[0].count - 2)
+                            borderColor = "#ff0000"
+
+                        for(i = 0; i < splitted.length; i++) {
+                            if(splitted[i] === "") {
+                                borderColor = "#ff0000"
+                                break;
+                            } else if(Number.isNaN(Number(splitted[i]))) {
+                                borderColor = "#ff0000"
+                                break;
+                            } else if(parseFloat(splitted[i]) < 0) {
+                                borderColor = "#ff0000"
+                                break;
+                            } else if (parseFloat(splitted[i]) > 1) {
+                                borderColor = "#ff0000"
+                                break;
+                            }
+                        }
+
+
+
+
+                        var save = true
+                        var r_vec = []
+                        for(var i = 0; i < componentsSectionTabView.children[0].count - 2; i++) {
+                            componentsSectionTabView.children[0].getTab(i).active = true
+                            var r = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[2].textFieldText
+                            r_vec.push(r)
+                        }
+
+                        for(i = 0; i < componentsSectionTabView.children[0].count - 2; i++) {
+                            r = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[2].textFieldText
+                            if(r === "")
+                                save = false
+                            splitted = r_vec[i].split(", ")
+                            if(splitted.length !== componentsSectionTabView.children[0].count - 2)
+                                save = false
+                            if(splitted.length > 1) {
+                                var valid = true;
+                                for(var j = 0; j < splitted.length; j++) {
+                                    if(splitted[j] === "") {
+                                        save = false
+                                        break;
+                                    } else if(Number.isNaN(Number(splitted[j]))) {
+                                        save = false
+                                        break;
+                                    } else if(parseFloat(splitted[j]) < 0) {
+                                        save = false
+                                        break;
+                                    } else if (parseFloat(splitted[j]) > 1) {
+                                        save = false
+                                        break;
+                                    }
+                                }
+                            } else {
+                                if(r_vec[i] === "") {
+                                    save = false
+                                break;
+                                } else if(Number.isNaN(Number(r_vec[i]))) {
+                                    save = false
+                                break;
+                                } else if(parseFloat(r_vec[i]) < 0) {
+                                    save = false
+                                    break;
+                                } else if (parseFloat(r_vec[i]) > 1) {
+                                    save = false
+                                    break;
                                 }
                             }
                         }
+
                         if(borderColor !== "#ff0000")
                             inputControllerWfesSwitching.ui_r_vec = r_vec
+
                     }
                 }
 
