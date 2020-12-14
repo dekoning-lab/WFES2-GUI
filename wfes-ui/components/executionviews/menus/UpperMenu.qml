@@ -1,5 +1,6 @@
 import QtQuick 2.12
 import QtQuick.Window 2.12
+import QtQuick.Dialogs 1.2
 import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.5
 import QtQuick.Controls.Styles 1.4
@@ -13,7 +14,16 @@ Rectangle {
     width:parent.width
     height: childrenRect.height
     color: "lightgrey"
-    
+
+    MessageDialog {
+        id: messageDialogOnCloseUpperMenu
+        title: "Warning"
+        text: ""
+        icon: StandardIcon.Warning
+        standardButtons: Dialog.Ok
+    }
+
+
     RowLayout {
         height: childrenRect.height
         spacing: 0
@@ -30,31 +40,80 @@ Rectangle {
                 MenuItem {
                     text: "Save Config..."
                     onClicked: {
+                        var text;
                         //Check for active view and save config.
                         if(typeof(rootWfesSingle) != "undefined") {
-                            rootWfesSingle.updateBackend()
-                            outputControllerWfesSingle.ui_save_config
+                            text = rootWfesSingle.checkIntegrity()
+                            if(text === "") {
+                                rootWfesSingle.updateBackend()
+                                outputControllerWfesSingle.ui_save_config
+                            } else {
+                                messageDialogOnCloseUpperMenu.text = "Some input parameters are incorrect. The configuration cannot be saved until you fix those values."
+                                messageDialogOnCloseUpperMenu.open()
+                            }
                         } else if(typeof(rootWfesSequential) != "undefined") {
-                            rootWfesSequential.updateBackend()
-                            outputControllerWfesSequential.ui_save_config
+                            text = rootWfesSequential.checkIntegrity()
+                            if(text === "") {
+                                rootWfesSequential.updateBackend()
+                                outputControllerWfesSequential.ui_save_config
+                            } else {
+                                messageDialogOnCloseUpperMenu.text = "Some input parameters are incorrect. The configuration cannot be saved until you fix those values."
+                                messageDialogOnCloseUpperMenu.open()
+                            }
                         } else if(typeof(rootWfesSweep) != "undefined") {
-                            rootWfesSweep.updateBackend()
-                            outputControllerWfesSweep.ui_save_config
+                            text = rootWfesSweep.checkIntegrity()
+                            if(text === "") {
+                                rootWfesSweep.updateBackend()
+                                outputControllerWfesSweep.ui_save_config
+                            } else {
+                                messageDialogOnCloseUpperMenu.text = "Some input parameters are incorrect. The configuration cannot be saved until you fix those values."
+                                messageDialogOnCloseUpperMenu.open()
+                            }
                         } else if(typeof(rootWfesSwitching) != "undefined") {
-                            rootWfesSwitching.updateBackend()
-                            outputControllerWfesSwitching.ui_save_config
+                            text = rootWfesSwitching.checkIntegrity()
+                            if(text === "") {
+                                rootWfesSwitching.updateBackend()
+                                outputControllerWfesSwitching.ui_save_config
+                            } else {
+                                messageDialogOnCloseUpperMenu.text = "Some input parameters are incorrect. The configuration cannot be saved until you fix those values."
+                                messageDialogOnCloseUpperMenu.open()
+                            }
                         } else if(typeof(rootWfas) != "undefined") {
-                            rootWfas.updateBackend()
-                            outputControllerWfas.ui_save_config
+                            text = rootWfas.checkIntegrity()
+                            if(text === "") {
+                                rootWfas.updateBackend()
+                                outputControllerWfas.ui_save_config
+                            } else {
+                                messageDialogOnCloseUpperMenu.text = "Some input parameters are incorrect. The configuration cannot be saved until you fix those values."
+                                messageDialogOnCloseUpperMenu.open()
+                            }
                         } else if(typeof(rootWfafle) != "undefined") {
-                            rootWfafle.updateBackend()
-                            outputControllerWfafle.ui_save_config
+                            text = rootWfafle.checkIntegrity()
+                            if(text === "") {
+                                rootWfafle.updateBackend()
+                                outputControllerWfafle.ui_save_config
+                            } else {
+                                messageDialogOnCloseUpperMenu.text = "Some input parameters are incorrect. The configuration cannot be saved until you fix those values."
+                                messageDialogOnCloseUpperMenu.open()
+                            }
                         } else if(typeof(rootTimeDist) != "undefined") {
-                            rootTimeDist.updateBackend()
-                            outputControllerTimeDist.ui_save_config
+                            text = rootTimeDist.checkIntegrity()
+                            if(text === "") {
+                                rootTimeDist.updateBackend()
+                                outputControllerTimeDist.ui_save_config
+                            } else {
+                                messageDialogOnCloseUpperMenu.text = "Some input parameters are incorrect. The configuration cannot be saved until you fix those values."
+                                messageDialogOnCloseUpperMenu.open()
+                            }
                         } else if(typeof(rootPhaseType) != "undefined") {
-                            rootPhaseType.updateBackend()
-                            outputControllerPhaseType.ui_save_config
+                            text = rootPhaseType.checkIntegrity()
+                            if(text === "") {
+                                rootPhaseType.updateBackend()
+                                outputControllerPhaseType.ui_save_config
+                            } else {
+                                messageDialogOnCloseUpperMenu.text = "Some input parameters are incorrect. The configuration cannot be saved until you fix those values."
+                                messageDialogOnCloseUpperMenu.open()
+                            }
                         }
                     }
                 }
