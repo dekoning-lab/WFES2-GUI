@@ -9,6 +9,8 @@ import components 1.0
 import assets 1.0
 
 ApplicationWindow {
+    property var firstLoad: true
+
     id: rootWfesSingle
     title: qsTr("WFES - Wright-Fisher Exact Solver (WFES Single)")
 
@@ -1766,7 +1768,7 @@ ApplicationWindow {
     }
 
 
-    function updateScaledParameters() {
+    function updateScaledParameters(updateNonChecked) {
         if(globalConfiguration.ui_population_scaled) {
             inputControllerWfesSingle.ui_s = parseFloat(inputControllerWfesSingle.ui_s) * (2 * parseInt(inputControllerWfesSingle.ui_n))
             inputS.textFieldText = inputControllerWfesSingle.ui_s
@@ -1774,7 +1776,7 @@ ApplicationWindow {
             inputU.textFieldText = inputControllerWfesSingle.ui_u
             inputControllerWfesSingle.ui_v = parseFloat(inputControllerWfesSingle.ui_v) * (4 * parseInt(inputControllerWfesSingle.ui_n))
             inputV.textFieldText = inputControllerWfesSingle.ui_v
-        } else {
+        } else if(updateNonChecked){
             inputControllerWfesSingle.ui_s = parseFloat(inputControllerWfesSingle.ui_s) / (2 * parseInt(inputControllerWfesSingle.ui_n))
             inputS.textFieldText = inputControllerWfesSingle.ui_s
             inputControllerWfesSingle.ui_u = parseFloat(inputControllerWfesSingle.ui_u) / (4 * parseInt(inputControllerWfesSingle.ui_n))

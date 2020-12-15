@@ -247,6 +247,7 @@ ApplicationWindow {
                             onLoaded: function() {
                                 var dummyString = outputControllerWfesSwitching.ui_load_config
                                 rootWfesSwitching.updateGUI()
+                                updateScaledParameters()
                             }
                             changeBoxColor: function() {
                                 for(var i = 0; i < componentsSectionTabView.children[0].count - 2; i++)

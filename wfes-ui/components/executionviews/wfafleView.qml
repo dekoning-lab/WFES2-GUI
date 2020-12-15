@@ -145,6 +145,7 @@ ApplicationWindow {
                             onLoaded: function() {
                                 var dummyString = outputControllerWfafle.ui_load_config
                                 rootWfafle.updateGUI()
+                                updateScaledParameters()
                             }
                         }
 

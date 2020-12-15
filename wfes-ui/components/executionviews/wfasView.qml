@@ -112,6 +112,7 @@ ApplicationWindow {
                             onLoaded: function() {
                                 var dummyString = outputControllerWfas.ui_load_config
                                 rootWfas.updateGUI()
+                                updateScaledParameters()
                             }
 
                             urlComponent: "qrc:/components/executionviews/tabcomponents/tabWfasComponent.qml"

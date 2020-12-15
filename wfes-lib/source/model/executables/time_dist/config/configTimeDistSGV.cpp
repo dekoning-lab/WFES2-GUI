@@ -17,14 +17,24 @@ void ConfigTimeDistSGV::saveConfigTimeDistSGV() {
 
     outStream << "# Time Dist. SGV Options" << "\n";
     outStream << "Population Size SGV (N): " << ConfigTimeDistSGV::population_size << "\n";
-    outStream << "Backward Mutation Rates (u): " << ConfigTimeDistSGV::u[0] << "; " << ConfigTimeDistSGV::u[1] << "\n";
-    outStream << "Forward Mutation Rates (v): " << ConfigTimeDistSGV::v[0] << "; " << ConfigTimeDistSGV::v[1] << "\n";
-    outStream << "Selection Coefficients (s): " << ConfigTimeDistSGV::s[0] << "; " << ConfigTimeDistSGV::s[1] << "\n";
+
+
+    dvec vec = ConfigTimeDistSGV::u;
+    if(wfes::controllers::GlobalConfiguration::populationScaled) {
+        outStream << "Backward Mutation Rates (u): " << ConfigTimeDistSGV::u[0] / (4 * ConfigTimeDistSGV::population_size) << "; " << ConfigTimeDistSGV::u[1] / (4 * ConfigTimeDistSGV::population_size) << "\n";
+        outStream << "Forward Mutation Rates (v): " << ConfigTimeDistSGV::v[0] / (4 * ConfigTimeDistSGV::population_size) << "; " << ConfigTimeDistSGV::v[1] / (4 * ConfigTimeDistSGV::population_size) << "\n";
+        outStream << "Selection Coefficients (s): " << ConfigTimeDistSGV::s[0] / (2 * ConfigTimeDistSGV::population_size) << "; " << ConfigTimeDistSGV::s[1] / (2 * ConfigTimeDistSGV::population_size) << "\n";
+    } else {
+        outStream << "Backward Mutation Rates (u): " << ConfigTimeDistSGV::u[0] << "; " << ConfigTimeDistSGV::u[1] << "\n";
+        outStream << "Forward Mutation Rates (v): " << ConfigTimeDistSGV::v[0] << "; " << ConfigTimeDistSGV::v[1] << "\n";
+        outStream << "Selection Coefficients (s): " << ConfigTimeDistSGV::s[0] << "; " << ConfigTimeDistSGV::s[1] << "\n";
+    }
+
     outStream << "Dominance Coefficients (h): " << ConfigTimeDistSGV::h[0] << "; " << ConfigTimeDistSGV::h[1] << "\n";
     outStream << "Tail Truncation Weight SGV (a): " << ConfigTimeDistSGV::a << "\n";
     outStream << "Integration Cutoff SGV (c): " << ConfigTimeDistSGV::integration_cutoff << "\n";
     outStream << "Max. Number of Generations SGV (m): " << ConfigTimeDistSGV::max_t << "\n";
-    outStream << "No Recurrent Mutation SGV (m): " << (ConfigTimeDistSGV::no_rem ? QString("true") : QString("false")) << "\n";
+    outStream << "No Recurrent Mutation SGV (r): " << (ConfigTimeDistSGV::no_rem ? QString("true") : QString("false")) << "\n";
 
     outStream << "Transition Probability (l): " << ConfigTimeDistSGV::l << "\n";
     outStream << "Force: " << (ConfigTimeDistSGV::force ? QString("true") : QString("false")) << "\n";
@@ -79,7 +89,7 @@ void ConfigTimeDistSGV::processLine(QString line) {
         ConfigTimeDistSGV::integration_cutoff = std::stod(splitted.at(1).toStdString());
     } else if(splitted.at(0).compare("Max. Number of Generations SGV (m)") == 0) {
         ConfigTimeDistSGV::max_t = std::stoi(splitted.at(1).toStdString());
-    } else if(splitted.at(0).compare("No Recurrent Mutation SGV (m)") == 0) {
+    } else if(splitted.at(0).compare("No Recurrent Mutation SGV (r)") == 0) {
         ConfigTimeDistSGV::no_rem = splitted.at(1).compare("true") == 0 ? true : false;
         ConfigTimeDistSGV::rem = !no_rem;
     }

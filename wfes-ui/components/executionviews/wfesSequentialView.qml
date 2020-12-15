@@ -149,6 +149,7 @@ ApplicationWindow {
                             onLoaded: function() {
                                 var dummyString = outputControllerWfesSequential.ui_load_config
                                 rootWfesSequential.updateGUI()
+                                updateScaledParameters()
                             }
                         }
 

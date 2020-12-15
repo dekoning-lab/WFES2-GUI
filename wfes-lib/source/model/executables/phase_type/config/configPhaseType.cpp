@@ -30,10 +30,10 @@ void ConfigPhaseType::saveConfigPhaseType() {
     outStream << "ViennaCL Solver: " << QString::fromStdString(ConfigPhaseType::vienna_solver) << "\n";
     outStream << "Model Type: " << QString::fromStdString(ModelTypePhaseTypeNames[ModelTypePhaseTypeToInt(ConfigPhaseType::modelType)]) << "\n";
     outStream << "Population Size (N): " << ConfigPhaseType::population_size << "\n";
-    outStream << "Selection Coefficient (s): " << ConfigPhaseType::s << "\n";
-    outStream << "Dominance Coefficient (h): " << ConfigPhaseType::h << "\n";
     outStream << "Backward Mutation Rate (u): " << ConfigPhaseType::u << "\n";
     outStream << "Forward Mutation Rate (v): " << ConfigPhaseType::v << "\n";
+    outStream << "Selection Coefficient (s): " << ConfigPhaseType::s << "\n";
+    outStream << "Dominance Coefficient (h): " << ConfigPhaseType::h << "\n";
     outStream << "No Recurrent Mutation (m): " << (ConfigPhaseType::no_rem ? QString("true") : QString("false")) << "\n";
     outStream << "Tail Truncation Weight (a): " << ConfigPhaseType::a << "\n";
     outStream << "Odds Ratio (k): " << ConfigPhaseType::odds_ratio << "\n";

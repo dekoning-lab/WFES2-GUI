@@ -34,10 +34,18 @@ void ConfigTimeDist::saveConfigTimeDist() {
     outStream << "Library: " << QString::fromStdString(ConfigTimeDist::library) << "\n";
     outStream << "Model Type: " << QString::fromStdString(ModelTypeTimeDistNames[ModelTypeTimeDistToInt(ConfigTimeDist::modelType)]) << "\n";
     outStream << "Population Size (N): " << ConfigTimeDist::population_size << "\n";
-    outStream << "Selection Coefficient (s): " << ConfigTimeDist::s << "\n";
+
+    if(wfes::controllers::GlobalConfiguration::populationScaled) {
+        outStream << "Backward Mutation Rate (u): " << ConfigTimeDist::u / (4 * ConfigTimeDist::population_size) << "\n";
+        outStream << "Forward Mutation Rate (v): " << ConfigTimeDist::v / (4 * ConfigTimeDist::population_size) << "\n";
+        outStream << "Selection Coefficient (s): " << ConfigTimeDist::s / (2 * ConfigTimeDist::population_size) << "\n";
+    } else {
+        outStream << "Backward Mutation Rate (u): " << ConfigTimeDist::u << "\n";
+        outStream << "Forward Mutation Rate (v): " << ConfigTimeDist::v << "\n";
+        outStream << "Selection Coefficient (s): " << ConfigTimeDist::s << "\n";
+    }
+
     outStream << "Dominance Coefficient (h): " << ConfigTimeDist::h << "\n";
-    outStream << "Backward Mutation Rate (u): " << ConfigTimeDist::u << "\n";
-    outStream << "Forward Mutation Rate (v): " << ConfigTimeDist::v << "\n";
     outStream << "No Recurrent Mutation (m): " << (ConfigTimeDist::no_rem ? QString("true") : QString("false")) << "\n";
     outStream << "Tail Truncation Weight (a): " << ConfigTimeDist::a << "\n";
     outStream << "Block Size (b): " << ConfigTimeDist::b << "\n";
