@@ -385,7 +385,7 @@ ApplicationWindow {
                                                             borderColor = "#ff0000"
                                                         }
                                                     } else {
-                                                        if(!Number.isNaN(Number(inputU1.textFieldText)) && parseFloat(inputU1.textFieldText) >= 0 && parseFloat(inputU1.textFieldText) <= 1 / (4 * parseInt(inputN.textFieldText))) {
+                                                        if(!Number.isNaN(Number(inputU1.textFieldText)) && parseFloat(inputU1.textFieldText) >= 0 && parseFloat(inputU1.textFieldText) <= 1 / (4 * parseInt(inputN1.textFieldText))) {
                                                             inputControllerTimeDist.ui_u_vec = u_vec
                                                             borderColor = "#555555"
                                                         } else {
@@ -422,7 +422,7 @@ ApplicationWindow {
                                                             borderColor = "#ff0000"
                                                         }
                                                     } else {
-                                                        if(!Number.isNaN(Number(inputV1.textFieldText)) && parseFloat(inputV1.textFieldText) >= 0 && parseFloat(inputV1.textFieldText) <= 1 / (4 * parseInt(inputN.textFieldText))) {
+                                                        if(!Number.isNaN(Number(inputV1.textFieldText)) && parseFloat(inputV1.textFieldText) >= 0 && parseFloat(inputV1.textFieldText) <= 1 / (4 * parseInt(inputN1.textFieldText))) {
                                                             inputControllerTimeDist.ui_v_vec = v_vec
                                                             borderColor = "#555555"
                                                         } else {
@@ -482,7 +482,7 @@ ApplicationWindow {
                                                     s_vec[0] = inputControllerTimeDist.ui_s_vec[0]
                                                     s_vec[1] = inputS1.textFieldText
                                                     if(globalConfiguration.ui_population_scaled) {
-                                                        if(!Number.isNaN(Number(inputS1.textFieldText)) && parseFloat(inputS1.textFieldText) >= -1 * (2 * parseInt(inputN.textFieldText)) && parseFloat(inputS1.textFieldText) <= 1 * (2 * parseInt(inputN.textFieldText))) {
+                                                        if(!Number.isNaN(Number(inputS1.textFieldText)) && parseFloat(inputS1.textFieldText) >= -1 * (2 * parseInt(inputN1.textFieldText)) && parseFloat(inputS1.textFieldText) <= 1 * (2 * parseInt(inputN1.textFieldText))) {
                                                             inputControllerTimeDist.ui_s_vec = s_vec
                                                             borderColor = "#555555"
                                                         } else {
@@ -602,7 +602,7 @@ ApplicationWindow {
                                                             borderColor = "#ff0000"
                                                         }
                                                     } else {
-                                                        if(!Number.isNaN(Number(inputU2.textFieldText)) && parseFloat(inputU2.textFieldText) >= 0 && parseFloat(inputU2.textFieldText) <= 1 / (4 * parseInt(inputN.textFieldText))) {
+                                                        if(!Number.isNaN(Number(inputU2.textFieldText)) && parseFloat(inputU2.textFieldText) >= 0 && parseFloat(inputU2.textFieldText) <= 1 / (4 * parseInt(inputN1.textFieldText))) {
                                                             inputControllerTimeDist.ui_u_vec = u_vec
                                                             borderColor = "#555555"
                                                         } else {
@@ -638,7 +638,7 @@ ApplicationWindow {
                                                             borderColor = "#ff0000"
                                                         }
                                                     } else {
-                                                        if(!Number.isNaN(Number(inputV2.textFieldText)) && parseFloat(inputV2.textFieldText) >= 0 && parseFloat(inputV2.textFieldText) <= 1 / (4 * parseInt(inputN.textFieldText))) {
+                                                        if(!Number.isNaN(Number(inputV2.textFieldText)) && parseFloat(inputV2.textFieldText) >= 0 && parseFloat(inputV2.textFieldText) <= 1 / (4 * parseInt(inputN1.textFieldText))) {
                                                             inputControllerTimeDist.ui_v_vec = v_vec
                                                             borderColor = "#555555"
                                                         } else {
@@ -698,7 +698,7 @@ ApplicationWindow {
                                                     s_vec[0] = inputS2.textFieldText
                                                     s_vec[1] = inputControllerTimeDist.ui_s_vec[1]
                                                     if(globalConfiguration.ui_population_scaled) {
-                                                        if(!Number.isNaN(Number(inputS2.textFieldText)) && parseFloat(inputS2.textFieldText) >= -1 * (2 * parseInt(inputN.textFieldText)) && parseFloat(inputS2.textFieldText) <= 1 * (2 * parseInt(inputN.textFieldText))) {
+                                                        if(!Number.isNaN(Number(inputS2.textFieldText)) && parseFloat(inputS2.textFieldText) >= -1 * (2 * parseInt(inputN1.textFieldText)) && parseFloat(inputS2.textFieldText) <= 1 * (2 * parseInt(inputN1.textFieldText))) {
                                                             inputControllerTimeDist.ui_s_vec = s_vec
                                                             borderColor = "#555555"
                                                         } else {
@@ -783,6 +783,8 @@ ApplicationWindow {
                                     } else {
                                         borderColor = "#ff0000"
                                     }
+                                    inputU.textFieldTextEdited()
+                                    inputV.textFieldTextEdited()
                                 }
                             }
 
@@ -880,6 +882,12 @@ ApplicationWindow {
                                         borderColor = "#555555"
                                     } else {
                                         borderColor = "#ff0000"
+                                    }
+                                    for(var i = 0; i < 2; i++) {
+                                        // Notify u
+                                        timeDistSGVSectionTabView.getTab(i).item.children[0].children[1].children[0].textFieldTextEdited()
+                                        // Notify v
+                                        timeDistSGVSectionTabView.getTab(i).item.children[0].children[1].children[1].textFieldTextEdited()
                                     }
                                 }
                             }
