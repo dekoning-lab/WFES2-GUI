@@ -221,6 +221,8 @@ ApplicationWindow {
                                     } else {
                                         borderColor = "#ff0000"
                                     }
+                                    inputU.textFieldTextEdited()
+                                    inputV.textFieldTextEdited()
                                 }
                             }
 
