@@ -922,11 +922,10 @@ ApplicationWindow {
 
     function updateScaledParameters(updateNonChecked) {
         var loadedComponents = true
-        for(var i = 0; i < 2; i++) {
+        for(var i = 0; i < inputControllerWfas.ui_num_comp; i++) {
             if(typeof(componentsSectionTabView.children[0].getTab(i)) === "undefined") {
                 loadedComponents = false
             }
-
         }
         if(loadedComponents) {
             var u, v, s

@@ -380,24 +380,25 @@ Component{
                         } else {
                             return "";
                         }
-                    }textFieldTextEdited: function(){
+                    }
+                    textFieldTextEdited: function(){
                         var s_vec = []
-                        for(var i = 0; i < inputControllerWfesSequential.ui_num_comp; i++) {
+                        for(var i = 0; i < inputControllerWfesSwitching.ui_num_comp; i++) {
                             if(i+1 == number)
                                 s_vec[i] = inputS.textFieldText
                             else
-                                s_vec[i] = inputControllerWfesSequential.ui_s_vec[i]
+                                s_vec[i] = inputControllerWfesSwitching.ui_s_vec[i]
                         }
                         if(globalConfiguration.ui_population_scaled) {
                             if(!Number.isNaN(Number(inputS.textFieldText)) && parseFloat(inputS.textFieldText) >= -1 * (2 * parseInt(inputN.textFieldText)) && parseFloat(inputS.textFieldText) <= 1 * (2 * parseInt(inputN.textFieldText))) {
-                                inputControllerWfesSequential.ui_s_vec = s_vec
+                                inputControllerWfesSwitching.ui_s_vec = s_vec
                                 borderColor = "#555555"
                             } else {
                                 borderColor = "#ff0000"
                             }
                         } else {
                             if(!Number.isNaN(Number(inputS.textFieldText)) && parseFloat(inputS.textFieldText) >= -1 && parseFloat(inputS.textFieldText) <= 1) {
-                                inputControllerWfesSequential.ui_s_vec = s_vec
+                                inputControllerWfesSwitching.ui_s_vec = s_vec
                                 borderColor = "#555555"
                             } else {
                                 borderColor = "#ff0000"
@@ -421,14 +422,14 @@ Component{
                     }
                     textFieldTextEdited: function(){
                         var h_vec = []
-                        for(var i = 0; i < inputControllerWfesSequential.ui_num_comp; i++) {
+                        for(var i = 0; i < inputControllerWfesSwitching.ui_num_comp; i++) {
                             if(i+1 == number)
                                 h_vec[i] = inputH.textFieldText
                             else
-                                h_vec[i] = inputControllerWfesSequential.ui_h_vec[i]
+                                h_vec[i] = inputControllerWfesSwitching.ui_h_vec[i]
                         }
                         if(!Number.isNaN(Number(inputH.textFieldText)) && parseFloat(inputH.textFieldText) >= 0 && parseFloat(inputH.textFieldText) <= 1) {
-                            inputControllerWfesSequential.ui_h_vec = h_vec
+                            inputControllerWfesSwitching.ui_h_vec = h_vec
                             borderColor = "#555555"
                         } else {
                             borderColor = "#ff0000"

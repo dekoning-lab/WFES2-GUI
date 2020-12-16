@@ -217,10 +217,10 @@ Rectangle {
                                 }
                             }
                             if(typeof(rootWfesSequential) != "undefined") {
-                                rootWfesSequential.updateScaledParameters()
+                                rootWfesSequential.updateScaledParameters(true)
                             }
                             if(typeof(rootWfesSwitching) != "undefined") {
-                                rootWfesSwitching.updateScaledParameters()
+                                rootWfesSwitching.updateScaledParameters(true)
                             }
                             if(typeof(rootWfesSweep) != "undefined") {
                                 rootWfesSweep.updateScaledParameters(true)

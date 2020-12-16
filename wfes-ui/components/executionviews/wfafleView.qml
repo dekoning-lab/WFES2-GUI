@@ -849,7 +849,7 @@ ApplicationWindow {
 
     function updateScaledParameters(updateNonChecked) {
         var loadedComponents = true
-        for(var i = 0; i < 2; i++) {
+        for(var i = 0; i < inputControllerWfafle.ui_num_comp; i++) {
             if(typeof(componentsSectionTabView.children[0].getTab(i)) === "undefined") {
                 loadedComponents = false
             }
