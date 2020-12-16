@@ -46,6 +46,7 @@ QPointF ChartResults::updateChart(QString name, QAbstractSeries *p_series) {
     QXYSeries *xySeries = static_cast<QXYSeries *>(p_series);
     if(phaseTypeDist.size() != 0 && name.compare("Phase Type Dist.") == 0) {
         xySeries->replace(phaseTypeDist);
+        ChartResults::saveChartSVG("Phase Type Dist.", "Filename.svg");
         return minMaxPhaseTypeDist;
     } else if(phaseTypeDist.size() != 0 && name.compare("Phase Type Acum.") == 0) {
         xySeries->replace(phaseTypeDistAcum);
@@ -97,13 +98,36 @@ QPointF ChartResults::updateChart(QString name, QAbstractSeries *p_series) {
     }
 }
 
-void ChartResults::switchAxis(QAbstractAxis* abstractAxis, QString axis) {
-    if(axis.compare("Linear Scale") == 0) {
-        QLogValueAxis *axisX = new QLogValueAxis();
-        axisX->setTitleText("Generations");
-        axisX->setBase(10.0);
-        abstractAxis = axisX;
-    }
+void ChartResults::saveChartSVG(QString title, QString filePath) {
+    QLineSeries *series = new QLineSeries();
+
+    QChart *chart = new QChart();
+
+    series->append(this->phaseTypeDist);
+    series->setName("Probability of subs.");
+
+    chart->legend()->setAlignment(Qt::AlignRight);
+    chart->legend()->font().setPointSize(12);
+
+    chart->addSeries(series);
+    chart->createDefaultAxes();
+    chart->setTitle(title);
+
+    QChartView *chartView = new QChartView(chart);
+    chartView->setRenderHint(QPainter::Antialiasing);
+    chartView->setMinimumSize(800, 500);
+
+    chartView->grab();
+
+    QSvgGenerator generator;
+    generator.setFileName(filePath);
+    generator.setSize(chartView->size());
+    generator.setViewBox(chartView->rect());
+    QPainter painter;
+    painter.begin(&generator);
+    chartView->render(&painter);
+    painter.end();
+
 }
 
 void ChartResults::clearSeries(QAbstractSeries *p_series) {
