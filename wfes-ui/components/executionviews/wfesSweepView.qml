@@ -629,6 +629,13 @@ ApplicationWindow {
                                     } else {
                                         borderColor = "#ff0000"
                                     }
+                                    for(var i = 0; i < 2; i++) {
+                                        // Notify u
+                                        componentsSectionTabView.getTab(i).item.children[0].children[1].children[0].textFieldTextEdited()
+                                        // Notify v
+                                        componentsSectionTabView.getTab(i).item.children[0].children[1].children[1].textFieldTextEdited()
+                                    }
+                                    inputP.textFieldTextEdited()
                                 }
                             }
 
