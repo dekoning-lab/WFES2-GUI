@@ -203,7 +203,7 @@ Rectangle {
                                 }
                             }
                             if(typeof(rootWfas) != "undefined") {
-                                rootWfas.updateScaledParameters()
+                                rootWfas.updateScaledParameters(true)
                             }
                             if(typeof(rootWfafle) != "undefined") {
                                 rootWfafle.updateScaledParameters()
