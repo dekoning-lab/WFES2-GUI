@@ -145,7 +145,7 @@ ApplicationWindow {
                             onLoaded: function() {
                                 var dummyString = outputControllerWfafle.ui_load_config
                                 rootWfafle.updateGUI()
-                                updateScaledParameters()
+                                updateScaledParameters(false)
                             }
                         }
 
@@ -847,50 +847,59 @@ ApplicationWindow {
 
     }
 
-    function updateScaledParameters() {
-        var u, v, s, i
-        var u_vec, v_vec, s_vec = []
-        if(globalConfiguration.ui_population_scaled) {
-            u = inputControllerWfafle.ui_u_vec
-            v = inputControllerWfafle.ui_v_vec
-            s = inputControllerWfafle.ui_s_vec
-            u_vec = []
-            v_vec = []
-            s_vec = []
-            for(i = 0; i < inputControllerWfafle.ui_num_comp; i++) {
-                componentsSectionTabView.children[0].getTab(i).active = true
-                u_vec.push((u[i] * (4 * parseInt(inputControllerWfafle.ui_N_vec[i]))).toString())
-                v_vec.push((v[i] * (4 * parseInt(inputControllerWfafle.ui_N_vec[i]))).toString())
-                s_vec.push((s[i] * (2 * parseInt(inputControllerWfafle.ui_N_vec[i]))).toString())
-                componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[0].textFieldText = u_vec[i]
-                componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[1].textFieldText = v_vec[i]
-                componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[0].textFieldText = s_vec[i]
+    function updateScaledParameters(updateNonChecked) {
+        var loadedComponents = true
+        for(var i = 0; i < 2; i++) {
+            if(typeof(componentsSectionTabView.children[0].getTab(i)) === "undefined") {
+                loadedComponents = false
             }
-            inputControllerWfafle.ui_u_vec = u_vec
-            inputControllerWfafle.ui_v_vec = v_vec
-            inputControllerWfafle.ui_s_vec = s_vec
+
+        }
+        if(loadedComponents) {
+            var u, v, s
+            var u_vec, v_vec, s_vec = []
+            if(globalConfiguration.ui_population_scaled) {
+                u = inputControllerWfafle.ui_u_vec
+                v = inputControllerWfafle.ui_v_vec
+                s = inputControllerWfafle.ui_s_vec
+                u_vec = []
+                v_vec = []
+                s_vec = []
+                for(i = 0; i < inputControllerWfafle.ui_num_comp; i++) {
+                    componentsSectionTabView.children[0].getTab(i).active = true
+                    u_vec.push((u[i] * (4 * parseInt(inputControllerWfafle.ui_N_vec[i]))).toString())
+                    v_vec.push((v[i] * (4 * parseInt(inputControllerWfafle.ui_N_vec[i]))).toString())
+                    s_vec.push((s[i] * (2 * parseInt(inputControllerWfafle.ui_N_vec[i]))).toString())
+                    componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[0].textFieldText = u_vec[i]
+                    componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[1].textFieldText = v_vec[i]
+                    componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[0].textFieldText = s_vec[i]
+                }
+                inputControllerWfafle.ui_u_vec = u_vec
+                inputControllerWfafle.ui_v_vec = v_vec
+                inputControllerWfafle.ui_s_vec = s_vec
 
 
-        } else {
-            u = inputControllerWfafle.ui_u_vec
-            v = inputControllerWfafle.ui_v_vec
-            s = inputControllerWfafle.ui_s_vec
-            u_vec = []
-            v_vec = []
-            s_vec = []
-            for(i = 0; i < inputControllerWfafle.ui_num_comp; i++) {
-                componentsSectionTabView.children[0].getTab(i).active = true
-                u_vec.push((u[i] / (4 * parseInt(inputControllerWfafle.ui_N_vec[i]))).toString())
-                v_vec.push((v[i] / (4 * parseInt(inputControllerWfafle.ui_N_vec[i]))).toString())
-                s_vec.push((s[i] / (2 * parseInt(inputControllerWfafle.ui_N_vec[i]))).toString())
-                componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[0].textFieldText = u_vec[i]
-                componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[1].textFieldText = v_vec[i]
-                componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[0].textFieldText = s_vec[i]
+            } else if(updateNonChecked){
+                u = inputControllerWfafle.ui_u_vec
+                v = inputControllerWfafle.ui_v_vec
+                s = inputControllerWfafle.ui_s_vec
+                u_vec = []
+                v_vec = []
+                s_vec = []
+                for(i = 0; i < inputControllerWfafle.ui_num_comp; i++) {
+                    componentsSectionTabView.children[0].getTab(i).active = true
+                    u_vec.push((u[i] / (4 * parseInt(inputControllerWfafle.ui_N_vec[i]))).toString())
+                    v_vec.push((v[i] / (4 * parseInt(inputControllerWfafle.ui_N_vec[i]))).toString())
+                    s_vec.push((s[i] / (2 * parseInt(inputControllerWfafle.ui_N_vec[i]))).toString())
+                    componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[0].textFieldText = u_vec[i]
+                    componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[1].textFieldText = v_vec[i]
+                    componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[0].textFieldText = s_vec[i]
+                }
+                inputControllerWfafle.ui_u_vec = u_vec
+                inputControllerWfafle.ui_v_vec = v_vec
+                inputControllerWfafle.ui_s_vec = s_vec
+
             }
-            inputControllerWfafle.ui_u_vec = u_vec
-            inputControllerWfafle.ui_v_vec = v_vec
-            inputControllerWfafle.ui_s_vec = s_vec
-
         }
     }
 }

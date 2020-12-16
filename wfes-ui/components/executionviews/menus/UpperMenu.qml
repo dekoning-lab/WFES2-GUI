@@ -206,7 +206,7 @@ Rectangle {
                                 rootWfas.updateScaledParameters(true)
                             }
                             if(typeof(rootWfafle) != "undefined") {
-                                rootWfafle.updateScaledParameters()
+                                rootWfafle.updateScaledParameters(true)
                             }
                             if(typeof(rootWfesSingle) != "undefined") {
                                 if(rootWfesSingle.firstLoad) {
