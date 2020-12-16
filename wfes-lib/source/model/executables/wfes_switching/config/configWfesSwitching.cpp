@@ -72,29 +72,49 @@ void ConfigWfesSwitching::saveConfigWfesSwitching() {
             outStream << "\n";
     }
 
-    outStream << "Individial selection coefficient (s): ";
-    for(int i = 0; i < ConfigWfesSwitching::num_comp - 1; i++) {
-        outStream << ConfigWfesSwitching::s[i] << "; ";
+    if(wfes::controllers::GlobalConfiguration::populationScaled) {
+        outStream << "Backward Mutation Rates (u): ";
+        for(int i = 0; i < ConfigWfesSwitching::num_comp - 1; i++) {
+            outStream << ConfigWfesSwitching::u[i] / (4 * ConfigWfesSwitching::N[i])  << "; ";
+        }
+        outStream << ConfigWfesSwitching::u[ConfigWfesSwitching::num_comp - 1] / (4 * ConfigWfesSwitching::N[ConfigWfesSwitching::num_comp - 1]) << "\n";
+    
+        outStream << "Forward Mutation Rates (v): ";
+        for(int i = 0; i < ConfigWfesSwitching::num_comp - 1; i++) {
+            outStream << ConfigWfesSwitching::v[i] / (4 * ConfigWfesSwitching::N[i]) << "; ";
+        }
+        outStream << ConfigWfesSwitching::v[ConfigWfesSwitching::num_comp - 1] / (4 * ConfigWfesSwitching::N[ConfigWfesSwitching::num_comp - 1]) << "\n";
+
+        outStream << "Individial selection coefficient (s): ";
+        for(int i = 0; i < ConfigWfesSwitching::num_comp - 1; i++) {
+            outStream << ConfigWfesSwitching::s[i] / (2 * ConfigWfesSwitching::N[i]) << "; ";
+        }
+        outStream << ConfigWfesSwitching::s[ConfigWfesSwitching::num_comp - 1] / (2 * ConfigWfesSwitching::N[ConfigWfesSwitching::num_comp - 1]) << "\n";
+    } else {
+        outStream << "Backward Mutation Rates (u): ";
+        for(int i = 0; i < ConfigWfesSwitching::num_comp - 1; i++) {
+            outStream << ConfigWfesSwitching::u[i] << "; ";
+        }
+        outStream << ConfigWfesSwitching::u[ConfigWfesSwitching::num_comp - 1] << "\n";
+
+        outStream << "Forward Mutation Rates (v): ";
+        for(int i = 0; i < ConfigWfesSwitching::num_comp - 1; i++) {
+            outStream << ConfigWfesSwitching::v[i] << "; ";
+        }
+        outStream << ConfigWfesSwitching::v[ConfigWfesSwitching::num_comp - 1] << "\n";
+
+        outStream << "Individial selection coefficient (s): ";
+        for(int i = 0; i < ConfigWfesSwitching::num_comp - 1; i++) {
+            outStream << ConfigWfesSwitching::s[i] << "; ";
+        }
+        outStream << ConfigWfesSwitching::s[ConfigWfesSwitching::num_comp - 1] << "\n";
     }
-    outStream << ConfigWfesSwitching::s[ConfigWfesSwitching::num_comp - 1] << "\n";
 
     outStream << "Individial dominance coefficient (h): ";
     for(int i = 0; i < ConfigWfesSwitching::num_comp - 1; i++) {
         outStream << ConfigWfesSwitching::h[i] << "; ";
     }
     outStream << ConfigWfesSwitching::h[ConfigWfesSwitching::num_comp - 1] << "\n";
-
-    outStream << "Backward Mutation Rates (u): ";
-    for(int i = 0; i < ConfigWfesSwitching::num_comp - 1; i++) {
-        outStream << ConfigWfesSwitching::u[i] << "; ";
-    }
-    outStream << ConfigWfesSwitching::u[ConfigWfesSwitching::num_comp - 1] << "\n";
-
-    outStream << "Forward Mutation Rates (v): ";
-    for(int i = 0; i < ConfigWfesSwitching::num_comp - 1; i++) {
-        outStream << ConfigWfesSwitching::v[i] << "; ";
-    }
-    outStream << ConfigWfesSwitching::v[ConfigWfesSwitching::num_comp - 1] << "\n";
 
     file.close();
 

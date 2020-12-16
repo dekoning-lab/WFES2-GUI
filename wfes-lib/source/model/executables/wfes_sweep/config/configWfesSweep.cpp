@@ -29,9 +29,16 @@ void ConfigWfesSweep::saveConfigWfesSweep() {
     outStream << "Model Type: " << QString::fromStdString(ModelTypeWfesSweepNames[ModelTypeWfesSweepToInt(ConfigWfesSweep::modelType)]) << "\n";
     outStream << "Population Size (N): " << ConfigWfesSweep::population_size << "\n";
 
-    outStream << "Backward Mutation Rates (u): " << ConfigWfesSweep::u[0] << "; " << ConfigWfesSweep::u[1] << "\n";
-    outStream << "Forward Mutation Rates (v): " << ConfigWfesSweep::v[0] << "; " << ConfigWfesSweep::v[1] << "\n";
-    outStream << "Selection Coefficients (s): " << ConfigWfesSweep::s[0] << "; " << ConfigWfesSweep::s[1] << "\n";
+    if(wfes::controllers::GlobalConfiguration::populationScaled) {
+        outStream << "Backward Mutation Rates (u): " << ConfigWfesSweep::u[0] / (4 * ConfigWfesSweep::population_size) << "; " << ConfigWfesSweep::u[1] / (4 * ConfigWfesSweep::population_size) << "\n";
+        outStream << "Forward Mutation Rates (v): " << ConfigWfesSweep::v[0] / (4 * ConfigWfesSweep::population_size) << "; " << ConfigWfesSweep::v[1] / (4 * ConfigWfesSweep::population_size) << "\n";
+        outStream << "Selection Coefficients (s): " << ConfigWfesSweep::s[0] / (2 * ConfigWfesSweep::population_size) << "; " << ConfigWfesSweep::s[1] / (2 * ConfigWfesSweep::population_size) << "\n";
+    } else {
+        outStream << "Backward Mutation Rates (u): " << ConfigWfesSweep::u[0] << "; " << ConfigWfesSweep::u[1] << "\n";
+        outStream << "Forward Mutation Rates (v): " << ConfigWfesSweep::v[0] << "; " << ConfigWfesSweep::v[1] << "\n";
+        outStream << "Selection Coefficients (s): " << ConfigWfesSweep::s[0] << "; " << ConfigWfesSweep::s[1] << "\n";
+    }
+
     outStream << "Dominance Coefficients (h): " << ConfigWfesSweep::h[0] << "; " << ConfigWfesSweep::h[1] << "\n";
     outStream << "Initial Distribution Path (I): " << QString::fromStdString(ConfigWfesSweep::initial_distribution_csv) << "\n";
 

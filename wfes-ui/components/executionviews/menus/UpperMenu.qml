@@ -146,7 +146,6 @@ Rectangle {
                             outputControllerPhaseType.ui_load_config
                             rootPhaseType.updateGUI()
                         }
-
                     }
                 }
 
@@ -191,28 +190,40 @@ Rectangle {
 
                             // Update scaled parameters.
                             if(typeof(rootPhaseType) != "undefined") {
-                                rootPhaseType.updateScaledParameters()
+                                if(rootPhaseType.firstLoad) {
+                                    rootPhaseType.updateScaledParameters(false)
+                                    rootPhaseType.firstLoad = false
+                                } else {
+                                    rootPhaseType.updateScaledParameters(true)
+                                }
                             }
                             if(typeof(rootTimeDist) != "undefined") {
-                                rootTimeDist.updateScaledParameters()
+                                if(!rootTimeDist.firstLoad) {
+                                    rootTimeDist.updateScaledParameters(true)
+                                }
                             }
                             if(typeof(rootWfas) != "undefined") {
-                                rootWfas.updateScaledParameters()
+                                rootWfas.updateScaledParameters(true)
                             }
                             if(typeof(rootWfafle) != "undefined") {
-                                rootWfafle.updateScaledParameters()
+                                rootWfafle.updateScaledParameters(true)
                             }
                             if(typeof(rootWfesSingle) != "undefined") {
-                                rootWfesSingle.updateScaledParameters()
+                                if(rootWfesSingle.firstLoad) {
+                                    rootWfesSingle.updateScaledParameters(false)
+                                    rootWfesSingle.firstLoad = false
+                                } else {
+                                    rootWfesSingle.updateScaledParameters(true)
+                                }
                             }
                             if(typeof(rootWfesSequential) != "undefined") {
-                                rootWfesSequential.updateScaledParameters()
+                                rootWfesSequential.updateScaledParameters(true)
                             }
                             if(typeof(rootWfesSwitching) != "undefined") {
-                                rootWfesSwitching.updateScaledParameters()
+                                rootWfesSwitching.updateScaledParameters(true)
                             }
                             if(typeof(rootWfesSweep) != "undefined") {
-                                rootWfesSweep.updateScaledParameters()
+                                rootWfesSweep.updateScaledParameters(true)
                             }
                         }
                     }

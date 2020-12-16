@@ -9,6 +9,8 @@ import components 1.0
 import assets 1.0
 
 ApplicationWindow {
+    property var firstLoad: true
+
     id: rootPhaseType
     title: qsTr("WFES - Wright-Fisher Exact Solver (Phase Type)")
 
@@ -1110,7 +1112,7 @@ ApplicationWindow {
 
     }
 
-    function updateScaledParameters() {
+    function updateScaledParameters(updateNonChecked) {
         if(globalConfiguration.ui_population_scaled) {
             inputControllerPhaseType.ui_s = parseFloat(inputControllerPhaseType.ui_s) * (2 * parseInt(inputControllerPhaseType.ui_n))
             inputS.textFieldText = inputControllerPhaseType.ui_s
@@ -1118,7 +1120,7 @@ ApplicationWindow {
             inputU.textFieldText = inputControllerPhaseType.ui_u
             inputControllerPhaseType.ui_v = parseFloat(inputControllerPhaseType.ui_v) * (4 * parseInt(inputControllerPhaseType.ui_n))
             inputV.textFieldText = inputControllerPhaseType.ui_v
-        } else {
+        } else if(updateNonChecked){
             inputControllerPhaseType.ui_s = parseFloat(inputControllerPhaseType.ui_s) / (2 * parseInt(inputControllerPhaseType.ui_n))
             inputS.textFieldText = inputControllerPhaseType.ui_s
             inputControllerPhaseType.ui_u = parseFloat(inputControllerPhaseType.ui_u) / (4 * parseInt(inputControllerPhaseType.ui_n))

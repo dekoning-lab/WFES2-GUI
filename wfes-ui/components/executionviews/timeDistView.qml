@@ -10,6 +10,8 @@ import components 1.0
 import assets 1.0
 
 ApplicationWindow {
+    property var firstLoad: true
+
     id: rootTimeDist
     title: qsTr("WFES - Wright-Fisher Exact Solver (Time Dist.)")
 
@@ -414,6 +416,7 @@ ApplicationWindow {
                                                     if(globalConfiguration.ui_population_scaled) {
                                                         if(!Number.isNaN(Number(inputV1.textFieldText)) && parseFloat(inputV1.textFieldText) >= 0 && parseFloat(inputV1.textFieldText) <= 1) {
                                                             inputControllerTimeDist.ui_v_vec = v_vec
+                                                            print(inputControllerTimeDist.ui_v_vec)
                                                             borderColor = "#555555"
                                                         } else {
                                                             borderColor = "#ff0000"
@@ -523,9 +526,13 @@ ApplicationWindow {
 
                                 }
                                 onLoaded: function() {
-                                    // Liad configuration on open here. Wait until everything loaded.
+                                    // Load configuration on open here. Wait until everything loaded.
                                     var dummyString = outputControllerTimeDist.ui_load_config
                                     rootTimeDist.updateGUI()
+                                    print(timeDistSGVSectionTabView.getTab(0).item.children[0].children[1].children[0].textFieldText)
+                                    updateScaledParameters(false)
+                                    print(timeDistSGVSectionTabView.getTab(0).item.children[0].children[1].children[0].textFieldText)
+                                    firstLoad = false
                                 }
                             }
                             Tab {
@@ -1770,65 +1777,74 @@ ApplicationWindow {
     }
 
 
-    function updateScaledParameters() {
-         var u, v, s, i
-         var u_vec, v_vec, s_vec = []
-        if(globalConfiguration.ui_population_scaled) {
-            inputControllerTimeDist.ui_s = parseFloat(inputControllerTimeDist.ui_s) * (2 * parseInt(inputControllerTimeDist.ui_n))
-            inputS.textFieldText = inputControllerTimeDist.ui_s
-            inputControllerTimeDist.ui_u = parseFloat(inputControllerTimeDist.ui_u) * (4 * parseInt(inputControllerTimeDist.ui_n))
-            inputU.textFieldText = inputControllerTimeDist.ui_u
-            inputControllerTimeDist.ui_v = parseFloat(inputControllerTimeDist.ui_v) * (4 * parseInt(inputControllerTimeDist.ui_n))
-            inputV.textFieldText = inputControllerTimeDist.ui_v
-
-            u = inputControllerTimeDist.ui_u_vec
-            v = inputControllerTimeDist.ui_v_vec
-            s = inputControllerTimeDist.ui_s_vec
-            u_vec = []
-            v_vec = []
-            s_vec = []
-            for(i = 0; i < 2; i++) {
-                timeDistSGVSectionTabView.getTab(i).active = true
-                u_vec.push((u[i] * (4 * parseInt(inputControllerTimeDist.ui_n))).toString())
-                v_vec.push((v[i] * (4 * parseInt(inputControllerTimeDist.ui_n))).toString())
-                s_vec.push((s[i] * (2 * parseInt(inputControllerTimeDist.ui_n))).toString())
-                timeDistSGVSectionTabView.getTab(i).item.children[0].children[1].children[0].textFieldText = u_vec[i]
-                timeDistSGVSectionTabView.getTab(i).item.children[0].children[1].children[1].textFieldText = v_vec[i]
-                timeDistSGVSectionTabView.getTab(i).item.children[1].children[1].children[0].textFieldText = s_vec[i]
+    function updateScaledParameters(updateNonChecked) {
+        var loadedComponents = true
+        for(var i = 0; i < 2; i++) {
+            if(typeof(timeDistSGVSectionTabView.getTab(i)) === "undefined") {
+                loadedComponents = false
             }
-            inputControllerTimeDist.ui_u_vec = u_vec
-            inputControllerTimeDist.ui_v_vec = v_vec
-            inputControllerTimeDist.ui_s_vec = s_vec
+
+        }
+        if(loadedComponents) {
+            var u, v, s
+            var u_vec, v_vec, s_vec = []
+            if(globalConfiguration.ui_population_scaled) {
+                inputControllerTimeDist.ui_s = parseFloat(inputControllerTimeDist.ui_s) * (2 * parseInt(inputControllerTimeDist.ui_n))
+                inputS.textFieldText = inputControllerTimeDist.ui_s
+                inputControllerTimeDist.ui_u = parseFloat(inputControllerTimeDist.ui_u) * (4 * parseInt(inputControllerTimeDist.ui_n))
+                inputU.textFieldText = inputControllerTimeDist.ui_u
+                inputControllerTimeDist.ui_v = parseFloat(inputControllerTimeDist.ui_v) * (4 * parseInt(inputControllerTimeDist.ui_n))
+                inputV.textFieldText = inputControllerTimeDist.ui_v
+
+                u = inputControllerTimeDist.ui_u_vec
+                v = inputControllerTimeDist.ui_v_vec
+                s = inputControllerTimeDist.ui_s_vec
+                u_vec = []
+                v_vec = []
+                s_vec = []
+                for(i = 0; i < 2; i++) {
+                    timeDistSGVSectionTabView.getTab(i).active = true
+                    u_vec.push((u[i] * (4 * parseInt(inputControllerTimeDist.ui_n_sgv))).toString())
+                    v_vec.push((v[i] * (4 * parseInt(inputControllerTimeDist.ui_n_sgv))).toString())
+                    s_vec.push((s[i] * (2 * parseInt(inputControllerTimeDist.ui_n_sgv))).toString())
+                    timeDistSGVSectionTabView.getTab(i).item.children[0].children[1].children[0].textFieldText = u_vec[i]
+                    timeDistSGVSectionTabView.getTab(i).item.children[0].children[1].children[1].textFieldText = v_vec[i]
+                    timeDistSGVSectionTabView.getTab(i).item.children[1].children[1].children[0].textFieldText = s_vec[i]
+                }
+                inputControllerTimeDist.ui_u_vec = u_vec
+                inputControllerTimeDist.ui_v_vec = v_vec
+                inputControllerTimeDist.ui_s_vec = s_vec
 
 
-        } else {
-            inputControllerTimeDist.ui_s = parseFloat(inputControllerTimeDist.ui_s) / (2 * parseInt(inputControllerTimeDist.ui_n))
-            inputS.textFieldText = inputControllerTimeDist.ui_s
-            inputControllerTimeDist.ui_u = parseFloat(inputControllerTimeDist.ui_u) / (4 * parseInt(inputControllerTimeDist.ui_n))
-            inputU.textFieldText = inputControllerTimeDist.ui_u
-            inputControllerTimeDist.ui_v = parseFloat(inputControllerTimeDist.ui_v) / (4 * parseInt(inputControllerTimeDist.ui_n))
-            inputV.textFieldText = inputControllerTimeDist.ui_v
+            } else if(updateNonChecked){
+                inputControllerTimeDist.ui_s = parseFloat(inputControllerTimeDist.ui_s) / (2 * parseInt(inputControllerTimeDist.ui_n))
+                inputS.textFieldText = inputControllerTimeDist.ui_s
+                inputControllerTimeDist.ui_u = parseFloat(inputControllerTimeDist.ui_u) / (4 * parseInt(inputControllerTimeDist.ui_n))
+                inputU.textFieldText = inputControllerTimeDist.ui_u
+                inputControllerTimeDist.ui_v = parseFloat(inputControllerTimeDist.ui_v) / (4 * parseInt(inputControllerTimeDist.ui_n))
+                inputV.textFieldText = inputControllerTimeDist.ui_v
 
 
-            u = inputControllerTimeDist.ui_u_vec
-            v = inputControllerTimeDist.ui_v_vec
-            s = inputControllerTimeDist.ui_s_vec
-            u_vec = []
-            v_vec = []
-            s_vec = []
-            for(i = 0; i < 2; i++) {
-                timeDistSGVSectionTabView.getTab(i).active = true
-                u_vec.push((u[i] / (4 * parseInt(inputControllerTimeDist.ui_n))).toString())
-                v_vec.push((v[i] / (4 * parseInt(inputControllerTimeDist.ui_n))).toString())
-                s_vec.push((s[i] / (2 * parseInt(inputControllerTimeDist.ui_n))).toString())
-                timeDistSGVSectionTabView.getTab(i).item.children[0].children[1].children[0].textFieldText = u_vec[i]
-                timeDistSGVSectionTabView.getTab(i).item.children[0].children[1].children[1].textFieldText = v_vec[i]
-                timeDistSGVSectionTabView.getTab(i).item.children[1].children[1].children[0].textFieldText = s_vec[i]
+                u = inputControllerTimeDist.ui_u_vec
+                v = inputControllerTimeDist.ui_v_vec
+                s = inputControllerTimeDist.ui_s_vec
+                u_vec = []
+                v_vec = []
+                s_vec = []
+                for(i = 0; i < 2; i++) {
+                    timeDistSGVSectionTabView.getTab(i).active = true
+                    u_vec.push((u[i] / (4 * parseInt(inputControllerTimeDist.ui_n_sgv))).toString())
+                    v_vec.push((v[i] / (4 * parseInt(inputControllerTimeDist.ui_n_sgv))).toString())
+                    s_vec.push((s[i] / (2 * parseInt(inputControllerTimeDist.ui_n_sgv))).toString())
+                    timeDistSGVSectionTabView.getTab(i).item.children[0].children[1].children[0].textFieldText = u_vec[i]
+                    timeDistSGVSectionTabView.getTab(i).item.children[0].children[1].children[1].textFieldText = v_vec[i]
+                    timeDistSGVSectionTabView.getTab(i).item.children[1].children[1].children[0].textFieldText = s_vec[i]
+                }
+                inputControllerTimeDist.ui_u_vec = u_vec
+                inputControllerTimeDist.ui_v_vec = v_vec
+                inputControllerTimeDist.ui_s_vec = s_vec
+
             }
-            inputControllerTimeDist.ui_u_vec = u_vec
-            inputControllerTimeDist.ui_v_vec = v_vec
-            inputControllerTimeDist.ui_s_vec = s_vec
-
         }
     }
 }

@@ -40,10 +40,10 @@ void ConfigWfesSingle::saveConfigWfesSingle() {
     outStream << "ViennaCL Solver: " << QString::fromStdString(ConfigWfesSingle::vienna_solver) << "\n";
     outStream << "Model Type: " << QString::fromStdString(ModelTypeWfesSingleNames[ModelTypeWfesSingleToInt(ConfigWfesSingle::modelType)]) << "\n";
     outStream << "Population Size (N): " << ConfigWfesSingle::population_size << "\n";
-    outStream << "Selection Coefficient (s): " << ConfigWfesSingle::s << "\n";
-    outStream << "Dominance Coefficient (h): " << ConfigWfesSingle::h << "\n";
     outStream << "Backward Mutation Rate (u): " << ConfigWfesSingle::u << "\n";
     outStream << "Forward Mutation Rate (v): " << ConfigWfesSingle::v << "\n";
+    outStream << "Selection Coefficient (s): " << ConfigWfesSingle::s << "\n";
+    outStream << "Dominance Coefficient (h): " << ConfigWfesSingle::h << "\n";
     outStream << "No Recurrent Mutation (m): " << (ConfigWfesSingle::no_rem ? QString("true") : QString("false")) << "\n";
     outStream << "Tail Truncation Weight (a): " << ConfigWfesSingle::a << "\n";
     outStream << "Odds Ratio (k): " << ConfigWfesSingle::odds_ratio << "\n";

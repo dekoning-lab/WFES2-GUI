@@ -10,6 +10,8 @@
 
 #include "utils/types.h"
 
+#include <model/config/globalConfiguration.h>
+
 namespace wfes {
     namespace config {
 
