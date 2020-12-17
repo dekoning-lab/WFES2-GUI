@@ -464,7 +464,12 @@ ApplicationWindow {
                     chartResults.saveChartSVG("Phase Type Acum.", scaleButton.checked, url + "chart-" + bt2.text + ".svg")
                 }
             }
-
+            if(chart1Linear.title == "Wfas Dist.") {
+                chartResults.saveChartSVG("Wfas Dist.", scaleButton.checked, url + "chart-" + bt1.text + ".svg")
+            }
+            if(chart1Linear.title == "Wfafle Dist.") {
+                chartResults.saveChartSVG("Wfafle Dist.", scaleButton.checked, url + "chart-" + bt1.text + ".svg")
+            }
 
             // If png do this.
             /*if(chart1Linear.visible) {

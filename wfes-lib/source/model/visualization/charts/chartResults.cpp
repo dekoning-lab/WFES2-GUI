@@ -154,6 +154,41 @@ void ChartResults::saveChartSVG(QString title, bool log, QString filePath) {
         axisY->setMax(ChartResults::minMaxPhaseTypeAcum.y());
         chart->addAxis(axisY, Qt::AlignLeft);
         series->attachAxis(axisY);
+
+    } else if (title.compare("Wfas Dist.") == 0) {
+        // Append series.
+        series->append(this->wfasDist);
+        // Set name of series.
+        series->setName("Allele frequency distribution");
+        // Add series.
+        chart->addSeries(series);
+
+        // Add axes X to chart, and attach to series.
+        chart->addAxis(axisX, Qt::AlignBottom);
+        series->attachAxis(axisX);
+
+        // Add axes Y to chart, and attach to series.
+        axisY->setMin(ChartResults::minMaxwfasDist.x());
+        axisY->setMax(ChartResults::minMaxwfasDist.y());
+        chart->addAxis(axisY, Qt::AlignLeft);
+        series->attachAxis(axisY);
+    } else if (title.compare("Wfafle Dist.") == 0) {
+        // Append series.
+        series->append(this->wfafleDist);
+        // Set name of series.
+        series->setName("Allele frequency distribution");
+        // Add series.
+        chart->addSeries(series);
+
+        // Add axes X to chart, and attach to series.
+        chart->addAxis(axisX, Qt::AlignBottom);
+        series->attachAxis(axisX);
+
+        // Add axes Y to chart, and attach to series.
+        axisY->setMin(ChartResults::minMaxwfafleDist.x());
+        axisY->setMax(ChartResults::minMaxwfafleDist.y());
+        chart->addAxis(axisY, Qt::AlignLeft);
+        series->attachAxis(axisY);
     }
 
     chart->legend()->setAlignment(Qt::AlignRight);
