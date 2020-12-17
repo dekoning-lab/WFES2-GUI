@@ -2,6 +2,7 @@
 #define SYSTEMOPERATIONS_H
 
 #include <QDesktopServices>
+#include <QDebug>
 #include <QObject>
 #include <QUrl>
 
@@ -17,7 +18,9 @@ namespace wfes {
                 SystemOperations() = default;
 
                 Q_INVOKABLE void openUrlInFileExplorer(QString path) {
+                    path = "file://" + path;
                     QDesktopServices::openUrl(QUrl(path));
+                    qDebug() << path;
                 }
 
         };
