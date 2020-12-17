@@ -20,9 +20,9 @@ ApplicationWindow {
     width: 955
     minimumWidth: 955
     maximumWidth: 955
-    height: 515
-    minimumHeight: 515
-    maximumHeight: 515
+    height: 485
+    minimumHeight: 485
+    maximumHeight: 485
 
     // Select theme for the application.
     Universal.theme: Universal.Light
@@ -1073,7 +1073,7 @@ ApplicationWindow {
             anchors {
                 top: content.bottom
                 left: parent.left
-                topMargin: 30
+                topMargin: 0
             }
         }
 

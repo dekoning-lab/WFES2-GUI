@@ -19,9 +19,9 @@ ApplicationWindow {
     width: 955
     minimumWidth: 955
     maximumWidth: 955
-    height: 530
-    minimumHeight: 530
-    maximumHeight: 530
+    height: 460
+    minimumHeight: 460
+    maximumHeight: 460
 
     // Select theme for the application.
     Universal.theme: Universal.Light

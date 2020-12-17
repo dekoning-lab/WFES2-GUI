@@ -22,9 +22,9 @@ ApplicationWindow {
     width: 640
     minimumWidth: 640
     maximumWidth: 640
-    height: 525
-    minimumHeight: 525
-    maximumHeight: 525
+    height: 460
+    minimumHeight: 460
+    maximumHeight: 460
 
     // Select theme for the application.
     Universal.theme: Universal.Light
@@ -1387,7 +1387,7 @@ ApplicationWindow {
         BottomMenuExecutionView {
             id: bottomMenu
             width: parent.width
-            height: childrenRect.height
+            height: 35
             executionProgress: outputControllerTimeDist.ui_progress
 
             anchors {
