@@ -49,6 +49,11 @@ ResultsWfafle *wfafle::function() {
         dvec initial;
         if (ConfigWfafle::initial_distribution_csv.compare("") != 0) {
             initial = load_csv_col_vector(ConfigWfafle::initial_distribution_csv);
+            // Check if Initial Distribution File (i) size is correct.
+            if(initial.size() != (2 * ConfigWfafle::N[0] + 1)) {
+                this->notify(ExecutionStatus::ERROR);
+                return new ResultsWfafle("Initial Probability Distribution (I) file must have " + std::to_string(2 * ConfigWfafle::N[0] + 1) + " elements. Your file has just " + std::to_string(initial.size()) + " elements.");
+            }
         } else if (ConfigWfafle::p != 0) {
             llong p = ConfigWfafle::p;
             initial = dvec::Zero(2 * ConfigWfafle::N(0) + 1);

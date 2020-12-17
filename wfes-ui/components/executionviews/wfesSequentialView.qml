@@ -407,7 +407,7 @@ ApplicationWindow {
                                             enabled: (comboBoxLibrary.currentText === "ViennaCL")
                                         }
 
-                                        LabeledTextField {
+                                        /*LabeledTextField {
                                             id: inputI
                                             text: "I. Dist.: "
                                             toolTipText: "Path to initial probability distribution CSV file."
@@ -431,7 +431,7 @@ ApplicationWindow {
                                                 path = path.replace(/^(file:\/{2})/,"");
                                                 inputI.textFieldText = path
                                             }
-                                        }
+                                        }*/
 
                                     }
 
@@ -736,7 +736,7 @@ ApplicationWindow {
         inputT.textFieldText = inputControllerWfesSequential.ui_t
         inputForce.checked = inputControllerWfesSequential.ui_force
 
-        inputI.textFieldText = inputControllerWfesSequential.ui_initial_distribution
+        //inputI.textFieldText = inputControllerWfesSequential.ui_initial_distribution
 
         var library = inputControllerWfesSequential.ui_library
         if(library === "Pardiso")
@@ -797,7 +797,7 @@ ApplicationWindow {
         inputControllerWfesSequential.ui_t = inputT.textFieldText
         inputControllerWfesSequential.ui_force = inputForce.checked
 
-        inputControllerWfesSequential.ui_initial_distribution = inputI.textFieldText
+        //inputControllerWfesSequential.ui_initial_distribution = inputI.textFieldText
 
         inputControllerWfesSequential.ui_library = comboBoxLibrary.currentText;
         inputControllerWfesSequential.ui_solver = comboBoxSolver.currentText;

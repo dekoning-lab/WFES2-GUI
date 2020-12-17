@@ -68,7 +68,7 @@ void wfes::utils::writeVectorToFile(const dvec &A, std::string name, bool append
 
     QTextStream outStream(&file);
     std::stringstream stream;
-    stream << A.format(CSVRowFormat);
+    stream << A.format(CSVFormat);
 
     outStream << QString::fromStdString(stream.str());
 

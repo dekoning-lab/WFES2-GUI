@@ -82,6 +82,11 @@ ResultsWfas *wfas::function() {
         dvec initial;
         if (ConfigWfas::initial_distribution_csv.compare("") != 0) {
             initial = load_csv_col_vector(ConfigWfas::initial_distribution_csv);
+            // Check if Initial Distribution File (i) size is correct.
+            if(initial.size() != (2 * ConfigWfas::N[0] + 1)) {
+                this->notify(ExecutionStatus::ERROR);
+                return new ResultsWfas("Initial Probability Distribution (I) file must have " + std::to_string(2 * ConfigWfas::N[0] + 1) + " elements. Your file has just " + std::to_string(initial.size()) + " elements.");
+            }
         } else if (ConfigWfas::p != 0) {
             llong p = ConfigWfas::p;
             initial = dvec::Zero(2 * popSizes(0) + 1);
@@ -178,7 +183,6 @@ ResultsWfas *wfas::function() {
         dmat Nt = dmat::Zero(n_rhs, size);
         if (ConfigWfas::output_N) {
             // Calculate fundamental matrix
-            dmat Nt = dmat::Zero(n_rhs, size);
             for(llong i = 0; i < n_rhs; i++) {
                 dvec id_tmp = id.col(i);
                 Nt.col(i) = solver->solve(id_tmp, true);

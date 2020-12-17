@@ -93,6 +93,11 @@ ResultsWfesSingle *wfes_single::absorption(double s, double u, double v) {
 
         llong size = (2 * ConfigWfesSingle::population_size) - 1;
 
+        if(ConfigWfesSingle::initial_distribution_csv.compare("") != 0 && starting_copies_p.size() != size) {
+            this->notify(ExecutionStatus::ERROR);
+            return new ResultsWfesSingle("Initial Probability Distribution (I) file must have " + std::to_string(size) + " elements. Your file has just " + std::to_string(starting_copies_p.size()) + " elements.");
+        }
+
         Solver* solver = SolverFactory::createSolver(ConfigWfesSingle::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, ConfigWfesSingle::vienna_solver);
 
         solver->preprocess();
@@ -287,6 +292,11 @@ ResultsWfesSingle *wfes_single::fixation(double s, double u, double v) {
 
         llong size = (2 * ConfigWfesSingle::population_size);
 
+        if(ConfigWfesSingle::initial_distribution_csv.compare("") != 0 && starting_copies_p.size() != size) {
+            this->notify(ExecutionStatus::ERROR);
+            return new ResultsWfesSingle("Initial Probability Distribution (I) file must have " + std::to_string(size) + " elements. Your file has just " + std::to_string(starting_copies_p.size()) + " elements.");
+        }
+
         Solver *solver = wfes::solver::SolverFactory::createSolver(ConfigWfesSingle::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, ConfigWfesSingle::vienna_solver);
 
         solver->preprocess();
@@ -372,6 +382,12 @@ ResultsWfesSingle *wfes_single::fundamental(double s, double u, double v) {
         this->notify(ExecutionStatus::BUILDING_MATRICES);
 
         llong size = (2 * ConfigWfesSingle::population_size) - 1;
+
+        if(ConfigWfesSingle::initial_distribution_csv.compare("") != 0 && starting_copies_p.size() != size) {
+            this->notify(ExecutionStatus::ERROR);
+            return new ResultsWfesSingle("Initial Probability Distribution (I) file must have " + std::to_string(size) + " elements. Your file has just " + std::to_string(starting_copies_p.size()) + " elements.");
+        }
+
         wrightfisher::Matrix W = wrightfisher::Single(ConfigWfesSingle::population_size, ConfigWfesSingle::population_size, wrightfisher::BOTH_ABSORBING, s, ConfigWfesSingle::h, u, v,
                                   ConfigWfesSingle::rem, ConfigWfesSingle::a, msg_level, ConfigWfesSingle::b, ConfigWfesSingle::library);
 
@@ -465,6 +481,12 @@ ResultsWfesSingle *wfes_single::equilibrium(double s, double u, double v) {
         this->notify(ExecutionStatus::BUILDING_MATRICES);
 
         llong size = (2 * ConfigWfesSingle::population_size) + 1;
+
+        if(ConfigWfesSingle::initial_distribution_csv.compare("") != 0 && starting_copies_p.size() != size) {
+            this->notify(ExecutionStatus::ERROR);
+            return new ResultsWfesSingle("Initial Probability Distribution (I) file must have " + std::to_string(size) + " elements. Your file has just " + std::to_string(starting_copies_p.size()) + " elements.");
+        }
+
         wrightfisher::Matrix W = wrightfisher::EquilibriumSolvingMatrix(ConfigWfesSingle::population_size, s, ConfigWfesSingle::h, u, v,
                                                                         ConfigWfesSingle::a, msg_level, ConfigWfesSingle::b, ConfigWfesSingle::library);
         //Notify solving
@@ -549,6 +571,11 @@ ResultsWfesSingle *wfes_single::establishment(double s, double u, double v) {
 
         llong size = (2 * ConfigWfesSingle::population_size) - 1;
 
+        if(ConfigWfesSingle::initial_distribution_csv.compare("") != 0 && starting_copies_p.size() != size) {
+            this->notify(ExecutionStatus::ERROR);
+            return new ResultsWfesSingle("Initial Probability Distribution (I) file must have " + std::to_string(size) + " elements. Your file has just " + std::to_string(starting_copies_p.size()) + " elements.");
+        }
+
         Solver* solver_full = SolverFactory::createSolver(ConfigWfesSingle::library, *(W_full.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, ConfigWfesSingle::vienna_solver);
 
         solver_full->preprocess();
@@ -570,7 +597,7 @@ ResultsWfesSingle *wfes_single::establishment(double s, double u, double v) {
             throw wfes::exception::Error("Establishment is near-certain: establishment-count is 1");
         }
         if (z >= est_idx) {
-            throw wfes::exception::Error("Establishment can be reached by mutation alone");
+            throw wfes::exception::Error("Value of z is too high. Establishment can be reached by mutation alone");
         }
 
         // Since the B indexes begin at 1
@@ -752,6 +779,12 @@ ResultsWfesSingle *wfes_single::alleleAge(double s, double u, double v) {
         llong x = ConfigWfesSingle::observed_copies - 1;
 
         llong size = (2 * ConfigWfesSingle::population_size) - 1;
+
+        if(ConfigWfesSingle::initial_distribution_csv.compare("") != 0 && starting_copies_p.size() != size) {
+            this->notify(ExecutionStatus::ERROR);
+            return new ResultsWfesSingle("Initial Probability Distribution (I) file must have " + std::to_string(size) + " elements. Your file has just " + std::to_string(starting_copies_p.size()) + " elements.");
+        }
+
         wrightfisher::Matrix W = wrightfisher::Single(ConfigWfesSingle::population_size, ConfigWfesSingle::population_size, wrightfisher::BOTH_ABSORBING, s, ConfigWfesSingle::h, u, v,
                                   ConfigWfesSingle::rem, ConfigWfesSingle::a, msg_level, ConfigWfesSingle::b, ConfigWfesSingle::library);
 
@@ -896,9 +929,6 @@ ResultsWfesSingle *wfes_single::nonAbsorbing(double s, double u, double v) {
 
 void wfes_single::calculateStartingCopies(double s, double u, double v) {
     if (ConfigWfesSingle::initial_distribution_csv.compare("") != 0) {
-        // TODO Show as dialog.
-        // cout << "Reading initial from file" << args::get(initial_distributon_csv_f) << "" <<
-        // endl;
         starting_copies_p = load_csv_col_vector(ConfigWfesSingle::initial_distribution_csv);
     } else {
         dvec first_row = wrightfisher::binom_row(2 * ConfigWfesSingle::population_size, wrightfisher::psi_diploid(0, ConfigWfesSingle::population_size, s, ConfigWfesSingle::h, u, v), ConfigWfesSingle::a).Q;

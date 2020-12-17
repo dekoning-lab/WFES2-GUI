@@ -880,7 +880,7 @@ ApplicationWindow {
                                         model: ["GMRes", "BicGStab"]
                                         enabled: (comboBoxLibrary.currentText === "ViennaCL")
                                     }
-
+/*
                                     LabeledTextField {
                                         id: inputI
                                         text: "I. Dist.: "
@@ -905,7 +905,7 @@ ApplicationWindow {
                                             path = path.replace(/^(file:\/{2})/,"");
                                             inputI.textFieldText = path
                                         }
-                                    }
+                                    }*/
 
                                 }
 
@@ -1130,7 +1130,7 @@ ApplicationWindow {
         inputT.textFieldText = inputControllerWfesSweep.ui_t
         inputForce.checked = inputControllerWfesSweep.ui_force
 
-        inputI.textFieldText = inputControllerWfesSweep.ui_initial_distribution
+        //inputI.textFieldText = inputControllerWfesSweep.ui_initial_distribution
 
         var library = inputControllerWfesSweep.ui_library
         if(library === "Pardiso")
@@ -1187,7 +1187,7 @@ ApplicationWindow {
         inputControllerWfesSweep.ui_solver = comboBoxSolver.currentText;
         inputControllerWfesSweep.ui_force = inputForce.checked
 
-        inputControllerWfesSweep.ui_initial_distribution = inputI.textFieldText
+        //inputControllerWfesSweep.ui_initial_distribution = inputI.textFieldText
 
     }
 
