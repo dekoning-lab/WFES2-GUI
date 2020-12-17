@@ -455,7 +455,57 @@ ApplicationWindow {
         }
         onClicked: {
             var url = globalConfiguration.ui_save_path + "/Wfes/"
-            if(chart1Linear.visible) {
+            print(url)
+            //If svg do this.
+            if(chart1Linear.title == "Phase Type Dist.") {
+                if(chart1Linear.visible || chart1Log.visible) {
+                    chartResults.saveChartSVG("Phase Type Dist.", scaleButton.checked, url + "chart-" + bt1.text + ".svg")
+                } else if (chart2Linear.visible || chart2Log.visible) {
+                    chartResults.saveChartSVG("Phase Type Acum.", scaleButton.checked, url + "chart-" + bt2.text + ".svg")
+                }
+            }
+            if(chart1Linear.title == "Wfas Dist.") {
+                chartResults.saveChartSVG("Wfas Dist.", scaleButton.checked, url + "chart-" + bt1.text + ".svg")
+            }
+            if(chart1Linear.title == "Wfafle Dist.") {
+                chartResults.saveChartSVG("Wfafle Dist.", scaleButton.checked, url + "chart-" + bt1.text + ".svg")
+            }
+            if(chart1Linear.title == "Time Dist.") {
+                if(chart1Linear.visible || chart1Log.visible) {
+                    chartResults.saveChartSVG("Time Dist. Ext.", scaleButton.checked, url + "chart-" + bt1.text + ".svg")
+                } else if (chart2Linear.visible || chart2Log.visible) {
+                    chartResults.saveChartSVG("Time Dist. Fix.", scaleButton.checked, url + "chart-" + bt2.text + ".svg")
+                } else if (chart3Linear.visible || chart3Log.visible) {
+                    chartResults.saveChartSVG("Time Dist. Abs.", scaleButton.checked, url + "chart-" + bt3.text + ".svg")
+                }
+            }
+            if(chart1Linear.title == "Time Dist. SGV") {
+                if(chart1Linear.visible || chart1Log.visible) {
+                    chartResults.saveChartSVG("Time Dist. SGV Sub.", scaleButton.checked, url + "chart-" + bt1.text + ".svg")
+                } else if (chart2Linear.visible || chart2Log.visible) {
+                    chartResults.saveChartSVG("Time Dist. SGV Acum.", scaleButton.checked, url + "chart-" + bt2.text + ".svg")
+                }
+            }
+            if(chart1Linear.title == "Time Dist. Skip") {
+                if(chart1Linear.visible || chart1Log.visible) {
+                    chartResults.saveChartSVG("Time Dist. Skip Sub.", scaleButton.checked, url + "chart-" + bt1.text + ".svg")
+                } else if (chart2Linear.visible || chart2Log.visible) {
+                    chartResults.saveChartSVG("Time Dist. Skip Acum.", scaleButton.checked, url + "chart-" + bt2.text + ".svg")
+                }
+            }
+            if(chart1Linear.title == "Time Dist. Dual") {
+                if(chart1Linear.visible || chart1Log.visible) {
+                    chartResults.saveChartSVG("Time Dist. Dual Ext.", scaleButton.checked, url + "chart-" + bt1.text + ".svg")
+                } else if (chart2Linear.visible || chart2Log.visible) {
+                    chartResults.saveChartSVG("Time Dist. Dual Fix.", scaleButton.checked, url + "chart-" + bt2.text + ".svg")
+                } else if (chart3Linear.visible || chart3Log.visible) {
+                    chartResults.saveChartSVG("Time Dist. Dual Abs.", scaleButton.checked, url + "chart-" + bt3.text + ".svg")
+                }
+            }
+
+
+            // If png do this.
+            /*if(chart1Linear.visible) {
                 chart1Linear.grabToImage(function(result) {
                     print(globalConfiguration.ui_save_path)
                     result.saveToFile(url + "chart-" + bt1.text + ".png");
@@ -485,7 +535,7 @@ ApplicationWindow {
                     print(globalConfiguration.ui_save_path)
                     result.saveToFile(url + "chart-" + bt3.text + ".png");
                 });
-            }
+            }*/
             systemOperations.openUrlInFileExplorer(url)
 
         }

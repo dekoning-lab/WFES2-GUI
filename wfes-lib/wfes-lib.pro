@@ -1,7 +1,7 @@
 include(../qmake-target-platform.pri)
 include(../qmake-destination-path.pri)
 
-QT += gui quick charts
+QT += gui quick charts svg
 
 TARGET = wfes-lib
 TEMPLATE = lib

@@ -1,10 +1,13 @@
 #ifndef CHARTRESULTS_H
 #define CHARTRESULTS_H
 
+#include <QtSvg/QSvgGenerator>
 #include <QAbstractSeries>
 #include <QChartView>
+#include <QValueAxis>
 #include <QXYSeries>
 #include <QObject>
+#include <QBuffer>
 #include <QPointF>
 #include <QChart>
 #include <QList>
@@ -84,7 +87,13 @@ namespace wfes {
                  */
                 Q_INVOKABLE QPointF updateChart(QString name, QtCharts::QAbstractSeries *p_series);
 
-                Q_INVOKABLE void switchAxis(QtCharts::QAbstractAxis* abstractAxis, QString axis);
+                /**
+                 * @brief Save chart as SVG image.
+                 * @param title Title of the chart.
+                 * @param log Logarithmic scale for x axis.
+                 * @param filePath Path of the saved file.
+                 */
+                Q_INVOKABLE void saveChartSVG(QString title, bool log, QString filePath);
 
                 /**
                  * @brief Clear all values in the series.
