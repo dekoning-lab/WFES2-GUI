@@ -166,6 +166,7 @@ Rectangle {
                                 globalConfiguration.ui_generate_images = this.checked
                                 globalConfiguration.generateImagesChanged()
                             }
+                            menu2.dismiss()
                         }
                     }
                 }
@@ -225,6 +226,7 @@ Rectangle {
                             if(typeof(rootWfesSweep) != "undefined") {
                                 rootWfesSweep.updateScaledParameters(true)
                             }
+                            menu2.dismiss()
                         }
                     }
                 }
