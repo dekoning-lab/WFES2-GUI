@@ -175,11 +175,14 @@ ResultsWfas *wfas::function() {
         ChartResults::minMaxwfasDist = QPointF(minDist, maxDist);
         // This is for chart visualization.
 
-        // Calculate fundamental matrix
-        dmat Nt = dmat::Zero(size, n_rhs);
-        for(llong i = 0; i < n_rhs; i++) {
-            dvec id_tmp = id.col(i);
-            Nt.col(i) = solver->solve(id_tmp, true);
+        dmat Nt = dmat::Zero(n_rhs, size);
+        if (ConfigWfas::output_N) {
+            // Calculate fundamental matrix
+            dmat Nt = dmat::Zero(n_rhs, size);
+            for(llong i = 0; i < n_rhs; i++) {
+                dvec id_tmp = id.col(i);
+                Nt.col(i) = solver->solve(id_tmp, true);
+            }
         }
 
         //Notify saving data.
