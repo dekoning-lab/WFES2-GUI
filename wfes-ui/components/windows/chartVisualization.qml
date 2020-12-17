@@ -455,7 +455,19 @@ ApplicationWindow {
         }
         onClicked: {
             var url = globalConfiguration.ui_save_path + "/Wfes/"
-            if(chart1Linear.visible) {
+            print(url)
+            //If svg do this.
+            if(chart1Linear.title == "Phase Type Dist.") {
+                if(chart1Linear.visible || chart1Log.visible) {
+                    chartResults.saveChartSVG("Phase Type Dist.", scaleButton.checked, url + "chart-" + bt1.text + ".svg")
+                } else if (chart2Linear.visible || chart2Log.visible) {
+                    chartResults.saveChartSVG("Phase Type Acum.", scaleButton.checked, url + "chart-" + bt2.text + ".svg")
+                }
+            }
+
+
+            // If png do this.
+            /*if(chart1Linear.visible) {
                 chart1Linear.grabToImage(function(result) {
                     print(globalConfiguration.ui_save_path)
                     result.saveToFile(url + "chart-" + bt1.text + ".png");
@@ -485,7 +497,7 @@ ApplicationWindow {
                     print(globalConfiguration.ui_save_path)
                     result.saveToFile(url + "chart-" + bt3.text + ".png");
                 });
-            }
+            }*/
             systemOperations.openUrlInFileExplorer(url)
 
         }

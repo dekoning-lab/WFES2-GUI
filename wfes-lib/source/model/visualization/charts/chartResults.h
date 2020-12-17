@@ -90,9 +90,10 @@ namespace wfes {
                 /**
                  * @brief Save chart as SVG image.
                  * @param title Title of the chart.
+                 * @param log Logarithmic scale for x axis.
                  * @param filePath Path of the saved file.
                  */
-                Q_INVOKABLE void saveChartSVG(QString title, QString filePath);
+                Q_INVOKABLE void saveChartSVG(QString title, bool log, QString filePath);
 
                 /**
                  * @brief Clear all values in the series.

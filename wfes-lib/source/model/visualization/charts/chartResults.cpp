@@ -46,7 +46,6 @@ QPointF ChartResults::updateChart(QString name, QAbstractSeries *p_series) {
     QXYSeries *xySeries = static_cast<QXYSeries *>(p_series);
     if(phaseTypeDist.size() != 0 && name.compare("Phase Type Dist.") == 0) {
         xySeries->replace(phaseTypeDist);
-        ChartResults::saveChartSVG("Phase Type Dist.", "Filename.svg");
         return minMaxPhaseTypeDist;
     } else if(phaseTypeDist.size() != 0 && name.compare("Phase Type Acum.") == 0) {
         xySeries->replace(phaseTypeDistAcum);
@@ -98,19 +97,68 @@ QPointF ChartResults::updateChart(QString name, QAbstractSeries *p_series) {
     }
 }
 
-void ChartResults::saveChartSVG(QString title, QString filePath) {
+void ChartResults::saveChartSVG(QString title, bool log, QString filePath) {
     QLineSeries *series = new QLineSeries();
 
     QChart *chart = new QChart();
 
-    series->append(this->phaseTypeDist);
-    series->setName("Probability of subs.");
+    // Configure Axis.
+    QValueAxis *axisY = new QValueAxis;
+    axisY->setTickCount(5);
+    axisY->setLabelFormat("%.2e");
+    QAbstractAxis *axisX;
+    if(log) {
+        axisX = new QLogValueAxis;
+        ((QLogValueAxis*)axisX)->setMinorTickCount(0);
+        ((QLogValueAxis*)axisX)->setBase(10);
+        ((QLogValueAxis*)axisX)->setLabelFormat("%i");
+    } else {
+        axisX = new QValueAxis;
+        ((QValueAxis*)axisX)->setTickCount(5);
+        ((QValueAxis*)axisX)->setLabelFormat("%i");
+    }
+
+    // Depending of executable, set axis values and series.
+    if(title.compare("Phase Type Dist.") == 0) {
+        // Append series.
+        series->append(this->phaseTypeDist);
+        // Set name of series.
+        series->setName("Probability of subs.");
+        // Add series.
+        chart->addSeries(series);
+
+        // Add axes X to chart, and attach to series.
+        chart->addAxis(axisX, Qt::AlignBottom);
+        series->attachAxis(axisX);
+
+        // Add axes Y to chart, and attach to series.
+        axisY->setMin(ChartResults::minMaxPhaseTypeDist.x());
+        axisY->setMax(ChartResults::minMaxPhaseTypeDist.y());
+        chart->addAxis(axisY, Qt::AlignLeft);
+        series->attachAxis(axisY);
+
+    } else if (title.compare("Phase Type Acum.") == 0) {
+        // Append series.
+        series->append(this->phaseTypeDistAcum);
+        // Set name of series.
+        series->setName("Cumulative prob. of subs.");
+        // Add series.
+        chart->addSeries(series);
+
+        // Add axes X to chart, and attach to series.
+        chart->addAxis(axisX, Qt::AlignBottom);
+        series->attachAxis(axisX);
+
+        // Add axes Y to chart, and attach to series.
+        axisY->setMin(ChartResults::minMaxPhaseTypeAcum.x());
+        axisY->setMax(ChartResults::minMaxPhaseTypeAcum.y());
+        chart->addAxis(axisY, Qt::AlignLeft);
+        series->attachAxis(axisY);
+    }
 
     chart->legend()->setAlignment(Qt::AlignRight);
     chart->legend()->font().setPointSize(12);
 
-    chart->addSeries(series);
-    chart->createDefaultAxes();
     chart->setTitle(title);
 
     QChartView *chartView = new QChartView(chart);
