@@ -26,6 +26,11 @@ Window {
 
     color: Universal.chromeLowColor
 
+    Shortcut {
+        sequence: "CTRL+W"
+        onActivated: root.close()
+    }
+
     // Center window in screen.
     Component.onCompleted: {
         setX(Screen.width / 2 - width / 2);
