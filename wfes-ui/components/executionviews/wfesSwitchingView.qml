@@ -27,6 +27,11 @@ ApplicationWindow {
     // Select theme for the application.
     Universal.theme: Universal.Light
 
+    Shortcut {
+        sequence: "CTRL+W"
+        onActivated: rootWfesSwitching.close()
+    }
+
     onClosing: {
         close.accepted = false
 

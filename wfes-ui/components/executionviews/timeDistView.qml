@@ -29,6 +29,11 @@ ApplicationWindow {
     // Select theme for the application.
     Universal.theme: Universal.Light
 
+    Shortcut {
+        sequence: "CTRL+W"
+        onActivated: rootTimeDist.close()
+    }
+
     onClosing: {
         close.accepted = false
 
