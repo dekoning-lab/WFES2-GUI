@@ -1,5 +1,5 @@
-#ifndef WFES_WFAFLE_H
-#define WFES_WFAFLE_H
+#ifndef WFES_WFAFD_H
+#define WFES_WFAFD_H
 
 #include "utils/types.h"
 #include "utils/utils.h"
@@ -15,14 +15,14 @@
 #include "model/visualization/imageresults.h"
 #include <model/visualization/charts/chartResults.h>
 
-#include "model/executables/wfafle/config/configWfafle.h"
-#include "model/executables/wfafle/results/resultsWfafle.h"
+#include "model/executables/wfafd/config/configWfafd.h"
+#include "model/executables/wfafd/results/resultsWfafd.h"
 
 /**
- * @brief The wfafle class implements the phase type executables.
- * wfafle: WFAFLE - Wright-Fisher Allele Frequency calculation.
+ * @brief The wfafd class implements the phase type executables.
+ * wfafd: WFAFD - Wright-Fisher Allele Frequency calculation.
  */
-class wfafle : public Subject {
+class wfafd : public Subject {
     public:
         /**
          * @brief Starting point of measuring execution time.
@@ -40,16 +40,16 @@ class wfafle : public Subject {
         llong msg_level;
 
         /**
-         * @brief Starts an execution of a wfafle model.
+         * @brief Starts an execution of a wfafd model.
          * @return Results of the execution.
          */
-        ResultsWfafle* execute();
+        ResultsWfafd* execute();
 
         /**
          * @brief Calculates Wright-Fisher Allele Frequency.
          * @return Results of the execution.
          */
-        ResultsWfafle* function();
+        ResultsWfafd* function();
 
         /**
          * @brief Iterate over the model t generations.
@@ -83,4 +83,4 @@ class wfafle : public Subject {
 
 };
 
-#endif // WFES_WFAFLE_H
+#endif // WFES_WFAFD_H

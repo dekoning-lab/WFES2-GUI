@@ -467,8 +467,8 @@ ApplicationWindow {
             if(chart1Linear.title == "Wfas Dist.") {
                 chartResults.saveChartSVG("Wfas Dist.", scaleButton.checked, url + "chart-" + bt1.text + ".svg")
             }
-            if(chart1Linear.title == "Wfafle Dist.") {
-                chartResults.saveChartSVG("Wfafle Dist.", scaleButton.checked, url + "chart-" + bt1.text + ".svg")
+            if(chart1Linear.title == "Wfafd Dist.") {
+                chartResults.saveChartSVG("Wfafd Dist.", scaleButton.checked, url + "chart-" + bt1.text + ".svg")
             }
             if(chart1Linear.title == "Time Dist.") {
                 if(chart1Linear.visible || chart1Log.visible) {
@@ -662,7 +662,7 @@ ApplicationWindow {
 
         visibleSeries(true, false, true, false, true, false)
 
-        setTitle("Wfas Dist.")
+        setTitle("WFAF-S")
 
         setSeriesName("Allele frequency distribution", "", "", "", "", "")
 
@@ -671,9 +671,9 @@ ApplicationWindow {
         setValuesAxis(axisX1Log, axisY1Log, 1, lineSeries0Chart1Log.count, minMaxDist.x - axisPadding, minMaxDist.y + axisPadding)
     }
 
-    function updateDistWfafle() {
-        var minMaxDist = chartResults.updateChart("Wfafle Dist.", chart1Linear.series(0));
-        minMaxDist = chartResults.updateChart("Wfafle Dist.", chart1Log.series(0));
+    function updateDistWfafd() {
+        var minMaxDist = chartResults.updateChart("Wfafd Dist.", chart1Linear.series(0));
+        minMaxDist = chartResults.updateChart("Wfafd Dist.", chart1Log.series(0));
 
         visibleButtons(false, false, false)
         enableButtons(false, true, true)
@@ -683,7 +683,7 @@ ApplicationWindow {
 
         visibleSeries(true, false, true, false, true, false)
 
-        setTitle("Wfafle Dist.")
+        setTitle("WFAF-D")
 
         setSeriesName("Allele frequency distribution", "", "", "", "", "")
 

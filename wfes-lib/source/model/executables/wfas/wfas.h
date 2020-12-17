@@ -21,8 +21,8 @@
 //TODO Integrate generation of missing matrices and vectors.
 
 /**
- * @brief The wfas class implements the phase type executables.
- * wfafle: WFAS - Wright-Fisher approximate spectrum.
+ * @brief The wfafs class implements the phase type executables.
+ * wfafs: WFAFS - Wright-Fisher approximate spectrum.
  */
 class wfas : public Subject {
     public:

@@ -14,7 +14,7 @@ ResultsWfas::ResultsWfas(dvec probs, double time)
 
 void ResultsWfas::writeResultsToFile(ResultsWfas *results, std::string name) {
     // Let empty. This is not necessary since the prob. dist. are written in a file in the main
-    // function of wfafle. Next lines remove the unused parameters warning.
+    // function of wfafs. Next lines remove the unused parameters warning.
     (void)results;
     (void)name;
 }

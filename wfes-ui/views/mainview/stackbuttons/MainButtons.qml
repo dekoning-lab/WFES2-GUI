@@ -30,8 +30,8 @@ Item {
         id: wfasView
     }
 
-    WfafleView {
-        id: wfafleView
+    WfafdView {
+        id: wfafdView
     }
 
     TimeDistView {
@@ -92,14 +92,14 @@ Item {
                 ToolTip.timeout: Style.tooltipTimeout
                 ToolTip.visible: hovered
                 onClicked: {
-                    if(wfafleView.visible) {
-                        wfafleView.raise()
+                    if(wfafdView.visible) {
+                        wfafdView.raise()
                     } else {
-                        wfafleView.visible = true;
+                        wfafdView.visible = true;
                     }
                     // Center window in screen.
-                    wfafleView.setX(Screen.width / 2 - wfafleView.width / 2);
-                    wfafleView.setY(Screen.height / 2 - wfafleView.height / 2);
+                    wfafdView.setX(Screen.width / 2 - wfafdView.width / 2);
+                    wfafdView.setY(Screen.height / 2 - wfafdView.height / 2);
                 }
                 Layout.alignment: Qt.AlignHCenter
                 Layout.preferredWidth: 160

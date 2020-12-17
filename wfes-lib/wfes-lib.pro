@@ -45,6 +45,12 @@ HEADERS += \
     source/model/executables/time_dist/results/resultsTimeDist.h \
     source/model/executables/time_dist/thread/workerThreadTimeDist.h \
     source/model/executables/time_dist/time_dist.h \
+    source/model/executables/wfafd/config/configWfafd.h \
+    source/model/executables/wfafd/controllers/inputControllerWfafd.h \
+    source/model/executables/wfafd/controllers/outputControllerWfafd.h \
+    source/model/executables/wfafd/results/resultsWfafd.h \
+    source/model/executables/wfafd/thread/workerThreadWfafd.h \
+    source/model/executables/wfafd/wfafd.h \
     source/model/executables/wfas/config/configWfas.h \
     source/model/executables/wfas/controllers/inputControllerWfas.h \
     source/model/executables/wfas/controllers/outputControllerWfas.h \
@@ -67,12 +73,6 @@ HEADERS += \
     source/model/executables/wfes_sweep/results/resultsWfesSweep.h \
     source/model/executables/wfes_sweep/thread/workerThreadWfesSweep.h \
     source/model/executables/wfes_sweep/wfes_sweep.h \
-    source/model/executables/wfafle/config/configWfafle.h \
-    source/model/executables/wfafle/controllers/inputControllerWfafle.h \
-    source/model/executables/wfafle/controllers/outputControllerWfafle.h \
-    source/model/executables/wfafle/results/resultsWfafle.h \
-    source/model/executables/wfafle/thread/workerThreadWfafle.h \
-    source/model/executables/wfafle/wfafle.h \
     source/model/executables/wfes_switching/config/configWfesSwitching.h \
     source/model/executables/wfes_switching/controllers/inputControllerWfesSwitching.h \
     source/model/executables/wfes_switching/controllers/outputControllerWfesSwitching.h \
@@ -120,6 +120,12 @@ SOURCES += \
     source/model/executables/time_dist/results/resultsTimeDist.cpp \
     source/model/executables/time_dist/thread/workerThreadTimeDist.cpp \
     source/model/executables/time_dist/time_dist.cpp \
+    source/model/executables/wfafd/config/configWfafd.cpp \
+    source/model/executables/wfafd/controllers/inputControllerWfafd.cpp \
+    source/model/executables/wfafd/controllers/outputControllerWfafd.cpp \
+    source/model/executables/wfafd/results/resultsWfafd.cpp \
+    source/model/executables/wfafd/thread/workerThreadWfafd.cpp \
+    source/model/executables/wfafd/wfafd.cpp \
     source/model/executables/wfas/config/configWfas.cpp \
     source/model/executables/wfas/controllers/inputControllerWfas.cpp \
     source/model/executables/wfas/controllers/outputControllerWfas.cpp \
@@ -142,12 +148,6 @@ SOURCES += \
     source/model/executables/wfes_sweep/results/resultsWfesSweep.cpp \
     source/model/executables/wfes_sweep/thread/workerThreadWfesSweep.cpp \
     source/model/executables/wfes_sweep/wfes_sweep.cpp \
-    source/model/executables/wfafle/config/configWfafle.cpp \
-    source/model/executables/wfafle/controllers/inputControllerWfafle.cpp \
-    source/model/executables/wfafle/controllers/outputControllerWfafle.cpp \
-    source/model/executables/wfafle/results/resultsWfafle.cpp \
-    source/model/executables/wfafle/thread/workerThreadWfafle.cpp \
-    source/model/executables/wfafle/wfafle.cpp \
     source/model/executables/wfes_switching/config/configWfesSwitching.cpp \
     source/model/executables/wfes_switching/controllers/inputControllerWfesSwitching.cpp \
     source/model/executables/wfes_switching/controllers/outputControllerWfesSwitching.cpp \

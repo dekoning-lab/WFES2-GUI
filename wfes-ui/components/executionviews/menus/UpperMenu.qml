@@ -87,11 +87,11 @@ Rectangle {
                                 messageDialogOnCloseUpperMenu.text = "Some input parameters are incorrect. The configuration cannot be saved until you fix those values."
                                 messageDialogOnCloseUpperMenu.open()
                             }
-                        } else if(typeof(rootWfafle) != "undefined") {
-                            text = rootWfafle.checkIntegrity()
+                        } else if(typeof(rootWfafd) != "undefined") {
+                            text = rootWfafd.checkIntegrity()
                             if(text === "") {
-                                rootWfafle.updateBackend()
-                                outputControllerWfafle.ui_save_config
+                                rootWfafd.updateBackend()
+                                outputControllerWfafd.ui_save_config
                             } else {
                                 messageDialogOnCloseUpperMenu.text = "Some input parameters are incorrect. The configuration cannot be saved until you fix those values."
                                 messageDialogOnCloseUpperMenu.open()
@@ -136,9 +136,9 @@ Rectangle {
                         } else if(typeof(rootWfas) != "undefined") {
                             outputControllerWfas.ui_load_config
                             rootWfas.updateGUI()
-                        } else if(typeof(rootWfafle) != "undefined") {
-                            outputControllerWfafle.ui_load_config
-                            rootWfafle.updateGUI()
+                        } else if(typeof(rootWfafd) != "undefined") {
+                            outputControllerWfafd.ui_load_config
+                            rootWfafd.updateGUI()
                         } else if(typeof(rootTimeDist) != "undefined") {
                             outputControllerTimeDist.ui_load_config
                             rootTimeDist.updateGUI()
@@ -206,8 +206,8 @@ Rectangle {
                             if(typeof(rootWfas) != "undefined") {
                                 rootWfas.updateScaledParameters(true)
                             }
-                            if(typeof(rootWfafle) != "undefined") {
-                                rootWfafle.updateScaledParameters(true)
+                            if(typeof(rootWfafd) != "undefined") {
+                                rootWfafd.updateScaledParameters(true)
                             }
                             if(typeof(rootWfesSingle) != "undefined") {
                                 if(rootWfesSingle.firstLoad) {
@@ -347,13 +347,13 @@ Rectangle {
                 }
                 MenuItem {
                     text: "WFAF-D"
-                    visible: typeof(wfafleView) != "undefined" && wfafleView.visible
+                    visible: typeof(wfafdView) != "undefined" && wfafdView.visible
                     height: visible ? implicitHeight : 0
                     onClicked: {
-                        wfafleView.raise()
+                        wfafdView.raise()
                         // Center window in screen.
-                        wfafleView.setX(Screen.width / 2 - wfafleView.width / 2);
-                        wfafleView.setY(Screen.height / 2 - wfafleView.height / 2);
+                        wfafdView.setX(Screen.width / 2 - wfafdView.width / 2);
+                        wfafdView.setY(Screen.height / 2 - wfafdView.height / 2);
                     }
                 }
                 MenuItem {
@@ -428,8 +428,8 @@ Rectangle {
         chartVisualization.updateDistWfas()
     }
 
-    function updateDistWfafle() {
-        chartVisualization.updateDistWfafle()
+    function updateDistWfafd() {
+        chartVisualization.updateDistWfafd()
     }
 
     function updateProbTimeDist(name) {

@@ -9,7 +9,7 @@ import QtQuick.Controls.Universal 2.3
 import components 1.0
 
 ApplicationWindow {
-    id: rootWfafle
+    id: rootWfafd
     title: qsTr("WFES - Wright-Fisher Exact Solver (WFAF-D)")
 
     color: Universal.chromeLowColor
@@ -28,7 +28,7 @@ ApplicationWindow {
 
     Shortcut {
         sequence: "CTRL+W"
-        onActivated: rootWfafle.close()
+        onActivated: rootWfafd.close()
     }
 
     onClosing: {
@@ -38,10 +38,10 @@ ApplicationWindow {
             messageDialogOnClose.text = "Some input parameters are incorrect. The configuration will be available in this session, but cannot be saved for future sessions until you fix those values. Do you want to exit anyway?"
             messageDialogOnClose.open()
         } else {
-            rootWfafle.hide();
+            rootWfafd.hide();
             root.visible = true;
-            rootWfafle.updateBackend()
-            outputControllerWfafle.ui_save_config
+            rootWfafd.updateBackend()
+            outputControllerWfafd.ui_save_config
         }
     }
 
@@ -52,7 +52,7 @@ ApplicationWindow {
         icon: StandardIcon.Warning
         standardButtons: Dialog.Ok | Dialog.Cancel
         onAccepted: {
-            rootWfafle.hide();
+            rootWfafd.hide();
             root.visible = true;
         }
     }
@@ -114,42 +114,42 @@ ApplicationWindow {
                             width: commonSection.width + 10
                             height: 270
                             tabNames: "Comp."
-                            urlComponent: "qrc:/components/executionviews/tabcomponents/tabWfafleComponent.qml"
+                            urlComponent: "qrc:/components/executionviews/tabcomponents/tabWfafdComponent.qml"
                             onAdd: function(){
-                                var num_comps = inputControllerWfafle.ui_num_comp
-                                inputControllerWfafle.ui_num_comp = parseInt(num_comps) + 1
+                                var num_comps = inputControllerWfafd.ui_num_comp
+                                inputControllerWfafd.ui_num_comp = parseInt(num_comps) + 1
 
-                                var vector = inputControllerWfafle.ui_N_vec
-                                vector[num_comps] = inputControllerWfafle.ui_N_vec[num_comps-1]
-                                inputControllerWfafle.ui_N_vec = vector
+                                var vector = inputControllerWfafd.ui_N_vec
+                                vector[num_comps] = inputControllerWfafd.ui_N_vec[num_comps-1]
+                                inputControllerWfafd.ui_N_vec = vector
 
-                                vector = inputControllerWfafle.ui_G_vec
-                                vector[num_comps] = inputControllerWfafle.ui_G_vec[num_comps-1]
-                                inputControllerWfafle.ui_G_vec = vector
+                                vector = inputControllerWfafd.ui_G_vec
+                                vector[num_comps] = inputControllerWfafd.ui_G_vec[num_comps-1]
+                                inputControllerWfafd.ui_G_vec = vector
 
-                                vector = inputControllerWfafle.ui_s_vec
-                                vector[num_comps] = inputControllerWfafle.ui_s_vec[num_comps-1]
-                                inputControllerWfafle.ui_s_vec = vector
+                                vector = inputControllerWfafd.ui_s_vec
+                                vector[num_comps] = inputControllerWfafd.ui_s_vec[num_comps-1]
+                                inputControllerWfafd.ui_s_vec = vector
 
-                                vector = inputControllerWfafle.ui_h_vec
-                                vector[num_comps] = inputControllerWfafle.ui_h_vec[num_comps-1]
-                                inputControllerWfafle.ui_h_vec = vector
+                                vector = inputControllerWfafd.ui_h_vec
+                                vector[num_comps] = inputControllerWfafd.ui_h_vec[num_comps-1]
+                                inputControllerWfafd.ui_h_vec = vector
 
-                                vector = inputControllerWfafle.ui_u_vec
-                                vector[num_comps] = inputControllerWfafle.ui_u_vec[num_comps-1]
-                                inputControllerWfafle.ui_u_vec = vector
+                                vector = inputControllerWfafd.ui_u_vec
+                                vector[num_comps] = inputControllerWfafd.ui_u_vec[num_comps-1]
+                                inputControllerWfafd.ui_u_vec = vector
 
-                                vector = inputControllerWfafle.ui_v_vec
-                                vector[num_comps] = inputControllerWfafle.ui_v_vec[num_comps-1]
-                                inputControllerWfafle.ui_v_vec = vector
+                                vector = inputControllerWfafd.ui_v_vec
+                                vector[num_comps] = inputControllerWfafd.ui_v_vec[num_comps-1]
+                                inputControllerWfafd.ui_v_vec = vector
                             }
                             onDelete: function(){
-                                var num_comps = inputControllerWfafle.ui_num_comp
-                                inputControllerWfafle.ui_num_comp = parseInt(num_comps) - 1
+                                var num_comps = inputControllerWfafd.ui_num_comp
+                                inputControllerWfafd.ui_num_comp = parseInt(num_comps) - 1
                             }
                             onLoaded: function() {
-                                var dummyString = outputControllerWfafle.ui_load_config
-                                rootWfafle.updateGUI()
+                                var dummyString = outputControllerWfafd.ui_load_config
+                                rootWfafd.updateGUI()
                                 updateScaledParameters(false)
                             }
                         }
@@ -189,10 +189,10 @@ ApplicationWindow {
                                 text: "a: "
                                 toolTipText: "Tail truncation weight."
                                 validator: DoubleValidator {bottom: 0;}
-                                textFieldText: inputControllerWfafle.ui_a
+                                textFieldText: inputControllerWfafd.ui_a
                                 textFieldTextEdited: function(){
                                     if(!Number.isNaN(Number(inputA.textFieldText)) && parseFloat(inputA.textFieldText) >= 0) {
-                                        inputControllerWfafle.ui_a = inputA.textFieldText
+                                        inputControllerWfafd.ui_a = inputA.textFieldText
                                         borderColor = "#555555"
                                     } else {
                                         borderColor = "#ff0000"
@@ -205,10 +205,10 @@ ApplicationWindow {
                                 text: "p: "
                                 toolTipText: "Initial allele count."
                                 validator: IntValidator {bottom: 0; top: 2;}
-                                textFieldText: inputControllerWfafle.ui_p
+                                textFieldText: inputControllerWfafd.ui_p
                                 textFieldTextEdited: function(){
                                     if(!Number.isNaN(Number(inputP.textFieldText)) && parseInt(inputP.textFieldText) >= 0 && parseInt(inputP.textFieldText) <= 2) {
-                                        inputControllerWfafle.ui_p = inputP.textFieldText
+                                        inputControllerWfafd.ui_p = inputP.textFieldText
                                         borderColor = "#555555"
                                     } else {
                                         borderColor = "#ff0000"
@@ -311,7 +311,7 @@ ApplicationWindow {
                                         id: inputForce
                                         toolTipText: "Do not perform parameter checks."
                                         text: "Force: "
-                                        checked: inputControllerWfafle.ui_force
+                                        checked: inputControllerWfafd.ui_force
                                     }
 
                                     LabeledTextField {
@@ -320,10 +320,10 @@ ApplicationWindow {
                                         labelPreferredWidth: 10
                                         toolTipText: "Number of threads for OpenMP."
                                         validator: DoubleValidator {bottom: 2; top: 50000;}
-                                        textFieldText: inputControllerWfafle.ui_t
+                                        textFieldText: inputControllerWfafd.ui_t
                                         textFieldTextEdited: function(){
                                             if(!Number.isNaN(Number(inputT.textFieldText)) && parseInt(inputT.textFieldText) >= 1) {
-                                                inputControllerWfafle.ui_t = inputT.textFieldText
+                                                inputControllerWfafd.ui_t = inputT.textFieldText
                                                 borderColor = "#555555"
                                             } else {
                                                 borderColor = "#ff0000"
@@ -365,7 +365,7 @@ ApplicationWindow {
                                         toolTipText: "Path to initial probability distribution CSV file."
                                         labelPreferredWidth: 75
                                         textFieldPreferredWidth: 185
-                                        textFieldText: inputControllerWfafle.ui_initial_distribution
+                                        textFieldText: inputControllerWfafd.ui_initial_distribution
                                     }
 
                                     Button{
@@ -405,12 +405,12 @@ ApplicationWindow {
                             Binding {
                                 target: stopButton
                                 property: "enabled"
-                                value: !outputControllerWfafle.ui_get_not_exec
+                                value: !outputControllerWfafd.ui_get_not_exec
 
                             }
 
                             onClicked: {
-                                outputControllerWfafle.ui_stop
+                                outputControllerWfafd.ui_stop
                                 stopButton.enabled = false
                                 executeButton.enabled = true
                                 bottomMenu.visibleProgressBar = false
@@ -424,15 +424,15 @@ ApplicationWindow {
                             text: "Execute"
 
                             onEnabledChanged: {
-                                if(outputControllerWfafle.ui_get_not_exec)
+                                if(outputControllerWfafd.ui_get_not_exec)
                                     imageOutputController.image_changed()
-                                console.log(outputControllerWfafle.ui_get_error_message)
-                                if(outputControllerWfafle.ui_get_error_message !== "") {
-                                    messageDialog.text = outputControllerWfafle.ui_get_error_message
+                                console.log(outputControllerWfafd.ui_get_error_message)
+                                if(outputControllerWfafd.ui_get_error_message !== "") {
+                                    messageDialog.text = outputControllerWfafd.ui_get_error_message
                                     messageDialog.open()
-                                    outputControllerWfafle.ui_reset_error
+                                    outputControllerWfafd.ui_reset_error
                                 }
-                                upperMenu.updateDistWfafle()
+                                upperMenu.updateDistWfafd()
 
                                 if(enabled)
                                     upperMenu.chartVisible = true
@@ -441,7 +441,7 @@ ApplicationWindow {
                             Binding {
                                 target: executeButton
                                 property: "enabled"
-                                value: outputControllerWfafle.ui_get_not_exec
+                                value: outputControllerWfafd.ui_get_not_exec
 
                             }
 
@@ -455,12 +455,12 @@ ApplicationWindow {
                                     executeButton.enabled = false
                                     stopButton.enabled = true
                                     bottomMenu.visibleProgressBar = true
-                                    outputControllerWfafle.ui_execute
+                                    outputControllerWfafd.ui_execute
                                 } else {
                                     messageDialog.text = error
                                     messageDialog.open()
                                 }
-                                outputControllerWfafle.ui_reset_error
+                                outputControllerWfafd.ui_reset_error
                             }
 
                         }
@@ -520,7 +520,7 @@ ApplicationWindow {
                             contentWidth: parent.width
                             ListView {
                                 id: listViewMoments
-                                model: outputControllerWfafle.ui_probs
+                                model: outputControllerWfafd.ui_probs
                                 delegate: ItemDelegate {
                                   width: parent.width
                                   height: 25
@@ -541,7 +541,7 @@ ApplicationWindow {
                         Layout.alignment: Qt.AlignHCenter
 
                         onClicked: {
-                            outputControllerWfafle.coppyToClipboard()
+                            outputControllerWfafd.coppyToClipboard()
                         }
                     }
 
@@ -563,17 +563,17 @@ ApplicationWindow {
         Binding {
             target: bottomMenu
             property: "visibleProgressBar"
-            value: !outputControllerWfafle.ui_get_not_exec
+            value: !outputControllerWfafd.ui_get_not_exec
 
         }
 
         BottomMenuExecutionView {
             id: bottomMenu
             width: parent.width
-            executionProgress: outputControllerWfafle.ui_progress
+            executionProgress: outputControllerWfafd.ui_progress
 
             executionTime: {
-                outputControllerWfafle.ui_get_time == "" ? "" : outputControllerWfafle.ui_get_time + "s"
+                outputControllerWfafd.ui_get_time == "" ? "" : outputControllerWfafd.ui_get_time + "s"
             }
             anchors {
                 top: separatorBottomBar.bottom
@@ -585,39 +585,39 @@ ApplicationWindow {
     }
 
     function updateGUI() {
-        inputA.textFieldText = inputControllerWfafle.ui_a
-        inputP.textFieldText = inputControllerWfafle.ui_p
-        var N_vec = inputControllerWfafle.ui_N_vec
-        var G_vec = inputControllerWfafle.ui_G_vec
-        var u_vec = inputControllerWfafle.ui_u_vec
-        var v_vec = inputControllerWfafle.ui_v_vec
-        var s_vec = inputControllerWfafle.ui_s_vec
-        var h_vec = inputControllerWfafle.ui_h_vec
+        inputA.textFieldText = inputControllerWfafd.ui_a
+        inputP.textFieldText = inputControllerWfafd.ui_p
+        var N_vec = inputControllerWfafd.ui_N_vec
+        var G_vec = inputControllerWfafd.ui_G_vec
+        var u_vec = inputControllerWfafd.ui_u_vec
+        var v_vec = inputControllerWfafd.ui_v_vec
+        var s_vec = inputControllerWfafd.ui_s_vec
+        var h_vec = inputControllerWfafd.ui_h_vec
 
         // Minus 2 because we don't have to count the add and delete tabs.
         // If the number of current tabs is less than the number of components to load,
         // add a tab.
-        if(componentsSectionTabView.children[0].count - 2 < inputControllerWfafle.ui_num_comp) {
+        if(componentsSectionTabView.children[0].count - 2 < inputControllerWfafd.ui_num_comp) {
 
-            while(componentsSectionTabView.children[0].count - 2 < inputControllerWfafle.ui_num_comp) {
+            while(componentsSectionTabView.children[0].count - 2 < inputControllerWfafd.ui_num_comp) {
                 // Create new tab.
                 componentsSectionTabView.children[0].addTab()
                 // Don't update ui_num_comp
-                inputControllerWfafle.ui_num_comp = inputControllerWfafle.ui_num_comp - 1
+                inputControllerWfafd.ui_num_comp = inputControllerWfafd.ui_num_comp - 1
             }
         // If the number of current tabs is greater than the number of components to load,
         // remove a tab.
-        } else if(componentsSectionTabView.children[0].count - 2 > inputControllerWfafle.ui_num_comp) {
+        } else if(componentsSectionTabView.children[0].count - 2 > inputControllerWfafd.ui_num_comp) {
 
-            while(componentsSectionTabView.children[0].count - 2 > inputControllerWfafle.ui_num_comp) {
+            while(componentsSectionTabView.children[0].count - 2 > inputControllerWfafd.ui_num_comp) {
                 // Delete a tab.
                 componentsSectionTabView.children[0].deleteTab()
                 // Don't update ui_num_comp
-                inputControllerWfafle.ui_num_comp = parseInt(inputControllerWfafle.ui_num_comp) + 1
+                inputControllerWfafd.ui_num_comp = parseInt(inputControllerWfafd.ui_num_comp) + 1
             }
         }
 
-        for(var i = 0; i < inputControllerWfafle.ui_num_comp; i++) {
+        for(var i = 0; i < inputControllerWfafd.ui_num_comp; i++) {
             componentsSectionTabView.children[0].getTab(i).active = true
             componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[0].textFieldText = N_vec[i]
             componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[1].textFieldText = G_vec[i]
@@ -627,19 +627,19 @@ ApplicationWindow {
             componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[1].textFieldText = h_vec[i]
         }
 
-        inputWriteDist.checked = inputControllerWfafle.ui_output_Dist
-        inputT.textFieldText = inputControllerWfafle.ui_t
-        inputForce.checked = inputControllerWfafle.ui_force
+        inputWriteDist.checked = inputControllerWfafd.ui_output_Dist
+        inputT.textFieldText = inputControllerWfafd.ui_t
+        inputForce.checked = inputControllerWfafd.ui_force
 
-        inputI.textFieldText = inputControllerWfafle.ui_initial_distribution
+        inputI.textFieldText = inputControllerWfafd.ui_initial_distribution
 
-        var library = inputControllerWfafle.ui_library
+        var library = inputControllerWfafd.ui_library
         if(library === "Pardiso")
             comboBoxLibrary.currentIndex = 0
         else if(library === "ViennaCL")
             comboBoxLibrary.currentIndex = 1
 
-        var solver = inputControllerWfafle.ui_solver
+        var solver = inputControllerWfafd.ui_solver
         if(library === "GMRes")
             comboBoxSolver.currentIndex = 0
         else if(library === "BicGStab")
@@ -647,15 +647,15 @@ ApplicationWindow {
     }
 
     function updateBackend() {
-        inputControllerWfafle.ui_a = inputA.textFieldText
-        inputControllerWfafle.ui_p = inputP.textFieldText
+        inputControllerWfafd.ui_a = inputA.textFieldText
+        inputControllerWfafd.ui_p = inputP.textFieldText
         var N_vec = []
         var G_vec = []
         var u_vec = []
         var v_vec = []
         var s_vec = []
         var h_vec = []
-        for(var i = 0; i < inputControllerWfafle.ui_num_comp; i++) {
+        for(var i = 0; i < inputControllerWfafd.ui_num_comp; i++) {
             componentsSectionTabView.children[0].getTab(i).active = true
             var N = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[0].textFieldText
             var G = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[1].textFieldText
@@ -670,21 +670,21 @@ ApplicationWindow {
             s_vec.push(s)
             h_vec.push(h)
         }
-        inputControllerWfafle.ui_N_vec = N_vec
-        inputControllerWfafle.ui_G_vec = G_vec
-        inputControllerWfafle.ui_u_vec = u_vec
-        inputControllerWfafle.ui_v_vec = v_vec
-        inputControllerWfafle.ui_s_vec = s_vec
-        inputControllerWfafle.ui_h_vec = h_vec
+        inputControllerWfafd.ui_N_vec = N_vec
+        inputControllerWfafd.ui_G_vec = G_vec
+        inputControllerWfafd.ui_u_vec = u_vec
+        inputControllerWfafd.ui_v_vec = v_vec
+        inputControllerWfafd.ui_s_vec = s_vec
+        inputControllerWfafd.ui_h_vec = h_vec
 
-        inputControllerWfafle.ui_output_Dist = inputWriteDist.checked
-        inputControllerWfafle.ui_t = inputT.textFieldText
-        inputControllerWfafle.ui_force = inputForce.checked
+        inputControllerWfafd.ui_output_Dist = inputWriteDist.checked
+        inputControllerWfafd.ui_t = inputT.textFieldText
+        inputControllerWfafd.ui_force = inputForce.checked
 
-        inputControllerWfafle.ui_initial_distribution = inputI.textFieldText
+        inputControllerWfafd.ui_initial_distribution = inputI.textFieldText
 
-        inputControllerWfafle.ui_library = comboBoxLibrary.currentText;
-        inputControllerWfafle.ui_solver = comboBoxSolver.currentText;
+        inputControllerWfafd.ui_library = comboBoxLibrary.currentText;
+        inputControllerWfafd.ui_solver = comboBoxSolver.currentText;
     }
 
     function checkIntegrity() {
@@ -714,7 +714,7 @@ ApplicationWindow {
         var v_vec = []
         var s_vec = []
         var h_vec = []
-        for(var i = 0; i < inputControllerWfafle.ui_num_comp; i++) {
+        for(var i = 0; i < inputControllerWfafd.ui_num_comp; i++) {
             componentsSectionTabView.children[0].getTab(i).active = true
             var N = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[0].textFieldText
             var G = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[1].textFieldText
@@ -730,7 +730,7 @@ ApplicationWindow {
             h_vec.push(h)
         }
 
-        for(i = 0; i < inputControllerWfafle.ui_num_comp; i++) {
+        for(i = 0; i < inputControllerWfafd.ui_num_comp; i++) {
             N = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[0].textFieldText
             if(N === "")
                 error += " - Population Size (N" + (i + 1) + ") is empty. \n \n"
@@ -742,7 +742,7 @@ ApplicationWindow {
                 error +=  " - Population Size (N" + (i + 1) + ") is quite large, the computations will take a long time. Check 'Force' to ignore. \n \n"
         }
 
-        for(i = 0; i < inputControllerWfafle.ui_num_comp; i++) {
+        for(i = 0; i < inputControllerWfafd.ui_num_comp; i++) {
             G = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[1].textFieldText
             if(G === "")
                 error += " - Generations (G" + (i + 1) + ") is empty. \n \n"
@@ -753,7 +753,7 @@ ApplicationWindow {
         }
 
         if(globalConfiguration.ui_population_scaled) {
-            for(i = 0; i < inputControllerWfafle.ui_num_comp; i++) {
+            for(i = 0; i < inputControllerWfafd.ui_num_comp; i++) {
                 u = componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[0].textFieldText
                 if(u === "")
                     error += " - Backward Mutation (u" + (i + 1) + ") is empty. \n \n"
@@ -765,7 +765,7 @@ ApplicationWindow {
                     error += " - Backward Mutation (u" + (i + 1) + ") is quite large and might violate the Wright-Fisher assumptions. It should be less than 1. Check 'Force' to ignore. \n \n"
             }
 
-            for(i = 0; i < inputControllerWfafle.ui_num_comp; i++) {
+            for(i = 0; i < inputControllerWfafd.ui_num_comp; i++) {
                 v = componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[1].textFieldText
                 if(v === "")
                     error += " - Forward Mutation (v" + (i + 1) + ") is empty. \n \n"
@@ -777,7 +777,7 @@ ApplicationWindow {
                     error += " - Forward Mutation (v" + (i + 1) + ") is quite large and might violate the Wright-Fisher assumptions. It should be less than 1. Check 'Force' to ignore. \n \n"
             }
 
-            for(i = 0; i < inputControllerWfafle.ui_num_comp; i++) {
+            for(i = 0; i < inputControllerWfafd.ui_num_comp; i++) {
                 s = componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[0].textFieldText
                 if(s === "")
                     error += " - Selection Coefficient (s" + (i + 1) + ") is empty. \n \n"
@@ -789,7 +789,7 @@ ApplicationWindow {
                     error += " - Selection Coefficient (s" + (i + 1) + ") is quite large. The maximum value allowed is 2N. \n \n"
             }
         } else {
-            for(i = 0; i < inputControllerWfafle.ui_num_comp; i++) {
+            for(i = 0; i < inputControllerWfafd.ui_num_comp; i++) {
                 u = componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[0].textFieldText
                 if(u === "")
                     error += " - Backward Mutation (u" + (i + 1) + ") is empty. \n \n"
@@ -801,7 +801,7 @@ ApplicationWindow {
                     error += " - Backward Mutation (u" + (i + 1) + ") is quite large and might violate the Wright-Fisher assumptions. It should be less than 1/4N. Check 'Force' to ignore. \n \n"
             }
 
-            for(i = 0; i < inputControllerWfafle.ui_num_comp; i++) {
+            for(i = 0; i < inputControllerWfafd.ui_num_comp; i++) {
                 v = componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[1].textFieldText
                 if(v === "")
                     error += " - Forward Mutation (v" + (i + 1) + ") is empty. \n \n"
@@ -813,7 +813,7 @@ ApplicationWindow {
                     error += " - Backward Mutation (v" + (i + 1) + ") is quite large and might violate the Wright-Fisher assumptions. It should be less than 1/4N. Check 'Force' to ignore. \n \n"
             }
 
-            for(i = 0; i < inputControllerWfafle.ui_num_comp; i++) {
+            for(i = 0; i < inputControllerWfafd.ui_num_comp; i++) {
                 s = componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[0].textFieldText
                 if(s === "")
                     error += " - Selection Coefficient (s" + (i + 1) + ") is empty. \n \n"
@@ -826,7 +826,7 @@ ApplicationWindow {
             }
         }
 
-        for(i = 0; i < inputControllerWfafle.ui_num_comp; i++) {
+        for(i = 0; i < inputControllerWfafd.ui_num_comp; i++) {
             h = componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[1].textFieldText
             if(h === "")
                 error += " - Dominance Coefficient (h" + (i + 1) + ") is empty. \n \n"
@@ -854,7 +854,7 @@ ApplicationWindow {
 
     function updateScaledParameters(updateNonChecked) {
         var loadedComponents = true
-        for(var i = 0; i < inputControllerWfafle.ui_num_comp; i++) {
+        for(var i = 0; i < inputControllerWfafd.ui_num_comp; i++) {
             if(typeof(componentsSectionTabView.children[0].getTab(i)) === "undefined") {
                 loadedComponents = false
             }
@@ -864,45 +864,45 @@ ApplicationWindow {
             var u, v, s
             var u_vec, v_vec, s_vec = []
             if(globalConfiguration.ui_population_scaled) {
-                u = inputControllerWfafle.ui_u_vec
-                v = inputControllerWfafle.ui_v_vec
-                s = inputControllerWfafle.ui_s_vec
+                u = inputControllerWfafd.ui_u_vec
+                v = inputControllerWfafd.ui_v_vec
+                s = inputControllerWfafd.ui_s_vec
                 u_vec = []
                 v_vec = []
                 s_vec = []
-                for(i = 0; i < inputControllerWfafle.ui_num_comp; i++) {
+                for(i = 0; i < inputControllerWfafd.ui_num_comp; i++) {
                     componentsSectionTabView.children[0].getTab(i).active = true
-                    u_vec.push((u[i] * (4 * parseInt(inputControllerWfafle.ui_N_vec[i]))).toString())
-                    v_vec.push((v[i] * (4 * parseInt(inputControllerWfafle.ui_N_vec[i]))).toString())
-                    s_vec.push((s[i] * (2 * parseInt(inputControllerWfafle.ui_N_vec[i]))).toString())
+                    u_vec.push((u[i] * (4 * parseInt(inputControllerWfafd.ui_N_vec[i]))).toString())
+                    v_vec.push((v[i] * (4 * parseInt(inputControllerWfafd.ui_N_vec[i]))).toString())
+                    s_vec.push((s[i] * (2 * parseInt(inputControllerWfafd.ui_N_vec[i]))).toString())
                     componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[0].textFieldText = u_vec[i]
                     componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[1].textFieldText = v_vec[i]
                     componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[0].textFieldText = s_vec[i]
                 }
-                inputControllerWfafle.ui_u_vec = u_vec
-                inputControllerWfafle.ui_v_vec = v_vec
-                inputControllerWfafle.ui_s_vec = s_vec
+                inputControllerWfafd.ui_u_vec = u_vec
+                inputControllerWfafd.ui_v_vec = v_vec
+                inputControllerWfafd.ui_s_vec = s_vec
 
 
             } else if(updateNonChecked){
-                u = inputControllerWfafle.ui_u_vec
-                v = inputControllerWfafle.ui_v_vec
-                s = inputControllerWfafle.ui_s_vec
+                u = inputControllerWfafd.ui_u_vec
+                v = inputControllerWfafd.ui_v_vec
+                s = inputControllerWfafd.ui_s_vec
                 u_vec = []
                 v_vec = []
                 s_vec = []
-                for(i = 0; i < inputControllerWfafle.ui_num_comp; i++) {
+                for(i = 0; i < inputControllerWfafd.ui_num_comp; i++) {
                     componentsSectionTabView.children[0].getTab(i).active = true
-                    u_vec.push((u[i] / (4 * parseInt(inputControllerWfafle.ui_N_vec[i]))).toString())
-                    v_vec.push((v[i] / (4 * parseInt(inputControllerWfafle.ui_N_vec[i]))).toString())
-                    s_vec.push((s[i] / (2 * parseInt(inputControllerWfafle.ui_N_vec[i]))).toString())
+                    u_vec.push((u[i] / (4 * parseInt(inputControllerWfafd.ui_N_vec[i]))).toString())
+                    v_vec.push((v[i] / (4 * parseInt(inputControllerWfafd.ui_N_vec[i]))).toString())
+                    s_vec.push((s[i] / (2 * parseInt(inputControllerWfafd.ui_N_vec[i]))).toString())
                     componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[0].textFieldText = u_vec[i]
                     componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[1].textFieldText = v_vec[i]
                     componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[0].textFieldText = s_vec[i]
                 }
-                inputControllerWfafle.ui_u_vec = u_vec
-                inputControllerWfafle.ui_v_vec = v_vec
-                inputControllerWfafle.ui_s_vec = s_vec
+                inputControllerWfafd.ui_u_vec = u_vec
+                inputControllerWfafd.ui_v_vec = v_vec
+                inputControllerWfafd.ui_s_vec = s_vec
 
             }
         }

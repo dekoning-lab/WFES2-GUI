@@ -1,5 +1,5 @@
-#ifndef OUTPUTCONTROLLERWFAFLE_H
-#define OUTPUTCONTROLLERWFAFLE_H
+#ifndef OUTPUTCONTROLLERWFAFD_H
+#define OUTPUTCONTROLLERWFAFD_H
 
 #include <QApplication>
 #include <QClipboard>
@@ -9,8 +9,8 @@
 
 #include <wfes-lib_global.h>
 
-#include <model/executables/wfafle/results/resultsWfafle.h>
-#include <model/executables/wfafle/thread/workerThreadWfafle.h>
+#include <model/executables/wfafd/results/resultsWfafd.h>
+#include <model/executables/wfafd/thread/workerThreadWfafd.h>
 
 using namespace wfes::config;
 
@@ -18,10 +18,10 @@ namespace wfes {
     namespace controllers {
 
         /**
-         * @brief The OutputControllerWfafle class is a controller for output parameters
-         * and functions of wfafle.
+         * @brief The OutputControllerWfafd class is a controller for output parameters
+         * and functions of wfafd.
          */
-        class WFESLIBSHARED_EXPORT OutputControllerWfafle: public QObject {
+        class WFESLIBSHARED_EXPORT OutputControllerWfafd: public QObject {
             Q_OBJECT
             Q_PROPERTY(QString ui_execute READ execute CONSTANT)
             Q_PROPERTY(QString ui_stop READ stop CONSTANT)
@@ -38,17 +38,17 @@ namespace wfes {
             /**
              * @brief Results of an execution.
              */
-            ResultsWfafle results;
+            ResultsWfafd results;
 
             /**
-             * @brief Indicate if wfafle if being executed.
+             * @brief Indicate if wfafd if being executed.
              */
             bool executing;
 
             /**
-             * @brief WorkerThread that manages the background execution of Wfafle.
+             * @brief WorkerThread that manages the background execution of Wfafd.
              */
-            WorkerThreadWfafle* worker;
+            WorkerThreadWfafd* worker;
 
             /**
              * @brief Message with the progress of an execution.
@@ -56,36 +56,36 @@ namespace wfes {
             QString progress = "";
 
             /**
-             * @brief OutputControllerWfafle constructor
+             * @brief OutputControllerWfafd constructor
              * @param parent To be used by Qt.
              */
-            OutputControllerWfafle(QObject* parent = nullptr);
+            OutputControllerWfafd(QObject* parent = nullptr);
 
             /**
-             * @brief OutputControllerWfafle destructor.
+             * @brief OutputControllerWfafd destructor.
              */
-            ~OutputControllerWfafle() = default;
+            ~OutputControllerWfafd() = default;
 
             /**
-             * @brief Execute wfafle and get results.
+             * @brief Execute wfafd and get results.
              * @return Nothing.
              */
             QString execute();
 
             /**
-             * @brief Stop an execution of wfafle.
+             * @brief Stop an execution of wfafd.
              * @return Nothing.
              */
             QString stop();
 
             /**
-             * @brief Save configuration of wfafle.
+             * @brief Save configuration of wfafd.
              * @return Nothing.
              */
             QString save_config();
 
             /**
-             * @brief Load configuration of wfafle.
+             * @brief Load configuration of wfafd.
              * @return Nothing.
              */
             QString load_config();
@@ -131,7 +131,7 @@ namespace wfes {
              * @brief Handle results of an execution and notify GUI that it has finished.
              * @param results Results of an execution.
              */
-            void handleResults(ResultsWfafle results){
+            void handleResults(ResultsWfafd results){
                 this->results = results;
                 this->executing = false;
                 emit results_changed();
@@ -154,64 +154,64 @@ namespace wfes {
                 text += QString::fromStdString("Parameter, Value") + "\n";
 
                 text += QString::fromStdString("N, ");
-                for(int i = 0; i < ConfigWfafle::N.size() - 1; i++) {
-                    text += QString::fromStdString((std::to_string(ConfigWfafle::N(i)) + "; "));
+                for(int i = 0; i < ConfigWfafd::N.size() - 1; i++) {
+                    text += QString::fromStdString((std::to_string(ConfigWfafd::N(i)) + "; "));
                 }
-                text += QString::fromStdString((std::to_string(ConfigWfafle::N(ConfigWfafle::N.size() - 1)) + "\n"));
+                text += QString::fromStdString((std::to_string(ConfigWfafd::N(ConfigWfafd::N.size() - 1)) + "\n"));
 
                 text += QString::fromStdString("G, ");
-                for(int i = 0; i < ConfigWfafle::G.size() - 1; i++) {
-                    text += QString::fromStdString((std::to_string(ConfigWfafle::G(i)) + "; "));
+                for(int i = 0; i < ConfigWfafd::G.size() - 1; i++) {
+                    text += QString::fromStdString((std::to_string(ConfigWfafd::G(i)) + "; "));
                 }
-                text += QString::fromStdString((std::to_string(ConfigWfafle::G(ConfigWfafle::G.size() - 1)) + "\n"));
+                text += QString::fromStdString((std::to_string(ConfigWfafd::G(ConfigWfafd::G.size() - 1)) + "\n"));
 
                 if(GlobalConfiguration::populationScaled) {
                     text += QString::fromStdString("4Nu, ");
-                    for(int i = 0; i < ConfigWfafle::u.size() - 1; i++) {
-                        text += QString::fromStdString((std::to_string(ConfigWfafle::u(i)) + "; "));
+                    for(int i = 0; i < ConfigWfafd::u.size() - 1; i++) {
+                        text += QString::fromStdString((std::to_string(ConfigWfafd::u(i)) + "; "));
                     }
-                    text += QString::fromStdString((std::to_string(ConfigWfafle::u(ConfigWfafle::u.size() - 1)) + "\n"));
+                    text += QString::fromStdString((std::to_string(ConfigWfafd::u(ConfigWfafd::u.size() - 1)) + "\n"));
 
                     text += QString::fromStdString("4Nv, ");
-                    for(int i = 0; i < ConfigWfafle::v.size() - 1; i++) {
-                        text += QString::fromStdString((std::to_string(ConfigWfafle::v(i)) + "; "));
+                    for(int i = 0; i < ConfigWfafd::v.size() - 1; i++) {
+                        text += QString::fromStdString((std::to_string(ConfigWfafd::v(i)) + "; "));
                     }
-                    text += QString::fromStdString((std::to_string(ConfigWfafle::v(ConfigWfafle::v.size() - 1)) + "\n"));
+                    text += QString::fromStdString((std::to_string(ConfigWfafd::v(ConfigWfafd::v.size() - 1)) + "\n"));
 
                     text += QString::fromStdString("2Ns, ");
-                    for(int i = 0; i < ConfigWfafle::s.size() - 1; i++) {
-                        text += QString::fromStdString((std::to_string(ConfigWfafle::s(i)) + "; "));
+                    for(int i = 0; i < ConfigWfafd::s.size() - 1; i++) {
+                        text += QString::fromStdString((std::to_string(ConfigWfafd::s(i)) + "; "));
                     }
-                    text += QString::fromStdString((std::to_string(ConfigWfafle::s(ConfigWfafle::s.size() - 1)) + "\n"));
+                    text += QString::fromStdString((std::to_string(ConfigWfafd::s(ConfigWfafd::s.size() - 1)) + "\n"));
 
                 } else {
                     text += QString::fromStdString("u, ");
-                    for(int i = 0; i < ConfigWfafle::u.size() - 1; i++) {
-                        text += QString::fromStdString((std::to_string(ConfigWfafle::u(i)) + "; "));
+                    for(int i = 0; i < ConfigWfafd::u.size() - 1; i++) {
+                        text += QString::fromStdString((std::to_string(ConfigWfafd::u(i)) + "; "));
                     }
-                    text += QString::fromStdString((std::to_string(ConfigWfafle::u(ConfigWfafle::u.size() - 1)) + "\n"));
+                    text += QString::fromStdString((std::to_string(ConfigWfafd::u(ConfigWfafd::u.size() - 1)) + "\n"));
 
                     text += QString::fromStdString("v, ");
-                    for(int i = 0; i < ConfigWfafle::v.size() - 1; i++) {
-                        text += QString::fromStdString((std::to_string(ConfigWfafle::v(i)) + "; "));
+                    for(int i = 0; i < ConfigWfafd::v.size() - 1; i++) {
+                        text += QString::fromStdString((std::to_string(ConfigWfafd::v(i)) + "; "));
                     }
-                    text += QString::fromStdString((std::to_string(ConfigWfafle::v(ConfigWfafle::v.size() - 1)) + "\n"));
+                    text += QString::fromStdString((std::to_string(ConfigWfafd::v(ConfigWfafd::v.size() - 1)) + "\n"));
 
                     text += QString::fromStdString("s, ");
-                    for(int i = 0; i < ConfigWfafle::s.size() - 1; i++) {
-                        text += QString::fromStdString((std::to_string(ConfigWfafle::s(i)) + "; "));
+                    for(int i = 0; i < ConfigWfafd::s.size() - 1; i++) {
+                        text += QString::fromStdString((std::to_string(ConfigWfafd::s(i)) + "; "));
                     }
-                    text += QString::fromStdString((std::to_string(ConfigWfafle::s(ConfigWfafle::s.size() - 1)) + "\n"));
+                    text += QString::fromStdString((std::to_string(ConfigWfafd::s(ConfigWfafd::s.size() - 1)) + "\n"));
                 }
 
                 text += QString::fromStdString("h, ");
-                for(int i = 0; i < ConfigWfafle::h.size() - 1; i++) {
-                    text += QString::fromStdString((std::to_string(ConfigWfafle::h(i)) + "; "));
+                for(int i = 0; i < ConfigWfafd::h.size() - 1; i++) {
+                    text += QString::fromStdString((std::to_string(ConfigWfafd::h(i)) + "; "));
                 }
-                text += QString::fromStdString((std::to_string(ConfigWfafle::h(ConfigWfafle::h.size() - 1)) + "\n"));
+                text += QString::fromStdString((std::to_string(ConfigWfafd::h(ConfigWfafd::h.size() - 1)) + "\n"));
 
-                text += QString::fromStdString("a, " + (boost::format(DPF) % (ConfigWfafle::a)).str()) + "\n";
-                text += QString::fromStdString("p, " + (boost::format(DPF) % (ConfigWfafle::p)).str()) + "\n";
+                text += QString::fromStdString("a, " + (boost::format(DPF) % (ConfigWfafd::a)).str()) + "\n";
+                text += QString::fromStdString("p, " + (boost::format(DPF) % (ConfigWfafd::p)).str()) + "\n";
 
 
                 text += QString::fromStdString("Allele freq. dist.\n");
@@ -240,4 +240,4 @@ namespace wfes {
         };
     }
 }
-#endif // OUTPUTCONTROLLERWFAFLE_H
+#endif // OUTPUTCONTROLLERWFAFD_H

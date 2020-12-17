@@ -38,9 +38,9 @@ namespace wfes {
                 static QList<QPointF> wfasDist;
                 static QPointF minMaxwfasDist;
 
-                // Wfafle lines and max/min points.
-                static QList<QPointF> wfafleDist;
-                static QPointF minMaxwfafleDist;
+                // Wfafd lines and max/min points.
+                static QList<QPointF> wfafdDist;
+                static QPointF minMaxwfafdDist;
 
                 // Time Dist. lines and max/min points.
                 static QList<QPointF> timeDistExt;

@@ -1,5 +1,5 @@
-#ifndef CONFIGWFAFLE_H
-#define CONFIGWFAFLE_H
+#ifndef CONFIGWFAFD_H
+#define CONFIGWFAFD_H
 
 #include <QStandardPaths>
 #include <QTextStream>
@@ -16,15 +16,15 @@ namespace wfes {
     namespace config {
 
         /**
-         * @brief The ConfigWfafle class contains the configuration parameters of WFAFLE as well as some functions for
+         * @brief The ConfigWfafd class contains the configuration parameters of WFAFD as well as some functions for
          * saving and loading the configuration.
          */
-        class ConfigWfafle {
+        class ConfigWfafd {
             public:
                 /**
-                 * @brief Default constructor for class ConfigWfafle.
+                 * @brief Default constructor for class ConfigWfafd.
                  */
-                ConfigWfafle() = default;
+                ConfigWfafd() = default;
 
                 /**
                  * @brief Library used for solving matrix systems (e.g. pardiso, viennacl...).
@@ -119,12 +119,12 @@ namespace wfes {
                 /**
                  * @brief Save configuration into a file.
                  */
-                static void saveConfigWfafle();
+                static void saveConfigWfafd();
 
                 /**
                  * @brief Load configuration from a file.
                  */
-                static void loadConfigWfafle();
+                static void loadConfigWfafd();
 
                 /**
                  * @brief Process a line from the configuration file.
@@ -134,5 +134,5 @@ namespace wfes {
         };
     }
 }
-#endif // CONFIGWFAFLE_H
+#endif // CONFIGWFAFD_H
 

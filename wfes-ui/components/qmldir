@@ -16,7 +16,7 @@ WfesSweepView 1.0 executionviews/wfesSweepView.qml
 WfesSequentialView 1.0 executionviews/wfesSequentialView.qml
 WfesSwitchingView 1.0 executionviews/wfesSwitchingView.qml
 WfasView 1.0 executionviews/wfasView.qml
-WfafleView 1.0 executionviews/wfafleView.qml
+WfafdView 1.0 executionviews/wfafdView.qml
 TimeDistView 1.0 executionviews/timeDistView.qml
 PhaseTypeView 1.0 executionviews/phaseTypeView.qml
 

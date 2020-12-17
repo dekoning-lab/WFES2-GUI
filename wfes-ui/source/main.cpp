@@ -13,8 +13,8 @@
 #include <model/executables/wfes_sweep/controllers/outputControllerWfesSweep.h>
 #include <model/executables/phase_type/controllers/inputControllerPhaseType.h>
 #include <model/executables/phase_type/controllers/outputControllerPhaseType.h>
-#include <model/executables/wfafle/controllers/inputControllerWfafle.h>
-#include <model/executables/wfafle/controllers/outputControllerWfafle.h>
+#include <model/executables/wfafd/controllers/inputControllerWfafd.h>
+#include <model/executables/wfafd/controllers/outputControllerWfafd.h>
 #include <model/executables/wfas/controllers/inputControllerWfas.h>
 #include <model/executables/wfas/controllers/outputControllerWfas.h>
 #include <model/executables/wfes_sequential/controllers/inputControllerWfesSequential.h>
@@ -62,8 +62,8 @@ int main(int argc, char *argv[]) {
     qmlRegisterType<wfes::controllers::InputControllerWfesSweep>("WFES", 1, 0, "InputControllerWfesSweep");
     qmlRegisterType<wfes::controllers::OutputControllerPhaseType>("WFES", 1, 0, "OutputControllerPhaseType");
     qmlRegisterType<wfes::controllers::InputControllerPhaseType>("WFES", 1, 0, "InputControllerPhaseType");
-    qmlRegisterType<wfes::controllers::OutputControllerWfafle>("WFES", 1, 0, "OutputControllerWfafle");
-    qmlRegisterType<wfes::controllers::InputControllerWfafle>("WFES", 1, 0, "InputControllerWfafle");
+    qmlRegisterType<wfes::controllers::OutputControllerWfafd>("WFES", 1, 0, "OutputControllerWfafd");
+    qmlRegisterType<wfes::controllers::InputControllerWfafd>("WFES", 1, 0, "InputControllerWfafd");
     qmlRegisterType<wfes::controllers::OutputControllerWfas>("WFES", 1, 0, "OutputControllerWfas");
     qmlRegisterType<wfes::controllers::InputControllerWfas>("WFES", 1, 0, "InputControllerWfas");
     qmlRegisterType<wfes::controllers::OutputControllerWfesSequential>("WFES", 1, 0, "OutputControllerWfesSequential");
@@ -84,8 +84,8 @@ int main(int argc, char *argv[]) {
     wfes::controllers::InputControllerWfesSweep inputControllerWfesSweep;
     wfes::controllers::OutputControllerPhaseType outputControllerPhaseType;
     wfes::controllers::InputControllerPhaseType inputControllerPhaseType;
-    wfes::controllers::OutputControllerWfafle outputControllerWfafle;
-    wfes::controllers::InputControllerWfafle inputControllerWfafle;
+    wfes::controllers::OutputControllerWfafd outputControllerWfafd;
+    wfes::controllers::InputControllerWfafd inputControllerWfafd;
     wfes::controllers::OutputControllerWfas outputControllerWfas;
     wfes::controllers::InputControllerWfas inputControllerWfas;
     wfes::controllers::OutputControllerWfesSequential outputControllerWfesSequential;
@@ -110,8 +110,8 @@ int main(int argc, char *argv[]) {
     engine.rootContext()->setContextProperty("inputControllerWfesSweep", &inputControllerWfesSweep);
     engine.rootContext()->setContextProperty("outputControllerPhaseType", &outputControllerPhaseType);
     engine.rootContext()->setContextProperty("inputControllerPhaseType", &inputControllerPhaseType);
-    engine.rootContext()->setContextProperty("outputControllerWfafle", &outputControllerWfafle);
-    engine.rootContext()->setContextProperty("inputControllerWfafle", &inputControllerWfafle);
+    engine.rootContext()->setContextProperty("outputControllerWfafd", &outputControllerWfafd);
+    engine.rootContext()->setContextProperty("inputControllerWfafd", &inputControllerWfafd);
     engine.rootContext()->setContextProperty("outputControllerWfas", &outputControllerWfas);
     engine.rootContext()->setContextProperty("inputControllerWfas", &inputControllerWfas);
     engine.rootContext()->setContextProperty("outputControllerWfesSequential", &outputControllerWfesSequential);

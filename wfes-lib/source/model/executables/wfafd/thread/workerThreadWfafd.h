@@ -1,24 +1,24 @@
-#ifndef WORKERTHREADWFAFLE_H
-#define WORKERTHREADWFAFLE_H
+#ifndef WORKERTHREADWFAFD_H
+#define WORKERTHREADWFAFD_H
 
 #include <QThread>
 
-#include "model/executables/wfafle/results/resultsWfafle.h"
-#include "model/executables/wfafle/wfafle.h"
+#include "model/executables/wfafd/results/resultsWfafd.h"
+#include "model/executables/wfafd/wfafd.h"
 #include "utils/observer/observer.h"
 #include "utils/utils.h"
 
 /**
- * @brief The WorkerThreadWfafle class implements a Worker Thread that executes everything in a background thread.
- * Observes wfafle for updating progress in GUI.
+ * @brief The WorkerThreadWfafd class implements a Worker Thread that executes everything in a background thread.
+ * Observes wfafd for updating progress in GUI.
  */
-class WorkerThreadWfafle : public QThread, public Observer {
+class WorkerThreadWfafd : public QThread, public Observer {
     Q_OBJECT
     public:
         /**
          * @brief Store results of an execution.
          */
-        ResultsWfafle results;
+        ResultsWfafd results;
 
         /**
          * @brief Indicates if the execution has finished.
@@ -26,15 +26,15 @@ class WorkerThreadWfafle : public QThread, public Observer {
         bool done = false;
 
         /**
-         * @brief WorkerThreadWfafle Constructor
+         * @brief WorkerThreadWfafd Constructor
          * @param parent To be used by Qt.
          */
-        explicit WorkerThreadWfafle(QObject* parent = nullptr);
+        explicit WorkerThreadWfafd(QObject* parent = nullptr);
 
         /**
          * @brief WorkerThreadPhaseType Destructor.
          */
-        ~WorkerThreadWfafle();
+        ~WorkerThreadWfafd();
 
         /**
          * @brief Start execution. Overrided from QThread.
@@ -51,7 +51,7 @@ class WorkerThreadWfafle : public QThread, public Observer {
         /**
          * @brief Signal for notifying when results are ready
          */
-        void resultReady(ResultsWfafle results);
+        void resultReady(ResultsWfafd results);
 
         /**
          * @brief Signal for notifying progress of an execution.
@@ -60,4 +60,4 @@ class WorkerThreadWfafle : public QThread, public Observer {
 
 };
 
-#endif // WORKERTHREADWFAFLE_H
+#endif // RESULTSWFAFD_H
