@@ -7,4 +7,6 @@ SUBDIRS += \
     #wfes-tests \
     wfes-ui
 
+INCLUDEPATH += dependencies
+
 message(wfes project dir: $${PWD})
