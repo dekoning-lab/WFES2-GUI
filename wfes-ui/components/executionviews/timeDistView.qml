@@ -813,7 +813,7 @@ ApplicationWindow {
                                 id: inputC
                                 text: "c: "
                                 toolTipText: "Integration cutoff."
-                                validator: DoubleValidator {bottom: 0; top: 10e-3;}
+                                validator: DoubleValidator {bottom: 0; top: 1;}
                                 textFieldText: inputControllerTimeDist.ui_c
                                 textFieldTextEdited: function(){
                                     if(!Number.isNaN(Number(inputC.textFieldText)) && parseFloat(inputC.textFieldText) >= 0) {
@@ -829,10 +829,10 @@ ApplicationWindow {
                                 id: inputM
                                 text: "m: "
                                 toolTipText: "Maximum number of generations."
-                                validator: IntValidator {bottom: 2; top: 500000;}
+                                validator: DoubleValidator {bottom: 1;}
                                 textFieldText: inputControllerTimeDist.ui_m
                                 textFieldTextEdited: function(){
-                                    if(parseInt(inputM.textFieldText) > 1) {
+                                    if(!Number.isNaN(Number(inputM.textFieldText)) && parseFloat(inputM.textFieldText) >= 1) {
                                         inputControllerTimeDist.ui_m = inputM.textFieldText
                                         borderColor = "#555555"
                                     } else {
@@ -934,7 +934,7 @@ ApplicationWindow {
                                 id: inputC1
                                 text: "c: "
                                 toolTipText: "Integration cutoff."
-                                validator: DoubleValidator {bottom: 0; top: 10e-3;}
+                                validator: DoubleValidator {bottom: 0; top: 1;}
                                 textFieldText: inputControllerTimeDist.ui_c_sgv
                                 textFieldTextEdited: function(){
                                     if(!Number.isNaN(Number(inputC1.textFieldText)) && parseFloat(inputC1.textFieldText) >= 0) {
@@ -950,10 +950,10 @@ ApplicationWindow {
                                 id: inputM1
                                 text: "m: "
                                 toolTipText: "Maximum number of generations."
-                                validator: IntValidator {bottom: 2; top: 500000;}
+                                validator: DoubleValidator {bottom: 1;}
                                 textFieldText: inputControllerTimeDist.ui_m_sgv
                                 textFieldTextEdited: function(){
-                                    if(parseInt(inputM1.textFieldText) > 1) {
+                                    if(!Number.isNaN(Number(inputM1.textFieldText)) && parseFloat(inputM1.textFieldText) >= 1) {
                                         inputControllerTimeDist.ui_m_sgv = inputM1.textFieldText
                                         borderColor = "#555555"
                                     } else {
@@ -1547,18 +1547,18 @@ ApplicationWindow {
                 error += " - Integration Cutoff (c) is empty. \n \n"
             if(Number.isNaN(Number(inputC.textFieldText)))
                 error += " - Integration Cutoff (c) is not a valid number. \n \n"
-            if(parseFloat(inputC.textFieldText) < 0)
-                error += " - Integration Cutoff (c) is quite small. It must be at least 0. \n \n"
+            if(parseFloat(inputC.textFieldText) <= 0)
+                error += " - Integration Cutoff (c) is too small. It must be greater than 0. \n \n"
             if(parseFloat(inputC.textFieldText) > 1)
-                error += " - Integration Cutoff (c) is quite large. The maximum value allowed is 1. \n \n"
+                error += " - Integration Cutoff (c) is too large. The maximum value allowed is 1. \n \n"
 
             if(inputM.textFieldText == "")
                 error += " - Maximum Number of Generations (m)  is empty. \n \n"
             if(Number.isNaN(Number(inputM.textFieldText)))
                 error += " - Maximum Number of Generations (m) is not a valid number. \n \n"
-            if(parseInt(inputM.textFieldText) < 2)
-                error += " - Maximum Number of Generations (m) is quite small, it must be at least 2. \n \n"
-            if(!inputForce.checked && parseInt(inputM.textFieldText) > 50000)
+            if(parseInt(inputM.textFieldText) < 1)
+                error += " - Maximum Number of Generations (m) is quite small, it must be at least 1. \n \n"
+            if(!inputForce.checked && parseFloat(inputM.textFieldText) > 50000)
                 error += " - Maximum Number of Generations (m) is quite large, the computations will take a long time. Check 'Force' to ignore. \n \n"
 
             if(globalConfiguration.ui_population_scaled) {
@@ -1657,18 +1657,18 @@ ApplicationWindow {
                 error += " - Integration Cutoff (c) of SGV is empty. \n \n"
             if(Number.isNaN(Number(inputC1.textFieldText)))
                 error += " - Integration Cutoff (c) of SGV is not a valid number. \n \n"
-            if(parseFloat(inputC1.textFieldText) < 0)
-                error += " - Integration Cutoff (c) of SGV is quite small. It must be at least 0. \n \n"
-            if(parseFloat(inputC1.textFieldText) > 10e-3)
-                error += " - Integration Cutoff (c) of SGV is quite large. The maximum value allowed is 10e-3. \n \n"
+            if(parseFloat(inputC1.textFieldText) <= 0)
+                error += " - Integration Cutoff (c) of SGV is too small. It must be greater than 0. \n \n"
+            if(parseFloat(inputC1.textFieldText) > 1)
+                error += " - Integration Cutoff (c) of SGV is too large. The maximum value allowed is 1. \n \n"
 
             if(inputM1.textFieldText == "")
                 error += " - Maximum Number of Generations (m) of SGV is empty. \n \n"
             if(Number.isNaN(Number(inputM1.textFieldText)))
                 error += " - Maximum Number of Generations (m) of SGV is not a valid number. \n \n"
-            if(parseInt(inputM1.textFieldText) < 2)
-                error += " - Maximum Number of Generations (m) of SGV is quite small, it must be at least 2. \n \n"
-            if(!inputForce.checked && parseInt(inputM1.textFieldText) > 50000)
+            if(parseFloat(inputM1.textFieldText) < 1)
+                error += " - Maximum Number of Generations (m) of SGV is quite small, it must be at least 1. \n \n"
+            if(!inputForce.checked && parseFloat(inputM1.textFieldText) > 50000)
                 error += " - Maximum Number of Generations (m) of SGV is quite large, the computations will take a long time. Check 'Force' to ignore. \n \n"
 
             var u_vec = []

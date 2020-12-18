@@ -251,7 +251,7 @@ ApplicationWindow {
                                 id: inputC
                                 text: "c: "
                                 toolTipText: "Integration cutoff."
-                                validator: DoubleValidator {bottom: 0; top: 10e-3;}
+                                validator: DoubleValidator {bottom: 0; top: 1;}
                                 textFieldText: inputControllerPhaseType.ui_c
                                 enabled: inputControllerPhaseType.ui_modelType == "Phase Type Dist."
                                 textFieldTextEdited: function(){
@@ -268,11 +268,11 @@ ApplicationWindow {
                                 id: inputM
                                 text: "m: "
                                 toolTipText: "Maximum number of generations."
-                                validator: IntValidator {bottom: 2;}
+                                validator: DoubleValidator {bottom: 1;}
                                 textFieldText: inputControllerPhaseType.ui_m
                                 enabled: inputControllerPhaseType.ui_modelType == "Phase Type Dist."
                                 textFieldTextEdited: function(){
-                                    if(!Number.isNaN(Number(inputM.textFieldText)) && parseInt(inputM.textFieldText) > 1) {
+                                    if(!Number.isNaN(Number(inputM.textFieldText)) && parseInt(inputM.textFieldText) >= 1) {
                                         inputControllerPhaseType.ui_m = inputM.textFieldText
                                         borderColor = "#555555"
                                     } else {
@@ -1009,17 +1009,17 @@ ApplicationWindow {
             error += " - Integration Cutoff (c) is empty. \n \n"
         if(Number.isNaN(Number(inputC.textFieldText)))
             error += " - Integration Cutoff (c) is not a valid number. \n \n"
-        if(parseFloat(inputC.textFieldText) < 0)
-            error += " - Integration Cutoff (c) is quite small. It must be at least 0. \n \n"
+        if(parseFloat(inputC.textFieldText) <= 0)
+            error += " - Integration Cutoff (c) is too small. It must be greater than 0. \n \n"
         if(parseFloat(inputC.textFieldText) > 1)
-            error += " - Integration Cutoff (c) is quite large. The maximum value allowed is 10e-3. \n \n"
+            error += " - Integration Cutoff (c) is too large. The maximum value allowed is 1. \n \n"
 
         if(inputM.textFieldText == "")
             error += " - Maximum Number of Generations (m) is empty. \n \n"
         if(Number.isNaN(Number(inputM.textFieldText)))
             error += " - Maximum Number of Generations (m) is not a valid number. \n \n"
-        if(parseInt(inputM.textFieldText) < 2)
-            error += " - Maximum Number of Generations (m) is quite small, it must be at least 2. \n \n"
+        if(parseInt(inputM.textFieldText) < 1)
+            error += " - Maximum Number of Generations (m) is quite small, it must be at least 1. \n \n"
         // Deleted limit for m in phase_type_dist.
 
         if(inputK.textFieldText == "")
