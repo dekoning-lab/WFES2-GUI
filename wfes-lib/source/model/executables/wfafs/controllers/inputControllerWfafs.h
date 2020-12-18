@@ -1,5 +1,5 @@
-#ifndef INPUTCONTROLLERWFAS_H
-#define INPUTCONTROLLERWFAS_H
+#ifndef INPUTCONTROLLERWFAFS_H
+#define INPUTCONTROLLERWFAFS_H
 
 #include <QObject>
 
@@ -8,17 +8,17 @@
 
 #include <wfes-lib_global.h>
 
-#include "model/executables/wfas/config/configWfas.h"
+#include "model/executables/wfafs/config/configWfafs.h"
 
 
 namespace wfes {
     namespace controllers {
 
         /**
-         * @brief The InputControllerWfas class is a controller for input parameters
-         * of wfas.
+         * @brief The InputControllerWfafs class is a controller for input parameters
+         * of wfafs.
          */
-        class WFESLIBSHARED_EXPORT InputControllerWfas : public QObject {
+        class WFESLIBSHARED_EXPORT InputControllerWfafs : public QObject {
             Q_OBJECT
             Q_PROPERTY(QString ui_a READ get_a WRITE set_a NOTIFY input_changed)
             Q_PROPERTY(QString ui_p READ get_p WRITE set_p NOTIFY input_changed)
@@ -48,15 +48,15 @@ namespace wfes {
 
         public:
             /**
-             * @brief InputControllerWfas Constructor.
+             * @brief InputControllerWfafs Constructor.
              * @param parent To be used by Qt.
              */
-            explicit InputControllerWfas(QObject* parent = nullptr);
+            explicit InputControllerWfafs(QObject* parent = nullptr);
 
             /**
-             * @brief InputControllerWfas Destructor.
+             * @brief InputControllerWfafs Destructor.
              */
-            ~InputControllerWfas() = default;
+            ~InputControllerWfafs() = default;
 
             /**
              * @brief Send a to GUI.
@@ -336,4 +336,4 @@ namespace wfes {
     }
 }
 
-#endif // INPUTCONTROLLERWFAS_H
+#endif // INPUTCONTROLLERWFAFS_H

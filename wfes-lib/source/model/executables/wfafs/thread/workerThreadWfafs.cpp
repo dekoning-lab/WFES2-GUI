@@ -1,10 +1,10 @@
-#include "workerThreadWfas.h"
+#include "workerThreadWfafs.h"
 
-WorkerThreadWfas::WorkerThreadWfas(QObject *parent) : QThread(parent) {
-    results = ResultsWfas();
+WorkerThreadWfafs::WorkerThreadWfafs(QObject *parent) : QThread(parent) {
+    results = ResultsWfafs();
 }
 
-WorkerThreadWfas::~WorkerThreadWfas() {
+WorkerThreadWfafs::~WorkerThreadWfafs() {
     // If not done when finished, aborted by user.
     if (!done) {
         exit();
@@ -14,9 +14,9 @@ WorkerThreadWfas::~WorkerThreadWfas() {
     }
 }
 
-void WorkerThreadWfas::run() {
+void WorkerThreadWfafs::run() {
     QString result;
-    wfas w = wfas();
+    wfafs w = wfafs();
     w.addObserver(this);
     results = *w.execute();
 
@@ -24,6 +24,6 @@ void WorkerThreadWfas::run() {
     emit resultReady(results);
 }
 
-void WorkerThreadWfas::update(int value) {
+void WorkerThreadWfafs::update(int value) {
     emit updateProgress(value);
 }

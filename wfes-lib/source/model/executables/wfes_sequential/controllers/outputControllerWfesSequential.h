@@ -49,12 +49,12 @@ namespace wfes {
                 ResultsWfesSequential results;
 
                 /**
-                 * @brief Indicate if wfas if being executed.
+                 * @brief Indicate if wfafs if being executed.
                  */
                 bool executing;
 
                 /**
-                 * @brief WorkerThread that manages the background execution of Wfas.
+                 * @brief WorkerThread that manages the background execution of Wfafs.
                  */
                 WorkerThreadWfesSequential* worker;
 

@@ -1,23 +1,23 @@
-#include "outputControllerWfas.h"
+#include "outputControllerWfafs.h"
 
 using namespace wfes::controllers;
 using namespace wfes::config;
 
-OutputControllerWfas::OutputControllerWfas(QObject *parent)
+OutputControllerWfafs::OutputControllerWfafs(QObject *parent)
     : QObject(parent), executing(false){}
 
-QString OutputControllerWfas::execute() {
+QString OutputControllerWfafs::execute() {
     ImageResults::clear();
 
     // Set executing to true.
     executing = true;
 
     // Register results class as metatype, so it can be passed between Q_OBJECTS as slot.
-    qRegisterMetaType<ResultsWfas>("ResultsWfas");
+    qRegisterMetaType<ResultsWfafs>("ResultsWfafs");
 
     // Instantiate worker and connect signals of this controller with the worker.
-    worker = new WorkerThreadWfas();
-    connect(worker, SIGNAL(resultReady(ResultsWfas)), this, SLOT(handleResults(ResultsWfas)));
+    worker = new WorkerThreadWfafs();
+    connect(worker, SIGNAL(resultReady(ResultsWfafs)), this, SLOT(handleResults(ResultsWfafs)));
     connect(worker, SIGNAL(updateProgress(int)), this, SLOT(handleProgress(int)));
     connect(worker, SIGNAL(finished()), worker, SLOT(deleteLater()));
 
@@ -27,7 +27,7 @@ QString OutputControllerWfas::execute() {
     return "";
 }
 
-QString OutputControllerWfas::stop() {
+QString OutputControllerWfafs::stop() {
     // TODO Looks that using terminate is a bad practice because it can stop the thread, for example, while writting a file,
     // and the file will be corrupt then. Look for a better way of doing this.
     worker->terminate();
@@ -37,26 +37,26 @@ QString OutputControllerWfas::stop() {
     return QString();
 }
 
-QString OutputControllerWfas::save_config() {
-    ConfigWfas::saveConfigWfas();
+QString OutputControllerWfafs::save_config() {
+    ConfigWfafs::saveConfigWfafs();
     return "";
 }
 
-QString OutputControllerWfas::load_config() {
-    ConfigWfas::loadConfigWfas();
+QString OutputControllerWfafs::load_config() {
+    ConfigWfafs::loadConfigWfafs();
     return "";
 }
 
-QString OutputControllerWfas::get_error_message() const {
+QString OutputControllerWfafs::get_error_message() const {
     return QString::fromStdString(this->results.error);
 }
 
-QString OutputControllerWfas::reset_error() {
+QString OutputControllerWfafs::reset_error() {
     this->results.error = "";
     return "";
 }
 
-QString OutputControllerWfas::get_time() const {
+QString OutputControllerWfafs::get_time() const {
     // Time has a special format. Only two decimal values.
     boost::format fmt = boost::format("%1$.2f") % (this->results.time);
 
@@ -66,7 +66,7 @@ QString OutputControllerWfas::get_time() const {
         return QString::fromStdString(fmt.str());
 }
 
-QStringList OutputControllerWfas::get_probs() const {
+QStringList OutputControllerWfafs::get_probs() const {
     // Save probs as a QStringList.
     QStringList list;
     for(int i = 0; i < this->results.probs.size(); i++) {
@@ -82,10 +82,10 @@ QStringList OutputControllerWfas::get_probs() const {
     return list;
 }
 
-bool OutputControllerWfas::get_not_exec() const {
+bool OutputControllerWfafs::get_not_exec() const {
     return !executing;
 }
 
-QString OutputControllerWfas::get_progress() const {
+QString OutputControllerWfafs::get_progress() const {
     return this->progress;
 }

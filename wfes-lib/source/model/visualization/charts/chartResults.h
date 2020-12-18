@@ -34,9 +34,9 @@ namespace wfes {
                 static QPointF minMaxPhaseTypeDist;
                 static QPointF minMaxPhaseTypeAcum;
 
-                // Wfas lines and max/min points.
-                static QList<QPointF> wfasDist;
-                static QPointF minMaxwfasDist;
+                // Wfafs lines and max/min points.
+                static QList<QPointF> wfafsDist;
+                static QPointF minMaxwfafsDist;
 
                 // Wfafd lines and max/min points.
                 static QList<QPointF> wfafdDist;

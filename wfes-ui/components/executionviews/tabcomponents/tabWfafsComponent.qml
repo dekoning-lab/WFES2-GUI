@@ -54,7 +54,7 @@ Component{
                     validator: IntValidator {bottom: 2; top: 500000;}
                     textFieldText: {
                         if(number != 0) {
-                            var n_vec = inputControllerWfas.ui_N_vec
+                            var n_vec = inputControllerWfafs.ui_N_vec
                             return n_vec[number - 1]
                         } else {
                             return "";
@@ -62,14 +62,14 @@ Component{
                     }
                     textFieldTextEdited: function(){
                         var n_vec = []
-                        for(var i = 0; i < inputControllerWfas.ui_num_comp; i++) {
+                        for(var i = 0; i < inputControllerWfafs.ui_num_comp; i++) {
                             if(i+1 == number)
                                 n_vec[i] = inputN.textFieldText
                             else
-                                n_vec[i] = inputControllerWfas.ui_N_vec[i]
+                                n_vec[i] = inputControllerWfafs.ui_N_vec[i]
                         }
                         if(!Number.isNaN(Number(inputN.textFieldText)) && parseInt(inputN.textFieldText) > 1) {
-                            inputControllerWfas.ui_N_vec = n_vec
+                            inputControllerWfafs.ui_N_vec = n_vec
                             borderColor = "#555555"
                         } else {
                             borderColor = "#ff0000"
@@ -86,7 +86,7 @@ Component{
                     validator: IntValidator {bottom: 0; top: 500000;}
                     textFieldText: {
                         if(number != 0) {
-                            var g_vec = inputControllerWfas.ui_G_vec
+                            var g_vec = inputControllerWfafs.ui_G_vec
                             return g_vec[number - 1]
                         } else {
                             return "";
@@ -94,14 +94,14 @@ Component{
                     }
                     textFieldTextEdited: function(){
                         var g_vec = []
-                        for(var i = 0; i < inputControllerWfas.ui_num_comp; i++) {
+                        for(var i = 0; i < inputControllerWfafs.ui_num_comp; i++) {
                             if(i+1 == number)
                                 g_vec[i] = inputG.textFieldText
                             else
-                                g_vec[i] = inputControllerWfas.ui_G_vec[i]
+                                g_vec[i] = inputControllerWfafs.ui_G_vec[i]
                         }
                         if(!Number.isNaN(Number(inputG.textFieldText)) && parseInt(inputG.textFieldText) > 1) {
-                            inputControllerWfas.ui_G_vec = g_vec
+                            inputControllerWfafs.ui_G_vec = g_vec
                             borderColor = "#555555"
                         } else {
                             borderColor = "#ff0000"
@@ -116,7 +116,7 @@ Component{
                     validator: IntValidator {bottom: 1; top: 500000;}
                     textFieldText: {
                         if(number != 0) {
-                            var f_vec = inputControllerWfas.ui_f_vec
+                            var f_vec = inputControllerWfafs.ui_f_vec
                             return f_vec[number - 1]
                         } else {
                             return "";
@@ -124,14 +124,14 @@ Component{
                     }
                     textFieldTextEdited: function(){
                         var f_vec = []
-                        for(var i = 0; i < inputControllerWfas.ui_num_comp; i++) {
+                        for(var i = 0; i < inputControllerWfafs.ui_num_comp; i++) {
                             if(i+1 == number)
                                 f_vec[i] = inputF.textFieldText
                             else
-                                f_vec[i] = inputControllerWfas.ui_f_vec[i]
+                                f_vec[i] = inputControllerWfafs.ui_f_vec[i]
                         }
                         if(!Number.isNaN(Number(inputF.textFieldText)) && parseInt(inputF.textFieldText) > 0) {
-                            inputControllerWfas.ui_f_vec = f_vec
+                            inputControllerWfafs.ui_f_vec = f_vec
                             borderColor = "#555555"
                         } else {
                             borderColor = "#ff0000"
@@ -181,7 +181,7 @@ Component{
                     validator: DoubleValidator {bottom: 0;}
                     textFieldText: {
                         if(number != 0) {
-                            var u_vec = inputControllerWfas.ui_u_vec
+                            var u_vec = inputControllerWfafs.ui_u_vec
                             return u_vec[number - 1]
                         } else {
                             return "";
@@ -189,22 +189,22 @@ Component{
                     }
                     textFieldTextEdited: function(){
                         var u_vec = []
-                        for(var i = 0; i < inputControllerWfas.ui_num_comp; i++) {
+                        for(var i = 0; i < inputControllerWfafs.ui_num_comp; i++) {
                             if(i+1 == number)
                                 u_vec[i] = inputU.textFieldText
                             else
-                                u_vec[i] = inputControllerWfas.ui_u_vec[i]
+                                u_vec[i] = inputControllerWfafs.ui_u_vec[i]
                         }
                         if(globalConfiguration.ui_population_scaled) {
                             if(!Number.isNaN(Number(inputU.textFieldText)) && parseFloat(inputU.textFieldText) >= 0 && parseFloat(inputU.textFieldText) <= 1) {
-                                inputControllerWfas.ui_u_vec = u_vec
+                                inputControllerWfafs.ui_u_vec = u_vec
                                 borderColor = "#555555"
                             } else {
                                 borderColor = "#ff0000"
                             }
                         } else {
                             if(!Number.isNaN(Number(inputU.textFieldText)) && parseFloat(inputU.textFieldText) >= 0 && parseFloat(inputU.textFieldText) <= 1 / (4 * parseInt(inputN.textFieldText))) {
-                                inputControllerWfas.ui_u_vec = u_vec
+                                inputControllerWfafs.ui_u_vec = u_vec
                                 borderColor = "#555555"
                             } else {
                                 borderColor = "#ff0000"
@@ -225,7 +225,7 @@ Component{
                     validator: DoubleValidator {bottom: 0;}
                     textFieldText: {
                         if(number != 0) {
-                            var v_vec = inputControllerWfas.ui_v_vec
+                            var v_vec = inputControllerWfafs.ui_v_vec
                             return v_vec[number - 1]
                         } else {
                             return "";
@@ -233,22 +233,22 @@ Component{
                     }
                     textFieldTextEdited: function(){
                         var v_vec = []
-                        for(var i = 0; i < inputControllerWfas.ui_num_comp; i++) {
+                        for(var i = 0; i < inputControllerWfafs.ui_num_comp; i++) {
                             if(i+1 == number)
                                 v_vec[i] = inputV.textFieldText
                             else
-                                v_vec[i] = inputControllerWfas.ui_v_vec[i]
+                                v_vec[i] = inputControllerWfafs.ui_v_vec[i]
                         }
                         if(globalConfiguration.ui_population_scaled) {
                             if(!Number.isNaN(Number(inputV.textFieldText)) && parseFloat(inputV.textFieldText) >= 0 && parseFloat(inputV.textFieldText) <= 1) {
-                                inputControllerWfas.ui_v_vec = v_vec
+                                inputControllerWfafs.ui_v_vec = v_vec
                                 borderColor = "#555555"
                             } else {
                                 borderColor = "#ff0000"
                             }
                         } else {
                             if(!Number.isNaN(Number(inputV.textFieldText)) && parseFloat(inputV.textFieldText) >= 0 && parseFloat(inputV.textFieldText) <= 1 / (4 * parseInt(inputN.textFieldText))) {
-                                inputControllerWfas.ui_v_vec = v_vec
+                                inputControllerWfafs.ui_v_vec = v_vec
                                 borderColor = "#555555"
                             } else {
                                 borderColor = "#ff0000"
@@ -301,7 +301,7 @@ Component{
                     validator: DoubleValidator {bottom: -1; top: 1;}
                     textFieldText: {
                         if(number != 0) {
-                            var s_vec = inputControllerWfas.ui_s_vec
+                            var s_vec = inputControllerWfafs.ui_s_vec
                             return s_vec[number - 1]
                         } else {
                             return "";
@@ -309,22 +309,22 @@ Component{
                     }
                     textFieldTextEdited: function(){
                         var s_vec = []
-                        for(var i = 0; i < inputControllerWfas.ui_num_comp; i++) {
+                        for(var i = 0; i < inputControllerWfafs.ui_num_comp; i++) {
                             if(i+1 == number)
                                 s_vec[i] = inputS.textFieldText
                             else
-                                s_vec[i] = inputControllerWfas.ui_s_vec[i]
+                                s_vec[i] = inputControllerWfafs.ui_s_vec[i]
                         }
                         if(globalConfiguration.ui_population_scaled) {
                             if(!Number.isNaN(Number(inputS.textFieldText)) && parseFloat(inputS.textFieldText) >= -1 * (2 * parseInt(inputN.textFieldText)) && parseFloat(inputS.textFieldText) <= 1 * (2 * parseInt(inputN.textFieldText))) {
-                                inputControllerWfas.ui_s_vec = s_vec
+                                inputControllerWfafs.ui_s_vec = s_vec
                                 borderColor = "#555555"
                             } else {
                                 borderColor = "#ff0000"
                             }
                         } else {
                             if(!Number.isNaN(Number(inputS.textFieldText)) && parseFloat(inputS.textFieldText) >= -1 && parseFloat(inputS.textFieldText) <= 1) {
-                                inputControllerWfas.ui_s_vec = s_vec
+                                inputControllerWfafs.ui_s_vec = s_vec
                                 borderColor = "#555555"
                             } else {
                                 borderColor = "#ff0000"
@@ -340,7 +340,7 @@ Component{
                     validator: DoubleValidator {bottom: 0; top: 1;}
                     textFieldText: {
                         if(number != 0) {
-                            var h_vec = inputControllerWfas.ui_h_vec
+                            var h_vec = inputControllerWfafs.ui_h_vec
                             return h_vec[number - 1]
                         } else {
                             return "";
@@ -348,14 +348,14 @@ Component{
                     }
                     textFieldTextEdited: function(){
                         var h_vec = []
-                        for(var i = 0; i < inputControllerWfas.ui_num_comp; i++) {
+                        for(var i = 0; i < inputControllerWfafs.ui_num_comp; i++) {
                             if(i+1 == number)
                                 h_vec[i] = inputH.textFieldText
                             else
-                                h_vec[i] = inputControllerWfas.ui_h_vec[i]
+                                h_vec[i] = inputControllerWfafs.ui_h_vec[i]
                         }
                         if(!Number.isNaN(Number(inputH.textFieldText)) && parseFloat(inputH.textFieldText) >= 0 && parseFloat(inputH.textFieldText) <= 1) {
-                            inputControllerWfas.ui_h_vec = h_vec
+                            inputControllerWfafs.ui_h_vec = h_vec
                             borderColor = "#555555"
                         } else {
                             borderColor = "#ff0000"

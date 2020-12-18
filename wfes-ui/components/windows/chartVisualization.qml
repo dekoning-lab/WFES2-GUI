@@ -464,8 +464,8 @@ ApplicationWindow {
                     chartResults.saveChartSVG("Phase Type Acum.", scaleButton.checked, url + "chart-" + bt2.text + ".svg")
                 }
             }
-            if(chart1Linear.title == "Wfas Dist.") {
-                chartResults.saveChartSVG("Wfas Dist.", scaleButton.checked, url + "chart-" + bt1.text + ".svg")
+            if(chart1Linear.title == "Wfafs Dist.") {
+                chartResults.saveChartSVG("Wfafs Dist.", scaleButton.checked, url + "chart-" + bt1.text + ".svg")
             }
             if(chart1Linear.title == "Wfafd Dist.") {
                 chartResults.saveChartSVG("Wfafd Dist.", scaleButton.checked, url + "chart-" + bt1.text + ".svg")
@@ -650,9 +650,9 @@ ApplicationWindow {
         setValuesAxis(axisX2Log, axisY2Log, 1, lineSeries0Chart2Log.at(lineSeries0Chart2Log.count-1).x, minMaxAcum.x - axisPadding, minMaxAcum.y + axisPadding)
     }
 
-    function updateDistWfas() {
-        var minMaxDist = chartResults.updateChart("Wfas Dist.", chart1Linear.series(0));
-        minMaxDist = chartResults.updateChart("Wfas Dist.", chart1Log.series(0));
+    function updateDistWfafs() {
+        var minMaxDist = chartResults.updateChart("Wfafs Dist.", chart1Linear.series(0));
+        minMaxDist = chartResults.updateChart("Wfafs Dist.", chart1Log.series(0));
 
         visibleButtons(false, false, false)
         enableButtons(false, true, true)

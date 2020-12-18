@@ -51,12 +51,12 @@ HEADERS += \
     source/model/executables/wfafd/results/resultsWfafd.h \
     source/model/executables/wfafd/thread/workerThreadWfafd.h \
     source/model/executables/wfafd/wfafd.h \
-    source/model/executables/wfas/config/configWfas.h \
-    source/model/executables/wfas/controllers/inputControllerWfas.h \
-    source/model/executables/wfas/controllers/outputControllerWfas.h \
-    source/model/executables/wfas/results/resultsWfas.h \
-    source/model/executables/wfas/thread/workerThreadWfas.h \
-    source/model/executables/wfas/wfas.h \
+    source/model/executables/wfafs/config/configWfafs.h \
+    source/model/executables/wfafs/controllers/inputControllerWfafs.h \
+    source/model/executables/wfafs/controllers/outputControllerWfafs.h \
+    source/model/executables/wfafs/results/resultsWfafs.h \
+    source/model/executables/wfafs/thread/workerThreadWfafs.h \
+    source/model/executables/wfafs/wfafs.h \
     source/model/executables/wfes_sequential/config/configWfesSequential.h \
     source/model/executables/wfes_sequential/controllers/inputControllerWfesSequential.h \
     source/model/executables/wfes_sequential/controllers/outputControllerWfesSequential.h \
@@ -126,12 +126,12 @@ SOURCES += \
     source/model/executables/wfafd/results/resultsWfafd.cpp \
     source/model/executables/wfafd/thread/workerThreadWfafd.cpp \
     source/model/executables/wfafd/wfafd.cpp \
-    source/model/executables/wfas/config/configWfas.cpp \
-    source/model/executables/wfas/controllers/inputControllerWfas.cpp \
-    source/model/executables/wfas/controllers/outputControllerWfas.cpp \
-    source/model/executables/wfas/results/resultsWfas.cpp \
-    source/model/executables/wfas/thread/workerThreadWfas.cpp \
-    source/model/executables/wfas/wfas.cpp \
+    source/model/executables/wfafs/config/configWfafs.cpp \
+    source/model/executables/wfafs/controllers/inputControllerWfafs.cpp \
+    source/model/executables/wfafs/controllers/outputControllerWfafs.cpp \
+    source/model/executables/wfafs/results/resultsWfafs.cpp \
+    source/model/executables/wfafs/thread/workerThreadWfafs.cpp \
+    source/model/executables/wfafs/wfafs.cpp \
     source/model/executables/wfes_sequential/config/configWfesSequential.cpp \
     source/model/executables/wfes_sequential/controllers/inputControllerWfesSequential.cpp \
     source/model/executables/wfes_sequential/controllers/outputControllerWfesSequential.cpp \

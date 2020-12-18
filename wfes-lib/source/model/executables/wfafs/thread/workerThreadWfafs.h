@@ -1,24 +1,24 @@
-#ifndef WORKERTHREADWFAS_H
-#define WORKERTHREADWFAS_H
+#ifndef WORKERTHREADWFAFS_H
+#define WORKERTHREADWFAFS_H
 
 #include <QThread>
 
-#include "model/executables/wfas/results/resultsWfas.h"
-#include "model/executables/wfas/wfas.h"
+#include "model/executables/wfafs/results/resultsWfafs.h"
+#include "model/executables/wfafs/wfafs.h"
 #include "utils/observer/observer.h"
 #include "utils/utils.h"
 
 /**
- * @brief The WorkerThreadWfas class implements a Worker Thread that executes everything in a background thread.
- * Observes wfas for updating progress in GUI.
+ * @brief The WorkerThreadWfafs class implements a Worker Thread that executes everything in a background thread.
+ * Observes wfafs for updating progress in GUI.
  */
-class WorkerThreadWfas : public QThread, public Observer {
+class WorkerThreadWfafs : public QThread, public Observer {
     Q_OBJECT
     public:
         /**
          * @brief Store results of an execution.
          */
-        ResultsWfas results;
+        ResultsWfafs results;
 
         /**
          * @brief Indicates if the execution has finished.
@@ -26,15 +26,15 @@ class WorkerThreadWfas : public QThread, public Observer {
         bool done = false;
 
         /**
-         * @brief WorkerThreadWfas Constructor
+         * @brief WorkerThreadWfafs Constructor
          * @param parent To be used by Qt.
          */
-        explicit WorkerThreadWfas(QObject* parent = nullptr);
+        explicit WorkerThreadWfafs(QObject* parent = nullptr);
 
         /**
          * @brief WorkerThreadPhaseType Destructor.
          */
-        ~WorkerThreadWfas();
+        ~WorkerThreadWfafs();
 
         /**
          * @brief Start execution. Overrided from QThread.
@@ -51,7 +51,7 @@ class WorkerThreadWfas : public QThread, public Observer {
         /**
          * @brief Signal for notifying when results are ready
          */
-        void resultReady(ResultsWfas results);
+        void resultReady(ResultsWfafs results);
 
         /**
          * @brief Signal for notifying progress of an execution.
@@ -60,4 +60,4 @@ class WorkerThreadWfas : public QThread, public Observer {
 
 };
 
-#endif // WORKERTHREADWFAS_H
+#endif // WORKERTHREADWFAFS_H

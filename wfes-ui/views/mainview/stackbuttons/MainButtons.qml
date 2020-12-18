@@ -26,8 +26,8 @@ Item {
         id: wfesSwitching
     }
 
-    WfasView {
-        id: wfasView
+    WfafsView {
+        id: wfafsView
     }
 
     WfafdView {
@@ -73,14 +73,14 @@ Item {
                 ToolTip.timeout: Style.tooltipTimeout
                 ToolTip.visible: hovered
                 onClicked: {
-                    if(wfasView.visible) {
-                        wfasView.raise()
+                    if(wfafsView.visible) {
+                        wfafsView.raise()
                     } else {
-                        wfasView.visible = true;
+                        wfafsView.visible = true;
                     }
                     // Center window in screen.
-                    wfasView.setX(Screen.width / 2 - wfasView.width / 2);
-                    wfasView.setY(Screen.height / 2 - wfasView.height / 2);
+                    wfafsView.setX(Screen.width / 2 - wfafsView.width / 2);
+                    wfafsView.setY(Screen.height / 2 - wfafsView.height / 2);
                 }
                 Layout.alignment: Qt.AlignHCenter
                 Layout.preferredWidth: 160

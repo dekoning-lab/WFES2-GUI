@@ -20,8 +20,8 @@
         <file alias="executionviews/menus/BottomMenu.qml">components/executionviews/menus/BottomMenu.qml</file>
         <file alias="executionviews/wfafdView.qml">components/executionviews/wfafdView.qml</file>
         <file alias="executionviews/tabcomponents/tabWfafdComponent.qml">components/executionviews/tabcomponents/tabWfafdComponent.qml</file>
-        <file alias="executionviews/wfasView.qml">components/executionviews/wfasView.qml</file>
-        <file alias="executionviews/tabcomponents/tabWfasComponent.qml">components/executionviews/tabcomponents/tabWfasComponent.qml</file>
+        <file alias="executionviews/wfafsView.qml">components/executionviews/wfafsView.qml</file>
+        <file alias="executionviews/tabcomponents/tabWfafsComponent.qml">components/executionviews/tabcomponents/tabWfafsComponent.qml</file>
         <file alias="executionviews/wfesSequentialView.qml">components/executionviews/wfesSequentialView.qml</file>
         <file alias="executionviews/tabcomponents/tabWfesSequentialComponent.qml">components/executionviews/tabcomponents/tabWfesSequentialComponent.qml</file>
         <file alias="executionviews/wfesSwitchingView.qml">components/executionviews/wfesSwitchingView.qml</file>

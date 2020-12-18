@@ -8,8 +8,8 @@ QList<QPointF> ChartResults::phaseTypeDistAcum;
 QPointF ChartResults::minMaxPhaseTypeDist;
 QPointF ChartResults::minMaxPhaseTypeAcum;
 
-QList<QPointF> ChartResults::wfasDist;
-QPointF ChartResults::minMaxwfasDist;
+QList<QPointF> ChartResults::wfafsDist;
+QPointF ChartResults::minMaxwfafsDist;
 
 QList<QPointF> ChartResults::wfafdDist;
 QPointF ChartResults::minMaxwfafdDist;
@@ -50,9 +50,9 @@ QPointF ChartResults::updateChart(QString name, QAbstractSeries *p_series) {
     } else if(phaseTypeDist.size() != 0 && name.compare("Phase Type Acum.") == 0) {
         xySeries->replace(phaseTypeDistAcum);
         return minMaxPhaseTypeAcum;
-    } else if(wfasDist.size() != 0 && name.compare("Wfas Dist.") == 0) {
-        xySeries->replace(wfasDist);
-        return minMaxwfasDist;
+    } else if(wfafsDist.size() != 0 && name.compare("Wfafs Dist.") == 0) {
+        xySeries->replace(wfafsDist);
+        return minMaxwfafsDist;
     } else if(wfafdDist.size() != 0 && name.compare("Wfafd Dist.") == 0) {
         xySeries->replace(wfafdDist);
         return minMaxwfafdDist;
@@ -160,11 +160,11 @@ void ChartResults::saveChartSVG(QString title, bool log, QString filePath) {
         chart->addAxis(axisY, Qt::AlignLeft);
         series->attachAxis(axisY);
 
-    } else if (title.compare("Wfas Dist.") == 0) {
-        chart->setTitle("Wfas");
+    } else if (title.compare("Wfafs Dist.") == 0) {
+        chart->setTitle("Wfafs");
 
         // Append series.
-        series->append(this->wfasDist);
+        series->append(this->wfafsDist);
         // Set name of series.
         series->setName("Allele frequency distribution");
         // Add series.
@@ -175,8 +175,8 @@ void ChartResults::saveChartSVG(QString title, bool log, QString filePath) {
         series->attachAxis(axisX);
 
         // Add axes Y to chart, and attach to series.
-        axisY->setMin(ChartResults::minMaxwfasDist.x());
-        axisY->setMax(ChartResults::minMaxwfasDist.y());
+        axisY->setMin(ChartResults::minMaxwfafsDist.x());
+        axisY->setMax(ChartResults::minMaxwfafsDist.y());
         chart->addAxis(axisY, Qt::AlignLeft);
         series->attachAxis(axisY);
     } else if (title.compare("Wfafd Dist.") == 0) {

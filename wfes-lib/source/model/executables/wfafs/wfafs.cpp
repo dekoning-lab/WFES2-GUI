@@ -1,4 +1,4 @@
-#include "wfas.h"
+#include "wfafs.h"
 
 using namespace wfes::controllers;
 using namespace wfes::config;
@@ -6,7 +6,7 @@ using namespace wfes::solver;
 using namespace wfes::utils;
 using namespace wfes;
 
-ResultsWfas *wfas::execute() {
+ResultsWfafs *wfafs::execute() {
     // Start counting execution time.
     t_start = std::chrono::system_clock::now();
 
@@ -15,8 +15,8 @@ ResultsWfas *wfas::execute() {
     msg_level = MKL_PARDISO_MSG_QUIET;
 
     // Set number of threads for intel MKL Pardiso.
-    omp_set_num_threads(ConfigWfas::n_threads);
-    mkl_set_num_threads(ConfigWfas::n_threads);
+    omp_set_num_threads(ConfigWfafs::n_threads);
+    mkl_set_num_threads(ConfigWfafs::n_threads);
 
     //Notify starting.
     this->notify(ExecutionStatus::STARTING);
@@ -26,52 +26,52 @@ ResultsWfas *wfas::execute() {
 
 }
 
-ResultsWfas *wfas::function() {
+ResultsWfafs *wfafs::function() {
     try {
         // Population-scaled values.
-        dvec s = ConfigWfas::s;
-        dvec u = ConfigWfas::u;
-        dvec v = ConfigWfas::v;
+        dvec s = ConfigWfafs::s;
+        dvec u = ConfigWfafs::u;
+        dvec v = ConfigWfafs::v;
         if(GlobalConfiguration::populationScaled) {
-            for (int i = 0; i < ConfigWfas::num_comp; i++) {
-                s[i] = ConfigWfas::s[i] / (2.0 * ConfigWfas::N[i]);
-                u[i] = ConfigWfas::u[i] / (4.0 * ConfigWfas::N[i]);
-                v[i] = ConfigWfas::v[i] / (4.0 * ConfigWfas::N[i]);
+            for (int i = 0; i < ConfigWfafs::num_comp; i++) {
+                s[i] = ConfigWfafs::s[i] / (2.0 * ConfigWfafs::N[i]);
+                u[i] = ConfigWfafs::u[i] / (4.0 * ConfigWfafs::N[i]);
+                v[i] = ConfigWfafs::v[i] / (4.0 * ConfigWfafs::N[i]);
             }
         }
 
-        dvec s_scal = s.array() * ConfigWfas::f.array();
-        dvec u_scal = u.array() * ConfigWfas::f.array();
-        dvec v_scal = v.array() * ConfigWfas::f.array();
+        dvec s_scal = s.array() * ConfigWfafs::f.array();
+        dvec u_scal = u.array() * ConfigWfafs::f.array();
+        dvec v_scal = v.array() * ConfigWfafs::f.array();
 
-        dvec ps_tmp = ConfigWfas::N.cast<double>().array() / ConfigWfas::f.array();
+        dvec ps_tmp = ConfigWfafs::N.cast<double>().array() / ConfigWfafs::f.array();
         lvec popSizes = ps_tmp.cast<llong>();
-        dvec t_tmp = ConfigWfas::G.cast<double>().array() / ConfigWfas::f.array();
+        dvec t_tmp = ConfigWfafs::G.cast<double>().array() / ConfigWfafs::f.array();
         dvec gens = t_tmp;
 
-        llong size = (2 * popSizes.sum()) + ConfigWfas::num_comp;
+        llong size = (2 * popSizes.sum()) + ConfigWfafs::num_comp;
 
         //Notify building matrix.
         this->notify(ExecutionStatus::BUILDING_MATRICES);
 
-        dmat switching = dmat::Zero(ConfigWfas::num_comp, ConfigWfas::num_comp);
-        for(llong i = 0; i < ConfigWfas::num_comp - 1; i++) {
+        dmat switching = dmat::Zero(ConfigWfafs::num_comp, ConfigWfafs::num_comp);
+        for(llong i = 0; i < ConfigWfafs::num_comp - 1; i++) {
             switching(i, i) = 1 - (1 / gens(i));
             switching(i, i+1) = 1 / gens(i);
         }
-        switching(ConfigWfas::num_comp - 1, ConfigWfas::num_comp - 1) = 1 - (1 / gens(ConfigWfas::num_comp - 1));
+        switching(ConfigWfafs::num_comp - 1, ConfigWfafs::num_comp - 1) = 1 - (1 / gens(ConfigWfafs::num_comp - 1));
 
         wrightfisher::Matrix W = wrightfisher::Switching(popSizes, wrightfisher::NON_ABSORBING,
-                s_scal, ConfigWfas::h, u_scal, v_scal, switching, ConfigWfas::a, msg_level);
+                s_scal, ConfigWfafs::h, u_scal, v_scal, switching, ConfigWfafs::a, msg_level);
 
         //Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
 
         //Save data into file.
-        if (ConfigWfas::output_Q)
-            W.Q->saveMarket(ConfigWfas::path_output_Q);
-        //if (ConfigWfas::output_R)
-        //    utils::writeMatrixToFile(W.R, ConfigWfas::path_output_R);
+        if (ConfigWfafs::output_Q)
+            W.Q->saveMarket(ConfigWfafs::path_output_Q);
+        //if (ConfigWfafs::output_R)
+        //    utils::writeMatrixToFile(W.R, ConfigWfafs::path_output_R);
 
         //Notify solving
         this->notify(ExecutionStatus::SOLVING_MATRICES);
@@ -80,26 +80,26 @@ ResultsWfas *wfas::function() {
 
 
         dvec initial;
-        if (ConfigWfas::initial_distribution_csv.compare("") != 0) {
-            initial = load_csv_col_vector(ConfigWfas::initial_distribution_csv);
+        if (ConfigWfafs::initial_distribution_csv.compare("") != 0) {
+            initial = load_csv_col_vector(ConfigWfafs::initial_distribution_csv);
             // Check if Initial Distribution File (i) size is correct.
-            if(initial.size() != (2 * ConfigWfas::N[0] + 1)) {
+            if(initial.size() != ((2 * popSizes(0)) + 1)) {
                 this->notify(ExecutionStatus::ERROR);
-                return new ResultsWfas("Initial Probability Distribution (I) file must have " + std::to_string(2 * ConfigWfas::N[0] + 1) + " elements. Your file has just " + std::to_string(initial.size()) + " elements.");
+                return new ResultsWfafs("Initial Probability Distribution (I) file must have " + std::to_string((2 * popSizes(0)) + 1) + " elements. Your file has " + std::to_string(initial.size()) + " elements.");
             }
-        } else if (ConfigWfas::p != 0) {
-            llong p = ConfigWfas::p;
+        } else if (ConfigWfafs::p != 0) {
+            llong p = ConfigWfafs::p;
             initial = dvec::Zero(2 * popSizes(0) + 1);
             initial[p] = 1;
         } else {
-            initial = wrightfisher::Equilibrium(popSizes(0), s_scal(0), ConfigWfas::h(0), u_scal(0), v_scal(0), ConfigWfas::a, msg_level);
+            initial = wrightfisher::Equilibrium(popSizes(0), s_scal(0), ConfigWfafs::h(0), u_scal(0), v_scal(0), ConfigWfafs::a, msg_level);
         }
 
         // llong n_rhs = 2 * population_sizes(0) + 1;
         llong n_rhs = 2 * popSizes(0) + 1;
-        // llong n_rhs = 2 * population_sizes(ConfigWfas::num_comp - 1) + 1;
+        // llong n_rhs = 2 * population_sizes(ConfigWfafs::num_comp - 1) + 1;
 
-        Solver* solver = SolverFactory::createSolver(ConfigWfas::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, ConfigWfas::vienna_solver, "", n_rhs);
+        Solver* solver = SolverFactory::createSolver(ConfigWfafs::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, ConfigWfafs::vienna_solver, "", n_rhs);
 
         solver->preprocess();
 
@@ -108,9 +108,9 @@ ResultsWfas *wfas::function() {
         //dvec B_fix = dvec::Ones(size) - B_ext;
 
 
-        // dmat R = dmat::Identity(size, 2 * population_sizes(ConfigWfas::num_comp - 1) + 1).reverse() * (1 / t(ConfigWfas::num_comp - 1));
-        llong nk = 2 * popSizes(ConfigWfas::num_comp - 1) + 1;
-        // SparseMatrix R = SparseMatrix::LeftPaddedDiagonal(nk, 1 / t(ConfigWfas::num_comp - 1), size - nk);
+        // dmat R = dmat::Identity(size, 2 * population_sizes(ConfigWfafs::num_comp - 1) + 1).reverse() * (1 / t(ConfigWfafs::num_comp - 1));
+        llong nk = 2 * popSizes(ConfigWfafs::num_comp - 1) + 1;
+        // SparseMatrix R = SparseMatrix::LeftPaddedDiagonal(nk, 1 / t(ConfigWfafs::num_comp - 1), size - nk);
         // if(output_R_f) R.save_market(args::get(output_R_f));
 
         dmat id = dmat::Identity(n_rhs, size);
@@ -119,7 +119,7 @@ ResultsWfas *wfas::function() {
 
         // if(output_N_f) write_matrix_to_file(Nt, args::get(output_N_f));
 
-        B /= gens(ConfigWfas::num_comp - 1);
+        B /= gens(ConfigWfafs::num_comp - 1);
 
         // std::cout << eq.rows() << " x " << eq.cols() << std::endl;
         // std::cout << B.transpose().rightCols(nk).rows() << " x " << B.transpose().rightCols(nk).cols() << std::endl;
@@ -128,18 +128,18 @@ ResultsWfas *wfas::function() {
         // dvec d = B.transpose().rightCols(nk).row(0);
 
 
-        llong lt = ConfigWfas::num_comp - 1;
+        llong lt = ConfigWfafs::num_comp - 1;
 
-        if (ConfigWfas::f(lt) != 1) {
+        if (ConfigWfafs::f(lt) != 1) {
             llong n = 2 * popSizes(lt) + 1;
             llong m = 2 * (popSizes(lt) * gens(lt)) + 1;
             wrightfisher::Matrix sw_up = wrightfisher::Single(popSizes(lt), popSizes(lt) * gens(lt),
-                    wrightfisher::NON_ABSORBING, s(lt), ConfigWfas::h(lt), u(lt), v(lt), true, ConfigWfas::a, msg_level);
+                    wrightfisher::NON_ABSORBING, s(lt), ConfigWfafs::h(lt), u(lt), v(lt), true, ConfigWfafs::a, msg_level);
 
             // projected up
             dvec prj_u = sw_up.Q->multiply(d, true);
 
-            if (!ConfigWfas::no_proj) {
+            if (!ConfigWfafs::no_proj) {
                 // projected down
                 dvec prj_d = dvec::Zero(n);
 
@@ -176,12 +176,12 @@ ResultsWfas *wfas::function() {
                 maxDist = d[i];
             dist.append(QPointF(i+1, d[i]));
         }
-        ChartResults::wfasDist = dist;
-        ChartResults::minMaxwfasDist = QPointF(minDist, maxDist);
+        ChartResults::wfafsDist = dist;
+        ChartResults::minMaxwfafsDist = QPointF(minDist, maxDist);
         // This is for chart visualization.
 
         dmat Nt = dmat::Zero(n_rhs, size);
-        if (ConfigWfas::output_N) {
+        if (ConfigWfafs::output_N) {
             // Calculate fundamental matrix
             for(llong i = 0; i < n_rhs; i++) {
                 dvec id_tmp = id.col(i);
@@ -194,27 +194,27 @@ ResultsWfas *wfas::function() {
 
 
         // Save data into file.
-        if (ConfigWfas::output_N)
-            utils::writeMatrixToFile(Nt, ConfigWfas::path_output_N);
-        if (ConfigWfas::output_B) {
-            utils::writeMatrixToFile(B, ConfigWfas::path_output_B);
+        if (ConfigWfafs::output_N)
+            utils::writeMatrixToFile(Nt, ConfigWfafs::path_output_N);
+        if (ConfigWfafs::output_B) {
+            utils::writeMatrixToFile(B, ConfigWfafs::path_output_B);
         }
-        if(ConfigWfas::output_Dist) {
-            utils::writeVectorToFile(d, ConfigWfas::path_output_Dist);
+        if(ConfigWfafs::output_Dist) {
+            utils::writeVectorToFile(d, ConfigWfafs::path_output_Dist);
         }
 
         if(GlobalConfiguration::generateImages) {
             // Generate images.
             QImage *imageQ = nullptr, *imageB = nullptr, *imageN = nullptr;
-            if(ConfigWfas::output_Q) {
+            if(ConfigWfafs::output_Q) {
                 imageQ = utils::generateImage(W.Q->dense());
                 ImageResults::Q = imageQ;
             }
-            if(ConfigWfas::output_N) {
+            if(ConfigWfafs::output_N) {
                 imageN = utils::generateImage(Nt);
                 ImageResults::N = imageN;
             }
-            if(ConfigWfas::output_B) {
+            if(ConfigWfafs::output_B) {
                 imageB = utils::generateImage(B);
                 ImageResults::B = imageB;
             }
@@ -227,9 +227,9 @@ ResultsWfas *wfas::function() {
         //Notify done.
         this->notify(ExecutionStatus::DONE);
 
-        return new ResultsWfas(d, dt.count());
+        return new ResultsWfafs(d, dt.count());
     } catch(const std::exception &e) {
         this->notify(ExecutionStatus::ERROR);
-        return new ResultsWfas(e.what());
+        return new ResultsWfafs(e.what());
     }
 }

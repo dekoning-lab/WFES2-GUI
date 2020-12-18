@@ -1,5 +1,5 @@
-#ifndef WFAS_H
-#define WFAS_H
+#ifndef WFAFS_H
+#define WFAFS_H
 
 #include "utils/types.h"
 #include "utils/utils.h"
@@ -15,8 +15,8 @@
 #include <model/visualization/imageresults.h>
 #include <model/visualization/charts/chartResults.h>
 
-#include <model/executables/wfas/config/configWfas.h>
-#include <model/executables/wfas/results/resultsWfas.h>
+#include <model/executables/wfafs/config/configWfafs.h>
+#include <model/executables/wfafs/results/resultsWfafs.h>
 
 //TODO Integrate generation of missing matrices and vectors.
 
@@ -24,7 +24,7 @@
  * @brief The wfafs class implements the phase type executables.
  * wfafs: WFAFS - Wright-Fisher approximate spectrum.
  */
-class wfas : public Subject {
+class wfafs : public Subject {
     public:
         /**
          * @brief Starting point of measuring execution time.
@@ -42,17 +42,17 @@ class wfas : public Subject {
         llong msg_level;
 
         /**
-         * @brief Starts an execution of a wfas model.
+         * @brief Starts an execution of a wfafs model.
          * @return Results of the execution.
          */
-        ResultsWfas* execute();
+        ResultsWfafs* execute();
 
         /**
-         * @brief Calculates WFAS - Wright-Fisher approximate spectrum.
+         * @brief Calculates WFAFS - Wright-Fisher approximate spectrum.
          * @return Results of the execution.
          */
-        ResultsWfas* function();
+        ResultsWfafs* function();
 
 };
 
-#endif // WFAS_H
+#endif // WFAFS_H

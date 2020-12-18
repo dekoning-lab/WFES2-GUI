@@ -1,5 +1,5 @@
-#ifndef OUTPUTCONTROLLERWFAS_H
-#define OUTPUTCONTROLLERWFAS_H
+#ifndef OUTPUTCONTROLLERWFAFS_H
+#define OUTPUTCONTROLLERWFAFS_H
 
 #include <QApplication>
 #include <QClipboard>
@@ -9,8 +9,8 @@
 
 #include <wfes-lib_global.h>
 
-#include <model/executables/wfas/results/resultsWfas.h>
-#include <model/executables/wfas/thread/workerThreadWfas.h>
+#include <model/executables/wfafs/results/resultsWfafs.h>
+#include <model/executables/wfafs/thread/workerThreadWfafs.h>
 
 using namespace wfes::config;
 
@@ -18,10 +18,10 @@ namespace wfes {
     namespace controllers {
 
         /**
-         * @brief The OutputControllerWfas class is a controller for output parameters
-         * and functions of wfas.
+         * @brief The OutputControllerWfafs class is a controller for output parameters
+         * and functions of wfafs.
          */
-        class WFESLIBSHARED_EXPORT OutputControllerWfas: public QObject {
+        class WFESLIBSHARED_EXPORT OutputControllerWfafs: public QObject {
             Q_OBJECT
             Q_PROPERTY(QString ui_execute READ execute CONSTANT)
             Q_PROPERTY(QString ui_stop READ stop CONSTANT)
@@ -38,17 +38,17 @@ namespace wfes {
                 /**
                  * @brief Results of an execution.
                  */
-                ResultsWfas results;
+                ResultsWfafs results;
 
                 /**
-                 * @brief Indicate if wfas if being executed.
+                 * @brief Indicate if wfafs if being executed.
                  */
                 bool executing;
 
                 /**
-                 * @brief WorkerThread that manages the background execution of Wfas.
+                 * @brief WorkerThread that manages the background execution of Wfafs.
                  */
-                WorkerThreadWfas* worker;
+                WorkerThreadWfafs* worker;
 
                 /**
                  * @brief Message with the progress of an execution.
@@ -56,36 +56,36 @@ namespace wfes {
                 QString progress = "";
 
                 /**
-                 * @brief OutputControllerWfas constructor
+                 * @brief OutputControllerWfafs constructor
                  * @param parent To be used by Qt.
                  */
-                OutputControllerWfas(QObject* parent = nullptr);
+                OutputControllerWfafs(QObject* parent = nullptr);
 
                 /**
                  * @brief OutputControllerWfesSweep destructor.
                  */
-                ~OutputControllerWfas() = default;
+                ~OutputControllerWfafs() = default;
 
                 /**
-                 * @brief Execute wfas and get results.
+                 * @brief Execute wfafs and get results.
                  * @return Nothing.
                  */
                 QString execute();
 
                 /**
-                 * @brief Stop an execution of wfas.
+                 * @brief Stop an execution of wfafs.
                  * @return Nothing.
                  */
                 QString stop();
 
                 /**
-                 * @brief Save configuration of wfas.
+                 * @brief Save configuration of wfafs.
                  * @return Nothing.
                  */
                 QString save_config();
 
                 /**
-                 * @brief Load configuration of wfas.
+                 * @brief Load configuration of wfafs.
                  * @return Nothing.
                  */
                 QString load_config();
@@ -133,71 +133,71 @@ namespace wfes {
                     text += QString::fromStdString("Parameter, Value") + "\n";
 
                     text += QString::fromStdString("N, ");
-                    for(int i = 0; i < ConfigWfas::N.size() - 1; i++) {
-                        text += QString::fromStdString((std::to_string(ConfigWfas::N(i)) + "; "));
+                    for(int i = 0; i < ConfigWfafs::N.size() - 1; i++) {
+                        text += QString::fromStdString((std::to_string(ConfigWfafs::N(i)) + "; "));
                     }
-                    text += QString::fromStdString((std::to_string(ConfigWfas::N(ConfigWfas::N.size() - 1)) + "\n"));
+                    text += QString::fromStdString((std::to_string(ConfigWfafs::N(ConfigWfafs::N.size() - 1)) + "\n"));
 
                     text += QString::fromStdString("G, ");
-                    for(int i = 0; i < ConfigWfas::G.size() - 1; i++) {
-                        text += QString::fromStdString((std::to_string(ConfigWfas::G(i)) + "; "));
+                    for(int i = 0; i < ConfigWfafs::G.size() - 1; i++) {
+                        text += QString::fromStdString((std::to_string(ConfigWfafs::G(i)) + "; "));
                     }
-                    text += QString::fromStdString((std::to_string(ConfigWfas::G(ConfigWfas::G.size() - 1)) + "\n"));
+                    text += QString::fromStdString((std::to_string(ConfigWfafs::G(ConfigWfafs::G.size() - 1)) + "\n"));
 
                     text += QString::fromStdString("F, ");
-                    for(int i = 0; i < ConfigWfas::f.size() - 1; i++) {
-                        text += QString::fromStdString((std::to_string(ConfigWfas::f(i)) + "; "));
+                    for(int i = 0; i < ConfigWfafs::f.size() - 1; i++) {
+                        text += QString::fromStdString((std::to_string(ConfigWfafs::f(i)) + "; "));
                     }
-                    text += QString::fromStdString((std::to_string(ConfigWfas::G(ConfigWfas::G.size() - 1)) + "\n"));
+                    text += QString::fromStdString((std::to_string(ConfigWfafs::G(ConfigWfafs::G.size() - 1)) + "\n"));
 
                     if(GlobalConfiguration::populationScaled) {
                         text += QString::fromStdString("4Nu, ");
-                        for(int i = 0; i < ConfigWfas::u.size() - 1; i++) {
-                            text += QString::fromStdString((std::to_string(ConfigWfas::u(i)) + "; "));
+                        for(int i = 0; i < ConfigWfafs::u.size() - 1; i++) {
+                            text += QString::fromStdString((std::to_string(ConfigWfafs::u(i)) + "; "));
                         }
-                        text += QString::fromStdString((std::to_string(ConfigWfas::u(ConfigWfas::u.size() - 1)) + "\n"));
+                        text += QString::fromStdString((std::to_string(ConfigWfafs::u(ConfigWfafs::u.size() - 1)) + "\n"));
 
                         text += QString::fromStdString("4Nv, ");
-                        for(int i = 0; i < ConfigWfas::v.size() - 1; i++) {
-                            text += QString::fromStdString((std::to_string(ConfigWfas::v(i)) + "; "));
+                        for(int i = 0; i < ConfigWfafs::v.size() - 1; i++) {
+                            text += QString::fromStdString((std::to_string(ConfigWfafs::v(i)) + "; "));
                         }
-                        text += QString::fromStdString((std::to_string(ConfigWfas::v(ConfigWfas::v.size() - 1)) + "\n"));
+                        text += QString::fromStdString((std::to_string(ConfigWfafs::v(ConfigWfafs::v.size() - 1)) + "\n"));
 
                         text += QString::fromStdString("2Ns, ");
-                        for(int i = 0; i < ConfigWfas::s.size() - 1; i++) {
-                            text += QString::fromStdString((std::to_string(ConfigWfas::s(i)) + "; "));
+                        for(int i = 0; i < ConfigWfafs::s.size() - 1; i++) {
+                            text += QString::fromStdString((std::to_string(ConfigWfafs::s(i)) + "; "));
                         }
-                        text += QString::fromStdString((std::to_string(ConfigWfas::s(ConfigWfas::s.size() - 1)) + "\n"));
+                        text += QString::fromStdString((std::to_string(ConfigWfafs::s(ConfigWfafs::s.size() - 1)) + "\n"));
 
                     } else {
                         text += QString::fromStdString("u, ");
-                        for(int i = 0; i < ConfigWfas::u.size() - 1; i++) {
-                            text += QString::fromStdString((std::to_string(ConfigWfas::u(i)) + "; "));
+                        for(int i = 0; i < ConfigWfafs::u.size() - 1; i++) {
+                            text += QString::fromStdString((std::to_string(ConfigWfafs::u(i)) + "; "));
                         }
-                        text += QString::fromStdString((std::to_string(ConfigWfas::u(ConfigWfas::u.size() - 1)) + "\n"));
+                        text += QString::fromStdString((std::to_string(ConfigWfafs::u(ConfigWfafs::u.size() - 1)) + "\n"));
 
                         text += QString::fromStdString("v, ");
-                        for(int i = 0; i < ConfigWfas::v.size() - 1; i++) {
-                            text += QString::fromStdString((std::to_string(ConfigWfas::v(i)) + "; "));
+                        for(int i = 0; i < ConfigWfafs::v.size() - 1; i++) {
+                            text += QString::fromStdString((std::to_string(ConfigWfafs::v(i)) + "; "));
                         }
-                        text += QString::fromStdString((std::to_string(ConfigWfas::v(ConfigWfas::v.size() - 1)) + "\n"));
+                        text += QString::fromStdString((std::to_string(ConfigWfafs::v(ConfigWfafs::v.size() - 1)) + "\n"));
 
                         text += QString::fromStdString("s, ");
-                        for(int i = 0; i < ConfigWfas::s.size() - 1; i++) {
-                            text += QString::fromStdString((std::to_string(ConfigWfas::s(i)) + "; "));
+                        for(int i = 0; i < ConfigWfafs::s.size() - 1; i++) {
+                            text += QString::fromStdString((std::to_string(ConfigWfafs::s(i)) + "; "));
                         }
-                        text += QString::fromStdString((std::to_string(ConfigWfas::s(ConfigWfas::s.size() - 1)) + "\n"));
+                        text += QString::fromStdString((std::to_string(ConfigWfafs::s(ConfigWfafs::s.size() - 1)) + "\n"));
                     }
 
                     text += QString::fromStdString("h, ");
-                    for(int i = 0; i < ConfigWfas::h.size() - 1; i++) {
-                        text += QString::fromStdString((std::to_string(ConfigWfas::h(i)) + "; "));
+                    for(int i = 0; i < ConfigWfafs::h.size() - 1; i++) {
+                        text += QString::fromStdString((std::to_string(ConfigWfafs::h(i)) + "; "));
                     }
-                    text += QString::fromStdString((std::to_string(ConfigWfas::h(ConfigWfas::h.size() - 1)) + "\n"));
+                    text += QString::fromStdString((std::to_string(ConfigWfafs::h(ConfigWfafs::h.size() - 1)) + "\n"));
 
-                    text += QString::fromStdString("a, " + (boost::format(DPF) % (ConfigWfas::a)).str()) + "\n";
-                    text += QString::fromStdString("p, " + (boost::format(DPF) % (ConfigWfas::p)).str()) + "\n";
-                    text += QString::fromStdString("No proj, ") + (ConfigWfas::no_proj ? "true" : "false") + "\n";
+                    text += QString::fromStdString("a, " + (boost::format(DPF) % (ConfigWfafs::a)).str()) + "\n";
+                    text += QString::fromStdString("p, " + (boost::format(DPF) % (ConfigWfafs::p)).str()) + "\n";
+                    text += QString::fromStdString("No proj, ") + (ConfigWfafs::no_proj ? "true" : "false") + "\n";
 
                     text += QString::fromStdString("Allele freq. dist.\n");
                     for(int i = 0; i < results.probs.size(); i++) {
@@ -217,7 +217,7 @@ namespace wfes {
                  * @brief Handle results of an execution and notify GUI that it has finished.
                  * @param results Results of an execution.
                  */
-                void handleResults(ResultsWfas results){
+                void handleResults(ResultsWfafs results){
                     this->results = results;
                     this->executing = false;
                     emit results_changed();
@@ -245,4 +245,4 @@ namespace wfes {
         };
 }
 }
-#endif // OUTPUTCONTROLLERWFAS_H
+#endif // OUTPUTCONTROLLERWFAFS_H
