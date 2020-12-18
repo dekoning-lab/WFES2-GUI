@@ -76,9 +76,9 @@ ResultsWfesSwitching *wfes_switching::absorption() {
 
         //Save data into file.
         if (ConfigWfesSwitching::output_Q)
-            utils::writeSparseMatrixToFile(W.Q, ConfigWfesSwitching::path_output_Q, "WFES-Switching");
+            utils::writeSparseMatrixToFile(W.Q, ConfigWfesSwitching::path_output_Q, "WFES-Switching-Absorption");
         if (ConfigWfesSwitching::output_R)
-            utils::writeMatrixToFile(W.R, ConfigWfesSwitching::path_output_R, "Wfes-Switching");
+            utils::writeMatrixToFile(W.R, ConfigWfesSwitching::path_output_R, "Wfes-Switching-Absorption");
 
         //Notify solving
         this->notify(ExecutionStatus::SOLVING_MATRICES);
@@ -212,13 +212,13 @@ ResultsWfesSwitching *wfes_switching::absorption() {
 
         //Save data into file.
         if (ConfigWfesSwitching::output_N_Ext)
-            utils::writeVectorToFile(E_ext, ConfigWfesSwitching::path_output_N_Ext, "WFES-Switching");
+            utils::writeVectorToFile(E_ext, ConfigWfesSwitching::path_output_N_Ext, "WFES-Switching-Absorption");
         if (ConfigWfesSwitching::output_N_Fix)
-            utils::writeVectorToFile(E_fix, ConfigWfesSwitching::path_output_N_Fix, "WFES-Switching");
+            utils::writeVectorToFile(E_fix, ConfigWfesSwitching::path_output_N_Fix, "WFES-Switching-Absorption");
         if (ConfigWfesSwitching::output_N)
-            utils::writeVectorMapToFile(N_rows, ConfigWfesSwitching::path_output_N, "WFES-Switching");
+            utils::writeVectorMapToFile(N_rows, ConfigWfesSwitching::path_output_N, "WFES-Switching-Absorption");
         if (ConfigWfesSwitching::output_B) {
-            utils::writeMatrixToFile(B, ConfigWfesSwitching::path_output_B, "WFES-Switching");
+            utils::writeMatrixToFile(B, ConfigWfesSwitching::path_output_B, "WFES-Switching-Absorption");
         }
         delete solver;
 
@@ -306,9 +306,9 @@ ResultsWfesSwitching *wfes_switching::fixation() {
 
         //Save data into file.
         if (ConfigWfesSwitching::output_Q)
-            utils::writeSparseMatrixToFile(W.Q, ConfigWfesSwitching::path_output_Q, "WFES-Switching");
+            utils::writeSparseMatrixToFile(W.Q, ConfigWfesSwitching::path_output_Q, "WFES-Switching-Fixation");
         if (ConfigWfesSwitching::output_R)
-            utils::writeMatrixToFile(W.R, ConfigWfesSwitching::path_output_R, "WFES-Switching");
+            utils::writeMatrixToFile(W.R, ConfigWfesSwitching::path_output_R, "WFES-Switching-Fixation");
 
         //Notify solving
         this->notify(ExecutionStatus::SOLVING_MATRICES);
@@ -352,9 +352,9 @@ ResultsWfesSwitching *wfes_switching::fixation() {
 
         //Save data into file.
         if (ConfigWfesSwitching::output_N)
-            utils::writeMatrixToFile(N, ConfigWfesSwitching::path_output_N, "WFES-Switching");
+            utils::writeMatrixToFile(N, ConfigWfesSwitching::path_output_N, "WFES-Switching-Fixation");
         if (ConfigWfesSwitching::output_B) {
-            utils::writeMatrixToFile(B, ConfigWfesSwitching::path_output_B, "WFES-Switching");
+            utils::writeMatrixToFile(B, ConfigWfesSwitching::path_output_B, "WFES-Switching-Fixation");
         }
         delete solver;
 

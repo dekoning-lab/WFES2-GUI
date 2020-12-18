@@ -72,9 +72,9 @@ ResultsWfesSweep *wfes_sweep::fixation(dvec s, dvec u, dvec v) {
 
         //Save data into file.
         if (ConfigWfesSweep::output_Q)
-            utils::writeSparseMatrixToFile(wf.Q, ConfigWfesSweep::path_output_Q, "WFES-Sweep");
+            utils::writeSparseMatrixToFile(wf.Q, ConfigWfesSweep::path_output_Q, "WFES-Sweep-Fixation");
         if (ConfigWfesSweep::output_R)
-            utils::writeMatrixToFile(wf.R, ConfigWfesSweep::path_output_R, "WFES-Sweep");
+            utils::writeMatrixToFile(wf.R, ConfigWfesSweep::path_output_R, "WFES-Sweep-Fixation");
 
         //Notify solving
         this->notify(ExecutionStatus::SOLVING_MATRICES);
@@ -109,11 +109,11 @@ ResultsWfesSweep *wfes_sweep::fixation(dvec s, dvec u, dvec v) {
         //Save data into file.
         dmat B(size, 2);
         if (ConfigWfesSweep::output_N)
-            utils::writeMatrixToFile(N, ConfigWfesSweep::path_output_N, "WFES-Sweep");
+            utils::writeMatrixToFile(N, ConfigWfesSweep::path_output_N, "WFES-Sweep-Fixation");
         if (ConfigWfesSweep::output_B) {
             B.col(0) = B_ext;
             B.col(1) = B_fix;
-            utils::writeMatrixToFile(B, ConfigWfesSweep::path_output_B, "WFES-Sweep");
+            utils::writeMatrixToFile(B, ConfigWfesSweep::path_output_B, "WFES-Sweep-Fixation");
         }
         delete solver;
 
