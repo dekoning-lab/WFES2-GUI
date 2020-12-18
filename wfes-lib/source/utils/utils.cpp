@@ -192,3 +192,36 @@ QImage* wfes::utils::generateImage(const dmat &a) {
 bool wfes::utils::saveImage(QImage *image, std::string path) {
     return image->save(QString::fromStdString(path), "PNG");
 }
+
+int wfes::utils::numPreffix(QString preffix, QStringList list) {
+    int num_prefix = 0;
+    for(int i = 0; i < list.size(); i++) {
+        //Check if prefix
+        int index = 0;
+        bool isPrefix = true;
+        if(preffix.size() > list[i].size()) {
+            isPrefix = false;
+        } else {
+            while(index < preffix.size()) {
+                if(list[i].at(index) != preffix.at(index)) {
+                    isPrefix = false;
+                }
+                index++;
+            }
+        }
+        if(isPrefix)
+            num_prefix++;
+    }
+    return num_prefix;
+}
+
+QStringList wfes::utils::listFiles(QString filePath, QString pattern) {
+    // Check for existing files, so those are not overwritten.
+    QDirIterator it(filePath, QStringList() << pattern, QDir::Files, QDirIterator::Subdirectories);
+    QStringList fileNames;
+    while (it.hasNext()) {
+        QStringList splitted = it.next().split("/");
+        fileNames.append(splitted[splitted.size()-1].split(".")[0]);
+    }
+    return fileNames;
+}

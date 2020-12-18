@@ -18,7 +18,6 @@ void ConfigTimeDistSGV::saveConfigTimeDistSGV() {
     outStream << "# Time Dist. SGV Options" << "\n";
     outStream << "Population Size SGV (N): " << ConfigTimeDistSGV::population_size << "\n";
 
-
     dvec vec = ConfigTimeDistSGV::u;
     if(wfes::controllers::GlobalConfiguration::populationScaled) {
         outStream << "Backward Mutation Rates (u): " << ConfigTimeDistSGV::u[0] / (4 * ConfigTimeDistSGV::population_size) << "; " << ConfigTimeDistSGV::u[1] / (4 * ConfigTimeDistSGV::population_size) << "\n";

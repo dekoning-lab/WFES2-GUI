@@ -13,6 +13,7 @@
 #include <QtGui/QImage>
 
 
+#include <QDirIterator>
 #include <QStandardPaths>
 #include <QDir>
 
@@ -158,6 +159,21 @@ namespace wfes{
          */
         bool saveImage(QImage* image, std::string path);
 
+        /**
+         * @brief Get number of elements of which a string is a preffix.
+         * @param preffix Preffix of the elements.
+         * @param list List of string we want to count.
+         * @return Number of elements of which a string is a preffix.
+         */
+        int numPreffix(QString preffix, QStringList list);
+
+        /**
+         * @brief Get a list of files in a directory whose name follow a pattern.
+         * @param filePath Path to search files.
+         * @param pattern Pattern in file names.
+         * @return List of files in the directory following a pattern.
+         */
+        QStringList listFiles(QString filePath, QString pattern);
     }
 }
 

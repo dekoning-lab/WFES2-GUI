@@ -20,6 +20,8 @@
 
 #include <wfes-lib_global.h>
 
+#include "utils/utils.h"
+
 namespace wfes {
     namespace controllers {
 

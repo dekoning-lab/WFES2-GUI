@@ -467,11 +467,11 @@ ApplicationWindow {
                     chartResults.saveChartSVG("Phase Type Acum.", scaleButton.checked, url, "chart-" + name)
                 }
             }
-            if(chart1Linear.title == "Wfafs Dist.") {
+            if(chart1Linear.title == "WFAF-S") {
                 name = "wfafs-dist";
-                chartResults.saveChartSVG("Wfafs Dist.", scaleButton.checked, url, "chart-" + name+ ".svg")
+                chartResults.saveChartSVG("Wfafs Dist.", scaleButton.checked, url, "chart-" + name)
             }
-            if(chart1Linear.title == "Wfafd Dist.") {
+            if(chart1Linear.title == "WFAF-D") {
                 name = "wfafd-dist";
                 chartResults.saveChartSVG("Wfafd Dist.", scaleButton.checked, url, "chart-" + name)
             }
