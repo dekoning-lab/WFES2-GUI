@@ -285,6 +285,7 @@ Rectangle {
                     height: visible ? implicitHeight : 0
                     onClicked: {
                         root.raise()
+                        root.requestActivate()
                     }
                 }
                 MenuItem {
@@ -293,6 +294,7 @@ Rectangle {
                     height: visible ? implicitHeight : 0
                     onClicked: {
                         wfesSingleView.raise()
+                        wfesSingleView.requestActivate()
                     }
                 }
                 MenuItem {
@@ -301,6 +303,7 @@ Rectangle {
                     height: visible ? implicitHeight : 0
                     onClicked: {
                         wfesSequential.raise()
+                        wfesSequential.requestActivate()
                     }
                 }
                 MenuItem {
@@ -309,6 +312,7 @@ Rectangle {
                     height: visible ? implicitHeight : 0
                     onClicked: {
                         wfesSweep.raise()
+                        wfesSweep.requestActivate()
                     }
                 }
                 MenuItem {
@@ -317,6 +321,7 @@ Rectangle {
                     height: visible ? implicitHeight : 0
                     onClicked: {
                         wfesSwitching.raise()
+                        wfesSwitching.requestActivate()
                     }
                 }
                 MenuItem {
@@ -325,6 +330,7 @@ Rectangle {
                     height: visible ? implicitHeight : 0
                     onClicked: {
                         wfafsView.raise()
+                        wfafsView.requestActivate()
                     }
                 }
                 MenuItem {
@@ -333,6 +339,7 @@ Rectangle {
                     height: visible ? implicitHeight : 0
                     onClicked: {
                         wfafdView.raise()
+                        wfafdView.requestActivate()
                     }
                 }
                 MenuItem {
@@ -341,6 +348,7 @@ Rectangle {
                     height: visible ? implicitHeight : 0
                     onClicked: {
                         timeDistView.raise()
+                        timeDistView.requestActivate()
                     }
                 }
                 MenuItem {
@@ -349,6 +357,7 @@ Rectangle {
                     height: visible ? implicitHeight : 0
                     onClicked: {
                         phaseTypeView.raise()
+                        phaseTypeView.requestActivate()
                     }
                 }
             }
