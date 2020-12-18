@@ -455,51 +455,66 @@ ApplicationWindow {
         }
         onClicked: {
             var url = globalConfiguration.ui_save_path + "/Wfes/"
+            var name = ""
             print(url)
             //If svg do this.
             if(chart1Linear.title == "Phase Type Dist.") {
                 if(chart1Linear.visible || chart1Log.visible) {
-                    chartResults.saveChartSVG("Phase Type Dist.", scaleButton.checked, url + "chart-" + bt1.text + ".svg")
+                    name = "phase-type-dist";
+                    chartResults.saveChartSVG("Phase Type Dist.", scaleButton.checked, url + "chart-" + name + ".svg")
                 } else if (chart2Linear.visible || chart2Log.visible) {
-                    chartResults.saveChartSVG("Phase Type Acum.", scaleButton.checked, url + "chart-" + bt2.text + ".svg")
+                    name = "phase-type-acum";
+                    chartResults.saveChartSVG("Phase Type Acum.", scaleButton.checked, url + "chart-" + name + ".svg")
                 }
             }
             if(chart1Linear.title == "Wfafs Dist.") {
-                chartResults.saveChartSVG("Wfafs Dist.", scaleButton.checked, url + "chart-" + bt1.text + ".svg")
+                name = "wfafs-dist";
+                chartResults.saveChartSVG("Wfafs Dist.", scaleButton.checked, url + "chart-" + name+ ".svg")
             }
             if(chart1Linear.title == "Wfafd Dist.") {
-                chartResults.saveChartSVG("Wfafd Dist.", scaleButton.checked, url + "chart-" + bt1.text + ".svg")
+                name = "wfafd-dist";
+                chartResults.saveChartSVG("Wfafd Dist.", scaleButton.checked, url + "chart-" + name + ".svg")
             }
             if(chart1Linear.title == "Time Dist.") {
                 if(chart1Linear.visible || chart1Log.visible) {
-                    chartResults.saveChartSVG("Time Dist. Ext.", scaleButton.checked, url + "chart-" + bt1.text + ".svg")
+                    name = "time-dist-ext";
+                    chartResults.saveChartSVG("Time Dist. Ext.", scaleButton.checked, url + "chart-" + name + ".svg")
                 } else if (chart2Linear.visible || chart2Log.visible) {
-                    chartResults.saveChartSVG("Time Dist. Fix.", scaleButton.checked, url + "chart-" + bt2.text + ".svg")
+                    name = "time-dist-fix";
+                    chartResults.saveChartSVG("Time Dist. Fix.", scaleButton.checked, url + "chart-" + name + ".svg")
                 } else if (chart3Linear.visible || chart3Log.visible) {
-                    chartResults.saveChartSVG("Time Dist. Abs.", scaleButton.checked, url + "chart-" + bt3.text + ".svg")
+                    name = "time-dist-abs";
+                    chartResults.saveChartSVG("Time Dist. Abs.", scaleButton.checked, url + "chart-" + name + ".svg")
                 }
             }
             if(chart1Linear.title == "Time Dist. SGV") {
                 if(chart1Linear.visible || chart1Log.visible) {
-                    chartResults.saveChartSVG("Time Dist. SGV Sub.", scaleButton.checked, url + "chart-" + bt1.text + ".svg")
+                    name = "time-dist-sgv-sub";
+                    chartResults.saveChartSVG("Time Dist. SGV Sub.", scaleButton.checked, url + "chart-" + name + ".svg")
                 } else if (chart2Linear.visible || chart2Log.visible) {
-                    chartResults.saveChartSVG("Time Dist. SGV Acum.", scaleButton.checked, url + "chart-" + bt2.text + ".svg")
+                    name = "time-dist-sgv-acum";
+                    chartResults.saveChartSVG("Time Dist. SGV Acum.", scaleButton.checked, url + "chart-" + name + ".svg")
                 }
             }
             if(chart1Linear.title == "Time Dist. Skip") {
                 if(chart1Linear.visible || chart1Log.visible) {
-                    chartResults.saveChartSVG("Time Dist. Skip Sub.", scaleButton.checked, url + "chart-" + bt1.text + ".svg")
+                    name = "time-dist-skip-sub";
+                    chartResults.saveChartSVG("Time Dist. Skip Sub.", scaleButton.checked, url + "chart-" + name + ".svg")
                 } else if (chart2Linear.visible || chart2Log.visible) {
-                    chartResults.saveChartSVG("Time Dist. Skip Acum.", scaleButton.checked, url + "chart-" + bt2.text + ".svg")
+                    name = "time-dist-skip-acum";
+                    chartResults.saveChartSVG("Time Dist. Skip Acum.", scaleButton.checked, url + "chart-" + name + ".svg")
                 }
             }
             if(chart1Linear.title == "Time Dist. Dual") {
                 if(chart1Linear.visible || chart1Log.visible) {
-                    chartResults.saveChartSVG("Time Dist. Dual Ext.", scaleButton.checked, url + "chart-" + bt1.text + ".svg")
+                    name = "time-dist-dual-ext";
+                    chartResults.saveChartSVG("Time Dist. Dual Ext.", scaleButton.checked, url + "chart-" + name + ".svg")
                 } else if (chart2Linear.visible || chart2Log.visible) {
-                    chartResults.saveChartSVG("Time Dist. Dual Fix.", scaleButton.checked, url + "chart-" + bt2.text + ".svg")
+                    name = "time-dist-dual-fix";
+                    chartResults.saveChartSVG("Time Dist. Dual Fix.", scaleButton.checked, url + "chart-" + name + ".svg")
                 } else if (chart3Linear.visible || chart3Log.visible) {
-                    chartResults.saveChartSVG("Time Dist. Dual Abs.", scaleButton.checked, url + "chart-" + bt3.text + ".svg")
+                    name = "time-dist-dual-abs";
+                    chartResults.saveChartSVG("Time Dist. Dual Abs.", scaleButton.checked, url + "chart-" + name + ".svg")
                 }
             }
 
