@@ -748,7 +748,7 @@ ApplicationWindow {
                 error += " - Generations (G" + (i + 1) + ") is empty. \n \n"
             if(Number.isNaN(Number(G_vec[i])))
                 error += " - Generations (G" + (i + 1) + ") is not a valid number. \n \n"
-            if(parseInt(G_vec[i]) < 2)
+            if(parseInt(G_vec[i]) < 1)
                 error += " - Generations (G" + (i + 1) + ") is quite small, it must be at least 2. \n \n"
         }
 
