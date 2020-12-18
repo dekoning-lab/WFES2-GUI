@@ -406,6 +406,10 @@ Rectangle {
         visibleWindow: false
     }
 
+    function updateWfesSingleEquilibrium() {
+        chartVisualization.updateWfesSingleEquilibrium()
+    }
+
     function updateDistWfafs() {
         chartVisualization.updateDistWfafs()
     }
