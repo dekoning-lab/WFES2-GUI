@@ -1,12 +1,23 @@
 #include "utils.h"
 
 
-void wfes::utils::writeMatrixToFile(const dmat &A, std::string name, bool append) {
+void wfes::utils::writeMatrixToFile(const dmat &A, std::string name, std::string executableName, bool append) {
     QString outputPath(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/Wfes/");
     QDir dir;
 
     if(!dir.exists(outputPath))
         dir.mkpath(outputPath);
+
+    // Get names of files in directory.
+    QStringList fileNames = wfes::utils::listFiles(outputPath, "*.csv");
+
+    // Get name without extension.
+    QString nameWithoutExtension = QString::fromStdString(name).split(".")[0] + QString::fromStdString("-" + executableName);
+
+    // Get num of files of which this name is preffix.
+    int num_prefix = wfes::utils::numPreffix(nameWithoutExtension, fileNames);
+
+    name = nameWithoutExtension.toStdString() + "-" + std::to_string(num_prefix) + ".csv";
 
     QFile file(outputPath + QString::fromStdString(name));
     file.open(QIODevice::WriteOnly);
@@ -23,12 +34,23 @@ void wfes::utils::writeMatrixToFile(const dmat &A, std::string name, bool append
     file.close();
 }
 
-void wfes::utils::writeVectorMapToFile(const std::map<llong, dvec> &A, std::string name, bool append) {
+void wfes::utils::writeVectorMapToFile(const std::map<llong, dvec> &A, std::string name, std::string executableName, bool append) {
     QString outputPath(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/Wfes/");
     QDir dir;
 
     if (!dir.exists(outputPath))
         dir.mkpath(outputPath);
+
+    // Get names of files in directory.
+    QStringList fileNames = wfes::utils::listFiles(outputPath, "*.csv");
+
+    // Get name without extension.
+    QString nameWithoutExtension = QString::fromStdString(name).split(".")[0] + QString::fromStdString("-" + executableName);
+
+    // Get num of files of which this name is preffix.
+    int num_prefix = wfes::utils::numPreffix(nameWithoutExtension, fileNames);
+
+    name = nameWithoutExtension.toStdString() + "-" + std::to_string(num_prefix) + ".csv";
 
     QFile file(outputPath + QString::fromStdString(name));
     file.open(QIODevice::WriteOnly);
@@ -52,12 +74,23 @@ void wfes::utils::writeVectorMapToFile(const std::map<llong, dvec> &A, std::stri
 
 }
 
-void wfes::utils::writeVectorToFile(const dvec &A, std::string name, bool append) {
+void wfes::utils::writeVectorToFile(const dvec &A, std::string name, std::string executableName, bool append) {
     QString outputPath(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/Wfes/");
     QDir dir;
 
     if (!dir.exists(outputPath))
         dir.mkpath(outputPath);
+
+    // Get names of files in directory.
+    QStringList fileNames = wfes::utils::listFiles(outputPath, "*.csv");
+
+    // Get name without extension.
+    QString nameWithoutExtension = QString::fromStdString(name).split(".")[0] + QString::fromStdString("-" + executableName);
+
+    // Get num of files of which this name is preffix.
+    int num_prefix = wfes::utils::numPreffix(nameWithoutExtension, fileNames);
+
+    name = nameWithoutExtension.toStdString() + "-" + std::to_string(num_prefix) + ".csv";
 
     QFile file(outputPath + QString::fromStdString(name));
     file.open(QIODevice::WriteOnly);
@@ -224,4 +257,26 @@ QStringList wfes::utils::listFiles(QString filePath, QString pattern) {
         fileNames.append(splitted[splitted.size()-1].split(".")[0]);
     }
     return fileNames;
+}
+
+void wfes::utils::writeSparseMatrixToFile(wfes::sparsematrix::SparseMatrix *A, std::string name, std::string executableName, bool append){
+    QString outputPath(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/Wfes/");
+    QDir dir;
+
+    if (!dir.exists(outputPath))
+        dir.mkpath(outputPath);
+
+    // Get names of files in directory.
+    QStringList fileNames = wfes::utils::listFiles(outputPath, "*.csv");
+
+    // Get name without extension.
+    QString nameWithoutExtension = QString::fromStdString(name).split(".")[0] + QString::fromStdString("-" + executableName);
+
+    // Get num of files of which this name is preffix.
+    int num_prefix = wfes::utils::numPreffix(nameWithoutExtension, fileNames);
+
+    name = nameWithoutExtension.toStdString() + "-" + std::to_string(num_prefix) + ".csv";
+
+    A->saveMarket(name);
+
 }

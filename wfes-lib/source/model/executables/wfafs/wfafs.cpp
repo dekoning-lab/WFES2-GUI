@@ -69,7 +69,7 @@ ResultsWfafs *wfafs::function() {
 
         //Save data into file.
         if (ConfigWfafs::output_Q)
-            W.Q->saveMarket(ConfigWfafs::path_output_Q);
+            utils::writeSparseMatrixToFile(W.Q, ConfigWfafs::path_output_Q, "WFAF-S");
         //if (ConfigWfafs::output_R)
         //    utils::writeMatrixToFile(W.R, ConfigWfafs::path_output_R);
 
@@ -195,12 +195,12 @@ ResultsWfafs *wfafs::function() {
 
         // Save data into file.
         if (ConfigWfafs::output_N)
-            utils::writeMatrixToFile(Nt, ConfigWfafs::path_output_N);
+            utils::writeMatrixToFile(Nt, ConfigWfafs::path_output_N, "WFAF-S");
         if (ConfigWfafs::output_B) {
-            utils::writeMatrixToFile(B, ConfigWfafs::path_output_B);
+            utils::writeMatrixToFile(B, ConfigWfafs::path_output_B, "WFAF-S");
         }
         if(ConfigWfafs::output_Dist) {
-            utils::writeVectorToFile(d, ConfigWfafs::path_output_Dist);
+            utils::writeVectorToFile(d, ConfigWfafs::path_output_Dist, "WFAF-S");
         }
 
         if(GlobalConfiguration::generateImages) {

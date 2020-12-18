@@ -39,7 +39,7 @@ ResultsWfesSingle* wfes_single::execute() {
 
     // Save initial distribution if resquested by the user.
     if (ConfigWfesSingle::output_I)
-        utils::writeVectorToFile(starting_copies_p, ConfigWfesSingle::path_output_I);
+        utils::writeVectorToFile(starting_copies_p, ConfigWfesSingle::path_output_I, "WFES-Single");
 
     // Set value of z if the user has provided an initial distribution,
     // load it and calculate z value.
@@ -82,9 +82,9 @@ ResultsWfesSingle *wfes_single::absorption(double s, double u, double v) {
 
         //Save data into file.
         if (ConfigWfesSingle::output_Q)
-            W.Q->saveMarket(ConfigWfesSingle::path_output_Q);
+            utils::writeSparseMatrixToFile(W.Q, ConfigWfesSingle::path_output_Q, "WFES-Single");
         if (ConfigWfesSingle::output_R)
-            utils::writeMatrixToFile(W.R, ConfigWfesSingle::path_output_R);
+            utils::writeMatrixToFile(W.R, ConfigWfesSingle::path_output_R, "WFES-Single");
 
         //Notify solving
         this->notify(ExecutionStatus::SOLVING_MATRICES);
@@ -201,15 +201,15 @@ ResultsWfesSingle *wfes_single::absorption(double s, double u, double v) {
         //Save data into file.
         dmat B(size, 2);
         if (ConfigWfesSingle::output_N)
-            utils::writeMatrixToFile(N_mat, ConfigWfesSingle::path_output_N);
+            utils::writeMatrixToFile(N_mat, ConfigWfesSingle::path_output_N, "WFES-Single");
         if (ConfigWfesSingle::output_N_ext)
-            utils::writeMatrixToFile(E_ext_mat, ConfigWfesSingle::path_output_N_ext);
+            utils::writeMatrixToFile(E_ext_mat, ConfigWfesSingle::path_output_N_ext, "WFES-Single");
         if (ConfigWfesSingle::output_N_fix)
-            utils::writeMatrixToFile(E_fix_mat, ConfigWfesSingle::path_output_N_fix);
+            utils::writeMatrixToFile(E_fix_mat, ConfigWfesSingle::path_output_N_fix, "WFES-Single");
         if (ConfigWfesSingle::output_B) {
             B.col(0) = B_ext;
             B.col(1) = B_fix;
-            utils::writeMatrixToFile(B, ConfigWfesSingle::path_output_B);
+            utils::writeMatrixToFile(B, ConfigWfesSingle::path_output_B, "WFES-Single");
         }
 
         delete solver;
@@ -281,9 +281,9 @@ ResultsWfesSingle *wfes_single::fixation(double s, double u, double v) {
         this->notify(ExecutionStatus::SAVING_DATA);
 
         if (ConfigWfesSingle::output_Q)
-            W.Q->saveMarket(ConfigWfesSingle::path_output_Q);
+            utils::writeSparseMatrixToFile(W.Q, ConfigWfesSingle::path_output_Q, "WFES-Single");
         if (ConfigWfesSingle::output_R)
-            utils::writeMatrixToFile(W.R, ConfigWfesSingle::path_output_R);
+            utils::writeMatrixToFile(W.R, ConfigWfesSingle::path_output_R, "WFES-Single");
 
         //Notify solving
         this->notify(ExecutionStatus::SOLVING_MATRICES);
@@ -324,9 +324,9 @@ ResultsWfesSingle *wfes_single::fixation(double s, double u, double v) {
         //Save data into file.
         dvec B = dvec::Ones(size);
         if (ConfigWfesSingle::output_N)
-            utils::writeMatrixToFile(N_mat, ConfigWfesSingle::path_output_N);
+            utils::writeMatrixToFile(N_mat, ConfigWfesSingle::path_output_N, "WFES-Single");
         if (ConfigWfesSingle::output_B) {
-            utils::writeVectorToFile(B, ConfigWfesSingle::path_output_B);
+            utils::writeVectorToFile(B, ConfigWfesSingle::path_output_B, "WFES-Single");
         }
 
         delete solver;
@@ -395,9 +395,9 @@ ResultsWfesSingle *wfes_single::fundamental(double s, double u, double v) {
         this->notify(ExecutionStatus::SAVING_DATA);
 
         if (ConfigWfesSingle::output_Q)
-            W.Q->saveMarket(ConfigWfesSingle::path_output_Q);
+            utils::writeSparseMatrixToFile(W.Q, ConfigWfesSingle::path_output_Q, "WFES-Single");
         if (ConfigWfesSingle::output_R)
-            utils::writeMatrixToFile(W.R, ConfigWfesSingle::path_output_R);
+            utils::writeMatrixToFile(W.R, ConfigWfesSingle::path_output_R, "WFES-Single");
 
         //Notify solving
         this->notify(ExecutionStatus::SOLVING_MATRICES);
@@ -422,13 +422,13 @@ ResultsWfesSingle *wfes_single::fundamental(double s, double u, double v) {
         //Save data into file.
         dmat V;
         if (ConfigWfesSingle::output_N)
-            utils::writeMatrixToFile(N, ConfigWfesSingle::path_output_N);
+            utils::writeMatrixToFile(N, ConfigWfesSingle::path_output_N, "WFES-Single");
         if (ConfigWfesSingle::output_V) {
             dvec Ndg = (2 * N.diagonal().array()) - 1;
             dmat Nsq = N.array().square();
             V = (N * diagmat(Ndg)) - Nsq;
 
-            utils::writeMatrixToFile(V, ConfigWfesSingle::path_output_V);
+            utils::writeMatrixToFile(V, ConfigWfesSingle::path_output_V, "WFES-Single");
         }
         delete solver;
 
@@ -505,7 +505,7 @@ ResultsWfesSingle *wfes_single::equilibrium(double s, double u, double v) {
 
         //Save data into file.
         if (ConfigWfesSingle::output_E) {
-            utils::writeVectorToFile(pi, ConfigWfesSingle::path_output_E);
+            utils::writeVectorToFile(pi, ConfigWfesSingle::path_output_E, "WFES-Single");
         }
 
         //Notify solving
@@ -639,9 +639,9 @@ ResultsWfesSingle *wfes_single::establishment(double s, double u, double v) {
 
         //Save data into file.
         if (ConfigWfesSingle::output_Q)
-            W_tr.Q->saveMarket(ConfigWfesSingle::path_output_Q);
+            utils::writeSparseMatrixToFile(W_tr.Q, ConfigWfesSingle::path_output_Q, "WFES-Single");
         if (ConfigWfesSingle::output_R)
-            utils::writeMatrixToFile(W_tr.R, ConfigWfesSingle::path_output_R);
+            utils::writeMatrixToFile(W_tr.R, ConfigWfesSingle::path_output_R, "WFES-Single");
 
         //Notify solving
         this->notify(ExecutionStatus::SOLVING_MATRICES);
@@ -792,9 +792,9 @@ ResultsWfesSingle *wfes_single::alleleAge(double s, double u, double v) {
         this->notify(ExecutionStatus::SAVING_DATA);
 
         if (ConfigWfesSingle::output_Q)
-            W.Q->saveMarket(ConfigWfesSingle::path_output_Q);
+            utils::writeSparseMatrixToFile(W.Q, ConfigWfesSingle::path_output_Q, "WFES-Single");
         if (ConfigWfesSingle::output_R)
-            utils::writeMatrixToFile(W.R, ConfigWfesSingle::path_output_R);
+            utils::writeMatrixToFile(W.R, ConfigWfesSingle::path_output_R, "WFES-Single");
         dvec Q_x = W.Q-> getColCopy(x);
         W.Q->subtractIdentity();
 
@@ -897,7 +897,7 @@ ResultsWfesSingle *wfes_single::nonAbsorbing(double s, double u, double v) {
 
         //Save data into file.
         if (ConfigWfesSingle::output_Q)
-            W.Q->saveMarket(ConfigWfesSingle::path_output_Q);
+            utils::writeSparseMatrixToFile(W.Q, ConfigWfesSingle::path_output_Q, "WFES-Single");
 
         if(GlobalConfiguration::generateImages) {
             // Generate images from matrices and save to file.

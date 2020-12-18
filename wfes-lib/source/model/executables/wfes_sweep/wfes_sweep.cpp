@@ -38,7 +38,7 @@ ResultsWfesSweep *wfes_sweep::execute() {
 
     // Save initial distribution if resquested by the user.
     if (ConfigWfesSweep::output_I)
-        utils::writeVectorToFile(starting_copies_p, ConfigWfesSweep::path_output_I);
+        utils::writeVectorToFile(starting_copies_p, ConfigWfesSweep::path_output_I, "WFES-Sweep");
 
     // Set value of z if the user has provided an initial distribution,
     // load it and calculate z value.
@@ -72,9 +72,9 @@ ResultsWfesSweep *wfes_sweep::fixation(dvec s, dvec u, dvec v) {
 
         //Save data into file.
         if (ConfigWfesSweep::output_Q)
-            wf.Q->saveMarket(ConfigWfesSweep::path_output_Q);
+            utils::writeSparseMatrixToFile(wf.Q, ConfigWfesSweep::path_output_Q, "WFES-Sweep");
         if (ConfigWfesSweep::output_R)
-            utils::writeMatrixToFile(wf.R, ConfigWfesSweep::path_output_R);
+            utils::writeMatrixToFile(wf.R, ConfigWfesSweep::path_output_R, "WFES-Sweep");
 
         //Notify solving
         this->notify(ExecutionStatus::SOLVING_MATRICES);
@@ -109,11 +109,11 @@ ResultsWfesSweep *wfes_sweep::fixation(dvec s, dvec u, dvec v) {
         //Save data into file.
         dmat B(size, 2);
         if (ConfigWfesSweep::output_N)
-            utils::writeMatrixToFile(N, ConfigWfesSweep::path_output_N);
+            utils::writeMatrixToFile(N, ConfigWfesSweep::path_output_N, "WFES-Sweep");
         if (ConfigWfesSweep::output_B) {
             B.col(0) = B_ext;
             B.col(1) = B_fix;
-            utils::writeMatrixToFile(B, ConfigWfesSweep::path_output_B);
+            utils::writeMatrixToFile(B, ConfigWfesSweep::path_output_B, "WFES-Sweep");
         }
         delete solver;
 

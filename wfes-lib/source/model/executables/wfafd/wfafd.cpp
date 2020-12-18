@@ -75,7 +75,7 @@ ResultsWfafd *wfafd::function() {
 
         // Save data into file.
         if(ConfigWfafd::output_Dist) {
-            utils::writeVectorToFile(d[k - 1], ConfigWfafd::path_output_Dist);
+            utils::writeVectorToFile(d[k - 1], ConfigWfafd::path_output_Dist, "WFAF-D");
         }
         // write_vector_to_file(d[k - 1], "stdout");
         std::cout << d[k - 1] << std::endl;

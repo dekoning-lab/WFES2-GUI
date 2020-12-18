@@ -70,9 +70,9 @@ ResultsWfesSequential *wfes_sequential::function() {
 
         //Save data into file.
         if (ConfigWfesSequential::output_Q)
-            W.Q->saveMarket(ConfigWfesSequential::path_output_Q);
+            utils::writeSparseMatrixToFile(W.Q, ConfigWfesSequential::path_output_Q, "WFES-Sequential");
         if (ConfigWfesSequential::output_R)
-            utils::writeMatrixToFile(W.R, ConfigWfesSequential::path_output_R);
+            utils::writeMatrixToFile(W.R, ConfigWfesSequential::path_output_R, "WFES-Sequential");
 
         W.Q->subtractIdentity();
 
@@ -176,15 +176,15 @@ ResultsWfesSequential *wfes_sequential::function() {
 
         // Save data into file.
         if(ConfigWfesSequential::output_N_Ext)
-            writeVectorToFile(E_ext, ConfigWfesSequential::path_output_N_Ext);
+            writeVectorToFile(E_ext, ConfigWfesSequential::path_output_N_Ext, "WFES-Sequential");
         if(ConfigWfesSequential::output_N_Fix)
-            writeVectorToFile(E_fix, ConfigWfesSequential::path_output_N_Fix);
+            writeVectorToFile(E_fix, ConfigWfesSequential::path_output_N_Fix, "WFES-Sequential");
         if(ConfigWfesSequential::output_N_Tmo)
-            writeVectorToFile(E_tmo, ConfigWfesSequential::path_output_N_Tmo);
+            writeVectorToFile(E_tmo, ConfigWfesSequential::path_output_N_Tmo, "WFES-Sequential");
         if(ConfigWfesSequential::output_N)
-            writeVectorMapToFile(N_rows, ConfigWfesSequential::path_output_N);
+            writeVectorMapToFile(N_rows, ConfigWfesSequential::path_output_N, "WFES-Sequential");
         if(ConfigWfesSequential::output_B)
-            writeMatrixToFile(B, ConfigWfesSequential::path_output_B);
+            writeMatrixToFile(B, ConfigWfesSequential::path_output_B, "WFES-Sequential");
 
         if(GlobalConfiguration::generateImages) {
             // Generate images.

@@ -78,9 +78,9 @@ ResultsTimeDist *time_dist::timeDist() {
 
         // Save data into file.
         if (ConfigTimeDist::output_Q)
-            wf.Q->saveMarket(ConfigTimeDist::path_output_Q);
-        if (ConfigTimeDist::output_R)
-            utils::writeMatrixToFile(wf.R, ConfigTimeDist::path_output_R);
+            utils::writeSparseMatrixToFile(wf.Q, ConfigTimeDist::path_output_Q, "Time-Dist");
+            if (ConfigTimeDist::output_R)
+            utils::writeMatrixToFile(wf.R, ConfigTimeDist::path_output_R, "Time-Dist");
 
         //Notify solving
         this->notify(ExecutionStatus::SOLVING_MATRICES);
@@ -147,7 +147,7 @@ ResultsTimeDist *time_dist::timeDist() {
 
         // Save data into file.
         if (ConfigTimeDist::output_P) {
-            utils::writeMatrixToFile(PH, ConfigTimeDist::path_output_P);
+            utils::writeMatrixToFile(PH, ConfigTimeDist::path_output_P, "Time-Dist");
         }
 
         if(GlobalConfiguration::generateImages) {
@@ -215,9 +215,9 @@ ResultsTimeDist *time_dist::timeDistSGV() {
 
         // Save data into file.
         if (ConfigTimeDist::output_Q)
-            wf.Q->saveMarket(ConfigTimeDist::path_output_Q);
+            utils::writeSparseMatrixToFile(wf.Q, ConfigTimeDist::path_output_Q, "Time-Dist");
         if (ConfigTimeDist::output_R)
-            utils::writeMatrixToFile(wf.R, ConfigTimeDist::path_output_R);
+            utils::writeMatrixToFile(wf.R, ConfigTimeDist::path_output_R, "Time-Dist");
 
         // Notify solving
         this->notify(ExecutionStatus::SOLVING_MATRICES);
@@ -269,7 +269,7 @@ ResultsTimeDist *time_dist::timeDistSGV() {
 
         // Save data into file.
         if (ConfigTimeDist::output_P) {
-            utils::writeMatrixToFile(PH, ConfigTimeDist::path_output_P);
+            utils::writeMatrixToFile(PH, ConfigTimeDist::path_output_P, "Time-Dist");
         }
 
         if(GlobalConfiguration::generateImages) {
@@ -337,9 +337,9 @@ ResultsTimeDist *time_dist::timeDistSkip() {
 
         // Save data into file.
         if (ConfigTimeDist::output_Q)
-            wf.Q->saveMarket(ConfigTimeDist::path_output_Q);
+            utils::writeSparseMatrixToFile(wf.Q, ConfigTimeDist::path_output_Q, "Time-Dist");
         if (ConfigTimeDist::output_R)
-            utils::writeMatrixToFile(wf.R, ConfigTimeDist::path_output_R);
+            utils::writeMatrixToFile(wf.R, ConfigTimeDist::path_output_R, "Time-Dist");
 
         //Notify solving
         this->notify(ExecutionStatus::SOLVING_MATRICES);
@@ -389,7 +389,7 @@ ResultsTimeDist *time_dist::timeDistSkip() {
 
         // Save data into file.
         if (ConfigTimeDist::output_P) {
-            utils::writeMatrixToFile(PH, ConfigTimeDist::path_output_P);
+            utils::writeMatrixToFile(PH, ConfigTimeDist::path_output_P, "Time-Dist");
         }
 
         if(GlobalConfiguration::generateImages) {
@@ -460,9 +460,9 @@ ResultsTimeDist *time_dist::timeDistDual() {
 
         // Save data into file.
         if (ConfigTimeDist::output_Q)
-            wf.Q->saveMarket(ConfigTimeDist::path_output_Q);
+            utils::writeSparseMatrixToFile(wf.Q, ConfigTimeDist::path_output_Q, "Time-Dist");
         if (ConfigTimeDist::output_R)
-            utils::writeMatrixToFile(wf.R, ConfigTimeDist::path_output_R);
+            utils::writeMatrixToFile(wf.R, ConfigTimeDist::path_output_R, "Time-Dist");
 
         //Notify solving
         this->notify(ExecutionStatus::SOLVING_MATRICES);
@@ -530,7 +530,7 @@ ResultsTimeDist *time_dist::timeDistDual() {
 
         // Save data into file.
         if (ConfigTimeDist::output_P) {
-            utils::writeMatrixToFile(PH, ConfigTimeDist::path_output_P);
+            utils::writeMatrixToFile(PH, ConfigTimeDist::path_output_P, "Time-Dist");
         }
 
         if(GlobalConfiguration::generateImages) {

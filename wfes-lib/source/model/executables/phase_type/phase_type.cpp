@@ -75,9 +75,9 @@ ResultsPhaseType *phase_type::phaseTypeDist() {
 
         // Save data into file.
         if (ConfigPhaseType::output_Q)
-            wf.Q->saveMarket(ConfigPhaseType::path_output_Q);
+            utils::writeSparseMatrixToFile(wf.Q, ConfigPhaseType::path_output_Q, "Phase-Type");
         if (ConfigPhaseType::output_R)
-            utils::writeMatrixToFile(wf.R, ConfigPhaseType::path_output_R);
+            utils::writeMatrixToFile(wf.R, ConfigPhaseType::path_output_R, "Phase-Type");
 
         // Notify solving
         this->notify(ExecutionStatus::SOLVING_MATRICES);
@@ -127,7 +127,7 @@ ResultsPhaseType *phase_type::phaseTypeDist() {
 
         // Save data into file.
         if (ConfigPhaseType::output_P) {
-            utils::writeMatrixToFile(PH, ConfigPhaseType::path_output_P);
+            utils::writeMatrixToFile(PH, ConfigPhaseType::path_output_P, "Phase-Type");
         }
 
         if(GlobalConfiguration::generateImages) {
@@ -190,9 +190,9 @@ ResultsPhaseType *phase_type::phaseTypeMoment() {
 
         //Save data into file.
         if (ConfigPhaseType::output_Q)
-            wf.Q->saveMarket(ConfigPhaseType::path_output_Q);
+            utils::writeSparseMatrixToFile(wf.Q, ConfigPhaseType::path_output_Q, "Phase-Type");
         if (ConfigPhaseType::output_R)
-            utils::writeMatrixToFile(wf.R, ConfigPhaseType::path_output_R);
+            utils::writeMatrixToFile(wf.R, ConfigPhaseType::path_output_R, "Phase-Type");
 
         //Notify solving
         this->notify(ExecutionStatus::SOLVING_MATRICES);
@@ -237,7 +237,7 @@ ResultsPhaseType *phase_type::phaseTypeMoment() {
 
         // Save data into file.
         if(ConfigPhaseType::output_Moments)
-            utils::writeVectorToFile(m.row(0), ConfigPhaseType::path_output_Moments);
+            utils::writeVectorToFile(m.row(0), ConfigPhaseType::path_output_Moments, "Phase-Type");
 
         if(GlobalConfiguration::generateImages) {
             // Generate images.

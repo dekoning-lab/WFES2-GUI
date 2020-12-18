@@ -5,6 +5,8 @@
 
 #include <Eigen/Core>
 
+#include <model/sparse-matrix/sparseMatrix.h>
+
 #include <boost/math/special_functions/fpclassify.hpp>
 
 #include <limits>
@@ -40,23 +42,33 @@ namespace wfes{
          * @brief Write a matrix A into a file.
          * @param A Matrix to be writted.
          * @param name Name of the file.
+         * @param executableName Name of the executable.
          * @param append Append to an existing file.
          */
-        void writeMatrixToFile(const dmat& A, std::string name, bool append = false);
+        void writeMatrixToFile(const dmat& A, std::string name, std::string executableName, bool append = false);
         /**
          * @brief writeVectorMapToFile Write a map of vectors A into a file.
          * @param A Map of vectors to be writted.
          * @param name Name of the file.
+         * @param executableName Name of the executable.
          * @param append Append to an existing file.
          */
-        void writeVectorMapToFile(const std::map<llong, dvec>& A, std::string name, bool append = false);
+        void writeVectorMapToFile(const std::map<llong, dvec>& A, std::string name, std::string executableName, bool append = false);
         /**
          * @brief Write a vector A into a file.
          * @param A Vector to be writted.
          * @param name Name of the file.
+         * @param executableName Name of the executable.
          * @param append Append to an existing file.
          */
-        void writeVectorToFile(const dvec& A, std::string name, bool append = false);
+        void writeVectorToFile(const dvec& A, std::string name, std::string executableName, bool append = false);
+        /**
+         * @brief Write a sparse matrix A into a file.
+         * @param A Sparse matrix to be writted.
+         * @param name Name of the file.
+         * @param executableName Name of the executable.
+         */
+        void writeSparseMatrixToFile(wfes::sparsematrix::SparseMatrix *A, std::string name, std::string executableName, bool append = false);
 
         /**
          * @brief Print a vector of doubles.
