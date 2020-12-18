@@ -285,9 +285,6 @@ Rectangle {
                     height: visible ? implicitHeight : 0
                     onClicked: {
                         root.raise()
-                        // Center window in screen.
-                        root.setX(Screen.width / 2 - root.width / 2);
-                        root.setY(Screen.height / 2 - root.height / 2);
                     }
                 }
                 MenuItem {
@@ -296,9 +293,6 @@ Rectangle {
                     height: visible ? implicitHeight : 0
                     onClicked: {
                         wfesSingleView.raise()
-                        // Center window in screen.
-                        wfesSingleView.setX(Screen.width / 2 - wfesSingleView.width / 2);
-                        wfesSingleView.setY(Screen.height / 2 - wfesSingleView.height / 2);
                     }
                 }
                 MenuItem {
@@ -307,9 +301,6 @@ Rectangle {
                     height: visible ? implicitHeight : 0
                     onClicked: {
                         wfesSequential.raise()
-                        // Center window in screen.
-                        wfesSequential.setX(Screen.width / 2 - wfesSequential.width / 2);
-                        wfesSequential.setY(Screen.height / 2 - wfesSequential.height / 2);
                     }
                 }
                 MenuItem {
@@ -318,9 +309,6 @@ Rectangle {
                     height: visible ? implicitHeight : 0
                     onClicked: {
                         wfesSweep.raise()
-                        // Center window in screen.
-                        wfesSweep.setX(Screen.width / 2 - wfesSweep.width / 2);
-                        wfesSweep.setY(Screen.height / 2 - wfesSweep.height / 2);
                     }
                 }
                 MenuItem {
@@ -329,9 +317,6 @@ Rectangle {
                     height: visible ? implicitHeight : 0
                     onClicked: {
                         wfesSwitching.raise()
-                        // Center window in screen.
-                        wfesSwitching.setX(Screen.width / 2 - wfesSwitching.width / 2);
-                        wfesSwitching.setY(Screen.height / 2 - wfesSwitching.height / 2);
                     }
                 }
                 MenuItem {
@@ -340,9 +325,6 @@ Rectangle {
                     height: visible ? implicitHeight : 0
                     onClicked: {
                         wfafsView.raise()
-                        // Center window in screen.
-                        wfafsView.setX(Screen.width / 2 - wfafsView.width / 2);
-                        wfafsView.setY(Screen.height / 2 - wfafsView.height / 2);
                     }
                 }
                 MenuItem {
@@ -351,9 +333,6 @@ Rectangle {
                     height: visible ? implicitHeight : 0
                     onClicked: {
                         wfafdView.raise()
-                        // Center window in screen.
-                        wfafdView.setX(Screen.width / 2 - wfafdView.width / 2);
-                        wfafdView.setY(Screen.height / 2 - wfafdView.height / 2);
                     }
                 }
                 MenuItem {
@@ -362,9 +341,6 @@ Rectangle {
                     height: visible ? implicitHeight : 0
                     onClicked: {
                         timeDistView.raise()
-                        // Center window in screen.
-                        timeDistView.setX(Screen.width / 2 - timeDistView.width / 2);
-                        timeDistView.setY(Screen.height / 2 - timeDistView.height / 2);
                     }
                 }
                 MenuItem {
@@ -373,9 +349,6 @@ Rectangle {
                     height: visible ? implicitHeight : 0
                     onClicked: {
                         phaseTypeView.raise()
-                        // Center window in screen.
-                        phaseTypeView.setX(Screen.width / 2 - phaseTypeView.width / 2);
-                        phaseTypeView.setY(Screen.height / 2 - phaseTypeView.height / 2);
                     }
                 }
             }
