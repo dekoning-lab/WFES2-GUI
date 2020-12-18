@@ -638,6 +638,27 @@ ApplicationWindow {
         bt3.text = name_bt_3
     }
 
+    function updateWfesSingleEquilibrium() {
+        var minMaxDist = chartResults.updateChart("Wfes Single Equilibrium Dist.", chart1Linear.series(0));
+        minMaxDist = chartResults.updateChart("Wfes Single Equilibrium Dist.", chart1Log.series(0));
+
+        visibleButtons(false, false, false)
+        enableButtons(false, true, true)
+        changeButtonsName("Freq.", "", "")
+
+        visibleChart(true, false, false)
+
+        visibleSeries(true, false, true, false, true, false)
+
+        setTitle("WFES Single - Equilibrium")
+
+        setSeriesName("Equilibrium frequency distribution", "", "", "", "", "")
+
+        var axisPadding = ((minMaxDist.y - minMaxDist.x) - minMaxDist.x) * 0.01
+        setValuesAxis(axisXLinear, axisYLinear, 1, lineSeries0Chart1.count, minMaxDist.x - axisPadding, minMaxDist.y + axisPadding)
+        setValuesAxis(axisX1Log, axisY1Log, 1, lineSeries0Chart1Log.count, minMaxDist.x - axisPadding, minMaxDist.y + axisPadding)
+    }
+
     function updatePhaseTypeDistChart() {
         var minMaxDist = chartResults.updateChart("Phase Type Dist.", chart1Linear.series(0));
         var minMaxAcum = chartResults.updateChart("Phase Type Acum.", chart2Linear.series(0));

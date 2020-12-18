@@ -1138,6 +1138,10 @@ ApplicationWindow {
                                     messageDialog.open()
                                     outputControllerWfesSingle.ui_reset_error
                                 }
+                                upperMenu.updateWfesSingleEquilibrium()
+                                if(enabled) {
+                                    upperMenu.chartVisible = true
+                                }
                             }
 
                             Binding {

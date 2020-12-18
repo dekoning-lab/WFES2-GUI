@@ -1,5 +1,7 @@
 #include "wfes_single.h"
 
+#include <model/visualization/charts/chartResults.h>
+
 using namespace wfes::controllers;
 using namespace wfes::wrightfisher;
 using namespace wfes::solver;
@@ -507,6 +509,21 @@ ResultsWfesSingle *wfes_single::equilibrium(double s, double u, double v) {
         if (ConfigWfesSingle::output_E) {
             utils::writeVectorToFile(pi, ConfigWfesSingle::path_output_E, "WFES-Single-Equilibrium");
         }
+
+        // This is for chart visualization.
+        QList<QPointF> dist;
+        double minDist = std::numeric_limits<double>::max();
+        double maxDist = std::numeric_limits<double>::min();
+        for(int i = 0; i < pi.size(); i++) {
+            dist.append(QPointF(i+1, pi[i]));
+            if(minDist >= pi[i])
+                minDist = pi[i];
+            if(maxDist <= pi[i])
+                maxDist = pi[i];
+        }
+        ChartResults::wfesSingleEquilibrium = dist;
+        ChartResults::minMaxWfesSingleEquilibrium = QPointF(minDist, maxDist);
+        // This is for chart visualization.
 
         //Notify solving
         this->notify(ExecutionStatus::SOLVING_MATRICES);

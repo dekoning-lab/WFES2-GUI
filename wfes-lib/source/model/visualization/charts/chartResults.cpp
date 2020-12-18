@@ -3,6 +3,9 @@
 using namespace QtCharts;
 using namespace wfes::controllers;
 
+QList<QPointF> ChartResults::wfesSingleEquilibrium;
+QPointF ChartResults::minMaxWfesSingleEquilibrium;
+
 QList<QPointF> ChartResults::phaseTypeDist;
 QList<QPointF> ChartResults::phaseTypeDistAcum;
 QPointF ChartResults::minMaxPhaseTypeDist;
@@ -44,7 +47,10 @@ QPointF ChartResults::minMaxTimeDistDualAcum;
 
 QPointF ChartResults::updateChart(QString name, QAbstractSeries *p_series) {
     QXYSeries *xySeries = static_cast<QXYSeries *>(p_series);
-    if(phaseTypeDist.size() != 0 && name.compare("Phase Type Dist.") == 0) {
+    if(wfesSingleEquilibrium.size() != 0 && name.compare("Wfes Single Equilibrium Dist.") == 0) {
+        xySeries->replace(wfesSingleEquilibrium);
+        return minMaxWfesSingleEquilibrium;
+    } else if(phaseTypeDist.size() != 0 && name.compare("Phase Type Dist.") == 0) {
         xySeries->replace(phaseTypeDist);
         return minMaxPhaseTypeDist;
     } else if(phaseTypeDist.size() != 0 && name.compare("Phase Type Acum.") == 0) {

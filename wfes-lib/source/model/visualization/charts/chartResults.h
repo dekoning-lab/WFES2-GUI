@@ -32,6 +32,10 @@ namespace wfes {
             Q_OBJECT
 
             public:
+                // Wfes Single Equilibrium lines and max/min points.
+                static QList<QPointF> wfesSingleEquilibrium;
+                static QPointF minMaxWfesSingleEquilibrium;
+
                 // Phase Type Dist. lines and max/min points.
                 static QList<QPointF> phaseTypeDist;
                 static QList<QPointF> phaseTypeDistAcum;
