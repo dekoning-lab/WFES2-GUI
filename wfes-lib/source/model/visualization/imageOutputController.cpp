@@ -114,28 +114,39 @@ QString ImageOutputController::download(){
     if (!dir.exists(outputPath))
         dir.mkpath(outputPath);
 
+    // Get names of files in directory.
+    QStringList fileNames = wfes::utils::listFiles(outputPath, "*.png");
+
+    // Get name without extension.
+    QString nameWithoutExtension = QString("Image_-_") + this->image_to_download;
+
+    // Get num of files of which this name is preffix.
+    int num_prefix = wfes::utils::numPreffix(nameWithoutExtension, fileNames);
+
+    std::string name = nameWithoutExtension.toStdString() + "-" + std::to_string(num_prefix) + ".png";
+
     if(this->image_to_download.compare("I") == 0)
-        utils::saveImage(ImageResults::I, (outputPath + QString::fromStdString("Image_-_I")).toStdString());
+        utils::saveImage(ImageResults::I, (outputPath + QString::fromStdString(name)).toStdString());
     else if(this->image_to_download.compare("Q") == 0)
-        utils::saveImage(ImageResults::Q, (outputPath + QString::fromStdString("Image_-_Q")).toStdString());
+        utils::saveImage(ImageResults::Q, (outputPath + QString::fromStdString(name)).toStdString());
     else if(this->image_to_download.compare("R") == 0)
-        utils::saveImage(ImageResults::R, (outputPath + QString::fromStdString("Image_-_R")).toStdString());
+        utils::saveImage(ImageResults::R, (outputPath + QString::fromStdString(name)).toStdString());
     else if(this->image_to_download.compare("B") == 0)
-        utils::saveImage(ImageResults::B, (outputPath + QString::fromStdString("Image_-_B")).toStdString());
+        utils::saveImage(ImageResults::B, (outputPath + QString::fromStdString(name)).toStdString());
     else if(this->image_to_download.compare("N") == 0)
-        utils::saveImage(ImageResults::N, (outputPath + QString::fromStdString("Image_-_N")).toStdString());
+        utils::saveImage(ImageResults::N, (outputPath + QString::fromStdString(name)).toStdString());
     else if(this->image_to_download.compare("N_ext") == 0)
-        utils::saveImage(ImageResults::N_ext, (outputPath + QString::fromStdString("Image_-_N_ext")).toStdString());
+        utils::saveImage(ImageResults::N_ext, (outputPath + QString::fromStdString(name)).toStdString());
     else if(this->image_to_download.compare("N_fix") == 0)
-        utils::saveImage(ImageResults::N_fix, (outputPath + QString::fromStdString("Image_-_N_fix")).toStdString());
+        utils::saveImage(ImageResults::N_fix, (outputPath + QString::fromStdString(name)).toStdString());
     else if(this->image_to_download.compare("N_tmo") == 0)
-        utils::saveImage(ImageResults::N_tmo, (outputPath + QString::fromStdString("Image_-_N_tmo")).toStdString());
+        utils::saveImage(ImageResults::N_tmo, (outputPath + QString::fromStdString(name)).toStdString());
     else if(this->image_to_download.compare("V") == 0)
-        utils::saveImage(ImageResults::V, (outputPath + QString::fromStdString("Image_-_V")).toStdString());
+        utils::saveImage(ImageResults::V, (outputPath + QString::fromStdString(name)).toStdString());
     else if(this->image_to_download.compare("E") == 0)
-        utils::saveImage(ImageResults::E, (outputPath + QString::fromStdString("Image_-_E")).toStdString());
+        utils::saveImage(ImageResults::E, (outputPath + QString::fromStdString(name)).toStdString());
     else if(this->image_to_download.compare("P") == 0)
-        utils::saveImage(ImageResults::P, (outputPath + QString::fromStdString("Image_-_P")).toStdString());
+        utils::saveImage(ImageResults::P, (outputPath + QString::fromStdString(name)).toStdString());
 
     return "";
 }
