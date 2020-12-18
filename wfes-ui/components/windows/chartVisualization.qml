@@ -487,7 +487,7 @@ ApplicationWindow {
                     chartResults.saveChartSVG("Time Dist. Abs.", scaleButton.checked, url, "chart-" + name)
                 }
             }
-            if(chart1Linear.title == "Time Dist. SGV") {
+            if(chart1Linear.title == "Time Dist. SGV (scaled x10e20)") {
                 if(chart1Linear.visible || chart1Log.visible) {
                     name = "time-dist-sgv-sub";
                     chartResults.saveChartSVG("Time Dist. SGV Sub.", scaleButton.checked, url, "chart-" + name)
@@ -764,7 +764,7 @@ ApplicationWindow {
 
             visibleSeries(true, false, true, false, false, false)
 
-            setTitle("Time Dist. SGV")
+            setTitle("Time Dist. SGV (scaled x10e20)")
 
             setSeriesName("Probability of subs.", "", "Cumulative prob. of subs.", "", "", "")
 

@@ -261,7 +261,7 @@ void ChartResults::saveChartSVG(QString title, bool log, QString filePath, QStri
         series->attachAxis(axisY);
         series2->attachAxis(axisY);
     } else if (title.compare("Time Dist. SGV Sub.") == 0) {
-        chart->setTitle("Time Dist. SGV");
+        chart->setTitle("Time Dist. SGV (scaled x10e20)");
 
         // Append series.
         series->append(this->timeDistSGVSub);
@@ -280,7 +280,7 @@ void ChartResults::saveChartSVG(QString title, bool log, QString filePath, QStri
         chart->addAxis(axisY, Qt::AlignLeft);
         series->attachAxis(axisY);
     } else if (title.compare("Time Dist. SGV Acum.") == 0) {
-        chart->setTitle("Time Dist. SGV");
+        chart->setTitle("Time Dist. SGV (scaled x10e20)");
 
         // Append series.
         series->append(this->timeDistSGVAcum);
