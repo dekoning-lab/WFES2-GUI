@@ -97,7 +97,7 @@ QPointF ChartResults::updateChart(QString name, QAbstractSeries *p_series) {
     }
 }
 
-void ChartResults::saveChartSVG(QString title, bool log, QString filePath) {
+void ChartResults::saveChartSVG(QString title, bool log, QString filePath, QString name) {
     QLineSeries *series = new QLineSeries();
     QLineSeries *series2 = new QLineSeries();
 
@@ -409,8 +409,38 @@ void ChartResults::saveChartSVG(QString title, bool log, QString filePath) {
 
     chartView->grab();
 
+    // Check for existing files, so those are not overwritten.
+    QDirIterator it(filePath, QStringList() << "*.svg", QDir::Files, QDirIterator::Subdirectories);
+    QStringList fileNames;
+    while (it.hasNext()) {
+        QStringList splitted = it.next().split("/");
+        fileNames.append(splitted[splitted.size()-1].split(".")[0]);
+    }
+
+    // Count number of files of which the new name is preffix.
+    int num_prefix = 0;
+    for(int i = 0; i < fileNames.size(); i++) {
+        //Check if prefix
+        int index = 0;
+        bool isPrefix = true;
+        if(name.size() > fileNames[i].size()) {
+            isPrefix = false;
+        } else {
+            while(index < name.size()) {
+                if(fileNames[i].at(index) != name.at(index)) {
+                    isPrefix = false;
+                }
+                index++;
+            }
+        }
+        if(isPrefix)
+            num_prefix++;
+    }
+    // The suffix of the file is the number of files of which the name is preffix.
+    name += "-" + QString::fromStdString(std::to_string(num_prefix) + ".svg");
+
     QSvgGenerator generator;
-    generator.setFileName(filePath);
+    generator.setFileName(filePath + name);
     generator.setSize(chartView->size());
     generator.setViewBox(chartView->rect());
     QPainter painter;

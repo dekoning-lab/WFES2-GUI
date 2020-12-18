@@ -3,12 +3,14 @@
 
 #include <QtSvg/QSvgGenerator>
 #include <QAbstractSeries>
+#include <QDirIterator>
 #include <QChartView>
 #include <QValueAxis>
 #include <QXYSeries>
 #include <QObject>
 #include <QBuffer>
 #include <QPointF>
+#include <QDebug>
 #include <QChart>
 #include <QList>
 
@@ -92,8 +94,9 @@ namespace wfes {
                  * @param title Title of the chart.
                  * @param log Logarithmic scale for x axis.
                  * @param filePath Path of the saved file.
+                 * @param name Name of the saved file.
                  */
-                Q_INVOKABLE void saveChartSVG(QString title, bool log, QString filePath);
+                Q_INVOKABLE void saveChartSVG(QString title, bool log, QString filePath, QString name);
 
                 /**
                  * @brief Clear all values in the series.
