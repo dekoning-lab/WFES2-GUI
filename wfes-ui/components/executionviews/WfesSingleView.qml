@@ -183,6 +183,8 @@ ApplicationWindow {
                                     inputWriteB.enabled = checked;
                                     inputWriteRes.enabled = checked;
 
+                                    inputWriteN.checked = inputControllerWfesSingle.ui_output_N
+                                    inputWriteN.enabledCheckBox = checked
                                 }
                             }
                             RadioButton {
@@ -238,6 +240,9 @@ ApplicationWindow {
                                     inputWriteE.enabled = !checked;
                                     inputWriteB.enabled = checked;
                                     inputWriteRes.enabled = checked;
+
+                                    inputWriteN.checked = inputControllerWfesSingle.ui_output_N
+                                    inputWriteN.enabledCheckBox = checked
                                 }
                             }
 
@@ -294,6 +299,9 @@ ApplicationWindow {
                                     inputWriteE.enabled = !checked;
                                     inputWriteB.enabled = !checked;
                                     inputWriteRes.enabled = checked;
+
+                                    inputWriteN.checked = inputControllerWfesSingle.ui_output_N
+                                    inputWriteN.enabledCheckBox = !checked
                                 }
                             }
                             RadioButton {
@@ -349,6 +357,9 @@ ApplicationWindow {
                                     inputWriteE.enabled = !checked;
                                     inputWriteB.enabled = !checked;
                                     inputWriteRes.enabled = !checked;
+
+                                    inputWriteN.checked = true
+                                    inputWriteN.enabledCheckBox = false
                                 }
                             }
                             RadioButton {
@@ -404,6 +415,9 @@ ApplicationWindow {
                                     inputWriteE.enabled = !checked;
                                     inputWriteB.enabled = !checked;
                                     inputWriteRes.enabled = !checked;
+
+                                    inputWriteN.checked = inputControllerWfesSingle.ui_output_N
+                                    inputWriteN.enabledCheckBox = !checked
                                 }
                             }
 
@@ -460,6 +474,9 @@ ApplicationWindow {
                                     inputWriteE.enabled = checked;
                                     inputWriteB.enabled = !checked;
                                     inputWriteRes.enabled = checked;
+
+                                    inputWriteN.checked = inputControllerWfesSingle.ui_output_N
+                                    inputWriteN.enabledCheckBox = !checked
                                 }
                             }
                             RadioButton {
@@ -515,6 +532,9 @@ ApplicationWindow {
                                     inputWriteE.enabled = !checked;
                                     inputWriteB.enabled = !checked;
                                     inputWriteRes.enabled = checked;
+
+                                    inputWriteN.checked = inputControllerWfesSingle.ui_output_N
+                                    inputWriteN.enabledCheckBox = !checked
                                 }
                             }
 
@@ -1138,9 +1158,17 @@ ApplicationWindow {
                                     messageDialog.open()
                                     outputControllerWfesSingle.ui_reset_error
                                 }
-                                upperMenu.updateWfesSingleEquilibrium()
-                                if(enabled) {
-                                    upperMenu.chartVisible = true
+                                if(inputControllerWfesSingle.ui_modelType == "Equilibrium") {
+                                    upperMenu.updateWfesSingleEquilibrium()
+                                    if(enabled) {
+                                        upperMenu.chartVisible = true
+                                    }
+                                } else if (inputControllerWfesSingle.ui_modelType == "Fundamental") {
+                                    if(globalConfiguration.ui_generate_images) {
+                                        if(enabled) {
+                                            upperMenu.matrixVisible = true
+                                        }
+                                    }
                                 }
                             }
 

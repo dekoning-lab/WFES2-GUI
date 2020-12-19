@@ -10,6 +10,7 @@ import assets 1.0
 
 Rectangle {
     property alias chartVisible: chartVisualization.visible
+    property alias matrixVisible: matrixVisualization.visible
     id: upperMenu
     width:parent.width
     height: childrenRect.height
