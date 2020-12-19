@@ -32,6 +32,11 @@ ApplicationWindow {
         rootMatrixVisualization.hide();
     }
 
+    Shortcut {
+        sequence: "CTRL+W"
+        onActivated: rootMatrixVisualization.close()
+    }
+
     // Center window in screen.
     Component.onCompleted: {
         setX(Screen.width / 2 - width / 2);

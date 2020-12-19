@@ -27,6 +27,11 @@ ApplicationWindow {
 
     color: Universal.chromeLowColor
 
+    Shortcut {
+        sequence: "CTRL+W"
+        onActivated: rootHelp.close()
+    }
+
     onClosing: {
         rootHelp.hide();
     }

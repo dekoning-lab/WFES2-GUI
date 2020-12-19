@@ -28,6 +28,11 @@ ApplicationWindow {
 
     color: "white"
 
+    Shortcut {
+        sequence: "CTRL+W"
+        onActivated: rootChartVisualization.close()
+    }
+
     Component.onCompleted: {
         // Center window in screen.
         setX(Screen.width / 2 - width / 2);
