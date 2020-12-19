@@ -201,7 +201,7 @@ namespace wfes {
 
                     text += QString::fromStdString("Allele freq. dist.\n");
                     for(int i = 0; i < results.probs.size(); i++) {
-                        text += QString::fromStdString((boost::format(DPF) % (results.probs[i])).str()) + "\n";
+                        text += QString::fromStdString(std::to_string(i) + ", ") +  QString::fromStdString((boost::format(DPF) % (results.probs[i])).str()) + "\n";
                     }
                     clipboard->setText(text, QClipboard::Clipboard);
                     if (clipboard->supportsSelection()) {

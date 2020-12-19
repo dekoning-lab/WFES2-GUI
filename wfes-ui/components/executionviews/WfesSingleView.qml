@@ -185,6 +185,7 @@ ApplicationWindow {
 
                                     inputWriteN.checked = inputControllerWfesSingle.ui_output_N
                                     inputWriteN.enabledCheckBox = checked
+                                    inputWriteE.enabledCheckBox = !checked
                                 }
                             }
                             RadioButton {
@@ -243,6 +244,7 @@ ApplicationWindow {
 
                                     inputWriteN.checked = inputControllerWfesSingle.ui_output_N
                                     inputWriteN.enabledCheckBox = checked
+                                    inputWriteE.enabledCheckBox = !checked
                                 }
                             }
 
@@ -302,6 +304,7 @@ ApplicationWindow {
 
                                     inputWriteN.checked = inputControllerWfesSingle.ui_output_N
                                     inputWriteN.enabledCheckBox = !checked
+                                    inputWriteE.enabledCheckBox = !checked
                                 }
                             }
                             RadioButton {
@@ -360,6 +363,7 @@ ApplicationWindow {
 
                                     inputWriteN.checked = true
                                     inputWriteN.enabledCheckBox = false
+                                    inputWriteE.enabledCheckBox = !checked
                                 }
                             }
                             RadioButton {
@@ -418,6 +422,7 @@ ApplicationWindow {
 
                                     inputWriteN.checked = inputControllerWfesSingle.ui_output_N
                                     inputWriteN.enabledCheckBox = !checked
+                                    inputWriteE.enabledCheckBox = !checked
                                 }
                             }
 
@@ -477,6 +482,7 @@ ApplicationWindow {
 
                                     inputWriteN.checked = inputControllerWfesSingle.ui_output_N
                                     inputWriteN.enabledCheckBox = !checked
+                                    inputWriteE.enabledCheckBox = false
                                 }
                             }
                             RadioButton {
@@ -535,6 +541,7 @@ ApplicationWindow {
 
                                     inputWriteN.checked = inputControllerWfesSingle.ui_output_N
                                     inputWriteN.enabledCheckBox = !checked
+                                    inputWriteE.enabledCheckBox = !checked
                                 }
                             }
 
