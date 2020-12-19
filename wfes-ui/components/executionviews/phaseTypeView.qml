@@ -715,7 +715,8 @@ ApplicationWindow {
 
                                 if(inputControllerPhaseType.ui_modelType == "Phase Type Dist.") {
                                     upperMenu.updatePhaseTypeDistChart()
-                                    upperMenu.chartVisible = true
+                                    if(enabled)
+                                        upperMenu.chartVisible = true
                                 }
                             }
 
