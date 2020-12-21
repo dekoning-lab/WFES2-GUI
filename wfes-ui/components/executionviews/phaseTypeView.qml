@@ -948,6 +948,17 @@ ApplicationWindow {
             comboBoxSolver.currentIndex = 0
         else if(library === "BicGStab")
             comboBoxSolver.currentIndex = 1
+
+        inputN.textFieldTextEdited()
+        inputS.textFieldTextEdited()
+        inputH.textFieldTextEdited()
+        inputU.textFieldTextEdited()
+        inputV.textFieldTextEdited()
+        inputA.textFieldTextEdited()
+        inputT.textFieldTextEdited()
+        inputK.textFieldTextEdited()
+        inputC.textFieldTextEdited()
+        inputM.textFieldTextEdited()
     }
 
     function updateBackend() {

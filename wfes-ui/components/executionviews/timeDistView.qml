@@ -1459,6 +1459,29 @@ ApplicationWindow {
         radioButtonTimeDistSGV.checked = inputControllerTimeDist.ui_modelType == "Time Dist. SGV"
         radioButtonTimeDistSkip.checked = inputControllerTimeDist.ui_modelType == "Time Dist. Skip"
 
+        // Update boxes.
+        for(i = 0; i < 2; i++) {
+            timeDistSGVSectionTabView.getTab(i).item.children[0].children[1].children[0].textFieldTextEdited()
+            timeDistSGVSectionTabView.getTab(i).item.children[0].children[1].children[1].textFieldTextEdited()
+            timeDistSGVSectionTabView.getTab(i).item.children[1].children[1].children[0].textFieldTextEdited()
+            timeDistSGVSectionTabView.getTab(i).item.children[1].children[1].children[1].textFieldTextEdited()
+        }
+        inputN1.textFieldTextEdited()
+        inputA1.textFieldTextEdited()
+        inputL.textFieldTextEdited()
+        inputC1.textFieldTextEdited()
+        inputM1.textFieldTextEdited()
+
+        inputN.textFieldTextEdited()
+        inputA.textFieldTextEdited()
+        inputC.textFieldTextEdited()
+        inputM.textFieldTextEdited()
+        inputU.textFieldTextEdited()
+        inputV.textFieldTextEdited()
+        inputS.textFieldTextEdited()
+        inputH.textFieldTextEdited()
+        inputT.textFieldTextEdited()
+
 
     }
 

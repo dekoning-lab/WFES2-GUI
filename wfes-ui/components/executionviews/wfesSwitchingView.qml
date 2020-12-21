@@ -853,6 +853,21 @@ ApplicationWindow {
             comboBoxSolver.currentIndex = 0
         else if(solver === "BicGStab")
             comboBoxSolver.currentIndex = 1
+
+        // Update boxes.
+        for(i = 0; i < inputControllerWfesSwitching.ui_num_comp; i++) {
+            componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[0].textFieldTextEdited()
+            componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[1].textFieldTextEdited()
+            componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[2].textFieldTextEdited()
+            componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[0].textFieldTextEdited()
+            componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[1].textFieldTextEdited()
+            componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[0].textFieldTextEdited()
+            componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[1].textFieldTextEdited()
+        }
+        inputA.textFieldTextEdited()
+        inputC.textFieldTextEdited()
+        inputT.textFieldTextEdited()
+
     }
 
     function updateBackend() {
