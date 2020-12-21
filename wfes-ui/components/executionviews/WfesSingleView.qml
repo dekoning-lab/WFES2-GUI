@@ -186,6 +186,7 @@ ApplicationWindow {
                                     inputWriteN.checked = inputControllerWfesSingle.ui_output_N
                                     inputWriteN.enabledCheckBox = checked
                                     inputWriteE.enabledCheckBox = !checked
+                                    inputp.textFieldTextEdited()
                                 }
                             }
                             RadioButton {
@@ -245,6 +246,7 @@ ApplicationWindow {
                                     inputWriteN.checked = inputControllerWfesSingle.ui_output_N
                                     inputWriteN.enabledCheckBox = checked
                                     inputWriteE.enabledCheckBox = !checked
+                                    inputp.textFieldTextEdited()
                                 }
                             }
 
@@ -305,6 +307,7 @@ ApplicationWindow {
                                     inputWriteN.checked = inputControllerWfesSingle.ui_output_N
                                     inputWriteN.enabledCheckBox = !checked
                                     inputWriteE.enabledCheckBox = !checked
+                                    inputp.textFieldTextEdited()
                                 }
                             }
                             RadioButton {
@@ -364,6 +367,7 @@ ApplicationWindow {
                                     inputWriteN.checked = true
                                     inputWriteN.enabledCheckBox = false
                                     inputWriteE.enabledCheckBox = !checked
+                                    inputp.textFieldTextEdited()
                                 }
                             }
                             RadioButton {
@@ -423,6 +427,7 @@ ApplicationWindow {
                                     inputWriteN.checked = inputControllerWfesSingle.ui_output_N
                                     inputWriteN.enabledCheckBox = !checked
                                     inputWriteE.enabledCheckBox = !checked
+                                    inputp.textFieldTextEdited()
                                 }
                             }
 
@@ -483,6 +488,7 @@ ApplicationWindow {
                                     inputWriteN.checked = inputControllerWfesSingle.ui_output_N
                                     inputWriteN.enabledCheckBox = !checked
                                     inputWriteE.enabledCheckBox = false
+                                    inputp.textFieldTextEdited()
                                 }
                             }
                             RadioButton {
@@ -542,6 +548,7 @@ ApplicationWindow {
                                     inputWriteN.checked = inputControllerWfesSingle.ui_output_N
                                     inputWriteN.enabledCheckBox = !checked
                                     inputWriteE.enabledCheckBox = !checked
+                                    inputp.textFieldTextEdited()
                                 }
                             }
 
@@ -620,12 +627,39 @@ ApplicationWindow {
                                 validator: IntValidator {bottom: 0; top: 500000;}
                                 textFieldText: inputControllerWfesSingle.ui_p
                                 textFieldTextEdited: function(){
-                                    if(!Number.isNaN(Number(inputp.textFieldText)) && parseInt(inputp.textFieldText) >= 0 && parseInt(inputp.textFieldText) <= parseInt(inputN.textFieldText)) {
+                                    if(!Number.isNaN(Number(inputp.textFieldText)) && parseInt(inputp.textFieldText) >= 0) {
                                         inputControllerWfesSingle.ui_p = inputp.textFieldText
                                         borderColor = "#555555"
                                     } else {
+                                        print(parseInt(inputp.textFieldText) >= 0)
                                         borderColor = "#ff0000"
                                     }
+
+                                    //Maximum value for Starting copies (p) depends on the executable used.
+                                    if(radioButtonAbsorption.checked) {
+                                        if(!Number.isNaN(Number(inputp.textFieldText)) && parseInt(inputp.textFieldText) >= (2 * parseInt(inputN.textFieldText)) - 1) {
+                                            print("Absorption")
+                                            borderColor = "#ff0000"
+                                        }
+                                    } else if(radioButtonFixation.checked) {
+                                        if(!Number.isNaN(Number(inputp.textFieldText)) && parseInt(inputp.textFieldText) >= (2 * parseInt(inputN.textFieldText))) {
+                                            print("Fixation")
+                                            borderColor = "#ff0000"
+                                        }
+                                    } else if(radioButtonEstablishment.checked) {
+                                        if(!Number.isNaN(Number(inputp.textFieldText)) && parseInt(inputp.textFieldText) >= (parseInt(inputN.textFieldText)) - 1) {
+                                            print("Establishment")
+                                            borderColor = "#ff0000"
+                                        }
+                                    } else if(radioButtonAlleleAge.checked) {
+                                        if(!Number.isNaN(Number(inputp.textFieldText)) && parseInt(inputp.textFieldText) >= (2 * parseInt(inputN.textFieldText)) - 1) {
+                                            print("AlleleAge")
+                                            borderColor = "#ff0000"
+                                        }
+                                    } else {
+                                        borderColor = "#555555"
+                                    }
+
                                 }
                                 enabled: (inputControllerWfesSingle.ui_modelType == "Fixation" ||
                                           inputControllerWfesSingle.ui_modelType == "Absorption" ||
@@ -1630,6 +1664,7 @@ ApplicationWindow {
             comboBoxSolver.currentIndex = 0
         else if(library === "BicGStab")
             comboBoxSolver.currentIndex = 1
+
     }
 
     function updateBackend() {
@@ -1710,8 +1745,21 @@ ApplicationWindow {
             error += " - Starting copies (p) is not a valid number. \n \n"
         if(parseInt(inputp.textFieldText) < 0)
             error += " - Starting copies (p) is quite small, if you want to disable it just use 0. \n \n"
-        if(parseInt(inputp.textFieldText) > parseInt(inputN.textFieldText))
-            error += " - Starting Copies (p) is quite large. The maximum value allowed is N. \n \n"
+
+        //Maximum value for Starting copies (p) depends on the executable used.
+        if(radioButtonAbsorption.checked) {
+            if(parseInt(inputp.textFieldText) > (2 * parseInt(inputN.textFieldText)) - 2)
+                error += " - Starting Copies (p) is quite large. The maximum value allowed is 2N-1. \n \n"
+        } else if(radioButtonFixation.checked) {
+            if(parseInt(inputp.textFieldText) > (2 * parseInt(inputN.textFieldText)) -1)
+                error += " - Starting Copies (p) is quite large. The maximum value allowed is 2N. \n \n"
+        }else if(radioButtonEstablishment.checked) {
+            if(parseInt(inputp.textFieldText) > (parseInt(inputN.textFieldText)) - 2)
+                error += " - Starting Copies (p) is quite large. The maximum value allowed is N - 1. \n \n"
+        } else if(radioButtonAlleleAge.checked) {
+            if(parseInt(inputp.textFieldText) > (2 * parseInt(inputN.textFieldText)) - 2)
+                error += " - Starting Copies (p) is quite large. The maximum value allowed is 2N - 1. \n \n"
+        }
 
         if(inputc.textFieldText == "")
             error += " - Integration Cutoff (c) is empty. \n \n"
