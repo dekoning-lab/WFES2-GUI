@@ -463,6 +463,12 @@ ApplicationWindow {
             var name = ""
             print(url)
             //If svg do this.
+            if(chart1Linear.title == "WFES Single - Equilibrium") {
+                if(chart1Linear.visible || chart1Log.visible) {
+                    name = "wfes-single-equilibrium";
+                    chartResults.saveChartSVG("Wfes Single Equilibrium Dist.", scaleButton.checked, url, "chart-" + name)
+                }
+            }
             if(chart1Linear.title == "Phase Type Dist.") {
                 if(chart1Linear.visible || chart1Log.visible) {
                     name = "phase-type-dist";

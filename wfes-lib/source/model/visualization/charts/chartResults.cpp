@@ -126,7 +126,26 @@ void ChartResults::saveChartSVG(QString title, bool log, QString filePath, QStri
     }
 
     // Depending of executable, set axis values and series.
-    if(title.compare("Phase Type Dist.") == 0) {
+    if (title.compare("Wfes Single Equilibrium Dist.") == 0) {
+        chart->setTitle("WFES Single - Equilibrium");
+
+        // Append series.
+        series->append(this->wfesSingleEquilibrium);
+        // Set name of series.
+        series->setName("Freq.");
+        // Add series.
+        chart->addSeries(series);
+
+        // Add axes X to chart, and attach to series.
+        chart->addAxis(axisX, Qt::AlignBottom);
+        series->attachAxis(axisX);
+
+        // Add axes Y to chart, and attach to series.
+        axisY->setMin(ChartResults::minMaxWfesSingleEquilibrium.x());
+        axisY->setMax(ChartResults::minMaxWfesSingleEquilibrium.y());
+        chart->addAxis(axisY, Qt::AlignLeft);
+        series->attachAxis(axisY);
+    } else if(title.compare("Phase Type Dist.") == 0) {
         chart->setTitle("Phase Type");
 
         // Append series.
