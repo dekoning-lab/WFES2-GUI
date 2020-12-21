@@ -132,7 +132,7 @@ void ChartResults::saveChartSVG(QString title, bool log, QString filePath, QStri
         // Append series.
         series->append(this->wfesSingleEquilibrium);
         // Set name of series.
-        series->setName("Freq.");
+        series->setName("Equilibrium frequency distribution");
         // Add series.
         chart->addSeries(series);
 
