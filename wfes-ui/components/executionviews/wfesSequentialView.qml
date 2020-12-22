@@ -888,6 +888,7 @@ ApplicationWindow {
         }
 
 
+        var sum_p = 0;
         for(i = 0; i < inputControllerWfesSequential.ui_num_comp; i++) {
             p = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[2].textFieldText
             if(p === "")
@@ -898,6 +899,11 @@ ApplicationWindow {
                 error += " - Probability of starting (p" + (i + 1) + ") is quite small, it must be at least 2. \n \n"
             if(parseInt(p_vec[i]) > 1)
                 error += " - Probability of starting (p" + (i + 1) + ") is quite large, the computations will take a long time. Check 'Force' to ignore. \n \n"
+            if(!Number.isNaN(Number(p_vec[i])))
+                sum_p += parseFloat(componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[2].textFieldText)
+        }
+        if(sum_p !== 1) {
+            error += " - Probabilities of starting (p) of all components must add to 1. The current sum is " + sum_p + "\n \n"
         }
 
         if(globalConfiguration.ui_population_scaled) {
