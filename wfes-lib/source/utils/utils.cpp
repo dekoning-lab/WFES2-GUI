@@ -1,6 +1,5 @@
 #include "utils.h"
 
-
 void wfes::utils::writeMatrixToFile(const dmat &A, std::string name, std::string executableName, bool append) {
     QString outputPath(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/Wfes/");
     QDir dir;
@@ -208,6 +207,10 @@ QImage* wfes::utils::generateImage(const dmat &a) {
 
     // Calculate pixel values using min and max.
     for(int i = (a.rows() * a.cols()) - 1; i >= 0 ; i--) {
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            return new QImage();
+        }
+
         double val = a.data()[i] + std::abs(min);
         val = val * 255;
         val = val / (std::abs(min + max));

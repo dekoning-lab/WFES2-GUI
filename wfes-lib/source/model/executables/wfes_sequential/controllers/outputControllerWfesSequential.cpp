@@ -28,13 +28,11 @@ QString OutputControllerWfesSequential::execute() {
 }
 
 QString OutputControllerWfesSequential::stop() {
-    // TODO Looks that using terminate is a bad practice because it can stop the thread, for example, while writting a file,
-    // and the file will be corrupt then. Look for a better way of doing this.
-     worker->terminate();
+    // This only stops the computations inside the parts of the code that test for interruption requested.
+    worker->requestInterruption();
     worker->wait();
-    worker->exit();
 
-    return QString();
+    return "";
 }
 
 QString OutputControllerWfesSequential::save_config() {

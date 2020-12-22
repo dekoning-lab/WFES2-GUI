@@ -62,6 +62,10 @@ ResultsWfesSweep *wfes_sweep::fixation(dvec s, dvec u, dvec v) {
     try {
         //Notify building matrix.
         this->notify(ExecutionStatus::BUILDING_MATRICES);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfesSweep();
+        }
 
         dmat switching(2, 2); switching << 1 - ConfigWfesSweep::l, ConfigWfesSweep::l, 0, 1;
 
@@ -69,6 +73,10 @@ ResultsWfesSweep *wfes_sweep::fixation(dvec s, dvec u, dvec v) {
 
         //Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfesSweep();
+        }
 
         //Save data into file.
         if (ConfigWfesSweep::output_Q)
@@ -78,6 +86,10 @@ ResultsWfesSweep *wfes_sweep::fixation(dvec s, dvec u, dvec v) {
 
         //Notify solving
         this->notify(ExecutionStatus::SOLVING_MATRICES);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfesSweep();
+        }
 
         wf.Q->subtractIdentity();
 
@@ -85,6 +97,10 @@ ResultsWfesSweep *wfes_sweep::fixation(dvec s, dvec u, dvec v) {
 
         solver->preprocess();
 
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfesSweep();
+        }
         dvec id(wf.Q->num_rows);
         id.setZero();
         id(ConfigWfesSweep::starting_copies) = 1;
@@ -92,6 +108,10 @@ ResultsWfesSweep *wfes_sweep::fixation(dvec s, dvec u, dvec v) {
         dvec N(wf.Q->num_rows);
         N = solver->solve(id, true);
 
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfesSweep();
+        }
         double T_fix = N.tail(2 * ConfigWfesSweep::population_size).sum();
         qDebug() << "Fixation";
         double rate = 1.0 / T_fix;
@@ -105,6 +125,10 @@ ResultsWfesSweep *wfes_sweep::fixation(dvec s, dvec u, dvec v) {
 
         //Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfesSweep();
+        }
 
         //Save data into file.
         dmat B(size, 2);
@@ -116,6 +140,11 @@ ResultsWfesSweep *wfes_sweep::fixation(dvec s, dvec u, dvec v) {
             utils::writeMatrixToFile(B, ConfigWfesSweep::path_output_B, "WFES-Sweep-Fixation");
         }
         delete solver;
+
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfesSweep();
+        }
 
         if(GlobalConfiguration::generateImages) {
             // Generate images.

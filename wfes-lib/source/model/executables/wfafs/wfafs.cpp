@@ -53,9 +53,17 @@ ResultsWfafs *wfafs::function() {
 
         //Notify building matrix.
         this->notify(ExecutionStatus::BUILDING_MATRICES);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfafs();
+        }
 
         dmat switching = dmat::Zero(ConfigWfafs::num_comp, ConfigWfafs::num_comp);
         for(llong i = 0; i < ConfigWfafs::num_comp - 1; i++) {
+            if(QThread::currentThread()->isInterruptionRequested()) {
+                this->notify(ExecutionStatus::ABORTED);
+                return new ResultsWfafs();
+            }
             switching(i, i) = 1 - (1 / gens(i));
             switching(i, i+1) = 1 / gens(i);
         }
@@ -75,6 +83,10 @@ ResultsWfafs *wfafs::function() {
 
         //Notify solving
         this->notify(ExecutionStatus::SOLVING_MATRICES);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfafs();
+        }
 
         W.Q->subtractIdentity();
 
@@ -102,6 +114,11 @@ ResultsWfafs *wfafs::function() {
         Solver* solver = SolverFactory::createSolver(ConfigWfafs::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, ConfigWfafs::vienna_solver, "", n_rhs);
 
         solver->preprocess();
+
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfafs();
+        }
 
         //dvec R_ext = W.R.col(0);
         //dvec B_ext = solver->solve(R_ext, false);
@@ -155,6 +172,10 @@ ResultsWfafs *wfafs::function() {
                 // multiply prj_d by the tall diagonal matrix
                 prj_d[0] = prj_u[0]; prj_d[prj_d.size()-1] = prj_u[prj_u.size()-1];
                 for (llong i = 0; i < m-2; i++) {
+                    if(QThread::currentThread()->isInterruptionRequested()) {
+                        this->notify(ExecutionStatus::ABORTED);
+                        return new ResultsWfafs();
+                    }
                     llong j = int(i / diag_f);
                     prj_d[j + 1] += prj_u[i + 1] / row_integral_counts[j + 1];
 
@@ -184,6 +205,10 @@ ResultsWfafs *wfafs::function() {
         if (ConfigWfafs::output_N) {
             // Calculate fundamental matrix
             for(llong i = 0; i < n_rhs; i++) {
+                if(QThread::currentThread()->isInterruptionRequested()) {
+                    this->notify(ExecutionStatus::ABORTED);
+                    return new ResultsWfafs();
+                }
                 dvec id_tmp = id.col(i);
                 Nt.col(i) = solver->solve(id_tmp, true);
             }
@@ -191,6 +216,10 @@ ResultsWfafs *wfafs::function() {
 
         //Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfafs();
+        }
 
 
         // Save data into file.

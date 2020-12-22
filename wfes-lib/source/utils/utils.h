@@ -12,6 +12,7 @@
 #include <limits>
 
 #include <QDebug>
+#include <QThread>
 #include <QtGui/QImage>
 
 

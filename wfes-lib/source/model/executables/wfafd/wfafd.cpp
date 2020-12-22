@@ -41,7 +41,11 @@ ResultsWfafd *wfafd::function() {
         }
 
         //Notify building matrix.
-        this->notify(ExecutionStatus::BUILDING_MATRICES);
+        this->notify(ExecutionStatus::BUILDING_MATRICES);        
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfafd();
+        }
 
         llong k = ConfigWfafd::N.size();
 
@@ -64,6 +68,10 @@ ResultsWfafd *wfafd::function() {
         d.push_back(initial);
 
         for(llong i = 0; i < k - 1; i++) {
+            if(QThread::currentThread()->isInterruptionRequested()) {
+                this->notify(ExecutionStatus::ABORTED);
+                return new ResultsWfafd();
+            }
             iterate_generations(d[i], ConfigWfafd::N(i), ConfigWfafd::G(i), s(i), ConfigWfafd::h(i), u(i), v(i), ConfigWfafd::a, msg_level);
             d.push_back(switch_population_size(d[i], ConfigWfafd::N(i), ConfigWfafd::N(i + 1), s(i + 1), ConfigWfafd::h(i + 1), u(i + 1), v(i + 1), ConfigWfafd::a));
         }
@@ -72,6 +80,10 @@ ResultsWfafd *wfafd::function() {
 
         // Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfafd();
+        }
 
         // Save data into file.
         if(ConfigWfafd::output_Dist) {
@@ -86,6 +98,10 @@ ResultsWfafd *wfafd::function() {
         double minDist = std::numeric_limits<double>::max();
         double maxDist = std::numeric_limits<double>::min();
         for(int i = 0; i < d[k - 1].size(); i++) {
+            if(QThread::currentThread()->isInterruptionRequested()) {
+                this->notify(ExecutionStatus::ABORTED);
+                return new ResultsWfafd();
+            }
             if(minDist >= d[k - 1][i])
                 minDist = d[k - 1][i];
             if(maxDist <= d[k - 1][i])

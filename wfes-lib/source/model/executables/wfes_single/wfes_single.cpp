@@ -75,12 +75,20 @@ ResultsWfesSingle *wfes_single::absorption(double s, double u, double v) {
     try {
         //Notify building matrix.
         this->notify(ExecutionStatus::BUILDING_MATRICES);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfesSingle();
+        }
 
         wrightfisher::Matrix W = wrightfisher::Single(ConfigWfesSingle::population_size, ConfigWfesSingle::population_size, wrightfisher::BOTH_ABSORBING, s, ConfigWfesSingle::h, u, v,
                                   ConfigWfesSingle::rem, ConfigWfesSingle::a, msg_level, ConfigWfesSingle::b, ConfigWfesSingle::library);
 
         //Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfesSingle();
+        }
 
         //Save data into file.
         if (ConfigWfesSingle::output_Q)
@@ -90,6 +98,10 @@ ResultsWfesSingle *wfes_single::absorption(double s, double u, double v) {
 
         //Notify solving
         this->notify(ExecutionStatus::SOLVING_MATRICES);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfesSingle();
+        }
 
         W.Q->subtractIdentity();
 
@@ -103,6 +115,10 @@ ResultsWfesSingle *wfes_single::absorption(double s, double u, double v) {
         Solver* solver = SolverFactory::createSolver(ConfigWfesSingle::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, ConfigWfesSingle::vienna_solver);
 
         solver->preprocess();
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfesSingle();
+        }
 
         dvec R_ext = W.R.col(0);
         dvec B_ext = solver->solve(R_ext, false);
@@ -127,6 +143,10 @@ ResultsWfesSingle *wfes_single::absorption(double s, double u, double v) {
         dmat N2_mat(z, size);
         if (!ConfigWfesSingle::starting_copies) {
             for (llong i = 0; i < z; i++) {
+                if(QThread::currentThread()->isInterruptionRequested()) {
+                    this->notify(ExecutionStatus::ABORTED);
+                    return new ResultsWfesSingle();
+                }
                 double p_i = starting_copies_p(i);
                 id.setZero();
                 id(i) = 1;
@@ -160,6 +180,10 @@ ResultsWfesSingle *wfes_single::absorption(double s, double u, double v) {
 
             }
         } else {
+            if(QThread::currentThread()->isInterruptionRequested()) {
+                this->notify(ExecutionStatus::ABORTED);
+                return new ResultsWfesSingle();
+            }
             // TODO: combine this with the previous clause
             id.setZero();
             id(ConfigWfesSingle::starting_copies) = 1;
@@ -199,6 +223,10 @@ ResultsWfesSingle *wfes_single::absorption(double s, double u, double v) {
 
         //Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfesSingle();
+        }
 
         //Save data into file.
         dmat B(size, 2);
@@ -275,12 +303,20 @@ ResultsWfesSingle *wfes_single::fixation(double s, double u, double v) {
     try {
         //Notify building matrix.
         this->notify(ExecutionStatus::BUILDING_MATRICES);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfesSingle();
+        }
 
         wrightfisher::Matrix W = wrightfisher::Single(ConfigWfesSingle::population_size, ConfigWfesSingle::population_size, wrightfisher::FIXATION_ONLY, s, ConfigWfesSingle::h, u, v,
                                   ConfigWfesSingle::rem, ConfigWfesSingle::a, msg_level, ConfigWfesSingle::b, ConfigWfesSingle::library);
 
         //Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfesSingle();
+        }
 
         if (ConfigWfesSingle::output_Q)
             utils::writeSparseMatrixToFile(W.Q, ConfigWfesSingle::path_output_Q, "WFES-Single-Fixation");
@@ -289,6 +325,10 @@ ResultsWfesSingle *wfes_single::fixation(double s, double u, double v) {
 
         //Notify solving
         this->notify(ExecutionStatus::SOLVING_MATRICES);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfesSingle();
+        }
 
         W.Q->subtractIdentity();
 
@@ -322,6 +362,10 @@ ResultsWfesSingle *wfes_single::fixation(double s, double u, double v) {
 
         //Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfesSingle();
+        }
 
         //Save data into file.
         dvec B = dvec::Ones(size);
@@ -382,6 +426,10 @@ ResultsWfesSingle *wfes_single::fundamental(double s, double u, double v) {
     try {
         //Notify building matrix.
         this->notify(ExecutionStatus::BUILDING_MATRICES);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfesSingle();
+        }
 
         llong size = (2 * ConfigWfesSingle::population_size) - 1;
 
@@ -395,6 +443,10 @@ ResultsWfesSingle *wfes_single::fundamental(double s, double u, double v) {
 
         //Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfesSingle();
+        }
 
         if (ConfigWfesSingle::output_Q)
             utils::writeSparseMatrixToFile(W.Q, ConfigWfesSingle::path_output_Q, "WFES-Single-Fundamental");
@@ -403,6 +455,10 @@ ResultsWfesSingle *wfes_single::fundamental(double s, double u, double v) {
 
         //Notify solving
         this->notify(ExecutionStatus::SOLVING_MATRICES);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfesSingle();
+        }
 
         W.Q->subtractIdentity();
 
@@ -420,6 +476,10 @@ ResultsWfesSingle *wfes_single::fundamental(double s, double u, double v) {
 
         //Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfesSingle();
+        }
 
         //Save data into file.
         dmat V;
@@ -481,6 +541,10 @@ ResultsWfesSingle *wfes_single::equilibrium(double s, double u, double v) {
     try {
         //Notify building matrix.
         this->notify(ExecutionStatus::BUILDING_MATRICES);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfesSingle();
+        }
 
         llong size = (2 * ConfigWfesSingle::population_size) + 1;
 
@@ -493,6 +557,10 @@ ResultsWfesSingle *wfes_single::equilibrium(double s, double u, double v) {
                                                                         ConfigWfesSingle::a, msg_level, ConfigWfesSingle::b, ConfigWfesSingle::library);
         //Notify solving
         this->notify(ExecutionStatus::SOLVING_MATRICES);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfesSingle();
+        }
 
         Solver* solver = SolverFactory::createSolver(ConfigWfesSingle::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, ConfigWfesSingle::vienna_solver);
 
@@ -504,6 +572,10 @@ ResultsWfesSingle *wfes_single::equilibrium(double s, double u, double v) {
 
         //Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfesSingle();
+        }
 
         //Save data into file.
         if (ConfigWfesSingle::output_E) {
@@ -527,6 +599,10 @@ ResultsWfesSingle *wfes_single::equilibrium(double s, double u, double v) {
 
         //Notify solving
         this->notify(ExecutionStatus::SOLVING_MATRICES);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfesSingle();
+        }
 
         // Calculate expected frequency
         double e_freq = 0.0;
@@ -558,6 +634,10 @@ ResultsWfesSingle *wfes_single::equilibrium(double s, double u, double v) {
 
         //Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfesSingle();
+        }
 
         if(ConfigWfesSingle::output_Res)
            res->writeResultsToFile(res, ConfigWfesSingle::path_output_Res);
@@ -576,6 +656,10 @@ ResultsWfesSingle *wfes_single::establishment(double s, double u, double v) {
     try {
         //Notify building matrix.
         this->notify(ExecutionStatus::BUILDING_MATRICES);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfesSingle();
+        }
 
         // Full Wright-Fisher
         wrightfisher::Matrix W_full = wrightfisher::Single(ConfigWfesSingle::population_size, ConfigWfesSingle::population_size, wrightfisher::BOTH_ABSORBING, s, ConfigWfesSingle::h,
@@ -583,6 +667,10 @@ ResultsWfesSingle *wfes_single::establishment(double s, double u, double v) {
 
         //Notify solving
         this->notify(ExecutionStatus::SOLVING_MATRICES);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfesSingle();
+        }
 
         W_full.Q->subtractIdentity();
 
@@ -596,8 +684,17 @@ ResultsWfesSingle *wfes_single::establishment(double s, double u, double v) {
         Solver* solver_full = SolverFactory::createSolver(ConfigWfesSingle::library, *(W_full.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, ConfigWfesSingle::vienna_solver);
 
         solver_full->preprocess();
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfesSingle();
+        }
+
         dvec R_full_fix = W_full.R.col(1);
         dvec B_full_fix = solver_full->solve(R_full_fix, false);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfesSingle();
+        }
 
         dvec B_full_ext = dvec::Constant(size, 1) - B_full_fix;
         dvec id_full(size);
@@ -653,6 +750,10 @@ ResultsWfesSingle *wfes_single::establishment(double s, double u, double v) {
 
         //Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfesSingle();
+        }
 
         //Save data into file.
         if (ConfigWfesSingle::output_Q)
@@ -662,6 +763,10 @@ ResultsWfesSingle *wfes_single::establishment(double s, double u, double v) {
 
         //Notify solving
         this->notify(ExecutionStatus::SOLVING_MATRICES);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfesSingle();
+        }
 
         // To test
         // cout << W_tr.R.col(0) + W_tr.Q.dense().rowwise().sum() + W_tr.R.col(1) << endl;
@@ -693,6 +798,10 @@ ResultsWfesSingle *wfes_single::establishment(double s, double u, double v) {
         dvec id(est_idx);
         if (!ConfigWfesSingle::starting_copies) {
             for (llong i = 0; i < z; i++) {
+                if(QThread::currentThread()->isInterruptionRequested()) {
+                    this->notify(ExecutionStatus::ABORTED);
+                    return new ResultsWfesSingle();
+                }
                 double p_i = starting_copies_p(i);
                 id.setZero();
                 id(i) = 1;
@@ -772,6 +881,10 @@ ResultsWfesSingle *wfes_single::establishment(double s, double u, double v) {
 
         //Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfesSingle();
+        }
 
         if(ConfigWfesSingle::output_Res)
            res->writeResultsToFile(res, ConfigWfesSingle::path_output_Res);
@@ -790,6 +903,10 @@ ResultsWfesSingle *wfes_single::alleleAge(double s, double u, double v) {
     try {
         //Notify building matrix.
         this->notify(ExecutionStatus::BUILDING_MATRICES);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfesSingle();
+        }
 
         // Checking minimum and maximum value of observed copies in view, so it has been deleted here to avoid that an exception may crash the application.
 
@@ -807,6 +924,10 @@ ResultsWfesSingle *wfes_single::alleleAge(double s, double u, double v) {
 
         //Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfesSingle();
+        }
 
         if (ConfigWfesSingle::output_Q)
             utils::writeSparseMatrixToFile(W.Q, ConfigWfesSingle::path_output_Q, "WFES-Single-Allele-Age");
@@ -817,6 +938,10 @@ ResultsWfesSingle *wfes_single::alleleAge(double s, double u, double v) {
 
         //Notify solving
         this->notify(ExecutionStatus::SOLVING_MATRICES);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfesSingle();
+        }
 
         Solver* solver = SolverFactory::createSolver(ConfigWfesSingle::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, ConfigWfesSingle::vienna_solver);
 
@@ -832,6 +957,10 @@ ResultsWfesSingle *wfes_single::alleleAge(double s, double u, double v) {
         if (!ConfigWfesSingle::starting_copies) {
             // Iterate over starting states
             for (llong i = 0; i < z; i++) {
+                if(QThread::currentThread()->isInterruptionRequested()) {
+                    this->notify(ExecutionStatus::ABORTED);
+                    return new ResultsWfesSingle();
+                }
                 dvec e_p = dvec::Zero(size);
                 e_p(i) = 1;
 
@@ -884,6 +1013,10 @@ ResultsWfesSingle *wfes_single::alleleAge(double s, double u, double v) {
 
         //Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfesSingle();
+        }
 
         if(ConfigWfesSingle::output_Res)
            res->writeResultsToFile(res, ConfigWfesSingle::path_output_Res);
@@ -905,12 +1038,20 @@ ResultsWfesSingle *wfes_single::nonAbsorbing(double s, double u, double v) {
     try {
         //Notify building matrix.
         this->notify(ExecutionStatus::BUILDING_MATRICES);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfesSingle();
+        }
 
         wrightfisher::Matrix W = wrightfisher::Single(ConfigWfesSingle::population_size, ConfigWfesSingle::population_size, wrightfisher::NON_ABSORBING, s, ConfigWfesSingle::h, u, v,
                                   ConfigWfesSingle::rem, ConfigWfesSingle::a, msg_level, ConfigWfesSingle::b, ConfigWfesSingle::library);
 
         //Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfesSingle();
+        }
 
         //Save data into file.
         if (ConfigWfesSingle::output_Q)
@@ -935,6 +1076,10 @@ ResultsWfesSingle *wfes_single::nonAbsorbing(double s, double u, double v) {
 
         //Notify done.
         this->notify(ExecutionStatus::DONE);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfesSingle();
+        }
 
         return new ResultsWfesSingle(ConfigWfesSingle::modelType, true, dt.count());
 
