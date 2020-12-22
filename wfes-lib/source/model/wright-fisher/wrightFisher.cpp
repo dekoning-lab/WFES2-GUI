@@ -73,18 +73,11 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::EquilibriumSolvingMatrix(const in
     int size = N2 + 1;
     wfes::wrightfisher::Matrix W(library, size, size, n_absorbing(wfes::wrightfisher::NON_ABSORBING));
     for (int block_row = 0; block_row < size; block_row += block_size) {
-        if(QThread::currentThread()->isInterruptionRequested()) {
-            break;
-        }
-
         int block_length = (block_row + block_size) < size ? block_size : size - block_row;
         std::deque<Row> buffer(block_length);
 
 #pragma omp parallel for
         for (int b = 0; b < block_length; b++) {
-            if(QThread::currentThread()->isInterruptionRequested()) {
-                #pragma omp cancellation point for
-            }
             int i = b + block_row;
             buffer[b] = binom_row(2 * N, psi_diploid(i, N, s, h, u, v), alpha);
             Row &r = buffer[b];
@@ -98,9 +91,6 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::EquilibriumSolvingMatrix(const in
         }
 
         for (int b = 0; b < block_length; b++) {
-            if(QThread::currentThread()->isInterruptionRequested()) {
-                break;
-            }
             Row &r = buffer[b];
             int i = b + block_row;
 
@@ -139,10 +129,6 @@ dmat wfes::wrightfisher::Equilibrium(int N, double s, double h, double u, double
 
     int msg_level = verbose ? MKL_PARDISO_MSG_VERBOSE : MKL_PARDISO_MSG_QUIET;
 
-    if(QThread::currentThread()->isInterruptionRequested()) {
-        return dmat();
-    }
-
     wfes::solver::Solver* solver = wfes::solver::SolverFactory::createSolver(library, (*wf_eq.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level);
 
     solver->preprocess();
@@ -175,18 +161,11 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::Single(const int Nx, const int Ny
     Matrix *W = new Matrix(library, Nx2 + 1 - n_abs, Ny2 + 1 - n_abs, n_abs);
 
     for (int block_row = 0; block_row <= Nx2; block_row += block_size) {
-        if(QThread::currentThread()->isInterruptionRequested()) {
-            break;
-        }
-
         int block_length = (block_row + block_size) < size ? block_size : size - block_row;
         std::deque<Row> buffer(block_length);
 
 #pragma omp parallel for
         for (int b = 0; b < block_length; b++) {
-            if(QThread::currentThread()->isInterruptionRequested()) {
-                #pragma omp cancellation point for
-            }
             int i = b + block_row;
             if (!recurrent_mutation && i != 0) {
                 buffer[b] = binom_row(2 * Ny, psi_diploid(i, Nx, s, h, 0, 0), alpha);
@@ -196,9 +175,6 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::Single(const int Nx, const int Ny
         }
 
         for (int b = 0; b < block_length; b++) {
-            if(QThread::currentThread()->isInterruptionRequested()) {
-                break;
-            }
             Row &r = buffer[b];
             int i = b + block_row;
             int r_last = r.size - 1;
@@ -293,19 +269,11 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::Bounce(const int Nx, const int Ny
     Matrix *W = new Matrix(library, Nx2 - 1, Ny2 - 1, 1);
 
     for (int block_row = 0; block_row <= Nx2; block_row += block_size) {
-        if(QThread::currentThread()->isInterruptionRequested()) {
-            break;
-        }
-
         int block_length = (block_row + block_size) < size ? block_size : size - block_row;
         std::deque<Row> buffer(block_length);
 
 #pragma omp parallel for
         for (int b = 0; b < block_length; b++) {
-            if(QThread::currentThread()->isInterruptionRequested()) {
-                #pragma omp cancellation point for
-            }
-
             int i = b + block_row;
             if (!recurrent_mutation && i != 0) {
                 buffer[b] = binom_row(2 * Ny, psi_diploid(i, Nx, s, h, 0, 0), alpha);
@@ -315,9 +283,6 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::Bounce(const int Nx, const int Ny
         }
 
         for (int b = 0; b < block_length; b++) {
-            if(QThread::currentThread()->isInterruptionRequested()) {
-                break;
-            }
             Row &r = buffer[b];
             int i = b + block_row;
             int r_last = r.size - 1;
@@ -376,18 +341,11 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::DualMutation(const int Nx, const 
     Matrix *W = new Matrix(library, Nx2, Ny2, 2);
 
     for (int block_row = 0; block_row <= Nx2; block_row += block_size) {
-        if(QThread::currentThread()->isInterruptionRequested()) {
-            break;
-        }
-
         int block_length = (block_row + block_size) < size ? block_size : size - block_row;
         std::deque<Row> buffer(block_length);
 
 #pragma omp parallel for
         for (int b = 0; b < block_length; b++) {
-            if(QThread::currentThread()->isInterruptionRequested()) {
-                #pragma omp cancellation point for
-            }
             int i = b + block_row;
             if (!recurrent_mutation && i != 0) {
                 buffer[b] = binom_row(2 * Ny, psi_diploid(i, Nx, s, h, 0, 0), alpha);
@@ -397,9 +355,6 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::DualMutation(const int Nx, const 
         }
 
         for (int b = 0; b < block_length; b++) {
-            if(QThread::currentThread()->isInterruptionRequested()) {
-                break;
-            }
             Row &r = buffer[b];
             int i = b + block_row;
             int r_last = r.size - 1;
@@ -460,18 +415,11 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::Truncated(const int Nx, const int
     Matrix *W = new Matrix(library, t - 1, t - 1, 2);
 
     for (int block_row = 0; block_row <= t; block_row += block_size) {
-        if(QThread::currentThread()->isInterruptionRequested()) {
-            break;
-        }
-
         int block_length = (block_row + block_size) < t ? block_size : t - block_row;
         std::deque<Row> buffer(block_length);
 
 #pragma omp parallel for
         for (int b = 0; b < block_length; b++) {
-            if(QThread::currentThread()->isInterruptionRequested()) {
-                #pragma omp cancellation point for
-            }
             int i = b + block_row;
             if (!recurrent_mutation && i != 0) {
                 buffer[b] = binom_row(2 * Ny, psi_diploid(i, Nx, s, h, 0, 0), alpha);
@@ -481,9 +429,6 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::Truncated(const int Nx, const int
         }
 
         for (int b = 0; b < block_length; b++) {
-            if(QThread::currentThread()->isInterruptionRequested()) {
-                break;
-            }
             Row &r = buffer[b];
             int i = b + block_row;
             // int r_last = r.size - 1;
@@ -579,10 +524,6 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::Switching(const lvec &N, const ab
     std::deque<std::pair<int, int>> index = submatrix_indeces(sizes);
 
     for (int block_row = 0; block_row <= size; block_row += block_size) {
-        if(QThread::currentThread()->isInterruptionRequested()) {
-            break;
-        }
-
         int block_length = (block_row + block_size) < size ? block_size : size - block_row;
         std::deque<std::deque<Row>> buffer(block_length);
         for (int b = 0; b < block_length; b++)
@@ -590,10 +531,6 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::Switching(const lvec &N, const ab
 
 #pragma omp parallel for
         for (int b = 0; b < block_length; b++) {
-            if(QThread::currentThread()->isInterruptionRequested()) {
-                #pragma omp cancellation point for
-            }
-
             int row = b + block_row;
             int i = index[row].first;   // model index
             int im = index[row].second; // current index within model i
@@ -606,10 +543,6 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::Switching(const lvec &N, const ab
         }
 
         for (int b = 0; b < block_length; b++) {
-            if(QThread::currentThread()->isInterruptionRequested()) {
-                break;
-            }
-
             int row = b + block_row;
             int i = index[row].first;   // model index
             int im = index[row].second; // current index within model i
@@ -719,20 +652,12 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::NonAbsorbingToFixationOnly(const 
     std::deque<std::pair<int, int>> index = submatrix_indeces(sizes);
 
     for (int block_row = 0; block_row < size; block_row += block_size) {
-        if(QThread::currentThread()->isInterruptionRequested()) {
-            break;
-        }
-
         int block_length = (block_row + block_size) < size ? block_size : size - block_row;
         std::deque<Row> b_1(block_length);
         std::deque<Row> b_2(block_length);
 
 #pragma omp parallel for
         for (int b = 0; b < block_length; b++) {
-            if(QThread::currentThread()->isInterruptionRequested()) {
-                #pragma omp cancellation point for
-            }
-
             int row = block_row + b;
             int i = index[row].first;   // model index
             int im = index[row].second; // current index within model i
@@ -747,9 +672,6 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::NonAbsorbingToFixationOnly(const 
         }
 
         for (int b = 0; b < block_length; b++) {
-            if(QThread::currentThread()->isInterruptionRequested()) {
-                break;
-            }
             int row = block_row + b;
             int offset = (2 * N) + 1;
 
@@ -794,20 +716,12 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::NonAbsorbingToBothAbsorbing(
     std::deque<std::pair<int, int>> index = submatrix_indeces(sizes);
 
     for (int block_row = 0; block_row < size; block_row += block_size) {
-        if(QThread::currentThread()->isInterruptionRequested()) {
-            break;
-        }
-
         int block_length = (block_row + block_size) < size ? block_size : size - block_row;
         std::deque<Row> buffer_1(block_length);
         std::deque<Row> buffer_2(block_length);
 
 #pragma omp parallel for
         for (int b = 0; b < block_length; b++) {
-            if(QThread::currentThread()->isInterruptionRequested()) {
-                #pragma omp cancellation point for
-            }
-
             int row = block_row + b;
             int i = index[row].first; // model index
             int im =
@@ -824,10 +738,6 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::NonAbsorbingToBothAbsorbing(
         }
 
         for (int b = 0; b < block_length; b++) {
-            if(QThread::currentThread()->isInterruptionRequested()) {
-                break;
-            }
-
             int row = block_row + b;
             int offset = (2 * N) + 1;
 
