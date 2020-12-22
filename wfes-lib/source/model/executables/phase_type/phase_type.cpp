@@ -61,6 +61,10 @@ ResultsPhaseType *phase_type::phaseTypeDist() {
 
         // Notify building matrix.
         this->notify(ExecutionStatus::BUILDING_MATRICES);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsPhaseType();
+        }
 
         dmat PH(ConfigPhaseType::max_t, 3);
         dvec c = dvec::Zero(2 * ConfigPhaseType::population_size);
@@ -72,6 +76,10 @@ ResultsPhaseType *phase_type::phaseTypeDist() {
 
         // Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsPhaseType();
+        }
 
         // Save data into file.
         if (ConfigPhaseType::output_Q)
@@ -81,12 +89,20 @@ ResultsPhaseType *phase_type::phaseTypeDist() {
 
         // Notify solving
         this->notify(ExecutionStatus::SOLVING_MATRICES);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsPhaseType();
+        }
 
         dvec R = wf.R.col(0);
         double cdf = 0;
         llong i;
 
         for (i = 0; cdf < ConfigPhaseType::integration_cutoff && i < ConfigPhaseType::max_t; i++) {
+            if(QThread::currentThread()->isInterruptionRequested()) {
+                this->notify(ExecutionStatus::ABORTED);
+                return new ResultsPhaseType();
+            }
 
             double P_abs_t = R.dot(c);
             cdf += P_abs_t;
@@ -124,6 +140,10 @@ ResultsPhaseType *phase_type::phaseTypeDist() {
 
         // Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsPhaseType();
+        }
 
         // Save data into file.
         if (ConfigPhaseType::output_P) {
@@ -180,6 +200,11 @@ ResultsPhaseType *phase_type::phaseTypeMoment() {
 
         //Notify building matrix.
         this->notify(ExecutionStatus::BUILDING_MATRICES);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsPhaseType();
+        }
+
 
         wrightfisher::Matrix wf = wrightfisher::Single(ConfigPhaseType::population_size, ConfigPhaseType::population_size, wrightfisher::FIXATION_ONLY,
                                                        s, ConfigPhaseType::h, u, v,
@@ -187,6 +212,11 @@ ResultsPhaseType *phase_type::phaseTypeMoment() {
 
         //Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsPhaseType();
+        }
+
 
         //Save data into file.
         if (ConfigPhaseType::output_Q)
@@ -196,6 +226,11 @@ ResultsPhaseType *phase_type::phaseTypeMoment() {
 
         //Notify solving
         this->notify(ExecutionStatus::SOLVING_MATRICES);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsPhaseType();
+        }
+
 
         wf.Q->subtractIdentity();
         Solver* solver = SolverFactory::createSolver(ConfigPhaseType::library, *(wf.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC,
@@ -213,6 +248,11 @@ ResultsPhaseType *phase_type::phaseTypeMoment() {
         m.col(1) = solver->solve(rhs, false);
 
         for(llong i = 1; i < ConfigPhaseType::k; i++) {
+            if(QThread::currentThread()->isInterruptionRequested()) {
+                this->notify(ExecutionStatus::ABORTED);
+                return new ResultsPhaseType();
+            }
+
             z(i + 1) = -1;
             for (llong j = i; j > 0; j--) {
                 z(j) = z(j - 1) - z(j);
@@ -234,6 +274,10 @@ ResultsPhaseType *phase_type::phaseTypeMoment() {
 
         // Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsPhaseType();
+        }
 
         // Save data into file.
         if(ConfigPhaseType::output_Moments)

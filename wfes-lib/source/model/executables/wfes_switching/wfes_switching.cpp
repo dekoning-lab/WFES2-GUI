@@ -64,6 +64,10 @@ ResultsWfesSwitching *wfes_switching::absorption() {
 
         //Notify building matrix.
         this->notify(ExecutionStatus::BUILDING_MATRICES);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfesSwitching();
+        }
 
         wrightfisher::Matrix W = wrightfisher::Switching(ConfigWfesSwitching::N, wrightfisher::BOTH_ABSORBING,
                 s, ConfigWfesSwitching::h, u, v, r, ConfigWfesSwitching::a, msg_level);
@@ -73,6 +77,10 @@ ResultsWfesSwitching *wfes_switching::absorption() {
 
         //Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfesSwitching();
+        }
 
         //Save data into file.
         if (ConfigWfesSwitching::output_Q)
@@ -82,6 +90,10 @@ ResultsWfesSwitching *wfes_switching::absorption() {
 
         //Notify solving
         this->notify(ExecutionStatus::SOLVING_MATRICES);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfesSwitching();
+        }
 
         W.Q->subtractIdentity();
 
@@ -90,6 +102,10 @@ ResultsWfesSwitching *wfes_switching::absorption() {
         Solver* solver = SolverFactory::createSolver(ConfigWfesSwitching::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, ConfigWfesSwitching::vienna_solver);
 
         solver->preprocess();
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfesSwitching();
+        }
 
         // Get initial probabilities of mu within each model
         lvec nnz_p0(ConfigWfesSwitching::num_comp);
@@ -114,6 +130,10 @@ ResultsWfesSwitching *wfes_switching::absorption() {
         for (llong i_ = 0; i_ < si.size(); i_++) {
             llong i = si[i_];
             for(llong o_ = 0; o_ < nnz_p0[i_]; o_++) {
+                if(QThread::currentThread()->isInterruptionRequested()) {
+                    this->notify(ExecutionStatus::ABORTED);
+                    return new ResultsWfesSwitching();
+                }
                 llong idx = i + o_;
                 id.setZero();
                 id(idx) = 1;
@@ -135,6 +155,10 @@ ResultsWfesSwitching *wfes_switching::absorption() {
         for (llong i_ = 0; i_ < si.size(); i_++) {
             llong i = si[i_];
             for(llong o_ = 0; o_ < nnz_p0[i_]; o_++) {
+                if(QThread::currentThread()->isInterruptionRequested()) {
+                    this->notify(ExecutionStatus::ABORTED);
+                    return new ResultsWfesSwitching();
+                }
                 double o = p0[i_](o_);
                 llong idx = i + o_;
 
@@ -174,6 +198,10 @@ ResultsWfesSwitching *wfes_switching::absorption() {
         for (llong i_ = 0; i_ < si.size(); i_++) {
             llong i = si[i_];
             for(llong o_ = 0; o_ < nnz_p0[i_]; o_++) {
+                if(QThread::currentThread()->isInterruptionRequested()) {
+                    this->notify(ExecutionStatus::ABORTED);
+                    return new ResultsWfesSwitching();
+                }
                 double o = p0[i_](o_);
                 llong idx = i + o_;
                 double iw = o * ConfigWfesSwitching::p[i_]; // integration weight
@@ -209,6 +237,10 @@ ResultsWfesSwitching *wfes_switching::absorption() {
 
         //Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfesSwitching();
+        }
 
         //Save data into file.
         if (ConfigWfesSwitching::output_N_Ext)
@@ -267,6 +299,10 @@ ResultsWfesSwitching *wfes_switching::absorption() {
 
         //Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfesSwitching();
+        }
 
         //Save data into file.
         if(ConfigWfesSwitching::output_Res)
@@ -298,11 +334,19 @@ ResultsWfesSwitching *wfes_switching::fixation() {
 
         //Notify building matrix.
         this->notify(ExecutionStatus::BUILDING_MATRICES);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfesSwitching();
+        }
 
         wrightfisher::Matrix W = wrightfisher::Switching(ConfigWfesSwitching::N, wrightfisher::FIXATION_ONLY, s, ConfigWfesSwitching::h, u, v, r, ConfigWfesSwitching::a, msg_level);
 
         //Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfesSwitching();
+        }
 
         //Save data into file.
         if (ConfigWfesSwitching::output_Q)
@@ -312,6 +356,10 @@ ResultsWfesSwitching *wfes_switching::fixation() {
 
         //Notify solving
         this->notify(ExecutionStatus::SOLVING_MATRICES);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfesSwitching();
+        }
 
         W.Q->subtractIdentity();
 
@@ -321,6 +369,10 @@ ResultsWfesSwitching *wfes_switching::fixation() {
         Solver* solver = SolverFactory::createSolver(ConfigWfesSwitching::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, ConfigWfesSwitching::vienna_solver);
 
         solver->preprocess();
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfesSwitching();
+        }
 
         dmat N(ConfigWfesSwitching::num_comp, size);
         lvec start_state_index(ConfigWfesSwitching::num_comp);
@@ -336,6 +388,10 @@ ResultsWfesSwitching *wfes_switching::fixation() {
             N.row(i) = solver->solve(id, true);
             N.row(i) *= ConfigWfesSwitching::p(i);
         }
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfesSwitching();
+        }
 
         double T_fix = N.sum();
         double rate = 1.0 / T_fix;
@@ -349,6 +405,10 @@ ResultsWfesSwitching *wfes_switching::fixation() {
 
         //Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfesSwitching();
+        }
 
         //Save data into file.
         if (ConfigWfesSwitching::output_N)

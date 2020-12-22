@@ -1,5 +1,7 @@
 #include "time_dist.h"
 
+#include <QThread>
+
 using namespace wfes::controllers;
 using namespace wfes::wrightfisher;
 using namespace wfes::utils;
@@ -69,12 +71,20 @@ ResultsTimeDist *time_dist::timeDist() {
 
         // Notify building matrix.
         this->notify(ExecutionStatus::BUILDING_MATRICES);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsTimeDist();
+        }
 
         wrightfisher::Matrix wf = wrightfisher::Single(ConfigTimeDist::population_size, ConfigTimeDist::population_size, wrightfisher::BOTH_ABSORBING, s, ConfigTimeDist::h, u, v,
                                    ConfigTimeDist::rem, ConfigTimeDist::a, msg_level, ConfigTimeDist::b);
 
         // Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsTimeDist();
+        }
 
         // Save data into file.
         if (ConfigTimeDist::output_Q)
@@ -84,6 +94,10 @@ ResultsTimeDist *time_dist::timeDist() {
 
         //Notify solving
         this->notify(ExecutionStatus::SOLVING_MATRICES);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsTimeDist();
+        }
 
         dmat PH(ConfigTimeDist::max_t, 5);
 
@@ -93,6 +107,11 @@ ResultsTimeDist *time_dist::timeDist() {
         double cdf = 0;
         llong i;
         for (i = 0; cdf < ConfigTimeDist::integration_cutoff && i < ConfigTimeDist::max_t; i++) {
+            if(QThread::currentThread()->isInterruptionRequested()) {
+                this->notify(ExecutionStatus::ABORTED);
+                return new ResultsTimeDist();
+            }
+
             double P_ext_t = wf.R.col(0).dot(c);
             double P_fix_t = wf.R.col(1).dot(c);
             cdf += P_fix_t + P_ext_t;
@@ -144,6 +163,11 @@ ResultsTimeDist *time_dist::timeDist() {
 
         // Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsTimeDist();
+        }
+
 
         // Save data into file.
         if (ConfigTimeDist::output_P) {
@@ -205,6 +229,10 @@ ResultsTimeDist *time_dist::timeDistSGV() {
 
         //Notify building matrix.
         this->notify(ExecutionStatus::BUILDING_MATRICES);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsTimeDist();
+        }
 
         dmat switching(2, 2); switching << 1 - ConfigTimeDistSGV::l, ConfigTimeDistSGV::l, 0, 1;
 
@@ -212,6 +240,10 @@ ResultsTimeDist *time_dist::timeDistSGV() {
 
         //Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsTimeDist();
+        }
 
         // Save data into file.
         if (ConfigTimeDist::output_Q)
@@ -221,6 +253,10 @@ ResultsTimeDist *time_dist::timeDistSGV() {
 
         // Notify solving
         this->notify(ExecutionStatus::SOLVING_MATRICES);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsTimeDist();
+        }
 
         dmat PH(ConfigTimeDistSGV::max_t, 3);
 
@@ -231,6 +267,10 @@ ResultsTimeDist *time_dist::timeDistSGV() {
         double cdf = 0;
         llong i;
         for (i = 0; cdf < ConfigTimeDistSGV::integration_cutoff && i < ConfigTimeDistSGV::max_t; i++) {
+            if(QThread::currentThread()->isInterruptionRequested()) {
+                this->notify(ExecutionStatus::ABORTED);
+                return new ResultsTimeDist();
+            }
 
             double P_abs_t = R.dot(c);
             cdf += P_abs_t;
@@ -266,6 +306,10 @@ ResultsTimeDist *time_dist::timeDistSGV() {
 
         // Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsTimeDist();
+        }
 
         // Save data into file.
         if (ConfigTimeDist::output_P) {
@@ -352,6 +396,10 @@ ResultsTimeDist *time_dist::timeDistSkip() {
         llong i;
 
         for (i = 0; cdf < ConfigTimeDist::integration_cutoff && i < ConfigTimeDist::max_t; i++) {
+            if(QThread::currentThread()->isInterruptionRequested()) {
+                this->notify(ExecutionStatus::ABORTED);
+                return new ResultsTimeDist();
+            }
 
             double P_abs_t = wf.R.col(0).dot(c);
             cdf += P_abs_t;
@@ -474,6 +522,10 @@ ResultsTimeDist *time_dist::timeDistDual() {
         double cdf = 0;
         llong i;
         for (i = 0; cdf < ConfigTimeDist::integration_cutoff && i < ConfigTimeDist::max_t; i++) {
+            if(QThread::currentThread()->isInterruptionRequested()) {
+                this->notify(ExecutionStatus::ABORTED);
+                return new ResultsTimeDist();
+            }
 
             double P_ext_t = wf.R.col(0).dot(c);
             double P_fix_t = wf.R.col(1).dot(c);

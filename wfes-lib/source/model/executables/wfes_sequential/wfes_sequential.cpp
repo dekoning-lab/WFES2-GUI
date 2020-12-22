@@ -41,6 +41,10 @@ ResultsWfesSequential *wfes_sequential::function() {
 
         //Notify building matrix.
         this->notify(ExecutionStatus::BUILDING_MATRICES);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfesSequential();
+        }
 
         // Main calculation {{{
         llong size = (2 * ConfigWfesSequential::N.sum()) - ConfigWfesSequential::num_comp;
@@ -67,6 +71,10 @@ ResultsWfesSequential *wfes_sequential::function() {
 
         //Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfesSequential();
+        }
 
         //Save data into file.
         if (ConfigWfesSequential::output_Q)
@@ -78,10 +86,18 @@ ResultsWfesSequential *wfes_sequential::function() {
 
         //Notify solving
         this->notify(ExecutionStatus::SOLVING_MATRICES);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfesSequential();
+        }
 
         Solver* solver = SolverFactory::createSolver(ConfigWfesSequential::library, *(W.Q), MKL_PARDISO_MATRIX_TYPE_REAL_UNSYMMETRIC, msg_level, ConfigWfesSequential::vienna_solver);
 
         solver->preprocess();
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfesSequential();
+        }
 
         // Get initial probabilities of mu within each model
         lvec nnz_p0(ConfigWfesSequential::num_comp);
@@ -106,6 +122,10 @@ ResultsWfesSequential *wfes_sequential::function() {
         for (llong i_ = 0; i_ < si.size(); i_++) {
             llong i = si[i_];
             for(llong o_ = 0; o_ < nnz_p0[i_]; o_++) {
+                if(QThread::currentThread()->isInterruptionRequested()) {
+                    this->notify(ExecutionStatus::ABORTED);
+                    return new ResultsWfesSequential();
+                }
                 llong idx = i + o_;
                 id.setZero();
                 id(idx) = 1;
@@ -138,6 +158,10 @@ ResultsWfesSequential *wfes_sequential::function() {
         for (llong i_ = 0; i_ < si.size(); i_++) {
             llong i = si[i_];
             for(llong o_ = 0; o_ < nnz_p0[i_]; o_++) {
+                if(QThread::currentThread()->isInterruptionRequested()) {
+                    this->notify(ExecutionStatus::ABORTED);
+                    return new ResultsWfesSequential();
+                }
                 double o = p0[i_](o_);
                 llong idx = i + o_;
                 double iw = o * ConfigWfesSequential::p[i_]; //integration_weight
@@ -173,6 +197,10 @@ ResultsWfesSequential *wfes_sequential::function() {
 
         //Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfesSequential();
+        }
 
         // Save data into file.
         if(ConfigWfesSequential::output_N_Ext)
@@ -234,6 +262,10 @@ ResultsWfesSequential *wfes_sequential::function() {
 
         //Notify saving data.
         this->notify(ExecutionStatus::SAVING_DATA);
+        if(QThread::currentThread()->isInterruptionRequested()) {
+            this->notify(ExecutionStatus::ABORTED);
+            return new ResultsWfesSequential();
+        }
 
         // Save data into file.
         if(ConfigWfesSequential::output_Res)

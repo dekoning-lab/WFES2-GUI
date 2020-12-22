@@ -531,7 +531,6 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::Switching(const lvec &N, const ab
 
 #pragma omp parallel for
         for (int b = 0; b < block_length; b++) {
-
             int row = b + block_row;
             int i = index[row].first;   // model index
             int im = index[row].second; // current index within model i
@@ -632,8 +631,7 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::Switching(const lvec &N, const ab
     return *W;
 }
 
-wfes::wrightfisher::Matrix
-wfes::wrightfisher::NonAbsorbingToFixationOnly(const int N, const dvec &s, const dvec &h, const dvec &u,
+wfes::wrightfisher::Matrix wfes::wrightfisher::NonAbsorbingToFixationOnly(const int N, const dvec &s, const dvec &h, const dvec &u,
                                          const dvec &v, const dmat &switching, const double alpha,
                                          const bool verbose, const int block_size, std::string library) {
     time_point t_start, t_end;
