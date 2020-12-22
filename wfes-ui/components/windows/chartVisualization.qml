@@ -475,66 +475,66 @@ ApplicationWindow {
             if(chart1Linear.title == "WFES Single - Equilibrium") {
                 if(chart1Linear.visible || chart1Log.visible) {
                     name = "wfes-single-equilibrium";
-                    chartResults.saveChartSVG("Wfes Single Equilibrium Dist.", scaleButton.checked, url, "chart-" + name)
+                    chartResults.saveChartSVG("Wfes Single Equilibrium Dist.", scaleButton.checked, url, axisYLinear.min, axisYLinear.max, "chart-" + name)
                 }
             }
             if(chart1Linear.title == "Phase Type Dist.") {
                 if(chart1Linear.visible || chart1Log.visible) {
                     name = "phase-type-dist";
-                    chartResults.saveChartSVG("Phase Type Dist.", scaleButton.checked, url, "chart-" + name)
+                    chartResults.saveChartSVG("Phase Type Dist.", scaleButton.checked, url, axisYLinear.min, axisYLinear.max, "chart-" + name)
                 } else if (chart2Linear.visible || chart2Log.visible) {
                     name = "phase-type-acum";
-                    chartResults.saveChartSVG("Phase Type Acum.", scaleButton.checked, url, "chart-" + name)
+                    chartResults.saveChartSVG("Phase Type Acum.", scaleButton.checked, axisY2Linear.min, axisY2Linear.max, url, "chart-" + name)
                 }
             }
             if(chart1Linear.title == "WFAF-S") {
                 name = "wfafs-dist";
-                chartResults.saveChartSVG("Wfafs Dist.", scaleButton.checked, url, "chart-" + name)
+                chartResults.saveChartSVG("Wfafs Dist.", scaleButton.checked, url, axisYLinear.min, axisYLinear.max, "chart-" + name)
             }
             if(chart1Linear.title == "WFAF-D") {
                 name = "wfafd-dist";
-                chartResults.saveChartSVG("Wfafd Dist.", scaleButton.checked, url, "chart-" + name)
+                chartResults.saveChartSVG("Wfafd Dist.", scaleButton.checked, url, axisYLinear.min, axisYLinear.max, "chart-" + name)
             }
             if(chart1Linear.title == "Time Dist.") {
                 if(chart1Linear.visible || chart1Log.visible) {
                     name = "time-dist-ext";
-                    chartResults.saveChartSVG("Time Dist. Ext.", scaleButton.checked, url, "chart-" + name)
+                    chartResults.saveChartSVG("Time Dist. Ext.", scaleButton.checked, url, axisYLinear.min, axisYLinear.max, "chart-" + name)
                 } else if (chart2Linear.visible || chart2Log.visible) {
                     name = "time-dist-fix";
-                    chartResults.saveChartSVG("Time Dist. Fix.", scaleButton.checked, url, "chart-" + name)
+                    chartResults.saveChartSVG("Time Dist. Fix.", scaleButton.checked, url, axisY2Linear.min, axisY2Linear.max, "chart-" + name)
                 } else if (chart3Linear.visible || chart3Log.visible) {
                     name = "time-dist-abs";
-                    chartResults.saveChartSVG("Time Dist. Abs.", scaleButton.checked, url, "chart-" + name)
+                    chartResults.saveChartSVG("Time Dist. Abs.", scaleButton.checked, url, axisY3Linear.min, axisY3Linear.max, "chart-" + name)
                 }
             }
             if(chart1Linear.title == "Time Dist. SGV") {
                 if(chart1Linear.visible || chart1Log.visible) {
                     name = "time-dist-sgv-sub";
-                    chartResults.saveChartSVG("Time Dist. SGV Sub.", scaleButton.checked, url, "chart-" + name)
+                    chartResults.saveChartSVG("Time Dist. SGV Sub.", scaleButton.checked, url, axisYLinear.min, axisYLinear.max, "chart-" + name)
                 } else if (chart2Linear.visible || chart2Log.visible) {
                     name = "time-dist-sgv-acum";
-                    chartResults.saveChartSVG("Time Dist. SGV Acum.", scaleButton.checked, url, "chart-" + name)
+                    chartResults.saveChartSVG("Time Dist. SGV Acum.", scaleButton.checked, url, axisY2Linear.min, axisY2Linear.max, "chart-" + name)
                 }
             }
             if(chart1Linear.title == "Time Dist. Skip") {
                 if(chart1Linear.visible || chart1Log.visible) {
                     name = "time-dist-skip-sub";
-                    chartResults.saveChartSVG("Time Dist. Skip Sub.", scaleButton.checked, url, "chart-" + name)
+                    chartResults.saveChartSVG("Time Dist. Skip Sub.", scaleButton.checked, url, axisYLinear.min, axisYLinear.max, "chart-" + name)
                 } else if (chart2Linear.visible || chart2Log.visible) {
                     name = "time-dist-skip-acum";
-                    chartResults.saveChartSVG("Time Dist. Skip Acum.", scaleButton.checked, url, "chart-" + name)
+                    chartResults.saveChartSVG("Time Dist. Skip Acum.", scaleButton.checked, url, axisY2Linear.min, axisY2Linear.max, "chart-" + name)
                 }
             }
             if(chart1Linear.title == "Time Dist. Dual") {
                 if(chart1Linear.visible || chart1Log.visible) {
                     name = "time-dist-dual-ext";
-                    chartResults.saveChartSVG("Time Dist. Dual Ext.", scaleButton.checked, url, "chart-" + name)
+                    chartResults.saveChartSVG("Time Dist. Dual Ext.", scaleButton.checked, url, axisYLinear.min, axisYLinear.max, "chart-" + name)
                 } else if (chart2Linear.visible || chart2Log.visible) {
                     name = "time-dist-dual-fix";
-                    chartResults.saveChartSVG("Time Dist. Dual Fix.", scaleButton.checked, url, "chart-" + name)
+                    chartResults.saveChartSVG("Time Dist. Dual Fix.", scaleButton.checked, url, axisY2Linear.min, axisY2Linear.max, "chart-" + name)
                 } else if (chart3Linear.visible || chart3Log.visible) {
                     name = "time-dist-dual-abs";
-                    chartResults.saveChartSVG("Time Dist. Dual Abs.", scaleButton.checked, url, "chart-" + name)
+                    chartResults.saveChartSVG("Time Dist. Dual Abs.", scaleButton.checked, url, axisY3Linear.min, axisY3Linear.max, "chart-" + name)
                 }
             }
 

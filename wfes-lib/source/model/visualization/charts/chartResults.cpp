@@ -103,7 +103,7 @@ QPointF ChartResults::updateChart(QString name, QAbstractSeries *p_series) {
     }
 }
 
-void ChartResults::saveChartSVG(QString title, bool log, QString filePath, QString name) {
+void ChartResults::saveChartSVG(QString title, bool log, QString filePath, double min, double max, QString name) {
     QLineSeries *series = new QLineSeries();
     QLineSeries *series2 = new QLineSeries();
 
@@ -141,8 +141,8 @@ void ChartResults::saveChartSVG(QString title, bool log, QString filePath, QStri
         series->attachAxis(axisX);
 
         // Add axes Y to chart, and attach to series.
-        axisY->setMin(ChartResults::minMaxWfesSingleEquilibrium.x());
-        axisY->setMax(ChartResults::minMaxWfesSingleEquilibrium.y());
+        axisY->setMin(min);
+        axisY->setMax(max);
         chart->addAxis(axisY, Qt::AlignLeft);
         series->attachAxis(axisY);
     } else if(title.compare("Phase Type Dist.") == 0) {
@@ -160,8 +160,8 @@ void ChartResults::saveChartSVG(QString title, bool log, QString filePath, QStri
         series->attachAxis(axisX);
 
         // Add axes Y to chart, and attach to series.
-        axisY->setMin(ChartResults::minMaxPhaseTypeDist.x());
-        axisY->setMax(ChartResults::minMaxPhaseTypeDist.y());
+        axisY->setMin(min);
+        axisY->setMax(max);
         chart->addAxis(axisY, Qt::AlignLeft);
         series->attachAxis(axisY);
 
@@ -180,8 +180,8 @@ void ChartResults::saveChartSVG(QString title, bool log, QString filePath, QStri
         series->attachAxis(axisX);
 
         // Add axes Y to chart, and attach to series.
-        axisY->setMin(ChartResults::minMaxPhaseTypeAcum.x());
-        axisY->setMax(ChartResults::minMaxPhaseTypeAcum.y());
+        axisY->setMin(min);
+        axisY->setMax(max);
         chart->addAxis(axisY, Qt::AlignLeft);
         series->attachAxis(axisY);
 
@@ -200,8 +200,8 @@ void ChartResults::saveChartSVG(QString title, bool log, QString filePath, QStri
         series->attachAxis(axisX);
 
         // Add axes Y to chart, and attach to series.
-        axisY->setMin(ChartResults::minMaxwfafsDist.x());
-        axisY->setMax(ChartResults::minMaxwfafsDist.y());
+        axisY->setMin(min);
+        axisY->setMax(max);
         chart->addAxis(axisY, Qt::AlignLeft);
         series->attachAxis(axisY);
     } else if (title.compare("Wfafd Dist.") == 0) {
@@ -219,8 +219,8 @@ void ChartResults::saveChartSVG(QString title, bool log, QString filePath, QStri
         series->attachAxis(axisX);
 
         // Add axes Y to chart, and attach to series.
-        axisY->setMin(ChartResults::minMaxwfafdDist.x());
-        axisY->setMax(ChartResults::minMaxwfafdDist.y());
+        axisY->setMin(min);
+        axisY->setMax(max);
         chart->addAxis(axisY, Qt::AlignLeft);
         series->attachAxis(axisY);
     } else if (title.compare("Time Dist. Ext.") == 0) {
@@ -238,8 +238,8 @@ void ChartResults::saveChartSVG(QString title, bool log, QString filePath, QStri
         series->attachAxis(axisX);
 
         // Add axes Y to chart, and attach to series.
-        axisY->setMin(ChartResults::minMaxTimeDistExt.x());
-        axisY->setMax(ChartResults::minMaxTimeDistExt.y());
+        axisY->setMin(min);
+        axisY->setMax(max);
         chart->addAxis(axisY, Qt::AlignLeft);
         series->attachAxis(axisY);
     } else if (title.compare("Time Dist. Fix.") == 0) {
@@ -257,8 +257,8 @@ void ChartResults::saveChartSVG(QString title, bool log, QString filePath, QStri
         series->attachAxis(axisX);
 
         // Add axes Y to chart, and attach to series.
-        axisY->setMin(ChartResults::minMaxTimeDistFix.x());
-        axisY->setMax(ChartResults::minMaxTimeDistFix.y());
+        axisY->setMin(min);
+        axisY->setMax(max);
         chart->addAxis(axisY, Qt::AlignLeft);
         series->attachAxis(axisY);
     } else if (title.compare("Time Dist. Abs.") == 0) {
@@ -280,8 +280,8 @@ void ChartResults::saveChartSVG(QString title, bool log, QString filePath, QStri
         series2->attachAxis(axisX);
 
         // Add axes Y to chart, and attach to series.
-        axisY->setMin(ChartResults::minMaxTimeDistAbs.x());
-        axisY->setMax(ChartResults::minMaxTimeDistAcum.y());
+        axisY->setMin(min);
+        axisY->setMax(max);
         chart->addAxis(axisY, Qt::AlignLeft);
         series->attachAxis(axisY);
         series2->attachAxis(axisY);
@@ -300,8 +300,8 @@ void ChartResults::saveChartSVG(QString title, bool log, QString filePath, QStri
         series->attachAxis(axisX);
 
         // Add axes Y to chart, and attach to series.
-        axisY->setMin(ChartResults::minMaxTimeDistSGVSub.x());
-        axisY->setMax(ChartResults::minMaxTimeDistSGVSub.y());
+        axisY->setMin(min);
+        axisY->setMax(max);
         chart->addAxis(axisY, Qt::AlignLeft);
         series->attachAxis(axisY);
     } else if (title.compare("Time Dist. SGV Acum.") == 0) {
@@ -319,8 +319,8 @@ void ChartResults::saveChartSVG(QString title, bool log, QString filePath, QStri
         series->attachAxis(axisX);
 
         // Add axes Y to chart, and attach to series.
-        axisY->setMin(ChartResults::minMaxTimeDistSGVAcum.x());
-        axisY->setMax(ChartResults::minMaxTimeDistSGVAcum.y());
+        axisY->setMin(min);
+        axisY->setMax(max);
         chart->addAxis(axisY, Qt::AlignLeft);
         series->attachAxis(axisY);
     } else if (title.compare("Time Dist. Skip Sub.") == 0) {
@@ -338,8 +338,8 @@ void ChartResults::saveChartSVG(QString title, bool log, QString filePath, QStri
         series->attachAxis(axisX);
 
         // Add axes Y to chart, and attach to series.
-        axisY->setMin(ChartResults::minMaxTimeDistSkipSub.x());
-        axisY->setMax(ChartResults::minMaxTimeDistSkipSub.y());
+        axisY->setMin(min);
+        axisY->setMax(max);
         chart->addAxis(axisY, Qt::AlignLeft);
         series->attachAxis(axisY);
     } else if (title.compare("Time Dist. Skip Acum.") == 0) {
@@ -357,8 +357,8 @@ void ChartResults::saveChartSVG(QString title, bool log, QString filePath, QStri
         series->attachAxis(axisX);
 
         // Add axes Y to chart, and attach to series.
-        axisY->setMin(ChartResults::minMaxTimeDistSkipAcum.x());
-        axisY->setMax(ChartResults::minMaxTimeDistSkipAcum.y());
+        axisY->setMin(min);
+        axisY->setMax(max);
         chart->addAxis(axisY, Qt::AlignLeft);
         series->attachAxis(axisY);
     } else if (title.compare("Time Dist. Dual Ext.") == 0) {
@@ -376,8 +376,8 @@ void ChartResults::saveChartSVG(QString title, bool log, QString filePath, QStri
         series->attachAxis(axisX);
 
         // Add axes Y to chart, and attach to series.
-        axisY->setMin(ChartResults::minMaxTimeDistDualExt.x());
-        axisY->setMax(ChartResults::minMaxTimeDistDualExt.y());
+        axisY->setMin(min);
+        axisY->setMax(max);
         chart->addAxis(axisY, Qt::AlignLeft);
         series->attachAxis(axisY);
     } else if (title.compare("Time Dist. Dual Fix.") == 0) {
@@ -395,8 +395,8 @@ void ChartResults::saveChartSVG(QString title, bool log, QString filePath, QStri
         series->attachAxis(axisX);
 
         // Add axes Y to chart, and attach to series.
-        axisY->setMin(ChartResults::minMaxTimeDistDualFix.x());
-        axisY->setMax(ChartResults::minMaxTimeDistDualFix.y());
+        axisY->setMin(min);
+        axisY->setMax(max);
         chart->addAxis(axisY, Qt::AlignLeft);
         series->attachAxis(axisY);
     } else if (title.compare("Time Dist. Dual Abs.") == 0) {
@@ -418,8 +418,8 @@ void ChartResults::saveChartSVG(QString title, bool log, QString filePath, QStri
         series2->attachAxis(axisX);
 
         // Add axes Y to chart, and attach to series.
-        axisY->setMin(ChartResults::minMaxTimeDistDualAbs.x());
-        axisY->setMax(ChartResults::minMaxTimeDistDualAcum.y());
+        axisY->setMin(min);
+        axisY->setMax(max);
         chart->addAxis(axisY, Qt::AlignLeft);
         series->attachAxis(axisY);
         series2->attachAxis(axisY);

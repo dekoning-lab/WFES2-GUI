@@ -102,7 +102,7 @@ namespace wfes {
                  * @param filePath Path of the saved file.
                  * @param name Name of the saved file.
                  */
-                Q_INVOKABLE void saveChartSVG(QString title, bool log, QString filePath, QString name);
+                Q_INVOKABLE void saveChartSVG(QString title, bool log, QString filePath, double min, double max, QString name);
 
                 /**
                  * @brief Clear all values in the series.
