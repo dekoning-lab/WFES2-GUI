@@ -345,9 +345,12 @@ ApplicationWindow {
                     chart2Log.visible = false
                     chart3Log.visible = false
                 }
-                    bt1.enabled = false
-                    bt2.enabled = true
-                    bt3.enabled = true
+                bt1.enabled = false
+                bt2.enabled = true
+                bt3.enabled = true
+
+                maxYValue.textFieldText = axisYLinear.max.toExponential(4);
+                minYValue.textFieldText = axisYLinear.min.toExponential(4);
             }
         }
 
@@ -378,6 +381,9 @@ ApplicationWindow {
                 bt1.enabled = true
                 bt2.enabled = false
                 bt3.enabled = true
+
+                maxYValue.textFieldText = axisY2Linear.max.toExponential(4);
+                minYValue.textFieldText = axisY2Linear.min.toExponential(4);
             }
         }
 
@@ -408,6 +414,9 @@ ApplicationWindow {
                 bt1.enabled = true
                 bt2.enabled = true
                 bt3.enabled = false
+
+                maxYValue.textFieldText = axisY3Linear.max.toExponential(4);
+                minYValue.textFieldText = axisY3Linear.min.toExponential(4);
             }
         }
     }
@@ -567,6 +576,98 @@ ApplicationWindow {
         }
     }
 
+    ColumnLayout {
+
+        anchors {
+            bottom: parent.bottom
+            right: parent.right
+        }
+
+        Button {
+            id: resetAxis
+            text: "Reset Y Axis"
+            onClicked: {
+                if(chart1Linear.visible || chart1Log.visible) {
+                    axisYLinear.max = maxYValue.defaultMax1
+                    axisYLinear.min = minYValue.defaultMin1
+                    axisY1Log.max = maxYValue.defaultMax1
+                    axisY1Log.min = minYValue.defaultMin1
+                    maxYValue.textFieldText = maxYValue.defaultMax1.toExponential(4);
+                    minYValue.textFieldText = minYValue.defaultMin1.toExponential(4);
+                } else if(chart2Linear.visible || chart2Log.visible) {
+                    axisY2Linear.max = maxYValue.defaultMax2
+                    axisY2Linear.min = minYValue.defaultMin2
+                    axisY2Log.max = maxYValue.defaultMax2
+                    axisY2Log.min = minYValue.defaultMin2
+                    maxYValue.textFieldText = maxYValue.defaultMax2.toExponential(4);
+                    minYValue.textFieldText = minYValue.defaultMin2.toExponential(4);
+                } else if(chart3Linear.visible || chart3Log.visible) {
+                    axisY3Linear.max = maxYValue.defaultMax3
+                    axisY3Linear.min = minYValue.defaultMin3
+                    axisY3Log.max = maxYValue.defaultMax3
+                    axisY3Log.min = minYValue.defaultMin3
+                    maxYValue.textFieldText = maxYValue.defaultMax3.toExponential(4);
+                    minYValue.textFieldText = minYValue.defaultMin3.toExponential(4);
+                }
+            }
+        }
+
+        LabeledTextField {
+            property var defaultMax1: 0
+            property var defaultMax2: 0
+            property var defaultMax3: 0
+            id: maxYValue
+            textFieldText: "0"
+            text: "Max. Y: "
+            labelPreferredWidth: 50
+            textFieldTextEdited: function() {
+                if(!Number.isNaN(Number(maxYValue.textFieldText)) && parseFloat(maxYValue.textFieldText) >= parseFloat(maxYValue.textFieldText)) {
+                    borderColor = "#555555"
+                    if(chart1Linear.visible || chart1Log.visible) {
+                        axisYLinear.max = parseFloat(maxYValue.textFieldText)
+                        axisY1Log.max = parseFloat(maxYValue.textFieldText)
+                    } else if(chart2Linear.visible || chart2Log.visible) {
+                        axisY2Linear.max = parseFloat(maxYValue.textFieldText)
+                        axisY2Log.max = parseFloat(maxYValue.textFieldText)
+                    } else if(chart3Linear.visible || chart3Log.visible) {
+                        axisY3Linear.max = parseFloat(maxYValue.textFieldText)
+                        axisY3Log.max = parseFloat(maxYValue.textFieldText)
+                    }
+                } else {
+                    borderColor = "#ff0000"
+                }
+            }
+        }
+
+        LabeledTextField {
+            property var defaultMin1: 0
+            property var defaultMin2: 0
+            property var defaultMin3: 0
+            id: minYValue
+            text: "Min. Y: "
+            labelPreferredWidth: 50
+            textFieldText: "0"
+
+            textFieldTextEdited: function() {
+                if(!Number.isNaN(Number(minYValue.textFieldText)) && parseFloat(minYValue.textFieldText) >= parseFloat(minYValue.textFieldText)) {
+                    borderColor = "#555555"
+                    if(chart1Linear.visible || chart1Log.visible) {
+                        axisYLinear.min = parseFloat(minYValue.textFieldText)
+                        axisY1Log.min = parseFloat(minYValue.textFieldText)
+                    } else if(chart2Linear.visible || chart2Log.visible) {
+                        axisY2Linear.min = parseFloat(minYValue.textFieldText)
+                        axisY2Log.min = parseFloat(minYValue.textFieldText)
+                    } else if(chart3Linear.visible || chart3Log.visible) {
+                        axisY3Linear.min = parseFloat(minYValue.textFieldText)
+                        axisY3Log.min = parseFloat(minYValue.textFieldText)
+                    }
+                } else {
+                    borderColor = "#ff0000"
+                }
+            }
+        }
+    }
+
     function enableButtons(bt1_enabled, bt2_enabled, bt3_enabled) {
         bt1.enabled = bt1_enabled
         bt2.enabled = bt2_enabled
@@ -668,6 +769,11 @@ ApplicationWindow {
         var axisPadding = ((minMaxDist.y - minMaxDist.x) - minMaxDist.x) * 0.01
         setValuesAxis(axisXLinear, axisYLinear, 1, lineSeries0Chart1.count, minMaxDist.x - axisPadding, minMaxDist.y + axisPadding)
         setValuesAxis(axisX1Log, axisY1Log, 1, lineSeries0Chart1Log.count, minMaxDist.x - axisPadding, minMaxDist.y + axisPadding)
+
+        minYValue.defaultMin1 = minMaxDist.x - axisPadding;
+        maxYValue.defaultMax1 = minMaxDist.y + axisPadding;
+        minYValue.textFieldText = (minMaxDist.x - axisPadding).toExponential(4);
+        maxYValue.textFieldText = (minMaxDist.y + axisPadding).toExponential(4);
     }
 
     function updatePhaseTypeDistChart() {
@@ -695,6 +801,17 @@ ApplicationWindow {
         axisPadding = ((minMaxAcum.y - minMaxAcum.x) - minMaxAcum.x) * 0.01
         setValuesAxis(axisX2Linear, axisY2Linear, 1, lineSeries0Chart2.at(lineSeries0Chart2.count-1).x, minMaxAcum.x - axisPadding, minMaxAcum.y + axisPadding)
         setValuesAxis(axisX2Log, axisY2Log, 1, lineSeries0Chart2Log.at(lineSeries0Chart2Log.count-1).x, minMaxAcum.x - axisPadding, minMaxAcum.y + axisPadding)
+
+        axisPadding = ((minMaxDist.y - minMaxDist.x) - minMaxDist.x) * 0.01
+        minYValue.defaultMin1 = minMaxDist.x - axisPadding;
+        maxYValue.defaultMax1 = minMaxDist.y + axisPadding;
+        axisPadding = ((minMaxAcum.y - minMaxAcum.x) - minMaxAcum.x) * 0.01
+        minYValue.defaultMin2 = minMaxAcum.x - axisPadding;
+        maxYValue.defaultMax2 = minMaxAcum.y + axisPadding;
+
+        axisPadding = ((minMaxDist.y - minMaxDist.x) - minMaxDist.x) * 0.01
+        minYValue.textFieldText = (minMaxDist.x - axisPadding).toExponential(4);
+        maxYValue.textFieldText = (minMaxDist.y + axisPadding).toExponential(4);
     }
 
     function updateDistWfafs() {
@@ -716,6 +833,12 @@ ApplicationWindow {
         var axisPadding = ((minMaxDist.y - minMaxDist.x) - minMaxDist.x) * 0.01
         setValuesAxis(axisXLinear, axisYLinear, 1, lineSeries0Chart1.count, minMaxDist.x - axisPadding, minMaxDist.y + axisPadding)
         setValuesAxis(axisX1Log, axisY1Log, 1, lineSeries0Chart1Log.count, minMaxDist.x - axisPadding, minMaxDist.y + axisPadding)
+
+        minYValue.defaultMin1 = minMaxDist.x - axisPadding;
+        maxYValue.defaultMax1 = minMaxDist.y + axisPadding;
+
+        minYValue.textFieldText = (minMaxDist.x - axisPadding).toExponential(4);
+        maxYValue.textFieldText = (minMaxDist.y + axisPadding).toExponential(4);
     }
 
     function updateDistWfafd() {
@@ -737,6 +860,12 @@ ApplicationWindow {
         var axisPadding = ((minMaxDist.y - minMaxDist.x) - minMaxDist.x) * 0.01
         setValuesAxis(axisXLinear, axisYLinear, 1, lineSeries0Chart1.count, minMaxDist.x - axisPadding, minMaxDist.y + axisPadding)
         setValuesAxis(axisX1Log, axisY1Log, 1, lineSeries0Chart1Log.count, minMaxDist.x - axisPadding, minMaxDist.y + axisPadding)
+
+        minYValue.defaultMin1 = minMaxDist.x - axisPadding;
+        maxYValue.defaultMax1 = minMaxDist.y + axisPadding;
+
+        minYValue.textFieldText = (minMaxDist.x - axisPadding).toExponential(4);
+        maxYValue.textFieldText = (minMaxDist.y + axisPadding).toExponential(4);
     }
 
     function updateProbTimeDist(name) {
@@ -780,8 +909,19 @@ ApplicationWindow {
             setValuesAxis(axisX3Linear, axisY3Linear, 1, lineSeries0Chart3.count, minChart3 - axisPadding, maxChart3 + axisPadding)
             setValuesAxis(axisX3Log, axisY3Log, 1, lineSeries0Chart3Log.count, minChart3 - axisPadding, maxChart3 + axisPadding)
 
-            setValuesAxis(axisX3Linear, axisY3Linear, 1, lineSeries1Chart3.count, minChart3 - axisPadding, maxChart3 + axisPadding)
-            setValuesAxis(axisX3Log, axisY3Log, 1, lineSeries1Chart3Log.count, minChart3 - axisPadding, maxChart3 + axisPadding)
+            axisPadding = ((minMaxExt.y - minMaxExt.x) - minMaxExt.x) * 0.01
+            minYValue.defaultMin1 = minMaxExt.x - axisPadding;
+            maxYValue.defaultMax1 = minMaxExt.y + axisPadding;
+            axisPadding = ((minMaxFix.y - minMaxFix.x) - minMaxFix.x) * 0.01
+            minYValue.defaultMin2 = minMaxFix.x - axisPadding;
+            maxYValue.defaultMax2 = minMaxFix.y + axisPadding;
+            axisPadding = ((maxChart3 - maxChart3) - minChart3) * 0.01
+            minYValue.defaultMin3 = minChart3 - axisPadding;
+            maxYValue.defaultMax3 = maxChart3 + axisPadding;
+
+            axisPadding = ((minMaxExt.y - minMaxExt.x) - minMaxExt.x) * 0.01
+            minYValue.textFieldText = (minMaxExt.x - axisPadding).toExponential(4);
+            maxYValue.textFieldText = (minMaxExt.y + axisPadding).toExponential(4);
         } else if(name === "Time Dist. SGV") {
             var minMaxSGVSubs = chartResults.updateChart("Time Dist. SGV Sub.", chart1Linear.series(0));
             var minMaxSGVAcum = chartResults.updateChart("Time Dist. SGV Acum.", chart2Linear.series(0));
@@ -807,6 +947,17 @@ ApplicationWindow {
             axisPadding = ((minMaxSGVAcum.y - minMaxSGVAcum.x) - minMaxSGVAcum.x) * 0.01
             setValuesAxis(axisX2Linear, axisY2Linear, 1, lineSeries0Chart2.count, minMaxSGVAcum.x - axisPadding, minMaxSGVAcum.y + axisPadding)
             setValuesAxis(axisX2Log, axisY2Log, 1, lineSeries0Chart2Log.count, minMaxSGVAcum.x - axisPadding, minMaxSGVAcum.y + axisPadding)
+
+            axisPadding = ((minMaxSGVSubs.y - minMaxSGVSubs.x) - minMaxSGVSubs.x) * 0.01
+            minYValue.defaultMin1 = minMaxSGVSubs.x - axisPadding;
+            maxYValue.defaultMax1 = minMaxSGVSubs.y + axisPadding;
+            axisPadding = ((minMaxSGVAcum.y - minMaxSGVAcum.x) - minMaxSGVAcum.x) * 0.01
+            minYValue.defaultMin2 = minMaxSGVAcum.x - axisPadding;
+            maxYValue.defaultMax2 = minMaxSGVAcum.y + axisPadding;
+
+            axisPadding = ((minMaxSGVSubs.y - minMaxSGVSubs.x) - minMaxSGVSubs.x) * 0.01
+            minYValue.textFieldText = (minMaxSGVSubs.x - axisPadding).toExponential(4);
+            maxYValue.textFieldText = (minMaxSGVSubs.y + axisPadding).toExponential(4);
         } else if(name === "Time Dist. Skip") {
             var minMaxSkipSubs = chartResults.updateChart("Time Dist. Skip Sub.", chart1Linear.series(0));
             var minMaxSkipAcum = chartResults.updateChart("Time Dist. Skip Acum.", chart2Linear.series(0));
@@ -833,6 +984,16 @@ ApplicationWindow {
             setValuesAxis(axisX2Linear, axisY2Linear, 1, lineSeries0Chart2.count, minMaxSkipAcum.x - axisPadding, minMaxSkipAcum.y + axisPadding)
             setValuesAxis(axisX2Log, axisY2Log, 1, lineSeries0Chart2Log.count, minMaxSkipAcum.x - axisPadding, minMaxSkipAcum.y + axisPadding)
 
+            axisPadding = ((minMaxSkipSubs.y - minMaxSkipSubs.x) - minMaxSkipSubs.x) * 0.01
+            minYValue.defaultMin1 = minMaxSkipSubs.x - axisPadding;
+            maxYValue.defaultMax1 = minMaxSkipSubs.y + axisPadding;
+            axisPadding = ((minMaxSkipAcum.y - minMaxSkipAcum.x) - minMaxSkipAcum.x) * 0.01
+            minYValue.defaultMin2 = minMaxSkipAcum.x - axisPadding;
+            maxYValue.defaultMax2 = minMaxSkipAcum.y + axisPadding;
+
+            axisPadding = ((minMaxSkipSubs.y - minMaxSkipSubs.x) - minMaxSkipSubs.x) * 0.01
+            minYValue.textFieldText = (minMaxSkipSubs.x - axisPadding).toExponential(4);
+            maxYValue.textFieldText = (minMaxSkipSubs.y + axisPadding).toExponential(4);
         } else if(name === "Time Dist. Dual") {
             var minMaxDualExt = chartResults.updateChart("Time Dist. Dual Ext.", chart1Linear.series(0));
             var minMaxDualFix = chartResults.updateChart("Time Dist. Dual Fix.", chart2Linear.series(0));
@@ -870,8 +1031,19 @@ ApplicationWindow {
             setValuesAxis(axisX3Linear, axisY3Linear, 1, lineSeries0Chart3.count, minChart3 - axisPadding, maxChart3 + axisPadding)
             setValuesAxis(axisX3Log, axisY3Log, 1, lineSeries0Chart3Log.count, minChart3 - axisPadding, maxChart3 + axisPadding)
 
-            setValuesAxis(axisX3Linear, axisY3Linear, 1, lineSeries1Chart3.count, minChart3 - axisPadding, maxChart3 + axisPadding)
-            setValuesAxis(axisX3Log, axisY3Log, 1, lineSeries1Chart3Log.count, minChart3 - axisPadding, maxChart3 + axisPadding)
+            axisPadding = ((minMaxDualExt.y - minMaxDualExt.x) - minMaxDualExt.x) * 0.01
+            minYValue.defaultMin1 = minMaxDualExt.x - axisPadding;
+            maxYValue.defaultMax1 = minMaxDualExt.y + axisPadding;
+            axisPadding = ((minMaxDualFix.y - minMaxDualFix.x) - minMaxDualFix.x) * 0.01
+            minYValue.defaultMin2 = minMaxDualFix.x - axisPadding;
+            maxYValue.defaultMax2 = minMaxDualFix.y + axisPadding;
+            axisPadding = ((maxChart3 - maxChart3) - minChart3) * 0.01
+            minYValue.defaultMin3 = minChart3 - axisPadding;
+            maxYValue.defaultMax3 = maxChart3 + axisPadding;
+
+            axisPadding = ((minMaxDualExt.y - minMaxDualExt.x) - minMaxDualExt.x) * 0.01
+            minYValue.textFieldText = (minMaxDualExt.x - axisPadding).toExponential(4);
+            maxYValue.textFieldText = (minMaxDualExt.y + axisPadding).toExponential(4);
         }
     }
 }
