@@ -6,7 +6,7 @@ QT += gui quick charts svg
 TARGET = wfes-lib
 TEMPLATE = lib
 
-CONFIG += c++11 optimize_full
+CONFIG += c++14 optimize_full
 
 DEFINES += WFESLIB_LIBRARY
 
@@ -206,7 +206,7 @@ macx {
 
 win32 {
 
-    QMAKE_CXXFLAGS += -openmp
+    QMAKE_CXXFLAGS += -openmp -arch:AVX2 -fp:fast -GL -Oi -heap:0x512000000 -stack:512000000
 
     INCLUDEPATH += $$PWD/source/
     INCLUDEPATH += $$PWD/../dependencies/windows/

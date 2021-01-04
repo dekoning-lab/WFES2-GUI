@@ -5,7 +5,7 @@ QT += qml quick quickcontrols2 widgets charts
 
 TEMPLATE = app
 
-CONFIG += c++11
+CONFIG += c++14
 CONFIG += app_bundle
 
 INCLUDEPATH += source \
@@ -85,6 +85,8 @@ macx {
 
 
 win32 {
+
+    QMAKE_CXXFLAGS += -openmp -arch:AVX2 -fp:fast -GL -Oi -heap:0x512000000 -stack:512000000
 
     INCLUDEPATH += $$PWD/source/
     INCLUDEPATH += $$PWD/../dependencies/windows/

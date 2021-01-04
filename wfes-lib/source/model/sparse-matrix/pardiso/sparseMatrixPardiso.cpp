@@ -88,6 +88,7 @@ void SparseMatrixPardiso::appendRow(dvec &row, int col_start, int size) {
 }
 
 void SparseMatrixPardiso::appendChunk(dvec &row, int m0, int r0, int size) {
+
     // Test not full
     assert(!full);
     // Update size
@@ -108,6 +109,7 @@ void SparseMatrixPardiso::appendChunk(dvec &row, int m0, int r0, int size) {
     memcpy(&(data[num_non_zeros]), &(row.data()[r0]), size * sizeof(double));
 
     num_non_zeros += size;
+
 }
 
 void SparseMatrixPardiso::appendValue(double value, int j) {
