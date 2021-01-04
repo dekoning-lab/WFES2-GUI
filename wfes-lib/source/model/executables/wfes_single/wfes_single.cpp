@@ -108,7 +108,7 @@ ResultsWfesSingle *wfes_single::absorption(double s, double u, double v) {
         llong size = (2 * ConfigWfesSingle::population_size) - 1;
 
         if(ConfigWfesSingle::initial_distribution_csv.compare("") != 0 && starting_copies_p.size() != size) {
-            this->notify(ExecutionStatus::ERROR);
+            this->notify(ExecutionStatus::EXECUTION_ERROR);
             return new ResultsWfesSingle("Initial Probability Distribution (I) file must have " + std::to_string(size) + " elements. Your file has just " + std::to_string(starting_copies_p.size()) + " elements.");
         }
 
@@ -293,7 +293,7 @@ ResultsWfesSingle *wfes_single::absorption(double s, double u, double v) {
 
         return res;
     } catch(const std::exception &e) {
-        this->notify(ExecutionStatus::ERROR);
+        this->notify(ExecutionStatus::EXECUTION_ERROR);
         return new ResultsWfesSingle(e.what());
     }
 
@@ -335,7 +335,7 @@ ResultsWfesSingle *wfes_single::fixation(double s, double u, double v) {
         llong size = (2 * ConfigWfesSingle::population_size);
 
         if(ConfigWfesSingle::initial_distribution_csv.compare("") != 0 && starting_copies_p.size() != size) {
-            this->notify(ExecutionStatus::ERROR);
+            this->notify(ExecutionStatus::EXECUTION_ERROR);
             return new ResultsWfesSingle("Initial Probability Distribution (I) file must have " + std::to_string(size) + " elements. Your file has just " + std::to_string(starting_copies_p.size()) + " elements.");
         }
 
@@ -417,7 +417,7 @@ ResultsWfesSingle *wfes_single::fixation(double s, double u, double v) {
 
         return res;
     } catch(const std::exception &e) {
-        this->notify(ExecutionStatus::ERROR);
+        this->notify(ExecutionStatus::EXECUTION_ERROR);
         return new ResultsWfesSingle(e.what());
     }
 }
@@ -434,7 +434,7 @@ ResultsWfesSingle *wfes_single::fundamental(double s, double u, double v) {
         llong size = (2 * ConfigWfesSingle::population_size) - 1;
 
         if(ConfigWfesSingle::initial_distribution_csv.compare("") != 0 && starting_copies_p.size() != size) {
-            this->notify(ExecutionStatus::ERROR);
+            this->notify(ExecutionStatus::EXECUTION_ERROR);
             return new ResultsWfesSingle("Initial Probability Distribution (I) file must have " + std::to_string(size) + " elements. Your file has just " + std::to_string(starting_copies_p.size()) + " elements.");
         }
 
@@ -532,7 +532,7 @@ ResultsWfesSingle *wfes_single::fundamental(double s, double u, double v) {
         return new ResultsWfesSingle(ConfigWfesSingle::modelType, dt.count());
 
     } catch(const std::exception &e) {
-        this->notify(ExecutionStatus::ERROR);
+        this->notify(ExecutionStatus::EXECUTION_ERROR);
         return new ResultsWfesSingle(e.what());
     }
 }
@@ -549,7 +549,7 @@ ResultsWfesSingle *wfes_single::equilibrium(double s, double u, double v) {
         llong size = (2 * ConfigWfesSingle::population_size) + 1;
 
         if(ConfigWfesSingle::initial_distribution_csv.compare("") != 0 && starting_copies_p.size() != size) {
-            this->notify(ExecutionStatus::ERROR);
+            this->notify(ExecutionStatus::EXECUTION_ERROR);
             return new ResultsWfesSingle("Initial Probability Distribution (I) file must have " + std::to_string(size) + " elements. Your file has just " + std::to_string(starting_copies_p.size()) + " elements.");
         }
 
@@ -647,7 +647,7 @@ ResultsWfesSingle *wfes_single::equilibrium(double s, double u, double v) {
 
         return res;
     } catch(const std::exception &e) {
-        this->notify(ExecutionStatus::ERROR);
+        this->notify(ExecutionStatus::EXECUTION_ERROR);
         return new ResultsWfesSingle(e.what());
     }
 }
@@ -677,7 +677,7 @@ ResultsWfesSingle *wfes_single::establishment(double s, double u, double v) {
         llong size = (2 * ConfigWfesSingle::population_size) - 1;
 
         if(ConfigWfesSingle::initial_distribution_csv.compare("") != 0 && starting_copies_p.size() != size) {
-            this->notify(ExecutionStatus::ERROR);
+            this->notify(ExecutionStatus::EXECUTION_ERROR);
             return new ResultsWfesSingle("Initial Probability Distribution (I) file must have " + std::to_string(size) + " elements. Your file has just " + std::to_string(starting_copies_p.size()) + " elements.");
         }
 
@@ -894,7 +894,7 @@ ResultsWfesSingle *wfes_single::establishment(double s, double u, double v) {
 
         return res;
     } catch(const std::exception &e) {
-        this->notify(ExecutionStatus::ERROR);
+        this->notify(ExecutionStatus::EXECUTION_ERROR);
         return new ResultsWfesSingle(e.what());
     }
 }
@@ -915,7 +915,7 @@ ResultsWfesSingle *wfes_single::alleleAge(double s, double u, double v) {
         llong size = (2 * ConfigWfesSingle::population_size) - 1;
 
         if(ConfigWfesSingle::initial_distribution_csv.compare("") != 0 && starting_copies_p.size() != size) {
-            this->notify(ExecutionStatus::ERROR);
+            this->notify(ExecutionStatus::EXECUTION_ERROR);
             return new ResultsWfesSingle("Initial Probability Distribution (I) file must have " + std::to_string(size) + " elements. Your file has just " + std::to_string(starting_copies_p.size()) + " elements.");
         }
 
@@ -1029,7 +1029,7 @@ ResultsWfesSingle *wfes_single::alleleAge(double s, double u, double v) {
         return res;
 
     } catch(const std::exception &e) {
-        this->notify(ExecutionStatus::ERROR);
+        this->notify(ExecutionStatus::EXECUTION_ERROR);
         return new ResultsWfesSingle(e.what());
     }
 }
@@ -1084,7 +1084,7 @@ ResultsWfesSingle *wfes_single::nonAbsorbing(double s, double u, double v) {
         return new ResultsWfesSingle(ConfigWfesSingle::modelType, true, dt.count());
 
     } catch(const std::exception &e) {
-        this->notify(ExecutionStatus::ERROR);
+        this->notify(ExecutionStatus::EXECUTION_ERROR);
         return new ResultsWfesSingle(e.what());
     }
 }

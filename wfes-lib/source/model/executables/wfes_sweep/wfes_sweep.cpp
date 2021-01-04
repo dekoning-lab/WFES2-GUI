@@ -185,7 +185,7 @@ ResultsWfesSweep *wfes_sweep::fixation(dvec s, dvec u, dvec v) {
 
         return res;
     } catch(const std::exception &e) {
-        this->notify(ExecutionStatus::ERROR);
+        this->notify(executionStatusToInt(ExecutionStatus::EXECUTION_ERROR));
         return new ResultsWfesSweep(e.what());
     }
 }

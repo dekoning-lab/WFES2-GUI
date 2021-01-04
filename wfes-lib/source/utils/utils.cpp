@@ -283,3 +283,26 @@ void wfes::utils::writeSparseMatrixToFile(wfes::sparsematrix::SparseMatrix *A, s
     A->saveMarket(name);
 
 }
+
+int wfes::utils::executionStatusToInt(wfes::utils::ExecutionStatus status) {
+    switch(status) {
+    case NONE:
+        return 0;
+    case STARTING:
+        return 1;
+    case BUILDING_MATRICES:
+        return 2;
+    case SOLVING_MATRICES:
+        return 3;
+    case SAVING_DATA:
+        return 4;
+    case DONE:
+        return 5;
+    case EXECUTION_ERROR:
+        return 6;
+    case ABORTED:
+        return 7;
+    default:
+        return -1;
+    }
+}

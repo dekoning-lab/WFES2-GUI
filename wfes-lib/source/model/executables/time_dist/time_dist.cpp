@@ -200,7 +200,7 @@ ResultsTimeDist *time_dist::timeDist() {
 
         return new ResultsTimeDist(PH, dt.count());
     } catch(const std::exception &e) {
-        this->notify(ExecutionStatus::ERROR);
+        this->notify(ExecutionStatus::EXECUTION_ERROR);
         return new ResultsTimeDist(e.what());
     }
 
@@ -342,7 +342,7 @@ ResultsTimeDist *time_dist::timeDistSGV() {
 
         return new ResultsTimeDist(PH, dt.count());
     } catch(const std::exception &e) {
-        this->notify(ExecutionStatus::ERROR);
+        this->notify(ExecutionStatus::EXECUTION_ERROR);
         return new ResultsTimeDist(e.what());
     }
 }
@@ -465,7 +465,7 @@ ResultsTimeDist *time_dist::timeDistSkip() {
 
         return new ResultsTimeDist(PH, dt.count());
     } catch(const std::exception &e) {
-        this->notify(ExecutionStatus::ERROR);
+        this->notify(ExecutionStatus::EXECUTION_ERROR);
         return new ResultsTimeDist(e.what());
     }
 }
@@ -610,7 +610,7 @@ ResultsTimeDist *time_dist::timeDistDual() {
 
         return new ResultsTimeDist(PH, dt.count());
     } catch(const std::exception &e) {
-        this->notify(ExecutionStatus::ERROR);
+        this->notify(ExecutionStatus::EXECUTION_ERROR);
         return new ResultsTimeDist(e.what());
     }
 }

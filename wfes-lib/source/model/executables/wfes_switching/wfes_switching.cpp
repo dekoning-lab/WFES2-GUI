@@ -313,7 +313,7 @@ ResultsWfesSwitching *wfes_switching::absorption() {
 
         return res;
     } catch(const std::exception &e) {
-        this->notify(ExecutionStatus::ERROR);
+        this->notify(ExecutionStatus::EXECUTION_ERROR);
         return new ResultsWfesSwitching(e.what());
     }
 }
@@ -453,7 +453,7 @@ ResultsWfesSwitching *wfes_switching::fixation() {
 
         return res;
     } catch(const std::exception &e) {
-        this->notify(ExecutionStatus::ERROR);
+        this->notify(ExecutionStatus::EXECUTION_ERROR);
         return new ResultsWfesSwitching(e.what());
     }
 }

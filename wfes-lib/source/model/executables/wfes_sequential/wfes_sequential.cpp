@@ -276,7 +276,7 @@ ResultsWfesSequential *wfes_sequential::function() {
 
         return res;
     } catch(const std::exception &e) {
-        this->notify(ExecutionStatus::ERROR);
+        this->notify(ExecutionStatus::EXECUTION_ERROR);
         return new ResultsWfesSequential(e.what());
     }
 }

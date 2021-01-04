@@ -96,7 +96,7 @@ ResultsWfafs *wfafs::function() {
             initial = load_csv_col_vector(ConfigWfafs::initial_distribution_csv);
             // Check if Initial Distribution File (i) size is correct.
             if(initial.size() != ((2 * popSizes(0)) + 1)) {
-                this->notify(ExecutionStatus::ERROR);
+                this->notify(ExecutionStatus::EXECUTION_ERROR);
                 return new ResultsWfafs("Initial Probability Distribution (I) file must have " + std::to_string((2 * popSizes(0)) + 1) + " elements. Your file has " + std::to_string(initial.size()) + " elements.");
             }
         } else if (ConfigWfafs::p != 0) {
@@ -258,7 +258,7 @@ ResultsWfafs *wfafs::function() {
 
         return new ResultsWfafs(d, dt.count());
     } catch(const std::exception &e) {
-        this->notify(ExecutionStatus::ERROR);
+        this->notify(ExecutionStatus::EXECUTION_ERROR);
         return new ResultsWfafs(e.what());
     }
 }

@@ -180,7 +180,7 @@ ResultsPhaseType *phase_type::phaseTypeDist() {
         return res;
 
     } catch(const std::exception &e) {
-        this->notify(ExecutionStatus::ERROR);
+        this->notify(ExecutionStatus::EXECUTION_ERROR);
         return new ResultsPhaseType(e.what());
     }
 }
@@ -311,7 +311,7 @@ ResultsPhaseType *phase_type::phaseTypeMoment() {
 
         return res;
     } catch(const std::exception &e) {
-        this->notify(ExecutionStatus::ERROR);
+        this->notify(ExecutionStatus::EXECUTION_ERROR);
         return new ResultsPhaseType(e.what());
     }
 }

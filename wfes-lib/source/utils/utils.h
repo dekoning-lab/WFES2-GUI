@@ -24,10 +24,17 @@ namespace wfes{
     namespace utils{
 
         enum ExecutionStatus{
-            NONE, STARTING, BUILDING_MATRICES, SOLVING_MATRICES, SAVING_DATA, DONE, ERROR, ABORTED
+            NONE, STARTING, BUILDING_MATRICES, SOLVING_MATRICES, SAVING_DATA, DONE, EXECUTION_ERROR, ABORTED
         };
 
         static const char* ExecutionStatusName[] = { "None", "Starting...", "Building matrices...", "Solving matrices...", "Saving data...", "Done.", "Execution error.", "Aborted by user."};
+
+        /**
+         * @brief Get integer number representing an execution status.
+         * @param status Status to be represented as integer.
+         * @return Get integer number representing an execution status.
+         */
+        int executionStatusToInt(ExecutionStatus status);
 
         /**
          * @brief Format for CSV in input and output.
