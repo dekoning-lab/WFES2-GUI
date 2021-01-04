@@ -201,17 +201,13 @@ ResultsWfafs *wfafs::function() {
         ChartResults::minMaxwfafsDist = QPointF(minDist, maxDist);
         // This is for chart visualization.
 
-        dmat Nt = dmat::Zero(n_rhs, size);
-        if (ConfigWfafs::output_N) {
-            // Calculate fundamental matrix
-            for(llong i = 0; i < n_rhs; i++) {
-                if(QThread::currentThread()->isInterruptionRequested()) {
-                    this->notify(ExecutionStatus::ABORTED);
-                    return new ResultsWfafs();
-                }
-                dvec id_tmp = id.col(i);
-                Nt.col(i) = solver->solve(id_tmp, true);
-            }
+
+        dmat N(size, size);
+        dvec id2(size);
+        for (llong i = 0; i < size; i++) {
+            id2.setZero();
+            id2(i) = 1;
+            N.row(i) = solver->solve(id2, true);
         }
 
         //Notify saving data.
@@ -224,7 +220,7 @@ ResultsWfafs *wfafs::function() {
 
         // Save data into file.
         if (ConfigWfafs::output_N)
-            utils::writeMatrixToFile(Nt, ConfigWfafs::path_output_N, "WFAF-S");
+            utils::writeMatrixToFile(N, ConfigWfafs::path_output_N, "WFAF-S");
         if (ConfigWfafs::output_B) {
             utils::writeMatrixToFile(B, ConfigWfafs::path_output_B, "WFAF-S");
         }
@@ -240,7 +236,7 @@ ResultsWfafs *wfafs::function() {
                 ImageResults::Q = imageQ;
             }
             if(ConfigWfafs::output_N) {
-                imageN = utils::generateImage(Nt);
+                imageN = utils::generateImage(N);
                 ImageResults::N = imageN;
             }
             if(ConfigWfafs::output_B) {
