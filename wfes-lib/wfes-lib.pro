@@ -206,7 +206,7 @@ macx {
 
 win32 {
 
-    QMAKE_CXXFLAGS += -openmp -arch:AVX2 -fp:fast -GL -Oi -heap:0x512000000 -stack:512000000
+    QMAKE_CXXFLAGS += -openmp -arch:AVX2 -fp:fast -GL -Oi
 
     INCLUDEPATH += $$PWD/source/
     INCLUDEPATH += $$PWD/../dependencies/windows/

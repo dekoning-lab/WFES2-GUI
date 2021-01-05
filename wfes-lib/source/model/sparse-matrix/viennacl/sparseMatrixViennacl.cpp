@@ -90,11 +90,11 @@ SparseMatrix* SparseMatrixViennaCL::LeftPaddedDiagonal(int dim, double x, int pa
 }
 
 void SparseMatrixViennaCL::appendRow(dvec &row, int col_start, int size) {
-    appendChunk(row, col_start, col_start, size);
+    appendChunk(row, col_start, col_start, size, size);
     nextRow();
 }
 
-void SparseMatrixViennaCL::appendChunk(dvec &row, int m0, int r0, int size) {
+void SparseMatrixViennaCL::appendChunk(dvec &row, int m0, int r0, int size, int rowSize) {
     // Test not full
     assert(!full);
     // Update size
@@ -349,6 +349,11 @@ void SparseMatrixViennaCL::setValue(double x, int i, int j) {
     (void)x;
     (void)i;
     (void)j;
+}
+
+void SparseMatrixViennaCL::resizeVectors()
+{
+    //TODO Implementation.
 }
 
 void SparseMatrixViennaCL::saveMarket(std::string name) {

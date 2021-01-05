@@ -104,7 +104,7 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::EquilibriumSolvingMatrix(const in
             if (r.end == N2)
                 r.Q(r.size - 1) = 1;
             // append large chunk
-            W.Q->appendChunk(r.Q, r.start, 0, r.size);
+            W.Q->appendChunk(r.Q, r.start, 0, r.size, N);
             // diagonal is right of chunk - insert new entry after chunk
             if (i > r.end)
                 W.Q->appendValue(1, i);
@@ -186,7 +186,7 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::Single(const int Nx, const int Ny
             switch (abs_t) {
             case NON_ABSORBING:
                 // Include full row
-                W->Q->appendChunk(r.Q, r.start, 0, r.size);
+                W->Q->appendChunk(r.Q, r.start, 0, r.size, Nx);
                 break;
 
             case EXTINCTION_ONLY:
@@ -195,10 +195,10 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::Single(const int Nx, const int Ny
                     continue;
                 else {
                     if (r.start == 0) {
-                        W->Q->appendChunk(r.Q, 0, 1, r.size - 1);
+                        W->Q->appendChunk(r.Q, 0, 1, r.size - 1, Nx);
                         W->R(i - 1, 0) = r.Q(0);
                     } else {
-                        W->Q->appendChunk(r.Q, r.start - 1, 0, r.size);
+                        W->Q->appendChunk(r.Q, r.start - 1, 0, r.size, Nx);
                     }
                 }
                 break;
@@ -209,10 +209,10 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::Single(const int Nx, const int Ny
                     continue;
                 else {
                     if (r.end == Ny2) {
-                        W->Q->appendChunk(r.Q, r.start, 0, r.size - 1);
+                        W->Q->appendChunk(r.Q, r.start, 0, r.size - 1, Nx);
                         W->R(i, 0) = r.Q(r_last);
                     } else {
-                        W->Q->appendChunk(r.Q, r.start, 0, r.size);
+                        W->Q->appendChunk(r.Q, r.start, 0, r.size, Nx);
                     }
                 }
                 break;
@@ -223,18 +223,19 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::Single(const int Nx, const int Ny
                     continue;
                 else {
                     if (r.start == 0 && r.end == Ny2) {
-                        W->Q->appendChunk(r.Q, 0, 1, r.size - 2);
+                        W->Q->appendChunk(r.Q, 0, 1, r.size - 2, Nx);
                         W->R(i - 1, 0) = r.Q(0);
                         W->R(i - 1, 1) = r.Q(r_last);
                     } else if (r.start == 0) {
-                        W->Q->appendChunk(r.Q, 0, 1, r.size - 1);
+                        W->Q->appendChunk(r.Q, 0, 1, r.size - 1, Nx);
                         W->R(i - 1, 0) = r.Q(0);
                     } else if (r.end == Ny2) {
-                        W->Q->appendChunk(r.Q, r.start - 1, 0, r.size - 1);
+                        W->Q->appendChunk(r.Q, r.start - 1, 0, r.size - 1, Nx);
                         W->R(i - 1, 1) = r.Q(r_last);
                     } else {
-                        W->Q->appendChunk(r.Q, r.start - 1, 0, r.size);
+                        W->Q->appendChunk(r.Q, r.start - 1, 0, r.size, Nx);
                     }
+                    //W->Q->debugPrint();
                 }
                 break;
             }
@@ -251,6 +252,9 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::Single(const int Nx, const int Ny
         time_diff dt = t_end - t_start;
         std::cout << "Time to build matrix: " << dt.count() << " s" << std::endl;
     }
+
+    W->Q->resizeVectors();
+
     return *W;
 }
 
@@ -297,16 +301,16 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::Bounce(const int Nx, const int Ny
             else {
                 if (r.start == 0 && r.end == Ny2) {
                     r.Q(1) += r.Q(0);
-                    W->Q->appendChunk(r.Q, 0, 1, r.size - 2);
+                    W->Q->appendChunk(r.Q, 0, 1, r.size - 2, Nx);
                     W->R(i - 1, 0) = r.Q(r_last);
                 } else if (r.start == 0) {
                     r.Q(1) += r.Q(0);
-                    W->Q->appendChunk(r.Q, 0, 1, r.size - 1);
+                    W->Q->appendChunk(r.Q, 0, 1, r.size - 1, Nx);
                 } else if (r.end == Ny2) {
-                    W->Q->appendChunk(r.Q, r.start - 1, 0, r.size - 1);
+                    W->Q->appendChunk(r.Q, r.start - 1, 0, r.size - 1, Nx);
                     W->R(i - 1, 0) = r.Q(r_last);
                 } else {
-                    W->Q->appendChunk(r.Q, r.start - 1, 0, r.size);
+                    W->Q->appendChunk(r.Q, r.start - 1, 0, r.size, Nx);
                 }
             }
 
@@ -368,19 +372,19 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::DualMutation(const int Nx, const 
                 continue;
             else {
                 if (i == 0) {
-                    W->Q->appendChunk(r.Q, r.start, 0, r.size);
+                    W->Q->appendChunk(r.Q, r.start, 0, r.size, Nx);
                 } else if (r.start == 0 && r.end == Ny2) {
-                    W->Q->appendChunk(r.Q, 1, 1, r.size - 2);
+                    W->Q->appendChunk(r.Q, 1, 1, r.size - 2, Nx);
                     W->R(i, 0) = r.Q(0);
                     W->R(i, 1) = r.Q(r_last);
                 } else if (r.start == 0) {
-                    W->Q->appendChunk(r.Q, 1, 1, r.size - 1);
+                    W->Q->appendChunk(r.Q, 1, 1, r.size - 1, Nx);
                     W->R(i, 0) = r.Q(0);
                 } else if (r.end == Ny2) {
-                    W->Q->appendChunk(r.Q, r.start, 0, r.size - 1);
+                    W->Q->appendChunk(r.Q, r.start, 0, r.size - 1, Nx);
                     W->R(i, 1) = r.Q(r_last);
                 } else {
-                    W->Q->appendChunk(r.Q, r.start, 0, r.size);
+                    W->Q->appendChunk(r.Q, r.start, 0, r.size, Nx);
                 }
             }
 
@@ -443,19 +447,19 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::Truncated(const int Nx, const int
             else {
 
                 if (r.start == 0 && r.end >= t) {
-                    W->Q->appendChunk(r.Q, 0, 1, t - 1);
+                    W->Q->appendChunk(r.Q, 0, 1, t - 1, Nx);
                     W->R(i - 1, 0) = r.Q(0);
                     double rest = r.Q.segment(t_off, r.end - t).sum();
                     W->R(i - 1, 1) = rest;
                 } else if (r.start == 0) {
-                    W->Q->appendChunk(r.Q, 0, 1, r.size - 1);
+                    W->Q->appendChunk(r.Q, 0, 1, r.size - 1, Nx);
                     W->R(i - 1, 0) = r.Q(0);
                 } else if (r.end >= t) {
-                    W->Q->appendChunk(r.Q, r.start - 1, 0, t - r.start);
+                    W->Q->appendChunk(r.Q, r.start - 1, 0, t - r.start, Nx);
                     double rest = r.Q.segment(t_off, r.end - t).sum();
                     W->R(i - 1, 1) = rest;
                 } else {
-                    W->Q->appendChunk(r.Q, r.start - 1, 0, r.size);
+                    W->Q->appendChunk(r.Q, r.start - 1, 0, r.size, Nx);
                 }
             }
 
@@ -562,7 +566,7 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::Switching(const lvec &N, const ab
 
                 switch (abs_t) {
                 case NON_ABSORBING:
-                    W->Q->appendChunk(r.Q, m_start, 0, r.size);
+                    W->Q->appendChunk(r.Q, m_start, 0, r.size, k);
                     break;
 
                 case EXTINCTION_ONLY:
@@ -570,10 +574,10 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::Switching(const lvec &N, const ab
                         continue;
                     else {
                         if (r.start == 0) {
-                            W->Q->appendChunk(r.Q, m_start, 1, r.size - 1);
+                            W->Q->appendChunk(r.Q, m_start, 1, r.size - 1, k);
                             W->R(row - (i + 1), j) = r.Q(0);
                         } else {
-                            W->Q->appendChunk(r.Q, m_start - 1, 0, r.size);
+                            W->Q->appendChunk(r.Q, m_start - 1, 0, r.size, k);
                         }
                     }
                     break;
@@ -583,10 +587,10 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::Switching(const lvec &N, const ab
                         continue;
                     else {
                         if (r.end == N(j) * 2) {
-                            W->Q->appendChunk(r.Q, m_start, 0, r.size - 1);
+                            W->Q->appendChunk(r.Q, m_start, 0, r.size - 1, k);
                             W->R(row - i, j) = r.Q(r_last);
                         } else {
-                            W->Q->appendChunk(r.Q, m_start, 0, r.size);
+                            W->Q->appendChunk(r.Q, m_start, 0, r.size, k);
                         }
                     }
                     break;
@@ -596,18 +600,18 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::Switching(const lvec &N, const ab
                         continue;
                     else {
                         if (r.start == 0 && r.end == N(j) * 2) {
-                            W->Q->appendChunk(r.Q, m_start, 1, r.size - 2);
+                            W->Q->appendChunk(r.Q, m_start, 1, r.size - 2, k);
                             // TODO: why is this not `row` ?
                             W->R(row - i - i - 1, 2 * j) = r.Q(0);
                             W->R(row - i - i - 1, (2 * j) + 1) = r.Q(r_last);
                         } else if (r.start == 0) {
-                            W->Q->appendChunk(r.Q, m_start, 1, r.size - 1);
+                            W->Q->appendChunk(r.Q, m_start, 1, r.size - 1, k);
                             W->R(row - i - i - 1, 2 * j) = r.Q(0);
                         } else if (r.end == N(j) * 2) {
-                            W->Q->appendChunk(r.Q, m_start - 1, 0, r.size - 1);
+                            W->Q->appendChunk(r.Q, m_start - 1, 0, r.size - 1, k);
                             W->R(row - i - i - 1, (2 * j) + 1) = r.Q(r_last);
                         } else {
-                            W->Q->appendChunk(r.Q, m_start - 1, 0, r.size);
+                            W->Q->appendChunk(r.Q, m_start - 1, 0, r.size, k);
                         }
                     }
                     break;
@@ -675,13 +679,13 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::NonAbsorbingToFixationOnly(const 
             int row = block_row + b;
             int offset = (2 * N) + 1;
 
-            W->Q->appendChunk(b_1[b].Q, b_1[b].start, 0, b_1[b].size);
+            W->Q->appendChunk(b_1[b].Q, b_1[b].start, 0, b_1[b].size, N);
 
             if (b_2[b].end == N * 2) {
-                W->Q->appendChunk(b_2[b].Q, b_2[b].start + offset, 0, b_2[b].size - 1);
+                W->Q->appendChunk(b_2[b].Q, b_2[b].start + offset, 0, b_2[b].size - 1, N);
                 W->R(row, 0) = b_2[b].Q(b_2[b].size - 1);
             } else {
-                W->Q->appendChunk(b_2[b].Q, b_2[b].start + offset, 0, b_2[b].size);
+                W->Q->appendChunk(b_2[b].Q, b_2[b].start + offset, 0, b_2[b].size, N);
             }
             W->Q->nextRow();
         }
@@ -741,22 +745,22 @@ wfes::wrightfisher::Matrix wfes::wrightfisher::NonAbsorbingToBothAbsorbing(
             int row = block_row + b;
             int offset = (2 * N) + 1;
 
-            W->Q->appendChunk(buffer_1[b].Q, buffer_1[b].start, 0, buffer_1[b].size);
+            W->Q->appendChunk(buffer_1[b].Q, buffer_1[b].start, 0, buffer_1[b].size, N);
 
             if (buffer_2[b].start == 0 && buffer_2[b].end == 2 * N) {
                 W->R(row, 0) = buffer_2[b].Q(0);
                 W->R(row, 1) = buffer_2[b].Q(buffer_2[b].size - 1);
-                W->Q->appendChunk(buffer_2[b].Q, 0 + offset, 1, buffer_2[b].size - 2);
+                W->Q->appendChunk(buffer_2[b].Q, 0 + offset, 1, buffer_2[b].size - 2, N);
             } else if (buffer_2[b].start == 0) {
-                W->Q->appendChunk(buffer_2[b].Q, 0 + offset, 1, buffer_2[b].size - 1);
+                W->Q->appendChunk(buffer_2[b].Q, 0 + offset, 1, buffer_2[b].size - 1, N);
                 W->R(row, 0) = buffer_2[b].Q(0);
             } else if (buffer_2[b].end == N * 2) {
                 W->Q->appendChunk(buffer_2[b].Q, buffer_2[b].start + offset - 1, 0,
-                                 buffer_2[b].size - 1);
+                                 buffer_2[b].size - 1, N);
                 W->R(row, 1) = buffer_2[b].Q(buffer_2[b].size - 1);
             } else {
                 W->Q->appendChunk(buffer_2[b].Q, buffer_2[b].start + offset - 1, 0,
-                                 buffer_2[b].size);
+                                 buffer_2[b].size, N);
             }
             W->Q->nextRow();
         }

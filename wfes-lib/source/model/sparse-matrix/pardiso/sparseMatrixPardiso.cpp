@@ -6,13 +6,13 @@ using namespace wfes::utils;
 SparseMatrixPardiso::SparseMatrixPardiso() :
     SparseMatrix(0, 0),
     current_row(0), full(false),
-    row_index_start(-1),
+    row_index_start(-1), current_size_data(0), current_size_cols(0),
     data(nullptr), cols(nullptr), row_index(nullptr) {}
 
 SparseMatrixPardiso::SparseMatrixPardiso(llong numRows, llong numCols) :
   SparseMatrix(numRows, numCols),
   current_row(0), full(false),
-  row_index_start(-1),
+  row_index_start(-1), current_size_data(0), current_size_cols(0),
   data(nullptr), cols(nullptr), row_index(nullptr)
 {
   data = (double*)malloc(sizeof(double));
@@ -30,6 +30,8 @@ SparseMatrixPardiso::SparseMatrixPardiso(dmat& eigenDenseMatrix) :
 {
     llong nnz = (eigenDenseMatrix.array() != 0.0).count();
     num_non_zeros = nnz;
+    current_size_cols = nnz;
+    current_size_data = nnz;
     data = (double*)malloc(nnz * sizeof(double));
     cols = (llong*)malloc(nnz * sizeof(llong));
     row_index = (llong*)malloc((num_rows + 1) * sizeof(llong));
@@ -60,9 +62,11 @@ SparseMatrix* SparseMatrixPardiso::LeftPaddedDiagonal(int dim, double x, int pad
     // could probably use a private constructor here
     double* data_new = (double*)realloc(I->data, I->num_non_zeros* sizeof(double));
     assert(data_new != NULL); I->data = data_new;
+    current_size_data = num_non_zeros;
 
     llong* cols_new = (llong*)realloc(I->cols, I->num_cols * sizeof(llong));
     assert(cols_new != NULL); I->cols = cols_new;
+    current_size_cols = num_non_zeros;
 
     for(llong i = 0; i < I->num_non_zeros; i++) {
         I->data[i] = x;
@@ -83,11 +87,11 @@ SparseMatrixPardiso::~SparseMatrixPardiso() {
 }
 
 void SparseMatrixPardiso::appendRow(dvec &row, int col_start, int size) {
-    appendChunk(row, col_start, col_start, size);
+    appendChunk(row, col_start, col_start, size, row.size());
     nextRow();
 }
 
-void SparseMatrixPardiso::appendChunk(dvec &row, int m0, int r0, int size) {
+void SparseMatrixPardiso::appendChunk(dvec &row, int m0, int r0, int size, int rowSize) {
 
     // Test not full
     assert(!full);
@@ -97,15 +101,40 @@ void SparseMatrixPardiso::appendChunk(dvec &row, int m0, int r0, int size) {
     // Get row index start
     row_index_start = positiveMin(row_index_start, num_non_zeros);
 
-    // Insert Columns
-    llong* cols_new = (llong*) realloc(cols, new_size * sizeof(llong));
-    assert(cols_new != NULL); cols = cols_new;
+    // Resize columns vector
+    llong *cols_new = NULL;
+    if(current_size_cols == 0) {
+        cols_new = (llong*)malloc(rowSize * sizeof(llong));
+        current_size_cols = rowSize;
+    }
+    if (new_size > current_size_cols) {
+        current_size_cols *= 2 ;
+        cols_new = (llong*) realloc(cols, current_size_cols * sizeof(llong));
+    }
+
+    // Fill columns vector.
+    if(cols_new != NULL) {
+        cols = cols_new;
+    }
     lvec col_idx = closedRange(m0, m0 + size);
     memcpy(&cols[num_non_zeros], col_idx.data(), size * sizeof(llong));
 
-    // Insert Data
-    double* data_new = (double*) realloc(data, new_size * sizeof(double));
-    assert(data_new != NULL); data = data_new;
+
+    // Resize data vector
+    double* data_new = NULL;
+    if(current_size_data == 0) {
+        data_new = (double*)malloc(rowSize * sizeof(double));
+        current_size_data = rowSize;
+    }
+    if (new_size > current_size_data) {
+        current_size_data *= 2 ;
+        data_new = (double*) realloc(data, current_size_data * 2 * sizeof(double));
+    }
+
+    // Fill data vector.
+    if(data_new != NULL) {
+        data = data_new;
+    }
     memcpy(&(data[num_non_zeros]), &(row.data()[r0]), size * sizeof(double));
 
     num_non_zeros += size;
@@ -294,6 +323,16 @@ void SparseMatrixPardiso::setValue(double x, int i, int j) {
     (void)x;
     (void)i;
     (void)j;
+}
+
+void SparseMatrixPardiso::resizeVectors(){
+    // Resize columns vector
+    llong *cols_new = (llong*) realloc(cols, num_non_zeros * sizeof(llong));
+    assert(cols_new != NULL); cols = cols_new;
+
+    // Resize data vector
+    double* data_new = (double*) realloc(data, num_non_zeros * sizeof(double));
+    assert(data_new != NULL); data = data_new;
 }
 
 void SparseMatrixPardiso::saveMarket(std::string name) {
