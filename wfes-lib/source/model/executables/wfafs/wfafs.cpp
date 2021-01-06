@@ -150,7 +150,7 @@ ResultsWfafs *wfafs::function() {
         if (ConfigWfafs::f(lt) != 1) {
             llong n = 2 * popSizes(lt) + 1;
             llong m = 2 * (popSizes(lt) * gens(lt)) + 1;
-            wrightfisher::Matrix sw_up = wrightfisher::Single(popSizes(lt), popSizes(lt) * gens(lt),
+            wrightfisher::Matrix sw_up = wrightfisher::SingleWfafs(popSizes(lt), popSizes(lt) * gens(lt), ConfigWfafs::N(lt), ConfigWfafs::N(lt),
                     wrightfisher::NON_ABSORBING, s(lt), ConfigWfafs::h(lt), u(lt), v(lt), true, ConfigWfafs::a, msg_level);
 
             // projected up
@@ -201,16 +201,14 @@ ResultsWfafs *wfafs::function() {
         ChartResults::minMaxwfafsDist = QPointF(minDist, maxDist);
         // This is for chart visualization.
 
-        dmat Nt = dmat::Zero(n_rhs, size);
+        dmat Nt(size, size);
+        dvec id2(size);
         if (ConfigWfafs::output_N) {
             // Calculate fundamental matrix
-            for(llong i = 0; i < n_rhs; i++) {
-                if(QThread::currentThread()->isInterruptionRequested()) {
-                    this->notify(ExecutionStatus::ABORTED);
-                    return new ResultsWfafs();
-                }
-                dvec id_tmp = id.col(i);
-                Nt.col(i) = solver->solve(id_tmp, true);
+            for (llong i = 0; i < size; i++) {
+                id2.setZero();
+                id2(i) = 1;
+                Nt.row(i) = solver->solve(id2, true);
             }
         }
 
