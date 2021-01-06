@@ -64,8 +64,9 @@ namespace wfes {
                  * @param m0 Position in the matrix where the chunk has to be copied.
                  * @param r0 Position in the vector where the chunk starts.
                  * @param size Number of elements in the chunk.
+                 * @param rowSize Size of a row in the matrix.
                  */
-                virtual void appendChunk(dvec& row, int m0, int r0, int size) = 0;
+                virtual void appendChunk(dvec& row, int m0, int r0, int size, int rowSize) = 0;
 
                 /**
                  * @brief Append a value to the matrix in the position (i, j).
@@ -73,6 +74,11 @@ namespace wfes {
                  * @param j Column of the appended element.
                  */
                 virtual void appendValue(double value, int j) = 0;
+
+                /**
+                 * @brief If vector size is higher than expected, resize.
+                 */
+                virtual void resizeVectors() = 0;
 
             public: // Auxiliary functions.
 

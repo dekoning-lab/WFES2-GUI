@@ -132,6 +132,12 @@ namespace wfes{
                       const bool recurrent_mutation = true, const double alpha = 1e-20,
                       const bool verbose = false, const int block_size = 100, std::string library = "Pardiso");
 
+        // SingleWfas - one matrix of a given absorption type
+        Matrix SingleWfafs(const int Nx, const int Ny, const int realNx, const int realNy, const absorption_type abs_t, const double s = 0,
+                      const double h = 0.5, const double u = 1e-9, const double v = 1e-9,
+                      const bool recurrent_mutation = true, const double alpha = 1e-20,
+                      const bool verbose = false, const int block_size = 100, std::string library = "Pardiso");
+
         // Bounce - mutation return to a non-zero count
         Matrix Bounce(const int Nx, const int Ny, const double s = 0, const double h = 0.5,
                       const double u = 1e-9, const double v = 1e-9, const bool recurrent_mutation = true,
