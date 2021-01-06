@@ -146,14 +146,30 @@ void SparseMatrixPardiso::appendValue(double value, int j) {
 
     row_index_start = positiveMin(row_index_start, num_non_zeros);
 
-    // Columns
-    llong* cols_new = (llong*) realloc(cols, new_size * sizeof(llong));
-    assert(cols_new != NULL); cols = cols_new;
+    // Resize columns vector
+    llong *cols_new = NULL;
+    if (new_size > current_size_cols) {
+        current_size_cols *= 2 ;
+        cols_new = (llong*) realloc(cols, current_size_cols * sizeof(llong));
+    }
+
+    // Fill columns vector.
+    if(cols_new != NULL) {
+        cols = cols_new;
+    }
     cols[new_size - 1] = j;
 
-    // Data
-    double* data_new = (double*) realloc(data, new_size * sizeof(double));
-    assert(data_new != NULL); data = data_new;
+    // Resize data vector
+    double* data_new = NULL;
+    if (new_size > current_size_data) {
+        current_size_data *= 2 ;
+        data_new = (double*) realloc(data, current_size_data * 2 * sizeof(double));
+    }
+
+    // Fill data vector.
+    if(data_new != NULL) {
+        data = data_new;
+    }
     data[new_size - 1] = value;
 
     num_non_zeros += 1;
