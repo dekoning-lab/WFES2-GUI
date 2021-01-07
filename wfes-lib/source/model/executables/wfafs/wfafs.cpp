@@ -222,7 +222,7 @@ ResultsWfafs *wfafs::function() {
 
         // Save data into file.
         if (ConfigWfafs::output_N)
-            utils::writeMatrixToFile(N, ConfigWfafs::path_output_N, "WFAF-S");
+            utils::writeMatrixToFile(Nt, ConfigWfafs::path_output_N, "WFAF-S");
         if (ConfigWfafs::output_B) {
             utils::writeMatrixToFile(B, ConfigWfafs::path_output_B, "WFAF-S");
         }
@@ -238,7 +238,7 @@ ResultsWfafs *wfafs::function() {
                 ImageResults::Q = imageQ;
             }
             if(ConfigWfafs::output_N) {
-                imageN = utils::generateImage(N);
+                imageN = utils::generateImage(Nt);
                 ImageResults::N = imageN;
             }
             if(ConfigWfafs::output_B) {
