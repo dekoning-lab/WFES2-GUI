@@ -81,9 +81,13 @@ ApplicationWindow {
 
         Text {
             Layout.alignment: Qt.AlignHCenter
-            text: "This software is licensed under the (Placeholder) License. Please, visit our
-GitHub webpage for more information about the (Placeholder) license, and the
-third party libraries used in this project."
+            text: "This Software is licensed under the GPLv3 License. Please, visit our
+GitHub webpage for more information about the GPLv3 license, and the
+third party libraries used in this project. Alternatively, you have
+available the license of this software and the licenses of the
+third party libraries in the installation folder."
+
+
 
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
