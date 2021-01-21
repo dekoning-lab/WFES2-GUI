@@ -1,9 +1,0 @@
-Eigen: Used to manipulate matrixes.
-Intel MKL: Used for solving sparse matrix systems.
-ViennaCL: Used for solving sparse matrix systems.
-Font Awesome: Used for providing icons to the application.
-Tenderness Font: Used as font for the logo.
-Boost: Formatting strings.
-Open CL Khronos Headers: OpenCL headers.
-Qt Libraries: User interface and multiplatform.
-QtCharts: Charts.

@@ -1,7 +1,0 @@
-Category: Serif
-License: CC-0
-Family: Tenderness
-Designer: Sora Sagano 
-Foundry: dot colon 
-Description: Tenderness is a serif font designed by Sora Sagano, loosely inspired by Garamond and Optima, and with old-style figures. http://dotcolon.net/font/tenderness/
-Full Language Support: Basic Latin
