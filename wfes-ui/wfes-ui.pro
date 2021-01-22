@@ -5,6 +5,8 @@ QT += qml quick quickcontrols2 widgets charts
 
 TEMPLATE = app
 
+RC_ICONS = icon.ico
+
 CONFIG += c++14
 CONFIG += app_bundle
 
