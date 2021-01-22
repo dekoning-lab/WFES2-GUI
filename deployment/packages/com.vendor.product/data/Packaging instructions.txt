@@ -1,0 +1,14 @@
+Use windeployqt, linuxdeployqt and macdeployqt over a release
+version of the application for generating a deployment folder
+containing Qt libraries.
+
+Manually add third-party libraries that are not part of Qt.
+
+Add icon.ico.
+
+In Microsoft, add VC_redist.x64.exe
+
+Copy all the files in this folder (data).
+
+Use QtInstallerFramework for generating the installer, everything
+is already configured.
