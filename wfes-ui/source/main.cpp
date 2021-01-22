@@ -1,3 +1,5 @@
+#include <stdlib.h>
+
 #include <QApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
@@ -34,6 +36,10 @@ void signalHandler( int signum ) {
 }
 
 int main(int argc, char *argv[]) {
+    #ifdef _WIN32
+        _putenv("KMP_WARNINGS=0");
+    #endif
+
     std::set_terminate([](){ std::cout << "Unhandled exception" << std::endl; std::abort();});
     signal(SIGINT, signalHandler);
     signal(SIGABRT, signalHandler);
