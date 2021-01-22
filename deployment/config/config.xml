@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Installer>
+    <Name>Wfes-gui</Name>
+    <Version>3.0.0a</Version>
+    <Title>Wfes-gui installer</Title>
+    <Publisher>University of Calgary</Publisher>
+    <StartMenuDir>Wfes-gui</StartMenuDir>
+    <TargetDir>@ApplicationsDirX64@/Wfes-gui</TargetDir>
+</Installer>

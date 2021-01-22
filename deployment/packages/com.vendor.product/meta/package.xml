@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package>
+    <DisplayName>Wfes-gui</DisplayName>
+    <Description>Install Wfes-gui in your computer.</Description>
+    <Version>3.0.0a</Version>
+    <ReleaseDate>2021-01-21</ReleaseDate>
+    <Licenses>
+        <License name="GNU General Public License (GPLv3)" file="license.txt" />
+    </Licenses>
+    <Default>script</Default>
+    <Script>installscript.qs</Script>
+</Package>
