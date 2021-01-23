@@ -12,7 +12,7 @@ ApplicationWindow {
     property var firstLoad: true
 
     id: rootPhaseType
-    title: qsTr("WFES - Wright-Fisher Exact Solver (Phase Type)")
+    title: Strings.wfes + Strings.hyphen + Strings.wfesComplete + " (" + Strings.phaseType + ")"
 
     color: Universal.chromeLowColor
 
@@ -37,7 +37,7 @@ ApplicationWindow {
         close.accepted = false
 
         if(checkIntegrity() !== "") {
-            messageDialogOnClose.text = "Some input parameters are incorrect. The configuration will be available in this session, but cannot be saved for future sessions until you fix those values. Do you want to exit anyway?"
+            messageDialogOnClose.text = Strings.onCloseConfirmationMessage
             messageDialogOnClose.open()
         } else {
             rootPhaseType.hide();
@@ -49,8 +49,8 @@ ApplicationWindow {
 
     MessageDialog {
         id: messageDialogOnClose
-        title: "Warning"
-        text: ""
+        title: Strings.dialogWarning
+        text: Strings.empty
         icon: StandardIcon.Warning
         standardButtons: Dialog.Ok | Dialog.Cancel
         onAccepted: {
@@ -107,7 +107,7 @@ ApplicationWindow {
 
                         Label {
                             id: labelModel
-                            text: "Mode:"
+                            text: Strings.mode + Strings.colon
                             font.bold: true
                         }
 
@@ -123,12 +123,12 @@ ApplicationWindow {
                             RadioButton {
                                 id: radioButtonPhaseTypeDist
                                 checked: inputControllerPhaseType.ui_modelType === "Phase Type Dist."
-                                text: qsTr("Phase Type Dist.")
+                                text: Strings.phaseTypeDist
 
                                 ToolTip.visible: hovered
                                 ToolTip.delay: Style.tooltipDelay
                                 ToolTip.timeout: Style.tooltipTimeout
-                                ToolTip.text: qsTr("Calculate distribution of absorption times for a fixation-only model.")
+                                ToolTip.text: Strings.phaseTypeDistTooltip
 
                                 onCheckedChanged: {
                                     inputN.enabled = checked
@@ -153,12 +153,12 @@ ApplicationWindow {
                             RadioButton {
                                 id: radioButtonPhaseTypeMoments
                                 checked: inputControllerPhaseType.ui_modelType === "Phase Type Moments"
-                                text: qsTr("Phase Type Moments")
+                                text: Strings.phaseTypeMoments
 
                                 ToolTip.visible: hovered
                                 ToolTip.delay: Style.tooltipDelay
                                 ToolTip.timeout: Style.tooltipTimeout
-                                ToolTip.text: qsTr("Calculate moments of absorption times for a fixation-only model.")
+                                ToolTip.text: Strings.phaseTypeMomentsTooltip
 
                                 onCheckedChanged: {
                                     inputN.enabled = checked
@@ -200,7 +200,7 @@ ApplicationWindow {
 
                         Label {
                             id: labelPopulation
-                            text: "Population:"
+                            text: Strings.population + Strings.colon
                             font.bold: true
                         }
 
@@ -215,8 +215,8 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 id: inputN
-                                text: "N: "
-                                toolTipText: "Size of the population in the Wright Fisher Model."
+                                text: Strings.n + Strings.colon
+                                toolTipText: Strings.nTooltip
                                 validator: IntValidator {bottom: 2; top: 500000;}
                                 textFieldText: inputControllerPhaseType.ui_n
                                 textFieldTextEdited: function(){
@@ -233,8 +233,8 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 id: inputA
-                                text: "a: "
-                                toolTipText: "Tail truncation weight."
+                                text: Strings.a + Strings.colon
+                                toolTipText: Strings.aTooltip
                                 validator: DoubleValidator {bottom: 0; top: 10e-10;}
                                 textFieldText: inputControllerPhaseType.ui_a
                                 textFieldTextEdited: function(){
@@ -249,8 +249,8 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 id: inputC
-                                text: "c: "
-                                toolTipText: "Integration cutoff."
+                                text: Strings.c + Strings.colon
+                                toolTipText: Strings.cTooltip
                                 validator: DoubleValidator {bottom: 0; top: 1;}
                                 textFieldText: inputControllerPhaseType.ui_c
                                 enabled: inputControllerPhaseType.ui_modelType == "Phase Type Dist."
@@ -266,8 +266,8 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 id: inputM
-                                text: "m: "
-                                toolTipText: "Maximum number of generations."
+                                text: Strings.m + Strings.colon
+                                toolTipText: Strings.mTooltip
                                 validator: DoubleValidator {bottom: 1;}
                                 textFieldText: inputControllerPhaseType.ui_m
                                 enabled: inputControllerPhaseType.ui_modelType == "Phase Type Dist."
@@ -283,9 +283,9 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 id: inputK
-                                text: "k: "
+                                text: Strings.k + Strings.colon
                                 validator: IntValidator {bottom: 1;}
-                                toolTipText: "Number of Moments."
+                                toolTipText: Strings.kTooltip
                                 textFieldText: inputControllerPhaseType.ui_k
                                 enabled: inputControllerPhaseType.ui_modelType == "Phase Type Moments"
                                 textFieldTextEdited: function(){
@@ -316,7 +316,7 @@ ApplicationWindow {
 
                         Label {
                             id: labelMutation
-                            text: "Mutation:"
+                            text: Strings.mutation + Strings.colon
                             font.bold: true
                         }
 
@@ -334,11 +334,11 @@ ApplicationWindow {
                                 id: inputU
                                 text: {
                                     if(globalConfiguration.ui_population_scaled)
-                                        return "2Nu: "
+                                        return Strings.uScaled + Strings.colon
                                     else
-                                        return "u: "
+                                        return Strings.u + Strings.colon
                                 }
-                                toolTipText: "Backward mutation rate."
+                                toolTipText: Strings.uTooltip
                                 validator: DoubleValidator {bottom: 0;}
                                 textFieldText: inputControllerPhaseType.ui_u
                                 textFieldTextEdited: function(){
@@ -364,11 +364,11 @@ ApplicationWindow {
                                 id: inputV
                                 text: {
                                     if(globalConfiguration.ui_population_scaled)
-                                        return "2Nv: "
+                                        return Strings.vScaled + Strings.colon
                                     else
-                                        return "v: "
+                                        return Strings.v + Strings.colon
                                 }
-                                toolTipText: "Forward mutation rate."
+                                toolTipText: Strings.vTooltip
                                 validator: DoubleValidator {bottom: 0;}
                                 textFieldText: inputControllerPhaseType.ui_v
                                 textFieldTextEdited: function(){
@@ -392,8 +392,8 @@ ApplicationWindow {
 
                             LabeledCheckBox {
                                 id: inputR
-                                text: "r: "
-                                toolTipText: "No recurrent mutation."
+                                text: Strings.rMut + Strings.colon
+                                toolTipText: Strings.rMutTooltip
                                 checked: inputControllerPhaseType.ui_r
                                 enabled: inputControllerPhaseType.ui_modelType == "Phase Type Moments"
                             }
@@ -415,7 +415,7 @@ ApplicationWindow {
 
                         Label {
                             id: labelSelection
-                            text: "Selection:"
+                            text: Strings.selection + Strings.colon
                             font.bold: true
                         }
 
@@ -432,11 +432,11 @@ ApplicationWindow {
                                 id: inputS
                                 text: {
                                     if(globalConfiguration.ui_population_scaled)
-                                        return "2Ns: "
+                                        return Strings.sScaled + Strings.colon
                                     else
-                                        return "s: "
+                                        return Strings.s + Strings.colon
                                 }
-                                toolTipText: "Selection coefficient."
+                                toolTipText: Strings.sTooltip
                                 validator: DoubleValidator {bottom: -1; top: 1;}
                                 textFieldText: inputControllerPhaseType.ui_s
                                 textFieldTextEdited: function(){
@@ -460,8 +460,8 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 id: inputH
-                                text: "h: "
-                                toolTipText: "Dominance coefficient."
+                                text: Strings.h + Strings.colon
+                                toolTipText: Strings.hTooltip
                                 validator: DoubleValidator {bottom: 0; top: 1;}
                                 textFieldText: inputControllerPhaseType.ui_h
                                 textFieldTextEdited: function(){
@@ -503,7 +503,7 @@ ApplicationWindow {
 
                             Label {
                                 id: labelOutput
-                                text: "Output Options:"
+                                text: Strings.outputOptions + Strings.colon
                                 font.bold: true
                             }
 
@@ -519,30 +519,30 @@ ApplicationWindow {
 
                                 LabeledCheckBox {
                                     id: inputWriteQ
-                                    text: "Q: "
-                                    toolTipText: "Output Q as CSV file."
+                                    text: Strings.outputQ + Strings.colon
+                                    toolTipText: Strings.outputQTooltip
                                     checked: inputControllerPhaseType.ui_output_Q
                                 }
 
                                 LabeledCheckBox {
                                     id: inputWriteR
-                                    text: "R: "
-                                    toolTipText: "Output R as CSV file."
+                                    text: Strings.outputR + Strings.colon
+                                    toolTipText: Strings.outputRTooltip
                                     checked: inputControllerPhaseType.ui_output_R
                                 }
 
                                 LabeledCheckBox {
                                     id: inputWriteP
-                                    text: "P: "
-                                    toolTipText: "Output P as CSV file."
+                                    text: Strings.outputP + Strings.colon
+                                    toolTipText: Strings.outputPTooltip
                                     checked: inputControllerPhaseType.ui_output_P
                                     enabled: inputControllerPhaseType.ui_modelType == "Phase Type Dist."
                                 }
 
                                 LabeledCheckBox {
                                     id: inputWriteMoments
-                                    text: "Moments: "
-                                    toolTipText: "Output Moments as CSV file. (Always enabled)."
+                                    text: Strings.outputMoments + Strings.colon
+                                    toolTipText: Strings.outputMomentsTooltip
                                     checked: true
                                     enabledCheckBox: false
                                     enabled: inputControllerPhaseType.ui_modelType == "Phase Type Moments"
@@ -554,8 +554,8 @@ ApplicationWindow {
 
                                 LabeledCheckBox {
                                     id: inputWriteRes
-                                    text: "Res: "
-                                    toolTipText: "Output Res (Generated results at right side) as CSV file."
+                                    text: Strings.outputRes + Strings.colon
+                                    toolTipText: Strings.outputResTooltip
                                     checked: inputControllerPhaseType.ui_output_Res
                                     enabled: inputControllerPhaseType.ui_modelType == "Phase Type Moments"
                                 }
@@ -578,7 +578,7 @@ ApplicationWindow {
 
                             Label {
                                 id: labelExecution
-                                text: "Execution:"
+                                text: Strings.execution + Strings.colon
                                 font.bold: true
                             }
 
@@ -598,15 +598,15 @@ ApplicationWindow {
 
                                         LabeledCheckBox {
                                             id: inputForce
-                                            toolTipText: "Do not perform parameter checks."
-                                            text: "Force: "
+                                            text: Strings.force + Strings.colon
+                                            toolTipText: Strings.forceTooltip
                                             checked: inputControllerPhaseType.ui_force
                                         }
 
                                         LabeledTextField {
                                             id: inputT
-                                            text: "t: "
-                                            toolTipText: "Number of threads for OpenMP."
+                                            text: Strings.t + Strings.colon
+                                            toolTipText: Strings.tTooltip
                                             labelPreferredWidth: 10
                                             validator: IntValidator {bottom: 1;}
                                             textFieldText: inputControllerPhaseType.ui_t
@@ -623,8 +623,8 @@ ApplicationWindow {
 
                                     LabeledTextField {
                                         id: inputSamplingFrequency
-                                        text: "Sf: "
-                                        toolTipText: "Sampling frequency of dist. for generating chart."
+                                        text: Strings.sf + Strings.colon
+                                        toolTipText: Strings.sfTooltip
                                         labelPreferredWidth: 75
                                         textFieldPreferredWidth: 185
                                         validator: IntValidator {bottom: 1;}
@@ -642,9 +642,9 @@ ApplicationWindow {
 
                                     LabeledComboBox {
                                         id: comboBoxLibrary
-                                        text: "Library:"
+                                        text: Strings.library + Strings.colon
                                         model: ["Pardiso", "ViennaCL"]
-                                        toolTipText: "Library used for solving matrix systems."
+                                        toolTipText: Strings.libraryTooltip
                                         onTextChanged: {
                                             if(comboBoxLibrary.currentText === "Pardiso") {
                                                 comboBoxBackend.enabled = false
@@ -658,8 +658,8 @@ ApplicationWindow {
 
                                     LabeledComboBox {
                                         id: comboBoxSolver
-                                        text: "Solver:"
-                                        toolTipText: "Solver used by viennacl."
+                                        text: Strings.solver + Strings.colon
+                                        toolTipText: Strings.solverTooltip
                                         model: ["GMRes", "BicGStab"]
                                         enabled: (comboBoxLibrary.currentText === "ViennaCL")
                                     }
@@ -680,7 +680,7 @@ ApplicationWindow {
                             id: stopButton
                             Layout.margins: 10
                             Layout.alignment: Qt.AlignRight
-                            text: "Stop"
+                            text: Strings.stopButton
 
                             Binding {
                                 target: stopButton
@@ -701,7 +701,7 @@ ApplicationWindow {
                             id: executeButton
                             Layout.margins: 10
                             Layout.alignment: Qt.AlignRight
-                            text: "Execute"
+                            text: Strings.executeButton
 
                             onEnabledChanged: {
                                 if(outputControllerPhaseType.ui_get_not_exec)
@@ -751,8 +751,8 @@ ApplicationWindow {
 
                 MessageDialog {
                     id: messageDialog
-                    title: "Warning"
-                    text: ""
+                    title: Strings.dialogWarning
+                    text: Strings.empty
                     icon: StandardIcon.Warning
                 }
 
@@ -778,7 +778,7 @@ ApplicationWindow {
 
                         Label {
                             id: labelFinalOutput
-                            text: "Output:"
+                            text: Strings.output + Strings.colon
                             font.bold: true
                         }
 
@@ -794,8 +794,8 @@ ApplicationWindow {
                                 id: outputMean
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "Mean: "
-                                toolTipText: "Mean of the calculated moments."
+                                text: Strings.mean + Strings.colon
+                                toolTipText: Strings.meanTooltip
                                 textFieldText: outputControllerPhaseType.ui_get_mean
                                 readOnly: true
                                 enabled: radioButtonPhaseTypeMoments.checked
@@ -805,8 +805,8 @@ ApplicationWindow {
                                 id: outputStd
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "Std: "
-                                toolTipText: "Standard deviation of the calculated moments."
+                                text: Strings.std + Strings.colon
+                                toolTipText: Strings.stdTooltip
                                 textFieldText: outputControllerPhaseType.ui_get_std
                                 readOnly: true
                                 enabled: radioButtonPhaseTypeMoments.checked
@@ -818,7 +818,7 @@ ApplicationWindow {
 
                     Label {
                         id: labelMoments
-                        text: "Moments:"
+                        text: Strings.moments + Strings.colon
                         enabled: radioButtonPhaseTypeMoments.checked
                         font.bold: true
                     }
@@ -863,7 +863,7 @@ ApplicationWindow {
                     }
 
                     Button {
-                        text: "Copy to Clipboard"
+                        text: Strings.copyToClipboard
 
                         Layout.alignment: Qt.AlignHCenter
 
@@ -1000,134 +1000,133 @@ ApplicationWindow {
         var error = ""
 
         if(inputN.textFieldText == "")
-            error += " - Population Size (N) is empty. \n \n"
+            error += Strings.hyphen + Strings.nIsEmpty + Strings.endOfError
         if(Number.isNaN(Number(inputN.textFieldText)))
-            error += " - Population Size (N) is not a valid number. \n \n"
+            error += Strings.hyphen + Strings.nIsNotValid + Strings.endOfError
         if(parseInt(inputN.textFieldText) < 2)
-            error += " - Population Size (N) is quite small, it must be at least 2. \n \n"
+            error += Strings.hyphen + Strings.nIsSmall + Strings.endOfError
         if(!inputForce.checked && parseInt(inputN.textFieldText) > 50000)
-            error += " - Population Size (N) is quite large, the computations will take a long time. Check 'Force' to ignore. \n \n"
+            error += Strings.hyphen + Strings.nIsLarge + Strings.endOfError
 
         if(inputA.textFieldText == "")
-            error += " - Tail Truncation Cutoff (a) is empty. \n \n"
+            error += Strings.hyphen + Strings.aIsEmpty + Strings.endOfError
         if(Number.isNaN(Number(inputA.textFieldText)))
-            error += " - Tail Truncation Cutoff (a) is not a valid number. \n \n"
+            error += Strings.hyphen + Strings.aIsNotValid + Strings.endOfError
         if(parseFloat(inputA.textFieldText) < 0)
-            error += " - Tail Truncation Cutoff (a) is quite small. It must be at least 0. \n \n"
+            error += Strings.hyphen + Strings.aIsSmall + Strings.endOfError
         if(!inputForce.checked && parseFloat(inputA.textFieldText) > 1e-5)
-            error += " - Tail Truncation Cutoff (a) value is quite high. This might produce inaccurate results. A good value should be between 0 and 10e-10. Check 'Force' to ignore. \n \n"
+            error += Strings.hyphen + Strings.aIsLarge + Strings.endOfError
 
         if(inputC.textFieldText == "")
-            error += " - Integration Cutoff (c) is empty. \n \n"
+            error += Strings.hyphen + Strings.cIsEmpty + Strings.endOfError
         if(Number.isNaN(Number(inputC.textFieldText)))
-            error += " - Integration Cutoff (c) is not a valid number. \n \n"
+            error += Strings.hyphen + Strings.cIsNotValid + Strings.endOfError
         if(parseFloat(inputC.textFieldText) <= 0)
-            error += " - Integration Cutoff (c) is too small. It must be greater than 0. \n \n"
+            error += Strings.hyphen + Strings.cIsSmall + Strings.endOfError
         if(parseFloat(inputC.textFieldText) > 1)
-            error += " - Integration Cutoff (c) is too large. The maximum value allowed is 1. \n \n"
+            error += Strings.hyphen + Strings.cIsLarge + Strings.endOfError
 
         if(inputM.textFieldText == "")
-            error += " - Maximum Number of Generations (m) is empty. \n \n"
+            error += Strings.hyphen + Strings.mIsEmpty + Strings.endOfError
         if(Number.isNaN(Number(inputM.textFieldText)))
-            error += " - Maximum Number of Generations (m) is not a valid number. \n \n"
+            error += Strings.hyphen + Strings.mIsNotValid + Strings.endOfError
         if(parseInt(inputM.textFieldText) < 1)
-            error += " - Maximum Number of Generations (m) is quite small, it must be at least 1. \n \n"
+            error += Strings.hyphen + Strings.mIsSmall + Strings.endOfError
         // Deleted limit for m in phase_type_dist.
 
         if(inputK.textFieldText == "")
-            error += " - Number of Moments (k) is empty. \n \n"
+            error += Strings.hyphen + Strings.kIsEmpty + Strings.endOfError
         if(Number.isNaN(Number(inputK.textFieldText)))
-            error += " - Number of Moments (k) is not a valid number. \n \n"
-        // Moments (k) does not have upper limits, at least in the code. The default value is 20.
+            error += Strings.hyphen + Strings.kIsNotValid + Strings.endOfError
         if(parseInt(inputK.textFieldText) < 2)
-            error += " - Number of Moments (k) is quite small, it must be at least 2. \n \n"
+            error += Strings.hyphen + Strings.kIsSmall + Strings.endOfError
+        // Moments (k) does not have upper limits, at least in the code. The default value is 20.
 
         if(globalConfiguration.ui_population_scaled) {
             if(inputU.textFieldText == "")
-                error += " - Backward Mutation (u) is empty. \n \n"
+                error += Strings.hyphen + Strings.uIsEmpty + Strings.endOfError
             if(Number.isNaN(Number(inputU.textFieldText)))
-                error += " - Backward Mutation (u) is not a valid number. \n \n"
+                error += Strings.hyphen + Strings.uIsNotValid + Strings.endOfError
             if(parseFloat(inputU.textFieldText) <= 0)
-                error += " - Backward Mutation (u) is quite small. It must be at least 0. \n \n"
+                error += Strings.hyphen + Strings.uIsSmall + Strings.endOfError
             if(!inputForce.checked && parseFloat(inputU.textFieldText) > 1)
-                error += " - Backward Mutation (u) is quite large and might violate the Wright-Fisher assumptions. It should be less than 1. Check 'Force' to ignore. \n \n"
+                error += Strings.hyphen + Strings.uIsLargeScaled + Strings.endOfError
 
             if(inputV.textFieldText == "")
-                error += " - Forward Mutation (v) is empty. \n \n"
+                error += Strings.hyphen + Strings.vIsEmpty + Strings.endOfError
             if(Number.isNaN(Number(inputV.textFieldText)))
-                error += " - Forward Mutation (v) is not a valid number. \n \n"
+                error += Strings.hyphen + Strings.vIsNotValid + Strings.endOfError
             if(parseFloat(inputV.textFieldText) <= 0)
-                error += " - Forward Mutation (v) is quite small. It must be at least 0. \n \n"
+                error += Strings.hyphen + Strings.vIsSmall + Strings.endOfError
             if(!inputForce.checked && parseFloat(inputV.textFieldText) > 1)
-                error += " - Forward Mutation (v) is quite large and might violate the Wright-Fisher assumptions. It should be less than 1. Check 'Force' to ignore. \n \n"
+                error += Strings.hyphen + Strings.vIsLargeScaled + Strings.endOfError
 
             if(inputS.textFieldText == "")
-                error += " - Selection Coefficient (s) is empty. \n \n"
+                error += Strings.hyphen + Strings.sIsEmpty + Strings.endOfError
             if(Number.isNaN(Number(inputS.textFieldText)))
-                error += " - Selection Coefficient (s) is not a valid number. \n \n"
+                error += Strings.hyphen + Strings.sIsNotValid + Strings.endOfError
             if(parseFloat(inputS.textFieldText) < -1 * (2 * parseInt(inputN.textFieldText)))
-                error += " - Selection Coefficient (s) is quite small. It must be at least -2N. \n \n"
+                error += Strings.hyphen + Strings.sIsSmall + Strings.endOfError
             if(parseFloat(inputS.textFieldText) > 1 * (2 * parseInt(inputN.textFieldText)))
-                error += " - Selection Coefficient (s) is quite large. The maximum value allowed is 2N. \n \n"
+                error += Strings.hyphen + Strings.sIsLargeScaled + Strings.endOfError
         } else {
             if(inputU.textFieldText == "")
-                error += " - Backward Mutation (u) is empty. \n \n"
+                error += Strings.hyphen + Strings.uIsEmpty + Strings.endOfError
             if(Number.isNaN(Number(inputU.textFieldText)))
-                error += " - Backward Mutation (u) is not a valid number. \n \n"
+                error += Strings.hyphen + Strings.uIsNotValid + Strings.endOfError
             if(parseFloat(inputU.textFieldText) <= 0)
-                error += " - Backward Mutation (u) is quite small. It must be at least 0. \n \n"
+                error += Strings.hyphen + Strings.uIsSmall + Strings.endOfError
             if(!inputForce.checked && parseFloat(inputU.textFieldText) > 1 / (4 * parseInt(inputN.textFieldText)))
-                error += " - Backward Mutation (u) is quite large and might violate the Wright-Fisher assumptions. It should be less than 1/4N. Check 'Force' to ignore. \n \n"
+                error += Strings.hyphen + Strings.uIsLarge + Strings.endOfError
 
             if(inputV.textFieldText == "")
-                error += " - Forward Mutation (v) is empty. \n \n"
+                error += Strings.hyphen + Strings.vIsEmpty + Strings.endOfError
             if(Number.isNaN(Number(inputV.textFieldText)))
-                error += " - Forward Mutation (v) is not a valid number. \n \n"
+                error += Strings.hyphen + Strings.vIsNotValid + Strings.endOfError
             if(parseFloat(inputV.textFieldText) <= 0)
-                error += " - Forward Mutation (v) is quite small. It must be at least 0. \n \n"
+                error += Strings.hyphen + Strings.vIsSmall + Strings.endOfError
             if(!inputForce.checked && parseFloat(inputV.textFieldText) > 1 / (4 * parseInt(inputN.textFieldText)))
-                error += " - Forward Mutation (v) is quite large and might violate the Wright-Fisher assumptions. It should be less than 1/4N. Check 'Force' to ignore. \n \n"
+                error += Strings.hyphen + Strings.vIsLarge + Strings.endOfError
 
             if(inputS.textFieldText == "")
-                error += " - Selection Coefficient (s) is empty. \n \n"
+                error += Strings.hyphen + Strings.sIsEmpty + Strings.endOfError
             if(Number.isNaN(Number(inputS.textFieldText)))
-                error += " - Selection Coefficient (s) is not a valid number. \n \n"
+                error += Strings.hyphen + Strings.sIsNotValid + Strings.endOfError
             if(parseFloat(inputS.textFieldText) < -1)
-                error += " - Selection Coefficient (s) is quite small. It must be at least -1. \n \n"
+                error += Strings.hyphen + Strings.sIsSmall + Strings.endOfError
             if(parseFloat(inputS.textFieldText) > 1)
-                error += " - Selection Coefficient (s) is quite large. The maximum value allowed is 1. \n \n"
+                error += Strings.hyphen + Strings.sIsLarge + Strings.endOfError
         }
 
         if(inputH.textFieldText == "")
-            error += " - Dominance Coefficient (h) is empty. \n \n"
+            error += Strings.hyphen + Strings.hIsEmpty + Strings.endOfError
         if(Number.isNaN(Number(inputH.textFieldText)))
-            error += " - Dominance Coefficient (h) is not a valid number. \n \n"
+            error += Strings.hyphen + Strings.hIsNotValid + Strings.endOfError
         if(parseFloat(inputH.textFieldText) < 0)
-            error += " - Dominance Coefficient (h) is quite small. It must be at least 0. \n \n"
+            error += Strings.hyphen + Strings.hIsSmall + Strings.endOfError
         if(parseFloat(inputH.textFieldText) > 1)
-            error += " - Dominance Coefficient (h) is quite large. The maximum value allowed is 1. \n \n"
+            error += Strings.hyphen + Strings.hIsLarge + Strings.endOfError
 
         if(inputT.textFieldText == "")
-            error += " - Number of Threads (t) is empty. \n \n"
+            error += Strings.hyphen + Strings.tIsEmpty + Strings.endOfError
         if(Number.isNaN(Number(inputT.textFieldText)))
-            error += " - Number of Threads (t) is not a valid number. \n \n"
-        // Number of threads (t) does not have upper limites, since it depends on the hardware available.
+            error += Strings.hyphen + Strings.tIsNotValid + Strings.endOfError
         if(parseInt(inputT.textFieldText) < 1)
-            error += " - Number of Threads (t) is quite small, it must be at least 1. \n \n"
+            error += Strings.hyphen + Strings.tIsSmall + Strings.endOfError
+        // Number of threads (t) does not have upper limites, since it depends on the hardware available.
 
         if(inputSamplingFrequency.textFieldText == "")
-            error += " - Sampling frequency (Sf) is empty. \n \n"
+            error += Strings.hyphen + Strings.sfIsEmpty + Strings.endOfError
         if(Number.isNaN(Number(inputSamplingFrequency.textFieldText)))
-            error += " - Sampling frequency (Sf) is not a valid number. \n \n"
-        // Sampling frequency does not have upper limites, since it depends on the hardware available.
+            error += Strings.hyphen + Strings.sfIsNotValid + Strings.endOfError
         if(parseInt(inputSamplingFrequency.textFieldText) < 1)
-            error += " - Sampling frequency (Sf) is quite small, it must be at least 1. \n \n"
+            error += Strings.hyphen + Strings.sfIsSmall + Strings.endOfError
         if(parseInt(inputSamplingFrequency.textFieldText) > parseInt(inputM.textFieldText))
-            error += " - Sampling frequency (Sf) is quite large. The maximum value allowed is m. \n \n"
+            error += Strings.hyphen + Strings.sfIsLarge + Strings.endOfError
 
         //TODO Check if Initial Distribution (I) file exists.
 
-        return error.split("\n \n")[0];
+        return error.split(" \n \n")[0];
 
     }
 

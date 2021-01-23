@@ -13,7 +13,7 @@ ApplicationWindow {
     property var firstLoad: true
 
     id: rootTimeDist
-    title: qsTr("WFES - Wright-Fisher Exact Solver (Time Dist.)")
+    title: Strings.wfes + Strings.hyphen + Strings.wfesComplete + " (" + Strings.timeDist + ")"
 
     color: Universal.chromeLowColor
 
@@ -38,7 +38,7 @@ ApplicationWindow {
         close.accepted = false
 
         if(checkIntegrity() !== "") {
-            messageDialogOnClose.text = "Some input parameters are incorrect. The configuration will be available in this session, but cannot be saved for future sessions until you fix those values. Do you want to exit anyway?"
+            messageDialogOnClose.text = Strings.onCloseConfirmationMessage
             messageDialogOnClose.open()
         } else {
             rootTimeDist.hide();
@@ -50,8 +50,8 @@ ApplicationWindow {
 
     MessageDialog {
         id: messageDialogOnClose
-        title: "Warning"
-        text: ""
+        title: Strings.dialogWarning
+        text: Strings.empty
         icon: StandardIcon.Warning
         standardButtons: Dialog.Ok | Dialog.Cancel
         onAccepted: {
@@ -107,7 +107,7 @@ ApplicationWindow {
 
                         Label {
                             id: labelModel
-                            text: "Mode:"
+                            text: Strings.mode + Strings.colon
                             font.bold: true
                         }
 
@@ -123,12 +123,12 @@ ApplicationWindow {
                             RadioButton {
                                 id: radioButtonTimeDist
                                 checked: inputControllerTimeDist.ui_modelType == "Time Dist."
-                                text: qsTr("Time Dist.")
+                                text: Strings.timeDistMode
 
                                 ToolTip.visible: hovered
                                 ToolTip.delay: Style.tooltipDelay
                                 ToolTip.timeout: Style.tooltipTimeout
-                                ToolTip.text: qsTr("Distribution of time to fixation/extinction.")
+                                ToolTip.text: Strings.timeDistModeTooltip
 
                                 onCheckedChanged: {
                                     inputN.enabled = checked;
@@ -165,12 +165,12 @@ ApplicationWindow {
                             RadioButton {
                                 id: radioButtonTimeDistSGV
                                 checked: inputControllerTimeDist.ui_modelType == "Time Dist. SGV"
-                                text: qsTr("Time Dist. SGV")
+                                text: Strings.timeDistSGV
 
                                 ToolTip.visible: hovered
                                 ToolTip.delay: Style.tooltipDelay
                                 ToolTip.timeout: Style.tooltipTimeout
-                                ToolTip.text: qsTr("Time distribution of fixation with standing genetics variation.")
+                                ToolTip.text: Strings.timeDistSGVTooltip
 
                                 onCheckedChanged: {
                                     inputN.enabled = checked;
@@ -208,12 +208,12 @@ ApplicationWindow {
                             RadioButton {
                                 id: radioButtonTimeDistSkip
                                 checked: inputControllerTimeDist.ui_modelType == "Time Dist. Skip"
-                                text: qsTr("Time Dist. Skip")
+                                text: Strings.timeDistSkip
 
                                 ToolTip.visible: hovered
                                 ToolTip.delay: Style.tooltipDelay
                                 ToolTip.timeout: Style.tooltipTimeout
-                                ToolTip.text: qsTr("Distribution of time to absorption, excluding mutation time.")
+                                ToolTip.text: Strings.timeDistSkipTooltip
 
                                 onCheckedChanged: {
                                     inputN.enabled = checked;
@@ -250,12 +250,12 @@ ApplicationWindow {
                             RadioButton {
                                 id: radioButtonTimeDistDual
                                 checked: inputControllerTimeDist.ui_modelType == "Time Dist. Dual"
-                                text: qsTr("Time Dist. Dual")
+                                text: Strings.timeDistDual
 
                                 ToolTip.visible: hovered
                                 ToolTip.delay: Style.tooltipDelay
                                 ToolTip.timeout: Style.tooltipTimeout
-                                ToolTip.text: qsTr("This calculates the distribution of time to fixation, extinction using a dual mutation model.")
+                                ToolTip.text: Strings.timeDistDualTooltip
 
                                 onCheckedChanged: {
                                     inputN.enabled = checked;
@@ -303,7 +303,7 @@ ApplicationWindow {
 
                     Label {
                         id: labelComponents
-                        text: "Components:"
+                        text: Strings.components + Strings.colon
                         visible: (inputControllerTimeDist.ui_modelType === "Time Dist. SGV")
                         font.bold: true
                     }
@@ -325,7 +325,7 @@ ApplicationWindow {
                             }
                             Tab {
                                 id: comp1
-                                title: "Comp. 1"
+                                title: Strings.comp + "1"
                                 height: parent.height
                                 width: implicitWidth
                                 GridLayout {
@@ -345,7 +345,7 @@ ApplicationWindow {
 
                                         Label {
                                             id: labelMutation1
-                                            text: "Mutation:"
+                                            text: Strings.mutation + Strings.colon
                                             anchors {
                                                 left: parent.left
                                                 margins: {
@@ -368,11 +368,11 @@ ApplicationWindow {
                                                 id: inputU1
                                                 text: {
                                                     if(globalConfiguration.ui_population_scaled)
-                                                        return "4Nu<sub>1</sub>: "
+                                                        return Strings.uSubScaled.arg(1) + Strings.colon
                                                     else
-                                                        return "u<sub>1</sub>: "
+                                                        return Strings.uSub.arg(1) + Strings.colon
                                                 }
-                                                toolTipText: "Backward mutation rate."
+                                                toolTipText: Strings.uTooltip
                                                 validator: DoubleValidator {bottom: 0;}
                                                 textFieldText: {
                                                     var u_vec = inputControllerTimeDist.ui_u_vec
@@ -404,11 +404,11 @@ ApplicationWindow {
                                                 id: inputV1
                                                 text: {
                                                     if(globalConfiguration.ui_population_scaled)
-                                                        return "4Nv<sub>1</sub>: "
+                                                        return Strings.vSubScaled.arg(1) + Strings.colon
                                                     else
-                                                        return "v<sub>1</sub>: "
+                                                        return Strings.vSub.arg(1) + Strings.colon
                                                 }
-                                                toolTipText: "Forward mutation rate."
+                                                toolTipText: Strings.vTooltip
                                                 validator: DoubleValidator {bottom: 0;}
                                                 textFieldText: {
                                                     var v_vec = inputControllerTimeDist.ui_v_vec
@@ -450,7 +450,7 @@ ApplicationWindow {
 
                                         Label {
                                             id: labelSelection1
-                                            text: "Selection:"
+                                            text: Strings.selection
                                             anchors {
                                                 left: parent.left
                                                 margins: {
@@ -472,11 +472,11 @@ ApplicationWindow {
                                                 id: inputS1
                                                 text: {
                                                     if(globalConfiguration.ui_population_scaled)
-                                                        return "2Ns<sub>1</sub>: "
+                                                        return Strings.sSubScaled.arg(1) + Strings.colon
                                                     else
-                                                        return "s<sub>1</sub>: "
+                                                        return Strings.sSub.arg(1) + Strings.colon
                                                 }
-                                                toolTipText: "Selection coefficient."
+                                                toolTipText: Strings.sTooltip
                                                 validator: DoubleValidator {bottom: -1; top: 1;}
                                                 textFieldText: {
                                                     var s_vec = inputControllerTimeDist.ui_s_vec
@@ -506,8 +506,8 @@ ApplicationWindow {
 
                                             LabeledTextField {
                                                 id: inputH1
-                                                text: "h<sub>1</sub>: "
-                                                toolTipText: "Dominance coefficient."
+                                                text: Strings.hSub.arg(1) + Strings.colon
+                                                toolTipText: Strings.hTooltip
                                                 validator: DoubleValidator {bottom: 0; top: 1;}
                                                 textFieldText: {
                                                     var h_vec = inputControllerTimeDist.ui_h_vec
@@ -542,7 +542,7 @@ ApplicationWindow {
                             }
                             Tab {
                                 id: comp2
-                                title: "Comp. 2"
+                                title: Strings.comp + "2"
                                 height: parent.height
                                 width: implicitWidth
                                 GridLayout {
@@ -562,7 +562,7 @@ ApplicationWindow {
 
                                         Label {
                                             id: labelMutation2
-                                            text: "Mutation:"
+                                            text: Strings.mutation + Strings.colon
                                             anchors {
                                                 left: parent.left
                                                 margins: {
@@ -585,11 +585,11 @@ ApplicationWindow {
                                                 id: inputU2
                                                 text: {
                                                     if(globalConfiguration.ui_population_scaled)
-                                                        return "4Nu<sub>2</sub>: "
+                                                        return Strings.uSubScaled.arg(2) + Strings.colon
                                                     else
-                                                        return "u<sub>2</sub>: "
+                                                        return Strings.uSub.arg(2) + Strings.colon
                                                 }
-                                                toolTipText: "Backward mutation rate."
+                                                toolTipText: Strings.uTooltip
                                                 validator: DoubleValidator {bottom: 0;}
                                                 textFieldText: {
                                                     var u_vec = inputControllerTimeDist.ui_u_vec
@@ -621,11 +621,11 @@ ApplicationWindow {
                                                 id: inputV2
                                                 text: {
                                                     if(globalConfiguration.ui_population_scaled)
-                                                        return "4Nv<sub>2</sub>: "
+                                                        return Strings.vSubScaled.arg(2) + Strings.colon
                                                     else
-                                                        return "v<sub>2</sub>: "
+                                                        return Strings.vSub.arg(2) + Strings.colon
                                                 }
-                                                toolTipText: "Forward mutation rate."
+                                                toolTipText: Strings.vTooltip
                                                 validator: DoubleValidator {bottom: 0;}
                                                 textFieldText: {
                                                     var v_vec = inputControllerTimeDist.ui_v_vec
@@ -666,7 +666,7 @@ ApplicationWindow {
 
                                         Label {
                                             id: labelSelection2
-                                            text: "Selection:"
+                                            text: Strings.selection + Strings.colon
                                             anchors {
                                                 left: parent.left
                                                 margins: {
@@ -688,11 +688,11 @@ ApplicationWindow {
                                                 id: inputS2
                                                 text: {
                                                     if(globalConfiguration.ui_population_scaled)
-                                                        return "2Ns<sub>2</sub>: "
+                                                        return Strings.sSubScaled.arg(2) + Strings.colon
                                                     else
-                                                        return "s<sub>2</sub>: "
+                                                        return Strings.sSub.arg(2) + Strings.colon
                                                 }
-                                                toolTipText: "Selection coefficient."
+                                                toolTipText: Strings.sTooltip
                                                 validator: DoubleValidator {bottom: -1; top: 1;}
                                                 textFieldText: {
                                                     var s_vec = inputControllerTimeDist.ui_s_vec
@@ -722,8 +722,8 @@ ApplicationWindow {
 
                                             LabeledTextField {
                                                 id: inputH2
-                                                text: "h<sub>2</sub>: "
-                                                toolTipText: "Dominance coefficient."
+                                                text: Strings.hSub.arg(2) + Strings.colon
+                                                toolTipText: Strings.hTooltip
                                                 validator: DoubleValidator {bottom: 0; top: 1;}
                                                 textFieldText: {
                                                     var h_vec = inputControllerTimeDist.ui_h_vec
@@ -762,7 +762,7 @@ ApplicationWindow {
 
                         Label {
                             id: labelPopulation
-                            text: "Population:"
+                            text: Strings.population + Strings.colon
                             font.bold: true
                         }
 
@@ -777,8 +777,8 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 id: inputN
-                                text: "N: "
-                                toolTipText: "Size of the population in the Wright Fisher Model."
+                                text: Strings.n + Strings.colon
+                                toolTipText: Strings.nTooltip
                                 validator: IntValidator {bottom: 2; top: 500000;}
                                 textFieldText: inputControllerTimeDist.ui_n
                                 textFieldTextEdited: function(){
@@ -795,8 +795,8 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 id: inputA
-                                text: "a: "
-                                toolTipText: "Tail truncation weight."
+                                text: Strings.a + Strings.colon
+                                toolTipText: Strings.aTooltip
                                 validator: DoubleValidator {bottom: 0;}
                                 textFieldText: inputControllerTimeDist.ui_a
                                 textFieldTextEdited: function(){
@@ -811,8 +811,8 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 id: inputC
-                                text: "c: "
-                                toolTipText: "Integration cutoff."
+                                text: Strings.c + Strings.colon
+                                toolTipText: Strings.cTooltip
                                 validator: DoubleValidator {bottom: 0; top: 1;}
                                 textFieldText: inputControllerTimeDist.ui_c
                                 textFieldTextEdited: function(){
@@ -827,8 +827,8 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 id: inputM
-                                text: "m: "
-                                toolTipText: "Maximum number of generations."
+                                text: Strings.m + Strings.colon
+                                toolTipText: Strings.mTooltip
                                 validator: DoubleValidator {bottom: 1;}
                                 textFieldText: inputControllerTimeDist.ui_m
                                 textFieldTextEdited: function(){
@@ -862,7 +862,7 @@ ApplicationWindow {
 
                         Label {
                             id: labelCommonParameters
-                            text: "Common Parameters"
+                            text: Strings.commonParameters + Strings.colon
                             font.bold: true
                         }
 
@@ -877,8 +877,8 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 id: inputN1
-                                text: "N: "
-                                toolTipText: "Size of the population in the Wright Fisher Model."
+                                text: Strings.n + Strings.colon
+                                toolTipText: Strings.nTooltip
                                 validator: IntValidator {bottom: 2; top: 500000;}
                                 textFieldText: inputControllerTimeDist.ui_n_sgv
                                 textFieldTextEdited: function(){
@@ -899,8 +899,8 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 id: inputA1
-                                text: "a: "
-                                toolTipText: "Tail truncation weight."
+                                text: Strings.a + Strings.colon
+                                toolTipText: Strings.aTooltip
                                 validator: DoubleValidator {bottom: 0;}
                                 textFieldText: inputControllerTimeDist.ui_a_sgv
                                 textFieldTextEdited: function(){
@@ -915,8 +915,8 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 id: inputL
-                                text: "l: "
-                                toolTipText: "Transition probability."
+                                text: Strings.l + Strings.colon
+                                toolTipText: Strings.lTooltip
                                 validator: DoubleValidator {bottom: 1e-20; top: 1;}
                                 textFieldText: inputControllerTimeDist.ui_l
                                 enabled: (inputControllerTimeDist.ui_modelType == "Time Dist. SGV")
@@ -932,8 +932,8 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 id: inputC1
-                                text: "c: "
-                                toolTipText: "Integration cutoff."
+                                text: Strings.c + Strings.colon
+                                toolTipText: Strings.cTooltip
                                 validator: DoubleValidator {bottom: 0; top: 1;}
                                 textFieldText: inputControllerTimeDist.ui_c_sgv
                                 textFieldTextEdited: function(){
@@ -948,8 +948,8 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 id: inputM1
-                                text: "m: "
-                                toolTipText: "Maximum number of generations."
+                                text: Strings.m + Strings.colon
+                                toolTipText: Strings.mTooltip
                                 validator: DoubleValidator {bottom: 1;}
                                 textFieldText: inputControllerTimeDist.ui_m_sgv
                                 textFieldTextEdited: function(){
@@ -964,8 +964,8 @@ ApplicationWindow {
 
                             LabeledCheckBox {
                                 id: inputR1
-                                text: "r: "
-                                toolTipText: "Exclude recurrent mutation."
+                                text: Strings.rMut + Strings.colon
+                                toolTipText: Strings.rMutTooltip
                                 checked: inputControllerTimeDist.ui_r_sgv
                             }
                         }
@@ -981,7 +981,7 @@ ApplicationWindow {
 
                         Label {
                             id: labelMutation
-                            text: "Mutation:"
+                            text: Strings.mutation + Strings.colon
                             font.bold: true
                         }
 
@@ -999,11 +999,11 @@ ApplicationWindow {
                                 id: inputU
                                 text: {
                                     if(globalConfiguration.ui_population_scaled)
-                                        return "4Nu: "
+                                        return Strings.uScaled + Strings.colon
                                     else
-                                        return "u: "
+                                        return Strings.u + Strings.colon
                                 }
-                                toolTipText: "Backward mutation rate."
+                                toolTipText: Strings.uTooltip
                                 validator: DoubleValidator {bottom: 0;}
                                 textFieldText: inputControllerTimeDist.ui_u
                                 textFieldTextEdited: function(){
@@ -1029,11 +1029,11 @@ ApplicationWindow {
                                 id: inputV
                                 text: {
                                     if(globalConfiguration.ui_population_scaled)
-                                        return "4Nv: "
+                                        return Strings.vScaled + Strings.colon
                                     else
-                                        return "v: "
+                                        return Strings.v + Strings.colon
                                 }
-                                toolTipText: "Forward mutation rate."
+                                toolTipText: Strings.vTooltip
                                 validator: DoubleValidator {bottom: 0;}
                                 textFieldText: inputControllerTimeDist.ui_v
                                 textFieldTextEdited: function(){
@@ -1057,8 +1057,8 @@ ApplicationWindow {
 
                             LabeledCheckBox {
                                 id: inputR
-                                text: "r: "
-                                toolTipText: "Exclude recurrent mutation."
+                                text: Strings.rMut + Strings.colon
+                                toolTipText: Strings.rMutTooltip
                                 checked: inputControllerTimeDist.ui_r
                             }
                         }
@@ -1081,7 +1081,7 @@ ApplicationWindow {
 
                         Label {
                             id: labelSelection
-                            text: "Selection:"
+                            text: Strings.selection + Strings.colon
                             font.bold: true
                         }
 
@@ -1098,11 +1098,11 @@ ApplicationWindow {
                                 id: inputS
                                 text: {
                                     if(globalConfiguration.ui_population_scaled)
-                                        return "2Ns: "
+                                        return Strings.sScaled + Strings.colon
                                     else
-                                        return "s: "
+                                        return Strings.s + Strings.colon
                                 }
-                                toolTipText: "Selection coefficient."
+                                toolTipText: Strings.sTooltip
                                 validator: DoubleValidator {bottom: -1; top: 1;}
                                 textFieldText: inputControllerTimeDist.ui_s
                                 textFieldTextEdited: function(){
@@ -1126,8 +1126,8 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 id: inputH
-                                text: "h: "
-                                toolTipText: "Dominance coefficient."
+                                text: Strings.h + Strings.colon
+                                toolTipText: Strings.hTooltip
                                 validator: DoubleValidator {bottom: 0; top: 1;}
                                 textFieldText: inputControllerTimeDist.ui_h
                                 textFieldTextEdited: function(){
@@ -1169,7 +1169,7 @@ ApplicationWindow {
 
                             Label {
                                 id: labelOutput
-                                text: "Output Options:"
+                                text: Strings.outputOptions + Strings.colon
                                 font.bold: true
                             }
 
@@ -1185,22 +1185,22 @@ ApplicationWindow {
 
                                 LabeledCheckBox {
                                     id: inputWriteQ
-                                    text: "Q: "
-                                    toolTipText: "Output Q as CSV file."
+                                    text: Strings.outputQ + Strings.colon
+                                    toolTipText: Strings.outputQTooltip
                                     checked: inputControllerTimeDist.ui_output_Q
                                 }
 
                                 LabeledCheckBox {
                                     id: inputWriteR
-                                    text: "R: "
-                                    toolTipText: "Output R as CSV file."
+                                    text: Strings.outputR + Strings.colon
+                                    toolTipText: Strings.outputRTooltip
                                     checked: inputControllerTimeDist.ui_output_R
                                 }
 
                                 LabeledCheckBox {
                                     id: inputWriteP
-                                    text: "P: "
-                                    toolTipText: "Output R as CSV file. (Always enabled)."
+                                    text: Strings.outputP + Strings.colon
+                                    toolTipText: Strings.outputPTooltip
                                     checked: true
                                     enabledCheckBox: false
                                 }
@@ -1223,7 +1223,7 @@ ApplicationWindow {
 
                             Label {
                                 id: labelExecution
-                                text: "Execution:"
+                                text: Strings.execution + Strings.colon
                                 font.bold: true
                             }
 
@@ -1241,16 +1241,16 @@ ApplicationWindow {
 
                                     LabeledCheckBox {
                                         id: inputForce
-                                        toolTipText: "Do not perform parameter checks."
-                                        text: "Force: "
+                                        text: Strings.force + Strings.colon
+                                        toolTipText: Strings.forceTooltip
                                         checked: inputControllerTimeDist.ui_force
                                     }
 
                                     LabeledTextField {
                                         id: inputT
-                                        text: "t: "
+                                        text: Strings.t + Strings.colon
+                                        toolTipText: Strings.tTooltip
                                         textFieldPreferredWidth: 100
-                                        toolTipText: "Number of threads for OpenMP."
                                         validator: DoubleValidator {bottom: 1;}
                                         textFieldText: inputControllerTimeDist.ui_t
                                         textFieldTextEdited: function(){
@@ -1269,9 +1269,9 @@ ApplicationWindow {
 
                                     LabeledComboBox {
                                         id: comboBoxLibrary
-                                        text: "Library:"
+                                        text: Strings.library + Strings.colon
                                         model: ["Pardiso", "ViennaCL"]
-                                        toolTipText: "Library used for solving matrix systems."
+                                        toolTipText: Strings.libraryTooltip
                                     }
 
                                 }
@@ -1290,7 +1290,7 @@ ApplicationWindow {
                             id: stopButton
                             Layout.margins: 10
                             Layout.alignment: Qt.AlignRight
-                            text: "Stop"
+                            text: Strings.stopButton
 
                             Binding {
                                 target: stopButton
@@ -1311,7 +1311,7 @@ ApplicationWindow {
                             id: executeButton
                             Layout.margins: 10
                             Layout.alignment: Qt.AlignRight
-                            text: "Execute"
+                            text: Strings.executeButton
 
                             onEnabledChanged: {
                                 if(outputControllerTimeDist.ui_get_not_exec)
@@ -1357,7 +1357,7 @@ ApplicationWindow {
 
                 MessageDialog {
                     id: messageDialog
-                    title: "Warning"
+                    title: Strings.dialogWarning
                     text: ""
                     icon: StandardIcon.Warning
                 }
@@ -1549,150 +1549,151 @@ ApplicationWindow {
 
         if(!radioButtonTimeDistSGV.checked) {
             if(inputN.textFieldText == "")
-                error += " - Population Size (N) is empty. \n \n"
+                error += Strings.hyphen + Strings.nIsEmpty + Strings.endOfError
             if(Number.isNaN(Number(inputN.textFieldText)))
-                error += " - Population Size (N) is not a valid number. \n \n"
+                error += Strings.hyphen + Strings.nIsNotValid + Strings.endOfError
             if(parseInt(inputN.textFieldText) < 2)
-                error += " - Population Size (N) is quite small, it must be at least 2. \n \n"
+                error += Strings.hyphen + Strings.nIsSmall + Strings.endOfError
             if(!inputForce.checked && parseInt(inputN.textFieldText) > 50000)
-                error += " - Population Size (N) is quite large, the computations will take a long time. Check 'Force' to ignore. \n \n"
+                error += Strings.hyphen + Strings.nIsLarge + Strings.endOfError
 
             if(inputA.textFieldText == "")
-                error += " - Tail Truncation Cutoff (a) is empty. \n \n"
+                error += Strings.hyphen + Strings.aIsEmpty + Strings.endOfError
             if(Number.isNaN(Number(inputA.textFieldText)))
-                error += " - Tail Truncation Cutoff (a) is not a valid number. \n \n"
+                error += Strings.hyphen + Strings.aIsNotValid + Strings.endOfError
             if(parseFloat(inputA.textFieldText) < 0)
-                error += " - Tail Truncation Cutoff (a) is quite small. It must be at least 0. \n \n"
+                error += Strings.hyphen + Strings.aIsSmall + Strings.endOfError
             if(!inputForce.checked && parseFloat(inputA.textFieldText) > 1e-5)
-                error += " - Tail Truncation Cutoff (a) value is quite high. This might produce inaccurate results. A good value should be between 0 and 10e-10. Check 'Force' to ignore. \n \n"
+                error += Strings.hyphen + Strings.aIsLarge + Strings.endOfError
 
             if(inputC.textFieldText == "")
-                error += " - Integration Cutoff (c) is empty. \n \n"
+                error += Strings.hyphen + Strings.cIsEmpty + Strings.endOfError
             if(Number.isNaN(Number(inputC.textFieldText)))
-                error += " - Integration Cutoff (c) is not a valid number. \n \n"
+                error += Strings.hyphen + Strings.cIsNotValid + Strings.endOfError
             if(parseFloat(inputC.textFieldText) <= 0)
-                error += " - Integration Cutoff (c) is too small. It must be greater than 0. \n \n"
+                error += Strings.hyphen + Strings.cIsSmall + Strings.endOfError
             if(parseFloat(inputC.textFieldText) > 1)
-                error += " - Integration Cutoff (c) is too large. The maximum value allowed is 1. \n \n"
+                error += Strings.hyphen + Strings.cIsLarge + Strings.endOfError
 
             if(inputM.textFieldText == "")
-                error += " - Maximum Number of Generations (m)  is empty. \n \n"
+                error += Strings.hyphen + Strings.mIsEmpty + Strings.endOfError
             if(Number.isNaN(Number(inputM.textFieldText)))
-                error += " - Maximum Number of Generations (m) is not a valid number. \n \n"
+                error += Strings.hyphen + Strings.mIsNotValid + Strings.endOfError
             if(parseInt(inputM.textFieldText) < 1)
-                error += " - Maximum Number of Generations (m) is quite small, it must be at least 1. \n \n"
+                error += Strings.hyphen + Strings.mIsSmall + Strings.endOfError
             if(!inputForce.checked && parseFloat(inputM.textFieldText) > 50000)
-                error += " - Maximum Number of Generations (m) is quite large, the computations will take a long time. Check 'Force' to ignore. \n \n"
+                error += Strings.hyphen + Strings.mIsLarge + Strings.endOfError
 
             if(globalConfiguration.ui_population_scaled) {
                 if(inputU.textFieldText == "")
-                    error += " - Backward Mutation (u) is empty. \n \n"
+                    error += Strings.hyphen + Strings.uIsEmpty + Strings.endOfError
                 if(Number.isNaN(Number(inputU.textFieldText)))
-                    error += " - Backward Mutation (u) is not a valid number. \n \n"
+                    error += Strings.hyphen + Strings.uIsNotValid + Strings.endOfError
                 if(parseFloat(inputU.textFieldText) <= 0)
-                    error += " - Backward Mutation (u) is quite small. It must be at least 0. \n \n"
+                    error += Strings.hyphen + Strings.uIsSmall + Strings.endOfError
                 if(!inputForce.checked && parseFloat(inputU.textFieldText) > 1)
-                    error += " - Backward Mutation (u) is quite large and might violate the Wright-Fisher assumptions. It should be less than 1. Check 'Force' to ignore. \n \n"
+                    error += Strings.hyphen + Strings.uIsLargeScaled + Strings.endOfError
 
                 if(inputV.textFieldText == "")
-                    error += " - Forward Mutation (v) is empty. \n \n"
+                    error += Strings.hyphen + Strings.vIsEmpty + Strings.endOfError
                 if(Number.isNaN(Number(inputV.textFieldText)))
-                    error += " - Forward Mutation (v) is not a valid number. \n \n"
+                    error += Strings.hyphen + Strings.vIsNotValid + Strings.endOfError
                 if(parseFloat(inputV.textFieldText) <= 0)
-                    error += " - Forward Mutation (v) is quite small. It must be at least 0. \n \n"
+                    error += Strings.hyphen + Strings.vIsSmall + Strings.endOfError
                 if(!inputForce.checked && parseFloat(inputV.textFieldText) > 1)
-                    error += " - Forward Mutation (v) is quite large and might violate the Wright-Fisher assumptions. It should be less than 1. Check 'Force' to ignore. \n \n"
+                    error += Strings.hyphen + Strings.vIsLargeScaled + Strings.endOfError
 
                 if(inputS.textFieldText == "")
-                    error += " - Selection Coefficient (s) is empty. \n \n"
+                    error += Strings.hyphen + Strings.sIsEmpty + Strings.endOfError
                 if(Number.isNaN(Number(inputS.textFieldText)))
-                    error += " - Selection Coefficient (s) is not a valid number. \n \n"
+                    error += Strings.hyphen + Strings.sIsNotValid + Strings.endOfError
                 if(parseFloat(inputS.textFieldText) < -1 * (2 * parseInt(inputN.textFieldText)))
-                    error += " - Selection Coefficient (s) is quite small. It must be at least -2N. \n \n"
+                    error += Strings.hyphen + Strings.sIsSmall + Strings.endOfError
                 if(parseFloat(inputS.textFieldText) > 1 * (2 * parseInt(inputN.textFieldText)))
-                    error += " - Selection Coefficient (s) is quite large. The maximum value allowed is 2N. \n \n"
+                    error += Strings.hyphen + Strings.sIsLargeScaled + Strings.endOfError
             } else {
                 if(inputU.textFieldText == "")
-                    error += " - Backward Mutation (u) is empty. \n \n"
+                    error += Strings.hyphen + Strings.uIsEmpty + Strings.endOfError
                 if(Number.isNaN(Number(inputU.textFieldText)))
-                    error += " - Backward Mutation (u) is not a valid number. \n \n"
+                    error += Strings.hyphen + Strings.uIsNotValid + Strings.endOfError
                 if(parseFloat(inputU.textFieldText) <= 0)
-                    error += " - Backward Mutation (u) is quite small. It must be at least 0. \n \n"
+                    error += Strings.hyphen + Strings.uIsSmall + Strings.endOfError
                 if(!inputForce.checked && parseFloat(inputU.textFieldText) > 1 / (4 * parseInt(inputN.textFieldText)))
-                    error += " - Backward Mutation (u) is quite large and might violate the Wright-Fisher assumptions. It should be less than 1/4N. Check 'Force' to ignore. \n \n"
+                    error += Strings.hyphen + Strings.uIsLarge + Strings.endOfError
 
                 if(inputV.textFieldText == "")
-                    error += " - Forward Mutation (v) is empty. \n \n"
+                    error += Strings.hyphen + Strings.vIsEmpty + Strings.endOfError
                 if(Number.isNaN(Number(inputV.textFieldText)))
-                    error += " - Forward Mutation (v) is not a valid number. \n \n"
+                    error += Strings.hyphen + Strings.vIsNotValid + Strings.endOfError
                 if(parseFloat(inputV.textFieldText) <= 0)
-                    error += " - Forward Mutation (v) is quite small. It must be at least 0. \n \n"
+                    error += Strings.hyphen + Strings.vIsSmall + Strings.endOfError
                 if(!inputForce.checked && parseFloat(inputV.textFieldText) > 1 / (4 * parseInt(inputN.textFieldText)))
-                    error += " - Forward Mutation (v) is quite large and might violate the Wright-Fisher assumptions. It should be less than 1/4N. Check 'Force' to ignore. \n \n"
+                    error += Strings.hyphen + Strings.vIsLarge + Strings.endOfError
+
 
                 if(inputS.textFieldText == "")
-                    error += " - Selection Coefficient (s) is empty. \n \n"
+                    error += Strings.hyphen + Strings.sIsEmpty + Strings.endOfError
                 if(Number.isNaN(Number(inputS.textFieldText)))
-                    error += " - Selection Coefficient (s) is not a valid number. \n \n"
+                    error += Strings.hyphen + Strings.sIsNotValid + Strings.endOfError
                 if(parseFloat(inputS.textFieldText) < -1)
-                    error += " - Selection Coefficient (s) is quite small. It must be at least -1. \n \n"
+                    error += Strings.hyphen + Strings.sIsSmall + Strings.endOfError
                 if(parseFloat(inputS.textFieldText) > 1)
-                    error += " - Selection Coefficient (s) is quite large. The maximum value allowed is 1. \n \n"
+                    error += Strings.hyphen + Strings.sIsLarge + Strings.endOfError
             }
 
             if(inputH.textFieldText == "")
-                error += " - Dominance Coefficient (h) is empty. \n \n"
+                error += Strings.hyphen + Strings.hIsEmpty + Strings.endOfError
             if(Number.isNaN(Number(inputH.textFieldText)))
-                error += " - Dominance Coefficient (h) is not a valid number. \n \n"
+                error += Strings.hyphen + Strings.hIsNotValid + Strings.endOfError
             if(parseFloat(inputH.textFieldText) < 0)
-                error += " - Dominance Coefficient (h) is quite small. It must be at least 0. \n \n"
+                error += Strings.hyphen + Strings.hIsSmall + Strings.endOfError
             if(parseFloat(inputH.textFieldText) > 1)
-                error += " - Dominance Coefficient (h) is quite large. The maximum value allowed is 1. \n \n"
+                error += Strings.hyphen + Strings.hIsLarge + Strings.endOfError
         } else {
             if(inputN1.textFieldText == "")
-                error += " - Population Size (N) of SGV is empty. \n \n"
+                error += Strings.hyphen + Strings.nSGVIsEmpty + Strings.endOfError
             if(Number.isNaN(Number(inputN1.textFieldText)))
-                error += " - Population Size (N) of SGV is not a valid number. \n \n"
+                error += Strings.hyphen + Strings.nSGVIsNotValid + Strings.endOfError
             if(parseInt(inputN1.textFieldText) < 2)
-                error += " - Population Size (N) of SGV is quite small, it must be at least 2. \n \n"
+                error += Strings.hyphen + Strings.nSGVIsSmall + Strings.endOfError
             if(!inputForce.checked && parseInt(inputN1.textFieldText) > 50000)
-                error += " - Population Size (N) of SGV is quite large, the computations will take a long time. Check 'Force' to ignore. \n \n"
+                error += Strings.hyphen + Strings.nSGVIsLarge + Strings.endOfError
 
             if(inputL.textFieldText == "")
-                error += " - Rate of Switching to pre-adaptive phase (l) of SGV is empty. \n \n"
+                error += Strings.hyphen + Strings.lSGVIsEmpty + Strings.endOfError
             if(Number.isNaN(Number(inputL.textFieldText)))
-                error += " - Rate of Switching to pre-adaptive phase (l) of SGV is not a valid number. \n \n"
+                error += Strings.hyphen + Strings.lSGVIsNotValid + Strings.endOfError
             if(parseFloat(inputL.textFieldText) < 1e-20)
-                error += " - Rate of switching to pre-adaptive phase (l) of SGV is quite small. It must be at least 0. \n \n"
+                error += Strings.hyphen + Strings.lSGVIsSmall + Strings.endOfError
             if(parseFloat(inputL.textFieldText) > 1)
-                error += " - Rate of switching to pre-adaptive phase (l) of SGV is quite large. The maximum value allowed is 10e-3. \n \n"
+                error += Strings.hyphen + Strings.lSGVIsLarge + Strings.endOfError
 
             if(inputA1.textFieldText == "")
-                error += " - Tail Truncation Cutoff (a) of SGV is empty. \n \n"
+                error += Strings.hyphen + Strings.aSGVIsEmpty + Strings.endOfError
             if(Number.isNaN(Number(inputA1.textFieldText)))
-                error += " - Tail Truncation Cutoff (a) of SGV is not a valid number. \n \n"
+                error += Strings.hyphen + Strings.aSGVIsNotValid + Strings.endOfError
             if(parseFloat(inputA1.textFieldText) < 0)
-                error += " - Tail Truncation Cutoff (a) of SGV is quite small. It must be at least 0. \n \n"
+                error += Strings.hyphen + Strings.aSGVIsSmall + Strings.endOfError
             if(!inputForce.checked && parseFloat(inputA1.textFieldText) > 1e-5)
-                error += " - Tail Truncation Cutoff (a) of SGV value is quite high. This might produce inaccurate results. A good value should be between 0 and 10e-10. Check 'Force' to ignore. \n \n"
+                error += Strings.hyphen + Strings.aSGVIsLarge + Strings.endOfError
 
             if(inputC1.textFieldText == "")
-                error += " - Integration Cutoff (c) of SGV is empty. \n \n"
+                error += Strings.hyphen + Strings.cSGVIsEmpty + Strings.endOfError
             if(Number.isNaN(Number(inputC1.textFieldText)))
-                error += " - Integration Cutoff (c) of SGV is not a valid number. \n \n"
+                error += Strings.hyphen + Strings.cSGVIsNotValid + Strings.endOfError
             if(parseFloat(inputC1.textFieldText) <= 0)
-                error += " - Integration Cutoff (c) of SGV is too small. It must be greater than 0. \n \n"
+                error += Strings.hyphen + Strings.cSGVIsSmall + Strings.endOfError
             if(parseFloat(inputC1.textFieldText) > 1)
-                error += " - Integration Cutoff (c) of SGV is too large. The maximum value allowed is 1. \n \n"
+                error += Strings.hyphen + Strings.cSGVIsLarge + Strings.endOfError
 
             if(inputM1.textFieldText == "")
-                error += " - Maximum Number of Generations (m) of SGV is empty. \n \n"
+                error += Strings.hyphen + Strings.mSGVIsEmpty + Strings.endOfError
             if(Number.isNaN(Number(inputM1.textFieldText)))
-                error += " - Maximum Number of Generations (m) of SGV is not a valid number. \n \n"
+                error += Strings.hyphen + Strings.mSGVIsNotValid + Strings.endOfError
             if(parseFloat(inputM1.textFieldText) < 1)
-                error += " - Maximum Number of Generations (m) of SGV is quite small, it must be at least 1. \n \n"
+                error += Strings.hyphen + Strings.mSGVIsSmall + Strings.endOfError
             if(!inputForce.checked && parseFloat(inputM1.textFieldText) > 50000)
-                error += " - Maximum Number of Generations (m) of SGV is quite large, the computations will take a long time. Check 'Force' to ignore. \n \n"
+                error += Strings.hyphen + Strings.mSGVIsLarge + Strings.endOfError
 
             var u_vec = []
             var v_vec = []
@@ -1714,98 +1715,98 @@ ApplicationWindow {
                 for(i = 0; i < 2; i++) {
                     u = timeDistSGVSectionTabView.getTab(i).item.children[0].children[1].children[0].textFieldText
                     if(u === "")
-                        error += " - Backward Mutation (u" + (i + 1) + ") is empty. \n \n"
+                        error += Strings.hyphen + Strings.uSGVisEmpty.arg(i + 1) + Strings.endOfError
                     if(Number.isNaN(Number(u_vec[i])))
-                        error += " - Backward Mutation (u" + (i + 1) + ") of SGV is not a valid number. \n \n"
+                        error += Strings.hyphen + Strings.uSGVisNotValid.arg(i + 1) + Strings.endOfError
                     if(parseFloat(u_vec[i]) <= 0)
-                        error += " - Backward Mutation (u" + (i + 1) + ") of SGV is quite small. It must be at least 0. \n \n"
+                        error += Strings.hyphen + Strings.uSGVisSmall.arg(i + 1) + Strings.endOfError
                     if(!inputForce.checked && parseFloat(u_vec[i]) > 1)
-                        error += " - Backward Mutation (u" + (i + 1) + ") of SGV is quite large and might violate the Wright-Fisher assumptions. It should be less than 1. Check 'Force' to ignore. \n \n"
+                        error += Strings.hyphen + Strings.uSGVisLargeScaled.arg(i + 1) + Strings.endOfError
                 }
 
                 for(i = 0; i < 2; i++) {
                     v = timeDistSGVSectionTabView.getTab(i).item.children[0].children[1].children[1].textFieldText
                     if(v === "")
-                        error += " - Forward Mutation (v" + (i + 1) + ") of SGV is empty. \n \n"
+                        error += Strings.hyphen + Strings.vSGVisEmpty.arg(i + 1) + Strings.endOfError
                     if(Number.isNaN(Number(v_vec[i])))
-                        error += " - Forward Mutation (v" + (i + 1) + ") of SGV is not a valid number. \n \n"
+                        error += Strings.hyphen + Strings.vSGVisNotValid.arg(i + 1) + Strings.endOfError
                     if(parseFloat(v_vec[i]) <= 0)
-                        error += " - Forward Mutation (v" + (i + 1) + ") of SGV is quite small. It must be at least 0. \n \n"
+                        error += Strings.hyphen + Strings.vSGVisSmall.arg(i + 1) + Strings.endOfError
                     if(!inputForce.checked && parseFloat(v_vec[i]) > 1)
-                        error += " - Forward Mutation (v" + (i + 1) + ") of SGV is quite large and might violate the Wright-Fisher assumptions. It should be less than 1. Check 'Force' to ignore. \n \n"
+                        error += Strings.hyphen + Strings.vSGVisLargeScaled.arg(i + 1) + Strings.endOfError
                 }
 
                 for(i = 0; i < 2; i++) {
                     s = timeDistSGVSectionTabView.getTab(i).item.children[1].children[1].children[0].textFieldText
                     if(s === "")
-                        error += " - Selection Coefficient (s" + (i + 1) + ") is empty. \n \n"
+                        error += Strings.hyphen + Strings.sSGVisEmpty.arg(i + 1) + Strings.endOfError
                     if(Number.isNaN(Number(s_vec[i])))
-                        error += " - Selection Coefficient (s" + (i + 1) + ") of SGV is not a valid number. \n \n"
+                        error += Strings.hyphen + Strings.sSGVisNotValid.arg(i + 1) + Strings.endOfError
                     if(parseFloat(s_vec[i]) < -1 * (2 * parseInt(inputN.textFieldText)))
-                        error += " - Selection Coefficient (s" + (i + 1) + ") of SGV is quite negative. It must be at least -2N \n \n"
+                        error += Strings.hyphen + Strings.sSGVisSmall.arg(i + 1) + Strings.endOfError
                     if(parseFloat(s_vec[i]) > 1 * (2 * parseInt(inputN.textFieldText)))
-                        error += " - Selection Coefficient (s" + (i + 1) + ") of SGV is quite large. The maximum value allowed is 2N. \n \n"
+                        error += Strings.hyphen + Strings.sSGVisLargeScaled.arg(i + 1) + Strings.endOfError
                 }
             } else {
                 for(i = 0; i < 2; i++) {
                     u = timeDistSGVSectionTabView.getTab(i).item.children[0].children[1].children[0].textFieldText
                     if(u === "")
-                        error += " - Backward Mutation (u" + (i + 1) + ") is empty. \n \n"
+                        error += Strings.hyphen + Strings.uSGVisEmpty.arg(i + 1) + Strings.endOfError
                     if(Number.isNaN(Number(u_vec[i])))
-                        error += " - Backward Mutation (u" + (i + 1) + ") of SGV is not a valid number. \n \n"
+                        error += Strings.hyphen + Strings.uSGVisNotValid.arg(i + 1) + Strings.endOfError
                     if(parseFloat(u_vec[i]) <= 0)
-                        error += " - Backward Mutation (u" + (i + 1) + ") of SGV is quite small. It must be at least 0. \n \n"
+                        error += Strings.hyphen + Strings.uSGVisSmall.arg(i + 1) + Strings.endOfError
                     if(!inputForce.checked && parseFloat(u_vec[i]) > 1 / (4 * parseInt(inputN.textFieldText)))
-                        error += " - Backward Mutation (u" + (i + 1) + ") of SGV is quite large and might violate the Wright-Fisher assumptions. It should be less than 1/4N. Check 'Force' to ignore. \n \n"
+                        error += Strings.hyphen + Strings.uSGVisLarge.arg(i + 1) + Strings.endOfError
                 }
 
                 for(i = 0; i < 2; i++) {
                     v = timeDistSGVSectionTabView.getTab(i).item.children[0].children[1].children[1].textFieldText
                     if(v === "")
-                        error += " - Forward Mutation (v" + (i + 1) + ") of SGV is empty. \n \n"
+                        error += Strings.hyphen + Strings.vSGVisEmpty.arg(i + 1) + Strings.endOfError
                     if(Number.isNaN(Number(v_vec[i])))
-                        error += " - Forward Mutation (v" + (i + 1) + ") of SGV is not a valid number. \n \n"
+                        error += Strings.hyphen + Strings.vSGVisNotValid.arg(i + 1) + Strings.endOfError
                     if(parseFloat(v_vec[i]) <= 0)
-                        error += " - Forward Mutation (v" + (i + 1) + ") of SGV is quite small. It must be at least 0. \n \n"
+                        error += Strings.hyphen + Strings.vSGVisSmall.arg(i + 1) + Strings.endOfError
                     if(!inputForce.checked && parseFloat(v_vec[i]) > 1 / (4 * parseInt(inputN.textFieldText)))
-                        error += " - Forward Mutation (v" + (i + 1) + ") of SGV is quite large and might violate the Wright-Fisher assumptions. It should be less than 1/4N. Check 'Force' to ignore. \n \n"
+                        error += Strings.hyphen + Strings.vSGVisLarge.arg(i + 1) + Strings.endOfError
                 }
 
                 for(i = 0; i < 2; i++) {
                     s = timeDistSGVSectionTabView.getTab(i).item.children[1].children[1].children[0].textFieldText
                     if(s === "")
-                        error += " - Selection Coefficient (s" + (i + 1) + ") is empty. \n \n"
+                        error += Strings.hyphen + Strings.sSGVisEmpty.arg(i + 1) + Strings.endOfError
                     if(Number.isNaN(Number(s_vec[i])))
-                        error += " - Selection Coefficient (s" + (i + 1) + ") of SGV is not a valid number. \n \n"
+                        error += Strings.hyphen + Strings.sSGVisNotValid.arg(i + 1) + Strings.endOfError
                     if(parseFloat(s_vec[i]) < -1)
-                        error += " - Selection Coefficient (s" + (i + 1) + ") of SGV is quite negative. It must be at least -2N \n \n"
+                        error += Strings.hyphen + Strings.sSGVisSmall.arg(i + 1) + Strings.endOfError
                     if(parseFloat(s_vec[i]) > 1 )
-                        error += " - Selection Coefficient (s" + (i + 1) + ") of SGV is quite large. The maximum value allowed is 2N. \n \n"
+                        error += Strings.hyphen + Strings.vSGVisLarge.arg(i + 1) + Strings.endOfError
                 }
             }
 
             for(i = 0; i < 2; i++) {
                 h = timeDistSGVSectionTabView.getTab(i).item.children[1].children[1].children[1].textFieldText
                 if(h === "")
-                    error += " - Dominance Coefficient (h" + (i + 1) + ") is empty. \n \n"
+                    error += Strings.hyphen + Strings.hSGVisEmpty.arg(i + 1) + Strings.endOfError
                 if(Number.isNaN(Number(h_vec[i])))
-                    error += " - Dominance Coefficient (h" + (i + 1) + ") of SGV is not a valid number. \n \n"
+                    error += Strings.hyphen + Strings.hSGVisNotValid.arg(i + 1) + Strings.endOfError
                 if(parseFloat(h_vec[i]) < 0)
-                    error += " - Dominance Coefficient (h" + (i + 1) + ") of SGV is quite small. It must be at least 0. \n \n"
+                    error += Strings.hyphen + Strings.hSGVisSmall.arg(i + 1) + Strings.endOfError
                 if(parseFloat(h_vec[i]) > 1)
-                    error += " - Dominance Coefficient (h" + (i + 1) + ") of SGV is quite large. The maximum value allowed is 1. \n \n"
+                    error += Strings.hyphen + Strings.hSGVisLarge.arg(i + 1) + Strings.endOfError
             }
 
 
         }
 
         if(inputT.textFieldText == "")
-            error += " - Number of Threads (t) is empty. \n \n"
+            error += Strings.hyphen + Strings.tIsEmpty + Strings.endOfError
         if(Number.isNaN(Number(inputT.textFieldText)))
-            error += " - Number of Threads (t) is not a valid number. \n \n"
-        // Number of threads (t) does not have upper limites, since it depends on the hardware available.
+            error += Strings.hyphen + Strings.tIsNotValid + Strings.endOfError
         if(parseInt(inputT.textFieldText) < 1)
-            error += " - Number of Threads (t) is quite small, it must be at least 1. \n \n"
+            error += Strings.hyphen + Strings.tIsSmall + Strings.endOfError
+        // Number of threads (t) does not have upper limites, since it depends on the hardware available.
 
         //TODO Check if Initial Distribution (I) file exists.
 

@@ -7,6 +7,7 @@ import QtQuick.Controls 2.5
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Controls.Universal 2.3
 import components 1.0
+import assets 1.0
 
 Component{
     id:viewComp
@@ -28,7 +29,7 @@ Component{
 
             Label {
                 id: labelPopulation
-                text: "Population:"
+                text: Strings.population + Strings.colon
                 anchors {
                     left: parent.left
                     margins: {
@@ -48,15 +49,15 @@ Component{
 
                 LabeledTextField {
                     id: inputN
-                    text: "N<sub>" + number + "</sub>: "
-                    toolTipText: "Size of the population in the Wright Fisher Model."
+                    text: Strings.nSub.arg(number) + Strings.colon
+                    toolTipText: Strings.nTooltip
                     validator: IntValidator {bottom: 2; top: 500000;}
                     textFieldText: {
                         if(number != 0) {
                             var n_vec = inputControllerWfesSwitching.ui_N_vec
                             return n_vec[number - 1]
                         } else {
-                            return "";
+                            return Strings.empty;
                         }
                     }
                     textFieldTextEdited: function(){
@@ -80,15 +81,15 @@ Component{
 
                 LabeledTextField {
                     id: inputP
-                    text: "p<sub>" + number + "</sub>: "
-                    toolTipText: "Starting probabilities."
+                    text: Strings.pSub.arg(number) + Strings.colon
+                    toolTipText: Strings.pTooltip
                     validator: DoubleValidator {bottom: 0; top: 1;}
                     textFieldText: {
                         if(number != 0) {
                             var p_vec = inputControllerWfesSwitching.ui_p_vec
                             return p_vec[number - 1]
                         } else {
-                            return "";
+                            return Strings.empty;
                         }
                     }
                     textFieldTextEdited: function(){
@@ -110,8 +111,8 @@ Component{
 
                 LabeledTextField {
                     id: inputR
-                    text: "r<sub>" + number + "</sub>: "
-                    toolTipText: "Transition probability matrix between the WF component models."
+                    text: Strings.rSub.arg(number) + Strings.colon
+                    toolTipText: Strings.rTooltip
                     textFieldPreferredWidth: 235
                     Layout.columnSpan: 2
                     textFieldText: {
@@ -119,7 +120,7 @@ Component{
                             var r_vec = inputControllerWfesSwitching.ui_r_vec
                             return r_vec[number - 1]
                         } else {
-                            return "";
+                            return Strings.empty;
                         }
                     }
                     textFieldTextEdited: function(){
@@ -158,14 +159,11 @@ Component{
                             }
                         }
 
-
-
-
                         var save = true
-                        var r_vec = []
-                        for(var i = 0; i < componentsSectionTabView.children[0].count - 2; i++) {
+                        r_vec = []
+                        for(i = 0; i < componentsSectionTabView.children[0].count - 2; i++) {
                             componentsSectionTabView.children[0].getTab(i).active = true
-                            var r = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[2].textFieldText
+                            r = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[2].textFieldText
                             r_vec.push(r)
                         }
 
@@ -229,7 +227,7 @@ Component{
 
             Label {
                 id: labelMutation
-                text: "Mutation:"
+                text: Strings.mutation + Strings.colon
                 anchors {
                     left: parent.left
                     margins: {
@@ -251,18 +249,18 @@ Component{
                     id: inputU
                     text: {
                         if(globalConfiguration.ui_population_scaled)
-                            return "4Nu<sub>" + number + "</sub>: "
+                            return Strings.uSubScaled.arg(number) + Strings.colon
                         else
-                            return "u<sub>" + number + "</sub>: "
+                            return Strings.uSub.arg(number) + Strings.colon
                     }
-                    toolTipText: "Backward mutation rate."
+                    toolTipText: Strings.uTooltip
                     validator: DoubleValidator {bottom: 0;}
                     textFieldText: {
                         if(number != 0) {
                             var u_vec = inputControllerWfesSwitching.ui_u_vec
                             return u_vec[number - 1]
                         } else {
-                            return "";
+                            return Strings.empty;
                         }
                     }
                     textFieldTextEdited: function(){
@@ -295,18 +293,18 @@ Component{
                     id: inputV
                     text: {
                         if(globalConfiguration.ui_population_scaled)
-                            return "4Nv<sub>" + number + "</sub>: "
+                            return Strings.vSubScaled.arg(number) + Strings.colon
                         else
-                            return "v<sub>" + number + "</sub>: "
+                            return Strings.vSub.arg(number) + Strings.colon
                     }
-                    toolTipText: "Forward mutation rate."
+                    toolTipText: Strings.vTooltip
                     validator: DoubleValidator {bottom: 0;}
                     textFieldText: {
                         if(number != 0) {
                             var v_vec = inputControllerWfesSwitching.ui_v_vec
                             return v_vec[number - 1]
                         } else {
-                            return "";
+                            return Strings.empty;
                         }
                     }
                     textFieldTextEdited: function(){
@@ -347,7 +345,7 @@ Component{
 
             Label {
                 id: labelSelection
-                text: "Selection:"
+                text: Strings.selection + Strings.colon
                 anchors {
                     left: parent.left
                     margins: {
@@ -369,18 +367,18 @@ Component{
                     id: inputS
                     text: {
                         if(globalConfiguration.ui_population_scaled)
-                            return "2Ns<sub>" + number + "</sub>: "
+                            return Strings.sSubScaled.arg(number) + Strings.colon
                         else
-                            return "s<sub>" + number + "</sub>: "
+                            return Strings.sSub.arg(number) + Strings.colon
                     }
-                    toolTipText: "Selection coefficient."
+                    toolTipText: Strings.sTooltip
                     validator: DoubleValidator {bottom: -1; top: 1;}
                     textFieldText: {
                         if(number != 0) {
                             var s_vec = inputControllerWfesSwitching.ui_s_vec
                             return s_vec[number - 1]
                         } else {
-                            return "";
+                            return Strings.empty;
                         }
                     }
                     textFieldTextEdited: function(){
@@ -411,15 +409,15 @@ Component{
 
                 LabeledTextField {
                     id: inputH
-                    text: "h<sub>" + number + "</sub>: "
-                    toolTipText: "Dominance coefficient."
+                    text: Strings.hSub.arg(number) + Strings.colon
+                    toolTipText: Strings.hTooltip
                     validator: DoubleValidator {bottom: 0; top: 1;}
                     textFieldText: {
                         if(number != 0) {
                             var h_vec = inputControllerWfesSwitching.ui_h_vec
                             return h_vec[number - 1]
                         } else {
-                            return "";
+                            return Strings.empty;
                         }
                     }
                     textFieldTextEdited: function(){

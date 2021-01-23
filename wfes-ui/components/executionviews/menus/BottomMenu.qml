@@ -1,6 +1,8 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
+import assets 1.0
+
 Item {
     property alias visibleProgressBar: progressBar.visible
     property alias executionProgress: status.text
@@ -43,12 +45,12 @@ Item {
 
                     Text {
                         id: labelStatus
-                        text: qsTr("Status: ")
+                        text: Strings.bottomBarStatus + Strings.colon
                     }
 
                     Text {
                         id: status
-                        text: qsTr("Not executing.")
+                        text: Strings.bottomBarNotExecuting
                     }
                 }
             }
@@ -66,12 +68,12 @@ Item {
 
                     Text {
                         id: labelTime
-                        text: qsTr("Execution Time: ")
+                        text: Strings.bottomBarExecutionTime + Strings.colon
                     }
 
                     Text {
                         id: time
-                        text: qsTr("0.0s")
+                        text: Strings.bottomBarZeroTime
                     }
                 }
             }

@@ -1,9 +1,10 @@
 <RCC>
-    <qresource prefix="assets">
+    <qresource prefix="/assets">
         <file alias="fonts/font-awesome.ttf">assets/fonts/font-awesome.ttf</file>
         <file alias="images/wfes_logo_500x311.png">assets/images/wfes_logo_500x311.png</file>
         <file alias="images/wfes_logo_225x140.png">assets/images/wfes_logo_225x140.png</file>
         <file alias="Style.qml">assets/Style.qml</file>
+        <file alias="Strings.qml">assets/Strings.qml</file>
         <file alias="qmldir">assets/qmldir</file>
     </qresource>
 </RCC>

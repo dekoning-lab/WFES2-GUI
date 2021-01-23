@@ -18,8 +18,8 @@ Rectangle {
 
     MessageDialog {
         id: messageDialogOnCloseUpperMenu
-        title: "Warning"
-        text: ""
+        title: Strings.dialogWarning
+        text: Strings.empty
         icon: StandardIcon.Warning
         standardButtons: Dialog.Ok
     }
@@ -31,7 +31,7 @@ Rectangle {
 
         Button {
             id: settingsButton
-            text: "Settings"
+            text: Strings.upperMenuSettingsButton
             onClicked: menu2.open()
             
             Menu {
@@ -39,7 +39,7 @@ Rectangle {
                 y: settingsButton.height
                 
                 MenuItem {
-                    text: "Save Config..."
+                    text: Strings.upperMenuSaveConfigButton
                     onClicked: {
                         var text;
                         //Check for active view and save config.
@@ -49,7 +49,7 @@ Rectangle {
                                 rootWfesSingle.updateBackend()
                                 outputControllerWfesSingle.ui_save_config
                             } else {
-                                messageDialogOnCloseUpperMenu.text = "Some input parameters are incorrect. The configuration cannot be saved until you fix those values."
+                                messageDialogOnCloseUpperMenu.text = Strings.upperMenuIncorrectInputParameters
                                 messageDialogOnCloseUpperMenu.open()
                             }
                         } else if(typeof(rootWfesSequential) != "undefined") {
@@ -58,7 +58,7 @@ Rectangle {
                                 rootWfesSequential.updateBackend()
                                 outputControllerWfesSequential.ui_save_config
                             } else {
-                                messageDialogOnCloseUpperMenu.text = "Some input parameters are incorrect. The configuration cannot be saved until you fix those values."
+                                messageDialogOnCloseUpperMenu.text = Strings.upperMenuIncorrectInputParameters
                                 messageDialogOnCloseUpperMenu.open()
                             }
                         } else if(typeof(rootWfesSweep) != "undefined") {
@@ -67,7 +67,7 @@ Rectangle {
                                 rootWfesSweep.updateBackend()
                                 outputControllerWfesSweep.ui_save_config
                             } else {
-                                messageDialogOnCloseUpperMenu.text = "Some input parameters are incorrect. The configuration cannot be saved until you fix those values."
+                                messageDialogOnCloseUpperMenu.text = Strings.upperMenuIncorrectInputParameters
                                 messageDialogOnCloseUpperMenu.open()
                             }
                         } else if(typeof(rootWfesSwitching) != "undefined") {
@@ -76,7 +76,7 @@ Rectangle {
                                 rootWfesSwitching.updateBackend()
                                 outputControllerWfesSwitching.ui_save_config
                             } else {
-                                messageDialogOnCloseUpperMenu.text = "Some input parameters are incorrect. The configuration cannot be saved until you fix those values."
+                                messageDialogOnCloseUpperMenu.text = Strings.upperMenuIncorrectInputParameters
                                 messageDialogOnCloseUpperMenu.open()
                             }
                         } else if(typeof(rootWfafs) != "undefined") {
@@ -85,7 +85,7 @@ Rectangle {
                                 rootWfafs.updateBackend()
                                 outputControllerWfafs.ui_save_config
                             } else {
-                                messageDialogOnCloseUpperMenu.text = "Some input parameters are incorrect. The configuration cannot be saved until you fix those values."
+                                messageDialogOnCloseUpperMenu.text = Strings.upperMenuIncorrectInputParameters
                                 messageDialogOnCloseUpperMenu.open()
                             }
                         } else if(typeof(rootWfafd) != "undefined") {
@@ -94,7 +94,7 @@ Rectangle {
                                 rootWfafd.updateBackend()
                                 outputControllerWfafd.ui_save_config
                             } else {
-                                messageDialogOnCloseUpperMenu.text = "Some input parameters are incorrect. The configuration cannot be saved until you fix those values."
+                                messageDialogOnCloseUpperMenu.text = Strings.upperMenuIncorrectInputParameters
                                 messageDialogOnCloseUpperMenu.open()
                             }
                         } else if(typeof(rootTimeDist) != "undefined") {
@@ -103,7 +103,7 @@ Rectangle {
                                 rootTimeDist.updateBackend()
                                 outputControllerTimeDist.ui_save_config
                             } else {
-                                messageDialogOnCloseUpperMenu.text = "Some input parameters are incorrect. The configuration cannot be saved until you fix those values."
+                                messageDialogOnCloseUpperMenu.text = Strings.upperMenuIncorrectInputParameters
                                 messageDialogOnCloseUpperMenu.open()
                             }
                         } else if(typeof(rootPhaseType) != "undefined") {
@@ -112,14 +112,14 @@ Rectangle {
                                 rootPhaseType.updateBackend()
                                 outputControllerPhaseType.ui_save_config
                             } else {
-                                messageDialogOnCloseUpperMenu.text = "Some input parameters are incorrect. The configuration cannot be saved until you fix those values."
+                                messageDialogOnCloseUpperMenu.text = Strings.upperMenuIncorrectInputParameters
                                 messageDialogOnCloseUpperMenu.open()
                             }
                         }
                     }
                 }
                 MenuItem {
-                    text: "Load Config..."
+                    text: Strings.upperMenuLoadConfigButton
                     onClicked: {
                         //Check for active view and load config.
                         if(typeof(rootWfesSingle) != "undefined") {
@@ -154,13 +154,13 @@ Rectangle {
                 MenuItem {
                     CheckBox {
                         anchors.fill: parent
-                        text: "Generate Images"
+                        text: Strings.upperMenuGenerateImagesCheckBox
                         checked: globalConfiguration.ui_generate_images
 
                         ToolTip.visible: hovered
                         ToolTip.delay: Style.tooltipDelay
                         ToolTip.timeout: Style.tooltipTimeout
-                        ToolTip.text: qsTr("Generate matrix/vector images.")
+                        ToolTip.text: Strings.upperMenuGenerateImagesCheckBoxTooltip
 
                         onCheckedChanged: {
                             if(globalConfiguration.ui_generate_images !== this.checked) {
@@ -175,13 +175,13 @@ Rectangle {
                 MenuItem {
                     CheckBox {
                         anchors.fill: parent
-                        text: "Population-Scaled"
+                        text: Strings.upperMenuPopulationScaledCheckBox
                         checked: globalConfiguration.ui_population_scaled
 
                         ToolTip.visible: hovered
                         ToolTip.delay: Style.tooltipDelay
                         ToolTip.timeout: Style.tooltipTimeout
-                        ToolTip.text: qsTr("Use population-scaled parameters.")
+                        ToolTip.text: Strings.upperMenuPopulationScaledCheckBoxTooltip
 
                         onCheckedChanged: {
                             // Update other windows.
@@ -243,7 +243,7 @@ Rectangle {
 
         Button {
             id: viewButton
-            text: "View"
+            text: Strings.upperMenuViewButton
             onClicked: menu3.open()
 
             Menu {
@@ -251,14 +251,14 @@ Rectangle {
                 y: settingsButton.height
 
                 MenuItem {
-                    text: "Matrix Visualization"
+                    text: Strings.upperMenuMatrixVisualizationButton
                     onClicked: {
                         matrixVisualization.visible = true
                     }
                 }
 
                 MenuItem {
-                    text: "Chart Visualization"
+                    text: Strings.upperMenuChartVisualizationButton
                     onClicked: {
                         chartVisualization.visible = true
                     }
@@ -272,7 +272,7 @@ Rectangle {
 
         Button {
             id: switchButton
-            text: "Windows"
+            text: Strings.upperMenuWindowsButton
             onClicked: menu5.open()
 
             Menu {
@@ -281,7 +281,7 @@ Rectangle {
 
 
                 MenuItem {
-                    text: "Main Window"
+                    text: Strings.mainWindow
                     visible: typeof(root) != "undefined" && root.visible
                     height: visible ? implicitHeight : 0
                     onClicked: {
@@ -290,7 +290,7 @@ Rectangle {
                     }
                 }
                 MenuItem {
-                    text: "WFES Single"
+                    text: Strings.wfesSingle
                     visible: typeof(wfesSingleView) != "undefined" && wfesSingleView.visible
                     height: visible ? implicitHeight : 0
                     onClicked: {
@@ -299,7 +299,7 @@ Rectangle {
                     }
                 }
                 MenuItem {
-                    text: "WFES Sequential"
+                    text: Strings.wfesSequential
                     visible: typeof(wfesSequential) != "undefined" && wfesSequential.visible
                     height: visible ? implicitHeight : 0
                     onClicked: {
@@ -308,7 +308,7 @@ Rectangle {
                     }
                 }
                 MenuItem {
-                    text: "WFES Sweep"
+                    text: Strings.wfesSweep
                     visible: typeof(wfesSweep) != "undefined" && wfesSweep.visible
                     height: visible ? implicitHeight : 0
                     onClicked: {
@@ -317,7 +317,7 @@ Rectangle {
                     }
                 }
                 MenuItem {
-                    text: "WFES Switching"
+                    text: Strings.wfesSwitching
                     visible: typeof(wfesSwitching) != "undefined" && wfesSwitching.visible
                     height: visible ? implicitHeight : 0
                     onClicked: {
@@ -326,7 +326,7 @@ Rectangle {
                     }
                 }
                 MenuItem {
-                    text: "WFAF-S"
+                    text: Strings.wfafS
                     visible: typeof(wfafsView) != "undefined" && wfafsView.visible
                     height: visible ? implicitHeight : 0
                     onClicked: {
@@ -335,7 +335,7 @@ Rectangle {
                     }
                 }
                 MenuItem {
-                    text: "WFAF-D"
+                    text: Strings.wfafD
                     visible: typeof(wfafdView) != "undefined" && wfafdView.visible
                     height: visible ? implicitHeight : 0
                     onClicked: {
@@ -344,7 +344,7 @@ Rectangle {
                     }
                 }
                 MenuItem {
-                    text: "Time Dist."
+                    text: Strings.timeDist
                     visible: typeof(timeDistView) != "undefined" && timeDistView.visible
                     height: visible ? implicitHeight : 0
                     onClicked: {
@@ -353,7 +353,7 @@ Rectangle {
                     }
                 }
                 MenuItem {
-                    text: "Phase Type"
+                    text: Strings.phaseType
                     visible: typeof(phaseTypeView) != "undefined" && phaseTypeView.visible
                     height: visible ? implicitHeight : 0
                     onClicked: {
@@ -367,7 +367,7 @@ Rectangle {
 
         Button {
             id: helpButton
-            text: "Help"
+            text: Strings.upperMenuHelpButton
             onClicked: menu4.open()
 
             Menu {
@@ -376,13 +376,13 @@ Rectangle {
 
 
                 MenuItem {
-                    text: "Manual"
+                    text: Strings.upperMenuManualButton
                     onClicked: {
-                        Qt.openUrlExternally("https://github.com/dekoning-lab/wfes-gui/wiki");
+                        Qt.openUrlExternally(Strings.gitHubWikiURL);
                     }
                 }
                 MenuItem {
-                    text: "About"
+                    text: Strings.upperMenuAboutButton
                     onClicked: {
                         helpView.visible = true
                     }
