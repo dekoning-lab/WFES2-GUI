@@ -12,7 +12,7 @@ ApplicationWindow {
     property var firstLoad: true
 
     id: rootWfesSingle
-    title: qsTr("WFES - Wright-Fisher Exact Solver (WFES Single)")
+    title: Strings.wfes + Strings.hyphen + Strings.wfesComplete + " (" + Strings.wfesSingle + ")"
 
     color: Universal.chromeLowColor
 
@@ -37,7 +37,7 @@ ApplicationWindow {
         close.accepted = false
 
         if(checkIntegrity() !== "") {
-            messageDialogOnClose.text = "Some input parameters are incorrect. The configuration will be available in this session, but cannot be saved for future sessions until you fix those values. Do you want to exit anyway?"
+            messageDialogOnClose.text = Strings.onCloseConfirmationMessage
             messageDialogOnClose.open()
 
         } else {
@@ -50,8 +50,8 @@ ApplicationWindow {
 
     MessageDialog {
         id: messageDialogOnClose
-        title: "Warning"
-        text: ""
+        title: Strings.dialogWarning
+        text: Strings.empty
         icon: StandardIcon.Warning
         standardButtons: Dialog.Ok | Dialog.Cancel
         onAccepted: {
@@ -72,8 +72,8 @@ ApplicationWindow {
 
     MessageDialog {
         id: messageDialog
-        title: "Warning"
-        text: ""
+        title: Strings.dialogWarning
+        text: Strings.empty
         icon: StandardIcon.Warning
     }
 
@@ -116,7 +116,7 @@ ApplicationWindow {
 
                         Label {
                             id: labelModel
-                            text: "Mode:"
+                            text: Strings.mode + Strings.colon
                             font.bold: true
                         }
 
@@ -132,12 +132,12 @@ ApplicationWindow {
                             RadioButton {
                                 id: radioButtonAbsorption
                                 checked: inputControllerWfesSingle.ui_modelType === "Absorption"
-                                text: qsTr("Absorption")
+                                text: Strings.wfesSingleAbsorption
 
                                 ToolTip.visible: hovered
                                 ToolTip.delay: Style.tooltipDelay
                                 ToolTip.timeout: Style.tooltipTimeout
-                                ToolTip.text: qsTr("Both fixation and extinction states are absorbing.")
+                                ToolTip.text: Strings.wfesSingleAbsorptionTooltip
 
                                 onCheckedChanged: {
                                     outputPExt.visible = checked;
@@ -192,12 +192,12 @@ ApplicationWindow {
                             RadioButton {
                                 id: radioButtonFixation
                                 checked: inputControllerWfesSingle.ui_modelType === "Fixation"
-                                text: qsTr("Fixation")
+                                text: Strings.wfesSingleFixation
 
                                 ToolTip.visible: hovered
                                 ToolTip.delay: Style.tooltipDelay
                                 ToolTip.timeout: Style.tooltipTimeout
-                                ToolTip.text: qsTr("Only fixation state is absorbing.")
+                                ToolTip.text: Strings.wfesSingleFixationTooltip
 
                                 onCheckedChanged: {
                                     outputPExt.visible = !checked
@@ -253,12 +253,12 @@ ApplicationWindow {
                             RadioButton {
                                 id: radioButtonEstablishment
                                 checked: inputControllerWfesSingle.ui_modelType === "Establishment"
-                                text: qsTr("Establishment")
+                                text: Strings.wfesSingleEstablishment
 
                                 ToolTip.visible: hovered
                                 ToolTip.delay: Style.tooltipDelay
                                 ToolTip.timeout: Style.tooltipTimeout
-                                ToolTip.text: qsTr("Calculate establishment properties.")
+                                ToolTip.text: Strings.wfesSingleEstablishmentTooltip
 
                                 onCheckedChanged: {
                                     outputPExt.visible = !checked
@@ -313,12 +313,12 @@ ApplicationWindow {
                             RadioButton {
                                 id: radioButtonFundamental
                                 checked: inputControllerWfesSingle.ui_modelType === "Fundamental"
-                                text: qsTr("Fundamental")
+                                text: Strings.wfesSingleFundamental
 
                                 ToolTip.visible: hovered
                                 ToolTip.delay: Style.tooltipDelay
                                 ToolTip.timeout: Style.tooltipTimeout
-                                ToolTip.text: qsTr("Calculate the entire fundamental matrix (slow).")
+                                ToolTip.text: Strings.wfesSingleFundamentalTooltip
 
                                 onCheckedChanged: {
                                     outputPExt.visible = !checked
@@ -373,12 +373,12 @@ ApplicationWindow {
                             RadioButton {
                                 id: radioButtonNonAbsorbing
                                 checked: inputControllerWfesSingle.ui_modelType === "Non Absorbing"
-                                text: qsTr("Non Absorbing")
+                                text: Strings.wfesSingleNonAbsorbing
 
                                 ToolTip.visible: hovered
                                 ToolTip.delay: Style.tooltipDelay
                                 ToolTip.timeout: Style.tooltipTimeout
-                                ToolTip.text: qsTr("Build a non-absorbing WF matrix.")
+                                ToolTip.text: Strings.wfesSingleNonAbsorbingTooltip
 
                                 onCheckedChanged: {
                                     outputPExt.visible = !checked
@@ -434,12 +434,12 @@ ApplicationWindow {
                             RadioButton {
                                 id: radioButtonEquilibrium
                                 checked: inputControllerWfesSingle.ui_modelType === "Equilibrium"
-                                text: qsTr("Equilibrium")
+                                text: Strings.wfesSingleEquilibrium
 
                                 ToolTip.visible: hovered
                                 ToolTip.delay: Style.tooltipDelay
                                 ToolTip.timeout: Style.tooltipTimeout
-                                ToolTip.text: qsTr("Calculate the equilibrium distribtion of allele states.")
+                                ToolTip.text: Strings.wfesSingleEquilibriumTooltip
 
                                 onCheckedChanged: {
                                     outputPExt.visible = !checked
@@ -494,12 +494,12 @@ ApplicationWindow {
                             RadioButton {
                                 id: radioButtonAlleleAge
                                 checked: inputControllerWfesSingle.ui_modelType === "Allele Age"
-                                text: qsTr("Allele Age")
+                                text: Strings.wfesSingleAlleleAge
 
                                 ToolTip.visible: hovered
                                 ToolTip.delay: Style.tooltipDelay
                                 ToolTip.timeout: Style.tooltipTimeout
-                                ToolTip.text: qsTr("Calculate age of an allele.")
+                                ToolTip.text: Strings.wfesSingleAlleleAgeTooltip
 
                                 onCheckedChanged: {
                                     outputPExt.visible = !checked
@@ -571,7 +571,7 @@ ApplicationWindow {
 
                         Label {
                             id: labelPopulation
-                            text: "Population:"
+                            text: Strings.population + Strings.colon
                             font.bold: true
                         }
 
@@ -586,8 +586,8 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 id: inputN
-                                text: "N: "
-                                toolTipText: "Size of the population in the Wright Fisher Model."
+                                text: Strings.n + Strings.colon
+                                toolTipText: Strings.nTooltip
                                 validator: IntValidator {bottom: 2; top: 500000;}
                                 textFieldText: inputControllerWfesSingle.ui_n
                                 textFieldTextEdited: function(){
@@ -606,8 +606,8 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 id: inputA
-                                text: "a: "
-                                toolTipText: "Tail truncation weight."
+                                text: Strings.a + Strings.colon
+                                toolTipText: Strings.aTooltip
                                 validator: DoubleValidator {bottom: 0;}
                                 textFieldText: inputControllerWfesSingle.ui_a
                                 textFieldTextEdited: function(){
@@ -622,8 +622,8 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 id: inputp
-                                text: "p: "
-                                toolTipText: "Starting number of copies."
+                                text: Strings.p + Strings.colon
+                                toolTipText: Strings.pTooltip
                                 validator: IntValidator {bottom: 0; top: 500000;}
                                 textFieldText: inputControllerWfesSingle.ui_p
                                 textFieldTextEdited: function(){
@@ -638,22 +638,18 @@ ApplicationWindow {
                                     //Maximum value for Starting copies (p) depends on the executable used.
                                     if(radioButtonAbsorption.checked) {
                                         if(!Number.isNaN(Number(inputp.textFieldText)) && parseInt(inputp.textFieldText) >= (2 * parseInt(inputN.textFieldText)) - 1) {
-                                            print("Absorption")
                                             borderColor = "#ff0000"
                                         }
                                     } else if(radioButtonFixation.checked) {
                                         if(!Number.isNaN(Number(inputp.textFieldText)) && parseInt(inputp.textFieldText) >= (2 * parseInt(inputN.textFieldText))) {
-                                            print("Fixation")
                                             borderColor = "#ff0000"
                                         }
                                     } else if(radioButtonEstablishment.checked) {
                                         if(!Number.isNaN(Number(inputp.textFieldText)) && parseInt(inputp.textFieldText) >= (parseInt(inputN.textFieldText)) - 1) {
-                                            print("Establishment")
                                             borderColor = "#ff0000"
                                         }
                                     } else if(radioButtonAlleleAge.checked) {
                                         if(!Number.isNaN(Number(inputp.textFieldText)) && parseInt(inputp.textFieldText) >= (2 * parseInt(inputN.textFieldText)) - 1) {
-                                            print("AlleleAge")
                                             borderColor = "#ff0000"
                                         }
                                     } else {
@@ -669,8 +665,8 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 id: inputc
-                                text: "c: "
-                                toolTipText: "Integration cutoff."
+                                text: Strings.c + Strings.colon
+                                toolTipText: Strings.cTooltip
                                 validator: DoubleValidator {bottom: 0;}
                                 textFieldTextEdited: function(){
                                     if(!Number.isNaN(Number(inputc.textFieldText)) && parseFloat(inputc.textFieldText) >= 0) {
@@ -685,8 +681,8 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 id: inputX
-                                text: "x: "
-                                toolTipText: "Observed number of copies (allele age only)."
+                                text: Strings.xObserved + Strings.colon
+                                toolTipText: Strings.xObservedTooltip
                                 validator: IntValidator {bottom: 0; top: 500000;}
                                 textFieldText: inputControllerWfesSingle.ui_x
                                 textFieldTextEdited: function(){
@@ -702,8 +698,8 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 id: inputK
-                                text: "k: "
-                                toolTipText: "Odds ratio (establishment only)."
+                                text: Strings.kOdds + Strings.colon
+                                toolTipText: Strings.kOddsTooltip
                                 textFieldText: inputControllerWfesSingle.ui_k
                                 enabled: (inputControllerWfesSingle.ui_modelType == "Establishment")
                                 textFieldTextEdited: function(){
@@ -735,7 +731,7 @@ ApplicationWindow {
 
                         Label {
                             id: labelMutation
-                            text: "Mutation:"
+                            text: Strings.mutation + Strings.colon
                             font.bold: true
                         }
 
@@ -753,11 +749,11 @@ ApplicationWindow {
                                 id: inputU
                                 text: {
                                     if(globalConfiguration.ui_population_scaled)
-                                        return "4Nu: "
+                                        return Strings.uScaled + Strings.colon
                                     else
-                                        return "u: "
+                                        return Strings.u + Strings.colon
                                 }
-                                toolTipText: "Backward mutation rate."
+                                toolTipText: Strings.uTooltip
                                 textFieldTextEdited: function(){
                                     if(globalConfiguration.ui_population_scaled) {
                                         if(!Number.isNaN(Number(inputU.textFieldText)) && parseFloat(inputU.textFieldText) >= 0 && parseFloat(inputU.textFieldText) <= 1) {
@@ -783,9 +779,9 @@ ApplicationWindow {
                                 id: inputV
                                 text: {
                                     if(globalConfiguration.ui_population_scaled)
-                                        return "4Nv: "
+                                        return Strings.vScaled + Strings.colon
                                     else
-                                        return "v: "
+                                        return Strings.v + Strings.colon
                                 }
                                 textFieldTextEdited: function(){
                                     if(globalConfiguration.ui_population_scaled) {
@@ -804,15 +800,15 @@ ApplicationWindow {
                                         }
                                     }
                                 }
-                                toolTipText: "Forward mutation rate."
+                                toolTipText: Strings.vTooltip
                                 validator: DoubleValidator {bottom: 0;}
                                 textFieldText: inputControllerWfesSingle.ui_v
                             }
 
                             LabeledCheckBox {
                                 id: inputM
-                                text: "m: "
-                                toolTipText: "No recurrent mutation."
+                                text: Strings.mMut + Strings.colon
+                                toolTipText: Strings.mMutTooltip
                                 checked: inputControllerWfesSingle.ui_m
                                 enabled: (inputControllerWfesSingle.ui_modelType == "Fixation" ||
                                           inputControllerWfesSingle.ui_modelType == "Absorption" ||
@@ -839,7 +835,7 @@ ApplicationWindow {
 
                         Label {
                             id: labelSelection
-                            text: "Selection:"
+                            text: Strings.selection + Strings.colon
                             font.bold: true
                         }
 
@@ -856,9 +852,9 @@ ApplicationWindow {
                                 id: inputS
                                 text: {
                                     if(globalConfiguration.ui_population_scaled)
-                                        return "2Ns: "
+                                        return Strings.sScaled + Strings.colon
                                     else
-                                        return "s: "
+                                        return Strings.s + Strings.colon
                                 }
                                 textFieldTextEdited: function(){
                                     if(globalConfiguration.ui_population_scaled) {
@@ -877,15 +873,15 @@ ApplicationWindow {
                                         }
                                     }
                                 }
-                                toolTipText: "Selection coefficient."
+                                toolTipText: Strings.sTooltip
                                 // Validator has no sense here, since any range from -2N to 2N is allowed.
                                 textFieldText: inputControllerWfesSingle.ui_s
                             }
 
                             LabeledTextField {
                                 id: inputH
-                                text: "h: "
-                                toolTipText: "Dominance coefficient."
+                                text: Strings.h + Strings.colon
+                                toolTipText: Strings.hTooltip
                                 textFieldTextEdited: function(){
                                     if(!Number.isNaN(Number(inputH.textFieldText)) && parseFloat(inputH.textFieldText) >= 0 && parseFloat(inputH.textFieldText) <= 1) {
                                         inputControllerWfesSingle.ui_h = inputH.textFieldText
@@ -927,7 +923,7 @@ ApplicationWindow {
 
                             Label {
                                 id: labelOutput
-                                text: "Output Options:"
+                                text: Strings.outputOptions + Strings.colon
                                 font.bold: true
                             }
 
@@ -943,8 +939,8 @@ ApplicationWindow {
 
                                 LabeledCheckBox {
                                     id: inputWriteQ
-                                    text: "Q: "
-                                    toolTipText: "Output Q as CSV file."
+                                    text: Strings.outputQ + Strings.colon
+                                    toolTipText: Strings.outputQTooltip
                                     checked: inputControllerWfesSingle.ui_output_Q
                                     enabled: (inputControllerWfesSingle.ui_modelType == "Fixation" ||
                                               inputControllerWfesSingle.ui_modelType == "Absorption" ||
@@ -957,8 +953,8 @@ ApplicationWindow {
 
                                 LabeledCheckBox {
                                     id: inputWriteR
-                                    text: "R: "
-                                    toolTipText: "Output R as CSV file."
+                                    text: Strings.outputR + Strings.colon
+                                    toolTipText: Strings.outputRTooltip
                                     checked: inputControllerWfesSingle.ui_output_R
                                     enabled: (inputControllerWfesSingle.ui_modelType == "Fixation" ||
                                               inputControllerWfesSingle.ui_modelType == "Absorption" ||
@@ -969,8 +965,8 @@ ApplicationWindow {
 
                                 LabeledCheckBox {
                                     id: inputWriteB
-                                    text: "B: "
-                                    toolTipText: "Output B as CSV file."
+                                    text: Strings.outputB + Strings.colon
+                                    toolTipText: Strings.outputBTooltip
                                     checked: inputControllerWfesSingle.ui_output_B
                                     enabled: (inputControllerWfesSingle.ui_modelType == "Fixation" ||
                                               inputControllerWfesSingle.ui_modelType == "Absorption")
@@ -978,8 +974,8 @@ ApplicationWindow {
 
                                 LabeledCheckBox {
                                     id: inputWriteN
-                                    text: "N: "
-                                    toolTipText: "Output N as CSV file."
+                                    text: Strings.outputN + Strings.colon
+                                    toolTipText: Strings.outputNTooltip
                                     checked: inputControllerWfesSingle.ui_output_N
                                     enabled: (inputControllerWfesSingle.ui_modelType == "Fixation" ||
                                               inputControllerWfesSingle.ui_modelType == "Absorption" ||
@@ -988,39 +984,39 @@ ApplicationWindow {
 
                                 LabeledCheckBox {
                                     id: inputWriteNExt
-                                    toolTipText: "Output N ext. (extintion-conditional sojourn) as CSV file."
-                                    text: "N<sub>ext</sub>: "
+                                    text: Strings.outputNExt + Strings.colon
+                                    toolTipText: Strings.outputNExtTooltip
                                     checked: inputControllerWfesSingle.ui_output_NExt
                                     enabled: (inputControllerWfesSingle.ui_modelType == "Absorption")
                                 }
 
                                 LabeledCheckBox {
                                     id: inputWriteNFix
-                                    text: "N<sub>fix</sub>: "
-                                    toolTipText: "Output N fix. (fixation-conditional sojourn) as CSV file."
+                                    text: Strings.outputNFix + Strings.colon
+                                    toolTipText: Strings.outputNFixTooltip
                                     checked: inputControllerWfesSingle.ui_output_NFix
                                     enabled: (inputControllerWfesSingle.ui_modelType == "Absorption")
                                 }
 
                                 LabeledCheckBox {
                                     id: inputWriteI
-                                    text: "I: "
-                                    toolTipText: "Output I (Initial probability distribution) as CSV file."
+                                    text: Strings.outputI + Strings.colon
+                                    toolTipText: Strings.outputITooltip
                                     checked: inputControllerWfesSingle.ui_output_I
                                 }
 
                                 LabeledCheckBox {
                                     id: inputWriteE
-                                    text: "E: "
-                                    toolTipText: "Output E (Equilibrium frequencies) as CSV file (Equilibrium mode only)."
+                                    text: Strings.outputE + Strings.colon
+                                    toolTipText: Strings.outputNExtTooltip
                                     checked: inputControllerWfesSingle.ui_output_E
                                     enabled: (inputControllerWfesSingle.ui_modelType == "Equilibrium")
                                 }
 
                                 LabeledCheckBox {
                                     id: inputWriteV
-                                    text: "V: "
-                                    toolTipText: "Output V (Variance time matrix) as CSV file (Fundamental mode only)."
+                                    text: Strings.outputV + Strings.colon
+                                    toolTipText: Strings.outputVTooltip
                                     checked: inputControllerWfesSingle.ui_output_V
                                     enabled: (inputControllerWfesSingle.ui_modelType == "Fundamental")
                                 }
@@ -1028,8 +1024,8 @@ ApplicationWindow {
 
                                 LabeledCheckBox {
                                     id: inputWriteRes
-                                    text: "Res: "
-                                    toolTipText: "Output Res (Generated results at right side) as CSV file."
+                                    text: Strings.outputRes + Strings.colon
+                                    toolTipText: Strings.outputResTooltip
                                     checked: inputControllerWfesSingle.ui_output_Res
                                     enabled: (inputControllerWfesSingle.ui_modelType == "Fixation" ||
                                               inputControllerWfesSingle.ui_modelType == "Absorption" ||
@@ -1056,7 +1052,7 @@ ApplicationWindow {
 
                             Label {
                                 id: labelExecution
-                                text: "Execution:"
+                                text: Strings.execution + Strings.colon
                                 font.bold: true
                             }
 
@@ -1074,15 +1070,15 @@ ApplicationWindow {
 
                                     LabeledCheckBox {
                                         id: inputForce
-                                        toolTipText: "Do not perform parameter checks."
-                                        text: "Force: "
+                                        text: Strings.force + Strings.colon
+                                        toolTipText: Strings.forceTooltip
                                         checked: inputControllerWfesSingle.ui_force
                                     }
 
                                     LabeledTextField {
                                         id: inputT
-                                        text: "t: "
-                                        toolTipText: "Number of threads for OpenMP."
+                                        text: Strings.t + Strings.colon
+                                        toolTipText: Strings.tTooltip
                                         labelPreferredWidth: 10
                                         textFieldTextEdited: function(){
                                             if(!Number.isNaN(Number(inputT.textFieldText)) && parseInt(inputT.textFieldText) >= 1) {
@@ -1102,9 +1098,9 @@ ApplicationWindow {
 
                                     LabeledComboBox {
                                         id: comboBoxLibrary
-                                        text: "Library:"
+                                        text: Strings.library + Strings.colon
                                         model: ["Pardiso", "ViennaCL"]
-                                        toolTipText: "Library used for solving matrix systems."
+                                        toolTipText: Strings.libraryTooltip
                                         onTextChanged: {
                                             if(comboBoxLibrary.currentText === "Pardiso") {
                                                 comboBoxBackend.enabled = false
@@ -1118,30 +1114,30 @@ ApplicationWindow {
 
                                     LabeledComboBox {
                                         id: comboBoxSolver
-                                        text: "Solver:"
-                                        toolTipText: "Solver used by viennacl."
+                                        text: Strings.solver + Strings.colon
+                                        toolTipText: Strings.solverTooltip
                                         model: ["GMRes", "BicGStab"]
                                         enabled: (comboBoxLibrary.currentText === "ViennaCL")
                                     }
 
                                     LabeledTextField {
                                         id: inputI
-                                        text: "I. Dist.: "
-                                        toolTipText: "Path to initial probability distribution CSV file."
+                                        text: Strings.iDist + Strings.colon
+                                        toolTipText: Strings.iDistTooltip
                                         labelPreferredWidth: 75
                                         textFieldPreferredWidth: 185
                                         textFieldText: inputControllerWfesSingle.ui_initial_distribution
                                     }
 
                                     Button{
-                                        text: "Search"
+                                        text: Strings.searchButton
                                         onClicked: fileDialog.open()
                                     }
 
 
                                     FileDialog {
                                         id: fileDialog
-                                        title: "Please choose a csv file"
+                                        title: Strings.iDistDialogTitle
                                         nameFilters: [ "csv files (*.csv)" ]
                                         onAccepted: {
                                             var path = fileDialog.fileUrl.toString()
@@ -1166,7 +1162,7 @@ ApplicationWindow {
                             id: stopButton
                             Layout.margins: 10
                             Layout.alignment: Qt.AlignRight
-                            text: "Stop"
+                            text: Strings.stopButton
 
                             Binding {
                                 target: stopButton
@@ -1187,7 +1183,7 @@ ApplicationWindow {
                             id: executeButton
                             Layout.margins: 10
                             Layout.alignment: Qt.AlignRight
-                            text: "Execute"
+                            text: Strings.executeButton
 
                             onEnabledChanged: {
                                 if(outputControllerWfesSingle.ui_get_not_exec) {
@@ -1267,7 +1263,7 @@ ApplicationWindow {
 
                         Label {
                             id: labelFinalOutput
-                            text: "Output:"
+                            text: Strings.output + Strings.colon
                             font.bold: true
                         }
 
@@ -1283,8 +1279,8 @@ ApplicationWindow {
                                 id: outputPExt
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "P<sub>ext</sub>: "
-                                toolTipText: "Probability of extintion."
+                                text: Strings.pExt + Strings.colon
+                                toolTipText: Strings.pExtTooltip
                                 textFieldText: outputControllerWfesSingle.ui_get_p_ext
                                 readOnly: true
                                 visible: radioButtonAbsorption.checked
@@ -1294,8 +1290,8 @@ ApplicationWindow {
                                 id: outputPFix
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "P<sub>fix</sub>: "
-                                toolTipText: "Probability of fixation."
+                                text: Strings.pFix + Strings.colon
+                                toolTipText: Strings.pFixTooltip
                                 textFieldText: outputControllerWfesSingle.ui_get_p_fix
                                 readOnly: true
                                 visible: radioButtonAbsorption.checked
@@ -1305,8 +1301,8 @@ ApplicationWindow {
                                 id: outputTAbs
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "T<sub>abs</sub>: "
-                                toolTipText: "Expected number of generations until absorption."
+                                text: Strings.tAbs + Strings.colon
+                                toolTipText: Strings.tAbsTooltip
                                 textFieldText: outputControllerWfesSingle.ui_get_t_abs
                                 readOnly: true
                                 visible: radioButtonAbsorption.checked
@@ -1316,8 +1312,8 @@ ApplicationWindow {
                                 id: outputTAbsStd
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "T<sub>abs std</sub>: "
-                                toolTipText: "Standard deviation of expected number of generations until absorption."
+                                text: Strings.tAbsStd + Strings.colon
+                                toolTipText: Strings.tAbsStdTooltip
                                 textFieldText: outputControllerWfesSingle.ui_get_t_abs_std
                                 readOnly: true
                                 visible: radioButtonAbsorption.checked
@@ -1327,8 +1323,8 @@ ApplicationWindow {
                                 id: outputText
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "T<sub>ext</sub>: "
-                                toolTipText: "Expected number of generations until extinction."
+                                text: Strings.tExt + Strings.colon
+                                toolTipText: Strings.tExtTooltip
                                 textFieldText: outputControllerWfesSingle.ui_get_t_ext
                                 readOnly: true
                                 visible: radioButtonAbsorption.checked
@@ -1338,8 +1334,8 @@ ApplicationWindow {
                                 id: outputTextStd
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "T<sub>ext std</sub>: "
-                                toolTipText: "Standard deviation of expected number of generations until extinction."
+                                text: Strings.tExtStd + Strings.colon
+                                toolTipText: Strings.tExtStdTooltip
                                 textFieldText: outputControllerWfesSingle.ui_get_t_ext_std
                                 readOnly: true
                                 visible: radioButtonAbsorption.checked
@@ -1349,8 +1345,8 @@ ApplicationWindow {
                                 id: outputNext
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "N<sub>ext</sub>: "
-                                toolTipText: "Number of generations until extintion."
+                                text: Strings.nExt + Strings.colon
+                                toolTipText: Strings.nExtTooltip
                                 textFieldText: outputControllerWfesSingle.ui_get_n_ext
                                 readOnly: true
                                 visible: radioButtonAbsorption.checked
@@ -1360,8 +1356,8 @@ ApplicationWindow {
                                 id: outputTFix
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "T<sub>fix</sub>: "
-                                toolTipText: "Expected number of generations between two fixation events."
+                                text: Strings.tFix + Strings.colon
+                                toolTipText: Strings.tFixTooltip
                                 textFieldText: outputControllerWfesSingle.ui_get_t_fix
                                 readOnly: true
                                 visible: radioButtonFixation.checked
@@ -1371,8 +1367,8 @@ ApplicationWindow {
                                 id: outputTFixStd
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "T<sub>fix std</sub>: "
-                                toolTipText: "Standard deviation of expected number of generations between two fixation events."
+                                text: Strings.tFixStd + Strings.colon
+                                toolTipText: Strings.tFixStdTooltip
                                 textFieldText: outputControllerWfesSingle.ui_get_t_fix_std
                                 readOnly: true
                                 visible: radioButtonFixation.checked
@@ -1382,8 +1378,8 @@ ApplicationWindow {
                                 id: outputTFixAbsMode
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "T<sub>fix</sub>: "
-                                toolTipText: "Expected number of generations until fixation."
+                                text: Strings.tFix + Strings.colon
+                                toolTipText: Strings.tFixTooltip
                                 textFieldText: outputControllerWfesSingle.ui_get_t_fix_abs_mode
                                 readOnly: true
                                 visible: radioButtonAbsorption.checked
@@ -1393,8 +1389,8 @@ ApplicationWindow {
                                 id: outputTFixStdAbsMode
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "T<sub>fix std</sub>: "
-                                toolTipText: "Standard deviation of expected number of generations until fixation."
+                                text: Strings.tFixStd + Strings.colon
+                                toolTipText: Strings.tFixStdTooltip
                                 textFieldText: outputControllerWfesSingle.ui_get_t_fix_std_abs_mode
                                 readOnly: true
                                 visible: radioButtonAbsorption.checked
@@ -1404,8 +1400,8 @@ ApplicationWindow {
                                 id: outputRate
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "Rate: "
-                                toolTipText: "Rate of substitution."
+                                text: Strings.rate + Strings.colon
+                                toolTipText: Strings.rateTooltip
                                 textFieldText: outputControllerWfesSingle.ui_get_rate
                                 readOnly: true
                                 visible: radioButtonFixation.checked
@@ -1415,8 +1411,8 @@ ApplicationWindow {
                                 id: outputEFreqMut
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "E[freq mut]: "
-                                toolTipText: "Expected frequency."
+                                text: Strings.eFreqMut + Strings.colon
+                                toolTipText: Strings.eFreqMutTooltip
                                 textFieldText: outputControllerWfesSingle.ui_get_e_freq_mut
                                 readOnly: true
                                 visible: radioButtonEquilibrium.checked
@@ -1426,8 +1422,8 @@ ApplicationWindow {
                                 id: outputEFreqWt
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "E[freq  wt]: "
-                                toolTipText: "One minus expected frequency."
+                                text: Strings.eFreqWt + Strings.colon
+                                toolTipText: Strings.eFreqWtTooltip
                                 textFieldText: outputControllerWfesSingle.ui_get_e_freq_wt
                                 readOnly: true
                                 visible: radioButtonEquilibrium.checked
@@ -1437,8 +1433,8 @@ ApplicationWindow {
                                 id: outputFEst
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "F<sub>est</sub>: "
-                                toolTipText: "Frequency of establishment."
+                                text: Strings.fEst + Strings.colon
+                                toolTipText: Strings.fEstTooltip
                                 textFieldText: outputControllerWfesSingle.ui_get_f_est
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
@@ -1448,8 +1444,8 @@ ApplicationWindow {
                                 id: outputPEst
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "P<sub>est</sub>: "
-                                toolTipText: "Probability of establishment."
+                                text: Strings.pEst + Strings.colon
+                                toolTipText: Strings.pEstTooltip
                                 textFieldText: outputControllerWfesSingle.ui_get_p_est
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
@@ -1459,8 +1455,8 @@ ApplicationWindow {
                                 id: outputTSeg
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "T<sub>seg</sub>: "
-                                toolTipText: "Expected number of generations until segregation."
+                                text: Strings.tSeg + Strings.colon
+                                toolTipText: Strings.tSegTooltip
                                 textFieldText: outputControllerWfesSingle.ui_get_t_seg
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
@@ -1470,8 +1466,8 @@ ApplicationWindow {
                                 id: outputTSegStd
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "T<sub>seg std</sub>: "
-                                toolTipText: "Standard deviation of expected number of generations until segregation."
+                                text: Strings.tSegStd + Strings.colon
+                                toolTipText: Strings.tSegStdTooltip
                                 textFieldText: outputControllerWfesSingle.ui_get_t_seg_std
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
@@ -1481,8 +1477,8 @@ ApplicationWindow {
                                 id: outputTSegEst
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "T<sub>seg ext</sub>: "
-                                toolTipText: "Expected number of generations until segregation (Extinction)."
+                                text: Strings.tSegExt + Strings.colon
+                                toolTipText: Strings.tSegExtTooltip
                                 textFieldText: outputControllerWfesSingle.ui_get_t_seg_est
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
@@ -1492,8 +1488,8 @@ ApplicationWindow {
                                 id: outputTSegEstStd
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "T<sub>seg ext std<sub>: "
-                                toolTipText: "Standard deviation of expected number of generations until segregation (Extinction)."
+                                text: Strings.tSegExtStd + Strings.colon
+                                toolTipText: Strings.tSegExtStdTooltip
                                 textFieldText: outputControllerWfesSingle.ui_get_t_seg_est_std
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
@@ -1503,8 +1499,8 @@ ApplicationWindow {
                                 id: outputTSegFix
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "T<sub>seg fix</sub>: "
-                                toolTipText: "Expected number of generations until segregation (Fixation)."
+                                text: Strings.tSegFix + Strings.colon
+                                toolTipText: Strings.tSegFixTooltip
                                 textFieldText: outputControllerWfesSingle.ui_get_t_seg_fix
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
@@ -1514,8 +1510,8 @@ ApplicationWindow {
                                 id: outputTSegFixStd
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "T<sub>seg fix std</sub>: "
-                                toolTipText: "Standard deviation of expected number of generations until segregation (Fixation)."
+                                text: Strings.tSegFixStd + Strings.colon
+                                toolTipText: Strings.tSegFixStdTooltip
                                 textFieldText: outputControllerWfesSingle.ui_get_t_seg_fix_std
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
@@ -1525,8 +1521,8 @@ ApplicationWindow {
                                 id: outputTEst
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "T<sub>est</sub>: "
-                                toolTipText: "Expected number of generations until establishment."
+                                text: Strings.tEst + Strings.colon
+                                toolTipText: Strings.tEstTooltip
                                 textFieldText: outputControllerWfesSingle.ui_get_t_est
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
@@ -1536,8 +1532,8 @@ ApplicationWindow {
                                 id: outputTEstStd
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "T<sub>est std</sub>: "
-                                toolTipText: "Standard deviation of expected number of generations until establishment."
+                                text: Strings.tEstStd + Strings.colon
+                                toolTipText: Strings.tEstStdTooltip
                                 textFieldText: outputControllerWfesSingle.ui_get_t_est_std
                                 readOnly: true
                                 visible: radioButtonEstablishment.checked
@@ -1547,8 +1543,8 @@ ApplicationWindow {
                                 id: outputEA
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "E(A): "
-                                toolTipText: "Expectation of the allele age."
+                                text: Strings.eA + Strings.colon
+                                toolTipText: Strings.eATooltip
                                 textFieldText: outputControllerWfesSingle.ui_get_e_a
                                 readOnly: true
                                 visible: radioButtonAlleleAge.checked
@@ -1558,15 +1554,15 @@ ApplicationWindow {
                                 id: outputSA
                                 labelPreferredWidth: 100
                                 textFieldPreferredWidth: 180
-                                text: "S(A): "
-                                toolTipText: "Standard deviation of the allele age."
+                                text: Strings.sA + Strings.colon
+                                toolTipText: Strings.sATooltip
                                 textFieldText: outputControllerWfesSingle.ui_get_s_a
                                 readOnly: true
                                 visible: radioButtonAlleleAge.checked
                             }
 
                             Button {
-                                text: "Copy to Clipboard"
+                                text: Strings.copyToClipboard
 
                                 visible: {
                                     !radioButtonNonAbsorbing.checked && !radioButtonFundamental.checked
@@ -1735,141 +1731,141 @@ ApplicationWindow {
         var error = ""
 
         if(inputN.textFieldText == "")
-            error += " - Population Size (N) is empty. \n \n"
+            error += Strings.hyphen + Strings.nIsEmpty + Strings.endOfError
         if(Number.isNaN(Number(inputN.textFieldText)))
-            error += " - Population Size (N) is not a valid number. \n \n"
+            error += Strings.hyphen + Strings.nIsNotValid + Strings.endOfError
         if(parseInt(inputN.textFieldText) < 2)
-            error += " - Population Size (N) is quite small, it must be at least 2. \n \n"
+            error += Strings.hyphen + Strings.nIsSmall + Strings.endOfError
         if(!inputForce.checked && parseInt(inputN.textFieldText) > 50000)
-            error += " - Population Size (N) is quite large, the computations will take a long time. Check 'Force' to ignore. \n \n"
+            error += Strings.hyphen + Strings.nIsLarge + Strings.endOfError
 
         if(inputA.textFieldText == "")
-            error += " - Tail Truncation Cutoff (a) is empty. \n \n"
+            error += Strings.hyphen + Strings.aIsEmpty + Strings.endOfError
         if(Number.isNaN(Number(inputA.textFieldText)))
-            error += " - Tail Truncation Cutoff (a) is not a valid number. \n \n"
+            error += Strings.hyphen + Strings.aIsNotValid + Strings.endOfError
         if(parseFloat(inputA.textFieldText) < 0)
-            error += " - Tail Truncation Cutoff (a) is quite small. It must be at least 0. \n \n"
+            error += Strings.hyphen + Strings.aIsSmall + Strings.endOfError
         if(!inputForce.checked && parseFloat(inputA.textFieldText) > 1e-5)
-            error += " - Tail Truncation Cutoff (a) value is quite high. This might produce inaccurate results. A good value should be between 0 and 10e-10. Check 'Force' to ignore. \n \n"
+            error += Strings.hyphen + Strings.aIsLarge + Strings.endOfError
 
         if(inputp.textFieldText == "")
-            error += " - Starting copies (p) is empty. \n \n"
+            error += Strings.hyphen + Strings.pStartIsEmpty + Strings.endOfError
         if(Number.isNaN(Number(inputp.textFieldText)))
-            error += " - Starting copies (p) is not a valid number. \n \n"
+            error += Strings.hyphen + Strings.pStartIsNotValid + Strings.endOfError
         if(parseInt(inputp.textFieldText) < 0)
-            error += " - Starting copies (p) is quite small, if you want to disable it just use 0. \n \n"
+            error += Strings.hyphen + Strings.pStartIsSmall + Strings.endOfError
 
         //Maximum value for Starting copies (p) depends on the executable used.
         if(radioButtonAbsorption.checked) {
             if(parseInt(inputp.textFieldText) > (2 * parseInt(inputN.textFieldText)) - 2)
-                error += " - Starting Copies (p) is quite large. The maximum value allowed is 2N-1. \n \n"
+                error += Strings.hyphen + Strings.pStartIsLargeAbsorption + Strings.endOfError
         } else if(radioButtonFixation.checked) {
             if(parseInt(inputp.textFieldText) > (2 * parseInt(inputN.textFieldText)) -1)
-                error += " - Starting Copies (p) is quite large. The maximum value allowed is 2N. \n \n"
+                error += Strings.hyphen + Strings.pStartIsLargeFixation + Strings.endOfError
         }else if(radioButtonEstablishment.checked) {
             if(parseInt(inputp.textFieldText) > (parseInt(inputN.textFieldText)) - 2)
-                error += " - Starting Copies (p) is quite large. The maximum value allowed is N - 1. \n \n"
+                error += Strings.hyphen + Strings.pStartIsLargeEstablishment + Strings.endOfError
         } else if(radioButtonAlleleAge.checked) {
             if(parseInt(inputp.textFieldText) > (2 * parseInt(inputN.textFieldText)) - 2)
-                error += " - Starting Copies (p) is quite large. The maximum value allowed is 2N - 1. \n \n"
+                error += Strings.hyphen + Strings.pStartIsLargeAlleleAge + Strings.endOfError
         }
 
         if(inputc.textFieldText == "")
-            error += " - Integration Cutoff (c) is empty. \n \n"
+            error += Strings.hyphen + Strings.cIsEmpty + Strings.endOfError
         if(Number.isNaN(Number(inputc.textFieldText)))
-            error += " - Integration Cutoff (c) is not a valid number. \n \n"
+            error += Strings.hyphen + Strings.cIsNotValid + Strings.endOfError
         if(parseFloat(inputc.textFieldText) < 0)
-            error += " - Integration Cutoff (c) is quite small. It must be at least 0. \n \n"
+            error += Strings.hyphen + Strings.cIsSmall + Strings.endOfError
         if(parseFloat(inputc.textFieldText) > 10e-3)
-            error += " - Integration Cutoff (c) is quite large. The maximum value allowed is 10e-3. \n \n"
+            error += Strings.hyphen + Strings.cIsLarge + Strings.endOfError
 
         if(inputX.textFieldText == "")
-            error += " - Observed copies (x) is empty. \n \n"
+            error += Strings.hyphen + Strings.xIsEmpty + Strings.endOfError
         if(Number.isNaN(Number(inputX.textFieldText)))
-            error += " - Observed copies (x) is not a valid number. \n \n"
+            error += Strings.hyphen + Strings.xIsNotValid + Strings.endOfError
         if(parseInt(inputX.textFieldText) < 1)
-            error += " - Observed copies (x) is quite small. It must be at least 1. \n \n"
+            error += Strings.hyphen + Strings.xIsSmall + Strings.endOfError
         if(parseInt(inputX.textFieldText) > parseInt(inputN.textFieldText))
-            error += " - Observed Copies (x) is quite large. The maximum value allowed is N. \n \n"
+            error += Strings.hyphen + Strings.xIsLarge + Strings.endOfError
 
         // Odds ratio (k) does not have limits, at least in the code. The default value is 1.
         if(inputK.textFieldText == "")
-            error += " - Odds ratio (k) is empty. \n \n"
+            error += Strings.hyphen + Strings.kOddsIsEmpty + Strings.endOfError
         if(Number.isNaN(Number(inputK.textFieldText)))
-            error += " - Odds ratio (k) is not a valid number. \n \n"
+            error += Strings.hyphen + Strings.kOddsIsNotValid + Strings.endOfError
 
         if(globalConfiguration.ui_population_scaled) {
             if(inputU.textFieldText == "")
-                error += " - Backward Mutation (u) is empty. \n \n"
+                error += Strings.hyphen + Strings.uIsEmpty + Strings.endOfError
             if(Number.isNaN(Number(inputU.textFieldText)))
-                error += " - Backward Mutation (u) is not a valid number. \n \n"
+                error += Strings.hyphen + Strings.uIsNotValid + Strings.endOfError
             if(parseFloat(inputU.textFieldText) <= 0)
-                error += " - Backward Mutation (u) is quite small. It must be at least 0. \n \n"
+                error += Strings.hyphen + Strings.uIsSmall + Strings.endOfError
             if(!inputForce.checked && parseFloat(inputU.textFieldText) > 1)
-                error += " - Backward Mutation (u) is quite large and might violate the Wright-Fisher assumptions. It should be less than 1. Check 'Force' to ignore. \n \n"
+                error += Strings.hyphen + Strings.uIsLargeScaled + Strings.endOfError
 
             if(inputV.textFieldText == "")
-                error += " - Forward Mutation (v) is empty. \n \n"
+                error += Strings.hyphen + Strings.uIsEmpty + Strings.endOfError
             if(Number.isNaN(Number(inputV.textFieldText)))
-                error += " - Forward Mutation (v) is not a valid number. \n \n"
+                error += Strings.hyphen + Strings.vIsNotValid + Strings.endOfError
             if(parseFloat(inputV.textFieldText) <= 0)
-                error += " - Forward Mutation (v) is quite small. It must be at least 0. \n \n"
+                error += Strings.hyphen + Strings.vIsSmall + Strings.endOfError
             if(!inputForce.checked && parseFloat(inputV.textFieldText) > 1)
-                error += " - Forward Mutation (v) is quite large and might violate the Wright-Fisher assumptions. It should be less than 1. Check 'Force' to ignore. \n \n"
+                error += Strings.hyphen + Strings.vIsLargeScaled + Strings.endOfError
 
             if(inputS.textFieldText == "")
-                error += " - Selection Coefficient (s) is empty. \n \n"
+                error += Strings.hyphen + Strings.sIsEmpty + Strings.endOfError
             if(Number.isNaN(Number(inputS.textFieldText)))
-                error += " - Selection Coefficient (s) is not a valid number. \n \n"
+                error += Strings.hyphen + Strings.sIsNotValid + Strings.endOfError
             if(parseFloat(inputS.textFieldText) < -1 * (2 * parseInt(inputN.textFieldText)))
-                error += " - Selection Coefficient (s) is quite small. It must be at least -2N. \n \n"
+                error += Strings.hyphen + Strings.sIsSmall + Strings.endOfError
             if(parseFloat(inputS.textFieldText) > 1 * (2 * parseInt(inputN.textFieldText)))
-                error += " - Selection Coefficient (s) is quite large. The maximum value allowed is 2N. \n \n"
+                error += Strings.hyphen + Strings.sIsLargeScaled + Strings.endOfError
         } else {
             if(inputU.textFieldText == "")
-                error += " - Backward Mutation (u) is empty. \n \n"
+                error += Strings.hyphen + Strings.uIsEmpty + Strings.endOfError
             if(Number.isNaN(Number(inputU.textFieldText)))
-                error += " - Backward Mutation (u) is not a valid number. \n \n"
+                error += Strings.hyphen + Strings.uIsNotValid + Strings.endOfError
             if(parseFloat(inputU.textFieldText) <= 0)
-                error += " - Backward Mutation (u) is quite small. It must be at least 0. \n \n"
+                error += Strings.hyphen + Strings.uIsSmall + Strings.endOfError
             if(!inputForce.checked && parseFloat(inputU.textFieldText) > 1 / (4 * parseInt(inputN.textFieldText)))
-                error += " - Backward Mutation (u) is quite large and might violate the Wright-Fisher assumptions. It should be less than 1/4N. Check 'Force' to ignore. \n \n"
+                error += Strings.hyphen + Strings.uIsLarge + Strings.endOfError
 
             if(inputV.textFieldText == "")
-                error += " - Forward Mutation (v) is empty. \n \n"
+                error += Strings.hyphen + Strings.uIsEmpty + Strings.endOfError
             if(Number.isNaN(Number(inputV.textFieldText)))
-                error += " - Forward Mutation (v) is not a valid number. \n \n"
+                error += Strings.hyphen + Strings.vIsNotValid + Strings.endOfError
             if(parseFloat(inputV.textFieldText) <= 0)
-                error += " - Forward Mutation (v) is quite small. It must be at least 0. \n \n"
+                error += Strings.hyphen + Strings.vIsSmall + Strings.endOfError
             if(!inputForce.checked && parseFloat(inputV.textFieldText) > 1 / (4 * parseInt(inputN.textFieldText)))
-                error += " - Forward Mutation (v) is quite large and might violate the Wright-Fisher assumptions. It should be less than 1/4N. Check 'Force' to ignore. \n \n"
+                error += Strings.hyphen + Strings.vIsLarge + Strings.endOfError
 
             if(inputS.textFieldText == "")
-                error += " - Selection Coefficient (s) is empty. \n \n"
+                error += Strings.hyphen + Strings.sIsEmpty + Strings.endOfError
             if(Number.isNaN(Number(inputS.textFieldText)))
-                error += " - Selection Coefficient (s) is not a valid number. \n \n"
+                error += Strings.hyphen + Strings.sIsNotValid + Strings.endOfError
             if(parseFloat(inputS.textFieldText) < -1)
-                error += " - Selection Coefficient (s) is quite small. It must be at least -1. \n \n"
+                error += Strings.hyphen + Strings.sIsSmall + Strings.endOfError
             if(parseFloat(inputS.textFieldText) > 1)
-                error += " - Selection Coefficient (s) is quite large. The maximum value allowed is 1. \n \n"
+                error += Strings.hyphen + Strings.sIsLarge + Strings.endOfError
         }
 
         if(inputH.textFieldText == "")
-            error += " - Dominance Coefficient (h) is empty. \n \n"
+            error += Strings.hyphen + Strings.hIsEmpty + Strings.endOfError
         if(Number.isNaN(Number(inputH.textFieldText)))
-            error += " - Dominance Coefficient (h) is not a valid number. \n \n"
+            error += Strings.hyphen + Strings.hIsNotValid + Strings.endOfError
         if(parseFloat(inputH.textFieldText) < 0)
-            error += " - Dominance Coefficient (h) is quite small. It must be at least 0. \n \n"
+            error += Strings.hyphen + Strings.hIsSmall + Strings.endOfError
         if(parseFloat(inputH.textFieldText) > 1)
-            error += " - Dominance Coefficient (h) is quite large. The maximum value allowed is 1. \n \n"
+            error += Strings.hyphen + Strings.hIsLarge + Strings.endOfError
 
         if(inputT.textFieldText == "")
-            error += " - Number of Threads (t) is empty. \n \n"
+            error += Strings.hyphen + Strings.tIsEmpty + Strings.endOfError
         if(Number.isNaN(Number(inputT.textFieldText)))
-            error += " - Number of Threads (t) is not a valid number. \n \n"
-        // Number of threads (t) does not have upper limites, since it depends on the hardware available.
+            error += Strings.hyphen + Strings.tIsNotValid + Strings.endOfError
         if(parseInt(inputT.textFieldText) < 1)
-            error += " - Number of Threads (t) is quite small, it must be at least 1. \n \n"
+            error += Strings.hyphen + Strings.tIsSmall + Strings.endOfError
+        // Number of threads (t) does not have upper limites, since it depends on the hardware available.
 
         //TODO Check if Initial Distribution (I) file exists.
 

@@ -7,10 +7,10 @@ import QtQuick.Controls 2.5
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Controls.Universal 2.3
 import components 1.0
-
+import assets 1.0
 ApplicationWindow {
     id: rootWfafd
-    title: qsTr("WFES - Wright-Fisher Exact Solver (WFAF-D)")
+    title: Strings.wfes + Strings.hyphen + Strings.wfesComplete + " (" + Strings.wfafD + ")"
 
     color: Universal.chromeLowColor
 
@@ -35,7 +35,7 @@ ApplicationWindow {
         close.accepted = false
 
         if(checkIntegrity() !== "") {
-            messageDialogOnClose.text = "Some input parameters are incorrect. The configuration will be available in this session, but cannot be saved for future sessions until you fix those values. Do you want to exit anyway?"
+            messageDialogOnClose.text = Strings.onCloseConfirmationMessage
             messageDialogOnClose.open()
         } else {
             rootWfafd.hide();
@@ -47,8 +47,8 @@ ApplicationWindow {
 
     MessageDialog {
         id: messageDialogOnClose
-        title: "Warning"
-        text: ""
+        title: Strings.dialogWarning
+        text: Strings.empty
         icon: StandardIcon.Warning
         standardButtons: Dialog.Ok | Dialog.Cancel
         onAccepted: {
@@ -96,7 +96,7 @@ ApplicationWindow {
 
                     Label {
                         id: labelComponents
-                        text: "Components:"
+                        text: Strings.components + Strings.colon
                         font.bold: true
                     }
 
@@ -113,7 +113,7 @@ ApplicationWindow {
                             id: componentsSectionTabView
                             width: commonSection.width + 10
                             height: 270
-                            tabNames: "Comp."
+                            tabNames: Strings.comp
                             urlComponent: "qrc:/components/executionviews/tabcomponents/tabWfafdComponent.qml"
                             onAdd: function(){
                                 var num_comps = inputControllerWfafd.ui_num_comp
@@ -171,7 +171,7 @@ ApplicationWindow {
 
                         Label {
                             id: labelCommonParameters
-                            text: "Common Parameters"
+                            text: Strings.commonParameters + Strings.colon
                             font.bold: true
                         }
 
@@ -186,8 +186,8 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 id: inputA
-                                text: "a: "
-                                toolTipText: "Tail truncation weight."
+                                text: Strings.a + Strings.colon
+                                toolTipText: Strings.aTooltip
                                 validator: DoubleValidator {bottom: 0;}
                                 textFieldText: inputControllerWfafd.ui_a
                                 textFieldTextEdited: function(){
@@ -202,8 +202,8 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 id: inputP
-                                text: "p: "
-                                toolTipText: "Initial allele count."
+                                text: Strings.p + Strings.colon
+                                toolTipText: Strings.pTooltip
                                 validator: IntValidator {bottom: 0; top: 2;}
                                 textFieldText: inputControllerWfafd.ui_p
                                 textFieldTextEdited: function(){
@@ -247,7 +247,7 @@ ApplicationWindow {
 
                             Label {
                                 id: labelOutput
-                                text: "Output Options:"
+                                text: Strings.outputOptions + Strings.colon
                                 font.bold: true
                             }
 
@@ -267,9 +267,9 @@ ApplicationWindow {
 
                                 LabeledCheckBox {
                                     id: inputWriteDist
-                                    text: "Dist: "
+                                    text: Strings.outputDist + Strings.colon
                                     enabledCheckBox: false
-                                    toolTipText: "Output Allele freq. dist. as CSV file. (Always enabled)."
+                                    toolTipText: Strings.outputDistTooltip
                                     checked: true
                                 }
 
@@ -291,7 +291,7 @@ ApplicationWindow {
 
                             Label {
                                 id: labelExecution
-                                text: "Execution:"
+                                text: Strings.execution + Strings.colon
                                 font.bold: true
                             }
 
@@ -309,16 +309,16 @@ ApplicationWindow {
 
                                     LabeledCheckBox {
                                         id: inputForce
-                                        toolTipText: "Do not perform parameter checks."
-                                        text: "Force: "
+                                        text: Strings.force + Strings.colon
+                                        toolTipText: Strings.forceTooltip
                                         checked: inputControllerWfafd.ui_force
                                     }
 
                                     LabeledTextField {
                                         id: inputT
-                                        text: "t: "
+                                        text: Strings.t + Strings.colon
                                         labelPreferredWidth: 10
-                                        toolTipText: "Number of threads for OpenMP."
+                                        toolTipText: Strings.tTooltip
                                         validator: DoubleValidator {bottom: 2; top: 50000;}
                                         textFieldText: inputControllerWfafd.ui_t
                                         textFieldTextEdited: function(){
@@ -337,9 +337,9 @@ ApplicationWindow {
 
                                     LabeledComboBox {
                                         id: comboBoxLibrary
-                                        text: "Library:"
+                                        text: Strings.library + Strings.colon
                                         model: ["Pardiso", "ViennaCL"]
-                                        toolTipText: "Library used for solving matrix systems."
+                                        toolTipText: Strings.libraryTooltip
                                         onTextChanged: {
                                             if(comboBoxLibrary.currentText === "Pardiso") {
                                                 comboBoxBackend.enabled = false
@@ -353,30 +353,30 @@ ApplicationWindow {
 
                                     LabeledComboBox {
                                         id: comboBoxSolver
-                                        text: "Solver:"
-                                        toolTipText: "Solver used by viennacl."
+                                        text: Strings.solver + Strings.colon
+                                        toolTipText: Strings.solverTooltip
                                         model: ["GMRes", "BicGStab"]
                                         enabled: (comboBoxLibrary.currentText === "ViennaCL")
                                     }
 
                                     LabeledTextField {
                                         id: inputI
-                                        text: "I. Dist.: "
-                                        toolTipText: "Path to initial probability distribution CSV file."
+                                        text: Strings.iDist + Strings.colon
+                                        toolTipText: Strings.iDistTooltip
                                         labelPreferredWidth: 75
                                         textFieldPreferredWidth: 185
                                         textFieldText: inputControllerWfafd.ui_initial_distribution
                                     }
 
                                     Button{
-                                        text: "Search"
+                                        text: Strings.searchButton
                                         onClicked: fileDialog.open()
                                     }
 
 
                                     FileDialog {
                                         id: fileDialog
-                                        title: "Please choose a csv file"
+                                        title: Strings.iDistDialogTitle
                                         nameFilters: [ "csv files (*.csv)" ]
                                         onAccepted: {
                                             var path = fileDialog.fileUrl.toString()
@@ -400,7 +400,7 @@ ApplicationWindow {
                             id: stopButton
                             Layout.margins: 10
                             Layout.alignment: Qt.AlignRight
-                            text: "Stop"
+                            text: Strings.stopButton
 
                             Binding {
                                 target: stopButton
@@ -421,7 +421,7 @@ ApplicationWindow {
                             id: executeButton
                             Layout.margins: 10
                             Layout.alignment: Qt.AlignRight
-                            text: "Execute"
+                            text: Strings.executeButton
 
                             onEnabledChanged: {
                                 if(outputControllerWfafd.ui_get_not_exec)
@@ -470,8 +470,8 @@ ApplicationWindow {
 
                 MessageDialog {
                     id: messageDialog
-                    title: "Warning"
-                    text: ""
+                    title: Strings.dialogWarning
+                    text: Strings.empty
                     icon: StandardIcon.Warning
                 }
 
@@ -491,13 +491,13 @@ ApplicationWindow {
 
                     Label {
                         id: labelMoments
-                        text: "Output:"
+                        text: Strings.output + Strings.colon
                         font.bold: true
                     }
 
                     Label {
                         id: labelMoments2
-                        text: "Allele freq. dist.:"
+                        text: Strings.alleleFreqDist + Strings.colon
                     }
 
                     Rectangle {
@@ -536,7 +536,7 @@ ApplicationWindow {
                     }
 
                     Button {
-                        text: "Copy to Clipboard"
+                        text: Strings.copyToClipboard
 
                         Layout.alignment: Qt.AlignHCenter
 
@@ -705,22 +705,23 @@ ApplicationWindow {
         var error = ""
 
         if(inputA.textFieldText == "")
-            error += " - Tail Truncation Cutoff (a) is empty. \n \n"
+            error += Strings.hyphen + Strings.aIsEmpty + Strings.endOfError
         if(Number.isNaN(Number(inputA.textFieldText)))
-            error += " - Tail Truncation Cutoff (a) is not a valid number. \n \n"
+            error += Strings.hyphen + Strings.aIsNotValid + Strings.endOfError
         if(parseFloat(inputA.textFieldText) < 0)
-            error += " - Tail Truncation Cutoff (a) is quite small. It must be at least 0. \n \n"
+            error += Strings.hyphen + Strings.aIsSmall + Strings.endOfError
         if(!inputForce.checked && parseFloat(inputA.textFieldText) > 1e-5)
-            error += " - Tail Truncation Cutoff (a) value is quite high. This might produce inaccurate results. A good value should be between 0 and 10e-10. Check 'Force' to ignore. \n \n"
+            error += Strings.hyphen + Strings.aIsLarge + Strings.endOfError
+
 
         if(inputP.textFieldText == "")
-            error += " - Initial Allele Count (p) is empty. \n \n"
+            error += Strings.hyphen + Strings.pIsEmpty + Strings.endOfError
         if(Number.isNaN(Number(inputP.textFieldText)))
-            error += " - Initial Allele Count (p) is not a valid number. \n \n"
+            error += Strings.hyphen + Strings.pIsNotValid + Strings.endOfError
         if(parseInt(inputP.textFieldText) < 0)
-            error += " - Initial Allele Count (p) is quite small. It must be at least 0. \n \n"
+            error += Strings.hyphen + Strings.pIsSmall + Strings.endOfError
         if(!inputForce.checked && parseInt(inputP.textFieldText) > 2)
-            error += " - Initial Allele Count (p) value is quite high. The maximum value allowed is 2. \n \n"
+            error += Strings.hyphen + Strings.pIsLarge + Strings.endOfError
 
         var N_vec = []
         var G_vec = []
@@ -747,118 +748,118 @@ ApplicationWindow {
         for(i = 0; i < inputControllerWfafd.ui_num_comp; i++) {
             N = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[0].textFieldText
             if(N === "")
-                error += " - Population Size (N" + (i + 1) + ") is empty. \n \n"
+                error += Strings.hyphen + Strings.nMulIsEmpty.arg(i + 1) + Strings.endOfError
             if(Number.isNaN(Number(N_vec[i])))
-                error += " - Population Size (N) is not a valid number. \n \n"
+                error += Strings.hyphen + Strings.nMulIsNotValid.arg(i + 1) + Strings.endOfError
             if(parseInt(N_vec[i]) < 2)
-                error += " - Population Size (N" + (i + 1) + ") is quite small, it must be at least 2. \n \n"
+                error += Strings.hyphen + Strings.nMulIsSmall.arg(i + 1) + Strings.endOfError
             if(!inputForce.checked && parseInt(N_vec[i]) > 50000)
-                error +=  " - Population Size (N" + (i + 1) + ") is quite large, the computations will take a long time. Check 'Force' to ignore. \n \n"
+                error +=  Strings.hyphen + Strings.nMulIsLarge.arg(i + 1) + Strings.endOfError
         }
 
         for(i = 0; i < inputControllerWfafd.ui_num_comp; i++) {
             G = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[1].textFieldText
             if(G === "")
-                error += " - Generations (G" + (i + 1) + ") is empty. \n \n"
+                error += Strings.hyphen + Strings.gMulIsEmpty.arg(i + 1) + Strings.endOfError
             if(Number.isNaN(Number(G_vec[i])))
-                error += " - Generations (G" + (i + 1) + ") is not a valid number. \n \n"
+                error += Strings.hyphen + Strings.gMulIsNotValid.arg(i + 1) + Strings.endOfError
             if(parseInt(G_vec[i]) < 1)
-                error += " - Generations (G" + (i + 1) + ") is quite small, it must be at least 2. \n \n"
+                error += Strings.hyphen + Strings.gMulIsSmall.arg(i + 1) + Strings.endOfError
         }
 
         if(globalConfiguration.ui_population_scaled) {
             for(i = 0; i < inputControllerWfafd.ui_num_comp; i++) {
                 u = componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[0].textFieldText
                 if(u === "")
-                    error += " - Backward Mutation (u" + (i + 1) + ") is empty. \n \n"
+                    error += Strings.hyphen + Strings.uMulIsEmpty.arg(i + 1) + Strings.endOfError
                 if(Number.isNaN(Number(u_vec[i])))
-                    error += " - Backward Mutation (u" + (i + 1) + ") is not a valid number. \n \n"
+                    error += Strings.hyphen + Strings.uMulIsNotValid.arg(i + 1) + Strings.endOfError
                 if(parseFloat(u_vec[i].textFieldText) <= 0)
-                    error += " - Backward Mutation (u" + (i + 1) + ") is quite small. It must be at least 0. \n \n"
+                    error += Strings.hyphen + Strings.uMulIsSmall.arg(i + 1) + Strings.endOfError
                 if(!inputForce.checked && parseFloat(u_vec[i]) > 1)
-                    error += " - Backward Mutation (u" + (i + 1) + ") is quite large and might violate the Wright-Fisher assumptions. It should be less than 1. Check 'Force' to ignore. \n \n"
+                    error += Strings.hyphen + Strings.uMulIsLargeScaled.arg(i + 1) + Strings.endOfError
             }
 
             for(i = 0; i < inputControllerWfafd.ui_num_comp; i++) {
                 v = componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[1].textFieldText
                 if(v === "")
-                    error += " - Forward Mutation (v" + (i + 1) + ") is empty. \n \n"
+                    error += Strings.hyphen + Strings.vMulIsEmpty.arg(i + 1) + Strings.endOfError
                 if(Number.isNaN(Number(v_vec[i])))
-                    error += " - Forward Mutation (v" + (i + 1) + ") is not a valid number. \n \n"
+                    error += Strings.hyphen + Strings.vMulIsNotValid.arg(i + 1) + Strings.endOfError
                 if(parseFloat(v_vec[i].textFieldText) <= 0)
-                    error += " - Forward Mutation (v" + (i + 1) + ") is quite small. It must be at least 0. \n \n"
+                    error += Strings.hyphen + Strings.vMulIsSmall.arg(i + 1) + Strings.endOfError
                 if(!inputForce.checked && parseFloat(v_vec[i]) > 1)
-                    error += " - Forward Mutation (v" + (i + 1) + ") is quite large and might violate the Wright-Fisher assumptions. It should be less than 1. Check 'Force' to ignore. \n \n"
+                    error += Strings.hyphen + Strings.vMulIsLargeScaled.arg(i + 1) + Strings.endOfError
             }
 
             for(i = 0; i < inputControllerWfafd.ui_num_comp; i++) {
                 s = componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[0].textFieldText
                 if(s === "")
-                    error += " - Selection Coefficient (s" + (i + 1) + ") is empty. \n \n"
+                    error += Strings.hyphen + Strings.sMulIsEmpty.arg(i + 1) + Strings.endOfError
                 if(Number.isNaN(Number(s_vec[i])))
-                    error += " - Selection Coefficient (s" + (i + 1) + ") is not a valid number. \n \n"
+                    error += Strings.hyphen + Strings.sMulIsNotValid.arg(i + 1) + Strings.endOfError
                 if(parseFloat(s_vec[i]) < -1 * (2 * parseInt(N_vec[i])))
-                    error += " - Selection Coefficient (s" + (i + 1) + ") is quite negative. It must be at least -2N \n \n"
+                    error += Strings.hyphen + Strings.sMulIsSmall.arg(i + 1) + Strings.endOfError
                 if(parseFloat(s_vec[i]) > 1 * (2 * parseInt(N_vec[i])))
-                    error += " - Selection Coefficient (s" + (i + 1) + ") is quite large. The maximum value allowed is 2N. \n \n"
+                    error += Strings.hyphen + Strings.sMulIsLargeScaled.arg(i + 1) + Strings.endOfError
             }
         } else {
             for(i = 0; i < inputControllerWfafd.ui_num_comp; i++) {
                 u = componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[0].textFieldText
                 if(u === "")
-                    error += " - Backward Mutation (u" + (i + 1) + ") is empty. \n \n"
+                    error += Strings.hyphen + Strings.uMulIsEmpty.arg(i + 1) + Strings.endOfError
                 if(Number.isNaN(Number(u_vec[i])))
-                    error += " - Backward Mutation (u" + (i + 1) + ") is not a valid number. \n \n"
+                    error += Strings.hyphen + Strings.uMulIsNotValid.arg(i + 1) + Strings.endOfError
                 if(parseFloat(u_vec[i].textFieldText) <= 0)
-                    error += " - Backward Mutation (u" + (i + 1) + ") is quite small. It must be at least 0. \n \n"
+                    error += Strings.hyphen + Strings.uMulIsSmall.arg(i + 1) + Strings.endOfError
                 if(!inputForce.checked && parseFloat(u_vec[i]) > 1 / (4 * parseInt(N_vec[i])))
-                    error += " - Backward Mutation (u" + (i + 1) + ") is quite large and might violate the Wright-Fisher assumptions. It should be less than 1/4N. Check 'Force' to ignore. \n \n"
+                    error += Strings.hyphen + Strings.uMulIsLargeScaled.arg(i + 1) + Strings.endOfError
             }
 
             for(i = 0; i < inputControllerWfafd.ui_num_comp; i++) {
                 v = componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[1].textFieldText
                 if(v === "")
-                    error += " - Forward Mutation (v" + (i + 1) + ") is empty. \n \n"
+                    error += Strings.hyphen + Strings.vMulIsEmpty.arg(i + 1) + Strings.endOfError
                 if(Number.isNaN(Number(v_vec[i])))
-                    error += " - Forward Mutation (v" + (i + 1) + ") is not a valid number. \n \n"
+                    error += Strings.hyphen + Strings.vMulIsNotValid.arg(i + 1) + Strings.endOfError
                 if(parseFloat(v_vec[i].textFieldText) <= 0)
-                    error += " - Backward Mutation (v" + (i + 1) + ") is quite small. It must be at least 0. \n \n"
+                    error += Strings.hyphen + Strings.vMulIsSmall.arg(i + 1) + Strings.endOfError
                 if(!inputForce.checked && parseFloat(v_vec[i]) > 1 / (4 * parseInt(N_vec[i])))
-                    error += " - Backward Mutation (v" + (i + 1) + ") is quite large and might violate the Wright-Fisher assumptions. It should be less than 1/4N. Check 'Force' to ignore. \n \n"
+                    error += Strings.hyphen + Strings.vMulIsLarge.arg(i + 1) + Strings.endOfError
             }
 
             for(i = 0; i < inputControllerWfafd.ui_num_comp; i++) {
                 s = componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[0].textFieldText
                 if(s === "")
-                    error += " - Selection Coefficient (s" + (i + 1) + ") is empty. \n \n"
+                    error += Strings.hyphen + Strings.sMulIsEmpty.arg(i + 1) + Strings.endOfError
                 if(Number.isNaN(Number(s_vec[i])))
-                    error += " - Selection Coefficient (s" + (i + 1) + ") is not a valid number. \n \n"
+                    error += Strings.hyphen + Strings.sMulIsNotValid.arg(i + 1) + Strings.endOfError
                 if(parseFloat(s_vec[i]) < -1)
-                    error += " - Selection Coefficient (s" + (i + 1) + ") is quite negative. It must be at least -2N \n \n"
+                    error += Strings.hyphen + Strings.sMulIsSmall.arg(i + 1) + Strings.endOfError
                 if(parseFloat(s_vec[i]) > 1 )
-                    error += " - Selection Coefficient (s" + (i + 1) + ") is quite large. The maximum value allowed is 2N. \n \n"
+                    error += Strings.hyphen + Strings.sMulIsLarge.arg(i + 1) + Strings.endOfError
             }
         }
 
         for(i = 0; i < inputControllerWfafd.ui_num_comp; i++) {
             h = componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[1].textFieldText
             if(h === "")
-                error += " - Dominance Coefficient (h" + (i + 1) + ") is empty. \n \n"
+                error += Strings.hyphen + Strings.hMulIsEmpty.arg(i + 1) + Strings.endOfError
             if(Number.isNaN(Number(h_vec[i])))
-                error += " - Dominance Coefficient (h" + (i + 1) + ") is not a valid number. \n \n"
+                error += Strings.hyphen + Strings.hMulIsNotValid.arg(i + 1) + Strings.endOfError
             if(parseFloat(h_vec[i]) < 0)
-                error += " - Dominance Coefficient (h" + (i + 1) + ") is quite small. It must be at least 0. \n \n"
+                error += Strings.hyphen + Strings.hMulIsSmall.arg(i + 1) + Strings.endOfError
             if(parseFloat(h_vec[i]) > 1)
-                error += " - Dominance Coefficient (h" + (i + 1) + ") is quite large. The maximum value allowed is 1. \n \n"
+                error += Strings.hyphen + Strings.hMulIsLarge.arg(i + 1) + Strings.endOfError
         }
 
         if(inputT.textFieldText == "")
-            error += " - Number of Threads (t) is empty. \n \n"
+            error += Strings.hyphen + Strings.tIsEmpty + Strings.endOfError
         if(Number.isNaN(Number(inputT.textFieldText)))
-            error += " - Number of Threads (t) is not a valid number. \n \n"
-        // Number of threads (t) does not have upper limites, since it depends on the hardware available.
+            error += Strings.hyphen + Strings.tIsNotValid + Strings.endOfError
         if(parseInt(inputT.textFieldText) < 1)
-            error += " - Number of Threads (t) is quite small, it must be at least 1. \n \n"
+            error += Strings.hyphen + Strings.tIsSmall + Strings.endOfError
+        // Number of threads (t) does not have upper limites, since it depends on the hardware available.
 
         //TODO Check if Initial Distribution (I) file exists.
 

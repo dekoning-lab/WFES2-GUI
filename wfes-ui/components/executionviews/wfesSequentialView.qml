@@ -7,10 +7,11 @@ import QtQuick.Controls 2.5
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Controls.Universal 2.3
 import components 1.0
+import assets 1.0
 
 ApplicationWindow {
     id: rootWfesSequential
-    title: qsTr("WFES - Wright-Fisher Exact Solver (WFES Sequential)")
+    title: Strings.wfes + Strings.hyphen + Strings.wfesComplete + " (" + Strings.wfesSequential + ")"
 
     color: Universal.chromeLowColor
 
@@ -35,7 +36,7 @@ ApplicationWindow {
         close.accepted = false
 
         if(checkIntegrity() !== "") {
-            messageDialogOnClose.text = "Some input parameters are incorrect. The configuration will be available in this session, but cannot be saved for future sessions until you fix those values. Do you want to exit anyway?"
+            messageDialogOnClose.text = Strings.onCloseConfirmationMessage
             messageDialogOnClose.open()
         } else {
             rootWfesSequential.hide();
@@ -47,8 +48,8 @@ ApplicationWindow {
 
     MessageDialog {
         id: messageDialogOnClose
-        title: "Warning"
-        text: ""
+        title: Strings.dialogWarning
+        text: Strings.empty
         icon: StandardIcon.Warning
         standardButtons: Dialog.Ok | Dialog.Cancel
         onAccepted: {
@@ -96,7 +97,7 @@ ApplicationWindow {
 
                     Label {
                         id: labelComponents
-                        text: "Components:"
+                        text: Strings.components + Strings.colon
                         font.bold: true
                     }
 
@@ -113,7 +114,7 @@ ApplicationWindow {
                             id: componentsSectionTabView
                             width: commonSection.width + 10
                             height: 270
-                            tabNames: "Comp."
+                            tabNames: Strings.comp
                             urlComponent: "qrc:/components/executionviews/tabcomponents/tabWfesSequentialComponent.qml"
                             onAdd: function(){
                                 var num_comps = inputControllerWfesSequential.ui_num_comp
@@ -175,7 +176,7 @@ ApplicationWindow {
 
                         Label {
                             id: labelCommonParameters
-                            text: "Common Parameters"
+                            text: Strings.commonParameters + Strings.colon
                             font.bold: true
                         }
 
@@ -190,8 +191,8 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 id: inputA
-                                text: "a: "
-                                toolTipText: "Tail truncation weight."
+                                text: Strings.a + Strings.colon
+                                toolTipText: Strings.aTooltip
                                 validator: DoubleValidator {bottom: 0;}
                                 textFieldText: inputControllerWfesSequential.ui_a
                                 textFieldTextEdited: function(){
@@ -206,8 +207,8 @@ ApplicationWindow {
 
                             LabeledTextField {
                                 id: inputC
-                                text: "c: "
-                                toolTipText: "Integration cutoff."
+                                text: Strings.c + Strings.colon
+                                toolTipText: Strings.cTooltip
                                 validator: DoubleValidator {bottom: 0;}
                                 textFieldText: inputControllerWfesSequential.ui_c
                                 textFieldTextEdited: function(){
@@ -252,7 +253,7 @@ ApplicationWindow {
 
                                 Label {
                                     id: labelOutput
-                                    text: "Output Options:"
+                                    text: Strings.outputOptions + Strings.colon
                                     font.bold: true
                                 }
 
@@ -268,56 +269,56 @@ ApplicationWindow {
 
                                     LabeledCheckBox {
                                         id: inputWriteQ
-                                        text: "Q: "
-                                        toolTipText: "Output Q matrix to file."
+                                        text: Strings.outputQ + Strings.colon
+                                        toolTipText: Strings.outputQTooltip
                                         checked: inputControllerWfesSequential.ui_output_Q
                                     }
 
                                     LabeledCheckBox {
                                         id: inputWriteR
-                                        text: "R: "
-                                        toolTipText: "Output R vectors to file."
+                                        text: Strings.outputR + Strings.colon
+                                        toolTipText: Strings.outputRTooltip
                                         checked: inputControllerWfesSequential.ui_output_R
                                     }
 
                                     LabeledCheckBox {
                                         id: inputWriteN
-                                        text: "N: "
-                                        toolTipText: "Output N matrix to file."
+                                        text: Strings.outputN + Strings.colon
+                                        toolTipText: Strings.outputNTooltip
                                         checked: inputControllerWfesSequential.ui_output_N
                                     }
 
                                     LabeledCheckBox {
                                         id: inputWriteB
-                                        text: "B: "
-                                        toolTipText: "Output B vectors to file."
+                                        text: Strings.outputB + Strings.colon
+                                        toolTipText: Strings.outputBTooltip
                                         checked: inputControllerWfesSequential.ui_output_B
                                     }
 
                                     LabeledCheckBox {
                                         id: inputWriteNExt
-                                        text: "N<sub>Ext</sub>: "
-                                        toolTipText: "Output extinction-conditional sojourn to file."
+                                        text: Strings.outputNExt + Strings.colon
+                                        toolTipText: Strings.outputNExtTooltip
                                         checked: inputControllerWfesSequential.ui_output_N_Ext
                                     }
 
                                     LabeledCheckBox {
                                         id: inputWriteNFix
-                                        text: "N<sub>Fix</sub>: "
-                                        toolTipText: "Output fixation-conditional sojourn to file."
+                                        text: Strings.outputNFix + Strings.colon
+                                        toolTipText: Strings.outputNFixTooltip
                                         checked: inputControllerWfesSequential.ui_output_N_Fix
                                     }
                                     LabeledCheckBox {
                                         id: inputWriteNTmo
-                                        text: "N<sub>Tmo</sub>: "
-                                        toolTipText: "Output timeout-conditional sojourn to file."
+                                        text: Strings.outputNTmo + Strings.colon
+                                        toolTipText: Strings.outputNTmoTooltip
                                         checked: inputControllerWfesSequential.ui_output_N_Tmo
                                     }
 
                                     LabeledCheckBox {
                                         id: inputWriteRes
-                                        text: "Res: "
-                                        toolTipText: "Output Res (Generated results at right side) as CSV file."
+                                        text: Strings.outputRes + Strings.colon
+                                        toolTipText: Strings.outputResTooltip
                                         checked: inputControllerWfesSequential.ui_output_Res
                                     }
 
@@ -339,7 +340,7 @@ ApplicationWindow {
 
                                 Label {
                                     id: labelExecution
-                                    text: "Execution:"
+                                    text: Strings.execution + Strings.colon
                                     font.bold: true
                                 }
 
@@ -357,16 +358,16 @@ ApplicationWindow {
 
                                         LabeledCheckBox {
                                             id: inputForce
-                                            toolTipText: "Do not perform parameter checks."
-                                            text: "Force: "
+                                            text: Strings.force + Strings.colon
+                                            toolTipText: Strings.forceTooltip
                                             checked: inputControllerWfesSequential.ui_force
                                         }
 
                                         LabeledTextField {
                                             id: inputT
-                                            text: "t: "
+                                            text: Strings.t + Strings.colon
+                                            toolTipText: Strings.tTooltip
                                             labelPreferredWidth: 10
-                                            toolTipText: "Number of threads for OpenMP."
                                             validator: DoubleValidator {bottom: 2; top: 50000;}
                                             textFieldText: inputControllerWfesSequential.ui_t
                                             textFieldTextEdited: function(){
@@ -385,9 +386,9 @@ ApplicationWindow {
 
                                         LabeledComboBox {
                                             id: comboBoxLibrary
-                                            text: "Library:"
+                                            text: Strings.library + Strings.colon
                                             model: ["Pardiso", "ViennaCL"]
-                                            toolTipText: "Library used for solving matrix systems."
+                                            toolTipText: Strings.libraryTooltip
                                             onTextChanged: {
                                                 if(comboBoxLibrary.currentText === "Pardiso") {
                                                     comboBoxBackend.enabled = false
@@ -401,30 +402,30 @@ ApplicationWindow {
 
                                         LabeledComboBox {
                                             id: comboBoxSolver
-                                            text: "Solver:"
-                                            toolTipText: "Solver used by viennacl."
+                                            text: Strings.solver + Strings.colon
+                                            toolTipText: Strings.solverTooltip
                                             model: ["GMRes", "BicGStab"]
                                             enabled: (comboBoxLibrary.currentText === "ViennaCL")
                                         }
 
                                         /*LabeledTextField {
                                             id: inputI
-                                            text: "I. Dist.: "
-                                            toolTipText: "Path to initial probability distribution CSV file."
+                                            text: Strings.iDist + Strings.colon
+                                            toolTipText: Strings.iDistTooltip
                                             labelPreferredWidth: 75
                                             textFieldPreferredWidth: 185
                                             textFieldText: inputControllerWfesSequential.ui_initial_distribution
                                         }
 
                                         Button{
-                                            text: "Search"
+                                            text: Strings.searchButton
                                             onClicked: fileDialog.open()
                                         }
 
 
                                         FileDialog {
                                             id: fileDialog
-                                            title: "Please choose a csv file"
+                                            title: Strings.iDistDialogTitle
                                             nameFilters: [ "csv files (*.csv)" ]
                                             onAccepted: {
                                                 var path = fileDialog.fileUrl.toString()
@@ -448,7 +449,7 @@ ApplicationWindow {
                                 id: stopButton
                                 Layout.margins: 10
                                 Layout.alignment: Qt.AlignRight
-                                text: "Stop"
+                                text: Strings.stopButton
 
                                 Binding {
                                     target: stopButton
@@ -469,7 +470,7 @@ ApplicationWindow {
                                 id: executeButton
                                 Layout.margins: 10
                                 Layout.alignment: Qt.AlignRight
-                                text: "Execute"
+                                text: Strings.executeButton
 
                                 onEnabledChanged: {
                                     if(outputControllerWfesSequential.ui_get_not_exec)
@@ -514,8 +515,8 @@ ApplicationWindow {
 
                 MessageDialog {
                     id: messageDialog
-                    title: "Warning"
-                    text: ""
+                    title: Strings.dialogWarning
+                    text: Strings.empty
                     icon: StandardIcon.Warning
                 }
 
@@ -535,7 +536,7 @@ ApplicationWindow {
 
                     Label {
                         id: labelFinalOutput
-                        text: "Output:"
+                        text: Strings.output + Strings.colon
                         font.bold: true
                     }
 
@@ -545,8 +546,8 @@ ApplicationWindow {
                             id: outputPExt
                             labelPreferredWidth: 100
                             textFieldPreferredWidth: 180
-                            text: "P<sub>ext</sub>: "
-                            toolTipText: "Probability of extintion."
+                            text: Strings.pExt + Strings.colon
+                            toolTipText: Strings.pExtTooltip
                             textFieldText: outputControllerWfesSequential.ui_get_p_ext
                             readOnly: true
                         }
@@ -555,8 +556,8 @@ ApplicationWindow {
                             id: outputPFix
                             labelPreferredWidth: 100
                             textFieldPreferredWidth: 180
-                            text: "P<sub>fix</sub>: "
-                            toolTipText: "Probability of fixation."
+                            text: Strings.pFix + Strings.colon
+                            toolTipText: Strings.pFixTooltip
                             textFieldText: outputControllerWfesSequential.ui_get_p_fix
                             readOnly: true
                         }
@@ -565,8 +566,8 @@ ApplicationWindow {
                             id: outputPtmo
                             labelPreferredWidth: 100
                             textFieldPreferredWidth: 180
-                            text: "P<sub>tmo</sub>: "
-                            toolTipText: "Probability of timeout."
+                            text: Strings.pTmo + Strings.colon
+                            toolTipText: Strings.pTmoTooltip
                             textFieldText: outputControllerWfesSequential.ui_get_p_tmo
                             readOnly: true
                         }
@@ -575,8 +576,8 @@ ApplicationWindow {
                             id: outputText
                             labelPreferredWidth: 100
                             textFieldPreferredWidth: 180
-                            text: "T<sub>ext</sub>: "
-                            toolTipText: "Expected number of generations until extinction."
+                            text: Strings.tExt + Strings.colon
+                            toolTipText: Strings.tExtTooltip
                             textFieldText: outputControllerWfesSequential.ui_get_t_ext
                             readOnly: true
                         }
@@ -585,8 +586,8 @@ ApplicationWindow {
                             id: outputTextStd
                             labelPreferredWidth: 100
                             textFieldPreferredWidth: 180
-                            text: "T<sub>ext std</sub>: "
-                            toolTipText: "Standard deviation of expected number of generations until extinction."
+                            text: Strings.tExtStd + Strings.colon
+                            toolTipText: Strings.tExtStdTooltip
                             textFieldText: outputControllerWfesSequential.ui_get_t_ext_std
                             readOnly: true
                         }
@@ -596,8 +597,8 @@ ApplicationWindow {
                             id: outputTFix
                             labelPreferredWidth: 100
                             textFieldPreferredWidth: 180
-                            text: "T<sub>fix</sub>: "
-                            toolTipText: "Expected number of generations until fixation."
+                            text: Strings.tFix + Strings.colon
+                            toolTipText: Strings.tFixTooltip
                             textFieldText: outputControllerWfesSequential.ui_get_t_fix
                             readOnly: true
                         }
@@ -606,8 +607,8 @@ ApplicationWindow {
                             id: outputTFixStd
                             labelPreferredWidth: 100
                             textFieldPreferredWidth: 180
-                            text: "T<sub>fix std</sub>: "
-                            toolTipText: "Standard deviation of expected number of generations until fixation."
+                            text: Strings.tFixStd + Strings.colon
+                            toolTipText: Strings.tFixStdTooltip
                             textFieldText: outputControllerWfesSequential.ui_get_t_fix_std
                             readOnly: true
                         }
@@ -616,8 +617,8 @@ ApplicationWindow {
                             id: outputTtmo
                             labelPreferredWidth: 100
                             textFieldPreferredWidth: 180
-                            text: "T<sub>tmo</sub>: "
-                            toolTipText: "Expected number of generations until time out."
+                            text: Strings.tTmo + Strings.colon
+                            toolTipText: Strings.tTmoTooltip
                             textFieldText: outputControllerWfesSequential.ui_get_t_tmo
                             readOnly: true
                         }
@@ -626,8 +627,8 @@ ApplicationWindow {
                             id: outputTtmoStd
                             labelPreferredWidth: 100
                             textFieldPreferredWidth: 180
-                            text: "T<sub>tmo std</sub>: "
-                            toolTipText: "Standard deviation of expected number of generations until time out."
+                            text: Strings.tTmoStd + Strings.colon
+                            toolTipText: Strings.tTmoStdTooltip
                             textFieldText: outputControllerWfesSequential.ui_get_t_tmo_std
                             readOnly: true
                         }
@@ -635,7 +636,7 @@ ApplicationWindow {
                     }
 
                     Button {
-                        text: "Copy to Clipboard"
+                        text: Strings.copyToClipboard
 
                         Layout.alignment: Qt.AlignHCenter
 
@@ -822,22 +823,22 @@ ApplicationWindow {
         var error = ""
 
         if(inputA.textFieldText == "")
-            error += " - Tail Truncation Cutoff (a) is empty. \n \n"
+            error += Strings.hyphen + Strings.aIsEmpty + Strings.endOfError
         if(Number.isNaN(Number(inputA.textFieldText)))
-            error += " - Tail Truncation Cutoff (a) is not a valid number. \n \n"
+            error += Strings.hyphen + Strings.aIsNotValid + Strings.endOfError
         if(parseFloat(inputA.textFieldText) < 0)
-            error += " - Tail Truncation Cutoff (a) is quite small. It must be at least 0. \n \n"
+            error += Strings.hyphen + Strings.aIsSmall + Strings.endOfError
         if(!inputForce.checked && parseFloat(inputA.textFieldText) > 1e-5)
-            error += " - Tail Truncation Cutoff (a) value is quite high. This might produce inaccurate results. A good value should be between 0 and 10e-10. Check 'Force' to ignore. \n \n"
+            error += Strings.hyphen + Strings.aIsLarge + Strings.endOfError
 
         if(inputC.textFieldText == "")
-            error += " - Integration Cutoff (c) is empty. \n \n"
+            error += Strings.hyphen + Strings.cIsEmpty + Strings.endOfError
         if(Number.isNaN(Number(inputC.textFieldText)))
-            error += " - Integration Cutoff (c) is not a valid number. \n \n"
+            error += Strings.hyphen + Strings.cIsNotValid + Strings.endOfError
         if(parseFloat(inputC.textFieldText) < 0)
-            error += " - Integration Cutoff (c) is quite small. It must be at least 0. \n \n"
+            error += Strings.hyphen + Strings.cIsSmall + Strings.endOfError
         if(parseFloat(inputC.textFieldText) > 10e-3)
-            error += " - Integration Cutoff (c) is quite large. The maximum value allowed is 10e-3. \n \n"
+            error += Strings.hyphen + Strings.cIsLarge + Strings.endOfError
 
         var N_vec = []
         var t_vec = []
@@ -867,23 +868,23 @@ ApplicationWindow {
         for(i = 0; i < inputControllerWfesSequential.ui_num_comp; i++) {
             N = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[0].textFieldText
             if(N === "")
-                error += " - Population Size (N" + (i + 1) + ") is empty. \n \n"
+                error += Strings.hyphen + Strings.nMulIsEmpty.arg(i + 1) + Strings.endOfError
             if(Number.isNaN(Number(N_vec[i])))
-                error += " - Population Size (N" + (i + 1) + ") is not a valid number. \n \n"
+                error += Strings.hyphen + Strings.nMulIsNotValid.arg(i + 1) + Strings.endOfError
             if(parseInt(N_vec[i]) < 2)
-                error += " - Population Size (N" + (i + 1) + ") is quite small, it must be at least 2. \n \n"
+                error += Strings.hyphen + Strings.nMulIsSmall.arg(i + 1) + Strings.endOfError
             if(!inputForce.checked && parseInt(N_vec[i]) > 50000)
-                error +=  " - Population Size (N" + (i + 1) + ") is quite large, the computations will take a long time. Check 'Force' to ignore. \n \n"
+                error += Strings.hyphen + Strings.nMulIsLarge.arg(i + 1) + Strings.endOfError
         }
 
         for(i = 0; i < inputControllerWfesSequential.ui_num_comp; i++) {
             t = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[1].textFieldText
             if(t === "")
-                error += " - Expected Time (t" + (i + 1) + ") is empty. \n \n"
+                error += Strings.hyphen + Strings.tExpextedMulIsEmpty.arg(i + 1) + Strings.endOfError
             if(Number.isNaN(Number(t_vec[i])))
-                error += " - Expected Time (t" + (i + 1) + ") is not a valid number. \n \n"
+                error += Strings.hyphen + Strings.tExpextedMulIsNotValid.arg(i + 1) + Strings.endOfError
             if(parseInt(t_vec[i]) < 1)
-                error += " - Expected Time (t" + (i + 1) + ") is quite small, it must be at least 2. \n \n"
+                error += Strings.hyphen + Strings.tExpextedMulIsSmall.arg(i + 1) + Strings.endOfError
             // No upper limit for this.
         }
 
@@ -892,91 +893,91 @@ ApplicationWindow {
         for(i = 0; i < inputControllerWfesSequential.ui_num_comp; i++) {
             p = componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[2].textFieldText
             if(p === "")
-                error += " - Probability of starting (p" + (i + 1) + ") is empty. \n \n"
+                error += Strings.hyphen + Strings.pStartMulIsEmpty.arg(i + 1) + Strings.endOfError
             if(Number.isNaN(Number(p_vec[i])))
-                error += " - Probability of starting (p" + (i + 1) + ") is not a valid number. \n \n"
+                error += Strings.hyphen + Strings.pStartMulIsNotValid.arg(i + 1) + Strings.endOfError
             if(parseInt(p_vec[i]) < 0)
-                error += " - Probability of starting (p" + (i + 1) + ") is quite small, it must be at least 2. \n \n"
+                error += Strings.hyphen + Strings.pStartMulIsSmall.arg(i + 1) + Strings.endOfError
             if(parseInt(p_vec[i]) > 1)
-                error += " - Probability of starting (p" + (i + 1) + ") is quite large, the computations will take a long time. Check 'Force' to ignore. \n \n"
+                error += Strings.hyphen + Strings.pStartMulIsLarge.arg(i + 1) + Strings.endOfError
             if(!Number.isNaN(Number(p_vec[i])))
                 sum_p += parseFloat(componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[2].textFieldText)
         }
         if(sum_p !== 1) {
-            error += " - Probabilities of starting (p) of all components must add to 1. The current sum is " + sum_p + "\n \n"
+            error += Strings.hyphen + Strings.pStartMulDoesntAdd1 + Strings.endOfError
         }
 
         if(globalConfiguration.ui_population_scaled) {
             for(i = 0; i < inputControllerWfesSequential.ui_num_comp; i++) {
                 u = componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[0].textFieldText
                 if(u === "")
-                    error += " - Backward Mutation (u" + (i + 1) + ") is empty. \n \n"
+                    error += Strings.hyphen + Strings.uMulIsEmpty.arg(i + 1) + Strings.endOfError
                 if(Number.isNaN(Number(u_vec[i])))
-                    error += " - Backward Mutation (u" + (i + 1) + ") is not a valid number. \n \n"
+                    error += Strings.hyphen + Strings.uMulIsNotValid.arg(i + 1) + Strings.endOfError
                 if(parseFloat(u_vec[i].textFieldText) <= 0)
-                    error += " - Backward Mutation (u" + (i + 1) + ") is quite small. It must be at least 0. \n \n"
+                    error += Strings.hyphen + Strings.uMulIsSmall.arg(i + 1) + Strings.endOfError
                 if(!inputForce.checked && parseFloat(u_vec[i]) > 1)
-                    error += " - Backward Mutation (u" + (i + 1) + ") is quite large and might violate the Wright-Fisher assumptions. It should be less than 1. Check 'Force' to ignore. \n \n"
+                    error += Strings.hyphen + Strings.uMulIsLargeScaled.arg(i + 1) + Strings.endOfError
             }
 
             for(i = 0; i < inputControllerWfesSequential.ui_num_comp; i++) {
                 v = componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[1].textFieldText
                 if(v === "")
-                    error += " - Forward Mutation (v" + (i + 1) + ") is empty. \n \n"
+                    error += Strings.hyphen + Strings.vMulIsEmpty.arg(i + 1) + Strings.endOfError
                 if(Number.isNaN(Number(v_vec[i])))
-                    error += " - Forward Mutation (v" + (i + 1) + ") is not a valid number. \n \n"
+                    error += Strings.hyphen + Strings.vMulIsNotValid.arg(i + 1) + Strings.endOfError
                 if(parseFloat(v_vec[i].textFieldText) <= 0)
-                    error += " - Forward Mutation (v" + (i + 1) + ") is quite small. It must be at least 0. \n \n"
+                    error += Strings.hyphen + Strings.vMulIsSmall.arg(i + 1) + Strings.endOfError
                 if(!inputForce.checked && parseFloat(v_vec[i]) > 1)
-                    error += " - Forward Mutation (v" + (i + 1) + ") is quite large and might violate the Wright-Fisher assumptions. It should be less than 1. Check 'Force' to ignore. \n \n"
+                    error += Strings.hyphen + Strings.vMulIsLargeScaled.arg(i + 1) + Strings.endOfError
             }
 
             for(i = 0; i < inputControllerWfesSequential.ui_num_comp; i++) {
                 s = componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[0].textFieldText
                 if(s === "")
-                    error += " - Selection Coefficient (s" + (i + 1) + ") is empty. \n \n"
+                    error += Strings.hyphen + Strings.sMulIsEmpty.arg(i + 1) + Strings.endOfError
                 if(Number.isNaN(Number(s_vec[i])))
-                    error += " - Selection Coefficient (s" + (i + 1) + ") is not a valid number. \n \n"
+                    error += Strings.hyphen + Strings.sMulIsNotValid.arg(i + 1) + Strings.endOfError
                 if(parseFloat(s_vec[i]) < -1 * (2 * parseInt(N_vec[i])))
-                    error += " - Selection Coefficient (s" + (i + 1) + ") is quite negative. It must be at least -2N \n \n"
+                    error += Strings.hyphen + Strings.sMulIsSmall.arg(i + 1) + Strings.endOfError
                 if(parseFloat(s_vec[i]) > 1 * (2 * parseInt(N_vec[i])))
-                    error += " - Selection Coefficient (s" + (i + 1) + ") is quite large. The maximum value allowed is 2N. \n \n"
+                    error += Strings.hyphen + Strings.sMulIsLargeScaled.arg(i + 1) + Strings.endOfError
             }
         } else {
             for(i = 0; i < inputControllerWfesSequential.ui_num_comp; i++) {
                 u = componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[0].textFieldText
                 if(u === "")
-                    error += " - Backward Mutation (u" + (i + 1) + ") is empty. \n \n"
+                    error += Strings.hyphen + Strings.uMulIsEmpty.arg(i + 1) + Strings.endOfError
                 if(Number.isNaN(Number(u_vec[i])))
-                    error += " - Backward Mutation (u" + (i + 1) + ") is not a valid number. \n \n"
+                    error += Strings.hyphen + Strings.uMulIsNotValid.arg(i + 1) + Strings.endOfError
                 if(parseFloat(u_vec[i].textFieldText) <= 0)
-                    error += " - Backward Mutation (u" + (i + 1) + ") is quite small. It must be at least 0. \n \n"
+                    error += Strings.hyphen + Strings.uMulIsSmall.arg(i + 1) + Strings.endOfError
                 if(!inputForce.checked && parseFloat(u_vec[i]) > 1 / (4 * parseInt(N_vec[i])))
-                    error += " - Backward Mutation (u" + (i + 1) + ") is quite large and might violate the Wright-Fisher assumptions. It should be less than 1/4N. Check 'Force' to ignore. \n \n"
+                    error += Strings.hyphen + Strings.uMulIsLarge.arg(i + 1) + Strings.endOfError
             }
 
             for(i = 0; i < inputControllerWfesSequential.ui_num_comp; i++) {
                 v = componentsSectionTabView.children[0].getTab(i).item.children[1].children[1].children[1].textFieldText
                 if(v === "")
-                    error += " - Forward Mutation (v" + (i + 1) + ") is empty. \n \n"
+                    error += Strings.hyphen + Strings.vMulIsEmpty.arg(i + 1) + Strings.endOfError
                 if(Number.isNaN(Number(v_vec[i])))
-                    error += " - Forward Mutation (v" + (i + 1) + ") is not a valid number. \n \n"
+                    error += Strings.hyphen + Strings.vMulIsNotValid.arg(i + 1) + Strings.endOfError
                 if(parseFloat(v_vec[i].textFieldText) <= 0)
-                    error += " - Backward Mutation (v" + (i + 1) + ") is quite small. It must be at least 0. \n \n"
+                    error += Strings.hyphen + Strings.vMulIsSmall.arg(i + 1) + Strings.endOfError
                 if(!inputForce.checked && parseFloat(v_vec[i]) > 1 / (4 * parseInt(N_vec[i])))
-                    error += " - Backward Mutation (v" + (i + 1) + ") is quite large and might violate the Wright-Fisher assumptions. It should be less than 1/4N. Check 'Force' to ignore. \n \n"
+                    error += Strings.hyphen + Strings.vMulIsLarge.arg(i + 1) + Strings.endOfError
             }
 
             for(i = 0; i < inputControllerWfesSequential.ui_num_comp; i++) {
                 s = componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[0].textFieldText
                 if(s === "")
-                    error += " - Selection Coefficient (s" + (i + 1) + ") is empty. \n \n"
+                    error += Strings.hyphen + Strings.sMulIsEmpty.arg(i + 1) + Strings.endOfError
                 if(Number.isNaN(Number(s_vec[i])))
-                    error += " - Selection Coefficient (s" + (i + 1) + ") is not a valid number. \n \n"
+                    error += Strings.hyphen + Strings.sMulIsNotValid.arg(i + 1) + Strings.endOfError
                 if(parseFloat(s_vec[i]) < -1)
-                    error += " - Selection Coefficient (s" + (i + 1) + ") is quite negative. It must be at least -2N \n \n"
+                    error += Strings.hyphen + Strings.sMulIsSmall.arg(i + 1) + Strings.endOfError
                 if(parseFloat(s_vec[i]) > 1 )
-                    error += " - Selection Coefficient (s" + (i + 1) + ") is quite large. The maximum value allowed is 2N. \n \n"
+                    error += Strings.hyphen + Strings.sMulIsLarge.arg(i + 1) + Strings.endOfError
             }
         }
 
@@ -984,22 +985,22 @@ ApplicationWindow {
         for(i = 0; i < inputControllerWfesSequential.ui_num_comp; i++) {
             h = componentsSectionTabView.children[0].getTab(i).item.children[2].children[1].children[1].textFieldText
             if(h === "")
-                error += " - Dominance Coefficient (h" + (i + 1) + ") is empty. \n \n"
+                error += Strings.hyphen + Strings.hMulIsEmpty.arg(i + 1) + Strings.endOfError
             if(Number.isNaN(Number(h_vec[i])))
-                error += " - Dominance Coefficient (h" + (i + 1) + ") is not a valid number. \n \n"
+                error += Strings.hyphen + Strings.hMulIsNotValid.arg(i + 1) + Strings.endOfError
             if(parseFloat(h_vec[i]) < 0)
-                error += " - Dominance Coefficient (h" + (i + 1) + ") is quite small. It must be at least 0. \n \n"
+                error += Strings.hyphen + Strings.hMulIsSmall.arg(i + 1) + Strings.endOfError
             if(parseFloat(h_vec[i]) > 1)
-                error += " - Dominance Coefficient (h" + (i + 1) + ") is quite large. The maximum value allowed is 1. \n \n"
+                error += Strings.hyphen + Strings.hMulIsLarge.arg(i + 1) + Strings.endOfError
         }
 
         if(inputT.textFieldText == "")
-            error += " - Number of Threads (t) is empty. \n \n"
+            error += Strings.hyphen + Strings.tMulIsEmpty.arg(i + 1) + Strings.endOfError
         if(Number.isNaN(Number(inputT.textFieldText)))
-            error += " - Number of Threads (t) is not a valid number. \n \n"
-        // Number of threads (t) does not have upper limites, since it depends on the hardware available.
+            error += Strings.hyphen + Strings.tMulIsNotValid.arg(i + 1) + Strings.endOfError
         if(parseInt(inputT.textFieldText) < 1)
-            error += " - Number of Threads (t) is quite small, it must be at least 1. \n \n"
+            error += Strings.hyphen + Strings.tMulIsSmall.arg(i + 1) + Strings.endOfError
+        // Number of threads (t) does not have upper limites, since it depends on the hardware available.
 
         //TODO Check if Initial Distribution (I) file exists.
 

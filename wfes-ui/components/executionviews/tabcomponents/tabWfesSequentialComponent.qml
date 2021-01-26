@@ -112,8 +112,8 @@ Component{
 
                 LabeledTextField {
                     id: inputP
-                    text: Strings.pSub.arg(number) + Strings.colon
-                    toolTipText: Strings.pTooltip
+                    text: Strings.pStartSub.arg(number) + Strings.colon
+                    toolTipText: Strings.pStartTooltip
                     validator: DoubleValidator {bottom: 0; top: 1;}
                     textFieldText: {
                         if(number != 0) {
