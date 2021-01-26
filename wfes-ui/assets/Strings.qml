@@ -16,6 +16,16 @@ Item {
         readonly property var timeDist: qsTr("Time Dist.")
         readonly property var phaseType: qsTr("Phase Type")
 
+    // Tooltip
+        readonly property var wfafSTooltip: qsTr("Wright-Fisher Allele Frequency Stochastic.")
+        readonly property var wfafDTooltip: qsTr("Wright-Fisher Allele Frequency Deterministic.")
+        readonly property var timeDistTooltip: qsTr("Distribution of Time to Fixation/Extinction.")
+        readonly property var phaseTypeTooltip: qsTr("Calculate Moments and Distributions of Absorption Times for a Fixation-only Model.")
+        readonly property var wfesSingleTooltip: qsTr("Calculations for the Standard Wright-Fisher Model.")
+        readonly property var wfesSweepTooltip: qsTr("Model of Positive Selection with Standing Genetic Variation.")
+        readonly property var wfesSequentialTooltip: qsTr("Implements calculations for a set of standard Wright-Fisher models sequentially.")
+        readonly property var wfesSwitchingTooltip: qsTr("Time-heterogeneous Extension to the Wright-Fisher Model")
+
     // Bottom Bar
         readonly property var bottomBarStatus: qsTr("Status");
         readonly property var bottomBarNotExecuting: qsTr("Not executing.");
@@ -318,6 +328,8 @@ Item {
 
     // Links
     readonly property var gitHubWikiURL: qsTr("https://github.com/dekoning-lab/wfes-gui/wiki")
+    readonly property var gitHubURL: qsTr("https://github.com/dekoning-lab")
+    readonly property var labURL: qsTr("http://lab.jasondk.io/")
 
     // Generic
     readonly property string empty: ""
@@ -520,9 +532,28 @@ Item {
     // Charts
     readonly property var charts: qsTr("Charts")
     readonly property var nonGeneratedChart: qsTr("A chart will appear here when you execute an executable with Dist, Moments or Probs (P).")
-    readonly property var data1: qsTr("Data ")
+    readonly property string dataText: "Data "
     readonly property var logScale: qsTr("Log Scale")
     readonly property var resetYAxis: qsTr("Reset Y Axis")
     readonly property var maxY: qsTr("Max. Y")
     readonly property var minY: qsTr("Min. Y")
+
+    /// Help
+    readonly property var help: qsTr("Help")
+    readonly property var builtOn: qsTr("Built on...")
+    readonly property var copyrightNote: qsTr("Copyright © 2017-2020 - University of Calgary")
+    readonly property var licenseNote: qsTr("This Software is licensed under the GPLv3 License. Please, visit our
+GitHub webpage for more information about the GPLv3 license, and the
+licenses of the third party libraries used in this project.
+Alternatively, you have available the license of this software
+and the licenses of the third party libraries in the installation
+folder.")
+    readonly property var gitHubWebPageText: qsTr("GitHub Webpage")
+    readonly property var contactText: qsTr("Contact us for more information about our laboratory.")
+    readonly property var labWebPageText: qsTr("lab.jasondk.io")
+
+    // Matrix Visualization
+    readonly property var matrixVisualization: qsTr("Matrix Visualization")
+    readonly property var resetZoom: qsTr("Reset Zoom")
+
 }

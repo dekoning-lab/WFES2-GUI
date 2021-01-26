@@ -22,13 +22,13 @@ Rectangle {
         id: row3
 
         Button {
-            text: "Manual"
+            text: Strings.upperMenuManualButton
             onClicked: {
                 Qt.openUrlExternally("https://github.com/dekoning-lab/wfes-gui/wiki");
             }
         }
         Button {
-            text: "About"
+            text: Strings.upperMenuAboutButton
             onClicked: {
                 helpView.visible = true
             }

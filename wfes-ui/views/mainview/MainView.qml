@@ -10,7 +10,7 @@ import components 1.0
 Window {
     id: root
     objectName: "Root"
-    title: qsTr("WFES - Wright-Fisher Exact Solver")
+    title: Strings.wfes + Strings.hyphen + Strings.wfesComplete
 
     visible: true
 

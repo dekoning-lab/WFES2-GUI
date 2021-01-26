@@ -12,7 +12,7 @@ ApplicationWindow {
     property alias visibleWindow: rootMatrixVisualization.visible
 
     id: rootMatrixVisualization
-    title: qsTr("WFES - Wright-Fisher Exact Solver")
+    title: Strings.wfes + Strings.hyphen + Strings.wfesComplete + " (" + Strings.matrixVisualization + ")"
 
     visible: true
 
@@ -110,7 +110,7 @@ ApplicationWindow {
     }
 
     Button {
-        text: "Reset Zoom"
+        text: Strings.resetZoom
         anchors {
             top: parent.top
             horizontalCenter: parent.horizontalCenter
@@ -155,7 +155,7 @@ ApplicationWindow {
     }
 
     Button {
-        text: "Download"
+        text: Strings.download
         anchors {
             bottom: parent.bottom
             horizontalCenter: parent.horizontalCenter
@@ -215,7 +215,7 @@ ApplicationWindow {
             Layout.preferredWidth: 100
 
             enabled: true
-            text: "I"
+            text: Strings.outputI
 
             onClicked: {
                 buttonI.enabled = false
@@ -252,7 +252,7 @@ ApplicationWindow {
             }
             Layout.preferredWidth: 100
 
-            text: "Q"
+            text: Strings.outputQ
 
             onClicked: {
                 buttonI.enabled = true
@@ -289,7 +289,7 @@ ApplicationWindow {
             }
             Layout.preferredWidth: 100
 
-            text: "R"
+            text: Strings.outputR
 
             onClicked: {
                 buttonI.enabled = true
@@ -326,7 +326,7 @@ ApplicationWindow {
             }
             Layout.preferredWidth: 100
 
-            text: "B"
+            text: Strings.outputB
 
             onClicked: {
                 buttonI.enabled = true
@@ -363,7 +363,7 @@ ApplicationWindow {
             }
             Layout.preferredWidth: 100
 
-            text: "N"
+            text: Strings.outputN
 
             onClicked: {
                 buttonI.enabled = true
@@ -400,7 +400,7 @@ ApplicationWindow {
             }
             Layout.preferredWidth: 100
 
-            text: "N ext"
+            text: Strings.outputNExt
 
             onClicked: {
                 buttonI.enabled = true
@@ -437,7 +437,7 @@ ApplicationWindow {
             }
             Layout.preferredWidth: 100
 
-            text: "N fix"
+            text: Strings.outputNFix
 
             onClicked: {
                 buttonI.enabled = true
@@ -474,7 +474,7 @@ ApplicationWindow {
             }
             Layout.preferredWidth: 100
 
-            text: "N tmo"
+            text: Strings.outputNTmo
 
             onClicked: {
                 buttonI.enabled = true
@@ -511,7 +511,7 @@ ApplicationWindow {
             }
             Layout.preferredWidth: 100
 
-            text: "V"
+            text: Strings.outputV
 
             onClicked: {
                 buttonI.enabled = true
@@ -548,7 +548,7 @@ ApplicationWindow {
             }
             Layout.preferredWidth: 100
 
-            text: "E"
+            text: Strings.outputE
 
             onClicked: {
                 buttonI.enabled = true
@@ -585,7 +585,7 @@ ApplicationWindow {
             }
             Layout.preferredWidth: 100
 
-            text: "P"
+            text: Strings.outputP
 
             onClicked: {
                 buttonI.enabled = true

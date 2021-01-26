@@ -11,7 +11,7 @@ ApplicationWindow {
     property alias visibleWindow: rootHelp.visible
 
     id: rootHelp
-    title: qsTr("WFES - Wright-Fisher Exact Solver")
+    title: Strings.wfes + Strings.hyphen + Strings.wfesComplete + " (" + Strings.help + ")";
 
     visible: true
 
@@ -42,6 +42,7 @@ ApplicationWindow {
         setY(Screen.height / 2 - height / 2);
     }
 
+    /**
     Image {
         id: logo
         anchors {
@@ -57,6 +58,7 @@ ApplicationWindow {
         source: "qrc:/assets/images/wfes_logo_225x140.png"
         horizontalAlignment: Image.AlignHCenter;
     }
+    **/
 
     // Everything is located in this Rectangle.
     ColumnLayout {
@@ -65,27 +67,23 @@ ApplicationWindow {
         Label {
             topPadding: 20
             Layout.alignment: Qt.AlignHCenter
-            text: "WFES - Wright-Fisher Exact Solver"
+            text: Strings.wfes + Strings.hyphen + Strings.wfesComplete
             font.bold: true
         }
 
         Label {
             Layout.alignment: Qt.AlignHCenter
-            text: "Built on..."
+            text: Strings.builtOn
         }
 
         Label {
             Layout.alignment: Qt.AlignHCenter
-            text: "© Copyright 2020 - De Koning Lab "
+            text: Strings.copyrightNote
         }
 
         Text {
             Layout.alignment: Qt.AlignHCenter
-            text: "This Software is licensed under the GPLv3 License. Please, visit our
-GitHub webpage for more information about the GPLv3 license, and the
-third party libraries used in this project. Alternatively, you have
-available the license of this software and the licenses of the
-third party libraries in the installation folder."
+            text: Strings.licenseNote
 
 
 
@@ -94,9 +92,9 @@ third party libraries in the installation folder."
         }
 
         Text {
-            property string link: "https://github.com/dekoning-lab"
+            property string link: Strings.gitHubURL
             Layout.alignment: Qt.AlignHCenter
-            text: "<a href='"+link+"'>GitHub Webpage</a>";
+            text: "<a href='"+link+"'>" + Strings.gitHubWebPageText + "</a>";
             onLinkActivated: Qt.openUrlExternally(link)
             MouseArea
             {
@@ -110,16 +108,16 @@ third party libraries in the installation folder."
 
         Text {
             Layout.alignment: Qt.AlignHCenter
-            text: "Contact us for more information about our laboratory."
+            text: Strings.contactText
 
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
         }
 
         Text {
-            property string link: "http://lab.jasondk.io/"
+            property string link: Strings.labURL
             Layout.alignment: Qt.AlignHCenter
-            text: "<a href='"+link+"'>lab.jasondk.io</a>";
+            text: "<a href='"+link+"'>" + Strings.labWebPageText + "</a>";
             onLinkActivated: Qt.openUrlExternally(link)
             MouseArea
             {

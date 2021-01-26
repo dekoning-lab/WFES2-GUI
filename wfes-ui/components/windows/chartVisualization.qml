@@ -323,7 +323,7 @@ ApplicationWindow {
 
         Button {
             id: bt1
-            text: Strings.data + "1"
+            text: Strings.dataText + "1"
 
             Layout.preferredWidth: 100
 
@@ -356,7 +356,7 @@ ApplicationWindow {
 
         Button {
             id: bt2
-            text: Strings.data + "2"
+            text: Strings.dataText + "2"
 
             Layout.preferredWidth: 100
 
@@ -389,7 +389,7 @@ ApplicationWindow {
 
         Button {
             id: bt3
-            text: Strings.data + "3"
+            text: Strings.dataText + "3"
 
             Layout.preferredWidth: 100
 

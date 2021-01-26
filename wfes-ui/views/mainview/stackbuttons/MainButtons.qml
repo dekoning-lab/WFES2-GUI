@@ -53,8 +53,8 @@ Item {
             height: childrenRect.height
             width: parent.width
             Button {
-                text: "WFES"
-                ToolTip.text: "Wright Fisher Exact Solver."
+                text: Strings.wfes
+                ToolTip.text: Strings.wfesComplete
                 ToolTip.delay: Style.tooltipDelay
                 ToolTip.timeout: Style.tooltipTimeout
                 ToolTip.visible: hovered
@@ -67,8 +67,8 @@ Item {
                 Layout.preferredWidth: 160
             }
             Button {
-                text: "WFAF-S"
-                ToolTip.text: "Wright-Fisher Allele Frequency Stochastic."
+                text: Strings.wfafS
+                ToolTip.text: Strings.wfafSTooltip
                 ToolTip.delay: Style.tooltipDelay
                 ToolTip.timeout: Style.tooltipTimeout
                 ToolTip.visible: hovered
@@ -86,8 +86,8 @@ Item {
                 Layout.preferredWidth: 160
             }
             Button {
-                text: "WFAF-D"
-                ToolTip.text: "Wright-Fisher Allele Frequency Deterministic."
+                text: Strings.wfafD
+                ToolTip.text: Strings.wfafDTooltip
                 ToolTip.delay: Style.tooltipDelay
                 ToolTip.timeout: Style.tooltipTimeout
                 ToolTip.visible: hovered
@@ -116,8 +116,8 @@ Item {
                 topMargin: 30
             }
             Button {
-                text: "Time Dist."
-                ToolTip.text: "Distribution of Time to Fixation/Extinction."
+                text: Strings.timeDist
+                ToolTip.text: Strings.timeDistTooltip
                 ToolTip.delay: Style.tooltipDelay
                 ToolTip.timeout: Style.tooltipTimeout
                 ToolTip.visible: hovered
@@ -135,7 +135,7 @@ Item {
                 Layout.preferredWidth: 160
             }
             Button {
-                text: "Phase Type"
+                text: Strings.phaseType
                 ToolTip.text: "Calculate Moments and Distributions of Absorption Times for a Fixation-only Model."
                 ToolTip.delay: Style.tooltipDelay
                 ToolTip.timeout: Style.tooltipTimeout
@@ -168,8 +168,8 @@ Item {
             id: row1wfes
             width: parent.width
             Button {
-                text: "WFES Single"
-                ToolTip.text: "Calculations for the Standard Wright-Fisher Model."
+                text: Strings.wfesSingle
+                ToolTip.text: Strings.wfesSingleTooltip
                 ToolTip.delay: Style.tooltipDelay
                 ToolTip.timeout: Style.tooltipTimeout
                 ToolTip.visible: hovered
@@ -188,8 +188,8 @@ Item {
                 Layout.preferredWidth: 160
             }
             Button {
-                text: "WFES Sweep"
-                ToolTip.text: "Model of Positive Selection with Standing Genetic Variation."
+                text: Strings.wfesSweep
+                ToolTip.text: Strings.wfesSweepTooltip
                 ToolTip.delay: Style.tooltipDelay
                 ToolTip.timeout: Style.tooltipTimeout
                 ToolTip.visible: hovered
@@ -219,8 +219,8 @@ Item {
             }
 
             Button {
-                text: "WFES Sequential"
-                ToolTip.text: "Implements calculations for a set of standard Wright-Fisher models sequentially."
+                text: Strings.wfesSequential
+                ToolTip.text: Strings.wfesSequentialTooltip
                 ToolTip.delay: Style.tooltipDelay
                 ToolTip.timeout: Style.tooltipTimeout
                 ToolTip.visible: hovered
@@ -238,8 +238,8 @@ Item {
                 Layout.preferredWidth: 160
             }
             Button {
-                text: "WFES Switching"
-                ToolTip.text: "Time-heterogeneous Extension to the Wright-Fisher Model"
+                text: Strings.wfesSwitching
+                ToolTip.text: Strings.wfesSwitchingTooltip
                 ToolTip.delay: Style.tooltipDelay
                 ToolTip.timeout: Style.tooltipTimeout
                 ToolTip.visible: hovered
