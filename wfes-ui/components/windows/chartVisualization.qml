@@ -12,7 +12,7 @@ ApplicationWindow {
     property alias visibleWindow: rootChartVisualization.visible
 
     id: rootChartVisualization
-    title: qsTr("WFES - Wright-Fisher Exact Solver")
+    title: Strings.wfes + Strings.hyphen + Strings.wfesComplete + " (" + Strings.charts + ")"
 
     visible: visibleWindow
 
@@ -45,7 +45,7 @@ ApplicationWindow {
 
     ChartView {
         id: chart1Linear
-        title: "A chart will appear here when you execute an executable with Dist, Moments or Probs (P)."
+        title: Strings.nonGeneratedChart
         anchors.fill: parent
         antialiasing: true
         anchors { fill: parent; margins: 10;}
@@ -88,7 +88,7 @@ ApplicationWindow {
 
     ChartView {
         id: chart2Linear
-        title: "A chart will appear here when you execute an executable with Dist, Moments or Probs (P)."
+        title: Strings.nonGeneratedChart
         anchors.fill: parent
         antialiasing: true
         anchors { fill: parent; margins: 10;}
@@ -133,7 +133,7 @@ ApplicationWindow {
 
     ChartView {
         id: chart3Linear
-        title: "A chart will appear here when you execute an executable with Dist, Moments or Probs (P)."
+        title: Strings.nonGeneratedChart
         anchors.fill: parent
         antialiasing: true
         anchors { fill: parent; margins: 10;}
@@ -178,7 +178,7 @@ ApplicationWindow {
 
     ChartView {
         id: chart1Log
-        title: "A chart will appear here when you execute an executable with Dist, Moments or Probs (P)."
+        title: Strings.nonGeneratedChart
         anchors.fill: parent
         antialiasing: true
         anchors { fill: parent; margins: 10;}
@@ -224,7 +224,7 @@ ApplicationWindow {
 
     ChartView {
         id: chart2Log
-        title: "A chart will appear here when you execute an executable with Dist, Moments or Probs (P)."
+        title: Strings.nonGeneratedChart
         anchors.fill: parent
         antialiasing: true
         anchors { fill: parent; margins: 10;}
@@ -270,7 +270,7 @@ ApplicationWindow {
 
     ChartView {
         id: chart3Log
-        title: "A chart will appear here when you execute an executable with Dist, Moments or Probs (P)."
+        title: Strings.nonGeneratedChart
         anchors.fill: parent
         antialiasing: true
         anchors { fill: parent; margins: 10;}
@@ -323,7 +323,7 @@ ApplicationWindow {
 
         Button {
             id: bt1
-            text: "Data 1"
+            text: Strings.data + "1"
 
             Layout.preferredWidth: 100
 
@@ -356,7 +356,7 @@ ApplicationWindow {
 
         Button {
             id: bt2
-            text: "Data 2"
+            text: Strings.data + "2"
 
             Layout.preferredWidth: 100
 
@@ -389,7 +389,7 @@ ApplicationWindow {
 
         Button {
             id: bt3
-            text: "Data 3"
+            text: Strings.data + "3"
 
             Layout.preferredWidth: 100
 
@@ -423,7 +423,7 @@ ApplicationWindow {
 
     Switch {
         id: scaleButton
-        text: "Log Scale"
+        text: Strings.logScale
         anchors {
             top: parent.top
             horizontalCenter: parent.horizontalCenter
@@ -461,7 +461,7 @@ ApplicationWindow {
 
     Button {
         id: downloadButton
-        text: "Download"
+        text: Strings.download
         width: 100
         anchors {
             bottom: parent.bottom
@@ -585,7 +585,7 @@ ApplicationWindow {
 
         Button {
             id: resetAxis
-            text: "Reset Y Axis"
+            text: Strings.resetYAxis
             onClicked: {
                 if(chart1Linear.visible || chart1Log.visible) {
                     axisYLinear.max = maxYValue.defaultMax1
@@ -618,7 +618,7 @@ ApplicationWindow {
             property var defaultMax3: 0
             id: maxYValue
             textFieldText: "0"
-            text: "Max. Y: "
+            text: Strings.maxY + Strings.colon
             labelPreferredWidth: 50
             textFieldTextEdited: function() {
                 if(!Number.isNaN(Number(maxYValue.textFieldText)) && parseFloat(maxYValue.textFieldText) >= parseFloat(maxYValue.textFieldText)) {
@@ -644,7 +644,7 @@ ApplicationWindow {
             property var defaultMin2: 0
             property var defaultMin3: 0
             id: minYValue
-            text: "Min. Y: "
+            text: Strings.minY + Strings.colon
             labelPreferredWidth: 50
             textFieldText: "0"
 

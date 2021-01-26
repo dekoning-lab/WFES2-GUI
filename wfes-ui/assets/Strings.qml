@@ -326,6 +326,7 @@ Item {
     readonly property string endOfError: " \n \n"
     readonly property string colon: ": "
     readonly property string comp: "Comp. "
+    readonly property var download: qsTr("Download")
 
     // Error messages
     readonly property var dialogWarning: qsTr("Warning")
@@ -468,14 +469,6 @@ Item {
     readonly property var hMulIsSmall: qsTr("Dominance Coefficient (h%1) is quite small. It must be at least 0.")
     readonly property var hMulIsLarge: qsTr("Dominance Coefficient (h%1) is quite large. The maximum value allowed is 1.")
 
-
-
-
-
-
-
-
-
     readonly property var nSGVIsEmpty: qsTr("Population Size (N) of SGV is empty.")
     readonly property var nSGVIsNotValid: qsTr("Population Size (N) of SGV is not a valid number.")
     readonly property var nSGVIsSmall: qsTr("Population Size (N) of SGV is quite small, it must be at least 2.")
@@ -524,4 +517,12 @@ Item {
     readonly property var hSGVisSmall: qsTr("Dominance Coefficient (h%1) of SGV is quite small. It must be at least 0.")
     readonly property var hSGVisLarge: qsTr("Dominance Coefficient (h%1) of SGV is quite large. The maximum value allowed is 1.")
 
+    // Charts
+    readonly property var charts: qsTr("Charts")
+    readonly property var nonGeneratedChart: qsTr("A chart will appear here when you execute an executable with Dist, Moments or Probs (P).")
+    readonly property var data1: qsTr("Data ")
+    readonly property var logScale: qsTr("Log Scale")
+    readonly property var resetYAxis: qsTr("Reset Y Axis")
+    readonly property var maxY: qsTr("Max. Y")
+    readonly property var minY: qsTr("Min. Y")
 }
