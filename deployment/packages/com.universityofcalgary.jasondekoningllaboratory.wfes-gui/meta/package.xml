@@ -2,8 +2,8 @@
 <Package>
     <DisplayName>Wfes-gui</DisplayName>
     <Description>Install Wfes-gui in your computer.</Description>
-    <Version>3.0.0a</Version>
-    <ReleaseDate>2021-01-21</ReleaseDate>
+    <Version>1.0.0</Version>
+    <ReleaseDate>2021-03-04</ReleaseDate>
     <Licenses>
         <License name="GNU General Public License (GPLv3)" file="license.txt" />
     </Licenses>
