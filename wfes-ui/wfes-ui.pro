@@ -15,6 +15,7 @@ INCLUDEPATH += source \
     ../wfes-lib/source
 
 QMAKE_CXXFLAGS += -DMKL_ILP64 -m64
+QMAKE_LFLAGS += -no-pie
 
 DESTDIR = $$PWD/../binaries/$$DESTINATION_PATH
 OBJECTS_DIR = $$PWD/build/$$DESTINATION_PATH/.obj

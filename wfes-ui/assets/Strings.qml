@@ -540,7 +540,7 @@ Item {
 
     /// Help
     readonly property var help: qsTr("Help")
-    readonly property var builtOn: qsTr("Built on...")
+    readonly property var builtOn: qsTr("Built on 2021/03/04")
     readonly property var copyrightNote: qsTr("Copyright © 2017-2020 - University of Calgary")
     readonly property var licenseNote: qsTr("This Software is licensed under the GPLv3 License. Please, visit our
 GitHub webpage for more information about the GPLv3 license, and the
