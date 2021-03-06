@@ -52,7 +52,7 @@ Component.prototype.createOperations = function()
             installer.setValue("UserProfile", userProfile);
             component.addOperation("CreateShortcut", "@TargetDir@\\wfes-ui.exe", "@UserProfile@\\Desktop\\wfes-ui.lnk");
 		} else if (systemInfo.productType === "osx") {
-			component.addElevatedOperation("CopyDirectory", "@TargetDir@\\wfes-ui.app", "\\Applications\");
+			component.addElevatedOperation("CopyDirectory", "@TargetDir@/wfes-ui.app", "/Applications/");
 		} else {
 			// Copy .desktop file for showing application in menu
 			component.addElevatedOperation("Copy", "@TargetDir@/WfesGui.desktop", "/usr/share/applications/");
