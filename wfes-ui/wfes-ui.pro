@@ -6,8 +6,9 @@ QT += qml quick quickcontrols2 widgets charts
 TEMPLATE = app
 
 RC_ICONS = icon.ico
+ICON = icon.ico
 
-CONFIG += c++14
+CONFIG += c++11
 CONFIG += app_bundle
 
 INCLUDEPATH += source \
@@ -15,8 +16,6 @@ INCLUDEPATH += source \
     ../wfes-lib/source
 
 QMAKE_CXXFLAGS += -DMKL_ILP64 -m64
-QMAKE_LFLAGS += -no-pie
-
 DESTDIR = $$PWD/../binaries/$$DESTINATION_PATH
 OBJECTS_DIR = $$PWD/build/$$DESTINATION_PATH/.obj
 MOC_DIR = $$PWD/build/$$DESTINATION_PATH/.moc
@@ -62,6 +61,9 @@ unix: !macx {
     LIBS +=  -L$$PWD/../dependencies/unix/intel/mkl/lib/intel64 -Wl,--no-as-needed -lmkl_intel_ilp64 -lmkl_intel_thread -lmkl_core -lpthread -lm -ldl
     LIBS +=  -L$$PWD/../dependencies/unix/intel/mkl/compiler/ -Wl,--no-as-needed -liomp5
     LIBS += -L$$PWD/../dependencies/unix/CL/lib/linux/ -lOpenCL
+
+    QMAKE_LFLAGS += -Wl,--rpath=\\\$\$ORIGIN/lib
+    QMAKE_LFLAGS += -Wl,--rpath=\\\$\$ORIGIN
 
     INCLUDEPATH += \
         $$PWD/../dependencies/unix \
