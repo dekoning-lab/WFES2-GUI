@@ -1587,36 +1587,36 @@ ApplicationWindow {
                 error += Strings.hyphen + Strings.nIsEmpty + Strings.endOfError
             if(Number.isNaN(Number(inputN.textFieldText)))
                 error += Strings.hyphen + Strings.nIsNotValid + Strings.endOfError
-            if(parseInt(inputN.textFieldText) < 2)
+            if(parseInt(inputN.textFieldText) < LimitValues.nMinLimitTimeDist)
                 error += Strings.hyphen + Strings.nIsSmall + Strings.endOfError
-            if(!inputForce.checked && parseInt(inputN.textFieldText) > 50000)
+            if(!inputForce.checked && parseInt(inputN.textFieldText) > LimitValues.nMaxLimitTimeDist)
                 error += Strings.hyphen + Strings.nIsLarge + Strings.endOfError
 
             if(inputA.textFieldText == "")
                 error += Strings.hyphen + Strings.aIsEmpty + Strings.endOfError
             if(Number.isNaN(Number(inputA.textFieldText)))
                 error += Strings.hyphen + Strings.aIsNotValid + Strings.endOfError
-            if(parseFloat(inputA.textFieldText) < 0)
+            if(parseFloat(inputA.textFieldText) < LimitValues.aMinLimitTimeDist)
                 error += Strings.hyphen + Strings.aIsSmall + Strings.endOfError
-            if(!inputForce.checked && parseFloat(inputA.textFieldText) > 1e-5)
+            if(!inputForce.checked && parseFloat(inputA.textFieldText) > LimitValues.aMaxLimitTimeDist)
                 error += Strings.hyphen + Strings.aIsLarge + Strings.endOfError
 
             if(inputC.textFieldText == "")
                 error += Strings.hyphen + Strings.cIsEmpty + Strings.endOfError
             if(Number.isNaN(Number(inputC.textFieldText)))
                 error += Strings.hyphen + Strings.cIsNotValid + Strings.endOfError
-            if(parseFloat(inputC.textFieldText) <= 0)
+            if(parseFloat(inputC.textFieldText) <= LimitValues.cMinLimitTimeDist)
                 error += Strings.hyphen + Strings.cIsSmall + Strings.endOfError
-            if(parseFloat(inputC.textFieldText) > 1)
+            if(parseFloat(inputC.textFieldText) > LimitValues.cMaxLimitTimeDist)
                 error += Strings.hyphen + Strings.cIsLarge + Strings.endOfError
 
             if(inputM.textFieldText == "")
                 error += Strings.hyphen + Strings.mIsEmpty + Strings.endOfError
             if(Number.isNaN(Number(inputM.textFieldText)))
                 error += Strings.hyphen + Strings.mIsNotValid + Strings.endOfError
-            if(parseInt(inputM.textFieldText) < 1)
+            if(parseInt(inputM.textFieldText) < LimitValues.mMinLimitTimeDist)
                 error += Strings.hyphen + Strings.mIsSmall + Strings.endOfError
-            if(!inputForce.checked && parseFloat(inputM.textFieldText) > 50000)
+            if(!inputForce.checked && parseFloat(inputM.textFieldText) > LimitValues.mMaxLimitTimeDist)
                 error += Strings.hyphen + Strings.mIsLarge + Strings.endOfError
 
             if(globalConfiguration.ui_population_scaled) {
@@ -1624,45 +1624,45 @@ ApplicationWindow {
                     error += Strings.hyphen + Strings.uIsEmpty + Strings.endOfError
                 if(Number.isNaN(Number(inputU.textFieldText)))
                     error += Strings.hyphen + Strings.uIsNotValid + Strings.endOfError
-                if(parseFloat(inputU.textFieldText) <= 0)
+                if(parseFloat(inputU.textFieldText) <= LimitValues.uMinLimitTimeDist)
                     error += Strings.hyphen + Strings.uIsSmall + Strings.endOfError
-                if(!inputForce.checked && parseFloat(inputU.textFieldText) > 1)
+                if(!inputForce.checked && parseFloat(inputU.textFieldText) > LimitValues.uMaxLimitTimeDist)
                     error += Strings.hyphen + Strings.uIsLargeScaled + Strings.endOfError
 
                 if(inputV.textFieldText == "")
                     error += Strings.hyphen + Strings.vIsEmpty + Strings.endOfError
                 if(Number.isNaN(Number(inputV.textFieldText)))
                     error += Strings.hyphen + Strings.vIsNotValid + Strings.endOfError
-                if(parseFloat(inputV.textFieldText) <= 0)
+                if(parseFloat(inputV.textFieldText) <= LimitValues.vMinLimitTimeDist)
                     error += Strings.hyphen + Strings.vIsSmall + Strings.endOfError
-                if(!inputForce.checked && parseFloat(inputV.textFieldText) > 1)
+                if(!inputForce.checked && parseFloat(inputV.textFieldText) > LimitValues.vMaxLimitTimeDist)
                     error += Strings.hyphen + Strings.vIsLargeScaled + Strings.endOfError
 
                 if(inputS.textFieldText == "")
                     error += Strings.hyphen + Strings.sIsEmpty + Strings.endOfError
                 if(Number.isNaN(Number(inputS.textFieldText)))
                     error += Strings.hyphen + Strings.sIsNotValid + Strings.endOfError
-                if(parseFloat(inputS.textFieldText) < -1 * (2 * parseInt(inputN.textFieldText)))
+                if(parseFloat(inputS.textFieldText) < LimitValues.sMinLimitTimeDist * (2 * parseInt(inputN.textFieldText)))
                     error += Strings.hyphen + Strings.sIsSmall + Strings.endOfError
-                if(parseFloat(inputS.textFieldText) > 1 * (2 * parseInt(inputN.textFieldText)))
+                if(parseFloat(inputS.textFieldText) > LimitValues.sMaxLimitTimeDist * (2 * parseInt(inputN.textFieldText)))
                     error += Strings.hyphen + Strings.sIsLargeScaled + Strings.endOfError
             } else {
                 if(inputU.textFieldText == "")
                     error += Strings.hyphen + Strings.uIsEmpty + Strings.endOfError
                 if(Number.isNaN(Number(inputU.textFieldText)))
                     error += Strings.hyphen + Strings.uIsNotValid + Strings.endOfError
-                if(parseFloat(inputU.textFieldText) <= 0)
+                if(parseFloat(inputU.textFieldText) <= LimitValues.uMinLimitTimeDist)
                     error += Strings.hyphen + Strings.uIsSmall + Strings.endOfError
-                if(!inputForce.checked && parseFloat(inputU.textFieldText) > 1 / (4 * parseInt(inputN.textFieldText)))
+                if(!inputForce.checked && parseFloat(inputU.textFieldText) > LimitValues.uMaxLimitTimeDist / (4 * parseInt(inputN.textFieldText)))
                     error += Strings.hyphen + Strings.uIsLarge + Strings.endOfError
 
                 if(inputV.textFieldText == "")
                     error += Strings.hyphen + Strings.vIsEmpty + Strings.endOfError
                 if(Number.isNaN(Number(inputV.textFieldText)))
                     error += Strings.hyphen + Strings.vIsNotValid + Strings.endOfError
-                if(parseFloat(inputV.textFieldText) <= 0)
+                if(parseFloat(inputV.textFieldText) <= LimitValues.vMinLimitTimeDist)
                     error += Strings.hyphen + Strings.vIsSmall + Strings.endOfError
-                if(!inputForce.checked && parseFloat(inputV.textFieldText) > 1 / (4 * parseInt(inputN.textFieldText)))
+                if(!inputForce.checked && parseFloat(inputV.textFieldText) > LimitValues.vMaxLimitTimeDist / (4 * parseInt(inputN.textFieldText)))
                     error += Strings.hyphen + Strings.vIsLarge + Strings.endOfError
 
 
@@ -1670,9 +1670,9 @@ ApplicationWindow {
                     error += Strings.hyphen + Strings.sIsEmpty + Strings.endOfError
                 if(Number.isNaN(Number(inputS.textFieldText)))
                     error += Strings.hyphen + Strings.sIsNotValid + Strings.endOfError
-                if(parseFloat(inputS.textFieldText) < -1)
+                if(parseFloat(inputS.textFieldText) < LimitValues.sMinLimitTimeDist)
                     error += Strings.hyphen + Strings.sIsSmall + Strings.endOfError
-                if(parseFloat(inputS.textFieldText) > 1)
+                if(parseFloat(inputS.textFieldText) > LimitValues.sMaxLimitTimeDist)
                     error += Strings.hyphen + Strings.sIsLarge + Strings.endOfError
             }
 
@@ -1680,54 +1680,54 @@ ApplicationWindow {
                 error += Strings.hyphen + Strings.hIsEmpty + Strings.endOfError
             if(Number.isNaN(Number(inputH.textFieldText)))
                 error += Strings.hyphen + Strings.hIsNotValid + Strings.endOfError
-            if(parseFloat(inputH.textFieldText) < 0)
+            if(parseFloat(inputH.textFieldText) < LimitValues.hMinLimitTimeDist)
                 error += Strings.hyphen + Strings.hIsSmall + Strings.endOfError
-            if(parseFloat(inputH.textFieldText) > 1)
+            if(parseFloat(inputH.textFieldText) > LimitValues.hMaxLimitTimeDist)
                 error += Strings.hyphen + Strings.hIsLarge + Strings.endOfError
         } else {
             if(inputN1.textFieldText == "")
                 error += Strings.hyphen + Strings.nSGVIsEmpty + Strings.endOfError
             if(Number.isNaN(Number(inputN1.textFieldText)))
                 error += Strings.hyphen + Strings.nSGVIsNotValid + Strings.endOfError
-            if(parseInt(inputN1.textFieldText) < 2)
+            if(parseInt(inputN1.textFieldText) < LimitValues.nMinLimitTimeDist)
                 error += Strings.hyphen + Strings.nSGVIsSmall + Strings.endOfError
-            if(!inputForce.checked && parseInt(inputN1.textFieldText) > 50000)
+            if(!inputForce.checked && parseInt(inputN1.textFieldText) > LimitValues.nMaxLimitTimeDist)
                 error += Strings.hyphen + Strings.nSGVIsLarge + Strings.endOfError
 
             if(inputL.textFieldText == "")
                 error += Strings.hyphen + Strings.lSGVIsEmpty + Strings.endOfError
             if(Number.isNaN(Number(inputL.textFieldText)))
                 error += Strings.hyphen + Strings.lSGVIsNotValid + Strings.endOfError
-            if(parseFloat(inputL.textFieldText) < 1e-20)
+            if(parseFloat(inputL.textFieldText) < LimitValues.lMinLimitTimeDist)
                 error += Strings.hyphen + Strings.lSGVIsSmall + Strings.endOfError
-            if(parseFloat(inputL.textFieldText) > 1)
+            if(parseFloat(inputL.textFieldText) > LimitValues.lMaxLimitTimeDist)
                 error += Strings.hyphen + Strings.lSGVIsLarge + Strings.endOfError
 
             if(inputA1.textFieldText == "")
                 error += Strings.hyphen + Strings.aSGVIsEmpty + Strings.endOfError
             if(Number.isNaN(Number(inputA1.textFieldText)))
                 error += Strings.hyphen + Strings.aSGVIsNotValid + Strings.endOfError
-            if(parseFloat(inputA1.textFieldText) < 0)
+            if(parseFloat(inputA1.textFieldText) < LimitValues.aMinLimitTimeDist)
                 error += Strings.hyphen + Strings.aSGVIsSmall + Strings.endOfError
-            if(!inputForce.checked && parseFloat(inputA1.textFieldText) > 1e-5)
+            if(!inputForce.checked && parseFloat(inputA1.textFieldText) > LimitValues.aMaxLimitTimeDist)
                 error += Strings.hyphen + Strings.aSGVIsLarge + Strings.endOfError
 
             if(inputC1.textFieldText == "")
                 error += Strings.hyphen + Strings.cSGVIsEmpty + Strings.endOfError
             if(Number.isNaN(Number(inputC1.textFieldText)))
                 error += Strings.hyphen + Strings.cSGVIsNotValid + Strings.endOfError
-            if(parseFloat(inputC1.textFieldText) <= 0)
+            if(parseFloat(inputC1.textFieldText) <= LimitValues.cMinLimitTimeDist)
                 error += Strings.hyphen + Strings.cSGVIsSmall + Strings.endOfError
-            if(parseFloat(inputC1.textFieldText) > 1)
+            if(parseFloat(inputC1.textFieldText) > LimitValues.cMaxLimitTimeDist)
                 error += Strings.hyphen + Strings.cSGVIsLarge + Strings.endOfError
 
             if(inputM1.textFieldText == "")
                 error += Strings.hyphen + Strings.mSGVIsEmpty + Strings.endOfError
             if(Number.isNaN(Number(inputM1.textFieldText)))
                 error += Strings.hyphen + Strings.mSGVIsNotValid + Strings.endOfError
-            if(parseFloat(inputM1.textFieldText) < 1)
+            if(parseFloat(inputM1.textFieldText) < LimitValues.mMinLimitTimeDist)
                 error += Strings.hyphen + Strings.mSGVIsSmall + Strings.endOfError
-            if(!inputForce.checked && parseFloat(inputM1.textFieldText) > 50000)
+            if(!inputForce.checked && parseFloat(inputM1.textFieldText) > LimitValues.mMaxLimitTimeDist)
                 error += Strings.hyphen + Strings.mSGVIsLarge + Strings.endOfError
 
             var u_vec = []
@@ -1753,9 +1753,9 @@ ApplicationWindow {
                         error += Strings.hyphen + Strings.uSGVisEmpty.arg(i + 1) + Strings.endOfError
                     if(Number.isNaN(Number(u_vec[i])))
                         error += Strings.hyphen + Strings.uSGVisNotValid.arg(i + 1) + Strings.endOfError
-                    if(parseFloat(u_vec[i]) <= 0)
+                    if(parseFloat(u_vec[i]) <= LimitValues.uMinLimitTimeDist)
                         error += Strings.hyphen + Strings.uSGVisSmall.arg(i + 1) + Strings.endOfError
-                    if(!inputForce.checked && parseFloat(u_vec[i]) > 1)
+                    if(!inputForce.checked && parseFloat(u_vec[i]) > LimitValues.uMaxLimitTimeDist)
                         error += Strings.hyphen + Strings.uSGVisLargeScaled.arg(i + 1) + Strings.endOfError
                 }
 
@@ -1765,9 +1765,9 @@ ApplicationWindow {
                         error += Strings.hyphen + Strings.vSGVisEmpty.arg(i + 1) + Strings.endOfError
                     if(Number.isNaN(Number(v_vec[i])))
                         error += Strings.hyphen + Strings.vSGVisNotValid.arg(i + 1) + Strings.endOfError
-                    if(parseFloat(v_vec[i]) <= 0)
+                    if(parseFloat(v_vec[i]) <= LimitValues.vMinLimitTimeDist)
                         error += Strings.hyphen + Strings.vSGVisSmall.arg(i + 1) + Strings.endOfError
-                    if(!inputForce.checked && parseFloat(v_vec[i]) > 1)
+                    if(!inputForce.checked && parseFloat(v_vec[i]) > LimitValues.vMaxLimitTimeDist)
                         error += Strings.hyphen + Strings.vSGVisLargeScaled.arg(i + 1) + Strings.endOfError
                 }
 
@@ -1777,9 +1777,9 @@ ApplicationWindow {
                         error += Strings.hyphen + Strings.sSGVisEmpty.arg(i + 1) + Strings.endOfError
                     if(Number.isNaN(Number(s_vec[i])))
                         error += Strings.hyphen + Strings.sSGVisNotValid.arg(i + 1) + Strings.endOfError
-                    if(parseFloat(s_vec[i]) < -1 * (2 * parseInt(inputN.textFieldText)))
+                    if(parseFloat(s_vec[i]) < LimitValues.sMinLimitTimeDist * (2 * parseInt(inputN.textFieldText)))
                         error += Strings.hyphen + Strings.sSGVisSmall.arg(i + 1) + Strings.endOfError
-                    if(parseFloat(s_vec[i]) > 1 * (2 * parseInt(inputN.textFieldText)))
+                    if(parseFloat(s_vec[i]) > LimitValues.sMaxLimitTimeDist * (2 * parseInt(inputN.textFieldText)))
                         error += Strings.hyphen + Strings.sSGVisLargeScaled.arg(i + 1) + Strings.endOfError
                 }
             } else {
@@ -1789,9 +1789,9 @@ ApplicationWindow {
                         error += Strings.hyphen + Strings.uSGVisEmpty.arg(i + 1) + Strings.endOfError
                     if(Number.isNaN(Number(u_vec[i])))
                         error += Strings.hyphen + Strings.uSGVisNotValid.arg(i + 1) + Strings.endOfError
-                    if(parseFloat(u_vec[i]) <= 0)
+                    if(parseFloat(u_vec[i]) <= LimitValues.uMinLimitTimeDist)
                         error += Strings.hyphen + Strings.uSGVisSmall.arg(i + 1) + Strings.endOfError
-                    if(!inputForce.checked && parseFloat(u_vec[i]) > 1 / (4 * parseInt(inputN.textFieldText)))
+                    if(!inputForce.checked && parseFloat(u_vec[i]) > LimitValues.uMaxLimitTimeDist / (4 * parseInt(inputN.textFieldText)))
                         error += Strings.hyphen + Strings.uSGVisLarge.arg(i + 1) + Strings.endOfError
                 }
 
@@ -1801,9 +1801,9 @@ ApplicationWindow {
                         error += Strings.hyphen + Strings.vSGVisEmpty.arg(i + 1) + Strings.endOfError
                     if(Number.isNaN(Number(v_vec[i])))
                         error += Strings.hyphen + Strings.vSGVisNotValid.arg(i + 1) + Strings.endOfError
-                    if(parseFloat(v_vec[i]) <= 0)
+                    if(parseFloat(v_vec[i]) <= LimitValues.uMinLimitTimeDist)
                         error += Strings.hyphen + Strings.vSGVisSmall.arg(i + 1) + Strings.endOfError
-                    if(!inputForce.checked && parseFloat(v_vec[i]) > 1 / (4 * parseInt(inputN.textFieldText)))
+                    if(!inputForce.checked && parseFloat(v_vec[i]) > LimitValues.vMaxLimitTimeDist / (4 * parseInt(inputN.textFieldText)))
                         error += Strings.hyphen + Strings.vSGVisLarge.arg(i + 1) + Strings.endOfError
                 }
 
@@ -1813,9 +1813,9 @@ ApplicationWindow {
                         error += Strings.hyphen + Strings.sSGVisEmpty.arg(i + 1) + Strings.endOfError
                     if(Number.isNaN(Number(s_vec[i])))
                         error += Strings.hyphen + Strings.sSGVisNotValid.arg(i + 1) + Strings.endOfError
-                    if(parseFloat(s_vec[i]) < -1)
+                    if(parseFloat(s_vec[i]) < LimitValues.sMinLimitTimeDist)
                         error += Strings.hyphen + Strings.sSGVisSmall.arg(i + 1) + Strings.endOfError
-                    if(parseFloat(s_vec[i]) > 1 )
+                    if(parseFloat(s_vec[i]) > LimitValues.sMaxLimitTimeDist )
                         error += Strings.hyphen + Strings.vSGVisLarge.arg(i + 1) + Strings.endOfError
                 }
             }
@@ -1826,9 +1826,9 @@ ApplicationWindow {
                     error += Strings.hyphen + Strings.hSGVisEmpty.arg(i + 1) + Strings.endOfError
                 if(Number.isNaN(Number(h_vec[i])))
                     error += Strings.hyphen + Strings.hSGVisNotValid.arg(i + 1) + Strings.endOfError
-                if(parseFloat(h_vec[i]) < 0)
+                if(parseFloat(h_vec[i]) < LimitValues.hMinLimitTimeDist)
                     error += Strings.hyphen + Strings.hSGVisSmall.arg(i + 1) + Strings.endOfError
-                if(parseFloat(h_vec[i]) > 1)
+                if(parseFloat(h_vec[i]) > LimitValues.hMaxLimitTimeDist)
                     error += Strings.hyphen + Strings.hSGVisLarge.arg(i + 1) + Strings.endOfError
             }
 
@@ -1839,7 +1839,7 @@ ApplicationWindow {
             error += Strings.hyphen + Strings.tIsEmpty + Strings.endOfError
         if(Number.isNaN(Number(inputT.textFieldText)))
             error += Strings.hyphen + Strings.tIsNotValid + Strings.endOfError
-        if(parseInt(inputT.textFieldText) < 1)
+        if(parseInt(inputT.textFieldText) < LimitValues.tMinLimitTimeDist)
             error += Strings.hyphen + Strings.tIsSmall + Strings.endOfError
         // Number of threads (t) does not have upper limites, since it depends on the hardware available.
 

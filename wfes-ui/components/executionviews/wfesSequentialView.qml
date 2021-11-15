@@ -826,18 +826,18 @@ ApplicationWindow {
             error += Strings.hyphen + Strings.aIsEmpty + Strings.endOfError
         if(Number.isNaN(Number(inputA.textFieldText)))
             error += Strings.hyphen + Strings.aIsNotValid + Strings.endOfError
-        if(parseFloat(inputA.textFieldText) < 0)
+        if(parseFloat(inputA.textFieldText) < LimitValues.aMinLimitWfesSequential)
             error += Strings.hyphen + Strings.aIsSmall + Strings.endOfError
-        if(!inputForce.checked && parseFloat(inputA.textFieldText) > 1e-5)
+        if(!inputForce.checked && parseFloat(inputA.textFieldText) > LimitValues.aMaxLimitWfesSequential)
             error += Strings.hyphen + Strings.aIsLarge + Strings.endOfError
 
         if(inputC.textFieldText == "")
             error += Strings.hyphen + Strings.cIsEmpty + Strings.endOfError
         if(Number.isNaN(Number(inputC.textFieldText)))
             error += Strings.hyphen + Strings.cIsNotValid + Strings.endOfError
-        if(parseFloat(inputC.textFieldText) < 0)
+        if(parseFloat(inputC.textFieldText) < LimitValues.cMinLimitWfesSequential)
             error += Strings.hyphen + Strings.cIsSmall + Strings.endOfError
-        if(parseFloat(inputC.textFieldText) > 10e-3)
+        if(parseFloat(inputC.textFieldText) > LimitValues.cMaxLimitWfesSequential)
             error += Strings.hyphen + Strings.cIsLarge + Strings.endOfError
 
         var N_vec = []
@@ -871,9 +871,9 @@ ApplicationWindow {
                 error += Strings.hyphen + Strings.nMulIsEmpty.arg(i + 1) + Strings.endOfError
             if(Number.isNaN(Number(N_vec[i])))
                 error += Strings.hyphen + Strings.nMulIsNotValid.arg(i + 1) + Strings.endOfError
-            if(parseInt(N_vec[i]) < 2)
+            if(parseInt(N_vec[i]) < LimitValues.nMinLimitWfesSequential)
                 error += Strings.hyphen + Strings.nMulIsSmall.arg(i + 1) + Strings.endOfError
-            if(!inputForce.checked && parseInt(N_vec[i]) > 50000)
+            if(!inputForce.checked && parseInt(N_vec[i]) > LimitValues.nMaxLimitWfesSequential)
                 error += Strings.hyphen + Strings.nMulIsLarge.arg(i + 1) + Strings.endOfError
         }
 
@@ -883,7 +883,7 @@ ApplicationWindow {
                 error += Strings.hyphen + Strings.tExpextedMulIsEmpty.arg(i + 1) + Strings.endOfError
             if(Number.isNaN(Number(t_vec[i])))
                 error += Strings.hyphen + Strings.tExpextedMulIsNotValid.arg(i + 1) + Strings.endOfError
-            if(parseInt(t_vec[i]) < 1)
+            if(parseInt(t_vec[i]) < LimitValues.tExpextedMinLimitWfesSequential)
                 error += Strings.hyphen + Strings.tExpextedMulIsSmall.arg(i + 1) + Strings.endOfError
             // No upper limit for this.
         }
@@ -896,9 +896,9 @@ ApplicationWindow {
                 error += Strings.hyphen + Strings.pStartMulIsEmpty.arg(i + 1) + Strings.endOfError
             if(Number.isNaN(Number(p_vec[i])))
                 error += Strings.hyphen + Strings.pStartMulIsNotValid.arg(i + 1) + Strings.endOfError
-            if(parseInt(p_vec[i]) < 0)
+            if(parseInt(p_vec[i]) < LimitValues.pMinLimitWfesSequential)
                 error += Strings.hyphen + Strings.pStartMulIsSmall.arg(i + 1) + Strings.endOfError
-            if(parseInt(p_vec[i]) > 1)
+            if(parseInt(p_vec[i]) > LimitValues.pMaxLimitWfesSequential)
                 error += Strings.hyphen + Strings.pStartMulIsLarge.arg(i + 1) + Strings.endOfError
             if(!Number.isNaN(Number(p_vec[i])))
                 sum_p += parseFloat(componentsSectionTabView.children[0].getTab(i).item.children[0].children[1].children[2].textFieldText)
@@ -914,9 +914,9 @@ ApplicationWindow {
                     error += Strings.hyphen + Strings.uMulIsEmpty.arg(i + 1) + Strings.endOfError
                 if(Number.isNaN(Number(u_vec[i])))
                     error += Strings.hyphen + Strings.uMulIsNotValid.arg(i + 1) + Strings.endOfError
-                if(parseFloat(u_vec[i].textFieldText) <= 0)
+                if(parseFloat(u_vec[i].textFieldText) <= LimitValues.uMinLimitWfesSequential)
                     error += Strings.hyphen + Strings.uMulIsSmall.arg(i + 1) + Strings.endOfError
-                if(!inputForce.checked && parseFloat(u_vec[i]) > 1)
+                if(!inputForce.checked && parseFloat(u_vec[i]) > LimitValues.uMaxLimitWfesSequential)
                     error += Strings.hyphen + Strings.uMulIsLargeScaled.arg(i + 1) + Strings.endOfError
             }
 
@@ -926,9 +926,9 @@ ApplicationWindow {
                     error += Strings.hyphen + Strings.vMulIsEmpty.arg(i + 1) + Strings.endOfError
                 if(Number.isNaN(Number(v_vec[i])))
                     error += Strings.hyphen + Strings.vMulIsNotValid.arg(i + 1) + Strings.endOfError
-                if(parseFloat(v_vec[i].textFieldText) <= 0)
+                if(parseFloat(v_vec[i].textFieldText) <= LimitValues.vMinLimitWfesSequential)
                     error += Strings.hyphen + Strings.vMulIsSmall.arg(i + 1) + Strings.endOfError
-                if(!inputForce.checked && parseFloat(v_vec[i]) > 1)
+                if(!inputForce.checked && parseFloat(v_vec[i]) > LimitValues.vMaxLimitWfesSequential)
                     error += Strings.hyphen + Strings.vMulIsLargeScaled.arg(i + 1) + Strings.endOfError
             }
 
@@ -938,9 +938,9 @@ ApplicationWindow {
                     error += Strings.hyphen + Strings.sMulIsEmpty.arg(i + 1) + Strings.endOfError
                 if(Number.isNaN(Number(s_vec[i])))
                     error += Strings.hyphen + Strings.sMulIsNotValid.arg(i + 1) + Strings.endOfError
-                if(parseFloat(s_vec[i]) < -1 * (2 * parseInt(N_vec[i])))
+                if(parseFloat(s_vec[i]) < LimitValues.sMinLimitWfesSequential * (2 * parseInt(N_vec[i])))
                     error += Strings.hyphen + Strings.sMulIsSmall.arg(i + 1) + Strings.endOfError
-                if(parseFloat(s_vec[i]) > 1 * (2 * parseInt(N_vec[i])))
+                if(parseFloat(s_vec[i]) > LimitValues.sMaxLimitWfesSequential * (2 * parseInt(N_vec[i])))
                     error += Strings.hyphen + Strings.sMulIsLargeScaled.arg(i + 1) + Strings.endOfError
             }
         } else {
@@ -950,9 +950,9 @@ ApplicationWindow {
                     error += Strings.hyphen + Strings.uMulIsEmpty.arg(i + 1) + Strings.endOfError
                 if(Number.isNaN(Number(u_vec[i])))
                     error += Strings.hyphen + Strings.uMulIsNotValid.arg(i + 1) + Strings.endOfError
-                if(parseFloat(u_vec[i].textFieldText) <= 0)
+                if(parseFloat(u_vec[i].textFieldText) <= LimitValues.uMinLimitWfesSequential)
                     error += Strings.hyphen + Strings.uMulIsSmall.arg(i + 1) + Strings.endOfError
-                if(!inputForce.checked && parseFloat(u_vec[i]) > 1 / (4 * parseInt(N_vec[i])))
+                if(!inputForce.checked && parseFloat(u_vec[i]) > LimitValues.uMaxLimitWfesSequential / (4 * parseInt(N_vec[i])))
                     error += Strings.hyphen + Strings.uMulIsLarge.arg(i + 1) + Strings.endOfError
             }
 
@@ -962,9 +962,9 @@ ApplicationWindow {
                     error += Strings.hyphen + Strings.vMulIsEmpty.arg(i + 1) + Strings.endOfError
                 if(Number.isNaN(Number(v_vec[i])))
                     error += Strings.hyphen + Strings.vMulIsNotValid.arg(i + 1) + Strings.endOfError
-                if(parseFloat(v_vec[i].textFieldText) <= 0)
+                if(parseFloat(v_vec[i].textFieldText) <= LimitValues.vMinLimitWfesSequential)
                     error += Strings.hyphen + Strings.vMulIsSmall.arg(i + 1) + Strings.endOfError
-                if(!inputForce.checked && parseFloat(v_vec[i]) > 1 / (4 * parseInt(N_vec[i])))
+                if(!inputForce.checked && parseFloat(v_vec[i]) > LimitValues.vMaxLimitWfesSequential / (4 * parseInt(N_vec[i])))
                     error += Strings.hyphen + Strings.vMulIsLarge.arg(i + 1) + Strings.endOfError
             }
 
@@ -974,9 +974,9 @@ ApplicationWindow {
                     error += Strings.hyphen + Strings.sMulIsEmpty.arg(i + 1) + Strings.endOfError
                 if(Number.isNaN(Number(s_vec[i])))
                     error += Strings.hyphen + Strings.sMulIsNotValid.arg(i + 1) + Strings.endOfError
-                if(parseFloat(s_vec[i]) < -1)
+                if(parseFloat(s_vec[i]) < LimitValues.sMinLimitWfesSequential)
                     error += Strings.hyphen + Strings.sMulIsSmall.arg(i + 1) + Strings.endOfError
-                if(parseFloat(s_vec[i]) > 1 )
+                if(parseFloat(s_vec[i]) > LimitValues.sMaxLimitWfesSequential)
                     error += Strings.hyphen + Strings.sMulIsLarge.arg(i + 1) + Strings.endOfError
             }
         }
@@ -988,9 +988,9 @@ ApplicationWindow {
                 error += Strings.hyphen + Strings.hMulIsEmpty.arg(i + 1) + Strings.endOfError
             if(Number.isNaN(Number(h_vec[i])))
                 error += Strings.hyphen + Strings.hMulIsNotValid.arg(i + 1) + Strings.endOfError
-            if(parseFloat(h_vec[i]) < 0)
+            if(parseFloat(h_vec[i]) < LimitValues.hMinLimitWfesSequential)
                 error += Strings.hyphen + Strings.hMulIsSmall.arg(i + 1) + Strings.endOfError
-            if(parseFloat(h_vec[i]) > 1)
+            if(parseFloat(h_vec[i]) > LimitValues.hMaxLimitWfesSequential)
                 error += Strings.hyphen + Strings.hMulIsLarge.arg(i + 1) + Strings.endOfError
         }
 
@@ -998,7 +998,7 @@ ApplicationWindow {
             error += Strings.hyphen + Strings.tMulIsEmpty.arg(i + 1) + Strings.endOfError
         if(Number.isNaN(Number(inputT.textFieldText)))
             error += Strings.hyphen + Strings.tMulIsNotValid.arg(i + 1) + Strings.endOfError
-        if(parseInt(inputT.textFieldText) < 1)
+        if(parseInt(inputT.textFieldText) < LimitValues.tMinLimitWfesSequential)
             error += Strings.hyphen + Strings.tMulIsSmall.arg(i + 1) + Strings.endOfError
         // Number of threads (t) does not have upper limites, since it depends on the hardware available.
 

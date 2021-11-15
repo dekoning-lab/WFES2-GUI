@@ -1213,43 +1213,43 @@ ApplicationWindow {
             error += Strings.hyphen + Strings.nIsEmpty + Strings.endOfError
         if(Number.isNaN(Number(inputN.textFieldText)))
             error += Strings.hyphen + Strings.nIsNotValid + Strings.endOfError
-        if(parseInt(inputN.textFieldText) < 2)
+        if(parseInt(inputN.textFieldText) < LimitValues.nMinLimitWfesSweep)
             error += Strings.hyphen + Strings.nIsSmall + Strings.endOfError
-        if(!inputForce.checked && parseInt(inputN.textFieldText) > 50000)
+        if(!inputForce.checked && parseInt(inputN.textFieldText) > LimitValues.nMaxLimitWfesSweep)
             error += Strings.hyphen + Strings.nIsLarge + Strings.endOfError
 
         if(inputA.textFieldText == "")
             error += Strings.hyphen + Strings.aIsEmpty + Strings.endOfError
         if(Number.isNaN(Number(inputA.textFieldText)))
             error += Strings.hyphen + Strings.aIsNotValid + Strings.endOfError
-        if(parseFloat(inputA.textFieldText) < 0)
+        if(parseFloat(inputA.textFieldText) < LimitValues.aMinLimitWfesSweep)
             error += Strings.hyphen + Strings.aIsSmall + Strings.endOfError
-        if(!inputForce.checked && parseFloat(inputA.textFieldText) > 1e-5)
+        if(!inputForce.checked && parseFloat(inputA.textFieldText) > LimitValues.aMaxLimitWfesSweep)
             error += Strings.hyphen + Strings.aIsLarge + Strings.endOfError
 
         if(inputL.textFieldText == "")
             error += Strings.hyphen + Strings.lIsEmpty + Strings.endOfError
         if(Number.isNaN(Number(inputL.textFieldText)))
             error += Strings.hyphen + Strings.lIsNotValid + Strings.endOfError
-        if(parseFloat(inputL.textFieldText) < 1e-20)
+        if(parseFloat(inputL.textFieldText) < LimitValues.lMinLimitWfesSweep)
             error += Strings.hyphen + Strings.lIsSmall + Strings.endOfError
-        if(parseFloat(inputL.textFieldText) > 1)
+        if(parseFloat(inputL.textFieldText) > LimitValues.lMaxLimitWfesSweep)
             error += Strings.hyphen + Strings.lIsLarge + Strings.endOfError
 
         if(inputC.textFieldText == "")
             error += Strings.hyphen + Strings.cIsEmpty + Strings.endOfError
         if(Number.isNaN(Number(inputC.textFieldText)))
             error += Strings.hyphen + Strings.cIsNotValid + Strings.endOfError
-        if(parseFloat(inputC.textFieldText) < 0)
+        if(parseFloat(inputC.textFieldText) < LimitValues.cMinLimitWfesSweep)
             error += Strings.hyphen + Strings.cIsSmall + Strings.endOfError
-        if(parseFloat(inputC.textFieldText) > 10e-3)
+        if(parseFloat(inputC.textFieldText) > LimitValues.cMaxLimitWfesSweep)
             error += Strings.hyphen + Strings.cIsLarge + Strings.endOfError
 
         if(inputP.textFieldText == "")
             error += Strings.hyphen + Strings.pStartIsEmpty + Strings.endOfError
         if(Number.isNaN(Number(inputP.textFieldText)))
             error += Strings.hyphen + Strings.pStartIsNotValid + Strings.endOfError
-        if(parseInt(inputP.textFieldText) < 0)
+        if(parseInt(inputP.textFieldText) < LimitValues.pMinLimitWfesSweep)
             error += Strings.hyphen + Strings.pStartIsSmall + Strings.endOfError
         if(parseInt(inputP.textFieldText) > parseInt(inputN.textFieldText))
             error += Strings.hyphen + Strings.pStartIsLargeFixationSweep + Strings.endOfError
@@ -1279,9 +1279,9 @@ ApplicationWindow {
                     error += Strings.hyphen + Strings.uMulIsEmpty.arg(i + 1) + Strings.endOfError
                 if(Number.isNaN(Number(u_vec[i])))
                     error += Strings.hyphen + Strings.uMulIsNotValid.arg(i + 1) + Strings.endOfError
-                if(parseFloat(u_vec[i]) <= 0)
+                if(parseFloat(u_vec[i]) <= LimitValues.uMinLimitWfesSweep)
                     error += Strings.hyphen + Strings.uMulIsSmall.arg(i + 1) + Strings.endOfError
-                if(!inputForce.checked && parseFloat(u_vec[i]) > 1)
+                if(!inputForce.checked && parseFloat(u_vec[i]) > LimitValues.uMaxLimitWfesSweep)
                     error += Strings.hyphen + Strings.uMulIsLargeScaled.arg(i + 1) + Strings.endOfError
             }
 
@@ -1291,9 +1291,9 @@ ApplicationWindow {
                     error += Strings.hyphen + Strings.vMulIsEmpty.arg(i + 1) + Strings.endOfError
                 if(Number.isNaN(Number(v_vec[i])))
                     error += Strings.hyphen + Strings.vMulIsNotValid.arg(i + 1) + Strings.endOfError
-                if(parseFloat(v_vec[i]) <= 0)
+                if(parseFloat(v_vec[i]) <= LimitValues.vMinLimitWfesSweep)
                     error += Strings.hyphen + Strings.vMulIsSmall.arg(i + 1) + Strings.endOfError
-                if(!inputForce.checked && parseFloat(v_vec[i]) > 1)
+                if(!inputForce.checked && parseFloat(v_vec[i]) > LimitValues.vMaxLimitWfesSweep)
                     error += Strings.hyphen + Strings.vMulIsLargeScaled.arg(i + 1) + Strings.endOfError
             }
 
@@ -1303,9 +1303,9 @@ ApplicationWindow {
                     error += Strings.hyphen + Strings.sMulIsEmpty.arg(i + 1) + Strings.endOfError
                 if(Number.isNaN(Number(s_vec[i])))
                     error += Strings.hyphen + Strings.sMulIsNotValid.arg(i + 1) + Strings.endOfError
-                if(parseFloat(s_vec[i]) < -1 * (2 * parseInt(inputN.textFieldText)))
+                if(parseFloat(s_vec[i]) < LimitValues.sMinLimitWfesSweep * (2 * parseInt(inputN.textFieldText)))
                     error += Strings.hyphen + Strings.sMulIsSmall.arg(i + 1) + Strings.endOfError
-                if(parseFloat(s_vec[i]) > 1 * (2 * parseInt(inputN.textFieldText)))
+                if(parseFloat(s_vec[i]) > LimitValues.sMaxLimitWfesSweep * (2 * parseInt(inputN.textFieldText)))
                     error += Strings.hyphen + Strings.sMulIsLargeScaled.arg(i + 1) + Strings.endOfError
             }
         } else {
@@ -1315,9 +1315,9 @@ ApplicationWindow {
                     error += Strings.hyphen + Strings.uMulIsEmpty.arg(i + 1) + Strings.endOfError
                 if(Number.isNaN(Number(u_vec[i])))
                     error += Strings.hyphen + Strings.uMulIsNotValid.arg(i + 1) + Strings.endOfError
-                if(Number.isNaN(Number(u_vec[i])) && parseFloat(u_vec[i]) <= 0)
+                if(Number.isNaN(Number(u_vec[i])) && parseFloat(u_vec[i]) <= LimitValues.uMinLimitWfesSweep)
                     error += Strings.hyphen + Strings.uMulIsSmall.arg(i + 1) + Strings.endOfError
-                if(Number.isNaN(Number(u_vec[i])) && !inputForce.checked && parseFloat(u_vec[i]) > 1 / (4 * parseInt(inputN.textFieldText)))
+                if(Number.isNaN(Number(u_vec[i])) && !inputForce.checked && parseFloat(u_vec[i]) > LimitValues.uMaxLimitWfesSweep / (4 * parseInt(inputN.textFieldText)))
                     error += Strings.hyphen + Strings.uMulIsLarge.arg(i + 1) + Strings.endOfError
             }
 
@@ -1327,9 +1327,9 @@ ApplicationWindow {
                     error += Strings.hyphen + Strings.vMulIsEmpty.arg(i + 1) + Strings.endOfError
                 if(Number.isNaN(Number(v_vec[i])))
                     error += Strings.hyphen + Strings.vMulIsNotValid.arg(i + 1) + Strings.endOfError
-                if(Number.isNaN(Number(v_vec[i])) && parseFloat(v_vec[i]) <= 0)
+                if(Number.isNaN(Number(v_vec[i])) && parseFloat(v_vec[i]) <= LimitValues.vMinLimitWfesSweep)
                     error += Strings.hyphen + Strings.vMulIsSmall.arg(i + 1) + Strings.endOfError
-                if(Number.isNaN(Number(v_vec[i])) && !inputForce.checked && parseFloat(v_vec[i]) > 1 / (4 * parseInt(inputN.textFieldText)))
+                if(Number.isNaN(Number(v_vec[i])) && !inputForce.checked && parseFloat(v_vec[i]) > LimitValues.vMaxLimitWfesSweep / (4 * parseInt(inputN.textFieldText)))
                     error += Strings.hyphen + Strings.vMulIsLarge.arg(i + 1) + Strings.endOfError
             }
 
@@ -1339,9 +1339,9 @@ ApplicationWindow {
                     error += Strings.hyphen + Strings.sMulIsEmpty.arg(i + 1) + Strings.endOfError
                 if(Number.isNaN(Number(s_vec[i])))
                     error += Strings.hyphen + Strings.sMulIsNotValid.arg(i + 1) + Strings.endOfError
-                if(Number.isNaN(Number(s_vec[i])) && parseFloat(s_vec[i]) < -1)
+                if(Number.isNaN(Number(s_vec[i])) && parseFloat(s_vec[i]) < LimitValues.sMinLimitWfesSweep)
                     error += Strings.hyphen + Strings.sMulIsSmall.arg(i + 1) + Strings.endOfError
-                if(Number.isNaN(Number(s_vec[i])) && parseFloat(s_vec[i]) > 1 )
+                if(Number.isNaN(Number(s_vec[i])) && parseFloat(s_vec[i]) > LimitValues.sMaxLimitWfesSweep )
                     error += Strings.hyphen + Strings.sMulIsLarge.arg(i + 1) + Strings.endOfError
             }
         }
@@ -1351,9 +1351,9 @@ ApplicationWindow {
                 error += Strings.hyphen + Strings.hMulIsEmpty.arg(i + 1) + Strings.endOfError
             if(Number.isNaN(Number(h_vec[i])))
                 error += Strings.hyphen + Strings.hMulIsNotValid.arg(i + 1) + Strings.endOfError
-            if(Number.isNaN(Number(h_vec[i])) && parseFloat(h_vec[i]) < 0)
+            if(Number.isNaN(Number(h_vec[i])) && parseFloat(h_vec[i]) < LimitValues.hMinLimitWfesSweep)
                 error += Strings.hyphen + Strings.hMulIsSmall.arg(i + 1) + Strings.endOfError
-            if(Number.isNaN(Number(h_vec[i])) && parseFloat(h_vec[i]) > 1)
+            if(Number.isNaN(Number(h_vec[i])) && parseFloat(h_vec[i]) > LimitValues.hMinLimitWfesSweep)
                 error += Strings.hyphen + Strings.hMulIsLarge.arg(i + 1) + Strings.endOfError
         }
 
@@ -1361,7 +1361,7 @@ ApplicationWindow {
             error += Strings.hyphen + Strings.tIsEmpty + Strings.endOfError
         if(Number.isNaN(Number(inputT.textFieldText)))
             error += Strings.hyphen + Strings.tIsNotValid + Strings.endOfError
-        if(parseInt(inputT.textFieldText) < 1)
+        if(parseInt(inputT.textFieldText) < LimitValues.tMinLimitWfesSweep)
             error += Strings.hyphen + Strings.tIsSmall + Strings.endOfError
         // Number of threads (t) does not have upper limites, since it depends on the hardware available.
 

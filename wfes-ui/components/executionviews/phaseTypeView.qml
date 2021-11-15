@@ -1003,34 +1003,34 @@ ApplicationWindow {
             error += Strings.hyphen + Strings.nIsEmpty + Strings.endOfError
         if(Number.isNaN(Number(inputN.textFieldText)))
             error += Strings.hyphen + Strings.nIsNotValid + Strings.endOfError
-        if(parseInt(inputN.textFieldText) < 2)
+        if(parseInt(inputN.textFieldText) < LimitValues.NMinLimit)
             error += Strings.hyphen + Strings.nIsSmall + Strings.endOfError
-        if(!inputForce.checked && parseInt(inputN.textFieldText) > 50000)
+        if(!inputForce.checked && parseInt(inputN.textFieldText) > LimitValues.nMaxLimit)
             error += Strings.hyphen + Strings.nIsLarge + Strings.endOfError
 
         if(inputA.textFieldText == "")
             error += Strings.hyphen + Strings.aIsEmpty + Strings.endOfError
         if(Number.isNaN(Number(inputA.textFieldText)))
             error += Strings.hyphen + Strings.aIsNotValid + Strings.endOfError
-        if(parseFloat(inputA.textFieldText) < 0)
+        if(parseFloat(inputA.textFieldText) < LimitValues.aMinLimitPhaseType)
             error += Strings.hyphen + Strings.aIsSmall + Strings.endOfError
-        if(!inputForce.checked && parseFloat(inputA.textFieldText) > 1e-5)
+        if(!inputForce.checked && parseFloat(inputA.textFieldText) > LimitValues.aMaxLimitPhaseType)
             error += Strings.hyphen + Strings.aIsLarge + Strings.endOfError
 
         if(inputC.textFieldText == "")
             error += Strings.hyphen + Strings.cIsEmpty + Strings.endOfError
         if(Number.isNaN(Number(inputC.textFieldText)))
             error += Strings.hyphen + Strings.cIsNotValid + Strings.endOfError
-        if(parseFloat(inputC.textFieldText) <= 0)
+        if(parseFloat(inputC.textFieldText) <= LimitValues.cMinLimitPhaseType)
             error += Strings.hyphen + Strings.cIsSmall + Strings.endOfError
-        if(parseFloat(inputC.textFieldText) > 1)
+        if(parseFloat(inputC.textFieldText) > LimitValues.cMaxLimitPhaseType)
             error += Strings.hyphen + Strings.cIsLarge + Strings.endOfError
 
         if(inputM.textFieldText == "")
             error += Strings.hyphen + Strings.mIsEmpty + Strings.endOfError
         if(Number.isNaN(Number(inputM.textFieldText)))
             error += Strings.hyphen + Strings.mIsNotValid + Strings.endOfError
-        if(parseInt(inputM.textFieldText) < 1)
+        if(parseInt(inputM.textFieldText) < LimitValues.mMinLimitPhaseType)
             error += Strings.hyphen + Strings.mIsSmall + Strings.endOfError
         // Deleted limit for m in phase_type_dist.
 
@@ -1038,7 +1038,7 @@ ApplicationWindow {
             error += Strings.hyphen + Strings.kIsEmpty + Strings.endOfError
         if(Number.isNaN(Number(inputK.textFieldText)))
             error += Strings.hyphen + Strings.kIsNotValid + Strings.endOfError
-        if(parseInt(inputK.textFieldText) < 2)
+        if(parseInt(inputK.textFieldText) < LimitValues.kMinLimitPhaseType)
             error += Strings.hyphen + Strings.kIsSmall + Strings.endOfError
         // Moments (k) does not have upper limits, at least in the code. The default value is 20.
 
@@ -1047,54 +1047,54 @@ ApplicationWindow {
                 error += Strings.hyphen + Strings.uIsEmpty + Strings.endOfError
             if(Number.isNaN(Number(inputU.textFieldText)))
                 error += Strings.hyphen + Strings.uIsNotValid + Strings.endOfError
-            if(parseFloat(inputU.textFieldText) <= 0)
+            if(parseFloat(inputU.textFieldText) <= LimitValues.uMinLimitPhaseType)
                 error += Strings.hyphen + Strings.uIsSmall + Strings.endOfError
-            if(!inputForce.checked && parseFloat(inputU.textFieldText) > 1)
+            if(!inputForce.checked && parseFloat(inputU.textFieldText) > LimitValues.uMaxLimitPhaseType)
                 error += Strings.hyphen + Strings.uIsLargeScaled + Strings.endOfError
 
             if(inputV.textFieldText == "")
                 error += Strings.hyphen + Strings.vIsEmpty + Strings.endOfError
             if(Number.isNaN(Number(inputV.textFieldText)))
                 error += Strings.hyphen + Strings.vIsNotValid + Strings.endOfError
-            if(parseFloat(inputV.textFieldText) <= 0)
+            if(parseFloat(inputV.textFieldText) <= LimitValues.vMinLimitPhaseType)
                 error += Strings.hyphen + Strings.vIsSmall + Strings.endOfError
-            if(!inputForce.checked && parseFloat(inputV.textFieldText) > 1)
+            if(!inputForce.checked && parseFloat(inputV.textFieldText) > LimitValues.vMaxLimitPhaseType)
                 error += Strings.hyphen + Strings.vIsLargeScaled + Strings.endOfError
 
             if(inputS.textFieldText == "")
                 error += Strings.hyphen + Strings.sIsEmpty + Strings.endOfError
             if(Number.isNaN(Number(inputS.textFieldText)))
                 error += Strings.hyphen + Strings.sIsNotValid + Strings.endOfError
-            if(parseFloat(inputS.textFieldText) < -1 * (2 * parseInt(inputN.textFieldText)))
+            if(parseFloat(inputS.textFieldText) < LimitValues.sMinLimitPhaseType * (2 * parseInt(inputN.textFieldText)))
                 error += Strings.hyphen + Strings.sIsSmall + Strings.endOfError
-            if(parseFloat(inputS.textFieldText) > 1 * (2 * parseInt(inputN.textFieldText)))
+            if(parseFloat(inputS.textFieldText) > LimitValues.sMaxLimitPhaseType * (2 * parseInt(inputN.textFieldText)))
                 error += Strings.hyphen + Strings.sIsLargeScaled + Strings.endOfError
         } else {
             if(inputU.textFieldText == "")
                 error += Strings.hyphen + Strings.uIsEmpty + Strings.endOfError
             if(Number.isNaN(Number(inputU.textFieldText)))
                 error += Strings.hyphen + Strings.uIsNotValid + Strings.endOfError
-            if(parseFloat(inputU.textFieldText) <= 0)
+            if(parseFloat(inputU.textFieldText) <= LimitValues.uMinLimitPhaseType)
                 error += Strings.hyphen + Strings.uIsSmall + Strings.endOfError
-            if(!inputForce.checked && parseFloat(inputU.textFieldText) > 1 / (4 * parseInt(inputN.textFieldText)))
+            if(!inputForce.checked && parseFloat(inputU.textFieldText) > LimitValues.uMaxLimitPhaseType / (4 * parseInt(inputN.textFieldText)))
                 error += Strings.hyphen + Strings.uIsLarge + Strings.endOfError
 
             if(inputV.textFieldText == "")
                 error += Strings.hyphen + Strings.vIsEmpty + Strings.endOfError
             if(Number.isNaN(Number(inputV.textFieldText)))
                 error += Strings.hyphen + Strings.vIsNotValid + Strings.endOfError
-            if(parseFloat(inputV.textFieldText) <= 0)
+            if(parseFloat(inputV.textFieldText) <= LimitValues.vMinLimitPhaseType)
                 error += Strings.hyphen + Strings.vIsSmall + Strings.endOfError
-            if(!inputForce.checked && parseFloat(inputV.textFieldText) > 1 / (4 * parseInt(inputN.textFieldText)))
+            if(!inputForce.checked && parseFloat(inputV.textFieldText) > LimitValues.vMaxLimitPhaseType / (4 * parseInt(inputN.textFieldText)))
                 error += Strings.hyphen + Strings.vIsLarge + Strings.endOfError
 
             if(inputS.textFieldText == "")
                 error += Strings.hyphen + Strings.sIsEmpty + Strings.endOfError
             if(Number.isNaN(Number(inputS.textFieldText)))
                 error += Strings.hyphen + Strings.sIsNotValid + Strings.endOfError
-            if(parseFloat(inputS.textFieldText) < -1)
+            if(parseFloat(inputS.textFieldText) < LimitValues.sMinLimitPhaseType)
                 error += Strings.hyphen + Strings.sIsSmall + Strings.endOfError
-            if(parseFloat(inputS.textFieldText) > 1)
+            if(parseFloat(inputS.textFieldText) > LimitValues.sMaxLimitPhaseType)
                 error += Strings.hyphen + Strings.sIsLarge + Strings.endOfError
         }
 
@@ -1102,16 +1102,16 @@ ApplicationWindow {
             error += Strings.hyphen + Strings.hIsEmpty + Strings.endOfError
         if(Number.isNaN(Number(inputH.textFieldText)))
             error += Strings.hyphen + Strings.hIsNotValid + Strings.endOfError
-        if(parseFloat(inputH.textFieldText) < 0)
+        if(parseFloat(inputH.textFieldText) < LimitValues.hMinLimitPhaseType)
             error += Strings.hyphen + Strings.hIsSmall + Strings.endOfError
-        if(parseFloat(inputH.textFieldText) > 1)
+        if(parseFloat(inputH.textFieldText) > LimitValues.hMaxLimitPhaseType)
             error += Strings.hyphen + Strings.hIsLarge + Strings.endOfError
 
         if(inputT.textFieldText == "")
             error += Strings.hyphen + Strings.tIsEmpty + Strings.endOfError
         if(Number.isNaN(Number(inputT.textFieldText)))
             error += Strings.hyphen + Strings.tIsNotValid + Strings.endOfError
-        if(parseInt(inputT.textFieldText) < 1)
+        if(parseInt(inputT.textFieldText) < LimitValues.tMinLimitPhaseType)
             error += Strings.hyphen + Strings.tIsSmall + Strings.endOfError
         // Number of threads (t) does not have upper limites, since it depends on the hardware available.
 
@@ -1119,7 +1119,7 @@ ApplicationWindow {
             error += Strings.hyphen + Strings.sfIsEmpty + Strings.endOfError
         if(Number.isNaN(Number(inputSamplingFrequency.textFieldText)))
             error += Strings.hyphen + Strings.sfIsNotValid + Strings.endOfError
-        if(parseInt(inputSamplingFrequency.textFieldText) < 1)
+        if(parseInt(inputSamplingFrequency.textFieldText) < LimitValues.samplingFrequencyMinLimitPhaseType)
             error += Strings.hyphen + Strings.sfIsSmall + Strings.endOfError
         if(parseInt(inputSamplingFrequency.textFieldText) > parseInt(inputM.textFieldText))
             error += Strings.hyphen + Strings.sfIsLarge + Strings.endOfError

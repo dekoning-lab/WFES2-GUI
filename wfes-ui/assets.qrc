@@ -6,5 +6,6 @@
         <file alias="Style.qml">assets/Style.qml</file>
         <file alias="Strings.qml">assets/Strings.qml</file>
         <file alias="qmldir">assets/qmldir</file>
+        <file alias="LimitValues.qml">assets/LimitValues.qml</file>
     </qresource>
 </RCC>
