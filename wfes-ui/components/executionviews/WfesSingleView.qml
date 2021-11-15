@@ -18,12 +18,12 @@ ApplicationWindow {
 
     visible: false
 
-    width: 945
-    minimumWidth: 945
-    maximumWidth: 945
-    height: 560
-    minimumHeight: 560
-    maximumHeight: 560
+    width: column1.width + column2.width + column3.width + (Style.marginSmall * 6)
+    minimumWidth: column1.width + column2.width + column3.width + (Style.marginSmall * 6)
+    maximumWidth: column1.width + column2.width + column3.width + (Style.marginSmall * 6)
+    height: upperMenu.height + Math.max(column1.height, column2.height, column3.height) + bottomMenu.height
+    minimumHeight: upperMenu.height + Math.max(column1.height, column2.height, column3.height) + bottomMenu.height
+    maximumHeight: upperMenu.height + Math.max(column1.height, column2.height, column3.height) + bottomMenu.height
 
     // Select theme for the application.
     Universal.theme: Universal.Light
@@ -46,6 +46,7 @@ ApplicationWindow {
             rootWfesSingle.updateBackend()
             outputControllerWfesSingle.ui_save_config
         }
+
     }
 
     MessageDialog {
@@ -105,7 +106,7 @@ ApplicationWindow {
                     width: childrenRect.width
                     height: childrenRect.height
 
-                    Layout.margins: 10
+                    Layout.margins: Style.marginSmall
                     Layout.alignment: Qt.AlignTop
 
                     Rectangle {
@@ -126,7 +127,7 @@ ApplicationWindow {
                             anchors {
                                 top: labelModel.bottom
                                 left: parent.left
-                                margins: 10
+                                margins: Style.marginSmall
                             }
 
                             RadioButton {
@@ -558,7 +559,7 @@ ApplicationWindow {
 
                     Rectangle {
                         height: 1
-                        width: modeSectionGrid.width + 10
+                        width: modeSectionGrid.width + Style.marginSmall
                         color: Universal.baseHighColor
                     }
 
@@ -581,7 +582,7 @@ ApplicationWindow {
                             anchors {
                                 top: labelPopulation.bottom
                                 left: parent.left
-                                margins: 10
+                                margins: Style.marginSmall
                             }
 
                             LabeledTextField {
@@ -631,7 +632,6 @@ ApplicationWindow {
                                         inputControllerWfesSingle.ui_p = inputp.textFieldText
                                         borderColor = "#555555"
                                     } else {
-                                        print(parseInt(inputp.textFieldText) >= 0)
                                         borderColor = "#ff0000"
                                     }
 
@@ -718,7 +718,7 @@ ApplicationWindow {
 
                     Rectangle {
                         height: 1
-                        width: modeSectionGrid.width + 10
+                        width: modeSectionGrid.width + Style.marginSmall
                         color: Universal.baseHighColor
                     }
 
@@ -741,7 +741,7 @@ ApplicationWindow {
                             anchors {
                                 top: labelMutation.bottom
                                 left: parent.left
-                                margins: 10
+                                margins: Style.marginSmall
                             }
 
 
@@ -822,7 +822,7 @@ ApplicationWindow {
 
                     Rectangle {
                         height: 1
-                        width: modeSectionGrid.width + 10
+                        width: modeSectionGrid.width + Style.marginSmall
                         color: Universal.baseHighColor
                     }
 
@@ -845,7 +845,7 @@ ApplicationWindow {
                             anchors {
                                 top: labelSelection.bottom
                                 left: parent.left
-                                margins: 10
+                                margins: Style.marginSmall
                             }
 
                             LabeledTextField {
@@ -903,8 +903,8 @@ ApplicationWindow {
                     width: 1
                     Layout.fillHeight: true
                     color: Universal.baseHighColor
-                    Layout.topMargin: 10
-                    Layout.bottomMargin:10
+                    Layout.topMargin: Style.marginSmall
+                    Layout.bottomMargin: Style.marginSmall
                 }
 
                 ColumnLayout {
@@ -913,7 +913,7 @@ ApplicationWindow {
 
                     ColumnLayout {
                         Layout.alignment: Qt.AlignTop
-                        Layout.margins: 10
+                        Layout.margins: Style.marginSmall
 
                         Rectangle {
                             id: outputSection
@@ -934,7 +934,7 @@ ApplicationWindow {
                                 anchors {
                                     top: labelOutput.bottom
                                     left: parent.left
-                                    margins: 10
+                                    margins: Style.marginSmall
                                 }
 
                                 LabeledCheckBox {
@@ -1063,7 +1063,7 @@ ApplicationWindow {
                                 anchors {
                                     top: labelExecution.bottom
                                     left: parent.left
-                                    margins: 10
+                                    margins: Style.marginSmall
                                 }
                                 RowLayout {
                                     width: childrenRect.width
@@ -1079,7 +1079,8 @@ ApplicationWindow {
                                         id: inputT
                                         text: Strings.t + Strings.colon
                                         toolTipText: Strings.tTooltip
-                                        labelPreferredWidth: 10
+                                        labelPreferredWidth: 15
+                                        textFieldPreferredWidth: 105
                                         textFieldTextEdited: function(){
                                             if(!Number.isNaN(Number(inputT.textFieldText)) && parseInt(inputT.textFieldText) >= 1) {
                                                 inputControllerWfesSingle.ui_t = inputT.textFieldText
@@ -1160,7 +1161,7 @@ ApplicationWindow {
 
                         Button {
                             id: stopButton
-                            Layout.margins: 10
+                            Layout.margins: Style.marginSmall
                             Layout.alignment: Qt.AlignRight
                             text: Strings.stopButton
 
@@ -1181,7 +1182,7 @@ ApplicationWindow {
 
                         Button {
                             id: executeButton
-                            Layout.margins: 10
+                            Layout.margins: Style.marginSmall
                             Layout.alignment: Qt.AlignRight
                             text: Strings.executeButton
 
@@ -1246,13 +1247,13 @@ ApplicationWindow {
                     width: 1
                     Layout.fillHeight: true
                     color: Universal.baseHighColor
-                    Layout.topMargin: 10
-                    Layout.bottomMargin:10
+                    Layout.topMargin: Style.marginSmall
+                    Layout.bottomMargin: Style.marginSmall
                 }
 
                 ColumnLayout {
                     id: column3
-                    Layout.margins: 10
+                    Layout.margins: Style.marginSmall
                     Layout.alignment: Qt.AlignTop
 
                     Rectangle {
@@ -1601,6 +1602,7 @@ ApplicationWindow {
         BottomMenuExecutionView {
             id: bottomMenu
             width: parent.width
+            height: Style.bottomMenuHeight
             executionProgress: outputControllerWfesSingle.ui_progress
 
             executionTime: {

@@ -17,12 +17,12 @@ ApplicationWindow {
 
     visible: false
 
-    width: 955
-    minimumWidth: 955
-    maximumWidth: 955
-    height: 515
-    minimumHeight: 515
-    maximumHeight: 515
+    width: column1.width + column2.width + column3.width + (Style.marginSmall * 6)
+    minimumWidth: column1.width + column2.width + column3.width + (Style.marginSmall * 6)
+    maximumWidth: column1.width + column2.width + column3.width + (Style.marginSmall * 6)
+    height: upperMenu.height + Math.max(column1.height, column2.height, column3.height) + bottomMenu.height
+    minimumHeight: upperMenu.height + Math.max(column1.height, column2.height, column3.height) + bottomMenu.height
+    maximumHeight: upperMenu.height + Math.max(column1.height, column2.height, column3.height) + bottomMenu.height
 
     // Select theme for the application.
     Universal.theme: Universal.Light
@@ -93,7 +93,7 @@ ApplicationWindow {
                     width: childrenRect.width
                     height: childrenRect.height
 
-                    Layout.margins: 10
+                    Layout.margins: Style.marginSmall
                     Layout.alignment: Qt.AlignTop
 
                     Rectangle {
@@ -114,7 +114,7 @@ ApplicationWindow {
                             anchors {
                                 top: labelModel.bottom
                                 left: parent.left
-                                margins: 10
+                                margins: Style.marginSmall
                             }
 
                             RadioButton {
@@ -185,9 +185,8 @@ ApplicationWindow {
                     }
 
                     Rectangle {
-                        id: separator1column1
                         height: 1
-                        width: commonSection.width + 10
+                        width: componentsSection.width
                         color: Universal.baseHighColor
                     }
 
@@ -199,7 +198,7 @@ ApplicationWindow {
 
                     Rectangle {
                         id: componentsSection
-                        width: commonSection.width + 10
+                        width: commonSection.width + Style.marginSmall
                         height: childrenRect.height
 
                         color: "transparent"
@@ -208,7 +207,7 @@ ApplicationWindow {
 
                         DynamicTabView {
                             id: componentsSectionTabView
-                            width: commonSection.width + 10
+                            width: commonSection.width + Style.marginSmall
                             height: 270
                             tabNames: Strings.comp
                             urlComponent: "qrc:/components/executionviews/tabcomponents/tabWfesSwitchingComponent.qml"
@@ -287,7 +286,7 @@ ApplicationWindow {
                             anchors {
                                 top: labelCommonParameters.bottom
                                 left: parent.left
-                                margins: 10
+                                margins: Style.marginSmall
                             }
 
                             LabeledTextField {
@@ -332,19 +331,17 @@ ApplicationWindow {
                     width: 1
                     Layout.fillHeight: true
                     color: Universal.baseHighColor
-                    Layout.topMargin: 10
-                    Layout.bottomMargin:10
+                    Layout.topMargin: Style.marginSmall
+                    Layout.bottomMargin: Style.marginSmall
                 }
 
-
+                ColumnLayout {
+                    id: column2
+                    Layout.preferredHeight: parent.height
 
                     ColumnLayout {
-                        id: column2
-
-                        ColumnLayout {
-                            Layout.alignment: Qt.AlignTop
-                            Layout.margins: 10
-                            height: childrenRect.height
+                        Layout.alignment: Qt.AlignTop
+                        Layout.margins: Style.marginSmall
 
                             Rectangle {
                                 id: outputSection
@@ -365,7 +362,7 @@ ApplicationWindow {
                                     anchors {
                                         top: labelOutput.bottom
                                         left: parent.left
-                                        margins: 10
+                                        margins: Style.marginSmall
                                     }
 
                                     LabeledCheckBox {
@@ -450,7 +447,7 @@ ApplicationWindow {
                                     anchors {
                                         top: labelExecution.bottom
                                         left: parent.left
-                                        margins: 10
+                                        margins: Style.marginSmall
                                     }
                                     RowLayout {
                                         width: childrenRect.width
@@ -465,7 +462,7 @@ ApplicationWindow {
                                         LabeledTextField {
                                             id: inputT
                                             text: Strings.t + Strings.colon
-                                            labelPreferredWidth: 10
+                                            labelPreferredWidth: Style.marginSmall
                                             toolTipText: Strings.tTooltip
                                             validator: IntValidator {bottom: 1;}
                                             textFieldText: inputControllerWfesSwitching.ui_t
@@ -546,7 +543,7 @@ ApplicationWindow {
 
                             Button {
                                 id: stopButton
-                                Layout.margins: 10
+                                Layout.margins: Style.marginSmall
                                 Layout.alignment: Qt.AlignRight
                                 text: Strings.stopButton
 
@@ -567,7 +564,7 @@ ApplicationWindow {
 
                             Button {
                                 id: executeButton
-                                Layout.margins: 10
+                                Layout.margins: Style.marginSmall
                                 Layout.alignment: Qt.AlignRight
                                 text: Strings.executeButton
 
@@ -624,13 +621,13 @@ ApplicationWindow {
                     width: 1
                     Layout.fillHeight: true
                     color: Universal.baseHighColor
-                    Layout.topMargin: 10
-                    Layout.bottomMargin:10
+                    Layout.topMargin: Style.marginSmall
+                    Layout.bottomMargin: Style.marginSmall
                 }
 
                 ColumnLayout {
                     id: column3
-                    Layout.margins: 10
+                    Layout.margins: Style.marginSmall
                     Layout.alignment: Qt.AlignTop
 
                     Label {

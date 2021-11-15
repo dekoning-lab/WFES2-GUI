@@ -9,10 +9,11 @@ Item {
     property alias executionTime: time.text
 
     width: parent.width
+    height: Style.bottomMenuHeight
 
     Rectangle {
         width: parent.width
-        height: 30
+        height: Style.bottomMenuHeight
         color: "transparent"
 
         RowLayout {

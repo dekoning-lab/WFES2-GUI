@@ -33,7 +33,6 @@ Rectangle {
             id: settingsButton
             text: Strings.upperMenuSettingsButton
             onClicked: menu2.open()
-            
             Menu {
                 id: menu2
                 y: settingsButton.height

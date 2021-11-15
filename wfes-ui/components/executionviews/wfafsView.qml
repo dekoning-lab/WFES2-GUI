@@ -17,12 +17,12 @@ ApplicationWindow {
 
     visible: false
 
-    width: 895
-    minimumWidth: 895
-    maximumWidth: 895
-    height: 485
-    minimumHeight: 485
-    maximumHeight: 485
+    width: column1.width + column2.width + column3.width + (Style.marginSmall * 5)
+    minimumWidth: column1.width + column2.width + column3.width + (Style.marginSmall * 5)
+    maximumWidth: column1.width + column2.width + column3.width + (Style.marginSmall * 5)
+    height: upperMenu.height + Math.max(column1.height, column2.height, column3.height) + bottomMenu.height
+    minimumHeight: upperMenu.height + Math.max(column1.height, column2.height, column3.height) + bottomMenu.height
+    maximumHeight: upperMenu.height + Math.max(column1.height, column2.height, column3.height) + bottomMenu.height
 
     // Select theme for the application.
     Universal.theme: Universal.Light
@@ -92,7 +92,7 @@ ApplicationWindow {
                     width: childrenRect.width
                     height: childrenRect.height
 
-                    Layout.margins: 10
+                    Layout.margins: Style.marginSmall
                     Layout.alignment: Qt.AlignTop
 
                     Label {
@@ -103,7 +103,7 @@ ApplicationWindow {
 
                     Rectangle {
                         id: componentsSection
-                        width: commonSection.width + 10
+                        width: commonSection.width + Style.marginSmall
                         height: childrenRect.height
 
                         color: "transparent"
@@ -112,7 +112,7 @@ ApplicationWindow {
 
                         DynamicTabView {
                             id: componentsSectionTabView
-                            width: commonSection.width + 10
+                            width: commonSection.width + Style.marginSmall
                             height: 270
                             tabNames: Strings.comp
                             onLoaded: function() {
@@ -187,7 +187,7 @@ ApplicationWindow {
                             anchors {
                                 top: labelCommonParameters.bottom
                                 left: parent.left
-                                margins: 10
+                                margins: Style.marginSmall
                             }
 
                             LabeledTextField {
@@ -238,275 +238,272 @@ ApplicationWindow {
                     width: 1
                     Layout.fillHeight: true
                     color: Universal.baseHighColor
-                    Layout.topMargin: 10
-                    Layout.bottomMargin:10
+                    Layout.topMargin: Style.marginSmall
+                    Layout.bottomMargin: Style.marginSmall
                 }
 
-
+                ColumnLayout {
+                    id: column2
+                    Layout.preferredHeight: parent.height
 
                     ColumnLayout {
-                        id: column2
-                        Layout.margins: 10
                         Layout.alignment: Qt.AlignTop
+                        Layout.margins: Style.marginSmall
 
-                        ColumnLayout {
-                            Layout.alignment: Qt.AlignTop
+                        Rectangle {
+                            id: outputSection
+                            color: "transparent"
                             height: childrenRect.height
+                            width: childrenRect.width
 
-                            Rectangle {
-                                id: outputSection
-                                color: "transparent"
-                                height: childrenRect.height
-                                width: childrenRect.width
-
-                                Label {
-                                    id: labelOutput
-                                    text: Strings.outputOptions + Strings.colon
-                                    font.bold: true
-                                }
-
-                                GridLayout {
-                                    id: outputSectionGrid
-                                    width: childrenRect.width
-                                    columns: 2
-                                    anchors {
-                                        top: labelOutput.bottom
-                                        left: parent.left
-                                        margins: 10
-                                    }
-
-                                    LabeledCheckBox {
-                                        id: inputWriteQ
-                                        text: Strings.outputQ + Strings.colon
-                                        toolTipText: Strings.outputQTooltip
-                                        checked: inputControllerWfafs.ui_output_Q
-                                    }
-
-                                    /*LabeledCheckBox {
-                                        id: inputWriteR
-                                        text: Strings.outputR + Strings.colon
-                                        toolTipText: Strings.outputRTooltip
-                                        checked: inputControllerWfafs.ui_output_R
-                                    }*/
-
-                                   LabeledCheckBox {
-                                        id: inputWriteN
-                                        text: Strings.outputN + Strings.colon
-                                        toolTipText: Strings.outputNTooltip
-                                        checked: inputControllerWfafs.ui_output_N
-                                    }
-
-                                    LabeledCheckBox {
-                                        id: inputWriteB
-                                        text: Strings.outputB + Strings.colon
-                                        toolTipText: Strings.outputBTooltip
-                                        checked: inputControllerWfafs.ui_output_B
-                                    }
-
-                                    LabeledCheckBox {
-                                        id: inputWriteDist
-                                        enabled: true
-                                        enabledCheckBox: false
-                                        text: Strings.outputDist + Strings.colon
-                                        toolTipText: Strings.outputDistTooltip
-                                        checked: true
-                                    }
-
-                                }
-
+                            Label {
+                                id: labelOutput
+                                text: Strings.outputOptions + Strings.colon
+                                font.bold: true
                             }
 
-                            Rectangle {
-                                height: 1
-                                width: Math.max(executionSection.width, outputSection.width)
-                                color: Universal.baseHighColor
-                            }
-
-                            Rectangle {
-                                id: executionSection
-                                color: "transparent"
-                                height: childrenRect.height
+                            GridLayout {
+                                id: outputSectionGrid
                                 width: childrenRect.width
-
-                                Label {
-                                    id: labelExecution
-                                    text: Strings.execution + Strings.colon
-                                    font.bold: true
+                                columns: 2
+                                anchors {
+                                    top: labelOutput.bottom
+                                    left: parent.left
+                                    margins: Style.marginSmall
                                 }
 
-
-                                ColumnLayout {
-
-                                    width: childrenRect.width
-                                    anchors {
-                                        top: labelExecution.bottom
-                                        left: parent.left
-                                        margins: 10
-                                    }
-                                    RowLayout {
-                                        width: childrenRect.width
-
-                                        LabeledCheckBox {
-                                            id: inputForce
-                                            text: Strings.force + Strings.colon
-                                            toolTipText: Strings.forceTooltip
-                                            checked: inputControllerWfafs.ui_force
-                                        }
-
-                                        LabeledTextField {
-                                            id: inputT
-                                            text: Strings.t + Strings.colon
-                                            labelPreferredWidth: 10
-                                            toolTipText: Strings.tTooltip
-                                            validator: DoubleValidator {bottom: 1;}
-                                            textFieldText: inputControllerWfafs.ui_t
-                                            textFieldTextEdited: function(){
-                                                if(!Number.isNaN(Number(inputT.textFieldText)) && parseInt(inputT.textFieldText) >= 1) {
-                                                    inputControllerWfafs.ui_t = inputT.textFieldText
-                                                    borderColor = "#555555"
-                                                } else {
-                                                    borderColor = "#ff0000"
-                                                }
-                                            }
-                                        }
-                                    }
-
-                                    ColumnLayout {
-                                        width: childrenRect.width
-
-                                        LabeledComboBox {
-                                            id: comboBoxLibrary
-                                            text: Strings.library + Strings.colon
-                                            model: ["Pardiso", "ViennaCL"]
-                                            toolTipText: Strings.libraryTooltip
-                                            onTextChanged: {
-                                                if(comboBoxLibrary.currentText === "Pardiso") {
-                                                    comboBoxBackend.enabled = false
-                                                    comboBoxSolver.enabled = false
-                                                }else if (comboBoxLibrary.currentText === "ViennaCL"){
-                                                    comboBoxBackend.enabled = true
-                                                    comboBoxSolver.enabled = true
-                                                }
-                                            }
-                                        }
-
-                                        LabeledComboBox {
-                                            id: comboBoxSolver
-                                            text: Strings.solver + Strings.colon
-                                            toolTipText: Strings.solverTooltip
-                                            model: ["GMRes", "BicGStab"]
-                                            enabled: (comboBoxLibrary.currentText === "ViennaCL")
-                                        }
-
-                                        LabeledTextField {
-                                            id: inputI
-                                            text: Strings.iDist + Strings.colon
-                                            toolTipText: Strings.iDistTooltip
-                                            labelPreferredWidth: 75
-                                            textFieldPreferredWidth: 185
-                                            textFieldText: inputControllerWfafs.ui_initial_distribution
-                                        }
-
-                                        Button{
-                                            text: Strings.searchButton
-                                            onClicked: fileDialog.open()
-                                        }
-
-
-                                        FileDialog {
-                                            id: fileDialog
-                                            title: Strings.iDistDialogTitle
-                                            nameFilters: [ "csv files (*.csv)" ]
-                                            onAccepted: {
-                                                var path = fileDialog.fileUrl.toString()
-                                                path = path.replace(/^(file:\/{2})/,"");
-                                                inputI.textFieldText = path
-                                            }
-                                        }
-
-                                    }
-
+                                LabeledCheckBox {
+                                    id: inputWriteQ
+                                    text: Strings.outputQ + Strings.colon
+                                    toolTipText: Strings.outputQTooltip
+                                    checked: inputControllerWfafs.ui_output_Q
                                 }
+
+                                /*LabeledCheckBox {
+                                    id: inputWriteR
+                                    text: Strings.outputR + Strings.colon
+                                    toolTipText: Strings.outputRTooltip
+                                    checked: inputControllerWfafs.ui_output_R
+                                }*/
+
+                               LabeledCheckBox {
+                                    id: inputWriteN
+                                    text: Strings.outputN + Strings.colon
+                                    toolTipText: Strings.outputNTooltip
+                                    checked: inputControllerWfafs.ui_output_N
+                                }
+
+                                LabeledCheckBox {
+                                    id: inputWriteB
+                                    text: Strings.outputB + Strings.colon
+                                    toolTipText: Strings.outputBTooltip
+                                    checked: inputControllerWfafs.ui_output_B
+                                }
+
+                                LabeledCheckBox {
+                                    id: inputWriteDist
+                                    enabled: true
+                                    enabledCheckBox: false
+                                    text: Strings.outputDist + Strings.colon
+                                    toolTipText: Strings.outputDistTooltip
+                                    checked: true
+                                }
+
                             }
 
                         }
 
-                        RowLayout {
-                            id: row2
-                            Layout.preferredWidth: parent.width
+                        Rectangle {
+                            height: 1
+                            width: Math.max(executionSection.width, outputSection.width)
+                            color: Universal.baseHighColor
+                        }
 
-                            Button {
-                                id: stopButton
-                                Layout.margins: 10
-                                Layout.alignment: Qt.AlignRight
-                                text: Strings.stopButton
+                        Rectangle {
+                            id: executionSection
+                            color: "transparent"
+                            height: childrenRect.height
+                            width: childrenRect.width
 
-                                Binding {
-                                    target: stopButton
-                                    property: "enabled"
-                                    value: !outputControllerWfafs.ui_get_not_exec
-
-                                }
-
-                                onClicked: {
-                                    outputControllerWfafs.ui_stop
-                                    stopButton.enabled = false
-                                    executeButton.enabled = true
-                                    bottomMenu.visibleProgressBar = false
-                                }
+                            Label {
+                                id: labelExecution
+                                text: Strings.execution + Strings.colon
+                                font.bold: true
                             }
 
-                            Button {
-                                id: executeButton
-                                Layout.margins: 10
-                                Layout.alignment: Qt.AlignRight
-                                text: Strings.executeButton
 
-                                onEnabledChanged: {
-                                    if(outputControllerWfafs.ui_get_not_exec)
-                                        imageOutputController.image_changed()
-                                    console.log(outputControllerWfafs.ui_get_error_message)
-                                    if(outputControllerWfafs.ui_get_error_message !== "") {
-                                        messageDialog.text = outputControllerWfafs.ui_get_error_message
-                                        messageDialog.open()
-                                        outputControllerWfafs.ui_reset_error
+                            ColumnLayout {
+
+                                width: childrenRect.width
+                                anchors {
+                                    top: labelExecution.bottom
+                                    left: parent.left
+                                    margins: Style.marginSmall
+                                }
+                                RowLayout {
+                                    width: childrenRect.width
+
+                                    LabeledCheckBox {
+                                        id: inputForce
+                                        text: Strings.force + Strings.colon
+                                        toolTipText: Strings.forceTooltip
+                                        checked: inputControllerWfafs.ui_force
                                     }
-                                    upperMenu.updateDistWfafs()
 
-                                    if(enabled)
-                                        upperMenu.chartVisible = true
+                                    LabeledTextField {
+                                        id: inputT
+                                        text: Strings.t + Strings.colon
+                                        labelPreferredWidth: Style.marginSmall
+                                        toolTipText: Strings.tTooltip
+                                        validator: DoubleValidator {bottom: 1;}
+                                        textFieldText: inputControllerWfafs.ui_t
+                                        textFieldTextEdited: function(){
+                                            if(!Number.isNaN(Number(inputT.textFieldText)) && parseInt(inputT.textFieldText) >= 1) {
+                                                inputControllerWfafs.ui_t = inputT.textFieldText
+                                                borderColor = "#555555"
+                                            } else {
+                                                borderColor = "#ff0000"
+                                            }
+                                        }
+                                    }
                                 }
 
-                                Binding {
-                                    target: executeButton
-                                    property: "enabled"
-                                    value: outputControllerWfafs.ui_get_not_exec
+                                ColumnLayout {
+                                    width: childrenRect.width
+
+                                    LabeledComboBox {
+                                        id: comboBoxLibrary
+                                        text: Strings.library + Strings.colon
+                                        model: ["Pardiso", "ViennaCL"]
+                                        toolTipText: Strings.libraryTooltip
+                                        onTextChanged: {
+                                            if(comboBoxLibrary.currentText === "Pardiso") {
+                                                comboBoxBackend.enabled = false
+                                                comboBoxSolver.enabled = false
+                                            }else if (comboBoxLibrary.currentText === "ViennaCL"){
+                                                comboBoxBackend.enabled = true
+                                                comboBoxSolver.enabled = true
+                                            }
+                                        }
+                                    }
+
+                                    LabeledComboBox {
+                                        id: comboBoxSolver
+                                        text: Strings.solver + Strings.colon
+                                        toolTipText: Strings.solverTooltip
+                                        model: ["GMRes", "BicGStab"]
+                                        enabled: (comboBoxLibrary.currentText === "ViennaCL")
+                                    }
+
+                                    LabeledTextField {
+                                        id: inputI
+                                        text: Strings.iDist + Strings.colon
+                                        toolTipText: Strings.iDistTooltip
+                                        labelPreferredWidth: 75
+                                        textFieldPreferredWidth: 185
+                                        textFieldText: inputControllerWfafs.ui_initial_distribution
+                                    }
+
+                                    Button{
+                                        text: Strings.searchButton
+                                        onClicked: fileDialog.open()
+                                    }
+
+
+                                    FileDialog {
+                                        id: fileDialog
+                                        title: Strings.iDistDialogTitle
+                                        nameFilters: [ "csv files (*.csv)" ]
+                                        onAccepted: {
+                                            var path = fileDialog.fileUrl.toString()
+                                            path = path.replace(/^(file:\/{2})/,"");
+                                            inputI.textFieldText = path
+                                        }
+                                    }
 
                                 }
 
-                                // All changes made in backend from GUI are done here.
-                                onClicked: {
-                                    var error = checkIntegrity()
+                            }
+                        }
 
+                    }
 
-                                    if(error === "") {
-                                        updateBackend()
-                                        executeButton.enabled = false
-                                        stopButton.enabled = true
-                                        bottomMenu.visibleProgressBar = true
-                                        outputControllerWfafs.ui_execute
-                                    } else {
-                                        messageDialog.text = error
-                                        messageDialog.open()
-                                    }
+                    RowLayout {
+                        id: row2
+                        Layout.preferredWidth: parent.width
+
+                        Button {
+                            id: stopButton
+                            Layout.margins: Style.marginSmall
+                            Layout.alignment: Qt.AlignRight
+                            text: Strings.stopButton
+
+                            Binding {
+                                target: stopButton
+                                property: "enabled"
+                                value: !outputControllerWfafs.ui_get_not_exec
+
+                            }
+
+                            onClicked: {
+                                outputControllerWfafs.ui_stop
+                                stopButton.enabled = false
+                                executeButton.enabled = true
+                                bottomMenu.visibleProgressBar = false
+                            }
+                        }
+
+                        Button {
+                            id: executeButton
+                            Layout.margins: Style.marginSmall
+                            Layout.alignment: Qt.AlignRight
+                            text: Strings.executeButton
+
+                            onEnabledChanged: {
+                                if(outputControllerWfafs.ui_get_not_exec)
+                                    imageOutputController.image_changed()
+                                console.log(outputControllerWfafs.ui_get_error_message)
+                                if(outputControllerWfafs.ui_get_error_message !== "") {
+                                    messageDialog.text = outputControllerWfafs.ui_get_error_message
+                                    messageDialog.open()
                                     outputControllerWfafs.ui_reset_error
                                 }
+                                upperMenu.updateDistWfafs()
 
+                                if(enabled)
+                                    upperMenu.chartVisible = true
+                            }
+
+                            Binding {
+                                target: executeButton
+                                property: "enabled"
+                                value: outputControllerWfafs.ui_get_not_exec
+
+                            }
+
+                            // All changes made in backend from GUI are done here.
+                            onClicked: {
+                                var error = checkIntegrity()
+
+
+                                if(error === "") {
+                                    updateBackend()
+                                    executeButton.enabled = false
+                                    stopButton.enabled = true
+                                    bottomMenu.visibleProgressBar = true
+                                    outputControllerWfafs.ui_execute
+                                } else {
+                                    messageDialog.text = error
+                                    messageDialog.open()
+                                }
+                                outputControllerWfafs.ui_reset_error
                             }
 
                         }
 
                     }
+
+                }
 
                 MessageDialog {
                     id: messageDialog
@@ -520,13 +517,13 @@ ApplicationWindow {
                     width: 1
                     Layout.fillHeight: true
                     color: Universal.baseHighColor
-                    Layout.topMargin: 10
-                    Layout.bottomMargin:10
+                    Layout.topMargin: Style.marginSmall
+                    Layout.bottomMargin: Style.marginSmall
                 }
 
                 ColumnLayout {
                     id: column3
-                    Layout.margins: 10
+                    Layout.margins: Style.marginSmall
                     Layout.alignment: Qt.AlignTop
 
                     Label {
@@ -547,7 +544,7 @@ ApplicationWindow {
                         border.width: 1
 
                         Layout.alignment: Qt.AlignTop
-                        Layout.margins: 10
+                        Layout.margins: Style.marginSmall
 
                         ScrollView {
                             width: parent.width - 1
@@ -562,7 +559,7 @@ ApplicationWindow {
                                 id: listViewMoments
                                 model: outputControllerWfafs.ui_probs
                                 delegate: ItemDelegate {
-                                  width: parent.width
+                                  width: labelMoments.width * 4
                                   height: 25
                                   Text {
                                       text: modelData;

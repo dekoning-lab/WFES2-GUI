@@ -17,12 +17,12 @@ ApplicationWindow {
 
     visible: false
 
-    width: 955
-    minimumWidth: 955
-    maximumWidth: 955
-    height: 485
-    minimumHeight: 485
-    maximumHeight: 485
+    width: column1.width + column2.width + column3.width + (Style.marginSmall * 6)
+    minimumWidth: column1.width + column2.width + column3.width + (Style.marginSmall * 6)
+    maximumWidth: column1.width + column2.width + column3.width + (Style.marginSmall * 6)
+    height: upperMenu.height + Math.max(column1.height, column2.height, column3.height) + bottomMenu.height
+    minimumHeight: upperMenu.height + Math.max(column1.height, column2.height, column3.height) + bottomMenu.height
+    maximumHeight: upperMenu.height + Math.max(column1.height, column2.height, column3.height) + bottomMenu.height
 
     // Select theme for the application.
     Universal.theme: Universal.Light
@@ -94,7 +94,7 @@ ApplicationWindow {
                     width: childrenRect.width
                     height: childrenRect.height
 
-                    Layout.margins: 10
+                    Layout.margins: Style.marginSmall
                     Layout.alignment: Qt.AlignTop
 
                     Rectangle {
@@ -115,7 +115,7 @@ ApplicationWindow {
                             anchors {
                                 top: labelModel.bottom
                                 left: parent.left
-                                margins: 10
+                                margins: Style.marginSmall
                             }
                             RadioButton {
                                 id: radioButtonFixation
@@ -150,7 +150,7 @@ ApplicationWindow {
 
                     Rectangle {
                         id: componentsSection
-                        width: commonSection.width + 10
+                        width: commonSection.width + Style.marginSmall
                         height: childrenRect.height
 
                         color: "transparent"
@@ -202,7 +202,7 @@ ApplicationWindow {
                                             anchors {
                                                 top: labelMutation1.bottom
                                                 left: parent.left
-                                                margins: 10
+                                                margins: Style.marginSmall
                                             }
 
                                             LabeledTextField {
@@ -307,7 +307,7 @@ ApplicationWindow {
                                             anchors {
                                                 top: labelSelection1.bottom
                                                 left: parent.left
-                                                margins: 10
+                                                margins: Style.marginSmall
                                             }
 
                                             LabeledTextField {
@@ -418,7 +418,7 @@ ApplicationWindow {
                                             anchors {
                                                 top: labelMutation2.bottom
                                                 left: parent.left
-                                                margins: 10
+                                                margins: Style.marginSmall
                                             }
 
                                             LabeledTextField {
@@ -523,7 +523,7 @@ ApplicationWindow {
                                             anchors {
                                                 top: labelSelection2.bottom
                                                 left: parent.left
-                                                margins: 10
+                                                margins: Style.marginSmall
                                             }
 
                                             LabeledTextField {
@@ -618,7 +618,7 @@ ApplicationWindow {
                             anchors {
                                 top: labelCommonParameters.bottom
                                 left: parent.left
-                                margins: 10
+                                margins: Style.marginSmall
                             }
 
                             LabeledTextField {
@@ -718,8 +718,8 @@ ApplicationWindow {
                     width: 1
                     Layout.fillHeight: true
                     color: Universal.baseHighColor
-                    Layout.topMargin: 10
-                    Layout.bottomMargin:10
+                    Layout.topMargin: Style.marginSmall
+                    Layout.bottomMargin:Style.marginSmall
                 }
 
                 ColumnLayout {
@@ -728,7 +728,7 @@ ApplicationWindow {
 
                     ColumnLayout {
                         Layout.alignment: Qt.AlignTop
-                        Layout.margins: 10
+                        Layout.margins: Style.marginSmall
 
                         Rectangle {
                             id: outputSection
@@ -749,7 +749,7 @@ ApplicationWindow {
                                 anchors {
                                     top: labelOutput.bottom
                                     left: parent.left
-                                    margins: 10
+                                    margins: Style.marginSmall
                                 }
 
                                 LabeledCheckBox {
@@ -824,7 +824,7 @@ ApplicationWindow {
                                 anchors {
                                     top: labelExecution.bottom
                                     left: parent.left
-                                    margins: 10
+                                    margins: Style.marginSmall
                                 }
                                 RowLayout {
                                     width: childrenRect.width
@@ -840,7 +840,8 @@ ApplicationWindow {
                                         id: inputT
                                         text: Strings.t + Strings.colon
                                         toolTipText: Strings.tTooltip
-                                        labelPreferredWidth: 10
+                                        labelPreferredWidth: 15
+                                        textFieldPreferredWidth: 105
                                         validator: DoubleValidator {bottom: 1;}
                                         textFieldText: inputControllerWfesSweep.ui_t
                                         textFieldTextEdited: function(){
@@ -921,7 +922,7 @@ ApplicationWindow {
 
                         Button {
                             id: stopButton
-                            Layout.margins: 10
+                            Layout.margins: Style.marginSmall
                             Layout.alignment: Qt.AlignRight
                             text: Strings.stopButton
 
@@ -942,7 +943,7 @@ ApplicationWindow {
 
                         Button {
                             id: executeButton
-                            Layout.margins: 10
+                            Layout.margins: Style.marginSmall
                             Layout.alignment: Qt.AlignRight
                             text: Strings.executeButton
 
@@ -998,13 +999,13 @@ ApplicationWindow {
                     width: 1
                     Layout.fillHeight: true
                     color: Universal.baseHighColor
-                    Layout.topMargin: 10
-                    Layout.bottomMargin:10
+                    Layout.topMargin: Style.marginSmall
+                    Layout.bottomMargin: Style.marginSmall
                 }
 
                 ColumnLayout {
                     id: column3
-                    Layout.margins: 10
+                    Layout.margins: Style.marginSmall
                     Layout.alignment: Qt.AlignTop
 
                     Rectangle {
@@ -1024,7 +1025,7 @@ ApplicationWindow {
                             anchors {
                                 top: labelFinalOutput.bottom
                                 left: parent.left
-                                margins: 10
+                                margins: Style.marginSmall
                             }
 
                             LabeledTextField {

@@ -19,12 +19,12 @@ ApplicationWindow {
 
     visible: false
 
-    width: 640
-    minimumWidth: 640
-    maximumWidth: 640
-    height: 530
-    minimumHeight: 530
-    maximumHeight: 530
+    width: column1.width + column2.width +  (Style.marginSmall * 5)
+    minimumWidth: column1.width + column2.width + (Style.marginSmall * 5)
+    maximumWidth: column1.width + column2.width + (Style.marginSmall * 5)
+    height: upperMenu.height + Math.max(column1.height, column2.height) + bottomMenu.height +  (Style.marginSmall * 2)
+    minimumHeight: upperMenu.height + Math.max(column1.height, column2.height) + bottomMenu.height +  (Style.marginSmall * 2)
+    maximumHeight: upperMenu.height + Math.max(column1.height, column2.height) + bottomMenu.height +  (Style.marginSmall * 2)
 
     // Select theme for the application.
     Universal.theme: Universal.Light
@@ -81,7 +81,7 @@ ApplicationWindow {
         Rectangle {
             id: content
             height: childrenRect.height
-            width: parent.width
+            width: childrenRect.width
             color: "transparent"
 
             anchors {
@@ -92,11 +92,15 @@ ApplicationWindow {
             RowLayout {
                 id: mainGrid
 
-                ColumnLayout {
+                Rectangle {
                     id: column1
                     width: childrenRect.width
+                    height: childrenRect.height
+                    Layout.margins: Style.marginSmall
+                    color: "transparent"
 
-                    Layout.margins: 10
+                    ColumnLayout {
+
                     Layout.alignment: Qt.AlignTop
 
                     Rectangle {
@@ -117,7 +121,7 @@ ApplicationWindow {
                             anchors {
                                 top: labelModel.bottom
                                 left: parent.left
-                                margins: 10
+                                margins: Style.marginSmall
                             }
 
                             RadioButton {
@@ -160,6 +164,13 @@ ApplicationWindow {
                                     separator1column1.visible = checked
                                     separator2column1.visible = checked
                                     separator3column1.visible = checked
+
+                                    rootTimeDist.width = column1.width + column2.width +  (Style.marginSmall * 5)
+                                    rootTimeDist.minimumWidth = column1.width + column2.width + (Style.marginSmall * 5)
+                                    rootTimeDist.maximumWidth = column1.width + column2.width + (Style.marginSmall * 5)
+                                    rootTimeDist.height = upperMenu.height + Math.max(column1.height, column2.height) + bottomMenu.height +  (Style.marginSmall * 2)
+                                    rootTimeDist.minimumHeight = upperMenu.height + Math.max(column1.height, column2.height) + bottomMenu.height +  (Style.marginSmall * 2)
+                                    rootTimeDist.maximumHeight = upperMenu.height + Math.max(column1.height, column2.height) + bottomMenu.height +  (Style.marginSmall * 2)
                                 }
                             }
                             RadioButton {
@@ -202,6 +213,14 @@ ApplicationWindow {
                                     separator1column1.visible = checked
                                     separator2column1.visible = checked
                                     separator3column1.visible = !checked
+
+
+                                    rootTimeDist.width = column1.width + column2.width +  (Style.marginSmall * 5)
+                                    rootTimeDist.minimumWidth = column1.width + column2.width + (Style.marginSmall * 5)
+                                    rootTimeDist.maximumWidth = column1.width + column2.width + (Style.marginSmall * 5)
+                                    rootTimeDist.height = upperMenu.height + Math.max(column1.height, column2.height) + bottomMenu.height +  (Style.marginSmall * 2)
+                                    rootTimeDist.minimumHeight = upperMenu.height + Math.max(column1.height, column2.height) + bottomMenu.height +  (Style.marginSmall * 2)
+                                    rootTimeDist.maximumHeight = upperMenu.height + Math.max(column1.height, column2.height) + bottomMenu.height +  (Style.marginSmall * 2)
                                 }
                             }
 
@@ -245,8 +264,16 @@ ApplicationWindow {
                                     separator1column1.visible = checked
                                     separator2column1.visible = checked
                                     separator3column1.visible = checked
+
+                                    rootTimeDist.width = column1.width + column2.width +  (Style.marginSmall * 5)
+                                    rootTimeDist.minimumWidth = column1.width + column2.width + (Style.marginSmall * 5)
+                                    rootTimeDist.maximumWidth = column1.width + column2.width + (Style.marginSmall * 5)
+                                    rootTimeDist.height = upperMenu.height + Math.max(column1.height, column2.height) + bottomMenu.height +  (Style.marginSmall * 2)
+                                    rootTimeDist.minimumHeight = upperMenu.height + Math.max(column1.height, column2.height) + bottomMenu.height +  (Style.marginSmall * 2)
+                                    rootTimeDist.maximumHeight = upperMenu.height + Math.max(column1.height, column2.height) + bottomMenu.height +  (Style.marginSmall * 2)
                                 }
                             }
+
                             RadioButton {
                                 id: radioButtonTimeDistDual
                                 checked: inputControllerTimeDist.ui_modelType == "Time Dist. Dual"
@@ -287,6 +314,13 @@ ApplicationWindow {
                                     separator1column1.visible = checked
                                     separator2column1.visible = checked
                                     separator3column1.visible = checked
+
+                                    rootTimeDist.width = column1.width + column2.width +  (Style.marginSmall * 5)
+                                    rootTimeDist.minimumWidth = column1.width + column2.width + (Style.marginSmall * 5)
+                                    rootTimeDist.maximumWidth = column1.width + column2.width + (Style.marginSmall * 5)
+                                    rootTimeDist.height = upperMenu.height + Math.max(column1.height, column2.height) + bottomMenu.height +  (Style.marginSmall * 2)
+                                    rootTimeDist.minimumHeight = upperMenu.height + Math.max(column1.height, column2.height) + bottomMenu.height +  (Style.marginSmall * 2)
+                                    rootTimeDist.maximumHeight = upperMenu.height + Math.max(column1.height, column2.height) + bottomMenu.height +  (Style.marginSmall * 2)
                                 }
                             }
 
@@ -297,7 +331,7 @@ ApplicationWindow {
                     Rectangle {
                         id: separator1column1
                         height: 1
-                        width: modeSectionGrid.width + 10
+                        width: modeSectionGrid.width + Style.marginSmall
                         color: Universal.baseHighColor
                     }
 
@@ -307,12 +341,15 @@ ApplicationWindow {
                         visible: (inputControllerTimeDist.ui_modelType === "Time Dist. SGV")
                         font.bold: true
                     }
+
                     Rectangle {
                         id: timeDistSGVSection
-                        width: modeSection.width
+                        width: modeSection.width + Style.marginSmall
                         height: childrenRect.height
-                        visible: (inputControllerTimeDist.ui_modelType === "Time Dist. SGV")
+
                         color: "transparent"
+
+                        visible: (inputControllerTimeDist.ui_modelType === "Time Dist. SGV")
 
                         Layout.alignment: Qt.AlignTop
 
@@ -325,7 +362,7 @@ ApplicationWindow {
                             }
                             Tab {
                                 id: comp1
-                                title: Strings.comp + "1"
+                                title: Strings.comp + 1
                                 height: parent.height
                                 width: implicitWidth
                                 GridLayout {
@@ -360,7 +397,7 @@ ApplicationWindow {
                                             anchors {
                                                 top: labelMutation1.bottom
                                                 left: parent.left
-                                                margins: 10
+                                                margins: Style.marginSmall
                                             }
 
 
@@ -421,7 +458,6 @@ ApplicationWindow {
                                                     if(globalConfiguration.ui_population_scaled) {
                                                         if(!Number.isNaN(Number(inputV1.textFieldText)) && parseFloat(inputV1.textFieldText) >= 0 && parseFloat(inputV1.textFieldText) <= 1) {
                                                             inputControllerTimeDist.ui_v_vec = v_vec
-                                                            print(inputControllerTimeDist.ui_v_vec)
                                                             borderColor = "#555555"
                                                         } else {
                                                             borderColor = "#ff0000"
@@ -450,7 +486,7 @@ ApplicationWindow {
 
                                         Label {
                                             id: labelSelection1
-                                            text: Strings.selection
+                                            text: Strings.selection + Strings.colon
                                             anchors {
                                                 left: parent.left
                                                 margins: {
@@ -465,7 +501,7 @@ ApplicationWindow {
                                             anchors {
                                                 top: labelSelection1.bottom
                                                 left: parent.left
-                                                margins: 10
+                                                margins: Style.marginSmall
                                             }
 
                                             LabeledTextField {
@@ -534,9 +570,7 @@ ApplicationWindow {
                                     // Load configuration on open here. Wait until everything loaded.
                                     var dummyString = outputControllerTimeDist.ui_load_config
                                     rootTimeDist.updateGUI()
-                                    print(timeDistSGVSectionTabView.getTab(0).item.children[0].children[1].children[0].textFieldText)
                                     updateScaledParameters(false)
-                                    print(timeDistSGVSectionTabView.getTab(0).item.children[0].children[1].children[0].textFieldText)
                                     firstLoad = false
                                 }
                             }
@@ -577,7 +611,7 @@ ApplicationWindow {
                                             anchors {
                                                 top: labelMutation2.bottom
                                                 left: parent.left
-                                                margins: 10
+                                                margins: Style.marginSmall
                                             }
 
 
@@ -681,7 +715,7 @@ ApplicationWindow {
                                             anchors {
                                                 top: labelSelection2.bottom
                                                 left: parent.left
-                                                margins: 10
+                                                margins: Style.marginSmall
                                             }
 
                                             LabeledTextField {
@@ -772,7 +806,7 @@ ApplicationWindow {
                             anchors {
                                 top: labelPopulation.bottom
                                 left: parent.left
-                                margins: 10
+                                margins: Style.marginSmall
                             }
 
                             LabeledTextField {
@@ -848,7 +882,7 @@ ApplicationWindow {
                     Rectangle {
                         id: separator2column1
                         height: 1
-                        width: modeSectionGrid.width + 10
+                        width: modeSectionGrid.width + Style.marginSmall
                         color: Universal.baseHighColor
                     }
 
@@ -872,7 +906,7 @@ ApplicationWindow {
                             anchors {
                                 top: labelCommonParameters.bottom
                                 left: parent.left
-                                margins: 10
+                                margins: Style.marginSmall
                             }
 
                             LabeledTextField {
@@ -991,7 +1025,7 @@ ApplicationWindow {
                             anchors {
                                 top: labelMutation.bottom
                                 left: parent.left
-                                margins: 10
+                                margins: Style.marginSmall
                             }
 
 
@@ -1067,7 +1101,7 @@ ApplicationWindow {
                     Rectangle {
                         id: separator3column1
                         height: 1
-                        width: modeSectionGrid.width + 10
+                        width: modeSectionGrid.width + Style.marginSmall
                         color: Universal.baseHighColor
                     }
 
@@ -1091,7 +1125,7 @@ ApplicationWindow {
                             anchors {
                                 top: labelSelection.bottom
                                 left: parent.left
-                                margins: 10
+                                margins: Style.marginSmall
                             }
 
                             LabeledTextField {
@@ -1144,22 +1178,23 @@ ApplicationWindow {
                     }
                 }
 
+                }
                 Rectangle {
                     id: separator1
                     width: 1
                     Layout.fillHeight: true
                     color: Universal.baseHighColor
-                    Layout.topMargin: 10
-                    Layout.bottomMargin:10
+                    Layout.topMargin: Style.marginSmall
+                    Layout.bottomMargin: Style.marginSmall
                 }
 
                 ColumnLayout {
                     id: column2
-                    Layout.preferredHeight: column1.height
+                    Layout.alignment: Qt.AlignTop
 
                     ColumnLayout {
                         Layout.alignment: Qt.AlignTop
-                        Layout.margins: 10
+                        Layout.margins: Style.marginSmall
 
                         Rectangle {
                             id: outputSection
@@ -1180,7 +1215,7 @@ ApplicationWindow {
                                 anchors {
                                     top: labelOutput.bottom
                                     left: parent.left
-                                    margins: 10
+                                    margins: Style.marginSmall
                                 }
 
                                 LabeledCheckBox {
@@ -1234,7 +1269,7 @@ ApplicationWindow {
                                 anchors {
                                     top: labelExecution.bottom
                                     left: parent.left
-                                    margins: 10
+                                    margins: Style.marginSmall
                                 }
                                 RowLayout {
                                     width: childrenRect.width
@@ -1288,7 +1323,7 @@ ApplicationWindow {
 
                         Button {
                             id: stopButton
-                            Layout.margins: 10
+                            Layout.margins: Style.marginSmall
                             Layout.alignment: Qt.AlignRight
                             text: Strings.stopButton
 
@@ -1309,7 +1344,7 @@ ApplicationWindow {
 
                         Button {
                             id: executeButton
-                            Layout.margins: 10
+                            Layout.margins: Style.marginSmall
                             Layout.alignment: Qt.AlignRight
                             text: Strings.executeButton
 

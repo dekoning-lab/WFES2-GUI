@@ -17,12 +17,12 @@ ApplicationWindow {
 
     visible: false
 
-    width: 955
-    minimumWidth: 955
-    maximumWidth: 955
-    height: 460
-    minimumHeight: 460
-    maximumHeight: 460
+    width: column1.width + column2.width + column3.width + (Style.marginSmall * 6)
+    minimumWidth: column1.width + column2.width + column3.width + (Style.marginSmall * 6)
+    maximumWidth: column1.width + column2.width + column3.width + (Style.marginSmall * 6)
+    height: upperMenu.height + Math.max(column1.height, column2.height, column3.height) + bottomMenu.height
+    minimumHeight: upperMenu.height + Math.max(column1.height, column2.height, column3.height) + bottomMenu.height
+    maximumHeight: upperMenu.height + Math.max(column1.height, column2.height, column3.height) + bottomMenu.height
 
     // Select theme for the application.
     Universal.theme: Universal.Light
@@ -92,7 +92,7 @@ ApplicationWindow {
                     width: childrenRect.width
                     height: childrenRect.height
 
-                    Layout.margins: 10
+                    Layout.margins: Style.marginSmall
                     Layout.alignment: Qt.AlignTop
 
                     Label {
@@ -103,7 +103,7 @@ ApplicationWindow {
 
                     Rectangle {
                         id: componentsSection
-                        width: commonSection.width + 10
+                        width: commonSection.width + Style.marginSmall
                         height: childrenRect.height
 
                         color: "transparent"
@@ -112,7 +112,7 @@ ApplicationWindow {
 
                         DynamicTabView {
                             id: componentsSectionTabView
-                            width: commonSection.width + 10
+                            width: commonSection.width + Style.marginSmall
                             height: 270
                             tabNames: Strings.comp
                             urlComponent: "qrc:/components/executionviews/tabcomponents/tabWfesSequentialComponent.qml"
@@ -186,7 +186,7 @@ ApplicationWindow {
                             anchors {
                                 top: labelCommonParameters.bottom
                                 left: parent.left
-                                margins: 10
+                                margins: Style.marginSmall
                             }
 
                             LabeledTextField {
@@ -231,8 +231,8 @@ ApplicationWindow {
                     width: 1
                     Layout.fillHeight: true
                     color: Universal.baseHighColor
-                    Layout.topMargin: 10
-                    Layout.bottomMargin:10
+                    Layout.topMargin: Style.marginSmall
+                    Layout.bottomMargin: Style.marginSmall
                 }
 
 
@@ -242,7 +242,7 @@ ApplicationWindow {
 
                         ColumnLayout {
                             Layout.alignment: Qt.AlignTop
-                            Layout.margins: 10
+                            Layout.margins: Style.marginSmall
                             height: childrenRect.height
 
                             Rectangle {
@@ -264,7 +264,7 @@ ApplicationWindow {
                                     anchors {
                                         top: labelOutput.bottom
                                         left: parent.left
-                                        margins: 10
+                                        margins: Style.marginSmall
                                     }
 
                                     LabeledCheckBox {
@@ -351,7 +351,7 @@ ApplicationWindow {
                                     anchors {
                                         top: labelExecution.bottom
                                         left: parent.left
-                                        margins: 10
+                                        margins: Style.marginSmall
                                     }
                                     RowLayout {
                                         width: childrenRect.width
@@ -367,7 +367,7 @@ ApplicationWindow {
                                             id: inputT
                                             text: Strings.t + Strings.colon
                                             toolTipText: Strings.tTooltip
-                                            labelPreferredWidth: 10
+                                            labelPreferredWidth: Style.marginSmall
                                             validator: DoubleValidator {bottom: 2; top: 50000;}
                                             textFieldText: inputControllerWfesSequential.ui_t
                                             textFieldTextEdited: function(){
@@ -447,7 +447,7 @@ ApplicationWindow {
 
                             Button {
                                 id: stopButton
-                                Layout.margins: 10
+                                Layout.margins: Style.marginSmall
                                 Layout.alignment: Qt.AlignRight
                                 text: Strings.stopButton
 
@@ -468,7 +468,7 @@ ApplicationWindow {
 
                             Button {
                                 id: executeButton
-                                Layout.margins: 10
+                                Layout.margins: Style.marginSmall
                                 Layout.alignment: Qt.AlignRight
                                 text: Strings.executeButton
 
@@ -525,13 +525,13 @@ ApplicationWindow {
                     width: 1
                     Layout.fillHeight: true
                     color: Universal.baseHighColor
-                    Layout.topMargin: 10
-                    Layout.bottomMargin:10
+                    Layout.topMargin: Style.marginSmall
+                    Layout.bottomMargin: Style.marginSmall
                 }
 
                 ColumnLayout {
                     id: column3
-                    Layout.margins: 10
+                    Layout.margins: Style.marginSmall
                     Layout.alignment: Qt.AlignTop
 
                     Label {

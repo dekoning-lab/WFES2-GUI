@@ -16,12 +16,12 @@ ApplicationWindow {
 
     visible: false
 
-    width: 890
-    minimumWidth: 890
-    maximumWidth: 890
-    height: 450
-    minimumHeight: 450
-    maximumHeight: 450
+    width: column1.width + column2.width + column3.width + (Style.marginSmall * 5)
+    minimumWidth: column1.width + column2.width + column3.width + (Style.marginSmall * 5)
+    maximumWidth: column1.width + column2.width + column3.width + (Style.marginSmall * 5)
+    height: upperMenu.height + Math.max(column1.height, column2.height, column3.height) + bottomMenu.height
+    minimumHeight: upperMenu.height + Math.max(column1.height, column2.height, column3.height) + bottomMenu.height
+    maximumHeight: upperMenu.height + Math.max(column1.height, column2.height, column3.height) + bottomMenu.height
 
     // Select theme for the application.
     Universal.theme: Universal.Light
@@ -91,7 +91,7 @@ ApplicationWindow {
                     width: childrenRect.width
                     height: childrenRect.height
 
-                    Layout.margins: 10
+                    Layout.margins: Style.marginSmall
                     Layout.alignment: Qt.AlignTop
 
                     Label {
@@ -102,7 +102,7 @@ ApplicationWindow {
 
                     Rectangle {
                         id: componentsSection
-                        width: commonSection.width + 10
+                        width: commonSection.width + Style.marginSmall
                         height: childrenRect.height
 
                         color: "transparent"
@@ -111,7 +111,7 @@ ApplicationWindow {
 
                         DynamicTabView {
                             id: componentsSectionTabView
-                            width: commonSection.width + 10
+                            width: commonSection.width + Style.marginSmall
                             height: 270
                             tabNames: Strings.comp
                             urlComponent: "qrc:/components/executionviews/tabcomponents/tabWfafdComponent.qml"
@@ -181,7 +181,7 @@ ApplicationWindow {
                             anchors {
                                 top: labelCommonParameters.bottom
                                 left: parent.left
-                                margins: 10
+                                margins: Style.marginSmall
                             }
 
                             LabeledTextField {
@@ -226,18 +226,18 @@ ApplicationWindow {
                     width: 1
                     Layout.fillHeight: true
                     color: Universal.baseHighColor
-                    Layout.topMargin: 10
-                    Layout.bottomMargin:10
+                    Layout.topMargin: Style.marginSmall
+                    Layout.bottomMargin: Style.marginSmall
                 }
+
 
                 ColumnLayout {
                     id: column2
-                    height: parent.height
-                    Layout.alignment: Qt.AlignTop
-                    Layout.margins: 10
+                    Layout.preferredHeight: parent.height
 
                     ColumnLayout {
                         Layout.alignment: Qt.AlignTop
+                        Layout.margins: Style.marginSmall
 
                         Rectangle {
                             id: outputSection
@@ -258,7 +258,7 @@ ApplicationWindow {
                                 anchors {
                                     top: labelOutput.bottom
                                     left: parent.left
-                                    margins: 10
+                                    margins: Style.marginSmall
                                 }
 
                                 Label {
@@ -302,7 +302,7 @@ ApplicationWindow {
                                 anchors {
                                     top: labelExecution.bottom
                                     left: parent.left
-                                    margins: 10
+                                    margins: Style.marginSmall
                                 }
                                 RowLayout {
                                     width: childrenRect.width
@@ -317,7 +317,7 @@ ApplicationWindow {
                                     LabeledTextField {
                                         id: inputT
                                         text: Strings.t + Strings.colon
-                                        labelPreferredWidth: 10
+                                        labelPreferredWidth: Style.marginSmall
                                         toolTipText: Strings.tTooltip
                                         validator: DoubleValidator {bottom: 2; top: 50000;}
                                         textFieldText: inputControllerWfafd.ui_t
@@ -398,7 +398,7 @@ ApplicationWindow {
 
                         Button {
                             id: stopButton
-                            Layout.margins: 10
+                            Layout.margins: Style.marginSmall
                             Layout.alignment: Qt.AlignRight
                             text: Strings.stopButton
 
@@ -419,7 +419,7 @@ ApplicationWindow {
 
                         Button {
                             id: executeButton
-                            Layout.margins: 10
+                            Layout.margins: Style.marginSmall
                             Layout.alignment: Qt.AlignRight
                             text: Strings.executeButton
 
@@ -480,13 +480,13 @@ ApplicationWindow {
                     width: 1
                     Layout.fillHeight: true
                     color: Universal.baseHighColor
-                    Layout.topMargin: 10
-                    Layout.bottomMargin:10
+                    Layout.topMargin: Style.marginSmall
+                    Layout.bottomMargin: Style.marginSmall
                 }
 
                 ColumnLayout {
                     id: column3
-                    Layout.margins: 10
+                    Layout.margins: Style.marginSmall
                     Layout.alignment: Qt.AlignTop
 
                     Label {
@@ -507,7 +507,7 @@ ApplicationWindow {
                         border.width: 1
 
                         Layout.alignment: Qt.AlignTop
-                        Layout.margins: 10
+                        Layout.margins: Style.marginSmall
 
                         ScrollView {
                             width: parent.width - 1
@@ -522,7 +522,7 @@ ApplicationWindow {
                                 id: listViewMoments
                                 model: outputControllerWfafd.ui_probs
                                 delegate: ItemDelegate {
-                                  width: parent.width
+                                  width: labelMoments.width * 4
                                   height: 25
                                   Text {
                                       text: modelData;
