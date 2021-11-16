@@ -410,7 +410,7 @@ ApplicationWindow {
                                                         return Strings.uSub.arg(1) + Strings.colon
                                                 }
                                                 toolTipText: Strings.uTooltip
-                                                validator: DoubleValidator {bottom: 0;}
+                                                validator: DoubleValidator {bottom: LimitValues.uMinLimitTimeDistValidator;}
                                                 textFieldText: {
                                                     var u_vec = inputControllerTimeDist.ui_u_vec
                                                     return u_vec[0]
@@ -420,14 +420,14 @@ ApplicationWindow {
                                                     u_vec[0] = inputControllerTimeDist.ui_u_vec[0]
                                                     u_vec[1] = inputU1.textFieldText
                                                     if(globalConfiguration.ui_population_scaled) {
-                                                        if(!Number.isNaN(Number(inputU1.textFieldText)) && parseFloat(inputU1.textFieldText) >= 0 && parseFloat(inputU1.textFieldText) <= 1) {
+                                                        if(!Number.isNaN(Number(inputU1.textFieldText)) && parseFloat(inputU1.textFieldText) >= LimitValues.uMinLimitTimeDistValidator && parseFloat(inputU1.textFieldText) <= LimitValues.uMaxLimitTimeDistValidator) {
                                                             inputControllerTimeDist.ui_u_vec = u_vec
                                                             borderColor = "#555555"
                                                         } else {
                                                             borderColor = "#ff0000"
                                                         }
                                                     } else {
-                                                        if(!Number.isNaN(Number(inputU1.textFieldText)) && parseFloat(inputU1.textFieldText) >= 0 && parseFloat(inputU1.textFieldText) <= 1 / (4 * parseInt(inputN1.textFieldText))) {
+                                                        if(!Number.isNaN(Number(inputU1.textFieldText)) && parseFloat(inputU1.textFieldText) >= LimitValues.uMinLimitTimeDistValidator && parseFloat(inputU1.textFieldText) <= LimitValues.uMaxLimitTimeDistValidator / (4 * parseInt(inputN1.textFieldText))) {
                                                             inputControllerTimeDist.ui_u_vec = u_vec
                                                             borderColor = "#555555"
                                                         } else {
@@ -456,14 +456,14 @@ ApplicationWindow {
                                                     v_vec[0] = inputControllerTimeDist.ui_v_vec[0]
                                                     v_vec[1] = inputV1.textFieldText
                                                     if(globalConfiguration.ui_population_scaled) {
-                                                        if(!Number.isNaN(Number(inputV1.textFieldText)) && parseFloat(inputV1.textFieldText) >= 0 && parseFloat(inputV1.textFieldText) <= 1) {
+                                                        if(!Number.isNaN(Number(inputV1.textFieldText)) && parseFloat(inputV1.textFieldText) >= LimitValues.vMinLimitTimeDistValidator && parseFloat(inputV1.textFieldText) <= LimitValues.vMaxLimitTimeDistValidator) {
                                                             inputControllerTimeDist.ui_v_vec = v_vec
                                                             borderColor = "#555555"
                                                         } else {
                                                             borderColor = "#ff0000"
                                                         }
                                                     } else {
-                                                        if(!Number.isNaN(Number(inputV1.textFieldText)) && parseFloat(inputV1.textFieldText) >= 0 && parseFloat(inputV1.textFieldText) <= 1 / (4 * parseInt(inputN1.textFieldText))) {
+                                                        if(!Number.isNaN(Number(inputV1.textFieldText)) && parseFloat(inputV1.textFieldText) >= LimitValues.vMinLimitTimeDistValidator && parseFloat(inputV1.textFieldText) <= LimitValues.vMaxLimitTimeDistValidator / (4 * parseInt(inputN1.textFieldText))) {
                                                             inputControllerTimeDist.ui_v_vec = v_vec
                                                             borderColor = "#555555"
                                                         } else {
@@ -513,7 +513,7 @@ ApplicationWindow {
                                                         return Strings.sSub.arg(1) + Strings.colon
                                                 }
                                                 toolTipText: Strings.sTooltip
-                                                validator: DoubleValidator {bottom: -1; top: 1;}
+                                                validator: DoubleValidator {bottom: LimitValues.sMinLimitTimeDistValidator; top: LimitValues.sMaxLimitTimeDistValidator;}
                                                 textFieldText: {
                                                     var s_vec = inputControllerTimeDist.ui_s_vec
                                                     return s_vec[0]
@@ -523,14 +523,14 @@ ApplicationWindow {
                                                     s_vec[0] = inputControllerTimeDist.ui_s_vec[0]
                                                     s_vec[1] = inputS1.textFieldText
                                                     if(globalConfiguration.ui_population_scaled) {
-                                                        if(!Number.isNaN(Number(inputS1.textFieldText)) && parseFloat(inputS1.textFieldText) >= -1 * (2 * parseInt(inputN1.textFieldText)) && parseFloat(inputS1.textFieldText) <= 1 * (2 * parseInt(inputN1.textFieldText))) {
+                                                        if(!Number.isNaN(Number(inputS1.textFieldText)) && parseFloat(inputS1.textFieldText) >= LimitValues.sMinLimitTimeDistValidator * (2 * parseInt(inputN1.textFieldText)) && parseFloat(inputS1.textFieldText) <= LimitValues.sMaxLimitTimeDistValidator * (2 * parseInt(inputN1.textFieldText))) {
                                                             inputControllerTimeDist.ui_s_vec = s_vec
                                                             borderColor = "#555555"
                                                         } else {
                                                             borderColor = "#ff0000"
                                                         }
                                                     } else {
-                                                        if(parseFloat(!Number.isNaN(Number(inputS1.textFieldText)) && inputS1.textFieldText) >= -1 && parseFloat(inputS1.textFieldText) <= 1) {
+                                                        if(parseFloat(!Number.isNaN(Number(inputS1.textFieldText)) && inputS1.textFieldText) >= LimitValues.sMinLimitTimeDistValidator && parseFloat(inputS1.textFieldText) <= LimitValues.sMaxLimitTimeDistValidator) {
                                                             inputControllerTimeDist.ui_s_vec = s_vec
                                                             borderColor = "#555555"
                                                         } else {
@@ -544,7 +544,7 @@ ApplicationWindow {
                                                 id: inputH1
                                                 text: Strings.hSub.arg(1) + Strings.colon
                                                 toolTipText: Strings.hTooltip
-                                                validator: DoubleValidator {bottom: 0; top: 1;}
+                                                validator: DoubleValidator {bottom: LimitValues.hMinLimitTimeDistValidator; top: LimitValues.hMaxLimitTimeDistValidator;}
                                                 textFieldText: {
                                                     var h_vec = inputControllerTimeDist.ui_h_vec
                                                     return h_vec[0]
@@ -553,7 +553,7 @@ ApplicationWindow {
                                                     var h_vec = []
                                                     h_vec[0] = inputControllerTimeDist.ui_h_vec[0]
                                                     h_vec[1] = inputH1.textFieldText
-                                                    if(!Number.isNaN(Number(inputH1.textFieldText)) && parseFloat(inputH1.textFieldText) >= 0 && parseFloat(inputH1.textFieldText) <= 1) {
+                                                    if(!Number.isNaN(Number(inputH1.textFieldText)) && parseFloat(inputH1.textFieldText) >= LimitValues.hMinLimitTimeDistValidator && parseFloat(inputH1.textFieldText) <= LimitValues.hMaxLimitTimeDistValidator) {
                                                         inputControllerTimeDist.ui_h_vec = h_vec
                                                         borderColor = "#555555"
                                                     } else {
@@ -624,7 +624,7 @@ ApplicationWindow {
                                                         return Strings.uSub.arg(2) + Strings.colon
                                                 }
                                                 toolTipText: Strings.uTooltip
-                                                validator: DoubleValidator {bottom: 0;}
+                                                validator: DoubleValidator {bottom: LimitValues.uMinLimitTimeDistValidator;}
                                                 textFieldText: {
                                                     var u_vec = inputControllerTimeDist.ui_u_vec
                                                     return u_vec[1]
@@ -634,14 +634,14 @@ ApplicationWindow {
                                                     u_vec[0] = inputU2.textFieldText
                                                     u_vec[1] = inputControllerTimeDist.ui_u_vec[1]
                                                     if(globalConfiguration.ui_population_scaled) {
-                                                        if(!Number.isNaN(Number(inputU2.textFieldText)) && parseFloat(inputU2.textFieldText) >= 0 && parseFloat(inputU2.textFieldText) <= 1) {
+                                                        if(!Number.isNaN(Number(inputU2.textFieldText)) && parseFloat(inputU2.textFieldText) >= LimitValues.uMinLimitTimeDistValidator && parseFloat(inputU2.textFieldText) <= LimitValues.uMaxLimitTimeDistValidator) {
                                                             inputControllerTimeDist.ui_u_vec = u_vec
                                                             borderColor = "#555555"
                                                         } else {
                                                             borderColor = "#ff0000"
                                                         }
                                                     } else {
-                                                        if(!Number.isNaN(Number(inputU2.textFieldText)) && parseFloat(inputU2.textFieldText) >= 0 && parseFloat(inputU2.textFieldText) <= 1 / (4 * parseInt(inputN1.textFieldText))) {
+                                                        if(!Number.isNaN(Number(inputU2.textFieldText)) && parseFloat(inputU2.textFieldText) >= LimitValues.uMinLimitTimeDistValidator && parseFloat(inputU2.textFieldText) <= LimitValues.uMaxLimitTimeDistValidator / (4 * parseInt(inputN1.textFieldText))) {
                                                             inputControllerTimeDist.ui_u_vec = u_vec
                                                             borderColor = "#555555"
                                                         } else {
@@ -660,7 +660,7 @@ ApplicationWindow {
                                                         return Strings.vSub.arg(2) + Strings.colon
                                                 }
                                                 toolTipText: Strings.vTooltip
-                                                validator: DoubleValidator {bottom: 0;}
+                                                validator: DoubleValidator {bottom: LimitValues.vMinLimitTimeDistValidator;}
                                                 textFieldText: {
                                                     var v_vec = inputControllerTimeDist.ui_v_vec
                                                     return v_vec[1]
@@ -670,14 +670,14 @@ ApplicationWindow {
                                                     v_vec[0] = inputV2.textFieldText
                                                     v_vec[1] = inputControllerTimeDist.ui_v_vec[1]
                                                     if(globalConfiguration.ui_population_scaled) {
-                                                        if(!Number.isNaN(Number(inputV2.textFieldText)) && parseFloat(inputV2.textFieldText) >= 0 && parseFloat(inputV2.textFieldText) <= 1) {
+                                                        if(!Number.isNaN(Number(inputV2.textFieldText)) && parseFloat(inputV2.textFieldText) >= LimitValues.vMinLimitTimeDistValidator && parseFloat(inputV2.textFieldText) <= LimitValues.vMaxLimitTimeDistValidator) {
                                                             inputControllerTimeDist.ui_v_vec = v_vec
                                                             borderColor = "#555555"
                                                         } else {
                                                             borderColor = "#ff0000"
                                                         }
                                                     } else {
-                                                        if(!Number.isNaN(Number(inputV2.textFieldText)) && parseFloat(inputV2.textFieldText) >= 0 && parseFloat(inputV2.textFieldText) <= 1 / (4 * parseInt(inputN1.textFieldText))) {
+                                                        if(!Number.isNaN(Number(inputV2.textFieldText)) && parseFloat(inputV2.textFieldText) >= LimitValues.vMinLimitTimeDistValidator && parseFloat(inputV2.textFieldText) <= LimitValues.vMaxLimitTimeDistValidator / (4 * parseInt(inputN1.textFieldText))) {
                                                             inputControllerTimeDist.ui_v_vec = v_vec
                                                             borderColor = "#555555"
                                                         } else {
@@ -727,7 +727,7 @@ ApplicationWindow {
                                                         return Strings.sSub.arg(2) + Strings.colon
                                                 }
                                                 toolTipText: Strings.sTooltip
-                                                validator: DoubleValidator {bottom: -1; top: 1;}
+                                                validator: DoubleValidator {bottom: LimitValues.sMinLimitTimeDistValidator; top: LimitValues.sMaxLimitTimeDistValidator;}
                                                 textFieldText: {
                                                     var s_vec = inputControllerTimeDist.ui_s_vec
                                                     return s_vec[1]
@@ -737,14 +737,14 @@ ApplicationWindow {
                                                     s_vec[0] = inputS2.textFieldText
                                                     s_vec[1] = inputControllerTimeDist.ui_s_vec[1]
                                                     if(globalConfiguration.ui_population_scaled) {
-                                                        if(!Number.isNaN(Number(inputS2.textFieldText)) && parseFloat(inputS2.textFieldText) >= -1 * (2 * parseInt(inputN1.textFieldText)) && parseFloat(inputS2.textFieldText) <= 1 * (2 * parseInt(inputN1.textFieldText))) {
+                                                        if(!Number.isNaN(Number(inputS2.textFieldText)) && parseFloat(inputS2.textFieldText) >= LimitValues.sMinLimitTimeDistValidator * (2 * parseInt(inputN1.textFieldText)) && parseFloat(inputS2.textFieldText) <= LimitValues.sMaxLimitTimeDistValidator * (2 * parseInt(inputN1.textFieldText))) {
                                                             inputControllerTimeDist.ui_s_vec = s_vec
                                                             borderColor = "#555555"
                                                         } else {
                                                             borderColor = "#ff0000"
                                                         }
                                                     } else {
-                                                        if(!Number.isNaN(Number(inputS2.textFieldText)) && parseFloat(inputS2.textFieldText) >= -1 && parseFloat(inputS2.textFieldText) <= 1) {
+                                                        if(!Number.isNaN(Number(inputS2.textFieldText)) && parseFloat(inputS2.textFieldText) >= LimitValues.sMinLimitTimeDistValidator && parseFloat(inputS2.textFieldText) <= LimitValues.sMaxLimitTimeDistValidator) {
                                                             inputControllerTimeDist.ui_s_vec = s_vec
                                                             borderColor = "#555555"
                                                         } else {
@@ -758,7 +758,7 @@ ApplicationWindow {
                                                 id: inputH2
                                                 text: Strings.hSub.arg(2) + Strings.colon
                                                 toolTipText: Strings.hTooltip
-                                                validator: DoubleValidator {bottom: 0; top: 1;}
+                                                validator: DoubleValidator {bottom: LimitValues.hMinLimitTimeDistValidator; top: LimitValues.hMaxLimitTimeDistValidator;}
                                                 textFieldText: {
                                                     var h_vec = inputControllerTimeDist.ui_h_vec
                                                     return h_vec[1]
@@ -767,7 +767,7 @@ ApplicationWindow {
                                                     var h_vec = []
                                                     h_vec[0] = inputH2.textFieldText
                                                     h_vec[1] = inputControllerTimeDist.ui_h_vec[1]
-                                                    if(!Number.isNaN(Number(inputH2.textFieldText)) && parseFloat(inputH2.textFieldText) >= 0 && parseFloat(inputH2.textFieldText) <= 1) {
+                                                    if(!Number.isNaN(Number(inputH2.textFieldText)) && parseFloat(inputH2.textFieldText) >= LimitValues.hMinLimitTimeDistValidator && parseFloat(inputH2.textFieldText) <= LimitValues.hMaxLimitTimeDistValidator) {
                                                         inputControllerTimeDist.ui_h_vec = h_vec
                                                         borderColor = "#555555"
                                                     } else {
@@ -813,10 +813,10 @@ ApplicationWindow {
                                 id: inputN
                                 text: Strings.n + Strings.colon
                                 toolTipText: Strings.nTooltip
-                                validator: IntValidator {bottom: 2; top: 500000;}
+                                validator: IntValidator {bottom: LimitValues.nMinLimitTimeDistValidator; top: LimitValues.nMaxLimitTimeDistValidator;}
                                 textFieldText: inputControllerTimeDist.ui_n
                                 textFieldTextEdited: function(){
-                                    if(parseInt(inputN.textFieldText) > 1) {
+                                    if(parseInt(inputN.textFieldText) >= LimitValues.nMinLimitTimeDistValidator) {
                                         inputControllerTimeDist.ui_n = inputN.textFieldText
                                         borderColor = "#555555"
                                     } else {
@@ -831,10 +831,10 @@ ApplicationWindow {
                                 id: inputA
                                 text: Strings.a + Strings.colon
                                 toolTipText: Strings.aTooltip
-                                validator: DoubleValidator {bottom: 0;}
+                                validator: DoubleValidator {bottom: LimitValues.aMinLimitTimeDistValidator;}
                                 textFieldText: inputControllerTimeDist.ui_a
                                 textFieldTextEdited: function(){
-                                    if(!Number.isNaN(Number(inputA.textFieldText)) && parseFloat(inputA.textFieldText) >= 0) {
+                                    if(!Number.isNaN(Number(inputA.textFieldText)) && parseFloat(inputA.textFieldText) >= LimitValues.aMinLimitTimeDistValidator) {
                                         inputControllerTimeDist.ui_a = inputA.textFieldText
                                         borderColor = "#555555"
                                     } else {
@@ -847,10 +847,10 @@ ApplicationWindow {
                                 id: inputC
                                 text: Strings.c + Strings.colon
                                 toolTipText: Strings.cTooltip
-                                validator: DoubleValidator {bottom: 0; top: 1;}
+                                validator: DoubleValidator {bottom: LimitValues.cMinLimitTimeDistValidator; top: LimitValues.cMinLimitTimeDistValidator;}
                                 textFieldText: inputControllerTimeDist.ui_c
                                 textFieldTextEdited: function(){
-                                    if(!Number.isNaN(Number(inputC.textFieldText)) && parseFloat(inputC.textFieldText) >= 0) {
+                                    if(!Number.isNaN(Number(inputC.textFieldText)) && parseFloat(inputC.textFieldText) >= LimitValues.cMinLimitTimeDistValidator) {
                                         inputControllerTimeDist.ui_c = inputC.textFieldText
                                         borderColor = "#555555"
                                     } else {
@@ -863,10 +863,10 @@ ApplicationWindow {
                                 id: inputM
                                 text: Strings.m + Strings.colon
                                 toolTipText: Strings.mTooltip
-                                validator: DoubleValidator {bottom: 1;}
+                                validator: DoubleValidator {bottom: LimitValues.mMinLimitTimeDistValidator;}
                                 textFieldText: inputControllerTimeDist.ui_m
                                 textFieldTextEdited: function(){
-                                    if(!Number.isNaN(Number(inputM.textFieldText)) && parseFloat(inputM.textFieldText) >= 1) {
+                                    if(!Number.isNaN(Number(inputM.textFieldText)) && parseFloat(inputM.textFieldText) >= LimitValues.mMinLimitTimeDistValidator) {
                                         inputControllerTimeDist.ui_m = inputM.textFieldText
                                         borderColor = "#555555"
                                     } else {
@@ -913,10 +913,10 @@ ApplicationWindow {
                                 id: inputN1
                                 text: Strings.n + Strings.colon
                                 toolTipText: Strings.nTooltip
-                                validator: IntValidator {bottom: 2; top: 500000;}
+                                validator: IntValidator {bottom: LimitValues.nMinLimitTimeDistValidator; top: LimitValues.nMaxLimitTimeDistValidator;}
                                 textFieldText: inputControllerTimeDist.ui_n_sgv
                                 textFieldTextEdited: function(){
-                                    if(parseInt(inputN1.textFieldText) > 1) {
+                                    if(parseInt(inputN1.textFieldText) >= LimitValues.nMinLimitTimeDistValidator) {
                                         inputControllerTimeDist.ui_n_sgv = inputN1.textFieldText
                                         borderColor = "#555555"
                                     } else {
@@ -935,10 +935,10 @@ ApplicationWindow {
                                 id: inputA1
                                 text: Strings.a + Strings.colon
                                 toolTipText: Strings.aTooltip
-                                validator: DoubleValidator {bottom: 0;}
+                                validator: DoubleValidator {bottom: LimitValues.aMinLimitTimeDistValidator;}
                                 textFieldText: inputControllerTimeDist.ui_a_sgv
                                 textFieldTextEdited: function(){
-                                    if(!Number.isNaN(Number(inputA1.textFieldText)) && parseFloat(inputA1.textFieldText) >= 0) {
+                                    if(!Number.isNaN(Number(inputA1.textFieldText)) && parseFloat(inputA1.textFieldText) >= LimitValues.aMinLimitTimeDistValidator) {
                                         inputControllerWfesSweep.ui_a_sgv = inputA1.textFieldText
                                         borderColor = "#555555"
                                     } else {
@@ -951,11 +951,11 @@ ApplicationWindow {
                                 id: inputL
                                 text: Strings.l + Strings.colon
                                 toolTipText: Strings.lTooltip
-                                validator: DoubleValidator {bottom: 1e-20; top: 1;}
+                                validator: DoubleValidator {bottom: LimitValues.lMinLimitTimeDistValidator; top: LimitValues.lMaxLimitTimeDistValidator;}
                                 textFieldText: inputControllerTimeDist.ui_l
                                 enabled: (inputControllerTimeDist.ui_modelType == "Time Dist. SGV")
                                 textFieldTextEdited: function(){
-                                    if(!Number.isNaN(Number(inputL.textFieldText)) && parseFloat(inputL.textFieldText) >= 1e-20 && parseFloat(inputL.textFieldText) <= 1) {
+                                    if(!Number.isNaN(Number(inputL.textFieldText)) && parseFloat(inputL.textFieldText) >= LimitValues.lMinLimitTimeDistValidator && parseFloat(inputL.textFieldText) <= LimitValues.lMaxLimitTimeDistValidator) {
                                         inputControllerTimeDist.ui_l = inputL.textFieldText
                                         borderColor = "#555555"
                                     } else {
@@ -968,10 +968,10 @@ ApplicationWindow {
                                 id: inputC1
                                 text: Strings.c + Strings.colon
                                 toolTipText: Strings.cTooltip
-                                validator: DoubleValidator {bottom: 0; top: 1;}
+                                validator: DoubleValidator {bottom: LimitValues.cMinLimitTimeDistValidator; top: LimitValues.cMaxLimitTimeDistValidator;}
                                 textFieldText: inputControllerTimeDist.ui_c_sgv
                                 textFieldTextEdited: function(){
-                                    if(!Number.isNaN(Number(inputC1.textFieldText)) && parseFloat(inputC1.textFieldText) >= 0) {
+                                    if(!Number.isNaN(Number(inputC1.textFieldText)) && parseFloat(inputC1.textFieldText) >= LimitValues.cMinLimitTimeDistValidator) {
                                         inputControllerTimeDist.ui_c_sgv = inputC1.textFieldText
                                         borderColor = "#555555"
                                     } else {
@@ -984,10 +984,10 @@ ApplicationWindow {
                                 id: inputM1
                                 text: Strings.m + Strings.colon
                                 toolTipText: Strings.mTooltip
-                                validator: DoubleValidator {bottom: 1;}
+                                validator: DoubleValidator {bottom: LimitValues.mMinLimitTimeDistValidator;}
                                 textFieldText: inputControllerTimeDist.ui_m_sgv
                                 textFieldTextEdited: function(){
-                                    if(!Number.isNaN(Number(inputM1.textFieldText)) && parseFloat(inputM1.textFieldText) >= 1) {
+                                    if(!Number.isNaN(Number(inputM1.textFieldText)) && parseFloat(inputM1.textFieldText) >= LimitValues.mMinLimitTimeDistValidator) {
                                         inputControllerTimeDist.ui_m_sgv = inputM1.textFieldText
                                         borderColor = "#555555"
                                     } else {
@@ -1038,18 +1038,18 @@ ApplicationWindow {
                                         return Strings.u + Strings.colon
                                 }
                                 toolTipText: Strings.uTooltip
-                                validator: DoubleValidator {bottom: 0;}
+                                validator: DoubleValidator {bottom: LimitValues.uMinLimitTimeDistValidator;}
                                 textFieldText: inputControllerTimeDist.ui_u
                                 textFieldTextEdited: function(){
                                     if(globalConfiguration.ui_population_scaled) {
-                                        if(!Number.isNaN(Number(inputU.textFieldText)) && parseFloat(inputU.textFieldText) >= 0 && parseFloat(inputU.textFieldText) <= 1) {
+                                        if(!Number.isNaN(Number(inputU.textFieldText)) && parseFloat(inputU.textFieldText) >= LimitValues.uMinLimitTimeDistValidator && parseFloat(inputU.textFieldText) <= LimitValues.uMaxLimitTimeDistValidator) {
                                             inputControllerTimeDist.ui_u = inputU.textFieldText
                                             borderColor = "#555555"
                                         } else {
                                             borderColor = "#ff0000"
                                         }
                                     } else {
-                                        if(!Number.isNaN(Number(inputU.textFieldText)) && parseFloat(inputU.textFieldText) >= 0 && parseFloat(inputU.textFieldText) <= 1 / (4 * parseInt(inputN.textFieldText))) {
+                                        if(!Number.isNaN(Number(inputU.textFieldText)) && parseFloat(inputU.textFieldText) >= LimitValues.uMinLimitTimeDistValidator && parseFloat(inputU.textFieldText) <= LimitValues.uMaxLimitTimeDistValidator / (4 * parseInt(inputN.textFieldText))) {
                                             inputControllerTimeDist.ui_u = inputU.textFieldText
                                             borderColor = "#555555"
                                         } else {
@@ -1068,18 +1068,18 @@ ApplicationWindow {
                                         return Strings.v + Strings.colon
                                 }
                                 toolTipText: Strings.vTooltip
-                                validator: DoubleValidator {bottom: 0;}
+                                validator: DoubleValidator {bottom: LimitValues.vMinLimitTimeDistValidator;}
                                 textFieldText: inputControllerTimeDist.ui_v
                                 textFieldTextEdited: function(){
                                     if(globalConfiguration.ui_population_scaled) {
-                                        if(!Number.isNaN(Number(inputV.textFieldText)) && parseFloat(inputV.textFieldText) >= 0 && parseFloat(inputV.textFieldText) <= 1) {
+                                        if(!Number.isNaN(Number(inputV.textFieldText)) && parseFloat(inputV.textFieldText) >= LimitValues.vMinLimitTimeDistValidator && parseFloat(inputV.textFieldText) <= LimitValues.vMaxLimitTimeDistValidator) {
                                             inputControllerTimeDist.ui_v = inputV.textFieldText
                                             borderColor = "#555555"
                                         } else {
                                             borderColor = "#ff0000"
                                         }
                                     } else {
-                                        if(!Number.isNaN(Number(inputV.textFieldText)) && parseFloat(inputV.textFieldText) >= 0 && parseFloat(inputV.textFieldText) <= 1 / (4 * parseInt(inputN.textFieldText))) {
+                                        if(!Number.isNaN(Number(inputV.textFieldText)) && parseFloat(inputV.textFieldText) >= LimitValues.vMinLimitTimeDistValidator && parseFloat(inputV.textFieldText) <= LimitValues.vMaxLimitTimeDistValidator / (4 * parseInt(inputN.textFieldText))) {
                                             inputControllerTimeDist.ui_v = inputV.textFieldText
                                             borderColor = "#555555"
                                         } else {
@@ -1137,18 +1137,18 @@ ApplicationWindow {
                                         return Strings.s + Strings.colon
                                 }
                                 toolTipText: Strings.sTooltip
-                                validator: DoubleValidator {bottom: -1; top: 1;}
+                                validator: DoubleValidator {bottom: LimitValues.sMinLimitTimeDistValidator; top: LimitValues.sMaxLimitTimeDistValidator;}
                                 textFieldText: inputControllerTimeDist.ui_s
                                 textFieldTextEdited: function(){
                                     if(globalConfiguration.ui_population_scaled) {
-                                        if(!Number.isNaN(Number(inputS.textFieldText)) && parseFloat(inputS.textFieldText) >= -1 * (2 * parseInt(inputN.textFieldText)) && parseFloat(inputS.textFieldText) <= 1 * (2 * parseInt(inputN.textFieldText))) {
+                                        if(!Number.isNaN(Number(inputS.textFieldText)) && parseFloat(inputS.textFieldText) >= LimitValues.sMinLimitTimeDistValidator * (2 * parseInt(inputN.textFieldText)) && parseFloat(inputS.textFieldText) <= 1 * (2 * parseInt(inputN.textFieldText))) {
                                             inputControllerTimeDist.ui_s = inputS.textFieldText
                                             borderColor = "#555555"
                                         } else {
                                             borderColor = "#ff0000"
                                         }
                                     } else {
-                                        if(!Number.isNaN(Number(inputS.textFieldText)) && parseFloat(inputS.textFieldText) >= -1 && parseFloat(inputS.textFieldText) <= 1) {
+                                        if(!Number.isNaN(Number(inputS.textFieldText)) && parseFloat(inputS.textFieldText) >= LimitValues.sMinLimitTimeDistValidator && parseFloat(inputS.textFieldText) <= LimitValues.sMaxLimitTimeDistValidator) {
                                             inputControllerTimeDist.ui_s = inputS.textFieldText
                                             borderColor = "#555555"
                                         } else {
@@ -1162,10 +1162,10 @@ ApplicationWindow {
                                 id: inputH
                                 text: Strings.h + Strings.colon
                                 toolTipText: Strings.hTooltip
-                                validator: DoubleValidator {bottom: 0; top: 1;}
+                                validator: DoubleValidator {bottom: LimitValues.hMinLimitTimeDistValidator; top: LimitValues.hMaxLimitTimeDistValidator;}
                                 textFieldText: inputControllerTimeDist.ui_h
                                 textFieldTextEdited: function(){
-                                    if(!Number.isNaN(Number(inputH.textFieldText)) && parseFloat(inputH.textFieldText) >= 0 && parseFloat(inputH.textFieldText) <= 1) {
+                                    if(!Number.isNaN(Number(inputH.textFieldText)) && parseFloat(inputH.textFieldText) >= LimitValues.hMinLimitTimeDistValidator && parseFloat(inputH.textFieldText) <= LimitValues.hMaxLimitTimeDistValidator) {
                                         inputControllerTimeDist.ui_h = inputH.textFieldText
                                         borderColor = "#555555"
                                     } else {
@@ -1182,7 +1182,7 @@ ApplicationWindow {
                 Rectangle {
                     id: separator1
                     width: 1
-                    Layout.fillHeight: true
+                    height: column1.height
                     color: Universal.baseHighColor
                     Layout.topMargin: Style.marginSmall
                     Layout.bottomMargin: Style.marginSmall
@@ -1285,11 +1285,12 @@ ApplicationWindow {
                                         id: inputT
                                         text: Strings.t + Strings.colon
                                         toolTipText: Strings.tTooltip
-                                        textFieldPreferredWidth: 100
-                                        validator: DoubleValidator {bottom: 1;}
+                                        labelPreferredWidth: 15
+                                        textFieldPreferredWidth: 105
+                                        validator: DoubleValidator {bottom: LimitValues.tMinLimitTimeDistValidator;}
                                         textFieldText: inputControllerTimeDist.ui_t
                                         textFieldTextEdited: function(){
-                                            if(parseInt(inputT.textFieldText) >= 1) {
+                                            if(parseInt(inputT.textFieldText) >= LimitValues.tMinLimitTimeDistValidator) {
                                                 inputControllerTimeDist.ui_t = inputT.textFieldText
                                                 borderColor = "#555555"
                                             } else {

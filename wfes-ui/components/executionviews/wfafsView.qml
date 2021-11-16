@@ -194,10 +194,10 @@ ApplicationWindow {
                                 id: inputA
                                 text: Strings.a + Strings.colon
                                 toolTipText: Strings.aTooltip
-                                validator: DoubleValidator {bottom: 0;}
+                                validator: DoubleValidator {bottom: LimitValues.aMinLimitWfafSValidator;}
                                 textFieldText: inputControllerWfafs.ui_a
                                 textFieldTextEdited: function(){
-                                    if(!Number.isNaN(Number(inputA.textFieldText)) && parseFloat(inputA.textFieldText) >= 0) {
+                                    if(!Number.isNaN(Number(inputA.textFieldText)) && parseFloat(inputA.textFieldText) >= LimitValues.aMinLimitWfafSValidator) {
                                         inputControllerWfafs.ui_a = inputA.textFieldText
                                         borderColor = "#555555"
                                     } else {
@@ -210,10 +210,10 @@ ApplicationWindow {
                                 id: inputP
                                 text: Strings.p + Strings.colon
                                 toolTipText: Strings.pTooltip
-                                validator: IntValidator {bottom: 0; top: 2;}
+                                validator: IntValidator {bottom: LimitValues.pMinLimitWfafSValidator; top: LimitValues.pMaxLimitWfafSValidator;}
                                 textFieldText: inputControllerWfafs.ui_p
                                 textFieldTextEdited: function(){
-                                    if(!Number.isNaN(Number(inputP.textFieldText)) && parseInt(inputP.textFieldText) >= 0 && parseInt(inputP.textFieldText) <= 2) {
+                                    if(!Number.isNaN(Number(inputP.textFieldText)) && parseInt(inputP.textFieldText) >= LimitValues.pMinLimitWfafSValidator && parseInt(inputP.textFieldText) <= LimitValues.pMaxLimitWfafSValidator) {
                                         inputControllerWfafs.ui_p = inputP.textFieldText
                                         borderColor = "#555555"
                                     } else {
@@ -353,12 +353,13 @@ ApplicationWindow {
                                     LabeledTextField {
                                         id: inputT
                                         text: Strings.t + Strings.colon
-                                        labelPreferredWidth: Style.marginSmall
+                                        labelPreferredWidth: 15
+                                        textFieldPreferredWidth: 105
                                         toolTipText: Strings.tTooltip
-                                        validator: DoubleValidator {bottom: 1;}
+                                        validator: DoubleValidator {bottom: LimitValues.tMinLimitWfafSValidator;}
                                         textFieldText: inputControllerWfafs.ui_t
                                         textFieldTextEdited: function(){
-                                            if(!Number.isNaN(Number(inputT.textFieldText)) && parseInt(inputT.textFieldText) >= 1) {
+                                            if(!Number.isNaN(Number(inputT.textFieldText)) && parseInt(inputT.textFieldText) >= LimitValues.tMinLimitWfafSValidator) {
                                                 inputControllerWfafs.ui_t = inputT.textFieldText
                                                 borderColor = "#555555"
                                             } else {

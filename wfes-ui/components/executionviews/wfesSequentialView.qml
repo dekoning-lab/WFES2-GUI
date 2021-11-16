@@ -193,10 +193,10 @@ ApplicationWindow {
                                 id: inputA
                                 text: Strings.a + Strings.colon
                                 toolTipText: Strings.aTooltip
-                                validator: DoubleValidator {bottom: 0;}
+                                validator: DoubleValidator {bottom: LimitValues.aMinLimitWfesSequentialValidator;}
                                 textFieldText: inputControllerWfesSequential.ui_a
                                 textFieldTextEdited: function(){
-                                    if(!Number.isNaN(Number(inputA.textFieldText)) && parseFloat(inputA.textFieldText) >= 0) {
+                                    if(!Number.isNaN(Number(inputA.textFieldText)) && parseFloat(inputA.textFieldText) >= LimitValues.aMinLimitWfesSequentialValidator) {
                                         inputControllerWfesSequential.ui_a = inputA.textFieldText
                                         borderColor = "#555555"
                                     } else {
@@ -209,10 +209,10 @@ ApplicationWindow {
                                 id: inputC
                                 text: Strings.c + Strings.colon
                                 toolTipText: Strings.cTooltip
-                                validator: DoubleValidator {bottom: 0;}
+                                validator: DoubleValidator {bottom: LimitValues.cMinLimitWfesSequentialValidator;}
                                 textFieldText: inputControllerWfesSequential.ui_c
                                 textFieldTextEdited: function(){
-                                    if(!Number.isNaN(Number(inputC.textFieldText)) && parseFloat(inputC.textFieldText) >= 0) {
+                                    if(!Number.isNaN(Number(inputC.textFieldText)) && parseFloat(inputC.textFieldText) >= LimitValues.cMinLimitWfesSequentialValidator) {
                                         inputControllerWfesSequential.ui_c = inputC.textFieldText
                                         borderColor = "#555555"
                                     } else {
@@ -367,11 +367,12 @@ ApplicationWindow {
                                             id: inputT
                                             text: Strings.t + Strings.colon
                                             toolTipText: Strings.tTooltip
-                                            labelPreferredWidth: Style.marginSmall
-                                            validator: DoubleValidator {bottom: 2; top: 50000;}
+                                            labelPreferredWidth: 15
+                                            textFieldPreferredWidth: 105
+                                            validator: DoubleValidator {bottom: LimitValues.tMinLimitWfesSequentialValidator;}
                                             textFieldText: inputControllerWfesSequential.ui_t
                                             textFieldTextEdited: function(){
-                                                if(!Number.isNaN(Number(inputT.textFieldText)) && parseInt(inputT.textFieldText) >= 1) {
+                                                if(!Number.isNaN(Number(inputT.textFieldText)) && parseInt(inputT.textFieldText) >= LimitValues.tMinLimitWfesSequentialValidator) {
                                                     inputControllerWfesSequential.ui_t = inputT.textFieldText
                                                     borderColor = "#555555"
                                                 } else {

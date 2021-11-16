@@ -217,10 +217,10 @@ ApplicationWindow {
                                 id: inputN
                                 text: Strings.n + Strings.colon
                                 toolTipText: Strings.nTooltip
-                                validator: IntValidator {bottom: 2; top: 500000;}
+                                validator: IntValidator {bottom: LimitValues.nMinLimitPhaseTypeValidator; top: LimitValues.nMaxLimitPhaseTypeValidator;}
                                 textFieldText: inputControllerPhaseType.ui_n
                                 textFieldTextEdited: function(){
-                                    if(!Number.isNaN(Number(inputN.textFieldText)) && parseInt(inputN.textFieldText) > 1) {
+                                    if(!Number.isNaN(Number(inputN.textFieldText)) && parseInt(inputN.textFieldText) >= LimitValues.nMinLimitPhaseType) {
                                         inputControllerPhaseType.ui_n = inputN.textFieldText
                                         borderColor = "#555555"
                                     } else {
@@ -235,10 +235,10 @@ ApplicationWindow {
                                 id: inputA
                                 text: Strings.a + Strings.colon
                                 toolTipText: Strings.aTooltip
-                                validator: DoubleValidator {bottom: 0; top: 10e-10;}
+                                validator: DoubleValidator {bottom: LimitValues.aMinLimitPhaseTypeValidator; top: LimitValues.aMaxLimitPhaseTypeValidator;}
                                 textFieldText: inputControllerPhaseType.ui_a
                                 textFieldTextEdited: function(){
-                                    if(!Number.isNaN(Number(inputA.textFieldText)) && parseFloat(inputA.textFieldText) >= 0) {
+                                    if(!Number.isNaN(Number(inputA.textFieldText)) && parseFloat(inputA.textFieldText) >= LimitValues.aMinLimitPhaseType) {
                                         inputControllerPhaseType.ui_a = inputA.textFieldText
                                         borderColor = "#555555"
                                     } else {
@@ -251,11 +251,11 @@ ApplicationWindow {
                                 id: inputC
                                 text: Strings.c + Strings.colon
                                 toolTipText: Strings.cTooltip
-                                validator: DoubleValidator {bottom: 0; top: 1;}
+                                validator: DoubleValidator {bottom: LimitValues.cMinLimitPhaseTypeValidator; top: LimitValues.cMaxLimitPhaseTypeValidator;}
                                 textFieldText: inputControllerPhaseType.ui_c
                                 enabled: inputControllerPhaseType.ui_modelType == "Phase Type Dist."
                                 textFieldTextEdited: function(){
-                                    if(!Number.isNaN(Number(inputC.textFieldText)) && parseFloat(inputC.textFieldText) >= 0) {
+                                    if(!Number.isNaN(Number(inputC.textFieldText)) && parseFloat(inputC.textFieldText) >= LimitValues.cMinLimitPhaseType) {
                                         inputControllerPhaseType.ui_c = inputC.textFieldText
                                         borderColor = "#555555"
                                     } else {
@@ -268,11 +268,11 @@ ApplicationWindow {
                                 id: inputM
                                 text: Strings.m + Strings.colon
                                 toolTipText: Strings.mTooltip
-                                validator: DoubleValidator {bottom: 1;}
+                                validator: DoubleValidator {bottom: LimitValues.mMinLimitPhaseValidator;}
                                 textFieldText: inputControllerPhaseType.ui_m
                                 enabled: inputControllerPhaseType.ui_modelType == "Phase Type Dist."
                                 textFieldTextEdited: function(){
-                                    if(!Number.isNaN(Number(inputM.textFieldText)) && parseInt(inputM.textFieldText) >= 1) {
+                                    if(!Number.isNaN(Number(inputM.textFieldText)) && parseInt(inputM.textFieldText) >= LimitValues.mMinLimitPhaseValidator) {
                                         inputControllerPhaseType.ui_m = inputM.textFieldText
                                         borderColor = "#555555"
                                     } else {
@@ -284,12 +284,12 @@ ApplicationWindow {
                             LabeledTextField {
                                 id: inputK
                                 text: Strings.k + Strings.colon
-                                validator: IntValidator {bottom: 1;}
+                                validator: IntValidator {bottom: LimitValues.kMinLimitPhaseTypeValidator;}
                                 toolTipText: Strings.kTooltip
                                 textFieldText: inputControllerPhaseType.ui_k
                                 enabled: inputControllerPhaseType.ui_modelType == "Phase Type Moments"
                                 textFieldTextEdited: function(){
-                                    if(!Number.isNaN(Number(inputK.textFieldText)) && parseInt(inputK.textFieldText) >= 2) {
+                                    if(!Number.isNaN(Number(inputK.textFieldText)) && parseInt(inputK.textFieldText) >= LimitValues.kMinLimitPhaseTypeValidator) {
                                         inputControllerPhaseType.ui_k = inputK.textFieldText
                                         borderColor = "#555555"
                                     } else {
@@ -339,18 +339,18 @@ ApplicationWindow {
                                         return Strings.u + Strings.colon
                                 }
                                 toolTipText: Strings.uTooltip
-                                validator: DoubleValidator {bottom: 0;}
+                                validator: DoubleValidator {bottom: LimitValues.uMinLimitPhaseTypeValidator;}
                                 textFieldText: inputControllerPhaseType.ui_u
                                 textFieldTextEdited: function(){
                                     if(globalConfiguration.ui_population_scaled) {
-                                        if(!Number.isNaN(Number(inputU.textFieldText)) && parseFloat(inputU.textFieldText) >= 0 && parseFloat(inputU.textFieldText) <= 1) {
+                                        if(!Number.isNaN(Number(inputU.textFieldText)) && parseFloat(inputU.textFieldText) >= LimitValues.uMinLimitPhaseTypeValidator && parseFloat(inputU.textFieldText) <= LimitValues.uMaxLimitPhaseTypeValidator) {
                                             inputControllerPhaseType.ui_u = inputU.textFieldText
                                             borderColor = "#555555"
                                         } else {
                                             borderColor = "#ff0000"
                                         }
                                     } else {
-                                        if(!Number.isNaN(Number(inputU.textFieldText)) && parseFloat(inputU.textFieldText) >= 0 && parseFloat(inputU.textFieldText) <= 1 / (4 * parseInt(inputN.textFieldText))) {
+                                        if(!Number.isNaN(Number(inputU.textFieldText)) && parseFloat(inputU.textFieldText) >= LimitValues.uMinLimitPhaseTypeValidator && parseFloat(inputU.textFieldText) <= LimitValues.uMaxLimitPhaseTypeValidator / (4 * parseInt(inputN.textFieldText))) {
                                             inputControllerPhaseType.ui_u = inputU.textFieldText
                                             borderColor = "#555555"
                                         } else {
@@ -369,18 +369,18 @@ ApplicationWindow {
                                         return Strings.v + Strings.colon
                                 }
                                 toolTipText: Strings.vTooltip
-                                validator: DoubleValidator {bottom: 0;}
+                                validator: DoubleValidator {bottom: LimitValues.vMinLimitPhaseTypeValidator;}
                                 textFieldText: inputControllerPhaseType.ui_v
                                 textFieldTextEdited: function(){
                                     if(globalConfiguration.ui_population_scaled) {
-                                        if(!Number.isNaN(Number(inputV.textFieldText)) && parseFloat(inputV.textFieldText) >= 0 && parseFloat(inputV.textFieldText) <= 1) {
+                                        if(!Number.isNaN(Number(inputV.textFieldText)) && parseFloat(inputV.textFieldText) >= LimitValues.vMinLimitPhaseTypeValidator && parseFloat(inputV.textFieldText) <= LimitValues.vMaxLimitPhaseTypeValidator) {
                                             inputControllerPhaseType.ui_v = inputV.textFieldText
                                             borderColor = "#555555"
                                         } else {
                                             borderColor = "#ff0000"
                                         }
                                     } else {
-                                        if(!Number.isNaN(Number(inputV.textFieldText)) && parseFloat(inputV.textFieldText) >= 0 && parseFloat(inputV.textFieldText) <= 1 / (4 * parseInt(inputN.textFieldText))) {
+                                        if(!Number.isNaN(Number(inputV.textFieldText)) && parseFloat(inputV.textFieldText) >= LimitValues.vMinLimitPhaseTypeValidator && parseFloat(inputV.textFieldText) <= LimitValues.vMaxLimitPhaseTypeValidator / (4 * parseInt(inputN.textFieldText))) {
                                             inputControllerPhaseType.ui_v = inputV.textFieldText
                                             borderColor = "#555555"
                                         } else {
@@ -441,14 +441,14 @@ ApplicationWindow {
                                 textFieldText: inputControllerPhaseType.ui_s
                                 textFieldTextEdited: function(){
                                     if(globalConfiguration.ui_population_scaled) {
-                                        if(!Number.isNaN(Number(inputS.textFieldText)) && parseFloat(inputS.textFieldText) >= -1 * (2 * parseInt(inputN.textFieldText)) && parseFloat(inputS.textFieldText) <= 1 * (2 * parseInt(inputN.textFieldText))) {
+                                        if(!Number.isNaN(Number(inputS.textFieldText)) && parseFloat(inputS.textFieldText) >= LimitValues.sMinLimitPhaseTypeValidator * (2 * parseInt(inputN.textFieldText)) && parseFloat(inputS.textFieldText) <= LimitValues.sMaxLimitPhaseTypeValidator * (2 * parseInt(inputN.textFieldText))) {
                                             inputControllerPhaseType.ui_s = inputS.textFieldText
                                             borderColor = "#555555"
                                         } else {
                                             borderColor = "#ff0000"
                                         }
                                     } else {
-                                        if(!Number.isNaN(Number(inputS.textFieldText)) && parseFloat(inputS.textFieldText) >= -1 && parseFloat(inputS.textFieldText) <= 1) {
+                                        if(!Number.isNaN(Number(inputS.textFieldText)) && parseFloat(inputS.textFieldText) >= LimitValues.sMinLimitPhaseTypeValidator && parseFloat(inputS.textFieldText) <= LimitValues.sMaxLimitPhaseTypeValidator) {
                                             inputControllerPhaseType.ui_s = inputS.textFieldText
                                             borderColor = "#555555"
                                         } else {
@@ -465,7 +465,7 @@ ApplicationWindow {
                                 validator: DoubleValidator {bottom: 0; top: 1;}
                                 textFieldText: inputControllerPhaseType.ui_h
                                 textFieldTextEdited: function(){
-                                    if(!Number.isNaN(Number(inputH.textFieldText)) && parseFloat(inputH.textFieldText) >= 0 && parseFloat(inputH.textFieldText) <= 1) {
+                                    if(!Number.isNaN(Number(inputH.textFieldText)) && parseFloat(inputH.textFieldText) >= LimitValues.hMinLimitPhaseTypeValidator && parseFloat(inputH.textFieldText) <= LimitValues.hMaxLimitPhaseTypeValidator) {
                                         inputControllerPhaseType.ui_h = inputH.textFieldText
                                         borderColor = "#555555"
                                     } else {
@@ -607,11 +607,12 @@ ApplicationWindow {
                                             id: inputT
                                             text: Strings.t + Strings.colon
                                             toolTipText: Strings.tTooltip
-                                            labelPreferredWidth: 10
-                                            validator: IntValidator {bottom: 1;}
+                                            labelPreferredWidth: 15
+                                            textFieldPreferredWidth: 105
+                                            validator: IntValidator {bottom: LimitValues.tMinLimitPhaseTypeValidator;}
                                             textFieldText: inputControllerPhaseType.ui_t
                                             textFieldTextEdited: function(){
-                                                if(!Number.isNaN(Number(inputT.textFieldText)) && parseInt(inputT.textFieldText) >= 1) {
+                                                if(!Number.isNaN(Number(inputT.textFieldText)) && parseInt(inputT.textFieldText) >= LimitValues.tMinLimitPhaseTypeValidator) {
                                                     inputControllerPhaseType.ui_t = inputT.textFieldText
                                                     borderColor = "#555555"
                                                 } else {
@@ -631,7 +632,7 @@ ApplicationWindow {
                                         enabled: radioButtonPhaseTypeDist.checked
                                         textFieldText: inputControllerPhaseType.ui_sampling_frequency
                                         textFieldTextEdited: function(){
-                                            if(!Number.isNaN(Number(inputSamplingFrequency.textFieldText)) && parseInt(inputSamplingFrequency.textFieldText) >= 1 && parseInt(inputSamplingFrequency.textFieldText) <= parseInt(inputM.textFieldText)) {
+                                            if(!Number.isNaN(Number(inputSamplingFrequency.textFieldText)) && parseInt(inputSamplingFrequency.textFieldText) >= LimitValues.samplingFrequencyMinLimitPhaseTypeValidator && parseInt(inputSamplingFrequency.textFieldText) <= parseInt(inputM.textFieldText)) {
                                                 inputControllerPhaseType.ui_sampling_frequency = inputSamplingFrequency.textFieldText
                                                 borderColor = "#555555"
                                             } else {

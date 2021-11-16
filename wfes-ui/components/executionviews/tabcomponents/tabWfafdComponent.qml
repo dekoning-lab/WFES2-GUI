@@ -52,7 +52,7 @@ Component{
                     id: inputN
                     text: Strings.nSub.arg(number) + Strings.colon
                     toolTipText: Strings.nTooltip
-                    validator: IntValidator {bottom: 2; top: 500000;}
+                    validator: IntValidator {bottom: LimitValues.nMinLimitWfafDValidator; top: LimitValues.nMaxLimitWfafDValidator;}
                     textFieldText: {
                         if(number != 0) {
                             var n_vec = inputControllerWfafd.ui_N_vec
@@ -69,7 +69,7 @@ Component{
                             else
                                 n_vec[i] = inputControllerWfafd.ui_N_vec[i]
                         }
-                        if(!Number.isNaN(Number(inputN.textFieldText)) && parseInt(inputN.textFieldText) > 1) {
+                        if(!Number.isNaN(Number(inputN.textFieldText)) && parseInt(inputN.textFieldText) >= LimitValues.nMinLimitWfafDValidator) {
                             inputControllerWfafd.ui_N_vec = n_vec
                             borderColor = "#555555"
                         } else {
@@ -84,7 +84,7 @@ Component{
                     id: inputG
                     text: Strings.gSub.arg(number) + Strings.colon
                     toolTipText: Strings.gTooltip
-                    validator: IntValidator {bottom: 0; top: 500000;}
+                    validator: IntValidator {bottom: LimitValues.gMinLimitWfafDValidator; top: LimitValues.nMaxLimitWfafDValidator;}
                     textFieldText: {
                         if(number != 0) {
                             var g_vec = inputControllerWfafd.ui_G_vec
@@ -101,7 +101,7 @@ Component{
                             else
                                 g_vec[i] = inputControllerWfafd.ui_G_vec[i]
                         }
-                        if(!Number.isNaN(Number(inputG.textFieldText)) && parseInt(inputG.textFieldText) > 0) {
+                        if(!Number.isNaN(Number(inputG.textFieldText)) && parseInt(inputG.textFieldText) >= LimitValues.gMinLimitWfafDValidator) {
                             inputControllerWfafd.ui_G_vec = g_vec
                             borderColor = "#555555"
                         } else {
@@ -149,7 +149,7 @@ Component{
                             return Strings.uSub.arg(number) + Strings.colon
                     }
                     toolTipText: Strings.uTooltip
-                    validator: DoubleValidator {bottom: 0;}
+                    validator: DoubleValidator {bottom: LimitValues.uMinLimitWfafDValidator;}
                     textFieldText: {
                         if(number != 0) {
                             var u_vec = inputControllerWfafd.ui_u_vec
@@ -167,14 +167,14 @@ Component{
                                 u_vec[i] = inputControllerWfafd.ui_u_vec[i]
                         }
                         if(globalConfiguration.ui_population_scaled) {
-                            if(!Number.isNaN(Number(inputU.textFieldText)) && parseFloat(inputU.textFieldText) >= 0 && parseFloat(inputU.textFieldText) <= 1) {
+                            if(!Number.isNaN(Number(inputU.textFieldText)) && parseFloat(inputU.textFieldText) >= LimitValues.uMinLimitWfafDValidator && parseFloat(inputU.textFieldText) <= LimitValues.uMaxLimitWfafDValidator) {
                                 inputControllerWfafd.ui_u_vec = u_vec
                                 borderColor = "#555555"
                             } else {
                                 borderColor = "#ff0000"
                             }
                         } else {
-                            if(!Number.isNaN(Number(inputU.textFieldText)) && parseFloat(inputU.textFieldText) >= 0 && parseFloat(inputU.textFieldText) <= 1 / (4 * parseInt(inputN.textFieldText))) {
+                            if(!Number.isNaN(Number(inputU.textFieldText)) && parseFloat(inputU.textFieldText) >= LimitValues.uMinLimitWfafDValidator && parseFloat(inputU.textFieldText) <= LimitValues.uMaxLimitWfafDValidator / (4 * parseInt(inputN.textFieldText))) {
                                 inputControllerWfafd.ui_u_vec = u_vec
                                 borderColor = "#555555"
                             } else {
@@ -193,7 +193,7 @@ Component{
                             return Strings.vSub.arg(number) + Strings.colon
                     }
                     toolTipText: Strings.vTooltip
-                    validator: DoubleValidator {bottom: 0;}
+                    validator: DoubleValidator {bottom: LimitValues.vMinLimitWfafDValidator;}
                     textFieldText: {
                         if(number != 0) {
                             var v_vec = inputControllerWfafd.ui_v_vec
@@ -211,14 +211,14 @@ Component{
                                 v_vec[i] = inputControllerWfafd.ui_v_vec[i]
                         }
                         if(globalConfiguration.ui_population_scaled) {
-                            if(!Number.isNaN(Number(inputV.textFieldText)) && parseFloat(inputV.textFieldText) >= 0 && parseFloat(inputV.textFieldText) <= 1) {
+                            if(!Number.isNaN(Number(inputV.textFieldText)) && parseFloat(inputV.textFieldText) >= LimitValues.vMinLimitWfafDValidator && parseFloat(inputV.textFieldText) <= LimitValues.vMaxLimitWfafDValidator) {
                                 inputControllerWfafd.ui_v_vec = v_vec
                                 borderColor = "#555555"
                             } else {
                                 borderColor = "#ff0000"
                             }
                         } else {
-                            if(!Number.isNaN(Number(inputV.textFieldText)) && parseFloat(inputV.textFieldText) >= 0 && parseFloat(inputV.textFieldText) <= 1 / (4 * parseInt(inputN.textFieldText))) {
+                            if(!Number.isNaN(Number(inputV.textFieldText)) && parseFloat(inputV.textFieldText) >= LimitValues.vMinLimitWfafDValidator && parseFloat(inputV.textFieldText) <= LimitValues.vMaxLimitWfafDValidator / (4 * parseInt(inputN.textFieldText))) {
                                 inputControllerWfafd.ui_v_vec = v_vec
                                 borderColor = "#555555"
                             } else {
@@ -270,7 +270,7 @@ Component{
                             return Strings.sSub.arg(number) + Strings.colon
                     }
                     toolTipText: Strings.sTooltip
-                    validator: DoubleValidator {bottom: -1; top: 1;}
+                    validator: DoubleValidator {bottom: LimitValues.sMinLimitWfafDValidator; top: LimitValues.sMaxLimitWfafDValidator;}
                     textFieldText: {
                         if(number != 0) {
                             var s_vec = inputControllerWfafd.ui_s_vec
@@ -288,14 +288,14 @@ Component{
                                 s_vec[i] = inputControllerWfafd.ui_s_vec[i]
                         }
                         if(globalConfiguration.ui_population_scaled) {
-                            if(!Number.isNaN(Number(inputS.textFieldText)) && parseFloat(inputS.textFieldText) >= -1 * (2 * parseInt(inputN.textFieldText)) && parseFloat(inputS.textFieldText) <= 1 * (2 * parseInt(inputN.textFieldText))) {
+                            if(!Number.isNaN(Number(inputS.textFieldText)) && parseFloat(inputS.textFieldText) >= LimitValues.sMinLimitWfafDValidator * (2 * parseInt(inputN.textFieldText)) && parseFloat(inputS.textFieldText) <= LimitValues.sMaxLimitWfafDValidator * (2 * parseInt(inputN.textFieldText))) {
                                 inputControllerWfafd.ui_s_vec = s_vec
                                 borderColor = "#555555"
                             } else {
                                 borderColor = "#ff0000"
                             }
                         } else {
-                            if(!Number.isNaN(Number(inputS.textFieldText)) && parseFloat(inputS.textFieldText) >= -1 && parseFloat(inputS.textFieldText) <= 1) {
+                            if(!Number.isNaN(Number(inputS.textFieldText)) && parseFloat(inputS.textFieldText) >= LimitValues.sMinLimitWfafDValidator && parseFloat(inputS.textFieldText) <= LimitValues.sMaxLimitWfafDValidator) {
                                 inputControllerWfafd.ui_s_vec = s_vec
                                 borderColor = "#555555"
                             } else {
@@ -309,7 +309,7 @@ Component{
                     id: inputH
                     text: Strings.hSub.arg(number) + Strings.colon
                     toolTipText: Strings.hTooltip
-                    validator: DoubleValidator {bottom: 0; top: 1;}
+                    validator: DoubleValidator {bottom: LimitValues.hMinLimitWfafDValidator; top: LimitValues.hMaxLimitWfafDValidator;}
                     textFieldText: {
                         if(number != 0) {
                             var h_vec = inputControllerWfafd.ui_h_vec
@@ -326,7 +326,7 @@ Component{
                             else
                                 h_vec[i] = inputControllerWfafd.ui_h_vec[i]
                         }
-                        if(!Number.isNaN(Number(inputH.textFieldText)) && parseFloat(inputH.textFieldText) >= 0 && parseFloat(inputH.textFieldText) <= 1) {
+                        if(!Number.isNaN(Number(inputH.textFieldText)) && parseFloat(inputH.textFieldText) >= LimitValues.hMinLimitWfafDValidator && parseFloat(inputH.textFieldText) <= LimitValues.hMaxLimitWfafDValidator) {
                             inputControllerWfafd.ui_h_vec = h_vec
                             borderColor = "#555555"
                         } else {

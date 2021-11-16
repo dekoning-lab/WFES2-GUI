@@ -219,14 +219,14 @@ ApplicationWindow {
                                                     u_vec[0] = inputU1.textFieldText
                                                     u_vec[1] = inputControllerWfesSweep.ui_u_vec[1]
                                                     if(globalConfiguration.ui_population_scaled) {
-                                                        if(!Number.isNaN(Number(inputU1.textFieldText)) && parseFloat(inputU1.textFieldText) >= 0 && parseFloat(inputU1.textFieldText) <= 1) {
+                                                        if(!Number.isNaN(Number(inputU1.textFieldText)) && parseFloat(inputU1.textFieldText) >= LimitValues.uMinLimitWfesSweepValidator && parseFloat(inputU1.textFieldText) <= LimitValues.uMaxLimitWfesSweepValidator) {
                                                             inputControllerWfesSweep.ui_u_vec = u_vec
                                                             borderColor = "#555555"
                                                         } else {
                                                             borderColor = "#ff0000"
                                                         }
                                                     } else {
-                                                        if(!Number.isNaN(Number(inputU1.textFieldText)) && parseFloat(inputU1.textFieldText) >= 0 && parseFloat(inputU1.textFieldText) <= 1 / (4 * parseInt(inputN.textFieldText))) {
+                                                        if(!Number.isNaN(Number(inputU1.textFieldText)) && parseFloat(inputU1.textFieldText) >= LimitValues.uMinLimitWfesSweepValidator && parseFloat(inputU1.textFieldText) <= LimitValues.uMaxLimitWfesSweepValidator / (4 * parseInt(inputN.textFieldText))) {
                                                             inputControllerWfesSweep.ui_u_vec = u_vec
                                                             borderColor = "#555555"
                                                         } else {
@@ -234,7 +234,7 @@ ApplicationWindow {
                                                         }
                                                     }
                                                 }
-                                                validator: DoubleValidator {bottom: 0;}
+                                                validator: DoubleValidator {bottom: LimitValues.uMinLimitWfesSweepValidator;}
                                                 textFieldText: {
                                                     var u_vec = inputControllerWfesSweep.ui_u_vec
                                                     return u_vec[0]
@@ -255,14 +255,14 @@ ApplicationWindow {
                                                     v_vec[0] = inputV1.textFieldText
                                                     v_vec[1] = inputControllerWfesSweep.ui_v_vec[1]
                                                     if(globalConfiguration.ui_population_scaled) {
-                                                        if(!Number.isNaN(Number(inputV1.textFieldText)) && parseFloat(inputV1.textFieldText) >= 0 && parseFloat(inputV1.textFieldText) <= 1) {
+                                                        if(!Number.isNaN(Number(inputV1.textFieldText)) && parseFloat(inputV1.textFieldText) >= LimitValues.vMinLimitWfesSweepValidator && parseFloat(inputV1.textFieldText) <= LimitValues.vMaxLimitWfesSweepValidator) {
                                                             inputControllerWfesSweep.ui_v_vec = v_vec
                                                             borderColor = "#555555"
                                                         } else {
                                                             borderColor = "#ff0000"
                                                         }
                                                     } else {
-                                                        if(!Number.isNaN(Number(inputV1.textFieldText)) && parseFloat(inputV1.textFieldText) >= 0 && parseFloat(inputV1.textFieldText) <= 1 / (4 * parseInt(inputN.textFieldText))) {
+                                                        if(!Number.isNaN(Number(inputV1.textFieldText)) && parseFloat(inputV1.textFieldText) >= LimitValues.vMinLimitWfesSweepValidator && parseFloat(inputV1.textFieldText) <= LimitValues.vMaxLimitWfesSweepValidator / (4 * parseInt(inputN.textFieldText))) {
                                                             inputControllerWfesSweep.ui_v_vec = v_vec
                                                             borderColor = "#555555"
                                                         } else {
@@ -270,7 +270,7 @@ ApplicationWindow {
                                                         }
                                                     }
                                                 }
-                                                validator: DoubleValidator {bottom: 0;}
+                                                validator: DoubleValidator {bottom: LimitValues.vMinLimitWfesSweepValidator;}
                                                 textFieldText: {
                                                     var v_vec = inputControllerWfesSweep.ui_v_vec
                                                     return v_vec[0]
@@ -324,14 +324,14 @@ ApplicationWindow {
                                                     s_vec[0] = inputS1.textFieldText
                                                     s_vec[1] = inputControllerWfesSweep.ui_s_vec[1]
                                                     if(globalConfiguration.ui_population_scaled) {
-                                                        if(!Number.isNaN(Number(inputS1.textFieldText)) && parseFloat(inputS1.textFieldText) >= -1 * (2 * parseInt(inputN.textFieldText)) && parseFloat(inputS1.textFieldText) <= 1 * (2 * parseInt(inputN.textFieldText))) {
+                                                        if(!Number.isNaN(Number(inputS1.textFieldText)) && parseFloat(inputS1.textFieldText) >= LimitValues.sMinLimitWfesSweepValidator * (2 * parseInt(inputN.textFieldText)) && parseFloat(inputS1.textFieldText) <= LimitValues.sMaxLimitWfesSweepValidator * (2 * parseInt(inputN.textFieldText))) {
                                                             inputControllerWfesSweep.ui_s_vec = s_vec
                                                             borderColor = "#555555"
                                                         } else {
                                                             borderColor = "#ff0000"
                                                         }
                                                     } else {
-                                                        if(parseFloat(!Number.isNaN(Number(inputS1.textFieldText)) && inputS1.textFieldText) >= -1 && parseFloat(inputS1.textFieldText) <= 1) {
+                                                        if(parseFloat(!Number.isNaN(Number(inputS1.textFieldText)) && inputS1.textFieldText) >= LimitValues.sMinLimitWfesSweepValidator && parseFloat(inputS1.textFieldText) <= LimitValues.sMaxLimitWfesSweepValidator) {
                                                             inputControllerWfesSweep.ui_s_vec = s_vec
                                                             borderColor = "#555555"
                                                         } else {
@@ -350,12 +350,12 @@ ApplicationWindow {
                                                 id: inputH1
                                                 text: Strings.hSub.arg(1) + Strings.colon
                                                 toolTipText: Strings.hTooltip
-                                                validator: DoubleValidator {bottom: 0; top: 1;}
+                                                validator: DoubleValidator {bottom: LimitValues.hMinLimitWfesSweepValidator; top: LimitValues.hMaxLimitWfesSweepValidator;}
                                                 textFieldTextEdited: function(){
                                                     var h_vec = []
                                                     h_vec[0] = inputH1.textFieldText
                                                     h_vec[1] = inputControllerWfesSweep.ui_h_vec[1]
-                                                    if(!Number.isNaN(Number(inputH1.textFieldText)) && parseFloat(inputH1.textFieldText) >= 0 && parseFloat(inputH1.textFieldText) <= 1) {
+                                                    if(!Number.isNaN(Number(inputH1.textFieldText)) && parseFloat(inputH1.textFieldText) >= LimitValues.hMinLimitWfesSweepValidator && parseFloat(inputH1.textFieldText) <= LimitValues.hMaxLimitWfesSweepValidator) {
                                                         inputControllerWfesSweep.ui_h_vec = h_vec
                                                         borderColor = "#555555"
                                                     } else {
@@ -435,14 +435,14 @@ ApplicationWindow {
                                                     u_vec[0] = inputControllerWfesSweep.ui_u_vec[0]
                                                     u_vec[1] = inputU2.textFieldText
                                                     if(globalConfiguration.ui_population_scaled) {
-                                                        if(!Number.isNaN(Number(inputU2.textFieldText)) && parseFloat(inputU2.textFieldText) >= 0 && parseFloat(inputU2.textFieldText) <= 1) {
+                                                        if(!Number.isNaN(Number(inputU2.textFieldText)) && parseFloat(inputU2.textFieldText) >= LimitValues.uMinLimitWfesSweepValidator && parseFloat(inputU2.textFieldText) <= LimitValues.uMaxLimitWfesSweepValidator) {
                                                             inputControllerWfesSweep.ui_u_vec = u_vec
                                                             borderColor = "#555555"
                                                         } else {
                                                             borderColor = "#ff0000"
                                                         }
                                                     } else {
-                                                        if(!Number.isNaN(Number(inputU2.textFieldText)) && parseFloat(inputU2.textFieldText) >= 0 && parseFloat(inputU2.textFieldText) <= 1 / (4 * parseInt(inputN.textFieldText))) {
+                                                        if(!Number.isNaN(Number(inputU2.textFieldText)) && parseFloat(inputU2.textFieldText) >= LimitValues.uMinLimitWfesSweepValidator && parseFloat(inputU2.textFieldText) <= LimitValues.uMaxLimitWfesSweepValidator / (4 * parseInt(inputN.textFieldText))) {
                                                             inputControllerWfesSweep.ui_u_vec = u_vec
                                                             borderColor = "#555555"
                                                         } else {
@@ -450,7 +450,7 @@ ApplicationWindow {
                                                         }
                                                     }
                                                 }
-                                                validator: DoubleValidator {bottom: 0;}
+                                                validator: DoubleValidator {bottom: LimitValues.uMinLimitWfesSweepValidator;}
                                                 textFieldText: {
                                                     var u_vec = inputControllerWfesSweep.ui_u_vec
                                                     return u_vec[1]
@@ -471,14 +471,14 @@ ApplicationWindow {
                                                     v_vec[0] = inputControllerWfesSweep.ui_u_vec[0]
                                                     v_vec[1] = inputV2.textFieldText
                                                     if(globalConfiguration.ui_population_scaled) {
-                                                        if(!Number.isNaN(Number(inputV2.textFieldText)) && parseFloat(inputV2.textFieldText) >= 0 && parseFloat(inputV2.textFieldText) <= 1) {
+                                                        if(!Number.isNaN(Number(inputV2.textFieldText)) && parseFloat(inputV2.textFieldText) >= LimitValues.vMinLimitWfesSweepValidator && parseFloat(inputV2.textFieldText) <= LimitValues.vMaxLimitWfesSweepValidator) {
                                                             inputControllerWfesSweep.ui_v_vec = v_vec
                                                             borderColor = "#555555"
                                                         } else {
                                                             borderColor = "#ff0000"
                                                         }
                                                     } else {
-                                                        if(!Number.isNaN(Number(inputV2.textFieldText)) && parseFloat(inputV2.textFieldText) >= 0 && parseFloat(inputV2.textFieldText) <= 1 / (4 * parseInt(inputN.textFieldText))) {
+                                                        if(!Number.isNaN(Number(inputV2.textFieldText)) && parseFloat(inputV2.textFieldText) >= LimitValues.vMinLimitWfesSweepValidator && parseFloat(inputV2.textFieldText) <= LimitValues.vMaxLimitWfesSweepValidator / (4 * parseInt(inputN.textFieldText))) {
                                                             inputControllerWfesSweep.ui_v_vec = v_vec
                                                             borderColor = "#555555"
                                                         } else {
@@ -486,7 +486,7 @@ ApplicationWindow {
                                                         }
                                                     }
                                                 }
-                                                validator: DoubleValidator {bottom: 0;}
+                                                validator: DoubleValidator {bottom: LimitValues.vMinLimitWfesSweepValidator;}
                                                 textFieldText: {
                                                     var v_vec = inputControllerWfesSweep.ui_v_vec
                                                     return v_vec[1]
@@ -540,14 +540,14 @@ ApplicationWindow {
                                                     s_vec[0] = inputControllerWfesSweep.ui_s_vec[0]
                                                     s_vec[1] = inputS2.textFieldText
                                                     if(globalConfiguration.ui_population_scaled) {
-                                                        if(!Number.isNaN(Number(inputS2.textFieldText)) && parseFloat(inputS2.textFieldText) >= -1 * (2 * parseInt(inputN.textFieldText)) && parseFloat(inputS2.textFieldText) <= 1 * (2 * parseInt(inputN.textFieldText))) {
+                                                        if(!Number.isNaN(Number(inputS2.textFieldText)) && parseFloat(inputS2.textFieldText) >= LimitValues.sMinLimitWfesSweepValidator * (2 * parseInt(inputN.textFieldText)) && parseFloat(inputS2.textFieldText) <= LimitValues.sMaxLimitWfesSweepValidator * (2 * parseInt(inputN.textFieldText))) {
                                                             inputControllerWfesSweep.ui_s_vec = s_vec
                                                             borderColor = "#555555"
                                                         } else {
                                                             borderColor = "#ff0000"
                                                         }
                                                     } else {
-                                                        if(!Number.isNaN(Number(inputS2.textFieldText)) && parseFloat(inputS2.textFieldText) >= -1 && parseFloat(inputS2.textFieldText) <= 1) {
+                                                        if(!Number.isNaN(Number(inputS2.textFieldText)) && parseFloat(inputS2.textFieldText) >= LimitValues.sMinLimitWfesSweepValidator && parseFloat(inputS2.textFieldText) <= LimitValues.sMaxLimitWfesSweepValidator) {
                                                             inputControllerWfesSweep.ui_s_vec = s_vec
                                                             borderColor = "#555555"
                                                         } else {
@@ -566,7 +566,7 @@ ApplicationWindow {
                                                 id: inputH2
                                                 text: Strings.hSub.arg(2) + Strings.colon
                                                 toolTipText: Strings.hTooltip
-                                                validator: DoubleValidator {bottom: 0; top: 1;}
+                                                validator: DoubleValidator {bottom: LimitValues.hMinLimitWfesSweepValidator; top: LimitValues.hMaxLimitWfesSweepValidator;}
                                                 textFieldTextEdited: function(){
                                                     var h_vec = []
                                                     h_vec[0] = inputControllerWfesSweep.ui_h_vec[0]
@@ -625,10 +625,10 @@ ApplicationWindow {
                                 id: inputN
                                 text: Strings.n + Strings.colon
                                 toolTipText: Strings.nTooltip
-                                validator: IntValidator {bottom: 2; top: 500000;}
+                                validator: IntValidator {bottom: LimitValues.nMinLimitWfesSweepValidator; top: LimitValues.nMaxLimitWfesSweepValidator;}
                                 textFieldText: inputControllerWfesSweep.ui_n
                                 textFieldTextEdited: function(){
-                                    if(parseInt(inputN.textFieldText) > 1) {
+                                    if(parseInt(inputN.textFieldText) >= LimitValues.nMinLimitWfesSweepValidator) {
                                         inputControllerWfesSweep.ui_n = inputN.textFieldText
                                         borderColor = "#555555"
                                     } else {
@@ -648,10 +648,10 @@ ApplicationWindow {
                                 id: inputA
                                 text: Strings.a + Strings.colon
                                 toolTipText: Strings.aTooltip
-                                validator: DoubleValidator {bottom: 0;}
+                                validator: DoubleValidator {bottom: LimitValues.aMinLimitWfesSweepValidator;}
                                 textFieldText: inputControllerWfesSweep.ui_a
                                 textFieldTextEdited: function(){
-                                    if(!Number.isNaN(Number(inputA.textFieldText)) && parseFloat(inputA.textFieldText) >= 0) {
+                                    if(!Number.isNaN(Number(inputA.textFieldText)) && parseFloat(inputA.textFieldText) >= LimitValues.aMinLimitWfesSweepValidator) {
                                         inputControllerWfesSweep.ui_a = inputA.textFieldText
                                         borderColor = "#555555"
                                     } else {
@@ -664,10 +664,10 @@ ApplicationWindow {
                                 id: inputL
                                 text: Strings.l + Strings.colon
                                 toolTipText: Strings.lTooltip
-                                validator: DoubleValidator {bottom: 1e-20; top: 1;}
+                                validator: DoubleValidator {bottom: LimitValues.lMinLimitWfesSweepValidator; top: LimitValues.lMaxLimitWfesSweepValidator;}
                                 textFieldText: inputControllerWfesSweep.ui_l
                                 textFieldTextEdited: function(){
-                                    if(!Number.isNaN(Number(inputL.textFieldText)) && parseFloat(inputL.textFieldText) >= 1e-20 && parseFloat(inputL.textFieldText) <= 1) {
+                                    if(!Number.isNaN(Number(inputL.textFieldText)) && parseFloat(inputL.textFieldText) >= LimitValues.lMinLimitWfesSweepValidator && parseFloat(inputL.textFieldText) <= LimitValues.lMaxLimitWfesSweepValidator) {
                                         inputControllerWfesSweep.ui_l = inputL.textFieldText
                                         borderColor = "#555555"
                                     } else {
@@ -680,10 +680,10 @@ ApplicationWindow {
                                 id: inputC
                                 text: Strings.c + Strings.colon
                                 toolTipText: Strings.cTooltip
-                                validator: DoubleValidator {bottom: 0;}
+                                validator: DoubleValidator {bottom: LimitValues.cMinLimitWfesSweepValidator;}
                                 textFieldText: inputControllerWfesSweep.ui_c
                                 textFieldTextEdited: function(){
-                                    if(!Number.isNaN(Number(inputC.textFieldText)) && parseFloat(inputC.textFieldText) >= 0) {
+                                    if(!Number.isNaN(Number(inputC.textFieldText)) && parseFloat(inputC.textFieldText) >= LimitValues.cMinLimitWfesSweepValidator) {
                                         inputControllerWfesSweep.ui_c = inputC.textFieldText
                                         borderColor = "#555555"
                                     } else {
@@ -696,10 +696,10 @@ ApplicationWindow {
                                 id: inputP
                                 text: Strings.p + Strings.colon
                                 toolTipText: Strings.pTooltip
-                                validator: IntValidator {bottom: 2; top: 500000;}
+                                validator: IntValidator {bottom: LimitValues.pMinLimitWfesSweepValidator; top: LimitValues.nMaxLimitWfesSweepValidator;}
                                 textFieldText: inputControllerWfesSweep.ui_p
                                 textFieldTextEdited: function(){
-                                    if(parseInt(inputP.textFieldText) >= 0 && parseInt(inputP.textFieldText) <= parseInt(inputN.textFieldText)) {
+                                    if(parseInt(inputP.textFieldText) >= LimitValues.pMinLimitWfesSweepValidator && parseInt(inputP.textFieldText) <= parseInt(inputN.textFieldText)) {
                                         inputControllerWfesSingle.ui_p = inputP.textFieldText
                                         borderColor = "#555555"
                                     } else {
@@ -842,10 +842,10 @@ ApplicationWindow {
                                         toolTipText: Strings.tTooltip
                                         labelPreferredWidth: 15
                                         textFieldPreferredWidth: 105
-                                        validator: DoubleValidator {bottom: 1;}
+                                        validator: DoubleValidator {bottom: LimitValues.tMinLimitWfesSweepValidator;}
                                         textFieldText: inputControllerWfesSweep.ui_t
                                         textFieldTextEdited: function(){
-                                            if(parseInt(inputT.textFieldText) >= 1) {
+                                            if(parseInt(inputT.textFieldText) >= LimitValues.tMinLimitWfesSweepValidator) {
                                                 inputControllerWfesSingle.ui_t = inputT.textFieldText
                                                 borderColor = "#555555"
                                             } else {

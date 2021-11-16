@@ -52,7 +52,7 @@ Component{
                     id: inputN
                     text: Strings.nSub.arg(number) + Strings.colon
                     toolTipText: Strings.nTooltip
-                    validator: IntValidator {bottom: 2; top: 500000;}
+                    validator: IntValidator {bottom: LimitValues.nMinLimitWfesSequentialValidator; top: LimitValues.nMaxLimitWfesSequentialValidator;}
                     textFieldText: {
                         if(number != 0) {
                             var n_vec = inputControllerWfesSequential.ui_N_vec
@@ -69,7 +69,7 @@ Component{
                             else
                                 n_vec[i] = inputControllerWfesSequential.ui_N_vec[i]
                         }
-                        if(!Number.isNaN(Number(inputN.textFieldText)) && parseInt(inputN.textFieldText) > 1) {
+                        if(!Number.isNaN(Number(inputN.textFieldText)) && parseInt(inputN.textFieldText) > LimitValues.nMinLimitWfesSequentialValidator) {
                             inputControllerWfesSequential.ui_N_vec = n_vec
                             borderColor = "#555555"
                         } else {
@@ -84,7 +84,7 @@ Component{
                     id: inputT
                     text: Strings.timeSub.arg(number) + Strings.colon
                     toolTipText: Strings.timeTooltip
-                    validator: IntValidator {bottom: 1;}
+                    validator: IntValidator {bottom: LimitValues.tExpextedMinLimitWfesSequentialValidator;}
                     textFieldText: {
                         if(number != 0) {
                             var t_vec = inputControllerWfesSequential.ui_t_vec
@@ -101,7 +101,7 @@ Component{
                             else
                                 t_vec[i] = inputControllerWfesSequential.ui_t_vec[i]
                         }
-                        if(!Number.isNaN(Number(inputT.textFieldText)) && parseInt(inputT.textFieldText) > 1) {
+                        if(!Number.isNaN(Number(inputT.textFieldText)) && parseInt(inputT.textFieldText) > LimitValues.tExpextedMinLimitWfesSequentialValidator) {
                             inputControllerWfesSequential.ui_t_vec = t_vec
                             borderColor = "#555555"
                         } else {
@@ -114,7 +114,7 @@ Component{
                     id: inputP
                     text: Strings.pStartSub.arg(number) + Strings.colon
                     toolTipText: Strings.pStartTooltip
-                    validator: DoubleValidator {bottom: 0; top: 1;}
+                    validator: DoubleValidator {bottom: LimitValues.pMinLimitWfesSequentialValidator; top: LimitValues.pMaxLimitWfesSequentialValidator;}
                     textFieldText: {
                         if(number != 0) {
                             var p_vec = inputControllerWfesSequential.ui_p_vec
@@ -131,7 +131,7 @@ Component{
                             else
                                 p_vec[i] = inputControllerWfesSequential.ui_p_vec[i]
                         }
-                        if(!Number.isNaN(Number(inputP.textFieldText)) && parseFloat(inputP.textFieldText) >= 0 && parseFloat(inputP.textFieldText) <= 1) {
+                        if(!Number.isNaN(Number(inputP.textFieldText)) && parseFloat(inputP.textFieldText) >= LimitValues.pMinLimitWfesSequentialValidator && parseFloat(inputP.textFieldText) <= LimitValues.pMaxLimitWfesSequentialValidator) {
                             inputControllerWfesSequential.ui_p_vec = p_vec
                             borderColor = "#555555"
                         } else {
@@ -179,7 +179,7 @@ Component{
                             return Strings.uSub.arg(number) + Strings.colon
                     }
                     toolTipText: Strings.uTooltip
-                    validator: DoubleValidator {bottom: 0;}
+                    validator: DoubleValidator {bottom: LimitValues.uMinLimitWfesSequentialValidator;}
                     textFieldText: {
                         if(number != 0) {
                             var u_vec = inputControllerWfesSequential.ui_u_vec
@@ -197,14 +197,14 @@ Component{
                                 u_vec[i] = inputControllerWfesSequential.ui_u_vec[i]
                         }
                         if(globalConfiguration.ui_population_scaled) {
-                            if(!Number.isNaN(Number(inputU.textFieldText)) && parseFloat(inputU.textFieldText) >= 0 && parseFloat(inputU.textFieldText) <= 1) {
+                            if(!Number.isNaN(Number(inputU.textFieldText)) && parseFloat(inputU.textFieldText) >= LimitValues.uMinLimitWfesSequentialValidator && parseFloat(inputU.textFieldText) <= LimitValues.uMaxLimitWfesSequentialValidator) {
                                 inputControllerWfesSequential.ui_u_vec = u_vec
                                 borderColor = "#555555"
                             } else {
                                 borderColor = "#ff0000"
                             }
                         } else {
-                            if(!Number.isNaN(Number(inputU.textFieldText)) && parseFloat(inputU.textFieldText) >= 0 && parseFloat(inputU.textFieldText) <= 1 / (4 * parseInt(inputN.textFieldText))) {
+                            if(!Number.isNaN(Number(inputU.textFieldText)) && parseFloat(inputU.textFieldText) >= LimitValues.uMinLimitWfesSequentialValidator && parseFloat(inputU.textFieldText) <= LimitValues.uMaxLimitWfesSequentialValidator / (4 * parseInt(inputN.textFieldText))) {
                                 inputControllerWfesSequential.ui_u_vec = u_vec
                                 borderColor = "#555555"
                             } else {
@@ -223,7 +223,7 @@ Component{
                             return Strings.vSub.arg(number) + Strings.colon
                     }
                     toolTipText: Strings.vTooltip
-                    validator: DoubleValidator {bottom: 0;}
+                    validator: DoubleValidator {bottom: LimitValues.vMinLimitWfesSequentialValidator;}
                     textFieldText: {
                         if(number != 0) {
                             var v_vec = inputControllerWfesSequential.ui_v_vec
@@ -241,14 +241,14 @@ Component{
                                 v_vec[i] = inputControllerWfesSequential.ui_v_vec[i]
                         }
                         if(globalConfiguration.ui_population_scaled) {
-                            if(!Number.isNaN(Number(inputV.textFieldText)) && parseFloat(inputV.textFieldText) >= 0 && parseFloat(inputV.textFieldText) <= 1) {
+                            if(!Number.isNaN(Number(inputV.textFieldText)) && parseFloat(inputV.textFieldText) >= LimitValues.vMinLimitWfesSequentialValidator && parseFloat(inputV.textFieldText) <= LimitValues.vMaxLimitWfesSequentialValidator) {
                                 inputControllerWfesSequential.ui_v_vec = v_vec
                                 borderColor = "#555555"
                             } else {
                                 borderColor = "#ff0000"
                             }
                         } else {
-                            if(!Number.isNaN(Number(inputV.textFieldText)) && parseFloat(inputV.textFieldText) >= 0 && parseFloat(inputV.textFieldText) <= 1 / (4 * parseInt(inputN.textFieldText))) {
+                            if(!Number.isNaN(Number(inputV.textFieldText)) && parseFloat(inputV.textFieldText) >= LimitValues.vMinLimitWfesSequentialValidator && parseFloat(inputV.textFieldText) <= LimitValues.vMaxLimitWfesSequentialValidator / (4 * parseInt(inputN.textFieldText))) {
                                 inputControllerWfesSequential.ui_v_vec = v_vec
                                 borderColor = "#555555"
                             } else {
@@ -297,7 +297,7 @@ Component{
                             return Strings.sSub.arg(number) + Strings.colon
                     }
                     toolTipText: Strings.sTooltip
-                    validator: DoubleValidator {bottom: -1; top: 1;}
+                    validator: DoubleValidator {bottom: LimitValues.sMinLimitWfesSequentialValidator; top: LimitValues.sMaxLimitWfesSequentialValidator;}
                     textFieldText: {
                         if(number != 0) {
                             var s_vec = inputControllerWfesSequential.ui_s_vec
@@ -315,14 +315,14 @@ Component{
                                 s_vec[i] = inputControllerWfesSequential.ui_s_vec[i]
                         }
                         if(globalConfiguration.ui_population_scaled) {
-                            if(!Number.isNaN(Number(inputS.textFieldText)) && parseFloat(inputS.textFieldText) >= -1 * (2 * parseInt(inputN.textFieldText)) && parseFloat(inputS.textFieldText) <= 1 * (2 * parseInt(inputN.textFieldText))) {
+                            if(!Number.isNaN(Number(inputS.textFieldText)) && parseFloat(inputS.textFieldText) >= LimitValues.sMinLimitWfesSequentialValidator * (2 * parseInt(inputN.textFieldText)) && parseFloat(inputS.textFieldText) <= LimitValues.sMaxLimitWfesSequentialValidator * (2 * parseInt(inputN.textFieldText))) {
                                 inputControllerWfesSequential.ui_s_vec = s_vec
                                 borderColor = "#555555"
                             } else {
                                 borderColor = "#ff0000"
                             }
                         } else {
-                            if(!Number.isNaN(Number(inputS.textFieldText)) && parseFloat(inputS.textFieldText) >= -1 && parseFloat(inputS.textFieldText) <= 1) {
+                            if(!Number.isNaN(Number(inputS.textFieldText)) && parseFloat(inputS.textFieldText) >= LimitValues.sMinLimitWfesSequentialValidator && parseFloat(inputS.textFieldText) <= LimitValues.sMaxLimitWfesSequentialValidator) {
                                 inputControllerWfesSequential.ui_s_vec = s_vec
                                 borderColor = "#555555"
                             } else {
@@ -336,7 +336,7 @@ Component{
                     id: inputH
                     text: Strings.hSub.arg(number) + Strings.colon
                     toolTipText: Strings.hTooltip
-                    validator: DoubleValidator {bottom: 0; top: 1;}
+                    validator: DoubleValidator {bottom: LimitValues.hMinLimitWfesSequentialValidator; top: LimitValues.hMaxLimitWfesSequentialValidator;}
                     textFieldText: {
                         if(number != 0) {
                             var h_vec = inputControllerWfesSequential.ui_h_vec
@@ -353,7 +353,7 @@ Component{
                             else
                                 h_vec[i] = inputControllerWfesSequential.ui_h_vec[i]
                         }
-                        if(!Number.isNaN(Number(inputH.textFieldText)) && parseFloat(inputH.textFieldText) >= 0 && parseFloat(inputH.textFieldText) <= 1) {
+                        if(!Number.isNaN(Number(inputH.textFieldText)) && parseFloat(inputH.textFieldText) >= LimitValues.hMinLimitWfesSequentialValidator && parseFloat(inputH.textFieldText) <= LimitValues.hMaxLimitWfesSequentialValidator) {
                             inputControllerWfesSequential.ui_h_vec = h_vec
                             borderColor = "#555555"
                         } else {

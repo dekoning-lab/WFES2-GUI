@@ -21,6 +21,25 @@ Item {
     readonly property double tMinLimitPhaseType: 1
     readonly property double samplingFrequencyMinLimitPhaseType: 1
 
+    readonly property int nMinLimitPhaseTypeValidator: 2
+    readonly property int nMaxLimitPhaseTypeValidator: 500000
+    readonly property double aMinLimitPhaseTypeValidator: 0
+    readonly property double aMaxLimitPhaseTypeValidator: 10e-10
+    readonly property double cMinLimitPhaseTypeValidator: 0
+    readonly property double cMaxLimitPhaseTypeValidator: 1
+    readonly property double mMinLimitPhaseValidator: 1
+    readonly property double kMinLimitPhaseTypeValidator: 2
+    readonly property double uMinLimitPhaseTypeValidator: 0
+    readonly property double uMaxLimitPhaseTypeValidator: 1
+    readonly property double vMinLimitPhaseTypeValidator: 0
+    readonly property double vMaxLimitPhaseTypeValidator: 1
+    readonly property double sMinLimitPhaseTypeValidator: -1
+    readonly property double sMaxLimitPhaseTypeValidator: 1
+    readonly property double hMinLimitPhaseTypeValidator: 0
+    readonly property double hMaxLimitPhaseTypeValidator: 1
+    readonly property double tMinLimitPhaseTypeValidator: 1
+    readonly property double samplingFrequencyMinLimitPhaseTypeValidator: 1
+
     readonly property int nMinLimitTimeDist: 2
     readonly property int nMaxLimitTimeDist: 50000
     readonly property double aMinLimitTimeDist: 0
@@ -41,6 +60,26 @@ Item {
     readonly property double lMaxLimitTimeDist: 1
     readonly property double tMinLimitTimeDist: 1
 
+    readonly property int nMinLimitTimeDistValidator: 2
+    readonly property int nMaxLimitTimeDistValidator: 500000
+    readonly property double aMinLimitTimeDistValidator: 0
+    readonly property double aMaxLimitTimeDistValidator: 1e-5
+    readonly property double cMinLimitTimeDistValidator: 0
+    readonly property double cMaxLimitTimeDistValidator: 1
+    readonly property double mMinLimitTimeDistValidator: 1
+    readonly property double mMaxLimitTimeDistValidator: 500000
+    readonly property double uMinLimitTimeDistValidator: 0
+    readonly property double uMaxLimitTimeDistValidator: 1
+    readonly property double vMinLimitTimeDistValidator: 0
+    readonly property double vMaxLimitTimeDistValidator: 1
+    readonly property double sMinLimitTimeDistValidator: -1
+    readonly property double sMaxLimitTimeDistValidator: 1
+    readonly property double hMinLimitTimeDistValidator: 0
+    readonly property double hMaxLimitTimeDistValidator: 1
+    readonly property double lMinLimitTimeDistValidator: 1e-20
+    readonly property double lMaxLimitTimeDistValidator: 1
+    readonly property double tMinLimitTimeDistValidator: 1
+
     readonly property double aMinLimitWfafD: 0
     readonly property double aMaxLimitWfafD: 1e-5
     readonly property double pMinLimitWfafD: 0
@@ -58,12 +97,29 @@ Item {
     readonly property double hMaxLimitWfafD: 1
     readonly property double tMinLimitWfafD: 1
 
+    readonly property double aMinLimitWfafDValidator: 0
+    readonly property double aMaxLimitWfafDValidator: 1e-5
+    readonly property double pMinLimitWfafDValidator: 0
+    readonly property double pMaxLimitWfafDValidator: 2
+    readonly property int nMinLimitWfafDValidator: 2
+    readonly property int nMaxLimitWfafDValidator: 50000
+    readonly property int gMinLimitWfafDValidator: 1
+    readonly property double uMinLimitWfafDValidator: 0
+    readonly property double uMaxLimitWfafDValidator: 1
+    readonly property double vMinLimitWfafDValidator: 0
+    readonly property double vMaxLimitWfafDValidator: 1
+    readonly property double sMinLimitWfafDValidator: -1
+    readonly property double sMaxLimitWfafDValidator: 1
+    readonly property double hMinLimitWfafDValidator: 0
+    readonly property double hMaxLimitWfafDValidator: 1
+    readonly property double tMinLimitWfafDValidator: 1
+
     readonly property double aMinLimitWfafS: 0
     readonly property double aMaxLimitWfafS: 1e-5
     readonly property double pMinLimitWfafS: 0
     readonly property double pMaxLimitWfafS: 2
     readonly property int nMinLimitWfafS: 2
-    readonly property int nMaxLimitWfafS: 50000
+    readonly property int nMaxLimitWfafS: 500000
     readonly property int gMinLimitWfafS: 1
     readonly property int fMinLimitWfafS: 1
     readonly property double uMinLimitWfafS: 0
@@ -75,6 +131,24 @@ Item {
     readonly property double hMinLimitWfafS: 0
     readonly property double hMaxLimitWfafS: 1
     readonly property double tMinLimitWfafS: 1
+
+    readonly property double aMinLimitWfafSValidator: 0
+    readonly property double aMaxLimitWfafSValidator: 1e-5
+    readonly property double pMinLimitWfafSValidator: 0
+    readonly property double pMaxLimitWfafSValidator: 2
+    readonly property int nMinLimitWfafSValidator: 2
+    readonly property int nMaxLimitWfafSValidator: 500000
+    readonly property int gMinLimitWfafSValidator: 1
+    readonly property int fMinLimitWfafSValidator: 1
+    readonly property double uMinLimitWfafSValidator: 0
+    readonly property double uMaxLimitWfafSValidator: 1
+    readonly property double vMinLimitWfafSValidator: 0
+    readonly property double vMaxLimitWfafSValidator: 1
+    readonly property double sMinLimitWfafSValidator: -1
+    readonly property double sMaxLimitWfafSValidator: 1
+    readonly property double hMinLimitWfafSValidator: 0
+    readonly property double hMaxLimitWfafSValidator: 1
+    readonly property double tMinLimitWfafSValidator: 1
 
     readonly property double aMinLimitWfesSequential: 0
     readonly property double aMaxLimitWfesSequential: 1e-5
@@ -95,6 +169,25 @@ Item {
     readonly property double hMaxLimitWfesSequential: 1
     readonly property double tMinLimitWfesSequential: 1
 
+    readonly property double aMinLimitWfesSequentialValidator: 0
+    readonly property double aMaxLimitWfesSequentialValidator: 1e-5
+    readonly property double cMinLimitWfesSequentialValidator: 0
+    readonly property double cMaxLimitWfesSequentialValidator: 10e-3
+    readonly property int nMinLimitWfesSequentialValidator: 2
+    readonly property int nMaxLimitWfesSequentialValidator: 500000
+    readonly property int tExpextedMinLimitWfesSequentialValidator: 1
+    readonly property double pMinLimitWfesSequentialValidator: 0
+    readonly property double pMaxLimitWfesSequentialValidator: 1
+    readonly property double uMinLimitWfesSequentialValidator: 0
+    readonly property double uMaxLimitWfesSequentialValidator: 1
+    readonly property double vMinLimitWfesSequentialValidator: 0
+    readonly property double vMaxLimitWfesSequentialValidator: 1
+    readonly property double sMinLimitWfesSequentialValidator: -1
+    readonly property double sMaxLimitWfesSequentialValidator: 1
+    readonly property double hMinLimitWfesSequentialValidator: 0
+    readonly property double hMaxLimitWfesSequentialValidator: 1
+    readonly property double tMinLimitWfesSequentialValidator: 1
+
     readonly property int nMinLimitWfesSingle: 2
     readonly property int nMaxLimitWfesSingle: 50000
     readonly property double aMinLimitWfesSingle: 0
@@ -112,6 +205,24 @@ Item {
     readonly property double hMinLimitWfesSingle: 0
     readonly property double hMaxLimitWfesSingle: 1
     readonly property double tMinLimitWfesSingle: 1
+
+    readonly property int nMinLimitWfesSingleValidator: 2
+    readonly property int nMaxLimitWfesSingleValidator: 500000
+    readonly property double aMinLimitWfesSingleValidator: 0
+    readonly property double aMaxLimitWfesSingleValidator: 1e-5
+    readonly property double pMinLimitWfesSingleValidator: 0
+    readonly property double cMinLimitWfesSingleValidator: 0
+    readonly property double cMaxLimitWfesSingleValidator: 10e-3
+    readonly property double xMinLimitWfesSingleValidator: 0
+    readonly property double uMinLimitWfesSingleValidator: 0
+    readonly property double uMaxLimitWfesSingleValidator: 1
+    readonly property double vMinLimitWfesSingleValidator: 0
+    readonly property double vMaxLimitWfesSingleValidator: 1
+    readonly property double sMinLimitWfesSingleValidator: -1
+    readonly property double sMaxLimitWfesSingleValidator: 1
+    readonly property double hMinLimitWfesSingleValidator: 0
+    readonly property double hMaxLimitWfesSingleValidator: 1
+    readonly property double tMinLimitWfesSingleValidator: 1
 
     readonly property int nMinLimitWfesSweep: 2
     readonly property int nMaxLimitWfesSweep: 50000
@@ -132,6 +243,25 @@ Item {
     readonly property double hMaxLimitWfesSweep: 1
     readonly property double tMinLimitWfesSweep: 1
 
+    readonly property int nMinLimitWfesSweepValidator: 2
+    readonly property int nMaxLimitWfesSweepValidator: 500000
+    readonly property double aMinLimitWfesSweepValidator: 0
+    readonly property double aMaxLimitWfesSweepValidator: 1e-5
+    readonly property double lMinLimitWfesSweepValidator: 1e-20
+    readonly property double lMaxLimitWfesSweepValidator: 1
+    readonly property double cMinLimitWfesSweepValidator: 0
+    readonly property double cMaxLimitWfesSweepValidator: 10e-3
+    readonly property double pMinLimitWfesSweepValidator: 0
+    readonly property double uMinLimitWfesSweepValidator: 0
+    readonly property double uMaxLimitWfesSweepValidator: 1
+    readonly property double vMinLimitWfesSweepValidator: 0
+    readonly property double vMaxLimitWfesSweepValidator: 1
+    readonly property double sMinLimitWfesSweepValidator: -1
+    readonly property double sMaxLimitWfesSweepValidator: 1
+    readonly property double hMinLimitWfesSweepValidator: 0
+    readonly property double hMaxLimitWfesSweepValidator: 1
+    readonly property double tMinLimitWfesSweepValidator: 1
+
     readonly property double aMinLimitWfesSwitching: 0
     readonly property double aMaxLimitWfesSwitching: 1e-5
     readonly property double cMinLimitWfesSwitching: 0
@@ -151,4 +281,24 @@ Item {
     readonly property double hMinLimitWfesSwitching: 0
     readonly property double hMaxLimitWfesSwitching: 1
     readonly property double tMinLimitWfesSwitching: 1
+
+    readonly property double aMinLimitWfesSwitchingValidator: 0
+    readonly property double aMaxLimitWfesSwitchingValidator: 1e-5
+    readonly property double cMinLimitWfesSwitchingValidator: 0
+    readonly property double cMaxLimitWfesSwitchingValidator: 10e-3
+    readonly property int nMinLimitWfesSwitchingValidator: 2
+    readonly property int nMaxLimitWfesSwitchingValidator: 50000
+    readonly property double pMinLimitWfesSwitchingValidator: 0
+    readonly property double pMaxLimitWfesSwitchingValidator: 1
+    readonly property double rMinLimitWfesSwitchingValidator: 0
+    readonly property double rMaxLimitWfesSwitchingValidator: 1
+    readonly property double uMinLimitWfesSwitchingValidator: 0
+    readonly property double uMaxLimitWfesSwitchingValidator: 1
+    readonly property double vMinLimitWfesSwitchingValidator: 0
+    readonly property double vMaxLimitWfesSwitchingValidator: 1
+    readonly property double sMinLimitWfesSwitchingValidator: -1
+    readonly property double sMaxLimitWfesSwitchingValidator: 1
+    readonly property double hMinLimitWfesSwitchingValidator: 0
+    readonly property double hMaxLimitWfesSwitchingValidator: 1
+    readonly property double tMinLimitWfesSwitchingValidator: 1
 }

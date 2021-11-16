@@ -293,10 +293,10 @@ ApplicationWindow {
                                 id: inputA
                                 text: Strings.a + Strings.colon
                                 toolTipText: Strings.aTooltip
-                                validator: DoubleValidator {bottom: 0}
+                                validator: DoubleValidator {bottom: LimitValues.aMinLimitWfesSwitchingValidator}
                                 textFieldText: inputControllerWfesSwitching.ui_a
                                 textFieldTextEdited: function(){
-                                    if(!Number.isNaN(Number(inputA.textFieldText)) && parseFloat(inputA.textFieldText) >= 0) {
+                                    if(!Number.isNaN(Number(inputA.textFieldText)) && parseFloat(inputA.textFieldText) >= LimitValues.aMinLimitWfesSwitchingValidator) {
                                         inputControllerWfesSwitching.ui_a = inputA.textFieldText
                                         borderColor = "#555555"
                                     } else {
@@ -309,10 +309,10 @@ ApplicationWindow {
                                 id: inputC
                                 text: Strings.c + Strings.colon
                                 toolTipText: Strings.cTooltip
-                                validator: DoubleValidator {bottom: 0}
+                                validator: DoubleValidator {bottom: LimitValues.cMinLimitWfesSwitchingValidator}
                                 textFieldText: inputControllerWfesSwitching.ui_c
                                 textFieldTextEdited: function(){
-                                    if(!Number.isNaN(Number(inputC.textFieldText)) && parseFloat(inputC.textFieldText) >= 0) {
+                                    if(!Number.isNaN(Number(inputC.textFieldText)) && parseFloat(inputC.textFieldText) >= LimitValues.cMinLimitWfesSwitchingValidator) {
                                         inputControllerWfesSwitching.ui_c = inputC.textFieldText
                                         borderColor = "#555555"
                                     } else {
@@ -462,12 +462,13 @@ ApplicationWindow {
                                         LabeledTextField {
                                             id: inputT
                                             text: Strings.t + Strings.colon
-                                            labelPreferredWidth: Style.marginSmall
+                                            labelPreferredWidth: 15
+                                            textFieldPreferredWidth: 105
                                             toolTipText: Strings.tTooltip
-                                            validator: IntValidator {bottom: 1;}
+                                            validator: IntValidator {bottom: LimitValues.tMinLimitWfesSwitchingValidator;}
                                             textFieldText: inputControllerWfesSwitching.ui_t
                                             textFieldTextEdited: function(){
-                                                if(parseInt(inputT.textFieldText) >= 1) {
+                                                if(parseInt(inputT.textFieldText) >= LimitValues.tMinLimitWfesSwitchingValidator) {
                                                     inputControllerWfesSwitching.ui_t = inputT.textFieldText
                                                     borderColor = "#555555"
                                                 } else {
