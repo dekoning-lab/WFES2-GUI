@@ -5,6 +5,7 @@ using namespace wfes::controllers;
 bool GlobalConfiguration::generateImages = false;
 bool GlobalConfiguration::populationScaled = false;
 QString GlobalConfiguration::savePath =  QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
+long long GlobalConfiguration::systemMemory = 0;
 
 bool GlobalConfiguration::getGenerateImages() {
     return GlobalConfiguration::generateImages;
@@ -71,4 +72,42 @@ void GlobalConfiguration::processLine(QString line) {
     } else if(splitted.at(0).compare("Population-Scaled") == 0) {
         GlobalConfiguration::populationScaled = splitted.at(1).compare("true") == 0 ? true : false;splitted.at(1).toStdString();
     }
+}
+
+void GlobalConfiguration::estimateRAM() {
+    #if defined(Q_OS_LINUX)
+        long pages = sysconf(_SC_PHYS_PAGES);
+        long page_size = sysconf(_SC_PAGE_SIZE);
+        systemMemory = pages * page_size;
+    #elif defined(Q_OS_MAC)
+        long pages = sysconf(_SC_PHYS_PAGES);
+        long page_size = sysconf(_SC_PAGE_SIZE);
+        systemMemory = pages * page_size;
+    #elif defined(Q_OS_WIN)
+        MEMORYSTATUSEX status;
+        status.dwLength = sizeof(status);
+        GlobalMemoryStatusEx(&status);
+        systemMemory = status.ullTotalPhys;
+    #endif
+}
+
+void GlobalConfiguration::createConfigFilePardisoOOC() {
+    QString outputPath(".");
+
+    QDir dir;
+    if (!dir.exists(outputPath))
+        dir.mkpath(outputPath);
+
+    QFile file(outputPath + QString::fromStdString("pardiso_ooc.cfg"));
+    file.open(QIODevice::WriteOnly);
+
+    QTextStream outStream(&file);
+
+    outStream << "MKL_PARDISO_OOC_PATH = " << QString("./temp") << "\n";
+    // We only reserve 70% of full memory for OOC.
+    outStream << "MKL_PARDISO_OOC_MAX_CORE_SIZE = " << QString::fromStdString(std::to_string((int)(systemMemory*0.0000007))) << "\n";
+    outStream << "MKL_PARDISO_OOC_MAX_SWAP_SIZE = " << QString::fromStdString("0") << "\n";
+    outStream << "MKL_PARDISO_OOC_KEEP_FILE = " << QString::fromStdString("0") << "\n";
+
+    file.close();
 }

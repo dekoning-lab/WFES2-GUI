@@ -24,7 +24,7 @@ PardisoSolver::PardisoSolver(SparseMatrixPardiso& A, llong matrix_type, llong me
     control(MKL_PARDISO_WEIGHTED_MATCHING_OPTION) = MKL_PARDISO_WEIGHTED_MATCHING_ENABLE;                                       // iparm[12] = 1
     control(MKL_PARDISO_PRECISION_OPTION) = MKL_PARDISO_PRECISION_DOUBLE;                                                       // iparm[27] = 0
     control(MKL_PARDISO_INDEXING_OPTION) = MKL_PARDISO_INDEXING_ZERO;                                                           // iparm[34] = 1
-    control(MKL_PARDISO_OOC_OPTION) = MKL_PARDISO_DEFAULT;                                                                      // iparm[59] = 0
+    control(MKL_PARDISO_OOC_OPTION) = MKL_PARDISO_OOC_ALWAYS;                                                                   // iparm[59] = 2
     control(MKL_PARDISO_REPORT_NNZ_FACTORS) = MKL_PARDISO_REPORT_ENABLE;                                                        // iparm[17] = -1
     control(MKL_PARDISO_REPORT_FLOP_FACTOR_PHASE) = MKL_PARDISO_REPORT_ENABLE;                                                  // iparm[18] = -1
     control(MKL_PARDISO_REPORT_CGS_CG_DIAGNOSTIC) = MKL_PARDISO_REPORT_ENABLE;                                                  // iparm[19] = -1
@@ -107,6 +107,17 @@ dvec PardisoSolver::get_diagonal() {
 }
 
 std::string PardisoSolver::errorMessage(long long code) {
+    // Free mkl buffers.
+    mkl_free_buffers();
+    // Free pardiso memory.
+    phase = MKL_PARDISO_SOLVER_PHASE_RELEASE_MEMORY_ALL;
+    pardiso_64(internal.data(), &max_factors, &matrix_number,
+               &matrix_type, &phase, &size,
+               nullptr, dynamic_cast<SparseMatrixPardiso&>(m).row_index, dynamic_cast<SparseMatrixPardiso&>(m).cols,
+               nullptr, &n_right_hand_sides, control.data(),
+               &message_level, nullptr, nullptr, &error);
+
+    // Return error message.
     switch (code) {
         case -1:
             return "Error Code is " + std::to_string(code) + ". Input inconsistency.";
@@ -125,7 +136,7 @@ std::string PardisoSolver::errorMessage(long long code) {
         case -8:
             return "Error Code is " + std::to_string(code) + ". 32-bit integer overflow problem.";
         case -9:
-            return "Error Code is " + std::to_string(code) + ". Not enough memory for OOC.";
+            return "Error Code is " + std::to_string(code) + ". Not enough RAM memory.";
         case -10:
             return "Error Code is " + std::to_string(code) + ". Problems with opening OOC temporary files.";
         case -11:

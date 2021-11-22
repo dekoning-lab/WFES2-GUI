@@ -8,6 +8,14 @@
 
 #include <wfes-lib_global.h>
 
+#if defined(Q_OS_LINUX)
+    #include <unistd.h>
+#elif defined(Q_OS_MAC)
+    #include <unistd.h>
+#elif defined(Q_OS_WIN)
+    #include <windows.h>
+#endif
+
 namespace wfes {
     namespace controllers {
 
@@ -35,6 +43,11 @@ namespace wfes {
                  * @brief savePath Save path for configuration and download files (not used yet).
                  */
                 static QString savePath;
+
+                /**
+                 * @brief systemMemory Total system memory (RAM).
+                 */
+                static long long systemMemory;
 
                 /**
                   * Default constructor for class globalConfiguration.
@@ -93,6 +106,15 @@ namespace wfes {
                  */
                 static void processLine(QString line);
 
+                /**
+                 * @brief Estimate total RAM memory in the system.
+                 */
+                static void estimateRAM();
+
+                /**
+                 * @brief Create configuration file for Pardiso OOC.
+                 */
+                static void createConfigFilePardisoOOC();
             signals:
                 /**
                  * @brief Signal for notifying when images has been generated.
