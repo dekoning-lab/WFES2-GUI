@@ -13,6 +13,7 @@
 #elif defined(Q_OS_MAC)
     #include <unistd.h>
 #elif defined(Q_OS_WIN)
+    #define NOMINMAX
     #include <windows.h>
 #endif
 
