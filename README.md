@@ -8,6 +8,8 @@ Wright-Fisher Exact Solver (`WFES`) implements a variety of exact calculations w
 
 Download the last version for your OS in the [releases](https://github.com/dekoning-lab/wfes-gui/releases) page and follow the installer instructions.
 
+If there is any problem in any OS, execute from terminal/console and submit the error as an issue.
+
 ### Microsoft Windows
 WFES-GUI for Microsoft Windows may requires Visual C++ Redistributable 2015-2019 and it is installed automatically in your computer.
 
@@ -24,13 +26,17 @@ sudo apt install ocl-icd-opencl-dev
 sudo apt install libxcb-xinerama0
 ```
 
+## Build
+
+To build this application in Linux, Mac or Windows, you will need Qt Creator. Install Qt Creator 5.12.2, clone the repository, and open it with Qt creator. You have to extract the dependencies.7z file in order to have all the necesary dependencies available. Alternativelly, you could build and link your own version of the dependencies.
+
 ## Usage
 
 Consult the manual of the application in the [wiki](https://github.com/dekoning-lab/wfes-gui/wiki) of this repository.
 
 ## Third party libraries:
 
-* [Qt Libraries](https://www.qt.io/) ([GPL and LGPL Licenses](https://www.qt.io/licensing/))
+* [Qt 5.12.2 Libraries](https://www.qt.io/) ([GPL and LGPL Licenses](https://www.qt.io/licensing/))
 * [Intel MKL](https://software.intel.com/content/www/us/en/develop/tools/math-kernel-library.html) ([ISSL License](https://software.intel.com/content/www/us/en/develop/articles/end-user-license-agreement.html))
 * [Eigen](http://eigen.tuxfamily.org/) ([MPL2 License](https://www.mozilla.org/en-US/MPL/2.0/))
 * [ViennaCL](https://github.com/viennacl/viennacl-dev) ([Custom License](https://github.com/viennacl/viennacl-dev/blob/master/LICENSE))

@@ -57,20 +57,28 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 unix: !macx {
 
-    # TODO Change for compatibility with mac and windows
-    LIBS +=  -L$$PWD/../dependencies/unix/intel/mkl/lib/intel64 -Wl,--no-as-needed -lmkl_intel_ilp64 -lmkl_intel_thread -lmkl_core -lpthread -lm -ldl
-    LIBS +=  -L$$PWD/../dependencies/unix/intel/mkl/compiler/ -Wl,--no-as-needed -liomp5
-    LIBS += -L$$PWD/../dependencies/unix/CL/lib/linux/ -lOpenCL
+    QMAKE_CXXFLAGS += -fopenmp
 
     QMAKE_LFLAGS += -Wl,--rpath=\\\$\$ORIGIN/lib
     QMAKE_LFLAGS += -Wl,--rpath=\\\$\$ORIGIN
 
-    INCLUDEPATH += \
-        $$PWD/../dependencies/unix \
-        $$PWD/../dependencies/unix/intel/mkl/include \
-        $$PWD/../dependencies/unix/CL
+    target.path = /usr/lib
 
+    INCLUDEPATH += source \
+        $$PWD/../dependencies/unix
+
+    # OpenCL
+    LIBS += -L$$PWD/../dependencies/unix/CL/lib -lOpenCL
+    INCLUDEPATH += $$PWD/../dependencies/unix/CL
     DEPENDPATH += $$PWD/../dependencies/unix/CL
+
+    # Intel MKL
+    LIBS +=  -L$$PWD/../dependencies/unix/intel/mkl/lib/intel64 -Wl,--no-as-needed -lmkl_intel_ilp64 -lmkl_intel_thread -lmkl_core -lpthread -lm -ldl
+    LIBS +=  -L$$PWD/../dependencies/unix/intel/mkl/compiler/ -Wl,--no-as-needed -liomp5
+    LIBS += -L$$PWD/../dependencies/unix/CL/lib/linux/ -lOpenCL
+
+    INCLUDEPATH += $$PWD/../dependencies/unix/intel/mkl/include
+    DEPENDPATH += $$PWD/../dependencies/unix/intel/mkl/include
 }
 
 
