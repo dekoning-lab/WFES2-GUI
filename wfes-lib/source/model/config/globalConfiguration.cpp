@@ -56,7 +56,7 @@ void GlobalConfiguration::loadGlobalConfiguration() {
 
     QFile file(outputPath);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
-            return;
+        return;
 
     QTextStream in(&file);
     while (!in.atEnd()) {
@@ -99,11 +99,16 @@ void GlobalConfiguration::createConfigFilePardisoOOC() {
         dir.mkpath(outputPath);
 
     QFile file(outputPath + QString::fromStdString("pardiso_ooc.cfg"));
-    file.open(QIODevice::WriteOnly);
+    qDebug() << file.open(QIODevice::WriteOnly);
 
     QTextStream outStream(&file);
 
-    outStream << "MKL_PARDISO_OOC_PATH = " << QString("./temp") << "\n";
+    QString pathPardisoOOC(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/Wfes/temp/");
+    if (!dir.exists(pathPardisoOOC))
+        dir.mkpath(pathPardisoOOC);
+
+    outStream << "MKL_PARDISO_OOC_PATH = " << pathPardisoOOC << "\n";
+
     // We only reserve 70% of full memory for OOC.
     outStream << "MKL_PARDISO_OOC_MAX_CORE_SIZE = " << QString::fromStdString(std::to_string((int)(systemMemory*0.0000007))) << "\n";
     outStream << "MKL_PARDISO_OOC_MAX_SWAP_SIZE = " << QString::fromStdString("0") << "\n";

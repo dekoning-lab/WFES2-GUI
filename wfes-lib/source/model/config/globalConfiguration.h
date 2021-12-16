@@ -3,6 +3,7 @@
 
 #include <QDir>
 #include <QObject>
+#include <QDebug>
 #include <QTextStream>
 #include <QStandardPaths>
 
