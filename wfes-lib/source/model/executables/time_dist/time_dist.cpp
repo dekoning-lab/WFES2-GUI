@@ -276,22 +276,22 @@ ResultsTimeDist *time_dist::timeDistSGV() {
             cdf += P_abs_t;
 
             PH(i, 0) = i + 1;
-            PH(i, 1) = P_abs_t;
-            PH(i, 2) = cdf;
+            PH(i, 1) = P_abs_t * 10e20;
+            PH(i, 2) = cdf * 10e20;
 
             c = wf.Q->multiply(c, true);
 
             // This is for chart visualization.
-            subs.append(QPointF(i + 1, P_abs_t));
-            acum.append(QPointF(i + 1, cdf));
-            if(minSubs >= P_abs_t)
-                minSubs = P_abs_t;
-            if(maxSubs <= P_abs_t)
-                maxSubs = P_abs_t;
-            if(minAcum >= cdf)
-                minAcum = cdf;
-            if(maxAcum <= cdf)
-                maxAcum = cdf;
+            subs.append(QPointF(i + 1, P_abs_t * 10e20));
+            acum.append(QPointF(i + 1, cdf * 10e20));
+            if(minSubs >= P_abs_t * 10e20)
+                minSubs = P_abs_t * 10e20;
+            if(maxSubs <= P_abs_t * 10e20)
+                maxSubs = P_abs_t * 10e20;
+            if(minAcum >= cdf * 10e20)
+                minAcum = cdf * 10e20;
+            if(maxAcum <= cdf * 10e20)
+                maxAcum = cdf * 10e20;
             // This is for chart visualization.
         }
         PH.conservativeResize(i, 3);
